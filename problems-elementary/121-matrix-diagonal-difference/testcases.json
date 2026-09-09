@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 3x3: 주(1+5+9=15), 부(3+5+7=15) -> 차이 0",
+    "input": "3\n1 2 3\n4 5 6\n7 8 9\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 2,
+    "description": "1x1 행렬: 주(5), 부(5) -> 차이 0",
+    "input": "1\n5\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 3,
+    "description": "2x2 행렬: 주(1+4=5), 부(2+3=5) -> 차이 0",
+    "input": "2\n1 2\n3 4\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 4,
+    "description": "2x2 차이 발생: 주(10+1=11), 부(0+0=0) -> 차이 11",
+    "input": "2\n10 0\n0 1\n",
+    "expected_output": "11"
+  },
+  {
+    "id": 5,
+    "description": "3x3 음수 포함: 주(-1-5-9=-15), 부(1-5+2=-2) -> |-15-(-2)|=13",
+    "input": "3\n-1 0 1\n0 -5 0\n2 0 -9\n",
+    "expected_output": "13"
+  },
+  {
+    "id": 6,
+    "description": "4x4 단위 행렬: 주(4), 부(0) -> 차이 4",
+    "input": "4\n1 0 0 0\n0 1 0 0\n0 0 1 0\n0 0 0 1\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 7,
+    "description": "모두 0인 행렬",
+    "input": "3\n0 0 0\n0 0 0\n0 0 0\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 8,
+    "description": "4x4 복합 행렬",
+    "input": "4\n11 2 4 4\n4 5 6 7\n10 8 -12 3\n4 5 6 -2\n",
+    "expected_output": "20"
+  },
+  {
+    "id": 9,
+    "description": "큰 수 행렬",
+    "input": "3\n100 0 200\n0 500 0\n300 0 400\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 10,
+    "description": "비대칭 3x3",
+    "input": "3\n1 0 10\n0 1 0\n10 0 1\n",
+    "expected_output": "18"
+  }
+]

@@ -160,6 +160,7 @@ problems/
 | **#117** | [정규표현식 하나 검사했을 뿐인데 CPU 100%로 서버가 영구 동결?!: ReDoS(정규표현식 서비스 거부 공격)와 NFA 백트래킹 지수 폭발 vs Thompson 선형 RE2 (ReDoS Catastrophic Backtracking & Linear Thompson NFA)](problems/117-redos-regex-catastrophic-backtracking/problem.md) | **정규표현식/컴파일러 이론/보안 엔지니어링**, ReDoS 취약점 정적 분석(Nested Quantifier, Ambiguous Alternation), NFA 백트래킹 $O(2^N)$ 지수 폭발 참사, 백트래킹 max_steps 한도 방어, 켄 톰슨 NFA 상태 전이 및 Google RE2 $O(N)$ 선형 시간 보장 | 중첩 수량자 정규식에 20자 악의적 입력 넣었다가 백트래킹 폭발로 CPU 100% 영구 동결되어 Cloudflare급 전사 마비 터진 참사와 Thompson NFA 구원 원리 |
 | **#118** | [캐시를 걸었는데 왜 1초 만에 10만 명이 몰려와 DB가 폭사해요?!: 캐시 스탬피드(Cache Stampede / Dogpiling)와 뮤텍스 락 vs 확률적 조기 갱신(XFetch / PER Algorithm)](problems/118-cache-stampede-xfetch-algorithm/problem.md) | **캐시 아키텍처/분산 시스템/확률 알고리즘**, 캐시 스탬피드(Cache Stampede / Dogpiling), 뮤텍스 락(Single-Flight) 대기 지연(Latency Spike), VLDB 2015 XFetch 확률적 조기 갱신(Probabilistic Early Expiration), 만료 직전 $-\beta \times \Delta \times \ln(R) > \delta$ 판정, 0ms 지연 및 스탬피드 완전 소멸 | TTL 60초 만료 순간 1만 개 동시 요청이 일제히 Cache Miss 맞아 DB로 쇄도해 DB 폭사한 참사와 XFetch 0ms 무지연 백그라운드 조기 갱신 구원 원리 |
 | **#119** | [실시간 채팅에 Redis Pub/Sub 썼더니 왜 메시지가 몽땅 증발하고 서버가 터져요?!: Redis Pub/Sub의 소방호수 함정(Buffer Overflow) vs Redis Streams 신뢰성 큐(PEL & XACK)](problems/119-redis-pubsub-buffer-overflow-vs-streams/problem.md) | **메시지 브로커/분산 큐/Redis 아키텍처**, Pub/Sub At-Most-Once 오프라인 메시지 영구 유실, 느린 소비자(Slow Consumer) `client-output-buffer-limit` 초과 강제 퇴출 참사, Redis Streams Append-Only Log 보존, 컨슈머 그룹 부하 분산, PEL(Pending Entries List) 보류 추적, XACK 정상 처리, XCLAIM 고아 메시지 자동 복구 | 채팅에 Pub/Sub 썼다가 네트워크 잠깐 끊긴 유저 메시지 몽땅 증발하고 버퍼 초과로 클라이언트 강제 퇴출되어 서비스 마비된 참사와 Redis Streams 무유실 큐잉 구원 원리 |
+| **#120** | [새벽에 통계 쿼리 한 번 돌렸더니 왜 전사 결제 쿼리가 디스크로 떨어져 DB가 뻗어요?!: MySQL InnoDB 버퍼 풀 오염(Buffer Pool Pollution)과 Midpoint LRU 2계층 캐시 알고리즘 (InnoDB Midpoint Insertion LRU)](problems/120-innodb-buffer-pool-pollution-midpoint-lru/problem.md) | **데이터베이스 스토리지/캐시 아키텍처/InnoDB 엔진**, 버퍼 풀 오염(Buffer Pool Pollution), 풀 테이블 스캔 시 전통 LRU의 핫 데이터 전멸 한계, Young(5/8) vs Old(3/8) 2계층 분할, Midpoint 중간 삽입 격리, innodb_old_blocks_time(1000ms) 시간 창 기반 승급(Promote) 방어 | 새벽 통계 쿼리 한 번에 버퍼 풀 핫 페이지가 몽땅 디스크로 쫓겨나 전사 결제 쿼리 올스톱된 참사와 InnoDB Midpoint LRU 철통 방어 원리 |
 
 
 
@@ -298,6 +299,16 @@ problems/
 | **#118** | [모두가 모이기 가장 편한 장소! 맨해튼 거리와 중앙값](problems-elementary/118-manhattan-meeting-point-median/problem.md) | 수학, 맨해튼 거리, 중앙값(Median), 최적화 | 친구들의 일직선 좌표에서 모두의 이동 거리 합을 최소로 만드는 최적의 모임 장소 찾기 |
 | **#119** | [피자 조각 곱셈과 나눗셈! 분수 연산과 기약분수](problems-elementary/119-fraction-multiply-divide/problem.md) | 수학, 분수 곱셈/나눗셈, 역수, 최대공약수(GCD), 기약분수 | 두 분수의 곱셈 또는 나눗셈 연산을 수행하고 가장 간단한 기약분수로 나타내기 |
 | **#120** | [나무의 가장 끝 잎사귀를 찾아라! 트리의 리프(Leaf) 노드](problems-elementary/120-tree-leaf-nodes-finder/problem.md) | 트리(Tree), 이진 트리, 리프 노드(Leaf Node), 오름차순 정렬 | 자식 방이 하나도 없는 가장 바깥쪽 끝방(리프 노드)들의 번호를 오름차순으로 찾기 |
+| **#121** | [마법진의 두 대각선 에너지 대결! (주대각선 vs 부대각선 차이)](problems-elementary/121-matrix-diagonal-difference/problem.md) | 2차원 배열, 대각선 인덱싱, 절댓값, 수학 | N x N 정사각형 마법진에서 주대각선 합과 부대각선 합의 절댓값 차이(|D1 - D2|) 구하기 |
+| **#122** | [밤하늘의 별자리 소수 탐정단! (구간 소수 개수 세기)](problems-elementary/122-prime-range-counter/problem.md) | 수학, 소수 판별, 구간 탐색, 반복문 | L부터 R까지의 구간에 존재하는 순수한 소수(Prime) 별의 총 개수 세기 |
+| **#123** | [동화책 속 단어 인기투표! (빈도수 다중 조건 정렬)](problems-elementary/123-word-rank-frequency-sort/problem.md) | 딕셔너리, 정렬, 다중 키 정렬, 문자열 | 단어 등장 빈도수 내림차순 및 동률 시 사전순 오름차순으로 인기 차트 정렬하기 |
+| **#124** | [전구 스위치 반전 마법! (2진수 비트 반전)](problems-elementary/124-binary-bit-flip-inverter/problem.md) | 2진수, 비트 연산, 문자열 변환, 수학 | 2진수의 모든 비트('1'은 '0'으로, '0'은 '1'로)를 반전시킨 후 10진수로 변환하기 |
+| **#125** | [번갈아 내는 카드 배틀! (선입선출 큐 시뮬레이션)](problems-elementary/125-queue-card-battle-game/problem.md) | 자료구조, 큐(Queue), 시뮬레이션, 데크(deque) | 덱의 맨 앞 카드를 비교해 승자가 두 카드를 맨 뒤로 넣는 카드 배틀 시뮬레이션 |
+| **#126** | [2x2 돋보기로 찾는 보물 상자! (부분 격자 합 최댓값)](problems-elementary/126-matrix-subgrid-max-sum/problem.md) | 2차원 배열, 브루트포스, 부분 행렬, 완전 탐색 | R x C 격자 지도에서 2x2 크기의 정사각형 영역 원소 4개 합의 최댓값 구하기 |
+| **#127** | [멋진 동화책 제목 만들기! (단어 첫 글자 대문자 변환)](problems-elementary/127-string-word-capitalize-title/problem.md) | 문자열, 대소문자 변환, 문자열 조작, 포맷팅 | 모든 단어의 첫 글자는 대문자로, 나머지는 소문자로 단정하게 맞춘 Title Case 만들기 |
+| **#128** | [한 자리가 될 때까지! 마법 숫자 도달 횟수 카운터](problems-elementary/128-number-digital-root-steps/problem.md) | 자릿수 분해, 반복문(while), 수학, 시뮬레이션 | 자릿수들을 계속 더해 한 자리 숫자(< 10)가 될 때까지 거친 연산 단계 횟수 세기 |
+| **#129** | [마음이 통하는 서로소(Coprime) 친구 쌍 찾기](problems-elementary/129-gcd-coprime-pairs-count/problem.md) | 수학, 정수론, 최대공약수(GCD), 서로소, 완전 탐색 | N개의 자연수 중 최대공약수(GCD)가 1인 서로소 순서쌍 (i < j)의 총 개수 구하기 |
+| **#130** | [동물원 족보 탐험 4! 특정 동물의 세대(깊이) 찾기](problems-elementary/130-tree-node-depth-finder/problem.md) | 트리, 깊이(Depth), 그래프 탐색, 부모-자식 | 1번 시조 루트로부터 특정 동물 노드 K까지의 세대 깊이(거리) 부모 역추적하기 |
 
 ---
 

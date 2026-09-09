@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: 98 -> 17 -> 8 (2회)",
+    "input": "98\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 2,
+    "description": "이미 한 자리 수: 5 -> 0회",
+    "input": "5\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 3,
+    "description": "0은 이미 한 자리 수 -> 0회",
+    "input": "0\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 4,
+    "description": "1단계만에 한 자리 수: 11 -> 2 (1회)",
+    "input": "11\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 5,
+    "description": "10 -> 1 (1회)",
+    "input": "10\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 6,
+    "description": "3단계가 필요한 큰 수: 9999999999 (9가 10개) -> 90 -> 9 (2회)",
+    "input": "9999999999\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 7,
+    "description": "3단계 예시: 999999999999999999999999999999 (9가 30개) -> 270 -> 9 (2회)",
+    "input": "888\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 8,
+    "description": "123 -> 6 (1회)",
+    "input": "123\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 9,
+    "description": "99 -> 18 -> 9 (2회)",
+    "input": "99\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 10,
+    "description": "큰 수 1000000 -> 1 (1회)",
+    "input": "1000000\n",
+    "expected_output": "1"
+  }
+]

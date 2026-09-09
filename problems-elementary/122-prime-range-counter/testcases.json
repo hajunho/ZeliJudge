@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: 1부터 10까지 (2, 3, 5, 7 -> 4개)",
+    "input": "1 10\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 2,
+    "description": "소수가 없는 구간: 8부터 10까지 (8, 9, 10 -> 0개)",
+    "input": "8 10\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 3,
+    "description": "1만 포함된 구간: 1 1 -> 0개",
+    "input": "1 1\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 4,
+    "description": "2만 포함된 구간: 2 2 -> 1개",
+    "input": "2 2\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 5,
+    "description": "10부터 20까지: 11, 13, 17, 19 -> 4개",
+    "input": "10 20\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 6,
+    "description": "20부터 30까지: 23, 29 -> 2개",
+    "input": "20 30\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 7,
+    "description": "1부터 100까지: 총 25개 소수",
+    "input": "1 100\n",
+    "expected_output": "25"
+  },
+  {
+    "id": 8,
+    "description": "90부터 100까지: 97 -> 1개",
+    "input": "90 100\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 9,
+    "description": "50부터 60까지: 53, 59 -> 2개",
+    "input": "50 60\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 10,
+    "description": "1부터 500까지: 총 95개",
+    "input": "1 500\n",
+    "expected_output": "95"
+  }
+]

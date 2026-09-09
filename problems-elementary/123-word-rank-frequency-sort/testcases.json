@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: apple(3), banana(2), cherry(1)",
+    "input": "6\napple\nbanana\napple\ncherry\nbanana\napple\n",
+    "expected_output": "apple 3\nbanana 2\ncherry 1"
+  },
+  {
+    "id": 2,
+    "description": "동일 빈도수 사전순 정렬: dog(1), cat(1), bat(1) -> bat, cat, dog",
+    "input": "3\ndog\ncat\nbat\n",
+    "expected_output": "bat 1\ncat 1\ndog 1"
+  },
+  {
+    "id": 3,
+    "description": "단어 1개만 주어짐",
+    "input": "1\nhello\n",
+    "expected_output": "hello 1"
+  },
+  {
+    "id": 4,
+    "description": "모두 동일한 단어 4개",
+    "input": "4\nzelijudge\nzelijudge\nzelijudge\nzelijudge\n",
+    "expected_output": "zelijudge 4"
+  },
+  {
+    "id": 5,
+    "description": "빈도수와 사전순 혼합: 2회(b, a), 1회(c) -> a 2, b 2, c 1",
+    "input": "5\nb\na\nb\na\nc\n",
+    "expected_output": "a 2\nb 2\nc 1"
+  },
+  {
+    "id": 6,
+    "description": "길이가 다른 단어들의 사전순 정렬",
+    "input": "4\nz\naa\na\nb\n",
+    "expected_output": "a 1\naa 1\nb 1\nz 1"
+  },
+  {
+    "id": 7,
+    "description": "동화 단어 빈도",
+    "input": "6\nfox\nbear\nfox\nfox\nrabbit\nbear\n",
+    "expected_output": "fox 3\nbear 2\nrabbit 1"
+  },
+  {
+    "id": 8,
+    "description": "대결: cat(3), lion(3) -> cat 3, lion 3",
+    "input": "6\nlion\ncat\nlion\ncat\ncat\nlion\n",
+    "expected_output": "cat 3\nlion 3"
+  },
+  {
+    "id": 9,
+    "description": "한 글자 알파벳들",
+    "input": "5\nz\ny\nx\ny\nz\n",
+    "expected_output": "y 2\nz 2\nx 1"
+  },
+  {
+    "id": 10,
+    "description": "복합 단어 리스트",
+    "input": "8\npy\njs\npy\ncpp\njs\npy\nrs\ngo\n",
+    "expected_output": "py 3\njs 2\ncpp 1\ngo 1\nrs 1"
+  }
+]

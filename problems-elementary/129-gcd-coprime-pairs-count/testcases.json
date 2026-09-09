@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: [2, 3, 4] -> (2,3), (3,4) 2쌍",
+    "input": "3\n2 3 4\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 2,
+    "description": "모두 짝수인 경우: [2, 4, 6] -> 0쌍",
+    "input": "3\n2 4 6\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 3,
+    "description": "모두 소수인 경우: [2, 3, 5] -> 모든 쌍 서로소 (3쌍)",
+    "input": "3\n2 3 5\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 4,
+    "description": "1이 포함된 경우: 1은 모든 수와 서로소",
+    "input": "3\n1 4 6\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 5,
+    "description": "2개 수만 주어짐: [8, 9] -> 1쌍",
+    "input": "2\n8 9\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 6,
+    "description": "2개 수 비서로소: [6, 9] -> 0쌍",
+    "input": "2\n6 9\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 7,
+    "description": "연속된 수들: [10, 11, 12, 13]",
+    "input": "4\n10 11 12 13\n",
+    "expected_output": "5"
+  },
+  {
+    "id": 8,
+    "description": "모두 동일한 수 (2 이상): [5, 5, 5] -> 0쌍",
+    "input": "3\n5 5 5\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 9,
+    "description": "모두 1인 경우: [1, 1, 1] -> 3쌍",
+    "input": "3\n1 1 1\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 10,
+    "description": "5개 수 복합",
+    "input": "5\n2 3 5 7 11\n",
+    "expected_output": "10"
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 소문자 문장: the little prince -> The Little Prince",
+    "input": "the little prince\n",
+    "expected_output": "The Little Prince"
+  },
+  {
+    "id": 2,
+    "description": "모두 대문자인 문장: HELLO WORLD -> Hello World",
+    "input": "HELLO WORLD\n",
+    "expected_output": "Hello World"
+  },
+  {
+    "id": 3,
+    "description": "뒤죽박죽 대소문자: aLiCe In WoNdErLaNd",
+    "input": "aLiCe In WoNdErLaNd\n",
+    "expected_output": "Alice In Wonderland"
+  },
+  {
+    "id": 4,
+    "description": "단어 한 개: python -> Python",
+    "input": "python\n",
+    "expected_output": "Python"
+  },
+  {
+    "id": 5,
+    "description": "한 글자 단어들: a b c -> A B C",
+    "input": "a b c\n",
+    "expected_output": "A B C"
+  },
+  {
+    "id": 6,
+    "description": "이미 올바른 제목: Peter Pan -> Peter Pan",
+    "input": "Peter Pan\n",
+    "expected_output": "Peter Pan"
+  },
+  {
+    "id": 7,
+    "description": "긴 문장",
+    "input": "welcome to the wonderful world of programming\n",
+    "expected_output": "Welcome To The Wonderful World Of Programming"
+  },
+  {
+    "id": 8,
+    "description": "반복 단어",
+    "input": "echo echo echo\n",
+    "expected_output": "Echo Echo Echo"
+  },
+  {
+    "id": 9,
+    "description": "특이한 대문자 섞임: zELIjUdGE -> Zelijudge",
+    "input": "zELIjUdGE\n",
+    "expected_output": "Zelijudge"
+  },
+  {
+    "id": 10,
+    "description": "여러 단어 복합",
+    "input": "good morning my dear friend\n",
+    "expected_output": "Good Morning My Dear Friend"
+  }
+]
