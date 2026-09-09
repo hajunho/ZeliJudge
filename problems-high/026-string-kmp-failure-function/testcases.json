@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "input": "ABC ABCDAB ABCDABCDABDE\nABCDABD",
+    "expected_output": "1\n16",
+    "description": "Testcase #1"
+  },
+  {
+    "id": 2,
+    "input": "AAAAA\nAA",
+    "expected_output": "4\n1 2 3 4",
+    "description": "Testcase #2"
+  },
+  {
+    "id": 3,
+    "input": "ABCDEF\nGHI",
+    "expected_output": "0",
+    "description": "Testcase #3"
+  },
+  {
+    "id": 4,
+    "input": "BANANA\nANA",
+    "expected_output": "2\n2 4",
+    "description": "Testcase #4"
+  },
+  {
+    "id": 5,
+    "input": "ABABDABACDABABCABAB\nABABCABAB",
+    "expected_output": "1\n11",
+    "description": "Testcase #5"
+  },
+  {
+    "id": 6,
+    "input": "TEST\nTEST",
+    "expected_output": "1\n1",
+    "description": "Testcase #6"
+  },
+  {
+    "id": 7,
+    "input": "A\nA",
+    "expected_output": "1\n1",
+    "description": "Testcase #7"
+  },
+  {
+    "id": 8,
+    "input": "KOREA KOREA KOREA\nKOREA",
+    "expected_output": "3\n1 7 13",
+    "description": "Testcase #8"
+  },
+  {
+    "id": 9,
+    "input": "XYZZZZ\nZZ",
+    "expected_output": "3\n3 4 5",
+    "description": "Testcase #9"
+  },
+  {
+    "id": 10,
+    "input": "MISSISSIPPI\nISSI",
+    "expected_output": "2\n2 5",
+    "description": "Testcase #10"
+  }
+]

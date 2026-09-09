@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "input": "1 1 5 5\n1 5 5 1",
+    "expected_output": "1",
+    "description": "Testcase #1"
+  },
+  {
+    "id": 2,
+    "input": "1 1 5 5\n6 10 10 6",
+    "expected_output": "0",
+    "description": "Testcase #2"
+  },
+  {
+    "id": 3,
+    "input": "1 1 5 5\n5 5 9 9",
+    "expected_output": "1",
+    "description": "Testcase #3"
+  },
+  {
+    "id": 4,
+    "input": "1 1 5 5\n6 6 9 9",
+    "expected_output": "0",
+    "description": "Testcase #4"
+  },
+  {
+    "id": 5,
+    "input": "1 1 5 5\n3 3 7 7",
+    "expected_output": "1",
+    "description": "Testcase #5"
+  },
+  {
+    "id": 6,
+    "input": "0 0 0 5\n0 2 0 8",
+    "expected_output": "1",
+    "description": "Testcase #6"
+  },
+  {
+    "id": 7,
+    "input": "0 0 0 5\n0 6 0 10",
+    "expected_output": "0",
+    "description": "Testcase #7"
+  },
+  {
+    "id": 8,
+    "input": "0 0 10 0\n5 -5 5 5",
+    "expected_output": "1",
+    "description": "Testcase #8"
+  },
+  {
+    "id": 9,
+    "input": "0 0 10 0\n5 1 5 5",
+    "expected_output": "0",
+    "description": "Testcase #9"
+  },
+  {
+    "id": 10,
+    "input": "-5 -5 5 5\n-5 5 5 -5",
+    "expected_output": "1",
+    "description": "Testcase #10"
+  }
+]

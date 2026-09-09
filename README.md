@@ -170,6 +170,7 @@ problems/
 | **#127** | [브라우저에선 초록불인데 왜 모바일 앱에선 결제가 다 터져요?!: TLS X.509 인증서 체인(Certificate Chain)과 누락된 중간 CA(Intermediate CA) & AIA(Authority Information Access)의 저주 (TLS Certificate Chain Validation & AIA Fetching)](problems/127-tls-certificate-chain-and-aia/problem.md) | **컴퓨터 네트워크/정보보안/PKI 인프라**, X.509 인증서 체인(Leaf -> Intermediate -> Root), cert.pem vs fullchain.pem의 치명적 차이, 데스크톱 브라우저 AIA(Authority Information Access) 백그라운드 페칭 vs 모바일 앱(OkHttp) 즉시 검증 실패, Trust Store 앵커 검증 | Nginx에 cert.pem만 넣었다가 PC에선 잘 되는데 모바일 앱 결제 30%가 Trust anchor not found로 전면 마비된 참사와 fullchain.pem 구원 원리 |
 | **#128** | [무중단 배포(Zero Downtime)라면서 왜 롤링 업데이트마다 502 에러가 터져요?!: 쿠버네티스 Pod Graceful Shutdown과 엔드포인트 등록 해제(Deregistration) 비동기 레이스 컨디션 (Kubernetes Pod Graceful Shutdown & Endpoint Race)](problems/128-k8s-pod-graceful-shutdown-race/problem.md) | **클라우드 인프라/컨테이너/분산 시스템**, Kubelet 컨테이너 라이프사이클 vs 제어 평면 엔드포인트 전파의 비동기 분리, preStop Hook sleep 5 완충 원리, SIGTERM 즉시 소켓 차단 및 502 Bad Gateway(Connection Refused) 참사, terminationGracePeriodSeconds 카운트다운 함정, In-flight Request Drain | 롤링 배포 돌렸더니 Ingress가 닫힌 포트로 트래픽 계속 쏴서 502 에러 수백 건 터진 참사와 preStop 훅 및 완벽한 무중단 배포 구원 원리 |
 | **#129** | [방금 쓴 글을 등록했는데 왜 목록에 안 보여요?!: DB 마스터-슬레이브 복제 지연(Replication Lag)과 Read-Your-Own-Writes 일관성 라우팅 알고리즘 (Database Replication Lag & Read-Your-Own-Writes Consistency)](problems/129-db-replication-lag-read-your-own-writes/problem.md) | **데이터베이스 엔지니어링/분산 시스템/일관성 모델**, 비동기 복제(Asynchronous Replication)와 Binlog/Relay log 재생 지연, Read-Your-Own-Writes (Write-After-Read) 일관성 원리, NAIVE_REPLICA_ONLY vs SESSION_MASTER_PINNING(시간 창 핀닝) vs CAUSAL_GTID_CONSISTENCY(GTID 대기 및 폴백) | DB 부하 분산하려고 Read Replica 붙였다가 방금 쓴 글/주문이 안 보이는 Stale Read로 고객센터 폭발한 참사와 GTID/세션 핀닝 구원 원리 |
+| **#130** | [keepalive 32를 줬는데 왜 백엔드 소켓이 10만 개까지 치솟고 로컬 포트가 말라죽어요?!: Nginx 리버스 프록시 Upstream Keepalive 커넥션 풀과 HTTP/1.0 Close 트랩 (Nginx Upstream Keepalive Pool & HTTP/1.0 Close Trap)](problems/130-nginx-upstream-keepalive-pool/problem.md) | **컴퓨터 네트워크/리버스 프록시/시스템 엔지니어링**, Nginx 기본 HTTP/1.0 프록시 사양 및 Connection: close 강제 헤더 트랩, upstream keepalive 32의 유휴 풀 보관 조건, proxy_http_version 1.1 및 proxy_set_header Connection "" 필수 설정, 2MSL TIME_WAIT 소켓 누적과 에페머럴 포트 고갈(EADDRNOTAVAIL 99) | upstream에 keepalive 걸었는데 5분 만에 TIME_WAIT 소켓 28,000개 쌓여 포트 고갈로 502 폭사한 참사와 2줄 필수 헤더 구원 원리 |
 
 
 
@@ -185,7 +186,7 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 |:---:|:---:|:---:|---|
 | 🎒 **초등부 트랙 (Junior)** | `problems-elementary/` | **130문제 완결** ✅ | 초등학생 & 코딩 입문: 사칙연산, 조건/반복문, 리스트/문자열, 기초 스택/큐, 2D 격자, 기본 수학 |
 | 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **130문제 완결** ✅ | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 고급 정수론/기하/DP |
-| 🎓 **고등부 트랙 (High)** | `problems-high/` | **20문제 (진행 중)** 🚀 | 고등학생 & KOI/대회: 투 포인터, 매개변수 탐색, LIS, 세그먼트/펜윅 트리, LCS, 볼록 껍질, SCC, 이분 매칭, 행렬 거듭제곱, TSP |
+| 🎓 **고등부 트랙 (High)** | `problems-high/` | **30문제 (진행 중)** 🚀 | 고등학생 & KOI/대회: 세그/펜윅/Lazy 트리, LCS, 볼록껍질, SCC, 이분매칭, TSP, 최대유량, 최소컷, LCA, KMP, Trie, 트리DP |
 | 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 110+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/락, Kafka, 캐시 스탬피드, ReDoS, 고가용성 아키텍처 |
 
 ---
@@ -507,6 +508,16 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | **#018** | [괄호를 어디에 묶어야 곱셈이 적을까? 연쇄 행렬 곱셈 (Matrix Chain Multiplication)](problems-high/018-dp-matrix-chain-multiplication/problem.md) | 동적 계획법(DP), 구간 DP(Range DP), 결합 법칙 최적화, $O(N^3)$ | 부분 구간 길이를 점진 확장하며 최적 분할점 $k$ 탐색을 통해 연속 행렬 곱셈 최소 비용 산출 |
 | **#019** | [끊어지면 네트워크가 두 동강 난다! 단절점(Articulation Point) 탐색 (Graph Articulation Points)](problems-high/019-graph-articulation-points-and-bridges/problem.md) | 그래프 이론, 단절점(Articulation Point), DFS 스패닝 트리, $O(V + E)$ | 정점 제거 시 컴포넌트 분리 여부를 DFS 트리의 자식 수 및 역방향 간선 도달 범위로 판별 |
 | **#020** | [모든 도시를 한 번씩 방문하고 돌아오는 최소 비용! 비트마스크 외판원 순회 (Bitmask TSP DP)](problems-high/020-bitmask-tsp-dynamic-programming/problem.md) | 동적 계획법(DP), 비트마스크(Bitmask), 외판원 순회(TSP), $O(N^2 2^N)$ | 방문 도시 집합을 비트마스크 상태로 압축하고 메모이제이션하여 최단 순회 여행 비용 계산 |
+| **#021** | [네트워크 파이프라인의 최대 물길! 에드몬즈-카프 최대 유량 (Edmonds-Karp Maximum Flow)](problems-high/021-network-flow-edmonds-karp/problem.md) | 네트워크 유량, 에드몬즈-카프(Edmonds-Karp), BFS 최단 증가 경로, $O(VE^2)$ | 역방향 잔여 용량을 관리하며 BFS로 최단 증가 경로를 반복 탐색하여 소스-싱크 최대 유량 산출 |
+| **#022** | [네트워크를 끊는 최소의 비용! 최소 컷 최대 유량 정리 (Min-Cut Max-Flow Theorem)](problems-high/022-min-cut-max-flow-theorem/problem.md) | 네트워크 유량, 최소 컷(Min-Cut), 잔여 그래프 BFS 도달성 분할, $O(VE^2)$ | 최대 유량을 흘린 후 소스로부터 도달 가능한 잔여 정점 집합 $S$를 추출하여 최소 컷 용량과 분할 도출 |
+| **#023** | [두 노드가 만나는 가장 가까운 조상! 이진 리프팅 LCA (Lowest Common Ancestor Binary Lifting)](problems-high/023-lca-binary-lifting/problem.md) | 트리, 최소 공통 조상(LCA), 이진 리프팅(Binary Lifting), $O(Q \log N)$ | 부모 노드를 $2^k$ 단위로 건너뛰는 희소 배열을 구축하여 두 노드의 최소 공통 조상을 로그 시간에 탐색 |
+| **#024** | [게으른 전파로 구간 갱신도 로그 시간에! Lazy Propagation 세그먼트 트리](problems-high/024-segment-tree-lazy-propagation/problem.md) | 세그먼트 트리, Lazy Propagation, 구간 덧셈 및 구간 합 질의, $O(\log N)$ | 자식 노드 방문 시점에 지연된 갱신 값을 전파하여 대규모 구간 갱신과 구간 질의를 $O(\log N)$에 처리 |
+| **#025** | [두 선분이 교차할까? CCW 선분 교차 판정 2 (Line Segment Intersection)](problems-high/025-geometry-line-segment-intersection/problem.md) | 기하학, 벡터 외적(CCW), 선분 교차 판정, 바운딩 박스 겹침 판정 | 두 선분의 CCW 곱 부호 검사와 일직선 배치 시 1차원 바운딩 박스 겹침 검사로 선분 교차 판별 |
+| **#026** | [불일치 시 접두사로 점프! KMP 문자열 패턴 매칭 (Knuth-Morris-Pratt KMP)](problems-high/026-string-kmp-failure-function/problem.md) | 문자열, KMP 알고리즘, 실패 함수 $\pi$ 배열, 선형 패턴 매칭, $O(N + M)$ | 불일치 발생 시 접두사/접미사 일치 길이 $\pi$를 활용해 본문 포인터 후퇴 없이 선형 시간에 모든 위치 탐색 |
+| **#027** | [문자열 사전을 접두사 트리로! 트라이 자료구조 (Trie Prefix Tree)](problems-high/027-string-trie-prefix-search/problem.md) | 자료구조, 트라이(Trie), 접두사 중복 검사, $O(L)$ | 문자열을 트리 형태로 저장하며 삽입 도중 기존 문자열의 접두어 포함 여부를 실시간 검출 |
+| **#028** | [인접한 두 정점을 동시에 고르지 않기! 트리 다이나믹 프로그래밍 (Tree DP Maximum Independent Set)](problems-high/028-dp-tree-independent-set/problem.md) | 트리 동적 계획법(Tree DP), 최대 독립 집합(MIS), 서브트리 DP, $O(N)$ | 현재 노드의 선택 여부에 따른 자식 노드들의 최대 가중치 상태 전이를 상향식으로 누적 계산 |
+| **#029** | [자릿수를 따라 결정되는 상태! 자릿수 동적 계획법 (Digit DP)](problems-high/029-dp-digit-count/problem.md) | 동적 계획법(DP), 자릿수 DP(Digit DP), 메모이제이션, $O(\text{len} \times \dots)$ | 큰 정수 범위 $[A, B]$에서 특정 숫자 등장 횟수를 상위 자릿수 상태 및 접두사 제한 플래그로 고속 집계 |
+| **#030** | [신발끈 공식으로 다각형 넓이 구하기! 신발끈 정리 (Shoelace Formula)](problems-high/030-ccw-polygon-area-shoelace/problem.md) | 기하학, 신발끈 공식(Gauss's Area Formula), 다각형 면적, $O(N)$ | 순서대로 주어진 꼭짓점 좌표들의 외적 대각 곱의 합과 차를 이용해 오목/볼록 단순 다각형 면적 도출 |
 
 ---
 
