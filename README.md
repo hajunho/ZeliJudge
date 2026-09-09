@@ -90,6 +90,7 @@ problems/
 | **#047** | [100장 한정 쿠폰인데 왜 105장이 발급돼요?!: 트랜잭션 격리 수준(Isolation Level)과 팬텀 리드(Phantom Read)](problems/047-transaction-isolation-phantom-read/problem.md) | **DB 트랜잭션/동시성**, ANSI SQL 4대 격리 수준, MVCC 스냅샷 격리의 한계, 넥스트 키 락(Next-Key Lock), 팬텀 오버부킹 방어 | 트랜잭션 걸고 count 확인 후 INSERT 쳤는데 스냅샷 뒤에 숨은 유령 데이터로 105장 초과 발급된 참사 |
 | **#048** | [새로 배포했더니 502 Bad Gateway가 10초 동안 떠요?!: 쿠버네티스 무중단 배포와 그레이스풀 셧다운(Graceful Shutdown & PreStop Hook)](problems/048-zero-downtime-graceful-shutdown/problem.md) | **클라우드 네이티브/배포 아키텍처**, 인플라이트 요청 보존, Kube-Proxy 엔드포인트 전파 딜레이 완충, PreStop sleep 훅, Zero-Downtime 롤링 업데이트 | 롤링 배포 믿고 preStop 없이 배포했다가 엔드포인트 전파 지연으로 502 에러 뿜어 결제 터진 참사 |
 | **#049** | [100만 건 INSERT 쳤더니 새벽 내내 안 끝나요?!: 단건 쿼리 RTT 지옥 vs JDBC 배치 인서트(Batch Insert & rewriteBatchedStatements)](problems/049-batch-insert-rewrite-statements/problem.md) | **DB 아키텍처/네트워크 I/O**, 네트워크 RTT(Round-Trip Time) 병목, JPA IDENTITY 배치 무력화 저주, rewriteBatchedStatements=true 다중 행 재작성 | saveAll 불렀는데 IDENTITY 때문에 단건 10만 번 호출로 야간 배치 5시간 지연된 참사 |
+| **#050** | [서버가 죽었는데 왜 트래픽이 죽은 서버로 계속 가요?!: DNS 캐싱(TTL)의 덫 vs BGP Anycast / Floating VIP 페일오버](problems/050-dns-ttl-vs-anycast-vip/problem.md) | **네트워크 인프라/고가용성(HA)**, DNS 계층 캐싱, Java JVM 영구 캐시(-1) 좀비 트래픽, BGP Anycast, Keepalived VRRP Floating VIP | DNS 레코드 바꿨는데 클라이언트/JVM 캐시 때문에 30분 넘게 불탄 서버로 트래픽 쏟아져 결제 폭망한 참사 |
 
 
 
