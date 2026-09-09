@@ -1,0 +1,34 @@
+[
+  {
+    "input": "{\"config\": {\"mechanism\": \"ZSWAP\", \"allocator\": \"ZSMALLOC\", \"compressor\": \"LZ4\", \"max_pool_percent\": 25.0, \"total_ram_mb\": 8192.0, \"swap_disk_type\": \"NVME\"}, \"workload\": {\"swap_candidate_pages\": 400000, \"compressible_ratio\": 0.3, \"access_pattern\": \"RANDOM\"}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"OPTIMAL_ZSWAP_COMPRESSED_MEMORY_POOL\", \"metrics\": {\"total_swap_candidate_mb\": 1562.5, \"zpool_used_mb\": 515.62, \"disk_write_mb\": 0.0, \"writeback_pages\": 0, \"swap_io_reduction_pct\": 100.0, \"avg_swap_latency_us\": 3.5, \"oom_killed\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"mechanism\": \"TRADITIONAL_SWAP\", \"allocator\": \"NONE\", \"compressor\": \"NONE\", \"max_pool_percent\": 0.0, \"total_ram_mb\": 8192.0, \"swap_disk_type\": \"NVME\"}, \"workload\": {\"swap_candidate_pages\": 400000, \"compressible_ratio\": 0.3, \"access_pattern\": \"RANDOM\"}}",
+    "output": "{\"status\": \"WARNING\", \"verdict\": \"TRADITIONAL_SWAP_IO_BOTTLENECK\", \"metrics\": {\"total_swap_candidate_mb\": 1562.5, \"zpool_used_mb\": 0.0, \"disk_write_mb\": 1562.5, \"writeback_pages\": 0, \"swap_io_reduction_pct\": 0.0, \"avg_swap_latency_us\": 120.0, \"oom_killed\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"mechanism\": \"ZRAM\", \"allocator\": \"ZSMALLOC\", \"compressor\": \"LZ4\", \"max_pool_percent\": 15.0, \"total_ram_mb\": 4096.0, \"swap_disk_type\": \"NONE\"}, \"workload\": {\"swap_candidate_pages\": 500000, \"compressible_ratio\": 0.5, \"access_pattern\": \"RANDOM\"}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"ZRAM_OUT_OF_MEMORY_NO_BACKING_STORE\", \"metrics\": {\"total_swap_candidate_mb\": 1953.12, \"zpool_used_mb\": 614.4, \"disk_write_mb\": 0.0, \"writeback_pages\": 0, \"swap_io_reduction_pct\": 100.0, \"avg_swap_latency_us\": 9999.0, \"oom_killed\": true}}"
+  },
+  {
+    "input": "{\"config\": {\"mechanism\": \"ZSWAP\", \"allocator\": \"ZSMALLOC\", \"compressor\": \"LZ4\", \"max_pool_percent\": 25.0, \"total_ram_mb\": 8192.0, \"swap_disk_type\": \"NVME\"}, \"workload\": {\"swap_candidate_pages\": 300000, \"compressible_ratio\": 0.96, \"access_pattern\": \"RANDOM\"}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"INCOMPRESSIBLE_DATA_ZSWAP_BYPASS_THRASHING\", \"metrics\": {\"total_swap_candidate_mb\": 1171.88, \"zpool_used_mb\": 0.0, \"disk_write_mb\": 1171.88, \"writeback_pages\": 0, \"swap_io_reduction_pct\": 0.0, \"avg_swap_latency_us\": 150.0, \"oom_killed\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"mechanism\": \"ZSWAP\", \"allocator\": \"ZBUD\", \"compressor\": \"LZ4\", \"max_pool_percent\": 20.0, \"total_ram_mb\": 4096.0, \"swap_disk_type\": \"NVME\"}, \"workload\": {\"swap_candidate_pages\": 300000, \"compressible_ratio\": 0.55, \"access_pattern\": \"RANDOM\"}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"ZBUD_ALLOCATOR_FRAGMENTATION_PREMATURE_EVICTION\", \"metrics\": {\"total_swap_candidate_mb\": 1171.88, \"zpool_used_mb\": 819.2, \"disk_write_mb\": 352.68, \"writeback_pages\": 90286, \"swap_io_reduction_pct\": 69.9, \"avg_swap_latency_us\": 75.0, \"oom_killed\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"mechanism\": \"ZSWAP\", \"allocator\": \"ZSMALLOC\", \"compressor\": \"LZ4\", \"max_pool_percent\": 10.0, \"total_ram_mb\": 4096.0, \"swap_disk_type\": \"NVME\"}, \"workload\": {\"swap_candidate_pages\": 400000, \"compressible_ratio\": 0.4, \"access_pattern\": \"RANDOM\"}}",
+    "output": "{\"status\": \"WARNING\", \"verdict\": \"ZSWAP_POOL_SATURATION_WRITEBACK_STALL\", \"metrics\": {\"total_swap_candidate_mb\": 1562.5, \"zpool_used_mb\": 409.6, \"disk_write_mb\": 631.59, \"writeback_pages\": 161687, \"swap_io_reduction_pct\": 59.6, \"avg_swap_latency_us\": 45.0, \"oom_killed\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"mechanism\": \"ZSWAP\", \"allocator\": \"ZSMALLOC\", \"compressor\": \"LZ4\", \"max_pool_percent\": 10.0, \"total_ram_mb\": 4096.0, \"swap_disk_type\": \"NONE\"}, \"workload\": {\"swap_candidate_pages\": 400000, \"compressible_ratio\": 0.4, \"access_pattern\": \"RANDOM\"}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"ZSWAP_POOL_EXHAUSTION_NO_BACKING_SWAP\", \"metrics\": {\"total_swap_candidate_mb\": 1562.5, \"zpool_used_mb\": 409.6, \"disk_write_mb\": 0.0, \"writeback_pages\": 0, \"swap_io_reduction_pct\": 100.0, \"avg_swap_latency_us\": 9999.0, \"oom_killed\": true}}"
+  },
+  {
+    "input": "{\"config\": {\"mechanism\": \"ZRAM\", \"allocator\": \"ZSMALLOC\", \"compressor\": \"LZ4\", \"max_pool_percent\": 30.0, \"total_ram_mb\": 8192.0, \"swap_disk_type\": \"NONE\"}, \"workload\": {\"swap_candidate_pages\": 300000, \"compressible_ratio\": 0.35, \"access_pattern\": \"RANDOM\"}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"OPTIMAL_ZRAM_COMPRESSED_STORAGE\", \"metrics\": {\"total_swap_candidate_mb\": 1171.88, \"zpool_used_mb\": 451.17, \"disk_write_mb\": 0.0, \"writeback_pages\": 0, \"swap_io_reduction_pct\": 100.0, \"avg_swap_latency_us\": 4.2, \"oom_killed\": false}}"
+  }
+]
