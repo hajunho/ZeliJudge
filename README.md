@@ -58,6 +58,8 @@ problems/
 | **#015** | [비밀번호를 그냥 해시하면 털려요!: 레인보우 테이블과 솔트(Salt)의 방패](problems/015-password-hash-and-salt/problem.md) | **정보보안/암호학**, 단방향 해시(SHA-256)의 한계, 레인보우 테이블(역추적 사전), 솔트(Salt)의 2대 방어 원리 | 단순 해시로 DB 저장했다가 레인보우 테이블로 0.001초 만에 전 회원 비밀번호 털린 참사 |
 | **#016** | [사라진 공지사항과 식탐 괴물: 정규표현식 탐욕적(Greedy) vs 게으른(Lazy) 매칭](problems/016-regex-greedy-vs-lazy/problem.md) | **오토마타/문자열 파싱**, 정규식 엔진의 탐욕적 수량자(`.*`), 백트래킹과 최장 일치, 게으른 수량자(`.*?`) | HTML 태그 지우려다 첫 태그부터 끝 태그 사이 공지사항 본문 전체가 증발한 참사 |
 | **#017** | [9시간 늦게 산 사람이 1등?: 시간대(Timezone)의 덫과 UTC 절대 시계](problems/017-timezone-and-utc/problem.md) | **글로벌 시간/분산 시스템**, Naive vs Aware Datetime, Unix Epoch Time, ISO 8601 및 서머타임 | 시차 오프셋 무시하고 날짜 문자열로 정렬했다가 해외 선착순 구매 순위 뒤바뀐 참사 |
+| **#018** | [롤러코스터 대기열과 50억 번의 발걸음: list.pop(0) vs collections.deque](problems/018-queue-shift-vs-deque/problem.md) | **자료구조/메모리 물리배치**, 동적 배열의 원소 메모리 시프트($O(N)$), 이중 연결 리스트 덱($O(1)$) | 10만 명 대기열에서 `pop(0)` 썼다가 50억 번 메모리 복사로 서버 CPU 100% 뻗은 참사 |
+
 
 
 
