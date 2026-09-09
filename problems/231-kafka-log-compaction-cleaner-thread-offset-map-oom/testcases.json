@@ -1,0 +1,34 @@
+[
+  {
+    "input": "{\"config\": {\"dedupe_buffer_size_mb\": 16.0, \"min_cleanable_dirty_ratio\": 0.5, \"delete_retention_ms\": 86400000, \"max_disk_capacity_mb\": 10000.0, \"cleaner_threads\": 1}, \"workload\": {\"total_messages\": 5000000, \"unique_keys_count\": 2000000, \"avg_message_size_bytes\": 500, \"tombstone_ratio\": 0.05, \"elapsed_time_since_delete_ms\": 3600000}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"LOG_CLEANER_OFFSET_MAP_OOM_CRASH\", \"metrics\": {\"raw_volume_mb\": 2384.19, \"final_disk_usage_mb\": 2384.19, \"compaction_ratio\": 0.0, \"needed_offset_map_mb\": 45.78, \"dedupe_buffer_size_mb\": 16.0, \"dirty_ratio\": 0.6, \"cleaner_oom\": true, \"disk_exhausted\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"dedupe_buffer_size_mb\": 128.0, \"min_cleanable_dirty_ratio\": 0.5, \"delete_retention_ms\": 3600000, \"max_disk_capacity_mb\": 10000.0, \"cleaner_threads\": 2}, \"workload\": {\"total_messages\": 3000000, \"unique_keys_count\": 500000, \"avg_message_size_bytes\": 500, \"tombstone_ratio\": 0.1, \"elapsed_time_since_delete_ms\": 7200000}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"OPTIMAL_KAFKA_LOG_COMPACTION_STEADY_STATE\", \"metrics\": {\"raw_volume_mb\": 1430.51, \"final_disk_usage_mb\": 214.58, \"compaction_ratio\": 0.85, \"needed_offset_map_mb\": 11.44, \"dedupe_buffer_size_mb\": 128.0, \"dirty_ratio\": 0.8333, \"cleaner_oom\": false, \"disk_exhausted\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"dedupe_buffer_size_mb\": 256.0, \"min_cleanable_dirty_ratio\": 0.5, \"delete_retention_ms\": 86400000, \"max_disk_capacity_mb\": 4000.0, \"cleaner_threads\": 2}, \"workload\": {\"total_messages\": 12000000, \"unique_keys_count\": 10000000, \"avg_message_size_bytes\": 500, \"tombstone_ratio\": 0.0, \"elapsed_time_since_delete_ms\": 3600000}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"COMPACTED_TOPIC_DISK_EXHAUSTION\", \"metrics\": {\"raw_volume_mb\": 5722.05, \"final_disk_usage_mb\": 5722.05, \"compaction_ratio\": 0.0, \"needed_offset_map_mb\": 228.88, \"dedupe_buffer_size_mb\": 256.0, \"dirty_ratio\": 0.1667, \"cleaner_oom\": false, \"disk_exhausted\": true}}"
+  },
+  {
+    "input": "{\"config\": {\"dedupe_buffer_size_mb\": 128.0, \"min_cleanable_dirty_ratio\": 0.5, \"delete_retention_ms\": 86400000, \"max_disk_capacity_mb\": 10000.0, \"cleaner_threads\": 1}, \"workload\": {\"total_messages\": 1000000, \"unique_keys_count\": 800000, \"avg_message_size_bytes\": 500, \"tombstone_ratio\": 0.05, \"elapsed_time_since_delete_ms\": 3600000}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"CLEANER_DIRTY_RATIO_BELOW_THRESHOLD_SKIPPED\", \"metrics\": {\"raw_volume_mb\": 476.84, \"final_disk_usage_mb\": 476.84, \"compaction_ratio\": 0.0, \"needed_offset_map_mb\": 18.31, \"dedupe_buffer_size_mb\": 128.0, \"dirty_ratio\": 0.2, \"cleaner_oom\": false, \"disk_exhausted\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"dedupe_buffer_size_mb\": 128.0, \"min_cleanable_dirty_ratio\": 0.5, \"delete_retention_ms\": 86400000, \"max_disk_capacity_mb\": 10000.0, \"cleaner_threads\": 0}, \"workload\": {\"total_messages\": 2000000, \"unique_keys_count\": 500000, \"avg_message_size_bytes\": 500, \"tombstone_ratio\": 0.05, \"elapsed_time_since_delete_ms\": 3600000}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"LOG_CLEANER_DISABLED_GROWTH_RISK\", \"metrics\": {\"raw_volume_mb\": 953.67, \"final_disk_usage_mb\": 953.67, \"compaction_ratio\": 0.0, \"needed_offset_map_mb\": 11.44, \"dedupe_buffer_size_mb\": 128.0, \"dirty_ratio\": 0.75, \"cleaner_oom\": false, \"disk_exhausted\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"dedupe_buffer_size_mb\": 128.0, \"min_cleanable_dirty_ratio\": 0.5, \"delete_retention_ms\": 86400000, \"max_disk_capacity_mb\": 10000.0, \"cleaner_threads\": 1}, \"workload\": {\"total_messages\": 3000000, \"unique_keys_count\": 1000000, \"avg_message_size_bytes\": 500, \"tombstone_ratio\": 0.4, \"elapsed_time_since_delete_ms\": 3600000}}",
+    "output": "{\"status\": \"WARNING\", \"verdict\": \"TOMBSTONE_RETENTION_UNEXPIRED_BLOAT\", \"metrics\": {\"raw_volume_mb\": 1430.51, \"final_disk_usage_mb\": 476.84, \"compaction_ratio\": 0.6667, \"needed_offset_map_mb\": 22.89, \"dedupe_buffer_size_mb\": 128.0, \"dirty_ratio\": 0.6667, \"cleaner_oom\": false, \"disk_exhausted\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"dedupe_buffer_size_mb\": 128.0, \"min_cleanable_dirty_ratio\": 0.2, \"delete_retention_ms\": 3600000, \"max_disk_capacity_mb\": 10000.0, \"cleaner_threads\": 1}, \"workload\": {\"total_messages\": 1000000, \"unique_keys_count\": 700000, \"avg_message_size_bytes\": 500, \"tombstone_ratio\": 0.05, \"elapsed_time_since_delete_ms\": 7200000}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"STANDARD_LOG_CLEANING_COMPLETE\", \"metrics\": {\"raw_volume_mb\": 476.84, \"final_disk_usage_mb\": 317.1, \"compaction_ratio\": 0.335, \"needed_offset_map_mb\": 16.02, \"dedupe_buffer_size_mb\": 128.0, \"dirty_ratio\": 0.3, \"cleaner_oom\": false, \"disk_exhausted\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"dedupe_buffer_size_mb\": 256.0, \"min_cleanable_dirty_ratio\": 0.4, \"delete_retention_ms\": 7200000, \"max_disk_capacity_mb\": 20000.0, \"cleaner_threads\": 4}, \"workload\": {\"total_messages\": 5000000, \"unique_keys_count\": 1000000, \"avg_message_size_bytes\": 800, \"tombstone_ratio\": 0.15, \"elapsed_time_since_delete_ms\": 14400000}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"OPTIMAL_KAFKA_LOG_COMPACTION_STEADY_STATE\", \"metrics\": {\"raw_volume_mb\": 3814.7, \"final_disk_usage_mb\": 648.5, \"compaction_ratio\": 0.83, \"needed_offset_map_mb\": 22.89, \"dedupe_buffer_size_mb\": 256.0, \"dirty_ratio\": 0.8, \"cleaner_oom\": false, \"disk_exhausted\": false}}"
+  }
+]
