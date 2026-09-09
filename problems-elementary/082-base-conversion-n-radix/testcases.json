@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: 255를 16진수로 -> FF",
+    "input": "255 16\n",
+    "expected_output": "FF"
+  },
+  {
+    "id": 2,
+    "description": "10을 2진수로 -> 1010",
+    "input": "10 2\n",
+    "expected_output": "1010"
+  },
+  {
+    "id": 3,
+    "description": "10을 8진수로 -> 12",
+    "input": "10 8\n",
+    "expected_output": "12"
+  },
+  {
+    "id": 4,
+    "description": "10을 16진수로 -> A",
+    "input": "10 16\n",
+    "expected_output": "A"
+  },
+  {
+    "id": 5,
+    "description": "35를 16진수로 -> 23",
+    "input": "35 16\n",
+    "expected_output": "23"
+  },
+  {
+    "id": 6,
+    "description": "45를 3진수로 -> 1200 (27 + 18)",
+    "input": "45 3\n",
+    "expected_output": "1200"
+  },
+  {
+    "id": 7,
+    "description": "100을 7진수로 -> 202 (2*49 + 2)",
+    "input": "100 7\n",
+    "expected_output": "202"
+  },
+  {
+    "id": 8,
+    "description": "1을 임의 진법으로 -> 1",
+    "input": "1 16\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 9,
+    "description": "큰 수 16진수: 65535 16 -> FFFF",
+    "input": "65535 16\n",
+    "expected_output": "FFFF"
+  },
+  {
+    "id": 10,
+    "description": "1000000을 2진수로",
+    "input": "1000000 2\n",
+    "expected_output": "11110100001001000000"
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: 5명 (70, 80, 90, 100, 60 -> 정렬 후 80)",
+    "input": "5\n70 80 90 100 60\n",
+    "expected_output": "80"
+  },
+  {
+    "id": 2,
+    "description": "1명만 있는 경우: 95 -> 95",
+    "input": "1\n95\n",
+    "expected_output": "95"
+  },
+  {
+    "id": 3,
+    "description": "3명: 10 30 20 -> 20",
+    "input": "3\n10 30 20\n",
+    "expected_output": "20"
+  },
+  {
+    "id": 4,
+    "description": "모두 동일한 점수: 85 85 85 -> 85",
+    "input": "3\n85 85 85\n",
+    "expected_output": "85"
+  },
+  {
+    "id": 5,
+    "description": "극단적 이상치 존재: 0 0 100 -> 0",
+    "input": "3\n0 0 100\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 6,
+    "description": "7명 점수",
+    "input": "7\n50 60 70 80 90 100 0\n",
+    "expected_output": "70"
+  },
+  {
+    "id": 7,
+    "description": "이미 정렬된 점수",
+    "input": "5\n10 20 30 40 50\n",
+    "expected_output": "30"
+  },
+  {
+    "id": 8,
+    "description": "역순 정렬 점수",
+    "input": "5\n90 80 70 60 50\n",
+    "expected_output": "70"
+  },
+  {
+    "id": 9,
+    "description": "중복 점수 다수: 80 80 80 90 100 -> 80",
+    "input": "5\n80 80 80 90 100\n",
+    "expected_output": "80"
+  },
+  {
+    "id": 10,
+    "description": "9명 점수",
+    "input": "9\n15 25 35 45 55 65 75 85 95\n",
+    "expected_output": "55"
+  }
+]

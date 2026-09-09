@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 4x4 미로 (최단 7칸)",
+    "input": "4 4\n0 0 1 0\n1 0 1 0\n1 0 0 0\n1 1 1 0\n",
+    "expected_output": "7"
+  },
+  {
+    "id": 2,
+    "description": "직진만 하는 1x5 미로",
+    "input": "2 2\n0 0\n0 0\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 3,
+    "description": "벽으로 완전히 막힌 미로",
+    "input": "3 3\n0 1 0\n1 1 0\n0 0 0\n",
+    "expected_output": "-1"
+  },
+  {
+    "id": 4,
+    "description": "ㄷ자 우회 미로",
+    "input": "3 3\n0 0 0\n1 1 0\n0 0 0\n",
+    "expected_output": "5"
+  },
+  {
+    "id": 5,
+    "description": "우회 미로: (0,0) -> (0,3) -> (2,3) 총 6칸",
+    "input": "3 4\n0 0 0 0\n1 1 1 0\n0 0 0 0\n",
+    "expected_output": "6"
+  },
+  {
+    "id": 6,
+    "description": "2x4 미로",
+    "input": "2 4\n0 0 0 0\n1 1 1 0\n",
+    "expected_output": "5"
+  },
+  {
+    "id": 7,
+    "description": "도착점 바로 직전이 벽으로 막힘",
+    "input": "3 3\n0 0 0\n0 0 1\n0 1 0\n",
+    "expected_output": "-1"
+  },
+  {
+    "id": 8,
+    "description": "5x5 미로",
+    "input": "5 5\n0 1 0 0 0\n0 1 0 1 0\n0 0 0 1 0\n1 1 0 1 0\n1 1 0 0 0\n",
+    "expected_output": "9"
+  },
+  {
+    "id": 9,
+    "description": "열린 평원 (최단 맨해튼 거리: (R-1)+(C-1)+1)",
+    "input": "3 3\n0 0 0\n0 0 0\n0 0 0\n",
+    "expected_output": "5"
+  },
+  {
+    "id": 10,
+    "description": "4x3 미로",
+    "input": "4 3\n0 0 0\n0 1 0\n0 1 0\n0 0 0\n",
+    "expected_output": "6"
+  }
+]

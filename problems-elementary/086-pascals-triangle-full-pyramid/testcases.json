@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제 N = 4",
+    "input": "4\n",
+    "expected_output": "1\n1 1\n1 2 1\n1 3 3 1"
+  },
+  {
+    "id": 2,
+    "description": "N = 1 (1층만)",
+    "input": "1\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 3,
+    "description": "N = 2",
+    "input": "2\n",
+    "expected_output": "1\n1 1"
+  },
+  {
+    "id": 4,
+    "description": "N = 3",
+    "input": "3\n",
+    "expected_output": "1\n1 1\n1 2 1"
+  },
+  {
+    "id": 5,
+    "description": "N = 5",
+    "input": "5\n",
+    "expected_output": "1\n1 1\n1 2 1\n1 3 3 1\n1 4 6 4 1"
+  },
+  {
+    "id": 6,
+    "description": "N = 6",
+    "input": "6\n",
+    "expected_output": "1\n1 1\n1 2 1\n1 3 3 1\n1 4 6 4 1\n1 5 10 10 5 1"
+  },
+  {
+    "id": 7,
+    "description": "N = 1 다시 확인",
+    "input": "1\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 8,
+    "description": "N = 2 다시 확인",
+    "input": "2\n",
+    "expected_output": "1\n1 1"
+  },
+  {
+    "id": 9,
+    "description": "N = 3 다시 확인",
+    "input": "3\n",
+    "expected_output": "1\n1 1\n1 2 1"
+  },
+  {
+    "id": 10,
+    "description": "N = 7",
+    "input": "7\n",
+    "expected_output": "1\n1 1\n1 2 1\n1 3 3 1\n1 4 6 4 1\n1 5 10 10 5 1\n1 6 15 20 15 6 1"
+  }
+]

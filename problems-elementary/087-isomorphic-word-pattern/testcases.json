@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제 1: egg vs add -> YES",
+    "input": "egg\nadd\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 2,
+    "description": "기본 예제 2: foo vs bar -> NO (o가 a와 r 두 개로 대응 불가)",
+    "input": "foo\nbar\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 3,
+    "description": "종이와 제목: paper vs title -> YES (p->t, a->i, e->l, r->e)",
+    "input": "paper\ntitle\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 4,
+    "description": "역방향 충돌: ab vs aa -> NO (a, b가 둘 다 a로 대응 불가)",
+    "input": "ab\naa\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 5,
+    "description": "단일 글자: a vs z -> YES",
+    "input": "a\nz\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 6,
+    "description": "모두 동일 글자: aaa vs bbb -> YES",
+    "input": "aaa\nbbb\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 7,
+    "description": "긴 동형 단어: kitten vs mitten -> YES",
+    "input": "kitten\nmitten\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 8,
+    "description": "긴 비동형 단어: badc vs baba -> NO",
+    "input": "badc\nbaba\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 9,
+    "description": "완전 동일 단어: hello vs hello -> YES",
+    "input": "hello\nhello\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 10,
+    "description": "대칭 구조: abba vs cddc -> YES",
+    "input": "abba\ncddc\n",
+    "expected_output": "YES"
+  }
+]

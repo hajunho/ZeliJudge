@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 덧셈: III -> 3",
+    "input": "III\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 2,
+    "description": "기본 뺄셈 규칙: IV -> 4",
+    "input": "IV\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 3,
+    "description": "IX -> 9",
+    "input": "IX\n",
+    "expected_output": "9"
+  },
+  {
+    "id": 4,
+    "description": "LVIII -> 58 (50 + 5 + 3)",
+    "input": "LVIII\n",
+    "expected_output": "58"
+  },
+  {
+    "id": 5,
+    "description": "MCMXCIV -> 1994 (1000 + 900 + 90 + 4)",
+    "input": "MCMXCIV\n",
+    "expected_output": "1994"
+  },
+  {
+    "id": 6,
+    "description": "단일 기호: X -> 10",
+    "input": "X\n",
+    "expected_output": "10"
+  },
+  {
+    "id": 7,
+    "description": "XL -> 40",
+    "input": "XL\n",
+    "expected_output": "40"
+  },
+  {
+    "id": 8,
+    "description": "CD -> 400",
+    "input": "CD\n",
+    "expected_output": "400"
+  },
+  {
+    "id": 9,
+    "description": "CM -> 900",
+    "input": "CM\n",
+    "expected_output": "900"
+  },
+  {
+    "id": 10,
+    "description": "MMXXIV -> 2024",
+    "input": "MMXXIV\n",
+    "expected_output": "2024"
+  }
+]

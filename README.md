@@ -156,6 +156,7 @@ problems/
 | **#113** | [1초에 10만 건 웹소켓 메시지를 뿌렸더니 브라우저가 다 튕겨요?!: 웹소켓 백프레셔(Backpressure)와 송신 버퍼 하이/로우 워터마크 (WebSocket Backpressure & Buffer Watermark)](problems/113-websocket-backpressure-buffer-watermark/problem.md) | **네트워크 I/O/실시간 웹소켓/Netty 아키텍처**, 거북이 소비자(Slow Consumer)의 저주, 채널 버퍼 하이/로우 워터마크 히스테리시스, 백프레셔 4대 정책(DISCONNECT 강제퇴출 vs CONFLATE 시세인플레이스합병 vs DROP_LATEST vs DROP_OLDEST) | 느린 3G 모바일 클라이언트 몇 명 때문에 서버 송신 큐에 메시지 수십만 개 적체되어 OOM Killer로 전사 거래소 서버 다운된 참사와 백프레셔 완충 원리 |
 | **#114** | [컨테이너 CPU를 2코어 줬는데 왜 응답이 100ms씩 멈춰요?!: Linux CFS 스케줄러 쿼터(quota)와 CPU 스로틀링의 저주 (Linux CFS Quota & Throttling)](problems/114-cfs-cpu-quota-throttling/problem.md) | **운영체제 커널/스케줄링/컨테이너 인프라**, Cgroup CFS 대역폭 제어(period_us, quota_us), 8개 멀티스레드 25ms 쿼터 조기 고갈과 75ms 강제 동결 참사, Linux 5.14+ CFS Burst 저축 완충 | 평균 CPU 사용률 20%인데도 멀티스레드 순간 스파이크로 매 100ms 주기마다 75ms씩 강제 동결되어 p99 지연 폭발 및 504 타임아웃 터진 참사와 버스트 구원 원리 |
 | **#115** | [커넥션을 닫았는데 왜 커서가 터져요?!: JDBC Statement 누수와 ORA-01000 (JDBC Statement Leak & Cursor Exhaustion)](problems/115-jdbc-statement-cursor-leak/problem.md) | **데이터베이스 엔지니어링/JDBC/자원 관리**, 커넥션 풀(HikariCP) 프록시 반환 함정, PreparedStatement/ResultSet 미반납, DB 서버 ORA-01000 커서 고갈 참사, AutoCloseable try-with-resources RAII 패턴, 응급 풀 축출 | conn.close()만 믿고 Statement를 닫지 않아 물리 커넥션에 고아 커서가 쌓여 ORA-01000으로 전사 DB 쿼리 올스톱된 참사와 안전한 자원 회수 원리 |
+| **#116** | [카프카 메시지 1개 재시도했을 뿐인데 왜 뒤의 100만 개가 멈춰요?!: HOL 블로킹과 논블로킹 재시도 큐 (Kafka Non-Blocking Retry & DLT)](problems/116-kafka-non-blocking-retry-queue/problem.md) | **분산 메시징/이벤트 기반 아키텍처/우버 패턴**, 전통적 인플레이스 재시도의 Head-of-Line (HOL) 블로킹 참사, Spring Kafka @RetryableTopic, 메인 즉시 커밋 및 다단계 지연 토픽(RETRY_1, RETRY_2), 사장 메시지(DLT) 격리 | 메시지 1개 재시도로 단일 파티션이 35초간 잠겨 뒤의 정상 메시지 수만 건이 동결되고 max.poll 초과로 리밸런스 폭풍 터진 참사와 논블로킹 구원 원리 |
 
 
 
@@ -254,6 +255,16 @@ problems/
 | **#078** | [문자열 압축 대결! 절약된 글자 수 계산기](problems-elementary/078-rle-savings-calculator/problem.md) | 문자열 압축(RLE), 길이 비교, 산술 연산 | 런렝스 압축으로 표현했을 때 원본 대비 절약된 글자 수(원본 길이 - 압축 길이) 계산하기 |
 | **#079** | [스마트 주차장의 동시 주차 최대 차량 수](problems-elementary/079-parking-lot-peak-cars/problem.md) | 구간 시뮬레이션, 시간 배열 카운팅, 최대 동시성 | 차량들의 입차/출차 시간 기록을 바탕으로 동시에 주차되어 있던 최다 차량 수 구하기 |
 | **#080** | [동굴 탐험과 괄호의 최대 중첩 깊이](problems-elementary/080-bracket-max-depth/problem.md) | 스택(Stack), 괄호 중첩 레벨(Depth), 최댓값 갱신 | 열린 괄호와 닫힌 괄호로 이루어진 동굴 지도에서 가장 깊은 방의 깊이 구하기 |
+| **#081** | [미로 탈출 로봇과 2차원 최단 거리 (2D BFS)](problems-elementary/081-maze-runner-2d-bfs/problem.md) | 2차원 격자, 너비 우선 탐색(BFS), 최단 경로, 큐(Queue) | 벽을 피해 입구(0,0)에서 출구(R-1,C-1)까지 도달하는 최단 칸 수 구하기 |
+| **#082** | [외계 행성의 숫자 체계! B진법 변환기](problems-elementary/082-base-conversion-n-radix/problem.md) | 수학, 진법 변환, 몫과 나머지, 아스키/문자 매핑 | 10진수 숫자를 2~16진법 외계 행성의 표기 체계로 변환하기 |
+| **#083** | [보물섬 지도 속 연결된 섬의 개수 세기 (Flood Fill)](problems-elementary/083-matrix-island-counter/problem.md) | 2차원 격자, 플러드 필(Flood Fill), 깊이/너비 우선 탐색, 연결 요소 | 상하좌우로 이어진 육지들을 하나의 덩어리로 묶어 독립된 섬의 총 개수 세기 |
+| **#084** | [평균의 함정을 피하라! 점수 중앙값(Median) 찾기](problems-elementary/084-exam-score-median-finder/problem.md) | 통계 대푯값, 정렬(Sorting), 중앙값(Median), 인덱스 접근 | 극단적인 이상치에 왜곡되지 않도록 정렬 후 정가운데 위치한 중앙값 찾기 |
+| **#085** | [비밀 암호문 속 단어의 첫 등장 위치 찾기](problems-elementary/085-secret-pattern-first-index/problem.md) | 문자열 탐색, 부분 문자열, 인덱스 검색(`find`) | 긴 문서 속에서 특정 비밀 단어가 처음 나타나는 시작 위치(1-based) 구하기 |
+| **#086** | [마법의 숫자 피라미드! 파스칼의 삼각형 N층 그리기](problems-elementary/086-pascals-triangle-full-pyramid/problem.md) | 규칙 수열, 2차원 리스트, 파스칼 삼각형, 이중 반복문 | 1층부터 N층까지 인접한 두 수의 합으로 쌓아 올리는 파스칼 삼각형 전체 출력하기 |
+| **#087** | [글자 모양 복제기! 동형 단어(Isomorphic) 판별](problems-elementary/087-isomorphic-word-pattern/problem.md) | 문자열, 딕셔너리 양방향 매핑, 전단사 함수, 패턴 분석 | 두 단어의 글자 간 1:1 양방향 매핑이 완벽하게 성립하는 동형 구조인지 검증하기 |
+| **#088** | [회오리 김밥 풀기! 2차원 행렬 나선형 읽기](problems-elementary/088-spiral-matrix-unrolling/problem.md) | 2차원 배열, 나선형 순회(Spiral Unroll), 방문 처리, 시뮬레이션 | 사각형 행렬을 바깥 테두리부터 시계방향으로 빙글빙글 소용돌이치며 1차원으로 풀기 |
+| **#089** | [고대 시계탑의 비밀! 로마 숫자를 10진수로 변환하기](problems-elementary/089-roman-to-integer-converter/problem.md) | 문자열 파싱, 딕셔너리 매핑, 조건 연산, 로마 숫자 | IV, IX 같은 감산 규칙을 고려하여 고대 로마 숫자를 10진수 숫자로 계산하기 |
+| **#090** | [가계도 트리와 가족들의 세대(깊이) 계산기](problems-elementary/090-family-tree-generation-depth/problem.md) | 트리(Tree), 루트(Root), 깊이(Depth), 부모-자식 관계, BFS/DFS | 시조 조상님(1번)으로부터 각 가족 구성원의 세대 깊이(Depth) 계산하기 |
 
 ---
 

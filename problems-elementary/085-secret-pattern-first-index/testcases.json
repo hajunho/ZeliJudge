@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: HELLOWORLD 속 LOW -> 4번째 위치",
+    "input": "HELLOWORLD\nLOW\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 2,
+    "description": "맨 앞에 등장: ABCDE 속 AB -> 1",
+    "input": "ABCDE\nAB\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 3,
+    "description": "맨 끝에 등장: ABCDE 속 DE -> 4",
+    "input": "ABCDE\nDE\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 4,
+    "description": "존재하지 않음 -> -1",
+    "input": "HELLO\nBYE\n",
+    "expected_output": "-1"
+  },
+  {
+    "id": 5,
+    "description": "한 글자 찾기",
+    "input": "BANANA\nN\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 6,
+    "description": "동일한 문자열 전체 일치",
+    "input": "SECRET\nSECRET\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 7,
+    "description": "반복되는 부분 문자열 (처음 위치 반환)",
+    "input": "ABABAB\nAB\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 8,
+    "description": "두 번째 위치에 첫 등장",
+    "input": "ZAPPLE\nAPPLE\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 9,
+    "description": "대소문자 구분 (불일치)",
+    "input": "apple\nAPPLE\n",
+    "expected_output": "-1"
+  },
+  {
+    "id": 10,
+    "description": "긴 문자열 속 끝자락",
+    "input": "ABCDEFGHIJKLMNOPQRSTUVWXYZ\nXYZ\n",
+    "expected_output": "24"
+  }
+]

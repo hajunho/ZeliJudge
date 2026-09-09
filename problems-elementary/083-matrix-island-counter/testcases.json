@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: 3개 섬",
+    "input": "4 5\n1 1 0 0 0\n1 1 0 0 0\n0 0 1 0 0\n0 0 0 1 1\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 2,
+    "description": "모두 바다: 0개 섬",
+    "input": "3 3\n0 0 0\n0 0 0\n0 0 0\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 3,
+    "description": "전체가 하나의 거대한 섬",
+    "input": "3 3\n1 1 1\n1 1 1\n1 1 1\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 4,
+    "description": "대각선으로만 접한 경우 (서로 다른 섬: 4개)",
+    "input": "2 2\n1 0\n0 1\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 5,
+    "description": "체스판 모양 3x3: 5개 섬",
+    "input": "3 3\n1 0 1\n0 1 0\n1 0 1\n",
+    "expected_output": "5"
+  },
+  {
+    "id": 6,
+    "description": "1x5 가로 섬 2개",
+    "input": "1 5\n1 1 0 1 1\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 7,
+    "description": "5x1 세로 섬 2개",
+    "input": "5 1\n1\n0\n1\n1\n0\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 8,
+    "description": "테두리만 섬이고 가운데는 바다 (도넛 섬: 1개)",
+    "input": "3 3\n1 1 1\n1 0 1\n1 1 1\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 9,
+    "description": "1x1 단일 육지",
+    "input": "1 1\n1\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 10,
+    "description": "복합 다도해 지도",
+    "input": "4 4\n1 0 0 1\n0 1 1 0\n0 1 1 0\n1 0 0 1\n",
+    "expected_output": "5"
+  }
+]
