@@ -181,6 +181,7 @@ problems/
 | **#138** | [간헐적으로 502 Bad Gateway가 떠요?!: 로드밸런서(ALB) Idle Timeout vs 백엔드 Keep-Alive Timeout 불일치 레이스 컨디션 (ALB Idle Timeout vs Backend Keep-Alive Timeout Race)](problems/138-alb-idle-timeout-vs-backend-keepalive/problem.md) | **클라우드 인프라/L7 로드밸런서/HTTP Keep-Alive**, AWS ALB Idle Timeout(60s) vs 백엔드(Node.js/Tomcat) Keep-Alive Timeout(60s/5s), 백엔드 소켓 close(FIN)와 ALB 새 요청 인입의 네트워크 전파 엇갈림, 닫힌 소켓 TCP RST 강제 반환 및 백엔드 로그 0줄 유령 502 Bad Gateway 참사, 황금률(Backend Timeout > ALB Timeout + Buffer) 100% 502 방어 | 평소엔 잘 되다가 요청 뜸할 때 1분에 몇 번씩 502 Bad Gateway 터지던 참사와 백엔드 타임아웃 65초 증설 구원 원리 |
 | **#139** | [존재하지 않는 키만 골라 100만 번 찔렀더니 DB가 타버렸어요!: 캐시 관통(Cache Penetration)과 블룸 필터(Bloom Filter) & Null 값 캐싱 (Redis Cache Penetration & Bloom Filter)](problems/139-redis-cache-penetration-bloom-filter/problem.md) | **분산 캐시 아키텍처/자료구조/정보보안**, 캐시 3대 장애(관통 vs 스탬피드 vs 눈사태), DB에도 없는 무효 키 대량 인입 시 Cache Miss 100% 관통 및 RDBMS CPU 100% 폭사, 블룸 필터(Bloom Filter) $M$비트 $K$해시 확률적 자료구조 원리, False Negative 0% 보장과 즉시 차단, 위양성률 제어 공식($M = -N \ln p / (\ln 2)^2$), Null 캐싱 보완 기법 | 존재하지 않는 난수 상품 ID 공격에 Redis 놔두고 DB 커넥션 풀 고갈되어 504 폭사한 참사와 블룸 필터 99% 무효 요청 사전 차단 구원 원리 |
 | **#140** | [DB 쿼리 1개가 지연됐을 뿐인데 왜 전사 카프카 컨슈머가 올스톱되고 메시지가 무한 복제돼요?!: 카프카 컨슈머 리밸런스 폭풍(Kafka Consumer Rebalance Storm)과 max.poll.interval.ms & 협력적 스티키 리밸런싱 (Kafka Consumer Rebalance Storm & max.poll.interval.ms)](problems/140-kafka-consumer-rebalance-storm/problem.md) | **메시징 큐/분산 이벤트 스트리밍/Kafka 아키텍처**, KIP-62 하트비트 스레드 vs Poll 스레드 분리, max.poll.interval.ms 5분 초과 시 비정상 스레드로 판정 후 강제 퇴출(Kick Out) 및 리밸런싱 발동, Eager 리밸런싱의 Stop-The-World 전사 마비 참사, 오프셋 미커밋 상태 재할당으로 인한 메시지 무한 중복 결제 폭탄, max.poll.records 배치 축소와 백그라운드 워커 스레드 풀 오프로딩, CooperativeStickyAssignor 무중단 점진적 리밸런싱 구원 | 슬로우 쿼리 1건으로 5분 경과하자 카프카 브로커가 컨슈머를 강제 퇴출시켜 전사 컨슈머 멈추고 500건 중복 결제 터진 참사와 협력적 스티키 리밸런싱 구원 원리 |
+| **#141** | [왜 없는 데이터를 조회/수정했을 뿐인데 트랜잭션이 데드락으로 폭사해요?!: MySQL InnoDB 갭 락(Gap Lock) / 넥스트 키 락(Next-Key Lock) 경합과 데드락 (MySQL InnoDB Gap Lock & Deadlock)](problems/141-mysql-innodb-gap-lock-deadlock/problem.md) | **데이터베이스 엔지니어링/동시성 제어/InnoDB 아키텍처**, 팬텀 리드 방지와 Next-Key Lock(Record Lock + Gap Lock), 순수 억제(Purely Inhibitive) 갭 락의 상호 호환 함정, Insert Intention Lock과의 충돌, 상호 교착(Deadlock Cycle)과 데드락 감지기(Wait-For Graph), Read Committed 완화 및 분산 락/원자적 Upsert 방어 | 쿠폰 선착순 발급 시 없는 코드 조회 후 생성하려다 Gap Lock 상호 획득 및 Insert Intention 대기로 DB 데드락 폭사한 참사와 방어 원리 |
 
 ---
 
@@ -193,7 +194,7 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | 🎒 **초등부 트랙 (Junior)** | `problems-elementary/` | **130문제 완결** ✅ | 초등학생 & 코딩 입문: 사칙연산, 조건/반복문, 리스트/문자열, 기초 스택/큐, 2D 격자, 기본 수학 |
 | 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **130문제 완결** ✅ | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 고급 정수론/기하/DP |
 | 🎓 **고등부 트랙 (High)** | `problems-high/` | **130문제 완결** ✅ | 고등학생 & KOI/대회: 보로노이/들로네, 메르텐스 두 체, 세그트리 비츠, 지배자 트리, 팰린드롬 트리, SMAWK, 매트로이드 교집합, 가우스 정수, 푸시-리레이블, 최종 그랜드 캡스톤 |
-| 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 140+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/락, Kafka 리밸런스, 캐시 스탬피드/관통, ReDoS, 고가용성 아키텍처 |
+| 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 141+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/락, InnoDB 갭 락 데드락, Kafka 리밸런스, 캐시 관통, 고가용성 아키텍처 |
 
 ---
 
