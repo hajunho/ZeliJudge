@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: 4개 정점 사각형 사이클 -> YES (1 2 3 4 1)",
+    "input": "4 4\n1 2\n2 3\n3 4\n4 1",
+    "expected_output": "YES\n1 2 3 4 1"
+  },
+  {
+    "desc": "홀수 차수 정점이 존재하여 불가능한 경우: NO",
+    "input": "3 2\n1 2\n2 3",
+    "expected_output": "NO"
+  },
+  {
+    "desc": "삼각형 사이클",
+    "input": "3 3\n1 2\n2 3\n3 1",
+    "expected_output": "YES\n1 2 3 1"
+  },
+  {
+    "desc": "모래시계 형태 (두 삼각형이 1번 노드 공유, 차수 4)",
+    "input": "5 6\n1 2\n2 3\n3 1\n1 4\n4 5\n5 1",
+    "expected_output": "YES\n1 2 3 1 4 5 1"
+  },
+  {
+    "desc": "정점 2개에 1개 간선 (홀수 차수) -> NO",
+    "input": "2 1\n1 2",
+    "expected_output": "NO"
+  },
+  {
+    "desc": "정점 2개 사이에 2개의 다중 경로 (차수 2)",
+    "input": "3 4\n1 2\n2 3\n3 1\n1 2",
+    "expected_output": "NO"
+  },
+  {
+    "desc": "완전 그래프 K5 (모든 정점 차수 4로 짝수) -> YES",
+    "input": "5 10\n1 2\n1 3\n1 4\n1 5\n2 3\n2 4\n2 5\n3 4\n3 5\n4 5",
+    "expected_output": "YES\n1 2 3 1 4 2 5 3 4 5 1"
+  },
+  {
+    "desc": "분리된 컴포넌트가 있어 불가능한 경우 -> NO",
+    "input": "5 4\n1 2\n2 1\n3 4\n4 3",
+    "expected_output": "NO"
+  },
+  {
+    "desc": "6개 정점 복합 오일러 그래프",
+    "input": "6 7\n1 2\n2 3\n3 1\n1 4\n4 5\n5 6\n6 1",
+    "expected_output": "YES\n1 2 3 1 4 5 6 1"
+  },
+  {
+    "desc": "다이아몬드 + 공통 변 (홀수 차수 발생) -> NO",
+    "input": "4 5\n1 2\n2 3\n3 4\n4 1\n1 3",
+    "expected_output": "NO"
+  }
+]

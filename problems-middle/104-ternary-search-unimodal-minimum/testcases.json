@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: (x-2)^2 in [0, 5] -> x=2, f(2)=0",
+    "input": "1 -4 4 0 5",
+    "expected_output": "2\n0"
+  },
+  {
+    "desc": "극솟점이 구간 왼쪽에 있어 L에서 최소인 경우",
+    "input": "1 0 0 5 10",
+    "expected_output": "5\n25"
+  },
+  {
+    "desc": "극솟점이 구간 오른쪽에 있어 R에서 최소인 경우",
+    "input": "1 0 0 -10 -5",
+    "expected_output": "-5\n25"
+  },
+  {
+    "desc": "구간이 단 하나의 정수점 (L == R)",
+    "input": "2 3 5 4 4",
+    "expected_output": "4\n49"
+  },
+  {
+    "desc": "극솟점이 정확히 정수가 아닌 소수점일 때 인접 정수 판정",
+    "input": "2 -5 1 0 3",
+    "expected_output": "1\n-2"
+  },
+  {
+    "desc": "대칭점이라 두 정수에서 동일한 최솟값을 가질 때 (작은 x 선택)",
+    "input": "1 -5 6 0 5",
+    "expected_output": "2\n0"
+  },
+  {
+    "desc": "음수 구간",
+    "input": "1 10 25 -10 0",
+    "expected_output": "-5\n0"
+  },
+  {
+    "desc": "a가 큰 가파른 2차 함수",
+    "input": "100 -200 100 -5 5",
+    "expected_output": "1\n0"
+  },
+  {
+    "desc": "큰 범위의 구간 탐색",
+    "input": "1 -20000 0 -100000 100000",
+    "expected_output": "10000\n-100000000"
+  },
+  {
+    "desc": "복합 계수 2차 함수",
+    "input": "3 12 -50 -10 10",
+    "expected_output": "-2\n-62"
+  }
+]

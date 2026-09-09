@@ -182,7 +182,7 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | 트랙 | 디렉토리 | 상태 및 규모 | 대상 및 핵심 교육 내용 |
 |:---:|:---:|:---:|---|
 | 🎒 **초등부 트랙 (Junior)** | `problems-elementary/` | **130문제 완결** ✅ | 초등학생 & 코딩 입문: 사칙연산, 조건/반복문, 리스트/문자열, 기초 스택/큐, 2D 격자, 기본 수학 |
-| 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **100문제 (진행 중)** 🚀 | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 기초 그리디 |
+| 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **110문제 (진행 중)** 🚀 | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 기초 그리디 |
 | 🎓 **고등부 트랙 (High)** | `problems-high/` | 중등부 완결 후 예정 🔜 | 고등학생 & KOI/대회: 다이나믹 프로그래밍(DP), 이진 탐색, 그래프(DFS/BFS), 트리 순회, 백트래킹 |
 | 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 110+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/락, Kafka, 캐시 스탬피드, ReDoS, 고가용성 아키텍처 |
 
@@ -441,6 +441,16 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | **#098** | [여러 단어를 동시에 한 번에 검색! 아호-코라식(Aho-Corasick) 다중 패턴 탐색](problems-middle/098-aho-corasick-multi-pattern-matching/problem.md) | 문자열, 아호-코라식(Aho-Corasick), 트라이, 실패 링크, $O(|Text| + \sum |P|)$ | 트라이에 BFS로 실패 링크를 연결하여 본문 텍스트 단 1회 순회로 다중 패턴 동시 매칭 |
 | **#099** | [꼭짓점 좌표만으로 땅의 넓이 구하기! 신발끈 공식 (Shoelace Formula)](problems-middle/099-geometry-shoelace-polygon-area/problem.md) | 기하 알고리즘, 신발끈 공식, 다각형 넓이, 벡터 외적, $O(N)$ | 단순 다각형의 꼭짓점 좌표 외적 합으로 오목/볼록 상관없이 정확한 다각형 면적 계산 |
 | **#100** | [영예의 100번째 문제! 트리의 무게중심과 가중치 지름 (Tree Centroid & Diameter)](problems-middle/100-middle-grand-finale-tree-centroid-diameter/problem.md) | 트리 DP, 무게중심(Centroid), 트리 지름(Diameter), 2단계 BFS, $O(N)$ | 중등부 100번째 피날레: 서브트리 크기 조건의 무게중심과 최장 가중치 경로 지름 동시 계산 |
+| **#101** | [멱등성의 마법! 희소 배열(Sparse Table)과 O(1) 구간 최솟값 쿼리](problems-middle/101-sparse-table-rmq/problem.md) | 자료구조, 희소 배열(Sparse Table), RMQ, 멱등성, $O(1)$ | 2의 거듭제곱 구간 전처리 후 중첩 두 구간의 최솟값을 $O(1)$에 즉시 조회 |
+| **#102** | [띄엄띄엄 읽어도 대칭! 최장 팰린드롬 부분 수열 (LPS DP)](problems-middle/102-longest-palindromic-subsequence-dp/problem.md) | 동적 계획법(DP), 구간 DP, 최장 팰린드롬 부분 수열(LPS), $O(N^2)$ | 양 끝 문자의 일치 여부에 따라 구간을 좁혀가는 점화식으로 최장 대칭 부분 수열 길이 계산 |
+| **#103** | [이 방법 말고 다른 도로망이 또 있을까? 유일한 최소 신장 트리 판별 (Unique MST)](problems-middle/103-minimum-spanning-tree-unique/problem.md) | 그래프, 최소 신장 트리(MST), 크루스칼, 유니온-파인드, 제2 MST | 기준 MST의 간선들을 1개씩 제외하며 동일한 가중치를 갖는 대체 MST 존재 여부 판정 |
+| **#104** | [U자형 함수의 가장 낮은 바닥을 찾아라! 삼분 탐색 (Ternary Search)](problems-middle/104-ternary-search-unimodal-minimum/problem.md) | 이진/삼분 탐색, 단봉 함수(Unimodal), 2차 함수 최솟값, $O(\log N)$ | 구간을 3등분하여 함수값을 비교하며 후보 영역을 $2/3$씩 좁혀가는 삼분 탐색 기법 |
+| **#105** | [무거운 체인을 타고 초고속 상승! HLD(Heavy-Light Decomposition) 최소 공통 조상](problems-middle/105-tree-heavy-light-decomposition-lca/problem.md) | 트리 자료구조, HLD(Heavy-Light Decomposition), 체인 분할, LCA, $O(\log N)$ | 무거운 간선 체인을 따라 건너뛰며 임의의 두 노드의 최소 공통 조상을 $O(\log N)$에 탐색 |
+| **#106** | [평면 위 가장 친한 두 별의 거리! 가장 가까운 두 점 (Closest Pair of Points)](problems-middle/106-geometry-closest-pair-of-points/problem.md) | 분할 정복(Divide & Conquer), 기하 알고리즘, 경계 띠(Strip), $O(N \log N)$ | $x$좌표 분할 정복과 $y$좌표 띠 영역의 7개 인접 후보 검사로 최단 점 쌍 거리 제곱 도출 |
+| **#107** | [자릿수를 따라 결정되는 상태! 자릿수 동적 계획법 (Digit DP)](problems-middle/107-digit-dp-counting-numbers/problem.md) | 동적 계획법(DP), 자릿수 DP(Digit DP), 메모이제이션, $O(\text{len} \times 10)$ | $1$부터 $10^{15}$까지의 대규모 정수 범위에서 특정 숫자가 포함된 수의 개수를 자릿수 상태로 집계 |
+| **#108** | [물건 개수가 제한된 배낭! 이진 분할 최적화 (Bounded Knapsack)](problems-middle/108-knapsack-bounded-binary-splitting/problem.md) | 동적 계획법(DP), 제한 배낭 문제, 이진 분할(Binary Splitting), $O(W \sum \log K)$ | 각 보석의 수량을 $1, 2, 4, \dots$ 거듭제곱 묶음으로 쪼개어 0-1 배낭 DP로 초고속 최적화 |
+| **#109** | [모든 길을 딱 한 번씩만 지나기! 히어홀저(Hierholzer) 오일러 회로](problems-middle/109-graph-eulerian-circuit-hierholzer/problem.md) | 그래프, 오일러 회로(Eulerian Circuit), 히어홀저 알고리즘, 스택, $O(V + E)$ | 모든 정점의 차수가 짝수임을 검사하고 스택을 통해 모든 간선을 1회 순회하는 경로 복원 |
+| **#110** | [무수히 많은 정수해의 규칙! 일차 디오판토스 방정식의 일반해 (Linear Diophantine)](problems-middle/110-extended-gcd-linear-diophantine-all-solutions/problem.md) | 정수론, 디오판토스 방정식, 확장 유클리드, 일반해, $O(\log(\min(A, B)))$ | $Ax + By = C$의 정수해 존재성을 판정하고 $x \ge 0$을 만족하는 최소 비음수 정수해 도출 |
 
 ---
 

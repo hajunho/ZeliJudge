@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: 10x10 정사각형 네 꼭짓점 -> 100",
+    "input": "4\n0 0\n10 10\n0 10\n10 0",
+    "expected_output": "100"
+  },
+  {
+    "desc": "두 점뿐인 경우",
+    "input": "2\n1 1\n4 5",
+    "expected_output": "25"
+  },
+  {
+    "desc": "동일한 위치의 중복된 두 점 -> 0",
+    "input": "3\n5 5\n5 5\n10 10",
+    "expected_output": "0"
+  },
+  {
+    "desc": "일직선 상의 점들",
+    "input": "4\n0 0\n5 0\n7 0\n20 0",
+    "expected_output": "4"
+  },
+  {
+    "desc": "음수 좌표를 포함하는 점들",
+    "input": "4\n-10 -10\n-9 -9\n10 10\n20 20",
+    "expected_output": "2"
+  },
+  {
+    "desc": "경계선 바로 양쪽에 걸친 두 점이 최단 거리인 경우",
+    "input": "4\n0 10\n0 -10\n4 0\n6 0",
+    "expected_output": "4"
+  },
+  {
+    "desc": "정삼각형 꼭짓점들",
+    "input": "3\n0 0\n2 0\n1 2",
+    "expected_output": "4"
+  },
+  {
+    "desc": "수직선 상에 늘어선 점들",
+    "input": "4\n0 1\n0 5\n0 8\n0 10",
+    "expected_output": "4"
+  },
+  {
+    "desc": "복합 6개 점",
+    "input": "6\n2 3\n12 30\n40 50\n5 1\n12 10\n3 4",
+    "expected_output": "2"
+  },
+  {
+    "desc": "10개 점 난수 형태",
+    "input": "10\n0 0\n10 20\n5 8\n30 40\n12 15\n14 16\n50 60\n2 9\n100 100\n70 80",
+    "expected_output": "5"
+  }
+]

@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: BBABCBCAB -> 7",
+    "input": "BBABCBCAB",
+    "expected_output": "7"
+  },
+  {
+    "desc": "길이가 1인 문자열",
+    "input": "A",
+    "expected_output": "1"
+  },
+  {
+    "desc": "모두 동일한 문자 (길이 5)",
+    "input": "AAAAA",
+    "expected_output": "5"
+  },
+  {
+    "desc": "이미 완벽한 팰린드롬 (RACECAR)",
+    "input": "RACECAR",
+    "expected_output": "7"
+  },
+  {
+    "desc": "모두 다른 문자 (길이는 1)",
+    "input": "ABCDE",
+    "expected_output": "1"
+  },
+  {
+    "desc": "짝수 대칭 (ABBA)",
+    "input": "ABBA",
+    "expected_output": "4"
+  },
+  {
+    "desc": "단 두 문자",
+    "input": "AB",
+    "expected_output": "1"
+  },
+  {
+    "desc": "단 두 문자 동일",
+    "input": "AA",
+    "expected_output": "2"
+  },
+  {
+    "desc": "긴 교차 문자열",
+    "input": "ABACDFGDCABA",
+    "expected_output": "11"
+  },
+  {
+    "desc": "복합 문자열",
+    "input": "BANANASANDWICH",
+    "expected_output": "5"
+  }
+]

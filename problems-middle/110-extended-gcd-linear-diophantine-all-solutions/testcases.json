@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: 4x + 6y = 10 -> 1 1",
+    "input": "4 6 10",
+    "expected_output": "1 1"
+  },
+  {
+    "desc": "해 없음: 4x + 6y = 7 (gcd=2, 7은 2의 배수 아님)",
+    "input": "4 6 7",
+    "expected_output": "NO SOLUTION"
+  },
+  {
+    "desc": "서로소 계수: 3x + 5y = 14",
+    "input": "3 5 14",
+    "expected_output": "3 1"
+  },
+  {
+    "desc": "C가 0인 경우: 최소 x=0, y=0",
+    "input": "5 7 0",
+    "expected_output": "0 0"
+  },
+  {
+    "desc": "C가 음수인 경우",
+    "input": "3 4 -5",
+    "expected_output": "1 -2"
+  },
+  {
+    "desc": "A = B인 경우",
+    "input": "5 5 25",
+    "expected_output": "0 5"
+  },
+  {
+    "desc": "A = 1인 경우 (항상 해 존재)",
+    "input": "1 10 23",
+    "expected_output": "3 2"
+  },
+  {
+    "desc": "큰 계수 디오판토스",
+    "input": "1000 1500 5000",
+    "expected_output": "2 2"
+  },
+  {
+    "desc": "소수 계수",
+    "input": "17 19 100",
+    "expected_output": "7 -1"
+  },
+  {
+    "desc": "거대 계수와 큰 C",
+    "input": "1234567 7654321 987654321",
+    "expected_output": "1913582 -308513"
+  }
+]

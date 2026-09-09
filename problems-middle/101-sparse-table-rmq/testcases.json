@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: 6개 원소 4개 질의",
+    "input": "6 4\n4 6 1 5 7 3\n1 3\n2 4\n4 6\n1 6",
+    "expected_output": "1\n1\n3\n1"
+  },
+  {
+    "desc": "원소 1개뿐인 수열",
+    "input": "1 2\n42\n1 1\n1 1",
+    "expected_output": "42\n42"
+  },
+  {
+    "desc": "단일 점 구간 질의 (L == R)",
+    "input": "4 4\n10 20 30 40\n1 1\n2 2\n3 3\n4 4",
+    "expected_output": "10\n20\n30\n40"
+  },
+  {
+    "desc": "모두 동일한 원소",
+    "input": "5 3\n7 7 7 7 7\n1 3\n2 5\n1 5",
+    "expected_output": "7\n7\n7"
+  },
+  {
+    "desc": "음수를 포함하는 수열",
+    "input": "5 4\n-10 5 -20 8 0\n1 5\n1 2\n3 4\n4 5",
+    "expected_output": "-20\n-10\n-20\n0"
+  },
+  {
+    "desc": "단조 증가하는 수열",
+    "input": "5 3\n1 2 3 4 5\n1 3\n2 4\n3 5",
+    "expected_output": "1\n2\n3"
+  },
+  {
+    "desc": "단조 감소하는 수열",
+    "input": "5 3\n5 4 3 2 1\n1 3\n2 4\n3 5",
+    "expected_output": "3\n2\n1"
+  },
+  {
+    "desc": "큰 값들의 수열",
+    "input": "4 3\n1000000000 500000000 800000000 200000000\n1 4\n2 3\n1 2",
+    "expected_output": "200000000\n500000000\n500000000"
+  },
+  {
+    "desc": "8개 원소 거듭제곱 길이 구간",
+    "input": "8 4\n3 1 4 1 5 9 2 6\n1 4\n5 8\n1 8\n3 6",
+    "expected_output": "1\n2\n1\n1"
+  },
+  {
+    "desc": "10개 원소 복합 질의",
+    "input": "10 5\n12 3 5 7 19 1 8 4 6 11\n1 10\n2 6\n5 9\n7 10\n3 4",
+    "expected_output": "1\n1\n1\n4\n5"
+  }
+]
