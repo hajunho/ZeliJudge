@@ -130,6 +130,7 @@ problems/
 | **#087** | [전원이 갑자기 꺼졌는데 결제 내역이 왜 살아있죠?!: 데이터베이스 Write-Ahead Logging (WAL)과 ARIES 장애 복구 (Database WAL & ARIES Recovery)](problems/087-database-wal-crash-recovery-aries/problem.md) | **데이터베이스 스토리지/장애 복구**, Steal & No-Force 버퍼 관리, WAL(Write-Ahead Logging) 선행 기록, ARIES 3단계 복구(Analysis, Redo, Undo), 체크포인트 플러시 | 서버실 누전 정전 시 버퍼 풀 메모리가 증발했음에도 WAL 순방향 Redo와 역방향 Undo로 100% 무결성 복구한 원리 |
 | **#088** | [멀티스레드로 바꿨더니 왜 10배나 느려져요?!: CPU 캐시 라인(64바이트)과 거짓 공유(False Sharing)의 덫 (CPU Cache Line & False Sharing with MESI)](problems/088-cpu-cache-false-sharing-mesi/problem.md) | **컴퓨터 구조/동시성 아키텍처**, 64바이트 캐시 라인, MESI 캐시 일관성 프로토콜(M, E, S, I), 거짓 공유(False Sharing) 버스 핑퐁 무효화, 64바이트 캐시 라인 패딩(@Contended) | 멀티스레드로 독립 카운터를 갱신했는데 동일 캐시 라인에 묶여 버스 무효화 폭풍으로 싱글스레드보다 10배 느려진 참사 |
 | **#089** | [와이파이로 다운로드만 걸면 왜 핑이 1000ms로 치솟아요?!: 네트워크 버퍼블로트(Bufferbloat)와 TCP 혼잡 제어 (Reno vs Google BBR)](problems/089-tcp-bufferbloat-reno-vs-bbr/problem.md) | **컴퓨터 네트워크/전송 계층**, 버퍼블로트(Bufferbloat), 손실 기반 TCP Reno/Cubic 한계, 대역폭-지연 곱(BDP), Google BBR 모델 기반 혼잡 제어, 대화형 핑 지연시간 방어 | 다운로드 시 공유기 대형 버퍼가 가득 차 게임 핑이 60배 폭증하는 버퍼블로트 참사와 BBR 0ms 큐잉 지연 원리 |
+| **#090** | [10만 건 UPDATE 쳤더니 테이블이 왜 50GB로 부풀어요?!: PostgreSQL MVCC, 데드 튜플(Dead Tuple)과 진공 청소(Vacuum) (PostgreSQL MVCC Dead Tuples & Vacuum Bloat)](problems/090-postgres-mvcc-dead-tuples-vacuum/problem.md) | **데이터베이스 스토리지/MVCC 아키텍처**, 불변 튜플(Immutable Tuple), 튜플 헤더 xmin/xmax, 장기 트랜잭션 xmin_horizon 고착, Autovacuum 차단, 테이블 블로트(Table Bloat) | UPDATE가 DELETE+INSERT로 동작하여 데드 튜플이 쌓이는데 좀비 트랜잭션 때문에 Vacuum이 차단되어 디스크 50GB 폭증한 참사 |
 
 ---
 
