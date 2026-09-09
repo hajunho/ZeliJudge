@@ -1,0 +1,37 @@
+[
+  {
+    "desc": "Case 1: Standard Key-Ordered Concurrency & Out-of-Order Completion with Watermark Jump",
+    "input": "WORKERS 4 MAX_IN_FLIGHT 8\nRECORDS 5\n0 A 200 0\n1 B 20 0\n2 C 30 0\n3 A 50 0\n4 D 40 0\nEND",
+    "expected_output": "EXECUTION_ORDER: 1@20,2@30,4@40,0@200,3@250\nKEY_ORDER_STATUS: VALID (0 violations)\nHOLES_PREVENTED: 3\nWATERMARK_PROGRESSION: (200,3)->(250,5)\nBENCHMARK: SEQ=340ms PAR=250ms SPEEDUP=1.36x"
+  },
+  {
+    "desc": "Case 2: All records share identical key (Strict FIFO serialization, zero holes, 1.00x speedup)",
+    "input": "WORKERS 4 MAX_IN_FLIGHT 8\nRECORDS 4\n0 USER_1 50 0\n1 USER_1 60 0\n2 USER_1 40 0\n3 USER_1 50 0\nEND",
+    "expected_output": "EXECUTION_ORDER: 0@50,1@110,2@150,3@200\nKEY_ORDER_STATUS: VALID (0 violations)\nHOLES_PREVENTED: 0\nWATERMARK_PROGRESSION: (50,1)->(110,2)->(150,3)->(200,4)\nBENCHMARK: SEQ=200ms PAR=200ms SPEEDUP=1.00x"
+  },
+  {
+    "desc": "Case 3: Fully independent keys with identical duration (Perfect 4x parallel speedup)",
+    "input": "WORKERS 4 MAX_IN_FLIGHT 8\nRECORDS 4\n0 K1 100 0\n1 K2 100 0\n2 K3 100 0\n3 K4 100 0\nEND",
+    "expected_output": "EXECUTION_ORDER: 0@100,1@100,2@100,3@100\nKEY_ORDER_STATUS: VALID (0 violations)\nHOLES_PREVENTED: 0\nWATERMARK_PROGRESSION: (100,1)->(100,2)->(100,3)->(100,4)\nBENCHMARK: SEQ=400ms PAR=100ms SPEEDUP=4.00x"
+  },
+  {
+    "desc": "Case 4: Backpressure throttled by MAX_IN_FLIGHT constraint",
+    "input": "WORKERS 4 MAX_IN_FLIGHT 2\nRECORDS 6\n0 K1 100 0\n1 K2 100 0\n2 K3 100 0\n3 K4 100 0\n4 K5 100 0\n5 K6 100 0\nEND",
+    "expected_output": "EXECUTION_ORDER: 0@100,1@100,2@200,3@200,4@300,5@300\nKEY_ORDER_STATUS: VALID (0 violations)\nHOLES_PREVENTED: 0\nWATERMARK_PROGRESSION: (100,1)->(100,2)->(200,3)->(200,4)->(300,5)->(300,6)\nBENCHMARK: SEQ=600ms PAR=300ms SPEEDUP=2.00x"
+  },
+  {
+    "desc": "Case 5: Staggered asynchronous arrival times with dynamic key scheduling",
+    "input": "WORKERS 3 MAX_IN_FLIGHT 6\nRECORDS 5\n0 K_A 150 0\n1 K_B 50 20\n2 K_C 60 40\n3 K_B 40 80\n4 K_D 30 100\nEND",
+    "expected_output": "EXECUTION_ORDER: 1@70,2@100,3@120,4@130,0@150\nKEY_ORDER_STATUS: VALID (0 violations)\nHOLES_PREVENTED: 4\nWATERMARK_PROGRESSION: (150,5)\nBENCHMARK: SEQ=330ms PAR=150ms SPEEDUP=2.20x"
+  },
+  {
+    "desc": "Case 6: Long-tail latency skew / poison pill holding watermark back across 9 completed holes",
+    "input": "WORKERS 4 MAX_IN_FLIGHT 16\nRECORDS 10\n0 HEAVY 1000 0\n1 L1 10 0\n2 L2 10 0\n3 L3 10 0\n4 L4 10 0\n5 L5 10 0\n6 L6 10 0\n7 L7 10 0\n8 L8 10 0\n9 L9 10 0\nEND",
+    "expected_output": "EXECUTION_ORDER: 1@10,2@10,3@10,4@20,5@20,6@20,7@30,8@30,9@30,0@1000\nKEY_ORDER_STATUS: VALID (0 violations)\nHOLES_PREVENTED: 9\nWATERMARK_PROGRESSION: (1000,10)\nBENCHMARK: SEQ=1090ms PAR=1000ms SPEEDUP=1.09x"
+  },
+  {
+    "desc": "Case 7: Enterprise 8-Worker High-Concurrency Stress Benchmark with Multi-Key Interleaving",
+    "input": "WORKERS 8 MAX_IN_FLIGHT 16\nRECORDS 30\n0 USER_A 120 0\n1 USER_B 40 0\n2 USER_C 80 0\n3 USER_D 30 0\n4 USER_A 60 0\n5 USER_E 150 10\n6 USER_F 50 10\n7 USER_B 90 20\n8 USER_G 70 20\n9 USER_C 40 30\n10 USER_H 110 30\n11 USER_D 80 40\n12 USER_I 45 40\n13 USER_A 35 50\n14 USER_J 95 50\n15 USER_E 65 60\n16 USER_B 40 60\n17 USER_F 75 70\n18 USER_G 55 70\n19 USER_C 85 80\n20 USER_K 130 80\n21 USER_D 50 90\n22 USER_H 60 90\n23 USER_I 70 100\n24 USER_J 40 100\n25 USER_A 90 110\n26 USER_L 100 110\n27 USER_B 50 120\n28 USER_E 80 120\n29 USER_M 60 130\nEND",
+    "expected_output": "EXECUTION_ORDER: 3@30,1@40,6@60,2@80,8@90,12@105,0@120,9@120,11@120,7@130,10@140,5@160,16@170,18@175,4@180,17@180,14@185,19@205,13@215,21@220,15@225,24@225,22@235,23@250,20@270,27@270,29@285,25@305,26@305,28@305\nKEY_ORDER_STATUS: VALID (0 violations)\nHOLES_PREVENTED: 22\nWATERMARK_PROGRESSION: (120,4)->(180,13)->(215,15)->(225,20)->(270,25)->(305,26)->(305,28)->(305,30)\nBENCHMARK: SEQ=2145ms PAR=305ms SPEEDUP=7.03x"
+  }
+]
