@@ -1,0 +1,42 @@
+[
+  {
+    "input": "{\n  \"config\": {\n    \"add_as_learner_first\": false\n  },\n  \"cluster\": {\n    \"initial_voters\": [\n      \"N1\",\n      \"N2\",\n      \"N3\"\n    ],\n    \"commit_index\": 50000,\n    \"node_to_add\": \"N4\",\n    \"concurrent_node_failure\": \"N3\"\n  },\n  \"replication\": {}\n}",
+    "output": "{\n  \"status\": \"FAILED\",\n  \"verdict\": \"PREMATURE_VOTING_MEMBER_QUORUM_COLLAPSE\",\n  \"metrics\": {\n    \"add_as_learner_first\": false,\n    \"final_voters_count\": 4,\n    \"required_quorum\": 3,\n    \"available_responsive_voters\": 2,\n    \"catchup_rounds_completed\": 0,\n    \"final_learner_match_index\": 0,\n    \"quorum_availability_maintained\": false\n  }\n}",
+    "description": "Case 1: Direct addition of cold node shifts quorum from 2 to 3, freezing writes when N3 crashes"
+  },
+  {
+    "input": "{\n  \"config\": {\n    \"add_as_learner_first\": true,\n    \"catchup_threshold_entries\": 100,\n    \"max_catchup_rounds\": 8\n  },\n  \"cluster\": {\n    \"initial_voters\": [\n      \"N1\",\n      \"N2\",\n      \"N3\"\n    ],\n    \"commit_index\": 60000,\n    \"snapshot_applied_index\": 50000,\n    \"node_to_add\": \"N4\"\n  },\n  \"replication\": {\n    \"leader_write_rate_entries_per_sec\": 3500.0,\n    \"learner_ingest_rate_entries_per_sec\": 2800.0\n  }\n}",
+    "output": "{\n  \"status\": \"FAILED\",\n  \"verdict\": \"LEARNER_CATCHUP_STARVATION_LOOP\",\n  \"metrics\": {\n    \"add_as_learner_first\": true,\n    \"final_voters_count\": 3,\n    \"required_quorum\": 2,\n    \"available_responsive_voters\": 3,\n    \"catchup_rounds_completed\": 8,\n    \"final_learner_match_index\": 248411,\n    \"quorum_availability_maintained\": true\n  }\n}",
+    "description": "Case 2: Leader write rate exceeds learner ingest bandwidth, trapping node in an infinite catchup loop"
+  },
+  {
+    "input": "{\n  \"config\": {\n    \"add_as_learner_first\": true,\n    \"catchup_threshold_entries\": 100,\n    \"max_catchup_rounds\": 10\n  },\n  \"cluster\": {\n    \"initial_voters\": [\n      \"N1\",\n      \"N2\",\n      \"N3\"\n    ],\n    \"commit_index\": 50000,\n    \"snapshot_applied_index\": 40000,\n    \"node_to_add\": \"N4\"\n  },\n  \"replication\": {\n    \"leader_write_rate_entries_per_sec\": 500.0,\n    \"learner_ingest_rate_entries_per_sec\": 3000.0,\n    \"learner_network_status\": \"PARTITIONED\"\n  }\n}",
+    "output": "{\n  \"status\": \"FAILED\",\n  \"verdict\": \"LEARNER_UNREACHABLE_TIMEOUT\",\n  \"metrics\": {\n    \"add_as_learner_first\": true,\n    \"final_voters_count\": 3,\n    \"required_quorum\": 2,\n    \"available_responsive_voters\": 3,\n    \"catchup_rounds_completed\": 1,\n    \"final_learner_match_index\": 40000,\n    \"quorum_availability_maintained\": true\n  }\n}",
+    "description": "Case 3: Network partition severs learner connectivity, aborting promotion without affecting active quorum"
+  },
+  {
+    "input": "{\n  \"config\": {\n    \"add_as_learner_first\": true,\n    \"catchup_threshold_entries\": 100,\n    \"max_catchup_rounds\": 10\n  },\n  \"cluster\": {\n    \"initial_voters\": [\n      \"N1\",\n      \"N2\",\n      \"N3\"\n    ],\n    \"commit_index\": 50000,\n    \"snapshot_applied_index\": 45000,\n    \"node_to_add\": \"N4\",\n    \"concurrent_node_failure\": \"N3\"\n  },\n  \"replication\": {\n    \"leader_write_rate_entries_per_sec\": 500.0,\n    \"learner_ingest_rate_entries_per_sec\": 3000.0\n  }\n}",
+    "output": "{\n  \"status\": \"SUCCESS\",\n  \"verdict\": \"OPTIMAL_LEARNER_PROMOTION_DYNAMIC_MEMBERSHIP\",\n  \"metrics\": {\n    \"add_as_learner_first\": true,\n    \"final_voters_count\": 4,\n    \"required_quorum\": 3,\n    \"available_responsive_voters\": 3,\n    \"catchup_rounds_completed\": 3,\n    \"final_learner_match_index\": 50971,\n    \"quorum_availability_maintained\": true\n  }\n}",
+    "description": "Case 4: Learner catches up in 3 rounds and promotes atomically; warm N4 votes so quorum remains satisfied despite N3 failure"
+  },
+  {
+    "input": "{\n  \"config\": {\n    \"add_as_learner_first\": false\n  },\n  \"cluster\": {\n    \"initial_voters\": [\n      \"N1\",\n      \"N2\",\n      \"N3\"\n    ],\n    \"commit_index\": 1000,\n    \"node_to_add\": \"N4\",\n    \"concurrent_node_failure\": null\n  },\n  \"replication\": {}\n}",
+    "output": "{\n  \"status\": \"SUCCESS\",\n  \"verdict\": \"VOTER_ADDED_WITHOUT_LEARNER_RISKY\",\n  \"metrics\": {\n    \"add_as_learner_first\": false,\n    \"final_voters_count\": 4,\n    \"required_quorum\": 3,\n    \"available_responsive_voters\": 3,\n    \"catchup_rounds_completed\": 0,\n    \"final_learner_match_index\": 0,\n    \"quorum_availability_maintained\": true\n  }\n}",
+    "description": "Case 5: Direct addition without learner succeeds in zero-failure test environment with risky verdict"
+  },
+  {
+    "input": "{\n  \"config\": {\n    \"add_as_learner_first\": true,\n    \"catchup_threshold_entries\": 50,\n    \"max_catchup_rounds\": 10\n  },\n  \"cluster\": {\n    \"initial_voters\": [\n      \"N1\",\n      \"N2\",\n      \"N3\",\n      \"N4\",\n      \"N5\"\n    ],\n    \"commit_index\": 100000,\n    \"snapshot_applied_index\": 96000,\n    \"node_to_add\": \"N6\",\n    \"concurrent_node_failure\": null\n  },\n  \"replication\": {\n    \"leader_write_rate_entries_per_sec\": 800.0,\n    \"learner_ingest_rate_entries_per_sec\": 5000.0\n  }\n}",
+    "output": "{\n  \"status\": \"SUCCESS\",\n  \"verdict\": \"OPTIMAL_LEARNER_PROMOTION_DYNAMIC_MEMBERSHIP\",\n  \"metrics\": {\n    \"add_as_learner_first\": true,\n    \"final_voters_count\": 6,\n    \"required_quorum\": 4,\n    \"available_responsive_voters\": 6,\n    \"catchup_rounds_completed\": 3,\n    \"final_learner_match_index\": 100742,\n    \"quorum_availability_maintained\": true\n  }\n}",
+    "description": "Case 6: 5-node Raft cluster scales to 6 nodes via high-speed 5000 entry/s learner replication"
+  },
+  {
+    "input": "{\n  \"config\": {\n    \"add_as_learner_first\": true,\n    \"catchup_threshold_entries\": 100,\n    \"max_catchup_rounds\": 6\n  },\n  \"cluster\": {\n    \"initial_voters\": [\n      \"N1\",\n      \"N2\",\n      \"N3\"\n    ],\n    \"commit_index\": 40000,\n    \"snapshot_applied_index\": 35000,\n    \"node_to_add\": \"N4\"\n  },\n  \"replication\": {\n    \"leader_write_rate_entries_per_sec\": 2500.0,\n    \"learner_ingest_rate_entries_per_sec\": 2500.0\n  }\n}",
+    "output": "{\n  \"status\": \"FAILED\",\n  \"verdict\": \"LEARNER_CATCHUP_STARVATION_LOOP\",\n  \"metrics\": {\n    \"add_as_learner_first\": true,\n    \"final_voters_count\": 3,\n    \"required_quorum\": 2,\n    \"available_responsive_voters\": 3,\n    \"catchup_rounds_completed\": 6,\n    \"final_learner_match_index\": 65000,\n    \"quorum_availability_maintained\": true\n  }\n}",
+    "description": "Case 7: Equal 2500 entries/s write and ingest rates freeze replication gap at 5000, causing timeout"
+  },
+  {
+    "input": "{\n  \"config\": {\n    \"add_as_learner_first\": true,\n    \"catchup_threshold_entries\": 100,\n    \"max_catchup_rounds\": 10\n  },\n  \"cluster\": {\n    \"initial_voters\": [\n      \"N1\",\n      \"N2\",\n      \"N3\",\n      \"N4\",\n      \"N5\",\n      \"N6\",\n      \"N7\"\n    ],\n    \"commit_index\": 200000,\n    \"snapshot_applied_index\": 199500,\n    \"node_to_add\": \"N8\"\n  },\n  \"replication\": {\n    \"leader_write_rate_entries_per_sec\": 200.0,\n    \"learner_ingest_rate_entries_per_sec\": 4000.0\n  }\n}",
+    "output": "{\n  \"status\": \"SUCCESS\",\n  \"verdict\": \"OPTIMAL_LEARNER_PROMOTION_DYNAMIC_MEMBERSHIP\",\n  \"metrics\": {\n    \"add_as_learner_first\": true,\n    \"final_voters_count\": 8,\n    \"required_quorum\": 5,\n    \"available_responsive_voters\": 8,\n    \"catchup_rounds_completed\": 1,\n    \"final_learner_match_index\": 200000,\n    \"quorum_availability_maintained\": true\n  }\n}",
+    "description": "Case 8: 7-node cluster scales to 8 nodes with pre-seeded snapshot, completing catch-up in 1 round"
+  }
+]
