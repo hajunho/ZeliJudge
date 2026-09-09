@@ -51,6 +51,8 @@ problems/
 | **#008** | [끝없는 폴링과 소켓 고갈: Polling vs Event-Driven](problems/008-polling-vs-event-driven/problem.md) | **네트워크 I/O 모델**, Short Polling의 비극, 이벤트 기반 푸시, I/O 다중화(epoll/웹소켓) | 0.1초마다 상태 확인 요청을 날리다가 소켓 FD 고갈로 서버실 폭파된 사건 |
 | **#009** | [캐시의 배신과 메모리 누수: LRU 캐시의 마법](problems/009-lru-cache-memory-leak/problem.md) | **메모리 계층 구조**, 캐시 지역성(Locality), 해시 맵 + 이중 연결 리스트 $O(1)$ LRU 캐시 | 무한 증식 딕셔너리 캐시로 인해 3일 뒤 리눅스 OOM Killer로 프로세스 사살된 사건 |
 | **#010** | [복사했는데 왜 둘 다 바뀌어?: 얕은 복사와 참조의 덫](problems/010-shallow-vs-deep-copy/problem.md) | **메모리 참조(Reference)**, 변수의 본질(포스트잇), 얕은 복사(Shallow) vs 깊은 복사(Deep) | 게임 인벤토리 복사 후 강화 취소했는데 원본까지 같이 깎여버린 버그 |
+| **#011** | [반복문에서 지웠는데 왜 남아?: 기차 좌석과 인덱스 시프트의 저주](problems/011-iterating-mutation-trap/problem.md) | **자료구조와 반복자(Iterator)**, 인덱스 시프트(Index Shift), 불변 리스트 컴프리헨션 vs 필터링 | 채팅 금지어 연속 필터링 루프 돌렸는데 욕설이 절반이나 살아남아 검열 뚫린 참사 |
+
 
 ---
 
