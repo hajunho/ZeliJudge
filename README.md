@@ -168,10 +168,23 @@ problems/
 
 ---
 
+## 🗺️ ZeliJudge 단계별 학습 로드맵 (Learning Tracks)
+
+ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시스템을 다루는 실무 시니어 엔지니어까지 단계별로 성장할 수 있는 4대 맞춤형 트랙을 제공합니다.
+
+| 트랙 | 디렉토리 | 상태 및 규모 | 대상 및 핵심 교육 내용 |
+|:---:|:---:|:---:|---|
+| 🎒 **초등부 트랙 (Junior)** | `problems-elementary/` | **130문제 완비** ✅ | 초등학생 & 코딩 입문: 사칙연산, 조건/반복문, 리스트/문자열, 기초 스택/큐, 2D 격자, 기본 수학 |
+| 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **준비 완료** 🚀 | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 기초 그리디 |
+| 🎓 **고등부 트랙 (High)** | `problems-high/` | 예정 🔜 | 고등학생 & KOI/대회: 다이나믹 프로그래밍(DP), 이진 탐색, 그래프(DFS/BFS), 트리 순회, 백트래킹 |
+| 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 110+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/락, Kafka, 캐시 스탬피드, ReDoS, 고가용성 아키텍처 |
+
+---
+
 ## 🎒 ZeliJudge Junior: 초등학생 & 코딩 입문자를 위한 기초 트랙 (`problems-elementary/`)
 
 > *"기존 `problems/` 폴더의 실무 분산 시스템·동시성·OS 문제가 너무 어렵게 느껴지셨나요?"*  
-> 코딩을 처음 시작하는 초등학생과 입문자를 위해, 일상 속 친근한 이야기와 핵심 컴퓨팅 사고력(Computational Thinking)을 배우는 **초등 전용 문제 트랙**을 제공합니다!
+> 코딩을 처음 시작하는 초등학생과 입문자를 위해, 일상 속 친근한 이야기와 핵심 컴퓨팅 사고력(Computational Thinking)을 배우는 **초등 전용 문제 트랙(총 130문제)**을 제공합니다!
 
 모든 문제는 동일한 표준 구조(`problem.md`, `theory.md`, `testcases.json`, `solution.py`)를 따르며, 눈높이에 맞춘 쉽고 흥미진진한 컴퓨터 원리를 함께 담고 있습니다.
 
@@ -327,13 +340,19 @@ problems/
 저장소를 클론한 후, 터미널에서 바로 문제를 채점할 수 있습니다:
 
 ```bash
-# 기본 문제 전체 채점
-python tools/test_runner.py
+# 기본 실무 트랙(problems) 전체 채점
+python tools/test_runner.py main
 
-# 초등학생용 주니어 트랙(problems-elementary) 전체 채점
+# 초등학생용 주니어 트랙(problems-elementary) 전체 채점 (130문제)
 python tools/test_runner.py elementary
 
-# 특정 문제만 채점 (예: #001, #002, candy 등)
+# 중학생용 트랙(problems-middle) 전체 채점
+python tools/test_runner.py middle
+
+# 고등학생용 트랙(problems-high) 전체 채점
+python tools/test_runner.py high
+
+# 특정 문제만 채점 (예: #001, #002, candy, binary 등)
 python tools/test_runner.py 001
 ```
 
