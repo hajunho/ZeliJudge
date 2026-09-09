@@ -1,0 +1,34 @@
+[
+  {
+    "input": "{\"config\": {\"deep_scrub_enabled\": true, \"scrub_time_window_enabled\": true, \"current_cluster_hour\": 2, \"scrub_sleep_sec\": 0.1, \"io_priority_class\": \"IDLE\", \"disk_max_bandwidth_mb\": 250.0, \"client_sla_latency_ms\": 50.0}, \"cluster_state\": {\"total_objects_scanned\": 100000, \"object_size_kb\": 4096, \"client_traffic_load\": \"OFF_PEAK\", \"primary_replica_crc_mismatches\": 2, \"secondary_healthy_replicas\": 2}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"OPTIMAL_THROTTLED_DEEP_SCRUB_AUTO_REPAIRED\", \"metrics\": {\"corrupted_objects_detected\": 2, \"objects_repaired\": 2, \"scrub_disk_bandwidth_mb\": 50.0, \"client_p99_latency_ms\": 11.0, \"sla_violated\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"deep_scrub_enabled\": false, \"scrub_time_window_enabled\": true, \"current_cluster_hour\": 2, \"scrub_sleep_sec\": 0.1, \"io_priority_class\": \"IDLE\", \"disk_max_bandwidth_mb\": 250.0, \"client_sla_latency_ms\": 50.0}, \"cluster_state\": {\"total_objects_scanned\": 100000, \"object_size_kb\": 4096, \"client_traffic_load\": \"OFF_PEAK\", \"primary_replica_crc_mismatches\": 2, \"secondary_healthy_replicas\": 2}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"SILENT_BIT_ROT_UNDETECTED_DATA_CORRUPTION\", \"metrics\": {\"corrupted_objects_detected\": 0, \"objects_repaired\": 0, \"scrub_disk_bandwidth_mb\": 0.0, \"client_p99_latency_ms\": 12.0, \"sla_violated\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"deep_scrub_enabled\": false, \"scrub_time_window_enabled\": true, \"current_cluster_hour\": 2, \"scrub_sleep_sec\": 0.1, \"io_priority_class\": \"IDLE\", \"disk_max_bandwidth_mb\": 250.0, \"client_sla_latency_ms\": 50.0}, \"cluster_state\": {\"total_objects_scanned\": 100000, \"object_size_kb\": 4096, \"client_traffic_load\": \"OFF_PEAK\", \"primary_replica_crc_mismatches\": 0, \"secondary_healthy_replicas\": 2}}",
+    "output": "{\"status\": \"WARNING\", \"verdict\": \"DEEP_SCRUB_DISABLED_AUDIT_RISK\", \"metrics\": {\"corrupted_objects_detected\": 0, \"objects_repaired\": 0, \"scrub_disk_bandwidth_mb\": 0.0, \"client_p99_latency_ms\": 12.0, \"sla_violated\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"deep_scrub_enabled\": true, \"scrub_time_window_enabled\": false, \"current_cluster_hour\": 14, \"scrub_sleep_sec\": 0.0, \"io_priority_class\": \"REALTIME\", \"disk_max_bandwidth_mb\": 250.0, \"client_sla_latency_ms\": 50.0}, \"cluster_state\": {\"total_objects_scanned\": 100000, \"object_size_kb\": 4096, \"client_traffic_load\": \"PEAK\", \"primary_replica_crc_mismatches\": 1, \"secondary_healthy_replicas\": 2}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"SCRUBBING_IO_PEAK_SATURATION_SLA_VIOLATION\", \"metrics\": {\"corrupted_objects_detected\": 1, \"objects_repaired\": 1, \"scrub_disk_bandwidth_mb\": 212.5, \"client_p99_latency_ms\": 137.0, \"sla_violated\": true}}"
+  },
+  {
+    "input": "{\"config\": {\"deep_scrub_enabled\": true, \"scrub_time_window_enabled\": false, \"current_cluster_hour\": 14, \"scrub_sleep_sec\": 0.08, \"io_priority_class\": \"BEST_EFFORT\", \"disk_max_bandwidth_mb\": 250.0, \"client_sla_latency_ms\": 150.0}, \"cluster_state\": {\"total_objects_scanned\": 100000, \"object_size_kb\": 4096, \"client_traffic_load\": \"PEAK\", \"primary_replica_crc_mismatches\": 0, \"secondary_healthy_replicas\": 2}}",
+    "output": "{\"status\": \"WARNING\", \"verdict\": \"SCRUBBING_IO_BURST_CLIENT_LATENCY_DEGRADATION\", \"metrics\": {\"corrupted_objects_detected\": 0, \"objects_repaired\": 0, \"scrub_disk_bandwidth_mb\": 125.0, \"client_p99_latency_ms\": 95.0, \"sla_violated\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"deep_scrub_enabled\": true, \"scrub_time_window_enabled\": true, \"current_cluster_hour\": 3, \"scrub_sleep_sec\": 0.1, \"io_priority_class\": \"IDLE\", \"disk_max_bandwidth_mb\": 250.0, \"client_sla_latency_ms\": 50.0}, \"cluster_state\": {\"total_objects_scanned\": 100000, \"object_size_kb\": 4096, \"client_traffic_load\": \"OFF_PEAK\", \"primary_replica_crc_mismatches\": 3, \"secondary_healthy_replicas\": 0}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"BIT_ROT_DETECTED_PERMANENT_DATA_LOSS\", \"metrics\": {\"corrupted_objects_detected\": 3, \"objects_repaired\": 0, \"scrub_disk_bandwidth_mb\": 50.0, \"client_p99_latency_ms\": 11.0, \"sla_violated\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"deep_scrub_enabled\": true, \"scrub_time_window_enabled\": true, \"current_cluster_hour\": 4, \"scrub_sleep_sec\": 0.1, \"io_priority_class\": \"IDLE\", \"disk_max_bandwidth_mb\": 250.0, \"client_sla_latency_ms\": 50.0}, \"cluster_state\": {\"total_objects_scanned\": 100000, \"object_size_kb\": 4096, \"client_traffic_load\": \"OFF_PEAK\", \"primary_replica_crc_mismatches\": 0, \"secondary_healthy_replicas\": 2}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"OPTIMAL_THROTTLED_DEEP_SCRUB_CLEAN\", \"metrics\": {\"corrupted_objects_detected\": 0, \"objects_repaired\": 0, \"scrub_disk_bandwidth_mb\": 50.0, \"client_p99_latency_ms\": 11.0, \"sla_violated\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"deep_scrub_enabled\": true, \"scrub_time_window_enabled\": true, \"current_cluster_hour\": 1, \"scrub_sleep_sec\": 0.1, \"io_priority_class\": \"IDLE\", \"disk_max_bandwidth_mb\": 250.0, \"client_sla_latency_ms\": 50.0}, \"cluster_state\": {\"total_objects_scanned\": 200000, \"object_size_kb\": 4096, \"client_traffic_load\": \"OFF_PEAK\", \"primary_replica_crc_mismatches\": 5, \"secondary_healthy_replicas\": 3}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"OPTIMAL_THROTTLED_DEEP_SCRUB_AUTO_REPAIRED\", \"metrics\": {\"corrupted_objects_detected\": 5, \"objects_repaired\": 5, \"scrub_disk_bandwidth_mb\": 50.0, \"client_p99_latency_ms\": 11.0, \"sla_violated\": false}}"
+  }
+]
