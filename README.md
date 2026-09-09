@@ -183,6 +183,7 @@ problems/
 | **#140** | [DB 쿼리 1개가 지연됐을 뿐인데 왜 전사 카프카 컨슈머가 올스톱되고 메시지가 무한 복제돼요?!: 카프카 컨슈머 리밸런스 폭풍(Kafka Consumer Rebalance Storm)과 max.poll.interval.ms & 협력적 스티키 리밸런싱 (Kafka Consumer Rebalance Storm & max.poll.interval.ms)](problems/140-kafka-consumer-rebalance-storm/problem.md) | **메시징 큐/분산 이벤트 스트리밍/Kafka 아키텍처**, KIP-62 하트비트 스레드 vs Poll 스레드 분리, max.poll.interval.ms 5분 초과 시 비정상 스레드로 판정 후 강제 퇴출(Kick Out) 및 리밸런싱 발동, Eager 리밸런싱의 Stop-The-World 전사 마비 참사, 오프셋 미커밋 상태 재할당으로 인한 메시지 무한 중복 결제 폭탄, max.poll.records 배치 축소와 백그라운드 워커 스레드 풀 오프로딩, CooperativeStickyAssignor 무중단 점진적 리밸런싱 구원 | 슬로우 쿼리 1건으로 5분 경과하자 카프카 브로커가 컨슈머를 강제 퇴출시켜 전사 컨슈머 멈추고 500건 중복 결제 터진 참사와 협력적 스티키 리밸런싱 구원 원리 |
 | **#141** | [왜 없는 데이터를 조회/수정했을 뿐인데 트랜잭션이 데드락으로 폭사해요?!: MySQL InnoDB 갭 락(Gap Lock) / 넥스트 키 락(Next-Key Lock) 경합과 데드락 (MySQL InnoDB Gap Lock & Deadlock)](problems/141-mysql-innodb-gap-lock-deadlock/problem.md) | **데이터베이스 엔지니어링/동시성 제어/InnoDB 아키텍처**, 팬텀 리드 방지와 Next-Key Lock(Record Lock + Gap Lock), 순수 억제(Purely Inhibitive) 갭 락의 상호 호환 함정, Insert Intention Lock과의 충돌, 상호 교착(Deadlock Cycle)과 데드락 감지기(Wait-For Graph), Read Committed 완화 및 분산 락/원자적 Upsert 방어 | 쿠폰 선착순 발급 시 없는 코드 조회 후 생성하려다 Gap Lock 상호 획득 및 Insert Intention 대기로 DB 데드락 폭사한 참사와 방어 원리 |
 | **#142** | [리프레시 토큰이 털렸는데 왜 새 토큰을 계속 재발급해줘요?!: JWT Refresh Token Rotation (RTR)과 토큰 패밀리 무효화 (JWT Refresh Token Rotation & Token Family Revocation)](problems/142-jwt-refresh-token-rotation-rtr/problem.md) | **인증/보안 아키텍처/OAuth 2.0 BCP**, 무상태(Stateless) JWT의 즉시 회수 불능 한계, 1회용 리프레시 토큰 회전(RTR), 토큰 패밀리(Token Family) 체인 추적, 소진된 구형 RT 재사용 탐지 시 탈취(Breach) 자동 감지, 패밀리 전체 일괄 무효화(Family Revocation) 및 Redis 블랙리스트 방어 | XSS로 탈취된 리프레시 토큰으로 해커가 14일간 무제한 재발급받던 참사와 구형 토큰 재유입 시 패밀리 전체를 즉각 사살하는 RTR 방어 원리 |
+| **#143** | [인덱스를 탔는데 왜 풀 테이블 스캔보다 10배 느려요?!: 커버링 인덱스(Covering Index) vs 북마크 룩업(Bookmark Lookup)과 옵티마이저 손익분기점 (Covering Index vs Bookmark Lookup & Optimizer Tipping Point)](problems/143-covering-index-vs-bookmark-lookup/problem.md) | **데이터베이스 엔지니어링/SQL 튜닝/옵티마이저 CBO 비용 모델**, 클러스터드 vs 세컨더리 인덱스, 세컨더리 인덱스 스캔 후 PK 기반 북마크 룩업(Bookmark Lookup / Table Access), 순차 I/O(FTS Multi-Block Read) vs 랜덤 I/O(Random Page Fetch) 4~10배 비용 격차, 클러스터링 팩터(Clustering Factor)와 Yao's Formula, 손익분기점(Tipping Point 5~20%) 초과 시 인덱스 역전 참사, 커버링 인덱스(Zero Lookup) 최적화 | 인덱스 달았더니 5,000번 무작위 디스크 접근으로 15배 느려져 DB CPU 100% 폭사한 참사와 옵티마이저 비용 공식 및 커버링 인덱스 구원 원리 |
 
 ---
 
@@ -195,7 +196,7 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | 🎒 **초등부 트랙 (Junior)** | `problems-elementary/` | **130문제 완결** ✅ | 초등학생 & 코딩 입문: 사칙연산, 조건/반복문, 리스트/문자열, 기초 스택/큐, 2D 격자, 기본 수학 |
 | 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **130문제 완결** ✅ | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 고급 정수론/기하/DP |
 | 🎓 **고등부 트랙 (High)** | `problems-high/` | **130문제 완결** ✅ | 고등학생 & KOI/대회: 보로노이/들로네, 메르텐스 두 체, 세그트리 비츠, 지배자 트리, 팰린드롬 트리, SMAWK, 매트로이드 교집합, 가우스 정수, 푸시-리레이블, 최종 그랜드 캡스톤 |
-| 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 142+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/락, InnoDB 갭 락, JWT RTR, Kafka 리밸런스, 캐시 관통, 고가용성 아키텍처 |
+| 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 143+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/락, DB 인덱스 손익분기점, 커버링 인덱스, JWT RTR, Kafka 리밸런스, 고가용성 아키텍처 |
 
 ---
 
