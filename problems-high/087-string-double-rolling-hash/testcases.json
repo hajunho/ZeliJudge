@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "input": "abacaba\n4\n1 3 5 7\n1 4 4 7\n2 2 6 6\n1 7 1 7\n",
+    "expected_output": "YES\nNO\nYES\nYES"
+  },
+  {
+    "id": 2,
+    "input": "aaaaa\n2\n1 2 3 4\n1 3 2 5\n",
+    "expected_output": "YES\nNO"
+  },
+  {
+    "id": 3,
+    "input": "z\n1\n1 1 1 1\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 4,
+    "input": "abcdef\n3\n1 2 2 3\n1 3 4 6\n3 4 3 4\n",
+    "expected_output": "NO\nNO\nYES"
+  },
+  {
+    "id": 5,
+    "input": "abcdeabcde\n3\n1 5 6 10\n1 4 6 9\n2 5 7 10\n",
+    "expected_output": "YES\nYES\nYES"
+  },
+  {
+    "id": 6,
+    "input": "banana\n4\n2 3 4 5\n1 3 4 6\n2 4 4 6\n6 6 1 1\n",
+    "expected_output": "YES\nNO\nYES\nNO"
+  },
+  {
+    "id": 7,
+    "input": "mississippi\n3\n2 5 5 8\n2 4 8 10\n1 4 8 11\n",
+    "expected_output": "YES\nNO\nNO"
+  },
+  {
+    "id": 8,
+    "input": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n3\n1 10 20 29\n5 50 15 60\n1 50 1 51\n",
+    "expected_output": "YES\nYES\nNO"
+  },
+  {
+    "id": 9,
+    "input": "aaabbbababbabaabaababbbbbababbababbabbaaaabbabbaba\n5\n13 25 10 27\n8 30 8 34\n12 24 11 24\n4 21 9 25\n12 24 8 29\n",
+    "expected_output": "NO\nNO\nNO\nNO\nNO"
+  },
+  {
+    "id": 10,
+    "input": "dhhafefgdhdhghafhbbddcggbhhggebcghdbhegdcfdaghgbeachebdghbedghghhbghfcedhfeeahaegebaaecbdhgfdggfabgddbfcahbahdacaachbghfbacaadcbaahhaddbhfhdceghdghbaaabdgebbcfhgdcagahedbabcffbhedhaffhddegdghfadehhgbc\n10\n36 93 18 78\n49 99 5 96\n40 92 39 53\n23 72 33 71\n27 77 18 84\n42 68 8 96\n21 100 17 97\n24 58 7 84\n42 95 40 70\n7 78 9 85\n",
+    "expected_output": "NO\nNO\nNO\nNO\nNO\nNO\nNO\nNO\nNO\nNO"
+  }
+]
