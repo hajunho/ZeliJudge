@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "input": "10 1\n",
+    "expected_output": "55"
+  },
+  {
+    "id": 2,
+    "input": "5 2\n",
+    "expected_output": "55"
+  },
+  {
+    "id": 3,
+    "input": "1000000000 3\n",
+    "expected_output": "441"
+  },
+  {
+    "id": 4,
+    "input": "1 5\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 5,
+    "input": "1 100\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 6,
+    "input": "1000000000000000000 1\n",
+    "expected_output": "1225"
+  },
+  {
+    "id": 7,
+    "input": "10 4\n",
+    "expected_output": "25333"
+  },
+  {
+    "id": 8,
+    "input": "100 10\n",
+    "expected_output": "772974252"
+  },
+  {
+    "id": 9,
+    "input": "123456789012345678 50\n",
+    "expected_output": "25949051"
+  },
+  {
+    "id": 10,
+    "input": "1000000000000000000 1000\n",
+    "expected_output": "486176152"
+  }
+]

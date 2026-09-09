@@ -173,6 +173,7 @@ problems/
 | **#130** | [keepalive 32를 줬는데 왜 백엔드 소켓이 10만 개까지 치솟고 로컬 포트가 말라죽어요?!: Nginx 리버스 프록시 Upstream Keepalive 커넥션 풀과 HTTP/1.0 Close 트랩 (Nginx Upstream Keepalive Pool & HTTP/1.0 Close Trap)](problems/130-nginx-upstream-keepalive-pool/problem.md) | **컴퓨터 네트워크/리버스 프록시/시스템 엔지니어링**, Nginx 기본 HTTP/1.0 프록시 사양 및 Connection: close 강제 헤더 트랩, upstream keepalive 32의 유휴 풀 보관 조건, proxy_http_version 1.1 및 proxy_set_header Connection "" 필수 설정, 2MSL TIME_WAIT 소켓 누적과 에페머럴 포트 고갈(EADDRNOTAVAIL 99) | upstream에 keepalive 걸었는데 5분 만에 TIME_WAIT 소켓 28,000개 쌓여 포트 고갈로 502 폭사한 참사와 2줄 필수 헤더 구원 원리 |
 | **#131** | [크롬 업데이트 이후 왜 결제 승인/로그인만 하면 세션이 풀려요?!: 브라우저 쿠키 보안 3대 플래그(SameSite: Strict/Lax/None, HttpOnly, Secure)와 CSRF 방어 & 3rd-Party Callback 참사 (Browser Cookie SameSite & CSRF Defense)](problems/131-browser-cookie-samesite-csrf/problem.md) | **웹 보안/브라우저 아키텍처/쿠키 세션 엔지니어링**, 2020년 2월 Chrome 80 사태, SameSite 기본값 변경(None -> Lax), SameSite=None의 Secure 필수 제약, Site vs Origin (eTLD+1), Top-level GET vs Cross-Site POST 차단, 3rd-Party PG 결제/OAuth 콜백 세션 유실 참사, HttpOnly XSS 탈취 방어 | 크롬 80 배포 당일 PG 결제창에서 돌아오면 세션 쿠키 차단으로 전사 결제 마비된 참사와 SameSite 3총사 및 안전한 콜백 아키텍처 |
 | **#132** | [gRPC로 바꿨는데 왜 로드밸런서가 트래픽을 서버 1대에만 몰아줘요?!: HTTP/2 단일 TCP 스트림 다중화와 L4 vs L7 로드밸런서의 비극 & gRPC 클라이언트 사이드 부하 분산 (HTTP/2 Multiplexing & L4 vs L7 gRPC Load Balancing)](problems/132-grpc-http2-l4-vs-l7-load-balancing/problem.md) | **마이크로서비스/네트워크 계층/gRPC 아키텍처**, HTTP/2 단일 장기 지속 TCP 연결 다중화(Multiplexing), L4 로드밸런서의 SYN 시점 커넥션 핀닝(Connection Pinning) 참사, L7 Envoy/ALB 스트림 라운드로빈 및 최소 활성 연결(Least Concurrent), gRPC 클라이언트 사이드 서브채널 분산, max_connection_age_ms와 GOAWAY 우아한 재연결 | gRPC로 전환했더니 L4 로드밸런서가 단일 TCP 연결을 파드 1대에만 핀닝하여 1대만 CPU 100% 폭사하고 나머지는 노는 참사와 L7 및 클라이언트 사이드 구원 원리 |
+| **#133** | [로그 1줄 찍었을 뿐인데 왜 TPS가 10분의 1로 곤두박질치고 서버가 멈춰요?!: 동기식 로거(Sync Logger)의 디스크 I/O 블로킹과 비동기 LMAX 디스럽터 링 버퍼(Log4j2 Async Disruptor Ring Buffer) & 레벨별 폐기 정책 (Log4j2 Async Disruptor Ring Buffer & Logging I/O Bottleneck)](problems/133-log4j2-async-disruptor-ring-buffer/problem.md) | **운영체제 I/O/고성능 동시성/로깅 아키텍처**, 동기식 로거의 Appender 락 경합 및 디스크 write() 블로킹 참사, 톰캣 스레드 풀 고갈(Thread Starvation), LMAX Disruptor 락 프리 원형 링 버퍼(Circular Ring Buffer), 비트 연산 $O(1)$ 시퀀싱, 사전 메모리 할당(Zero GC), 백그라운드 일괄 배치 플러시, 버퍼 포화 시 백프레셔 3대 정책(BLOCK vs DISCARD_LOW_PRIORITY vs SYNCHRONOUS_FALLBACK) | log.info() 한 줄 추가했다가 디스크 I/O 지연으로 톰캣 워커 스레드 200개 전멸하고 504 폭사한 참사와 Log4j2 LMAX 디스럽터 0ms 비동기 구원 원리 |
 
 
 
@@ -188,7 +189,7 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 |:---:|:---:|:---:|---|
 | 🎒 **초등부 트랙 (Junior)** | `problems-elementary/` | **130문제 완결** ✅ | 초등학생 & 코딩 입문: 사칙연산, 조건/반복문, 리스트/문자열, 기초 스택/큐, 2D 격자, 기본 수학 |
 | 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **130문제 완결** ✅ | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 고급 정수론/기하/DP |
-| 🎓 **고등부 트랙 (High)** | `problems-high/` | **60문제 (진행 중)** 🚀 | 고등학생 & KOI/대회: 센트로이드 분할, 지속성 세그트리(PST), BCC, 반평면 교집합, 매내처, 밀러-라빈, 폴라드-로, 에일리언 트릭, 최소포괄원, 깨진 프로파일 DP |
+| 🎓 **고등부 트랙 (High)** | `problems-high/` | **70문제 (진행 중)** 🚀 | 고등학생 & KOI/대회: 헝가리안, 링크-컷 트리(LCT), Z-알고리즘, 베릴레캄프-매시, 키타마사, 번사이드, 1D/1D DP, 최근접 점 쌍, 파울하버, 오일러 경로 테크닉 |
 | 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 110+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/락, Kafka, 캐시 스탬피드, ReDoS, 고가용성 아키텍처 |
 
 ---
@@ -550,6 +551,16 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | **#058** | [제약 조건을 패널티로 풀어라! 에일리언 트릭 (Aliens Trick WQS Binary Search)](problems-high/058-dp-aliens-trick-wqs-binary-search/problem.md) | 동적 계획법(DP), 에일리언 트릭(Aliens Trick), WQS 이진 탐색, 볼록성(Convexity), $O(N \log C)$ | 선택 횟수 제약 $K$를 라그랑주 승수 패널티 $C$로 변환하여 제약 없는 1D DP를 이진 탐색으로 최적화 |
 | **#059** | [모든 점을 품는 가장 작은 원! 웰즐의 최소 포괄원 (Welzl's Minimum Enclosing Circle)](problems-high/059-geometry-minimum-enclosing-circle/problem.md) | 기하학, 최소 포괄원(MEC), Welzl 무작위 분할 정복, 기대 선형 시간 $O(N)$ | 무작위 점 추가와 경계점 3개 기저 집합 재귀 탐색을 통해 2차원 점들을 포함하는 최소 반지름 원 중심 도출 |
 | **#060** | [깨진 타일의 틈을 메워라! 깨진 프로파일 DP (Broken Profile DP Contour Grid)](problems-high/060-dp-bitmask-broken-profile/problem.md) | 동적 계획법(DP), 깨진 프로파일(Broken Profile DP), 윤곽선 비트마스크, 타일링, $O(NM 2^M)$ | 격자의 칸을 하나씩 진행하며 경계선(윤곽선)의 $M$비트 점유 상태만을 관리하여 도미노 타일링 경우의 수 산출 |
+| **#061** | [최적의 일대일 매칭을 찾아라! 헝가리안 알고리즘 (Hungarian Algorithm)](problems-high/061-hungarian-bipartite-matching/problem.md) | 이분 매칭, 헝가리안 알고리즘(Hungarian Algorithm), 쿤-멍크레스, 가중치 완전 매칭, $O(V^3)$ | 가중치 이분 그래프에서 모든 정점을 1:1로 매칭할 때 총비용을 최소화하는 헝가리안 알고리즘 구현 |
+| **#062** | [트리를 자르고 붙이며 경로를 질의하라! 링크-컷 트리 (Link-Cut Tree)](problems-high/062-link-cut-tree-dynamic-connectivity/problem.md) | 자료구조, 링크-컷 트리(Link-Cut Tree), Splay Tree, 동적 트리, $O(\log N)$ | 동적으로 간선이 연결(link)되고 끊어지는(cut) 포레스트에서 두 정점 간 경로의 가중치 최댓값 로그 시간 질의 |
+| **#063** | [접두사와의 일치 길이를 선형 시간에! Z-알고리즘 (Z-Algorithm)](problems-high/063-string-z-algorithm/problem.md) | 문자열, Z-알고리즘(Z-Algorithm), 최장 공통 접두사(LCP), 선형 패턴 매칭, $O(N)$ | 문자열의 모든 접미사에 대해 원본 문자열의 접두사와 일치하는 최장 공통 접두사(LCP) 길이를 선형 시간 $O(N)$에 계산 |
+| **#064** | [수열의 비밀을 푸는 최소 다항식! 베릴레캄프-매시 (Berlekamp-Massey)](problems-high/064-berlekamp-massey-linear-recurrence/problem.md) | 수학, 정수론, 베릴레캄프-매시(Berlekamp-Massey), 선형 점화식(Linear Recurrence), $O(N^2)$ | 수열의 초기 항들이 주어졌을 때 모듈러 소수 하에서 수열을 생성하는 최단 선형 점화식을 $O(N^2)$에 복원 |
+| **#065** | [선형 점화식의 10^18번째 항을 빠르게! 키타마사법 (Kitamasa Method)](problems-high/065-math-kitamasa-method/problem.md) | 수학, 키타마사법(Kitamasa Method), 다항식 모듈러 거듭제곱, 동적 계획법 최적화, $O(K^2 \log N)$ | 행렬 거듭제곱 $O(K^3 \log N)$보다 빠른 다항식 나눗셈 기반 $O(K^2 \log N)$ 키타마사법으로 거대한 $N$번째 항 계산 |
+| **#066** | [회전하고 뒤집어도 같은 목걸이! 번사이드 보조정리 (Burnside's Lemma)](problems-high/066-math-burnsides-lemma-necklace/problem.md) | 수학, 조합론, 군론, 번사이드 보조정리(Burnside's Lemma), 폴리아 열거 정리, $O(T \log N)$ | 원형 목걸이의 회전 및 반사 대칭군(이원군 $D_N$) 하에서 서로 다른 채색 경우의 수를 번사이드 보조정리로 계산 |
+| **#067** | [사각부등식으로 문단을 아름답게! 1D/1D DP 최적화 (1D/1D Optimization)](problems-high/067-dp-1d1d-optimization-monge/problem.md) | 동적 계획법(DP), 1D/1D 최적화(1D/1D DP Optimization), 몽주 성질(Monge Property), 덱 이진 탐색, $O(N \log N)$ | 사각부등식을 만족하는 1D/1D 점화식에서 최적 전이점의 단조성을 이용하여 덱과 이진 탐색으로 $O(N^2)$을 $O(N \log N)$으로 단축 |
+| **#068** | [평면 위 가장 가까운 두 별! 최근접 점의 쌍 (Closest Pair of Points)](problems-high/068-geometry-closest-pair-of-points/problem.md) | 기하학, 최근접 점의 쌍(Closest Pair), 분할 정복(Divide and Conquer), 라인 스위핑, $O(N \log N)$ | 2차원 평면 위 $N$개의 점 중에서 유클리드 거리가 가장 가까운 두 점 사이의 거리의 제곱을 $O(N \log N)$에 산출 |
+| **#069** | [자연수 거듭제곱의 합을 단숨에! 베르누이 수와 파울하버 공식](problems-high/069-math-bernoulli-numbers-faulhaber/problem.md) | 수학, 정수론, 조합론, 베르누이 수(Bernoulli Numbers), 파울하버 공식, $O(K^2)$ | 베르누이 수와 파울하버(Faulhaber) 공식을 이용해 자연수 거듭제곱 합을 거대한 $N$에 대해 $O(k^2)$에 계산 |
+| **#070** | [트리를 일직선으로 펴서 구간 쿼리로! 오일러 경로 테크닉 (Euler Tour Technique)](problems-high/070-tree-euler-tour-technique/problem.md) | 트리, 오일러 경로 테크닉(Euler Tour Technique), 세그먼트 트리, 서브트리 구간 쿼리, $O(\log N)$ | DFS 진입/탈출 시점을 기록하여 트리의 서브트리를 1차원 연속 구간으로 사상하고 Lazy 세그먼트 트리로 갱신 및 합 질의 |
 
 ---
 
