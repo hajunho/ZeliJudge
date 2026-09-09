@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "N = 3 -> 호출 3회, 합 6",
+    "input": "3\n",
+    "expected_output": "3\n6"
+  },
+  {
+    "id": 2,
+    "description": "N = 1 -> 기저 조건 즉시 반환: 호출 1회, 합 1",
+    "input": "1\n",
+    "expected_output": "1\n1"
+  },
+  {
+    "id": 3,
+    "description": "N = 2 -> 호출 2회, 합 3",
+    "input": "2\n",
+    "expected_output": "2\n3"
+  },
+  {
+    "id": 4,
+    "description": "N = 4 -> 호출 4회, 합 10",
+    "input": "4\n",
+    "expected_output": "4\n10"
+  },
+  {
+    "id": 5,
+    "description": "N = 5 -> 호출 5회, 합 15",
+    "input": "5\n",
+    "expected_output": "5\n15"
+  },
+  {
+    "id": 6,
+    "description": "N = 10 -> 호출 10회, 합 55",
+    "input": "10\n",
+    "expected_output": "10\n55"
+  },
+  {
+    "id": 7,
+    "description": "N = 20 -> 호출 20회, 합 210",
+    "input": "20\n",
+    "expected_output": "20\n210"
+  },
+  {
+    "id": 8,
+    "description": "N = 50 -> 호출 50회, 합 1275",
+    "input": "50\n",
+    "expected_output": "50\n1275"
+  },
+  {
+    "id": 9,
+    "description": "N = 100 -> 호출 100회, 합 5050",
+    "input": "100\n",
+    "expected_output": "100\n5050"
+  },
+  {
+    "id": 10,
+    "description": "N = 7 -> 호출 7회, 합 28",
+    "input": "7\n",
+    "expected_output": "7\n28"
+  }
+]

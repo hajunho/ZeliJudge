@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: [1, 2, 3, 4, 2, 5, 3, 1, 1, 2], S=5 -> 3구간 ([2,3], [1,4], [5])",
+    "input": "10 5\n1 2 3 4 2 5 3 1 1 2\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 2,
+    "description": "단일 원소 일치: [5], S=5 -> 1",
+    "input": "1 5\n5\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 3,
+    "description": "만들 수 없는 합: [1, 2, 3], S=10 -> 0",
+    "input": "3 10\n1 2 3\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 4,
+    "description": "전체 합이 S인 경우: [1, 2, 3], S=6 -> 1",
+    "input": "3 6\n1 2 3\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 5,
+    "description": "모든 원소가 1인 수열: [1, 1, 1, 1, 1], S=2 -> 4구간",
+    "input": "5 2\n1 1 1 1 1\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 6,
+    "description": "원소 하나하나가 S인 경우",
+    "input": "4 3\n3 3 3 3\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 7,
+    "description": "긴 수열에서 중간 구간: [3,4], [4,2,1], [2,1,4] -> 3",
+    "input": "6 7\n1 3 4 2 1 4\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 8,
+    "description": "큰 수열: [2,3,5], [7,3], [3,2,5], [5,5] -> 4",
+    "input": "8 10\n2 3 5 7 3 2 5 5\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 9,
+    "description": "끝 부분에만 정답 존재",
+    "input": "5 15\n1 2 3 7 8\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 10,
+    "description": "인접 2원소 합",
+    "input": "6 6\n2 4 1 5 3 3\n",
+    "expected_output": "3"
+  }
+]

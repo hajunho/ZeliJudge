@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "모든 원소가 같은 2x2: 모든 각도 대칭 -> YES YES YES",
+    "input": "2\n1 1\n1 1\n",
+    "expected_output": "YES YES YES"
+  },
+  {
+    "id": 2,
+    "description": "1x1 행렬: 무조건 모든 각도 대칭 -> YES YES YES",
+    "input": "1\n5\n",
+    "expected_output": "YES YES YES"
+  },
+  {
+    "id": 3,
+    "description": "180도만 대칭인 2x2: 1 2 / 2 1 -> NO YES NO",
+    "input": "2\n1 2\n2 1\n",
+    "expected_output": "NO YES NO"
+  },
+  {
+    "id": 4,
+    "description": "대칭이 전혀 없는 2x2: 1 2 / 3 4 -> NO NO NO",
+    "input": "2\n1 2\n3 4\n",
+    "expected_output": "NO NO NO"
+  },
+  {
+    "id": 5,
+    "description": "3x3 십자가 패턴 (모든 각도 대칭)",
+    "input": "3\n0 1 0\n1 1 1\n0 1 0\n",
+    "expected_output": "YES YES YES"
+  },
+  {
+    "id": 6,
+    "description": "3x3 점대칭 (180도만 대칭)",
+    "input": "3\n1 2 3\n4 5 4\n3 2 1\n",
+    "expected_output": "NO YES NO"
+  },
+  {
+    "id": 7,
+    "description": "3x3 비대칭",
+    "input": "3\n1 2 3\n4 5 6\n7 8 9\n",
+    "expected_output": "NO NO NO"
+  },
+  {
+    "id": 8,
+    "description": "4x4 동심원 사각형 (모든 각도 대칭)",
+    "input": "4\n1 1 1 1\n1 2 2 1\n1 2 2 1\n1 1 1 1\n",
+    "expected_output": "YES YES YES"
+  },
+  {
+    "id": 9,
+    "description": "4x4 180도 점대칭",
+    "input": "4\n1 2 3 4\n5 6 7 8\n8 7 6 5\n4 3 2 1\n",
+    "expected_output": "NO YES NO"
+  },
+  {
+    "id": 10,
+    "description": "모두 0인 3x3",
+    "input": "3\n0 0 0\n0 0 0\n0 0 0\n",
+    "expected_output": "YES YES YES"
+  }
+]

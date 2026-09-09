@@ -161,6 +161,7 @@ problems/
 | **#118** | [캐시를 걸었는데 왜 1초 만에 10만 명이 몰려와 DB가 폭사해요?!: 캐시 스탬피드(Cache Stampede / Dogpiling)와 뮤텍스 락 vs 확률적 조기 갱신(XFetch / PER Algorithm)](problems/118-cache-stampede-xfetch-algorithm/problem.md) | **캐시 아키텍처/분산 시스템/확률 알고리즘**, 캐시 스탬피드(Cache Stampede / Dogpiling), 뮤텍스 락(Single-Flight) 대기 지연(Latency Spike), VLDB 2015 XFetch 확률적 조기 갱신(Probabilistic Early Expiration), 만료 직전 $-\beta \times \Delta \times \ln(R) > \delta$ 판정, 0ms 지연 및 스탬피드 완전 소멸 | TTL 60초 만료 순간 1만 개 동시 요청이 일제히 Cache Miss 맞아 DB로 쇄도해 DB 폭사한 참사와 XFetch 0ms 무지연 백그라운드 조기 갱신 구원 원리 |
 | **#119** | [실시간 채팅에 Redis Pub/Sub 썼더니 왜 메시지가 몽땅 증발하고 서버가 터져요?!: Redis Pub/Sub의 소방호수 함정(Buffer Overflow) vs Redis Streams 신뢰성 큐(PEL & XACK)](problems/119-redis-pubsub-buffer-overflow-vs-streams/problem.md) | **메시지 브로커/분산 큐/Redis 아키텍처**, Pub/Sub At-Most-Once 오프라인 메시지 영구 유실, 느린 소비자(Slow Consumer) `client-output-buffer-limit` 초과 강제 퇴출 참사, Redis Streams Append-Only Log 보존, 컨슈머 그룹 부하 분산, PEL(Pending Entries List) 보류 추적, XACK 정상 처리, XCLAIM 고아 메시지 자동 복구 | 채팅에 Pub/Sub 썼다가 네트워크 잠깐 끊긴 유저 메시지 몽땅 증발하고 버퍼 초과로 클라이언트 강제 퇴출되어 서비스 마비된 참사와 Redis Streams 무유실 큐잉 구원 원리 |
 | **#120** | [새벽에 통계 쿼리 한 번 돌렸더니 왜 전사 결제 쿼리가 디스크로 떨어져 DB가 뻗어요?!: MySQL InnoDB 버퍼 풀 오염(Buffer Pool Pollution)과 Midpoint LRU 2계층 캐시 알고리즘 (InnoDB Midpoint Insertion LRU)](problems/120-innodb-buffer-pool-pollution-midpoint-lru/problem.md) | **데이터베이스 스토리지/캐시 아키텍처/InnoDB 엔진**, 버퍼 풀 오염(Buffer Pool Pollution), 풀 테이블 스캔 시 전통 LRU의 핫 데이터 전멸 한계, Young(5/8) vs Old(3/8) 2계층 분할, Midpoint 중간 삽입 격리, innodb_old_blocks_time(1000ms) 시간 창 기반 승급(Promote) 방어 | 새벽 통계 쿼리 한 번에 버퍼 풀 핫 페이지가 몽땅 디스크로 쫓겨나 전사 결제 쿼리 올스톱된 참사와 InnoDB Midpoint LRU 철통 방어 원리 |
+| **#121** | [42KB짜리 압축 파일 하나 풀었을 뿐인데 왜 디스크 1TB가 꽉 차서 서버가 뻗어요?!: 압축 폭탄(Zip Bomb / 42.zip)과 Zip Slip(경로 순회) 방어 (Zip Bomb & Zip Slip Defense)](problems/121-zip-bomb-decompression-ratio-defense/problem.md) | **보안 엔지니어링/압축 알고리즘/시스템 안전**, DEFLATE 극단적 압축 비율 맹점, 압축 폭탄(Zip Bomb / 42.zip 4.5PB 팽창) DoS 참사, Zip Slip 상위 디렉터리 경로 탈출 시스템 파일 덮어쓰기(RCE), 최대 누적 크기/압축 비율/재귀 깊이 5대 방어선 | 42KB zip 파일 업로드 풀었다가 디스크 1TB 꽉 차서 서버실 전체 다운된 참사와 안전한 스트리밍 압축 해제기 구원 원리 |
 
 
 
@@ -174,9 +175,9 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 
 | 트랙 | 디렉토리 | 상태 및 규모 | 대상 및 핵심 교육 내용 |
 |:---:|:---:|:---:|---|
-| 🎒 **초등부 트랙 (Junior)** | `problems-elementary/` | **130문제 완비** ✅ | 초등학생 & 코딩 입문: 사칙연산, 조건/반복문, 리스트/문자열, 기초 스택/큐, 2D 격자, 기본 수학 |
-| 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **준비 완료** 🚀 | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 기초 그리디 |
-| 🎓 **고등부 트랙 (High)** | `problems-high/` | 예정 🔜 | 고등학생 & KOI/대회: 다이나믹 프로그래밍(DP), 이진 탐색, 그래프(DFS/BFS), 트리 순회, 백트래킹 |
+| 🎒 **초등부 트랙 (Junior)** | `problems-elementary/` | **130문제 완결** ✅ | 초등학생 & 코딩 입문: 사칙연산, 조건/반복문, 리스트/문자열, 기초 스택/큐, 2D 격자, 기본 수학 |
+| 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **10문제 (진행 중)** 🚀 | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 기초 그리디 |
+| 🎓 **고등부 트랙 (High)** | `problems-high/` | 중등부 완결 후 예정 🔜 | 고등학생 & KOI/대회: 다이나믹 프로그래밍(DP), 이진 탐색, 그래프(DFS/BFS), 트리 순회, 백트래킹 |
 | 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 110+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/락, Kafka, 캐시 스탬피드, ReDoS, 고가용성 아키텍처 |
 
 ---
@@ -322,6 +323,28 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | **#128** | [한 자리가 될 때까지! 마법 숫자 도달 횟수 카운터](problems-elementary/128-number-digital-root-steps/problem.md) | 자릿수 분해, 반복문(while), 수학, 시뮬레이션 | 자릿수들을 계속 더해 한 자리 숫자(< 10)가 될 때까지 거친 연산 단계 횟수 세기 |
 | **#129** | [마음이 통하는 서로소(Coprime) 친구 쌍 찾기](problems-elementary/129-gcd-coprime-pairs-count/problem.md) | 수학, 정수론, 최대공약수(GCD), 서로소, 완전 탐색 | N개의 자연수 중 최대공약수(GCD)가 1인 서로소 순서쌍 (i < j)의 총 개수 구하기 |
 | **#130** | [동물원 족보 탐험 4! 특정 동물의 세대(깊이) 찾기](problems-elementary/130-tree-node-depth-finder/problem.md) | 트리, 깊이(Depth), 그래프 탐색, 부모-자식 | 1번 시조 루트로부터 특정 동물 노드 K까지의 세대 깊이(거리) 부모 역추적하기 |
+
+---
+
+## 🏫 ZeliJudge Middle: 중학생을 위한 알고리즘 & 자료구조 기초 트랙 (`problems-middle/`)
+
+> *"중학교 수학 교육과정(소인수분해, 일차방정식, 유리수, 좌표평면, 기하)과 핵심 컴퓨터 알고리즘의 만남!"*  
+> 기초 문법을 마친 중학생들이 본격적인 자료구조, 시간 복잡도($O(N)$ vs $O(N \log N)$), 정수론, 탐색 기법을 체계적으로 훈련하는 **중등 전용 알고리즘 트랙**입니다.
+
+### 📚 중등부 문제 목록 (Middle School Problem Index)
+
+| 번호 | 문제명 | 핵심 컴퓨팅 사고 / 알고리즘 | 줄거리 & 수학·과학 연계 시나리오 |
+|:---:|---|---|---|
+| **#001** | [고대 그리스의 수학 체! 에라토스테네스의 체](problems-middle/001-sieve-of-eratosthenes/problem.md) | 정수론, 에라토스테네스의 체, $O(N \log \log N)$ | 소수의 배수들을 거름망으로 걸러내어 N 이하의 모든 소수 고속 추출하기 |
+| **#002** | [미지수 x를 찾아라! 일차방정식 ax + b = c 풀이](problems-middle/002-linear-equation-solver/problem.md) | 수학, 일차방정식, 이항, 기약분수 정규화 | 중1 일차방정식 등식의 성질을 이용해 정수 또는 기약분수 해 x 구하기 |
+| **#003** | [비교 없이 정렬한다?! 계수 정렬 (Counting Sort)](problems-middle/003-counting-sort-frequency/problem.md) | 정렬, 계수 정렬, 도수분포표, $O(N+K)$ | 원소 간 비교 없이 출현 빈도수만 세어 초고속으로 정렬하는 비비교 정렬 |
+| **#004** | [두 포인터 협동 작전! (연속 부분 수열의 합 S)](problems-middle/004-two-pointer-subsequence-sum/problem.md) | 투 포인터(Two Pointers), 연속 부분 수열, $O(N)$ | 양 끝을 조절하는 두 포인터로 합이 S가 되는 연속 구간의 개수 구하기 |
+| **#005** | [스택으로 수열 만들기! (Stack Sequence Validator)](problems-middle/005-stack-sequence-validation/problem.md) | 자료구조, 스택(Stack), 후입선출(LIFO), 순열 판별 | 1부터 N까지 수를 차례로 push/pop하며 목표 수열을 만들 수 있는지 판별하기 |
+| **#006** | [탐욕스러운 동전 거스름돈! (그리디의 정당성)](problems-middle/006-greedy-coin-exchange-opt/problem.md) | 그리디(Greedy), 탐욕 선택 속성, 배수 체계 | 큰 동전이 작은 동전의 배수일 때 항상 최소 개수를 보장하는 탐욕법 증명 |
+| **#007** | [절반씩 싹둑! 정렬 배열에서의 이진 탐색](problems-middle/007-binary-search-target-finder/problem.md) | 이진 탐색(Binary Search), 분할 정복, $O(\log N)$ | 정렬된 10만 개 데이터에서 매번 범위를 절반씩 줄여 단 17번 만에 X 찾기 |
+| **#008** | [분수 통분의 달인! N개 분수의 통분과 덧셈](problems-middle/008-euclidean-extended-lcm-sum/problem.md) | 수학, 최소공배수(LCM), 최대공약수(GCD), 통분 | 분모가 다른 N개 분수를 최소공배수로 통분해 더하고 기약분수로 나타내기 |
+| **#009** | [거울 속의 거울! 재귀 함수와 깊이 추적](problems-middle/009-recursive-call-stack-trace/problem.md) | 재귀(Recursion), 기저 조건(Base Case), 호출 스택 | 함수가 자신을 호출할 때 메모리 스택의 변화와 탈출 조건의 중요성 배우기 |
+| **#010** | [2차원 평면 회전! 행렬의 회전 대칭성 판별](problems-middle/010-matrix-rotation-symmetry-check/problem.md) | 2차원 배열, 평면 변환, 점대칭/선대칭, 기하 알고리즘 | $N \times N$ 타일을 90도, 180도, 270도 회전시켰을 때 원본과 같은지 대칭성 판정 |
 
 ---
 

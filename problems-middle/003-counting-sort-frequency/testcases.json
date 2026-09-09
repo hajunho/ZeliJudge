@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: 5 2 3 1 4 -> 1 2 3 4 5",
+    "input": "5\n5 2 3 1 4\n",
+    "expected_output": "1 2 3 4 5"
+  },
+  {
+    "id": 2,
+    "description": "중복 원소가 많은 경우",
+    "input": "6\n1 1 2 2 0 0\n",
+    "expected_output": "0 0 1 1 2 2"
+  },
+  {
+    "id": 3,
+    "description": "원소 1개만 주어짐",
+    "input": "1\n42\n",
+    "expected_output": "42"
+  },
+  {
+    "id": 4,
+    "description": "이미 정렬된 경우",
+    "input": "4\n10 20 30 40\n",
+    "expected_output": "10 20 30 40"
+  },
+  {
+    "id": 5,
+    "description": "역순 정렬된 경우",
+    "input": "5\n5 4 3 2 1\n",
+    "expected_output": "1 2 3 4 5"
+  },
+  {
+    "id": 6,
+    "description": "모두 동일한 수",
+    "input": "4\n7 7 7 7\n",
+    "expected_output": "7 7 7 7"
+  },
+  {
+    "id": 7,
+    "description": "0과 1000 극단값 포함",
+    "input": "5\n1000 0 500 0 1000\n",
+    "expected_output": "0 0 500 1000 1000"
+  },
+  {
+    "id": 8,
+    "description": "10개 난수 정렬",
+    "input": "10\n9 3 5 2 8 1 4 7 6 0\n",
+    "expected_output": "0 1 2 3 4 5 6 7 8 9"
+  },
+  {
+    "id": 9,
+    "description": "작은 수들 집중",
+    "input": "7\n3 1 2 3 1 2 3\n",
+    "expected_output": "1 1 2 2 3 3 3"
+  },
+  {
+    "id": 10,
+    "description": "연속된 수들",
+    "input": "8\n100 103 101 102 100 101 103 102\n",
+    "expected_output": "100 100 101 101 102 102 103 103"
+  }
+]

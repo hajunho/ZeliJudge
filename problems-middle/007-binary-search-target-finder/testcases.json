@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: [1, 3, 5, 7, 9, 11]에서 7 찾기 -> 4번째",
+    "input": "6 7\n1 3 5 7 9 11\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 2,
+    "description": "배열에 없는 원소: 6 찾기 -> -1",
+    "input": "6 6\n1 3 5 7 9 11\n",
+    "expected_output": "-1"
+  },
+  {
+    "id": 3,
+    "description": "맨 앞 첫 번째 원소: 1 찾기 -> 1",
+    "input": "6 1\n1 3 5 7 9 11\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 4,
+    "description": "맨 끝 마지막 원소: 11 찾기 -> 6",
+    "input": "6 11\n1 3 5 7 9 11\n",
+    "expected_output": "6"
+  },
+  {
+    "id": 5,
+    "description": "원소 1개뿐인 배열: 찾음",
+    "input": "1 42\n42\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 6,
+    "description": "원소 1개뿐인 배열: 못 찾음",
+    "input": "1 42\n10\n",
+    "expected_output": "-1"
+  },
+  {
+    "id": 7,
+    "description": "음수 포함 정렬 배열에서 음수 찾기",
+    "input": "5 -3\n-10 -5 -3 0 2\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 8,
+    "description": "배열 최솟값보다 작은 수 검색 -> -1",
+    "input": "4 -100\n10 20 30 40\n",
+    "expected_output": "-1"
+  },
+  {
+    "id": 9,
+    "description": "배열 최댓값보다 큰 수 검색 -> -1",
+    "input": "4 100\n10 20 30 40\n",
+    "expected_output": "-1"
+  },
+  {
+    "id": 10,
+    "description": "10개 원소 중 정가운데",
+    "input": "10 50\n10 20 30 40 50 60 70 80 90 100\n",
+    "expected_output": "5"
+  }
+]

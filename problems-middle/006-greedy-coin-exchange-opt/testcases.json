@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: 1, 5, 10, 50, 100, 500, 1000, 5000에서 4200원 -> 1000x4 + 100x2 = 6개",
+    "input": "8 4200\n1\n5\n10\n50\n100\n500\n1000\n5000\n",
+    "expected_output": "6"
+  },
+  {
+    "id": 2,
+    "description": "동전 1개만으로 딱 떨어짐",
+    "input": "3 100\n1\n10\n100\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 3,
+    "description": "1원짜리로만 지불",
+    "input": "3 7\n1\n10\n100\n",
+    "expected_output": "7"
+  },
+  {
+    "id": 4,
+    "description": "큰 액수: 100,000,000원",
+    "input": "5 100000000\n1\n10\n100\n1000\n10000\n",
+    "expected_output": "10000"
+  },
+  {
+    "id": 5,
+    "description": "모든 동전을 1개씩 골고루 씀: 1+10+100 = 111원",
+    "input": "3 111\n1\n10\n100\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 6,
+    "description": "배수 관계 2진 거듭제곱 체계",
+    "input": "4 15\n1\n2\n4\n8\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 7,
+    "description": "단일 권면(1원뿐)",
+    "input": "1 50\n1\n",
+    "expected_output": "50"
+  },
+  {
+    "id": 8,
+    "description": "한국 화폐 체계 거스름돈 4790원",
+    "input": "6 4790\n10\n50\n100\n500\n1000\n5000\n",
+    "expected_output": "12"
+  },
+  {
+    "id": 9,
+    "description": "0원 남는 경우",
+    "input": "2 0\n1\n5\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 10,
+    "description": "10원 단위 배수 체계: 340원 -> 100x3 + 10x4 = 7개",
+    "input": "4 340\n1\n10\n50\n100\n",
+    "expected_output": "7"
+  }
+]

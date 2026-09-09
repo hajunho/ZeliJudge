@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "N = 10 -> 2 3 5 7",
+    "input": "10\n",
+    "expected_output": "2 3 5 7"
+  },
+  {
+    "id": 2,
+    "description": "N = 2 (가장 작은 소수만)",
+    "input": "2\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 3,
+    "description": "N = 3 -> 2 3",
+    "input": "3\n",
+    "expected_output": "2 3"
+  },
+  {
+    "id": 4,
+    "description": "N = 20 -> 2 3 5 7 11 13 17 19",
+    "input": "20\n",
+    "expected_output": "2 3 5 7 11 13 17 19"
+  },
+  {
+    "id": 5,
+    "description": "N = 30",
+    "input": "30\n",
+    "expected_output": "2 3 5 7 11 13 17 19 23 29"
+  },
+  {
+    "id": 6,
+    "description": "N = 5 (소수 경계)",
+    "input": "5\n",
+    "expected_output": "2 3 5"
+  },
+  {
+    "id": 7,
+    "description": "N = 4 (합성수 경계)",
+    "input": "4\n",
+    "expected_output": "2 3"
+  },
+  {
+    "id": 8,
+    "description": "N = 50",
+    "input": "50\n",
+    "expected_output": "2 3 5 7 11 13 17 19 23 29 31 37 41 43 47"
+  },
+  {
+    "id": 9,
+    "description": "N = 15",
+    "input": "15\n",
+    "expected_output": "2 3 5 7 11 13"
+  },
+  {
+    "id": 10,
+    "description": "N = 100 (총 25개 소수)",
+    "input": "100\n",
+    "expected_output": "2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97"
+  }
+]
