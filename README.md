@@ -55,6 +55,8 @@ problems/
 | **#012** | [남의 장바구니에 내 물건이 왜 있어?: 가변 기본 인자(Mutable Default)의 저주](problems/012-mutable-default-argument/problem.md) | **언어 런타임**, 정의 시점(Definition Time) vs 호출 시점, 함수의 `__defaults__` 속성, None 센티넬 패턴 | 장바구니 기본 인자를 `cart=[]`로 뒀다가 이전 손님 물건이 다음 손님에게 유출된 참사 |
 | **#013** | [256은 되고 257은 왜 안 돼?: 값(Equality)과 주소(Identity)의 배신 (is vs ==)](problems/013-equality-vs-identity/problem.md) | **메모리 아키텍처**, 값(Value) vs 객체 주소(Identity), Small Integer Cache(-5~256), 문자열 인터닝 | 250원 테스트는 다 통과했는데 300원부터 결제 승인 거절된 `is` 비교 참사 |
 | **#014** | [닫히지 않는 문과 사라진 손잡이: 파일 디스크립터(FD) 누수와 with 문의 구원](problems/014-file-descriptor-leak/problem.md) | **운영체제 커널**, 파일 디스크립터(FD) 한도(`ulimit`), RAII 패턴, 컨텍스트 매니저(`with`)의 `__exit__` 보장 | 예외 발생 시 `close()` 건너뛰어 서버의 모든 소켓/파일이 마비된 참사 |
+| **#015** | [비밀번호를 그냥 해시하면 털려요!: 레인보우 테이블과 솔트(Salt)의 방패](problems/015-password-hash-and-salt/problem.md) | **정보보안/암호학**, 단방향 해시(SHA-256)의 한계, 레인보우 테이블(역추적 사전), 솔트(Salt)의 2대 방어 원리 | 단순 해시로 DB 저장했다가 레인보우 테이블로 0.001초 만에 전 회원 비밀번호 털린 참사 |
+
 
 
 
