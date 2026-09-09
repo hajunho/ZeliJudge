@@ -1,0 +1,34 @@
+[
+  {
+    "input": "{\"config\": {\"messaging_system\": \"PULSAR_BOOKKEEPER\", \"ensemble_size\": 5, \"write_quorum\": 3, \"ack_quorum\": 2, \"ledger_fencing_enabled\": true, \"journal_storage_separated\": true, \"broker_rebalance_requested\": true, \"partition_size_gb\": 500.0, \"network_bandwidth_gbps\": 10.0}, \"workload\": {\"write_requests_per_sec\": 50000, \"entry_size_bytes\": 1024, \"failed_bookie_id\": 2, \"zombie_broker_resurrection\": true}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"OPTIMAL_PULSAR_SEGMENT_BOOKKEEPER_STORAGE\", \"metrics\": {\"data_copied_gb\": 0.0, \"rebalance_duration_sec\": 0.012, \"p99_write_latency_ms\": 2.8, \"ledger_fenced_success\": true, \"split_brain_corrupted\": false, \"ensemble_switches\": 1}}"
+  },
+  {
+    "input": "{\"config\": {\"messaging_system\": \"KAFKA_MONOLITHIC\", \"ensemble_size\": 1, \"write_quorum\": 1, \"ack_quorum\": 1, \"ledger_fencing_enabled\": false, \"journal_storage_separated\": true, \"broker_rebalance_requested\": true, \"partition_size_gb\": 500.0, \"network_bandwidth_gbps\": 10.0}, \"workload\": {\"write_requests_per_sec\": 50000, \"entry_size_bytes\": 1024, \"failed_bookie_id\": -1, \"zombie_broker_resurrection\": false}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"KAFKA_MONOLITHIC_PARTITION_REBALANCE_STALL\", \"metrics\": {\"data_copied_gb\": 500.0, \"rebalance_duration_sec\": 400.0, \"p99_write_latency_ms\": 285.0, \"ledger_fenced_success\": false, \"split_brain_corrupted\": false, \"ensemble_switches\": 0}}"
+  },
+  {
+    "input": "{\"config\": {\"messaging_system\": \"PULSAR_BOOKKEEPER\", \"ensemble_size\": 5, \"write_quorum\": 3, \"ack_quorum\": 2, \"ledger_fencing_enabled\": true, \"journal_storage_separated\": false, \"broker_rebalance_requested\": false, \"partition_size_gb\": 500.0, \"network_bandwidth_gbps\": 10.0}, \"workload\": {\"write_requests_per_sec\": 50000, \"entry_size_bytes\": 1024, \"failed_bookie_id\": -1, \"zombie_broker_resurrection\": false}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"BOOKKEEPER_JOURNAL_SHARED_DISK_LATENCY_SPIKE\", \"metrics\": {\"data_copied_gb\": 0.0, \"rebalance_duration_sec\": 0.012, \"p99_write_latency_ms\": 275.0, \"ledger_fenced_success\": true, \"split_brain_corrupted\": false, \"ensemble_switches\": 0}}"
+  },
+  {
+    "input": "{\"config\": {\"messaging_system\": \"PULSAR_BOOKKEEPER\", \"ensemble_size\": 5, \"write_quorum\": 3, \"ack_quorum\": 2, \"ledger_fencing_enabled\": false, \"journal_storage_separated\": true, \"broker_rebalance_requested\": true, \"partition_size_gb\": 500.0, \"network_bandwidth_gbps\": 10.0}, \"workload\": {\"write_requests_per_sec\": 50000, \"entry_size_bytes\": 1024, \"failed_bookie_id\": -1, \"zombie_broker_resurrection\": true}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"ZOMBIE_BROKER_SPLIT_BRAIN_APPEND_CORRUPTION\", \"metrics\": {\"data_copied_gb\": 0.0, \"rebalance_duration_sec\": 0.012, \"p99_write_latency_ms\": 12.5, \"ledger_fenced_success\": false, \"split_brain_corrupted\": true, \"ensemble_switches\": 0}}"
+  },
+  {
+    "input": "{\"config\": {\"messaging_system\": \"KAFKA_MONOLITHIC\", \"ensemble_size\": 1, \"write_quorum\": 1, \"ack_quorum\": 1, \"ledger_fencing_enabled\": false, \"journal_storage_separated\": true, \"broker_rebalance_requested\": false, \"partition_size_gb\": 300.0, \"network_bandwidth_gbps\": 10.0}, \"workload\": {\"write_requests_per_sec\": 40000, \"entry_size_bytes\": 1024, \"failed_bookie_id\": -1, \"zombie_broker_resurrection\": false}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"KAFKA_MONOLITHIC_PARTITION_STEADY_STATE\", \"metrics\": {\"data_copied_gb\": 0.0, \"rebalance_duration_sec\": 0.0, \"p99_write_latency_ms\": 3.8, \"ledger_fenced_success\": false, \"split_brain_corrupted\": false, \"ensemble_switches\": 0}}"
+  },
+  {
+    "input": "{\"config\": {\"messaging_system\": \"PULSAR_BOOKKEEPER\", \"ensemble_size\": 6, \"write_quorum\": 3, \"ack_quorum\": 2, \"ledger_fencing_enabled\": true, \"journal_storage_separated\": true, \"broker_rebalance_requested\": true, \"partition_size_gb\": 2048.0, \"network_bandwidth_gbps\": 10.0}, \"workload\": {\"write_requests_per_sec\": 60000, \"entry_size_bytes\": 1024, \"failed_bookie_id\": -1, \"zombie_broker_resurrection\": false}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"OPTIMAL_PULSAR_SEGMENT_BOOKKEEPER_STORAGE\", \"metrics\": {\"data_copied_gb\": 0.0, \"rebalance_duration_sec\": 0.012, \"p99_write_latency_ms\": 2.8, \"ledger_fenced_success\": false, \"split_brain_corrupted\": false, \"ensemble_switches\": 0}}"
+  },
+  {
+    "input": "{\"config\": {\"messaging_system\": \"KAFKA_MONOLITHIC\", \"ensemble_size\": 1, \"write_quorum\": 1, \"ack_quorum\": 1, \"ledger_fencing_enabled\": false, \"journal_storage_separated\": true, \"broker_rebalance_requested\": true, \"partition_size_gb\": 1000.0, \"network_bandwidth_gbps\": 1.0}, \"workload\": {\"write_requests_per_sec\": 30000, \"entry_size_bytes\": 1024, \"failed_bookie_id\": -1, \"zombie_broker_resurrection\": false}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"KAFKA_MONOLITHIC_PARTITION_REBALANCE_STALL\", \"metrics\": {\"data_copied_gb\": 1000.0, \"rebalance_duration_sec\": 8000.0, \"p99_write_latency_ms\": 285.0, \"ledger_fenced_success\": false, \"split_brain_corrupted\": false, \"ensemble_switches\": 0}}"
+  },
+  {
+    "input": "{\"config\": {\"messaging_system\": \"PULSAR_BOOKKEEPER\", \"ensemble_size\": 5, \"write_quorum\": 3, \"ack_quorum\": 2, \"ledger_fencing_enabled\": true, \"journal_storage_separated\": true, \"broker_rebalance_requested\": true, \"partition_size_gb\": 800.0, \"network_bandwidth_gbps\": 10.0}, \"workload\": {\"write_requests_per_sec\": 50000, \"entry_size_bytes\": 1024, \"failed_bookie_id\": -1, \"zombie_broker_resurrection\": false}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"OPTIMAL_PULSAR_SEGMENT_BOOKKEEPER_STORAGE\", \"metrics\": {\"data_copied_gb\": 0.0, \"rebalance_duration_sec\": 0.012, \"p99_write_latency_ms\": 2.8, \"ledger_fenced_success\": false, \"split_brain_corrupted\": false, \"ensemble_switches\": 0}}"
+  }
+]
