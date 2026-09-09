@@ -132,6 +132,8 @@ problems/
 | **#089** | [와이파이로 다운로드만 걸면 왜 핑이 1000ms로 치솟아요?!: 네트워크 버퍼블로트(Bufferbloat)와 TCP 혼잡 제어 (Reno vs Google BBR)](problems/089-tcp-bufferbloat-reno-vs-bbr/problem.md) | **컴퓨터 네트워크/전송 계층**, 버퍼블로트(Bufferbloat), 손실 기반 TCP Reno/Cubic 한계, 대역폭-지연 곱(BDP), Google BBR 모델 기반 혼잡 제어, 대화형 핑 지연시간 방어 | 다운로드 시 공유기 대형 버퍼가 가득 차 게임 핑이 60배 폭증하는 버퍼블로트 참사와 BBR 0ms 큐잉 지연 원리 |
 | **#090** | [10만 건 UPDATE 쳤더니 테이블이 왜 50GB로 부풀어요?!: PostgreSQL MVCC, 데드 튜플(Dead Tuple)과 진공 청소(Vacuum) (PostgreSQL MVCC Dead Tuples & Vacuum Bloat)](problems/090-postgres-mvcc-dead-tuples-vacuum/problem.md) | **데이터베이스 스토리지/MVCC 아키텍처**, 불변 튜플(Immutable Tuple), 튜플 헤더 xmin/xmax, 장기 트랜잭션 xmin_horizon 고착, Autovacuum 차단, 테이블 블로트(Table Bloat) | UPDATE가 DELETE+INSERT로 동작하여 데드 튜플이 쌓이는데 좀비 트랜잭션 때문에 Vacuum이 차단되어 디스크 50GB 폭증한 참사 |
 | **#091** | [epoll로 고성능 비동기 서버를 짰더니 CPU 100% 찍거나 패킷이 증발해요?!: Level-Triggered (LT) vs Edge-Triggered (ET) (Linux epoll Level vs Edge Triggered)](problems/091-epoll-level-vs-edge-triggered/problem.md) | **운영체제 커널/네트워크 I/O**, I/O 다중화(epoll), Level-Triggered(LT) 잔여 버퍼 무한 비지 루프(Busy Loop), Edge-Triggered(ET) 부분 읽기 데이터 고립(Marooned Data), EAGAIN 논블로킹 배수 루프 | LT 모드 부분 읽기로 CPU 100% 비지 루프 폭사와 ET 모드 단건 읽기로 패킷이 커널에 갇혀 무한 타임아웃된 참사 |
+| **#092** | [보안 좋다고 UUID v4를 PK로 썼더니 왜 INSERT 속도가 100배 느려지고 DB 용량이 2배로 폭발해요?!: B+Tree 리프 페이지 분할(Page Split)과 무작위 단편화 (B+Tree Page Split & UUID Fragmentation)](problems/092-btree-page-split-uuid-fragmentation/problem.md) | **데이터베이스 스토리지/인덱싱 아키텍처**, 클러스터드 인덱스(Clustered Index), 리프 페이지 50/50 분할(Page Split), Right-Append 최적화, 내부 단편화(Internal Fragmentation), 버퍼 풀(Buffer Pool) LRU 쓰래싱, UUID v7 및 OPTIMIZE TABLE | 보안 권고대로 UUID v4 PK 썼다가 100만 건에서 50/50 분할 폭풍으로 테이블 크기 2배 폭증 및 디스크 I/O 100% 마비된 참사 |
+
 
 ---
 
