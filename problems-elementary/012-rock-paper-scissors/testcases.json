@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "A 승리: 바위 vs 가위",
+    "input": "R S\n",
+    "expected_output": "A"
+  },
+  {
+    "id": 2,
+    "description": "비김: 가위 vs 가위",
+    "input": "S S\n",
+    "expected_output": "DRAW"
+  },
+  {
+    "id": 3,
+    "description": "B 승리: 보 vs 가위",
+    "input": "P S\n",
+    "expected_output": "B"
+  },
+  {
+    "id": 4,
+    "description": "비김: 바위 vs 바위",
+    "input": "R R\n",
+    "expected_output": "DRAW"
+  },
+  {
+    "id": 5,
+    "description": "비김: 보 vs 보",
+    "input": "P P\n",
+    "expected_output": "DRAW"
+  },
+  {
+    "id": 6,
+    "description": "A 승리: 가위 vs 보",
+    "input": "S P\n",
+    "expected_output": "A"
+  },
+  {
+    "id": 7,
+    "description": "A 승리: 보 vs 바위",
+    "input": "P R\n",
+    "expected_output": "A"
+  },
+  {
+    "id": 8,
+    "description": "B 승리: 가위 vs 바위",
+    "input": "S R\n",
+    "expected_output": "B"
+  },
+  {
+    "id": 9,
+    "description": "B 승리: 바위 vs 보",
+    "input": "R P\n",
+    "expected_output": "B"
+  },
+  {
+    "id": 10,
+    "description": "연속 경기: 바위 vs 가위",
+    "input": "R S\n",
+    "expected_output": "A"
+  }
+]

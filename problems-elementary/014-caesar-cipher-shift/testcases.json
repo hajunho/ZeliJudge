@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "예제 1: 3칸 밀기 ABC",
+    "input": "3\nABC\n",
+    "expected_output": "DEF"
+  },
+  {
+    "id": 2,
+    "description": "예제 2: Z에서 A로 순환 XYZ",
+    "input": "1\nXYZ\n",
+    "expected_output": "YZA"
+  },
+  {
+    "id": 3,
+    "description": "예제 3: HELLO 5칸 밀기",
+    "input": "5\nHELLO\n",
+    "expected_output": "MJQQT"
+  },
+  {
+    "id": 4,
+    "description": "한 글자 Z -> A",
+    "input": "1\nZ\n",
+    "expected_output": "A"
+  },
+  {
+    "id": 5,
+    "description": "한 글자 A -> Z (25칸)",
+    "input": "25\nA\n",
+    "expected_output": "Z"
+  },
+  {
+    "id": 6,
+    "description": "동일 문자 반복",
+    "input": "4\nAAAA\n",
+    "expected_output": "EEEE"
+  },
+  {
+    "id": 7,
+    "description": "긴 단어 암호화",
+    "input": "13\nALGORITHM\n",
+    "expected_output": "NYTBEVGUZ"
+  },
+  {
+    "id": 8,
+    "description": "10칸 밀기",
+    "input": "10\nPYTHON\n",
+    "expected_output": "ZIDRYX"
+  },
+  {
+    "id": 9,
+    "description": "2칸 밀기 순환 포함",
+    "input": "2\nZEBRA\n",
+    "expected_output": "BGDTC"
+  },
+  {
+    "id": 10,
+    "description": "25칸 밀기 (바로 앞 글자로)",
+    "input": "25\nBCDE\n",
+    "expected_output": "ABCD"
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "예제 1: apple (모음 a, e / 자음 p, p, l)",
+    "input": "apple\n",
+    "expected_output": "2 3"
+  },
+  {
+    "id": 2,
+    "description": "예제 2: banana (모음 a, a, a / 자음 b, n, n)",
+    "input": "banana\n",
+    "expected_output": "3 3"
+  },
+  {
+    "id": 3,
+    "description": "모음이 없는 단어: sky",
+    "input": "sky\n",
+    "expected_output": "0 3"
+  },
+  {
+    "id": 4,
+    "description": "모음으로만 이루어진 단어: aeiou",
+    "input": "aeiou\n",
+    "expected_output": "5 0"
+  },
+  {
+    "id": 5,
+    "description": "한 글자 모음: a",
+    "input": "a\n",
+    "expected_output": "1 0"
+  },
+  {
+    "id": 6,
+    "description": "한 글자 자음: z",
+    "input": "z\n",
+    "expected_output": "0 1"
+  },
+  {
+    "id": 7,
+    "description": "긴 단어: computer",
+    "input": "computer\n",
+    "expected_output": "3 5"
+  },
+  {
+    "id": 8,
+    "description": "프로그래밍 단어: algorithm",
+    "input": "algorithm\n",
+    "expected_output": "3 6"
+  },
+  {
+    "id": 9,
+    "description": "모음 중복 많은 단어: education",
+    "input": "education\n",
+    "expected_output": "5 4"
+  },
+  {
+    "id": 10,
+    "description": "zelijudge 단어",
+    "input": "zelijudge\n",
+    "expected_output": "4 5"
+  }
+]

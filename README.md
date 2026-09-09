@@ -179,6 +179,16 @@ problems/
 | **#008** | [앞으로 읽어도 뒤로 읽어도 똑같은 거울 단어](problems-elementary/008-tomato-palindrome/problem.md) | 회문(Palindrome), 양방향 탐색, 대칭성 | '토마토', 'level'처럼 앞뒤가 똑같은 거울 단어 판독기 |
 | **#009** | [과자 공장의 무게 검사기와 불량품 찾기](problems-elementary/009-snack-bag-weight/problem.md) | 리스트 순회, 조건 필터링, 허용 오차 범위 검사 | 기준 무게보다 너무 가볍거나 무거운 불량 봉지 골라내기 |
 | **#010** | [도서관 책 정리와 가나다 사전 순서](problems-elementary/010-magic-word-dictionary/problem.md) | 사전식 정렬(Lexicographical), 아스키코드, 위치 찾기 | 책 제목 목록을 알파벳 사전 순서로 정리하고 찾는 책 순번 구하기 |
+| **#011** | [문구점 거스름돈과 최소 동전 개수](problems-elementary/011-coin-change-greedy/problem.md) | 그리디(탐욕법), 화폐 단위 분할, 몫과 나머지 | 500원, 100원, 50원, 10원 동전으로 거스름돈 최소 개수 구하기 |
+| **#012** | [가위바위보 챔피언십 승패 판정기](problems-elementary/012-rock-paper-scissors/problem.md) | 다중 조건문, 원형 승패 순환 규칙, 조건 분기 | 두 사람의 가위바위보 승패(A/B/DRAW)를 공정하게 판정하기 |
+| **#013** | [4년에 한 번! 2월 29일 윤년 판독기](problems-elementary/013-leap-year-calendar/problem.md) | 논리 연산자, 복합 배수 판별(`and`/`or`) | 4의 배수, 100의 배수, 400의 배수 규칙으로 윤년 판별하기 |
+| **#014** | [한 글자씩 밀어내는 카이사르 비밀 암호](problems-elementary/014-caesar-cipher-shift/problem.md) | 문자열, 아스키코드, 모듈러 순환(`% 26`) | 알파벳을 오른쪽으로 K칸 밀어서 비밀 지령 암호문 만들기 |
+| **#015** | [수학 천재 가우스의 1부터 N까지 연속 덧셈](problems-elementary/015-gauss-summation/problem.md) | 반복문 누적합, 가우스 공식, O(N) vs O(1) | 1부터 N까지의 모든 정수를 더한 총합을 빛의 속도로 구하기 |
+| **#016** | [밤하늘을 수놓는 별빛 삼각형 아트](problems-elementary/016-star-triangle-pattern/problem.md) | 이중 반복문, 문자열 곱셈, 패턴 출력 | 높이 N만큼 1층부터 별(*)을 계단식으로 예쁘게 쌓아 올리기 |
+| **#017** | [비밀 단어 속 모음(a, e, i, o, u) 탐정](problems-elementary/017-vowel-consonant-count/problem.md) | 문자열 순회, 집합(Set) 포함 검사(`in`), 카운팅 | 단어에 들어있는 영어 모음 개수와 자음 개수 분리해 세기 |
+| **#018** | [새싹초등학교 반장 선거 개표기](problems-elementary/018-class-president-vote/problem.md) | 딕셔너리(Dictionary), 빈도수 세기, 최빈값(Mode) | 투표용지에서 가장 많은 표를 얻은 당선자와 득표수 발표하기 |
+| **#019** | [유행어 만들기! 앞 글자만 딴 마법 줄임말](problems-elementary/019-acronym-maker/problem.md) | 문자열 분리(`split`), 첫 글자 추출, 대문자 변환 | 긴 문장의 단어 첫 글자만 따서 두문자어(줄임말) 만들기 |
+| **#020** | [가을 운동회 100m 달리기 등수 매기기](problems-elementary/020-running-race-rank/problem.md) | 리스트 튜플 정렬, 다중 속성 정렬, 순위 부여 | 달리기 기록(초)을 비교하여 1등부터 꼴찌까지 전광판에 등수 매기기 |
 
 ---
 

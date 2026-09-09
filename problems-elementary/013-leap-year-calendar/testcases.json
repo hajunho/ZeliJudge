@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "4의 배수 윤년: 2024년",
+    "input": "2024\n",
+    "expected_output": "LEAP"
+  },
+  {
+    "id": 2,
+    "description": "100의 배수 평년: 1900년",
+    "input": "1900\n",
+    "expected_output": "COMMON"
+  },
+  {
+    "id": 3,
+    "description": "400의 배수 윤년: 2000년",
+    "input": "2000\n",
+    "expected_output": "LEAP"
+  },
+  {
+    "id": 4,
+    "description": "일반 평년: 2023년",
+    "input": "2023\n",
+    "expected_output": "COMMON"
+  },
+  {
+    "id": 5,
+    "description": "일반 평년: 2025년",
+    "input": "2025\n",
+    "expected_output": "COMMON"
+  },
+  {
+    "id": 6,
+    "description": "과거 윤년: 4년",
+    "input": "4\n",
+    "expected_output": "LEAP"
+  },
+  {
+    "id": 7,
+    "description": "과거 평년: 100년",
+    "input": "100\n",
+    "expected_output": "COMMON"
+  },
+  {
+    "id": 8,
+    "description": "과거 윤년: 400년",
+    "input": "400\n",
+    "expected_output": "LEAP"
+  },
+  {
+    "id": 9,
+    "description": "미래 평년: 2100년 (100의 배수)",
+    "input": "2100\n",
+    "expected_output": "COMMON"
+  },
+  {
+    "id": 10,
+    "description": "미래 윤년: 2400년 (400의 배수)",
+    "input": "2400\n",
+    "expected_output": "LEAP"
+  }
+]

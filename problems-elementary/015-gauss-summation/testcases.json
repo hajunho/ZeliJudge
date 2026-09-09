@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "1부터 10까지의 합",
+    "input": "10\n",
+    "expected_output": "55"
+  },
+  {
+    "id": 2,
+    "description": "가우스의 전설: 1부터 100까지의 합",
+    "input": "100\n",
+    "expected_output": "5050"
+  },
+  {
+    "id": 3,
+    "description": "N = 1 최소 케이스",
+    "input": "1\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 4,
+    "description": "N = 2",
+    "input": "2\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 5,
+    "description": "N = 5",
+    "input": "5\n",
+    "expected_output": "15"
+  },
+  {
+    "id": 6,
+    "description": "N = 1000",
+    "input": "1000\n",
+    "expected_output": "500500"
+  },
+  {
+    "id": 7,
+    "description": "N = 1234",
+    "input": "1234\n",
+    "expected_output": "761995"
+  },
+  {
+    "id": 8,
+    "description": "N = 10000",
+    "input": "10000\n",
+    "expected_output": "50005000"
+  },
+  {
+    "id": 9,
+    "description": "N = 99999",
+    "input": "99999\n",
+    "expected_output": "4999950000"
+  },
+  {
+    "id": 10,
+    "description": "N = 1000000 (백만)",
+    "input": "1000000\n",
+    "expected_output": "500000500000"
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "높이 3 삼각형",
+    "input": "3\n",
+    "expected_output": "*\n**\n***"
+  },
+  {
+    "id": 2,
+    "description": "높이 5 삼각형",
+    "input": "5\n",
+    "expected_output": "*\n**\n***\n****\n*****"
+  },
+  {
+    "id": 3,
+    "description": "높이 1 최소 삼각형",
+    "input": "1\n",
+    "expected_output": "*"
+  },
+  {
+    "id": 4,
+    "description": "높이 2 삼각형",
+    "input": "2\n",
+    "expected_output": "*\n**"
+  },
+  {
+    "id": 5,
+    "description": "높이 4 삼각형",
+    "input": "4\n",
+    "expected_output": "*\n**\n***\n****"
+  },
+  {
+    "id": 6,
+    "description": "높이 6 삼각형",
+    "input": "6\n",
+    "expected_output": "*\n**\n***\n****\n*****\n******"
+  },
+  {
+    "id": 7,
+    "description": "높이 8 삼각형",
+    "input": "8\n",
+    "expected_output": "*\n**\n***\n****\n*****\n******\n*******\n********"
+  },
+  {
+    "id": 8,
+    "description": "높이 10 삼각형",
+    "input": "10\n",
+    "expected_output": "*\n**\n***\n****\n*****\n******\n*******\n********\n*********\n**********"
+  },
+  {
+    "id": 9,
+    "description": "높이 7 삼각형",
+    "input": "7\n",
+    "expected_output": "*\n**\n***\n****\n*****\n******\n*******"
+  },
+  {
+    "id": 10,
+    "description": "높이 12 삼각형",
+    "input": "12\n",
+    "expected_output": "*\n**\n***\n****\n*****\n******\n*******\n********\n*********\n**********\n***********\n************"
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제 1",
+    "input": "3\nminsoo 14.50\nyounghee 13.80\nchulsoo 15.20\n",
+    "expected_output": "1 younghee 13.80\n2 minsoo 14.50\n3 chulsoo 15.20"
+  },
+  {
+    "id": 2,
+    "description": "기본 예제 2",
+    "input": "2\nsora 12.30\nmingo 11.90\n",
+    "expected_output": "1 mingo 11.90\n2 sora 12.30"
+  },
+  {
+    "id": 3,
+    "description": "이미 1등부터 정렬되어 입력된 경우",
+    "input": "3\na 10.0\nb 11.0\nc 12.0\n",
+    "expected_output": "1 a 10.0\n2 b 11.0\n3 c 12.0"
+  },
+  {
+    "id": 4,
+    "description": "완전 역순으로 입력된 경우",
+    "input": "3\nc 15.0\nb 14.0\na 13.0\n",
+    "expected_output": "1 a 13.0\n2 b 14.0\n3 c 15.0"
+  },
+  {
+    "id": 5,
+    "description": "소수점 자릿수 정밀 비교",
+    "input": "3\ntom 13.25\njerry 13.20\nspike 13.30\n",
+    "expected_output": "1 jerry 13.20\n2 tom 13.25\n3 spike 13.30"
+  },
+  {
+    "id": 6,
+    "description": "4명 학생 레이스",
+    "input": "4\npaul 16.4\njohn 14.2\ngeorge 15.1\nringo 17.0\n",
+    "expected_output": "1 john 14.2\n2 george 15.1\n3 paul 16.4\n4 ringo 17.0"
+  },
+  {
+    "id": 7,
+    "description": "찰나의 차이 (0.01초)",
+    "input": "2\nflash 9.99\nbolt 9.98\n",
+    "expected_output": "1 bolt 9.98\n2 flash 9.99"
+  },
+  {
+    "id": 8,
+    "description": "5명 달리기",
+    "input": "5\ne 15.5\nd 14.4\nc 13.3\nb 12.2\na 11.1\n",
+    "expected_output": "1 a 11.1\n2 b 12.2\n3 c 13.3\n4 d 14.4\n5 e 15.5"
+  },
+  {
+    "id": 9,
+    "description": "정수 기록으로 주어진 경우",
+    "input": "3\nfast 10\nmedium 12\nslow 15\n",
+    "expected_output": "1 fast 10\n2 medium 12\n3 slow 15"
+  },
+  {
+    "id": 10,
+    "description": "6명 학생 무작위 기록",
+    "input": "6\nkim 14.1\nlee 13.9\npark 15.0\nchoi 12.8\njung 14.5\nkang 13.2\n",
+    "expected_output": "1 choi 12.8\n2 kang 13.2\n3 lee 13.9\n4 kim 14.1\n5 jung 14.5\n6 park 15.0"
+  }
+]

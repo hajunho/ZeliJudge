@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "예제 1: as soon as possible -> ASAP",
+    "input": "as soon as possible\n",
+    "expected_output": "ASAP"
+  },
+  {
+    "id": 2,
+    "description": "예제 2: artificial intelligence -> AI",
+    "input": "artificial intelligence\n",
+    "expected_output": "AI"
+  },
+  {
+    "id": 3,
+    "description": "예제 3: 대소문자 혼합 Central Processing Unit -> CPU",
+    "input": "Central Processing Unit\n",
+    "expected_output": "CPU"
+  },
+  {
+    "id": 4,
+    "description": "한 단어만 있는 경우",
+    "input": "python\n",
+    "expected_output": "P"
+  },
+  {
+    "id": 5,
+    "description": "두 단어",
+    "input": "hello world\n",
+    "expected_output": "HW"
+  },
+  {
+    "id": 6,
+    "description": "이미 대문자인 단어들",
+    "input": "NATIONAL AERONAUTICS SPACE ADMINISTRATION\n",
+    "expected_output": "NASA"
+  },
+  {
+    "id": 7,
+    "description": "대소문자 뒤죽박죽",
+    "input": "yoLO oNce lIve oNly\n",
+    "expected_output": "YOLO"
+  },
+  {
+    "id": 8,
+    "description": "다섯 단어",
+    "input": "very very important person today\n",
+    "expected_output": "VVIPT"
+  },
+  {
+    "id": 9,
+    "description": "질문 단어: zeli judge open source\n",
+    "input": "zeli judge open source\n",
+    "expected_output": "ZJOS"
+  },
+  {
+    "id": 10,
+    "description": "한 글자 단어들의 모임",
+    "input": "i am a boy\n",
+    "expected_output": "IAAB"
+  }
+]

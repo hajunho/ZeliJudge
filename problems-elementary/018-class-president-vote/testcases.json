@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제 1: minsoo 3표 당선",
+    "input": "6\nminsoo jiyoung minsoo chulsoo jiyoung minsoo\n",
+    "expected_output": "minsoo 3"
+  },
+  {
+    "id": 2,
+    "description": "동점자 케이스: bob vs alice (사전순 alice 승리)",
+    "input": "4\nbob alice alice bob\n",
+    "expected_output": "alice 2"
+  },
+  {
+    "id": 3,
+    "description": "투표 1장만 있는 경우",
+    "input": "1\nsora\n",
+    "expected_output": "sora 1"
+  },
+  {
+    "id": 4,
+    "description": "모두 한 사람에게 몰표",
+    "input": "5\nhero hero hero hero hero\n",
+    "expected_output": "hero 5"
+  },
+  {
+    "id": 5,
+    "description": "모두 1표씩 (3명 동점, 사전순 첫 번째)",
+    "input": "3\ncharlie alice bob\n",
+    "expected_output": "alice 1"
+  },
+  {
+    "id": 6,
+    "description": "2명 경합",
+    "input": "7\ntom jerry tom jerry tom tom jerry\n",
+    "expected_output": "tom 4"
+  },
+  {
+    "id": 7,
+    "description": "4명 후보 중 1명 압승",
+    "input": "8\na b c d a a b a\n",
+    "expected_output": "a 4"
+  },
+  {
+    "id": 8,
+    "description": "동점 3표씩 2명: zulu vs alpha",
+    "input": "6\nzulu alpha zulu alpha zulu alpha\n",
+    "expected_output": "alpha 3"
+  },
+  {
+    "id": 9,
+    "description": "긴 이름 후보",
+    "input": "5\nalexander benjamin alexander alexander benjamin\n",
+    "expected_output": "alexander 3"
+  },
+  {
+    "id": 10,
+    "description": "다양한 득표 분포",
+    "input": "10\na b c a b a d e a f\n",
+    "expected_output": "a 4"
+  }
+]

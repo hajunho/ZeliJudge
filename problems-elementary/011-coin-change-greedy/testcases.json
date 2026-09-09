@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제 1: 1260원",
+    "input": "1260\n",
+    "expected_output": "2 2 1 1"
+  },
+  {
+    "id": 2,
+    "description": "기본 예제 2: 800원",
+    "input": "800\n",
+    "expected_output": "1 3 0 0"
+  },
+  {
+    "id": 3,
+    "description": "기본 예제 3: 70원",
+    "input": "70\n",
+    "expected_output": "0 0 1 2"
+  },
+  {
+    "id": 4,
+    "description": "최소 금액: 10원",
+    "input": "10\n",
+    "expected_output": "0 0 0 1"
+  },
+  {
+    "id": 5,
+    "description": "500원 딱 떨어짐",
+    "input": "500\n",
+    "expected_output": "1 0 0 0"
+  },
+  {
+    "id": 6,
+    "description": "1000원 딱 떨어짐",
+    "input": "1000\n",
+    "expected_output": "2 0 0 0"
+  },
+  {
+    "id": 7,
+    "description": "잔돈 가득 990원",
+    "input": "990\n",
+    "expected_output": "1 4 1 4"
+  },
+  {
+    "id": 8,
+    "description": "최대 금액: 10000원",
+    "input": "10000\n",
+    "expected_output": "20 0 0 0"
+  },
+  {
+    "id": 9,
+    "description": "50원 단위: 650원",
+    "input": "650\n",
+    "expected_output": "1 1 1 0"
+  },
+  {
+    "id": 10,
+    "description": "복합 금액: 3780원",
+    "input": "3780\n",
+    "expected_output": "7 2 1 3"
+  }
+]
