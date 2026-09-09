@@ -102,6 +102,7 @@ problems/
 | **#059** | [이메일 발송 API가 느려졌는데 왜 쇼핑몰 전체가 마비돼요?!: 롱 러닝 트랜잭션과 커넥션 풀 고갈 (Long-Running Transaction & HikariCP Pool Starvation)](problems/059-long-running-transaction-connection-starvation/problem.md) | **데이터베이스 엔지니어링/동시성**, 습관성 `@Transactional` 안티패턴, HikariCP 커넥션 풀 라이프사이클, 외부 I/O 블로킹 고갈, 트랜잭션 범위 최소화, 아웃박스 패턴 | 외부 이메일/결제 API 지연 발생 시 10개 커넥션이 영구 묶여 로그인/메인페이지 등 전사 500 타임아웃 폭사한 참사 |
 | **#060** | [질문보다 답변이 먼저 뜨는 타임머신 버그?!: 분산 시계 드리프트와 램포트 논리적 시계 (Physical Clock Drift vs Lamport Logical Clock)](problems/060-lamport-logical-clock/problem.md) | **분산 시스템/시간과 인과율**, 레슬리 램포트 튜링상 논문, NTP 시계 드리프트/스큐, 일어남-선행($\to$) 인과 관계, 램포트 논리 시계 알고리즘, 전체 순서화(Total Ordering) | 노드 간 시계 오차로 질문보다 답변이 먼저 도착해 메신저 대화 타임라인이 거꾸로 뒤집힌 참사 |
 | **#061** | [분산 락을 걸었는데 왜 두 명이 동시에 결제돼요?!: 분산 락의 덫과 펜싱 토큰 (Distributed Lock STW Pause & Martin Kleppmann's Fencing Token)](problems/061-distributed-lock-fencing-token/problem.md) | **분산 시스템/동시성 격리**, 마틴 클레프만 vs 안티레즈 논쟁, Stop-The-World GC 락 만료, 펜싱 토큰(Fencing Token), 스토리지 기반 울타리 검증, 락 하이재킹 방어 | GC 일시정지로 락이 만료된 사이 다른 노드가 락을 얻었는데, 깨어난 유령 노드가 데이터를 덮어써 결제 데이터가 파괴된 참사 |
+| **#062** | [결제 서버 하나 뻗었다고 쇼핑몰 전체 DB가 잠겼어요?!: 분산 트랜잭션의 2PC 블로킹 지옥과 Saga 보상 트랜잭션 (Two-Phase Commit vs Saga Pattern)](problems/062-two-phase-commit-vs-saga/problem.md) | **분산 트랜잭션/MSA 아키텍처**, 2PC(Two-Phase Commit) XA 표준, 코디네이터 크래시와 Indoubt 영구 블로킹, Saga 패턴, 역순 보상 트랜잭션(Compensating Tx), 최종 일관성(Eventual Consistency) | 2PC 코디네이터 노드 장애로 참여 노드들이 Row Lock을 풀지 못해 수천 개 정상 주문이 Lock Wait Timeout으로 폭사한 참사 |
 
 
 
