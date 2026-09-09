@@ -99,6 +99,7 @@ problems/
 | **#056** | [동시 접속자 1만 명이 들어왔더니 서버가 숨도 못 쉬어요?!: C10K 문제와 Thread-per-Client vs I/O Multiplexing (Epoll / Reactor)](problems/056-c10k-thread-vs-io-multiplexing/problem.md) | **시스템 아키텍처/네트워크 I/O**, C10K 문제, 블로킹 스레드 스택(1MB) OOM, 리눅스 epoll I/O 다중화, Reactor 패턴, Nginx/Netty/Node.js | 동시 접속자 수천 명 들어왔을 뿐인데 스레드 1만 개 폭증해 10GB 메모리 고갈 및 컨텍스트 스위칭으로 서버 다운된 참사 |
 | **#057** | [한 번만 결제했는데 왜 통장에서 돈이 두 번 빠져나가요?!: 네트워크 타임아웃과 API 멱등성 (Idempotency Key & Deduplication)](problems/057-idempotency-key-deduplication/problem.md) | **분산 시스템/결제 아키텍처**, Fallacies of Distributed Computing, 네트워크 타임아웃 vs Lost ACK, Idempotency-Key, 분산 락(IN_FLIGHT), 결과 캐싱, 페이로드 변조 방어 | 결제 완료 후 통신 순단으로 응답만 유실됐는데 재시도 버튼 눌렀다가 2번 연속 결제돼 통장 잔고 털린 참사 |
 | **#058** | [배송 완료된 상품이 왜 '결제 대기'로 되돌아가요?!: 네트워크 패킷 지연과 시퀀스 번호 재정렬 버퍼 (Out-of-Order Delivery & Reordering Buffer)](problems/058-out-of-order-reordering-buffer/problem.md) | **분산 이벤트 스트리밍/네트워크**, Out-of-Order 패킷 지연, 상태 역전(State Regression) 참사, 시퀀스 번호 단조 증가, 재정렬 버퍼(Reordering Buffer), 연쇄 드레인(Drain), HOL 블로킹 타임아웃 | 분산 네트워크 지연으로 이벤트가 뒤죽박죽 도착해 이미 배송 완료된 상품이 '결제 대기'로 되돌아가 중복 배송된 참사 |
+| **#059** | [이메일 발송 API가 느려졌는데 왜 쇼핑몰 전체가 마비돼요?!: 롱 러닝 트랜잭션과 커넥션 풀 고갈 (Long-Running Transaction & HikariCP Pool Starvation)](problems/059-long-running-transaction-connection-starvation/problem.md) | **데이터베이스 엔지니어링/동시성**, 습관성 `@Transactional` 안티패턴, HikariCP 커넥션 풀 라이프사이클, 외부 I/O 블로킹 고갈, 트랜잭션 범위 최소화, 아웃박스 패턴 | 외부 이메일/결제 API 지연 발생 시 10개 커넥션이 영구 묶여 로그인/메인페이지 등 전사 500 타임아웃 폭사한 참사 |
 
 
 
