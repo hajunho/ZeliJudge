@@ -169,6 +169,7 @@ problems/
 | **#126** | [CPU 5%인데 왜 서버가 뻗고 로드 애버리지(Load Average)가 100을 찍어요?!: 리눅스 커널 프로세스 D 상태(TASK_UNINTERRUPTIBLE)와 지수 감쇠 이동 평균(EMA) (Linux Load Average & D-State Process Mystery)](problems/126-linux-loadavg-d-state-uninterruptible/problem.md) | **운영체제 커널/시스템 모니터링/리눅스 성능 분석**, CPU 사용률(Utilization) vs 로드 애버리지(Demand)의 본질적 차이, 1993년 리눅스 토발즈의 D 상태 편입 패치, TASK_UNINTERRUPTIBLE 프로세스가 kill -9로도 죽지 않는 하드웨어 보호 이유, 5초 주기 지수 감쇠 이동 평균(EMA), I/O 스토리지 병목 진단 | CPU 5%인데 NFS 지연으로 D 상태 프로세스 폭증해 Load Average 100 찍고 서버 멈춘 참사와 kill -9 불능 원리 및 EMA 커널 공식 |
 | **#127** | [브라우저에선 초록불인데 왜 모바일 앱에선 결제가 다 터져요?!: TLS X.509 인증서 체인(Certificate Chain)과 누락된 중간 CA(Intermediate CA) & AIA(Authority Information Access)의 저주 (TLS Certificate Chain Validation & AIA Fetching)](problems/127-tls-certificate-chain-and-aia/problem.md) | **컴퓨터 네트워크/정보보안/PKI 인프라**, X.509 인증서 체인(Leaf -> Intermediate -> Root), cert.pem vs fullchain.pem의 치명적 차이, 데스크톱 브라우저 AIA(Authority Information Access) 백그라운드 페칭 vs 모바일 앱(OkHttp) 즉시 검증 실패, Trust Store 앵커 검증 | Nginx에 cert.pem만 넣었다가 PC에선 잘 되는데 모바일 앱 결제 30%가 Trust anchor not found로 전면 마비된 참사와 fullchain.pem 구원 원리 |
 | **#128** | [무중단 배포(Zero Downtime)라면서 왜 롤링 업데이트마다 502 에러가 터져요?!: 쿠버네티스 Pod Graceful Shutdown과 엔드포인트 등록 해제(Deregistration) 비동기 레이스 컨디션 (Kubernetes Pod Graceful Shutdown & Endpoint Race)](problems/128-k8s-pod-graceful-shutdown-race/problem.md) | **클라우드 인프라/컨테이너/분산 시스템**, Kubelet 컨테이너 라이프사이클 vs 제어 평면 엔드포인트 전파의 비동기 분리, preStop Hook sleep 5 완충 원리, SIGTERM 즉시 소켓 차단 및 502 Bad Gateway(Connection Refused) 참사, terminationGracePeriodSeconds 카운트다운 함정, In-flight Request Drain | 롤링 배포 돌렸더니 Ingress가 닫힌 포트로 트래픽 계속 쏴서 502 에러 수백 건 터진 참사와 preStop 훅 및 완벽한 무중단 배포 구원 원리 |
+| **#129** | [방금 쓴 글을 등록했는데 왜 목록에 안 보여요?!: DB 마스터-슬레이브 복제 지연(Replication Lag)과 Read-Your-Own-Writes 일관성 라우팅 알고리즘 (Database Replication Lag & Read-Your-Own-Writes Consistency)](problems/129-db-replication-lag-read-your-own-writes/problem.md) | **데이터베이스 엔지니어링/분산 시스템/일관성 모델**, 비동기 복제(Asynchronous Replication)와 Binlog/Relay log 재생 지연, Read-Your-Own-Writes (Write-After-Read) 일관성 원리, NAIVE_REPLICA_ONLY vs SESSION_MASTER_PINNING(시간 창 핀닝) vs CAUSAL_GTID_CONSISTENCY(GTID 대기 및 폴백) | DB 부하 분산하려고 Read Replica 붙였다가 방금 쓴 글/주문이 안 보이는 Stale Read로 고객센터 폭발한 참사와 GTID/세션 핀닝 구원 원리 |
 
 
 
@@ -184,7 +185,7 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 |:---:|:---:|:---:|---|
 | 🎒 **초등부 트랙 (Junior)** | `problems-elementary/` | **130문제 완결** ✅ | 초등학생 & 코딩 입문: 사칙연산, 조건/반복문, 리스트/문자열, 기초 스택/큐, 2D 격자, 기본 수학 |
 | 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **130문제 완결** ✅ | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 고급 정수론/기하/DP |
-| 🎓 **고등부 트랙 (High)** | `problems-high/` | 중등부 완결 후 예정 🔜 | 고등학생 & KOI/대회: 다이나믹 프로그래밍(DP), 이진 탐색, 그래프(DFS/BFS), 트리 순회, 백트래킹 |
+| 🎓 **고등부 트랙 (High)** | `problems-high/` | **10문제 (진행 중)** 🚀 | 고등학생 & KOI/대회: 투 포인터, 매개변수 탐색, LIS, 배낭 DP, 상태 BFS, 백트래킹, MST, 다익스트라, 위상정렬 |
 | 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 110+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/락, Kafka, 캐시 스탬피드, ReDoS, 고가용성 아키텍처 |
 
 ---
