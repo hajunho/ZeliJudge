@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제 1: leo 미완주",
+    "input": "3\nleo kiki eden\neden kiki\n",
+    "expected_output": "leo"
+  },
+  {
+    "id": 2,
+    "description": "기본 예제 2: vinko 미완주",
+    "input": "4\nmarina josipa nikola vinko\njosipa marina nikola\n",
+    "expected_output": "vinko"
+  },
+  {
+    "id": 3,
+    "description": "2명 중 1명 미완주",
+    "input": "2\ntom jerry\njerry\n",
+    "expected_output": "tom"
+  },
+  {
+    "id": 4,
+    "description": "마지막 주자 미완주",
+    "input": "3\na b c\na b\n",
+    "expected_output": "c"
+  },
+  {
+    "id": 5,
+    "description": "첫 번째 주자 미완주",
+    "input": "3\na b c\nb c\n",
+    "expected_output": "a"
+  },
+  {
+    "id": 6,
+    "description": "가운데 주자 미완주",
+    "input": "3\na b c\na c\n",
+    "expected_output": "b"
+  },
+  {
+    "id": 7,
+    "description": "긴 이름 러너",
+    "input": "3\nalexander benjamin charlotte\ncharlotte alexander\n",
+    "expected_output": "benjamin"
+  },
+  {
+    "id": 8,
+    "description": "5명 중 1명",
+    "input": "5\nkim lee park choi jung\njung park lee kim\n",
+    "expected_output": "choi"
+  },
+  {
+    "id": 9,
+    "description": "완주자 순서 뒤죽박죽",
+    "input": "4\nred blue green yellow\nyellow red blue\n",
+    "expected_output": "green"
+  },
+  {
+    "id": 10,
+    "description": "10명 중 1명",
+    "input": "10\na b c d e f g h i j\nj i h g e d c b a\n",
+    "expected_output": "f"
+  }
+]

@@ -221,6 +221,16 @@ problems/
 | **#048** | [비밀 압축문 해제하기! 런렝스 복원기](problems-elementary/048-rle-decompress-string/problem.md) | 문자열 파싱, 글자 반복 곱셈, 압축 해제 | A3B2C1 같은 런렝스 압축 문자열을 원래 단어로 감쪽같이 복원하기 |
 | **#049** | [가장 작은 것부터 맨 앞으로! 선택 정렬 1회전](problems-elementary/049-selection-sort-minimum/problem.md) | 정렬 알고리즘, 선택 정렬(Selection Sort), 최솟값 스왑 | 배열에서 가장 작은 수를 찾아 맨 앞자리와 자리를 바꾸는 1회전 수행하기 |
 | **#050** | [전설의 황금 원판 옮기기! 하노이의 탑 최소 이동 횟수](problems-elementary/050-hanoi-tower-moves/problem.md) | 수학, 하노이의 탑, 거듭제곱($2^N - 1$), 재귀 기초 | 크기 규칙을 지키며 N개의 원판을 옮기기 위한 최소 이동 횟수 계산하기 |
+| **#051** | [신비로운 조화의 수! 완전수(Perfect Number) 판별기](problems-elementary/051-perfect-number-harmony/problem.md) | 수학, 약수 탐색, 완전수, 진약수의 합 | 자기 자신을 제외한 약수들의 합이 원래 수와 같은 신비로운 수 찾기 |
+| **#052** | [뱀과 사다리 게임의 말판 점프 시뮬레이션](problems-elementary/052-snake-ladder-board-move/problem.md) | 시뮬레이션, 딕셔너리 포털 워프, 조건 분기 | 주사위를 굴려 사다리를 타고 올라가고 뱀을 피해 목적지에 도착하기 |
+| **#053** | [거꾸로 돌려 원래대로! 카이사르 암호 복호화기](problems-elementary/053-caesar-cipher-decrypt/problem.md) | 문자열, 아스키코드 역연산, 모듈러 순환 | K칸 뒤로 밀려난 비밀 암호문을 왼쪽으로 K칸 당겨서 원문 복원하기 |
+| **#054** | [가로와 세로를 뒤집자! 2차원 행렬 전치(Transpose)](problems-elementary/054-matrix-transpose-flip/problem.md) | 2차원 배열 조작, 행렬 전치(Transpose), 인덱스 교환 | $R \times C$ 표의 가로 행과 세로 열을 맞바꿔 $C \times R$ 표로 변환하기 |
+| **#055** | [마법의 우박수! 1이 될 때까지의 콜라츠 추측](problems-elementary/055-collatz-conjecture-steps/problem.md) | 반복문 제어(while), 조건 분기, 콜라츠 수열 | 짝수면 반으로 나누고 홀수면 3배+1 하여 1에 도달하는 연산 횟수 세기 |
+| **#056** | [골인지점에 도착하지 못한 마라톤 러너 찾기](problems-elementary/056-missing-runner-finish/problem.md) | 해시 맵/카운팅, 차집합, 리스트 탐색 | 참가자 명단과 완주자 명단을 대조하여 끝내 완주하지 못한 1명 찾기 |
+| **#057** | [위의 두 수를 더해요! 파스칼의 삼각형 한 줄 만들기](problems-elementary/057-pascal-triangle-row/problem.md) | 규칙 수열, 2차원 누적 덧셈, 파스칼 삼각형 | 양 끝은 1이고 가운데는 바로 윗줄 두 수의 합인 N번째 줄 구하기 |
+| **#058** | [모니터 속 1,600만 가지 색! RGB 16진수 색상 코드 변환기](problems-elementary/058-rgb-color-hex-converter/problem.md) | 진법 변환(10진수 -> 16진수), 포맷팅, 자리맞춤 | 0~255 범위의 R, G, B 빛의 삼원색 값을 6자리 HEX 코드로 변환하기 |
+| **#059** | [컴퓨터와 숫자 대결! 3자리 숫자 야구 스트라이크/볼 판정기](problems-elementary/059-baseball-game-strike-ball/problem.md) | 자릿수 일치 비교, 포함 여부 검사(`in`), 조건 카운팅 | 자릿수와 숫자가 모두 같으면 S, 숫자는 있지만 자리가 다르면 B 판정하기 |
+| **#060** | [괄호 없이 계산해요! 스택(Stack) 후위 표기법 계산기](problems-elementary/060-stack-postfix-calculator/problem.md) | 자료구조 스택(Stack), 후위 표기법(RPN), 후입선출 | 컴퓨터가 괄호 없이 사칙연산을 빠르게 처리하는 스택 계산기 구현하기 |
 
 ---
 

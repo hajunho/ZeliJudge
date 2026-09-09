@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "123 vs 132 -> 1S 2B",
+    "input": "123\n132\n",
+    "expected_output": "1S 2B"
+  },
+  {
+    "id": 2,
+    "description": "456 vs 789 -> 0S 0B (아웃)",
+    "input": "456\n789\n",
+    "expected_output": "0S 0B"
+  },
+  {
+    "id": 3,
+    "description": "123 vs 123 -> 3S 0B (홈런)",
+    "input": "123\n123\n",
+    "expected_output": "3S 0B"
+  },
+  {
+    "id": 4,
+    "description": "모두 자리 바뀜: 123 vs 231 -> 0S 3B",
+    "input": "123\n231\n",
+    "expected_output": "0S 3B"
+  },
+  {
+    "id": 5,
+    "description": "모두 자리 바뀜: 123 vs 312 -> 0S 3B",
+    "input": "123\n312\n",
+    "expected_output": "0S 3B"
+  },
+  {
+    "id": 6,
+    "description": "1개만 자리 일치: 123 vs 145 -> 1S 0B",
+    "input": "123\n145\n",
+    "expected_output": "1S 0B"
+  },
+  {
+    "id": 7,
+    "description": "1개만 다른 자리: 123 vs 415 -> 0S 1B",
+    "input": "123\n415\n",
+    "expected_output": "0S 1B"
+  },
+  {
+    "id": 8,
+    "description": "2개 스트라이크: 123 vs 129 -> 2S 0B",
+    "input": "123\n129\n",
+    "expected_output": "2S 0B"
+  },
+  {
+    "id": 9,
+    "description": "2볼 0스트라이크: 123 vs 214 -> 0S 2B",
+    "input": "123\n214\n",
+    "expected_output": "0S 2B"
+  },
+  {
+    "id": 10,
+    "description": "0과 포함: 901 vs 091 -> 1S 2B",
+    "input": "901\n091\n",
+    "expected_output": "1S 2B"
+  }
+]

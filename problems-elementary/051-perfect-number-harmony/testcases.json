@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "가장 작은 완전수 6",
+    "input": "6\n",
+    "expected_output": "PERFECT"
+  },
+  {
+    "id": 2,
+    "description": "두 번째 완전수 28",
+    "input": "28\n",
+    "expected_output": "PERFECT"
+  },
+  {
+    "id": 3,
+    "description": "과잉수 12 (약수합 16)",
+    "input": "12\n",
+    "expected_output": "NOT_PERFECT"
+  },
+  {
+    "id": 4,
+    "description": "1은 완전수 아님 (진약수 없음)",
+    "input": "1\n",
+    "expected_output": "NOT_PERFECT"
+  },
+  {
+    "id": 5,
+    "description": "소수 7 (약수합 1)",
+    "input": "7\n",
+    "expected_output": "NOT_PERFECT"
+  },
+  {
+    "id": 6,
+    "description": "세 번째 완전수 496",
+    "input": "496\n",
+    "expected_output": "PERFECT"
+  },
+  {
+    "id": 7,
+    "description": "네 번째 완전수 8128",
+    "input": "8128\n",
+    "expected_output": "PERFECT"
+  },
+  {
+    "id": 8,
+    "description": "제곱수 16 (약수합 15)",
+    "input": "16\n",
+    "expected_output": "NOT_PERFECT"
+  },
+  {
+    "id": 9,
+    "description": "100",
+    "input": "100\n",
+    "expected_output": "NOT_PERFECT"
+  },
+  {
+    "id": 10,
+    "description": "10000",
+    "input": "10000\n",
+    "expected_output": "NOT_PERFECT"
+  }
+]

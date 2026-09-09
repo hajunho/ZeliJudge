@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "FF0080",
+    "input": "255 0 128\n",
+    "expected_output": "#FF0080"
+  },
+  {
+    "id": 2,
+    "description": "순수 검정 #000000",
+    "input": "0 0 0\n",
+    "expected_output": "#000000"
+  },
+  {
+    "id": 3,
+    "description": "순수 하양 #FFFFFF",
+    "input": "255 255 255\n",
+    "expected_output": "#FFFFFF"
+  },
+  {
+    "id": 4,
+    "description": "순수 빨강 #FF0000",
+    "input": "255 0 0\n",
+    "expected_output": "#FF0000"
+  },
+  {
+    "id": 5,
+    "description": "순수 초록 #00FF00",
+    "input": "0 255 0\n",
+    "expected_output": "#00FF00"
+  },
+  {
+    "id": 6,
+    "description": "순수 파랑 #0000FF",
+    "input": "0 0 255\n",
+    "expected_output": "#0000FF"
+  },
+  {
+    "id": 7,
+    "description": "한 자리 16진수 패딩: 5 10 15 -> #050A0F",
+    "input": "5 10 15\n",
+    "expected_output": "#050A0F"
+  },
+  {
+    "id": 8,
+    "description": "네이버 초록색 유사: 3 199 90",
+    "input": "3 199 90\n",
+    "expected_output": "#03C75A"
+  },
+  {
+    "id": 9,
+    "description": "중간 회색 #808080",
+    "input": "128 128 128\n",
+    "expected_output": "#808080"
+  },
+  {
+    "id": 10,
+    "description": "임의의 색상: 18 52 86",
+    "input": "18 52 86\n",
+    "expected_output": "#123456"
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "3칸 복호화: DEF -> ABC",
+    "input": "3\nDEF\n",
+    "expected_output": "ABC"
+  },
+  {
+    "id": 2,
+    "description": "순환 복호화: YZA -> XYZ",
+    "input": "1\nYZA\n",
+    "expected_output": "XYZ"
+  },
+  {
+    "id": 3,
+    "description": "HELLO 복호화",
+    "input": "5\nMJQQT\n",
+    "expected_output": "HELLO"
+  },
+  {
+    "id": 4,
+    "description": "한 글자 A -> Z",
+    "input": "1\nA\n",
+    "expected_output": "Z"
+  },
+  {
+    "id": 5,
+    "description": "한 글자 Z -> A (25칸)",
+    "input": "25\nZ\n",
+    "expected_output": "A"
+  },
+  {
+    "id": 6,
+    "description": "동일 문자 복호화",
+    "input": "4\nEEEE\n",
+    "expected_output": "AAAA"
+  },
+  {
+    "id": 7,
+    "description": "ALGORITHM 복호화",
+    "input": "13\nNYTBEVGUZ\n",
+    "expected_output": "ALGORITHM"
+  },
+  {
+    "id": 8,
+    "description": "PYTHON 복호화",
+    "input": "10\nZIDRYX\n",
+    "expected_output": "PYTHON"
+  },
+  {
+    "id": 9,
+    "description": "ZEBRA 복호화",
+    "input": "2\nBGDTC\n",
+    "expected_output": "ZEBRA"
+  },
+  {
+    "id": 10,
+    "description": "25칸 복호화 (바로 다음 글자로)",
+    "input": "25\nABCD\n",
+    "expected_output": "BCDE"
+  }
+]
