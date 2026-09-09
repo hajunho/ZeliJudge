@@ -179,10 +179,7 @@ problems/
 | **#136** | [SQL에 변수만 넣었을 뿐인데 왜 DB CPU가 100% 찍고 커넥션이 폭사해요?!: 하드 파싱(Hard Parse) vs 소프트 파싱(Soft Parse)과 바인드 변수(Bind Variable) & 커서 캐시 공유 (SQL Hard Parse vs Soft Parse & Bind Variable)](problems/136-sql-hard-parse-vs-soft-parse/problem.md) | **데이터베이스 엔지니어링/옵티마이저 CBO/SQL 튜닝**, SQL 3단계 라이프사이클(Parse -> Optimize -> Execute), 하드 파싱의 CPU 수학 연산 오버헤드, 리터럴 SQL(문자열 결합) 100% 하드 파싱 폭풍, Shared Pool 라이브러리 캐시 래치 경합 및 LRU Churn, 바인드 변수(?/PreparedStatement) 최초 1회 파싱 후 99% 소프트 파싱 재사용, SQL 인젝션 방어 | 리터럴 쿼리 날렸다가 1,000명 동시 조회에 DB CPU 100% 치솟고 커넥션 풀 고갈된 참사와 바인드 변수 90% CPU 절감 구원 원리 |
 | **#137** | [패킷 하나 보냈는데 왜 매번 정확히 40ms씩 멈춰요?!: TCP 네이글 알고리즘(Nagle's Algorithm) vs 지연 ACK(Delayed ACK)의 충돌과 TCP_NODELAY (TCP Nagle vs Delayed ACK & TCP_NODELAY)](problems/137-tcp-nagle-vs-delayed-ack/problem.md) | **컴퓨터 네트워크/전송 계층(TCP)/소켓 프로그래밍**, RFC 896 네이글 알고리즘(In-flight data vs MSS 버퍼링), RFC 1122 Delayed ACK 40ms 지연 및 Cumulative ACK, 분할 쓰기(write header + write body)와 40ms 침묵의 데드락, TCP_NODELAY(Nagle 해제)를 통한 84ms -> 2ms 42배 성능 단축, writev/TCP_CORK 버퍼 통합 | 내부망(RTT 2ms)인데도 HTTP/RPC 요청마다 40ms~84ms씩 뚝뚝 끊기던 참사와 TCP_NODELAY 및 버퍼 통합 전송 구원 원리 |
 | **#138** | [간헐적으로 502 Bad Gateway가 떠요?!: 로드밸런서(ALB) Idle Timeout vs 백엔드 Keep-Alive Timeout 불일치 레이스 컨디션 (ALB Idle Timeout vs Backend Keep-Alive Timeout Race)](problems/138-alb-idle-timeout-vs-backend-keepalive/problem.md) | **클라우드 인프라/L7 로드밸런서/HTTP Keep-Alive**, AWS ALB Idle Timeout(60s) vs 백엔드(Node.js/Tomcat) Keep-Alive Timeout(60s/5s), 백엔드 소켓 close(FIN)와 ALB 새 요청 인입의 네트워크 전파 엇갈림, 닫힌 소켓 TCP RST 강제 반환 및 백엔드 로그 0줄 유령 502 Bad Gateway 참사, 황금률(Backend Timeout > ALB Timeout + Buffer) 100% 502 방어 | 평소엔 잘 되다가 요청 뜸할 때 1분에 몇 번씩 502 Bad Gateway 터지던 참사와 백엔드 타임아웃 65초 증설 구원 원리 |
-
-
-
-
+| **#139** | [존재하지 않는 키만 골라 100만 번 찔렀더니 DB가 타버렸어요!: 캐시 관통(Cache Penetration)과 블룸 필터(Bloom Filter) & Null 값 캐싱 (Redis Cache Penetration & Bloom Filter)](problems/139-redis-cache-penetration-bloom-filter/problem.md) | **분산 캐시 아키텍처/자료구조/정보보안**, 캐시 3대 장애(관통 vs 스탬피드 vs 눈사태), DB에도 없는 무효 키 대량 인입 시 Cache Miss 100% 관통 및 RDBMS CPU 100% 폭사, 블룸 필터(Bloom Filter) $M$비트 $K$해시 확률적 자료구조 원리, False Negative 0% 보장과 즉시 차단, 위양성률 제어 공식($M = -N \ln p / (\ln 2)^2$), Null 캐싱 보완 기법 | 존재하지 않는 난수 상품 ID 공격에 Redis 놔두고 DB 커넥션 풀 고갈되어 504 폭사한 참사와 블룸 필터 99% 무효 요청 사전 차단 구원 원리 |
 
 ---
 
@@ -195,7 +192,7 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | 🎒 **초등부 트랙 (Junior)** | `problems-elementary/` | **130문제 완결** ✅ | 초등학생 & 코딩 입문: 사칙연산, 조건/반복문, 리스트/문자열, 기초 스택/큐, 2D 격자, 기본 수학 |
 | 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **130문제 완결** ✅ | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 고급 정수론/기하/DP |
 | 🎓 **고등부 트랙 (High)** | `problems-high/` | **130문제 완결** ✅ | 고등학생 & KOI/대회: 보로노이/들로네, 메르텐스 두 체, 세그트리 비츠, 지배자 트리, 팰린드롬 트리, SMAWK, 매트로이드 교집합, 가우스 정수, 푸시-리레이블, 최종 그랜드 캡스톤 |
-| 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 138+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/락, Kafka, 캐시 스탬피드, ReDoS, 고가용성 아키텍처 |
+| 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 139+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/락, Kafka, 캐시 스탬피드/관통, ReDoS, 고가용성 아키텍처 |
 
 ---
 
