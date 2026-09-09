@@ -1,0 +1,30 @@
+[
+  {
+    "input": "2 2 100 EAGER\n4\n1 1 30\n2 1 80\n3 2 20\n4 2 20\n",
+    "output": "PROCESSED_UNIQUE: 3 DUPLICATE: 1 REBALANCES: 2 STW_SEC: 10"
+  },
+  {
+    "input": "2 2 100 COOPERATIVE\n4\n1 1 30\n2 1 80\n3 2 20\n4 2 20\n",
+    "output": "PROCESSED_UNIQUE: 3 DUPLICATE: 1 REBALANCES: 2 STW_SEC: 2"
+  },
+  {
+    "input": "3 3 200 EAGER\n4\n1 1 20\n2 1 30\n3 2 40\n4 3 50\n",
+    "output": "PROCESSED_UNIQUE: 4 DUPLICATE: 0 REBALANCES: 0 STW_SEC: 0"
+  },
+  {
+    "input": "3 3 200 COOPERATIVE\n4\n1 1 20\n2 1 30\n3 2 40\n4 3 50\n",
+    "output": "PROCESSED_UNIQUE: 4 DUPLICATE: 0 REBALANCES: 0 STW_SEC: 0"
+  },
+  {
+    "input": "3 3 50 EAGER\n5\n1 1 20\n2 1 40\n3 2 20\n4 2 40\n5 3 10\n",
+    "output": "PROCESSED_UNIQUE: 3 DUPLICATE: 1 REBALANCES: 3 STW_SEC: 15"
+  },
+  {
+    "input": "1 1 60 EAGER\n2\n101 1 30\n102 1 40\n",
+    "output": "PROCESSED_UNIQUE: 1 DUPLICATE: 0 REBALANCES: 1 STW_SEC: 5"
+  },
+  {
+    "input": "2 4 150 COOPERATIVE\n9\n1 1 10\n2 1 20\n3 1 130\n4 2 10\n5 2 10\n6 3 10\n7 3 10\n8 4 10\n9 4 10\n",
+    "output": "PROCESSED_UNIQUE: 6 DUPLICATE: 2 REBALANCES: 2 STW_SEC: 2"
+  }
+]
