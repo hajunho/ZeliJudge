@@ -1,0 +1,42 @@
+[
+  {
+    "input": "{\n  \"config\": {\n    \"checkpoint_type\": \"SHARP\",\n    \"checkpoint_timeout_sec\": 300.0,\n    \"checkpoint_completion_target\": 0.05,\n    \"max_wal_size_mb\": 8192.0,\n    \"shared_buffers_mb\": 4096.0,\n    \"disk_max_write_bandwidth_mbps\": 200.0,\n    \"bgwriter_enabled\": false\n  },\n  \"workload\": {\n    \"duration_sec\": 300.0,\n    \"dirty_page_generation_rate_mbps\": 40.0,\n    \"wal_generation_rate_mbps\": 10.0,\n    \"incoming_query_rate_qps\": 2500.0\n  }\n}",
+    "output": "{\n  \"status\": \"FAILED\",\n  \"verdict\": \"SHARP_CHECKPOINT_IO_SPIKE_STALL\",\n  \"metrics\": {\n    \"checkpoint_type\": \"SHARP\",\n    \"actual_checkpoint_interval_sec\": 300.0,\n    \"is_wal_driven\": false,\n    \"peak_disk_utilization_ratio\": 1.0,\n    \"backend_writes_mb\": 0.0,\n    \"p99_query_latency_ms\": 4500.0\n  }\n}",
+    "description": "Case 1: Sharp checkpoint dumps dirty pages at line-rate, pinning disk I/O at 100% and stalling queries at 4.5s"
+  },
+  {
+    "input": "{\n  \"config\": {\n    \"checkpoint_type\": \"FUZZY\",\n    \"checkpoint_timeout_sec\": 300.0,\n    \"checkpoint_completion_target\": 0.9,\n    \"max_wal_size_mb\": 16384.0,\n    \"shared_buffers_mb\": 1024.0,\n    \"disk_max_write_bandwidth_mbps\": 100.0,\n    \"bgwriter_enabled\": false\n  },\n  \"workload\": {\n    \"duration_sec\": 300.0,\n    \"dirty_page_generation_rate_mbps\": 150.0,\n    \"wal_generation_rate_mbps\": 20.0,\n    \"incoming_query_rate_qps\": 3000.0\n  }\n}",
+    "output": "{\n  \"status\": \"FAILED\",\n  \"verdict\": \"BACKEND_SYNC_FLUSH_THRASHING\",\n  \"metrics\": {\n    \"checkpoint_type\": \"FUZZY\",\n    \"actual_checkpoint_interval_sec\": 300.0,\n    \"is_wal_driven\": false,\n    \"peak_disk_utilization_ratio\": 1.0,\n    \"backend_writes_mb\": 14641.6,\n    \"p99_query_latency_ms\": 1850.0\n  }\n}",
+    "description": "Case 2: Shared buffers exhausted by high dirty rate, forcing user backend threads to synchronously flush 14.6GB"
+  },
+  {
+    "input": "{\n  \"config\": {\n    \"checkpoint_type\": \"FUZZY\",\n    \"checkpoint_timeout_sec\": 300.0,\n    \"checkpoint_completion_target\": 0.9,\n    \"max_wal_size_mb\": 512.0,\n    \"shared_buffers_mb\": 4096.0,\n    \"disk_max_write_bandwidth_mbps\": 250.0,\n    \"bgwriter_enabled\": true,\n    \"bgwriter_lru_rate_mbps\": 20.0\n  },\n  \"workload\": {\n    \"duration_sec\": 300.0,\n    \"dirty_page_generation_rate_mbps\": 30.0,\n    \"wal_generation_rate_mbps\": 20.0,\n    \"incoming_query_rate_qps\": 2000.0\n  }\n}",
+    "output": "{\n  \"status\": \"FAILED\",\n  \"verdict\": \"WAL_DRIVEN_UNSCHEDULED_CHECKPOINT_BURST\",\n  \"metrics\": {\n    \"checkpoint_type\": \"FUZZY\",\n    \"actual_checkpoint_interval_sec\": 25.6,\n    \"is_wal_driven\": true,\n    \"peak_disk_utilization_ratio\": 0.2133,\n    \"backend_writes_mb\": 0.0,\n    \"p99_query_latency_ms\": 4.78\n  }\n}",
+    "description": "Case 3: Undersized max_wal_size (512MB) triggers premature checkpoints every 25.6s, collapsing spread target"
+  },
+  {
+    "input": "{\n  \"config\": {\n    \"checkpoint_type\": \"FUZZY\",\n    \"checkpoint_timeout_sec\": 300.0,\n    \"checkpoint_completion_target\": 0.9,\n    \"max_wal_size_mb\": 16384.0,\n    \"shared_buffers_mb\": 4096.0,\n    \"disk_max_write_bandwidth_mbps\": 250.0,\n    \"bgwriter_enabled\": true,\n    \"bgwriter_lru_rate_mbps\": 20.0\n  },\n  \"workload\": {\n    \"duration_sec\": 300.0,\n    \"dirty_page_generation_rate_mbps\": 40.0,\n    \"wal_generation_rate_mbps\": 20.0,\n    \"incoming_query_rate_qps\": 2500.0\n  }\n}",
+    "output": "{\n  \"status\": \"SUCCESS\",\n  \"verdict\": \"OPTIMAL_FUZZY_SPREAD_CHECKPOINT\",\n  \"metrics\": {\n    \"checkpoint_type\": \"FUZZY\",\n    \"actual_checkpoint_interval_sec\": 300.0,\n    \"is_wal_driven\": false,\n    \"peak_disk_utilization_ratio\": 0.2578,\n    \"backend_writes_mb\": 0.0,\n    \"p99_query_latency_ms\": 5.05\n  }\n}",
+    "description": "Case 4: Optimal fuzzy spread flush throttles disk utilization to 25.8%, achieving zero backend writes and 5ms latency"
+  },
+  {
+    "input": "{\n  \"config\": {\n    \"checkpoint_type\": \"FUZZY\",\n    \"checkpoint_timeout_sec\": 300.0,\n    \"checkpoint_completion_target\": 0.7,\n    \"max_wal_size_mb\": 8192.0,\n    \"shared_buffers_mb\": 4096.0,\n    \"disk_max_write_bandwidth_mbps\": 250.0,\n    \"bgwriter_enabled\": true,\n    \"bgwriter_lru_rate_mbps\": 10.0\n  },\n  \"workload\": {\n    \"duration_sec\": 300.0,\n    \"dirty_page_generation_rate_mbps\": 10.0,\n    \"wal_generation_rate_mbps\": 5.0,\n    \"incoming_query_rate_qps\": 5000.0\n  }\n}",
+    "output": "{\n  \"status\": \"SUCCESS\",\n  \"verdict\": \"NORMAL_DATABASE_STEADY_STATE\",\n  \"metrics\": {\n    \"checkpoint_type\": \"FUZZY\",\n    \"actual_checkpoint_interval_sec\": 300.0,\n    \"is_wal_driven\": false,\n    \"peak_disk_utilization_ratio\": 0.0971,\n    \"backend_writes_mb\": 0.0,\n    \"p99_query_latency_ms\": 4.08\n  }\n}",
+    "description": "Case 5: Read-heavy OLTP workload maintains low 9.7% disk utilization in steady state"
+  },
+  {
+    "input": "{\n  \"config\": {\n    \"checkpoint_type\": \"FUZZY\",\n    \"checkpoint_timeout_sec\": 300.0,\n    \"checkpoint_completion_target\": 0.85,\n    \"max_wal_size_mb\": 16384.0,\n    \"shared_buffers_mb\": 4096.0,\n    \"disk_max_write_bandwidth_mbps\": 200.0,\n    \"bgwriter_enabled\": true,\n    \"bgwriter_lru_rate_mbps\": 15.0\n  },\n  \"workload\": {\n    \"duration_sec\": 300.0,\n    \"dirty_page_generation_rate_mbps\": 50.0,\n    \"wal_generation_rate_mbps\": 25.0,\n    \"incoming_query_rate_qps\": 3000.0\n  }\n}",
+    "output": "{\n  \"status\": \"SUCCESS\",\n  \"verdict\": \"OPTIMAL_FUZZY_SPREAD_CHECKPOINT\",\n  \"metrics\": {\n    \"checkpoint_type\": \"FUZZY\",\n    \"actual_checkpoint_interval_sec\": 300.0,\n    \"is_wal_driven\": false,\n    \"peak_disk_utilization_ratio\": 0.3691,\n    \"backend_writes_mb\": 0.0,\n    \"p99_query_latency_ms\": 5.71\n  }\n}",
+    "description": "Case 6: Moderate write load with completion_target=0.85 achieves optimal 36.9% disk utilization and sub-6ms latency"
+  },
+  {
+    "input": "{\n  \"config\": {\n    \"checkpoint_type\": \"FUZZY\",\n    \"checkpoint_timeout_sec\": 600.0,\n    \"checkpoint_completion_target\": 0.9,\n    \"max_wal_size_mb\": 32768.0,\n    \"shared_buffers_mb\": 8192.0,\n    \"disk_max_write_bandwidth_mbps\": 400.0,\n    \"bgwriter_enabled\": true,\n    \"bgwriter_lru_rate_mbps\": 30.0\n  },\n  \"workload\": {\n    \"duration_sec\": 600.0,\n    \"dirty_page_generation_rate_mbps\": 80.0,\n    \"wal_generation_rate_mbps\": 35.0,\n    \"incoming_query_rate_qps\": 8000.0\n  }\n}",
+    "output": "{\n  \"status\": \"SUCCESS\",\n  \"verdict\": \"OPTIMAL_FUZZY_SPREAD_CHECKPOINT\",\n  \"metrics\": {\n    \"checkpoint_type\": \"FUZZY\",\n    \"actual_checkpoint_interval_sec\": 600.0,\n    \"is_wal_driven\": false,\n    \"peak_disk_utilization_ratio\": 0.2972,\n    \"backend_writes_mb\": 0.0,\n    \"p99_query_latency_ms\": 5.28\n  }\n}",
+    "description": "Case 7: Enterprise NVMe cluster with 10-minute checkpoint spread sustains 29.7% disk write rate with 5.3ms latency"
+  },
+  {
+    "input": "{\n  \"config\": {\n    \"checkpoint_type\": \"FUZZY\",\n    \"checkpoint_timeout_sec\": 300.0,\n    \"checkpoint_completion_target\": 0.9,\n    \"max_wal_size_mb\": 800.0,\n    \"shared_buffers_mb\": 4096.0,\n    \"disk_max_write_bandwidth_mbps\": 250.0,\n    \"bgwriter_enabled\": true,\n    \"bgwriter_lru_rate_mbps\": 20.0\n  },\n  \"workload\": {\n    \"duration_sec\": 300.0,\n    \"dirty_page_generation_rate_mbps\": 35.0,\n    \"wal_generation_rate_mbps\": 25.0,\n    \"incoming_query_rate_qps\": 3000.0\n  }\n}",
+    "output": "{\n  \"status\": \"FAILED\",\n  \"verdict\": \"WAL_DRIVEN_UNSCHEDULED_CHECKPOINT_BURST\",\n  \"metrics\": {\n    \"checkpoint_type\": \"FUZZY\",\n    \"actual_checkpoint_interval_sec\": 32.0,\n    \"is_wal_driven\": true,\n    \"peak_disk_utilization_ratio\": 0.2356,\n    \"backend_writes_mb\": 0.0,\n    \"p99_query_latency_ms\": 4.91\n  }\n}",
+    "description": "Case 8: High transaction ingestion exhausts 800MB WAL in 32s, triggering unscheduled checkpoint storms"
+  }
+]
