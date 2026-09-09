@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "input": "ACAYKP\nCAPCAK",
+    "expected_output": "4\nACAK",
+    "description": "Testcase #1"
+  },
+  {
+    "id": 2,
+    "input": "ABC\nDEF",
+    "expected_output": "0",
+    "description": "Testcase #2"
+  },
+  {
+    "id": 3,
+    "input": "A\nA",
+    "expected_output": "1\nA",
+    "description": "Testcase #3"
+  },
+  {
+    "id": 4,
+    "input": "AGGTAB\nGXTXAYB",
+    "expected_output": "4\nGTAB",
+    "description": "Testcase #4"
+  },
+  {
+    "id": 5,
+    "input": "ABCDEF\nABCDEF",
+    "expected_output": "6\nABCDEF",
+    "description": "Testcase #5"
+  },
+  {
+    "id": 6,
+    "input": "BANANA\nATANA",
+    "expected_output": "4\nAANA",
+    "description": "Testcase #6"
+  },
+  {
+    "id": 7,
+    "input": "XMJYAUZ\nMZJAWXU",
+    "expected_output": "4\nMJAU",
+    "description": "Testcase #7"
+  },
+  {
+    "id": 8,
+    "input": "SHINCHAN\nNOHARAAA",
+    "expected_output": "3\nNHA",
+    "description": "Testcase #8"
+  },
+  {
+    "id": 9,
+    "input": "ABCBDAB\nBDCABA",
+    "expected_output": "4\nBCBA",
+    "description": "Testcase #9"
+  },
+  {
+    "id": 10,
+    "input": "PROGRAMMING\nGAMING",
+    "expected_output": "6\nGAMING",
+    "description": "Testcase #10"
+  }
+]

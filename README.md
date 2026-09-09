@@ -185,7 +185,7 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 |:---:|:---:|:---:|---|
 | 🎒 **초등부 트랙 (Junior)** | `problems-elementary/` | **130문제 완결** ✅ | 초등학생 & 코딩 입문: 사칙연산, 조건/반복문, 리스트/문자열, 기초 스택/큐, 2D 격자, 기본 수학 |
 | 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **130문제 완결** ✅ | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 고급 정수론/기하/DP |
-| 🎓 **고등부 트랙 (High)** | `problems-high/` | **10문제 (진행 중)** 🚀 | 고등학생 & KOI/대회: 투 포인터, 매개변수 탐색, LIS, 배낭 DP, 상태 BFS, 백트래킹, MST, 다익스트라, 위상정렬 |
+| 🎓 **고등부 트랙 (High)** | `problems-high/` | **20문제 (진행 중)** 🚀 | 고등학생 & KOI/대회: 투 포인터, 매개변수 탐색, LIS, 세그먼트/펜윅 트리, LCS, 볼록 껍질, SCC, 이분 매칭, 행렬 거듭제곱, TSP |
 | 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 110+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/락, Kafka, 캐시 스탬피드, ReDoS, 고가용성 아키텍처 |
 
 ---
@@ -497,6 +497,16 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | **#008** | [네트워크 최단 경로! 힙(Heap) 기반 다익스트라 (Dijkstra Shortest Path)](problems-high/008-dijkstra-priority-queue/problem.md) | 최단 경로, 다익스트라(Dijkstra), 우선순위 큐(Min-Heap `heapq`), $O((V+E)\log V)$ | 시작 정점에서 모든 다른 정점으로 가는 양의 가중치 네트워크 최단 거리를 힙으로 계산 |
 | **#009** | [선수 과목 순서대로 수강하기! 진입 차수 기반 위상 정렬 (Topological Sort)](problems-high/009-topological-sort-indegree/problem.md) | 방향 비순환 그래프(DAG), 위상 정렬, 카안(Kahn) 알고리즘, 진입 차수 큐, $O(V+E)$ | 선수 제약 조건 그래프에서 진입 차수 0인 노드를 큐로 탐색하며 유효한 전체 실행 순서 복원 |
 | **#010** | [모든 정점 쌍의 최단 거리! 플로이드-워셜 알고리즘 (Floyd-Warshall All-Pairs Shortest Path)](problems-high/010-floyd-warshall-all-pairs-shortest/problem.md) | 동적 계획법(DP), 플로이드-워셜(Floyd-Warshall), 거쳐가는 정점 $k$ 3중 루프, $O(V^3)$ | 모든 $(i, j)$ 정점 쌍 사이의 최단 거리를 경유지 $k$를 축으로 점진 갱신하는 2차원 거리 행렬 산출 |
+| **#011** | [구간의 합을 번개처럼 구하라! 세그먼트 트리 기초 (Segment Tree Point Update Range Sum)](problems-high/011-segment-tree-point-update-range-query/problem.md) | 세그먼트 트리(Segment Tree), 점 갱신, 구간 합 질의, $O(\log N)$ | 완전 이진 트리 구조로 빈번한 수열 값 변경과 임의 구간 합 질의를 모두 로그 시간에 처리 |
+| **#012** | [비트 연산으로 완성하는 기적의 트리! 펜윅 트리 (Fenwick Tree / BIT)](problems-high/012-fenwick-tree-binary-indexed-tree/problem.md) | 펜윅 트리(Binary Indexed Tree), LSB(`idx & -idx`), $O(\log N)$ | 2의 보수 비트 연산으로 코드량과 메모리를 최소화하며 점 가산과 누적 구간합을 초고속 관리 |
+| **#013** | [두 유전자 문자열의 공통 패턴! 최장 공통 부분 수열 (LCS Longest Common Subsequence)](problems-high/013-dp-lcs-longest-common-subsequence/problem.md) | 동적 계획법(DP), 최장 공통 부분 수열(LCS), 2차원 DP 및 역추적, $O(NM)$ | 두 문자열의 공통 부분 수열 최대 길이 도출 및 DP 테이블 역추적을 통한 실제 LCS 문자열 복원 |
+| **#014** | [점들을 둘러싸는 최소 둘레의 볼록 울타리! 그레이엄 스캔 볼록 껍질 (Graham Scan Convex Hull)](problems-high/014-geometry-ccw-convex-hull/problem.md) | 기하학, 벡터 외적(CCW), 모노톤 체인 / 그레이엄 스캔, $O(N \log N)$ | 2차원 평면 점들을 정렬 후 상하 껍질 스택과 CCW 좌회전 검사로 볼록 다각형 꼭짓점 산출 |
+| **#015** | [서로 도달 가능한 강결합 묶음! 타잔(Tarjan) SCC 알고리즘 (Strongly Connected Components)](problems-high/015-graph-scc-tarjan/problem.md) | 그래프 이론, 강결합 컴포넌트(SCC), 타잔(Tarjan) 알고리즘, $O(V + E)$ | 단 1번의 DFS 순회와 스택, `dfsn` 및 `low` 링크를 활용해 방향 그래프의 모든 SCC 분리 |
+| **#016** | [축제 파트너 매칭! 이분 매칭과 증가 경로 DFS (Bipartite Matching)](problems-high/016-graph-bipartite-matching/problem.md) | 네트워크 유량, 이분 매칭(Bipartite Matching), 베르주 정리, 증가 경로 DFS, $O(VE)$ | 학생과 동아리 방 사이의 희망 배정 그래프에서 재귀적 양보 탐색으로 최대 매칭 쌍 도출 |
+| **#017** | [10^18번째 피보나치 수도 번개처럼! 분할 정복 행렬 거듭제곱 (Matrix Exponentiation Fibonacci)](problems-high/017-divide-and-conquer-matrix-multiplication-fibonacci/problem.md) | 수학, 분할 정복 거듭제곱, $2 \times 2$ 행렬 곱셈, $O(\log N)$ | 피보나치 선형 점화식을 행렬 곱 형태로 변환하고 $O(\log N)$ 거듭제곱으로 $10^{18}$ 피보나치 계산 |
+| **#018** | [괄호를 어디에 묶어야 곱셈이 적을까? 연쇄 행렬 곱셈 (Matrix Chain Multiplication)](problems-high/018-dp-matrix-chain-multiplication/problem.md) | 동적 계획법(DP), 구간 DP(Range DP), 결합 법칙 최적화, $O(N^3)$ | 부분 구간 길이를 점진 확장하며 최적 분할점 $k$ 탐색을 통해 연속 행렬 곱셈 최소 비용 산출 |
+| **#019** | [끊어지면 네트워크가 두 동강 난다! 단절점(Articulation Point) 탐색 (Graph Articulation Points)](problems-high/019-graph-articulation-points-and-bridges/problem.md) | 그래프 이론, 단절점(Articulation Point), DFS 스패닝 트리, $O(V + E)$ | 정점 제거 시 컴포넌트 분리 여부를 DFS 트리의 자식 수 및 역방향 간선 도달 범위로 판별 |
+| **#020** | [모든 도시를 한 번씩 방문하고 돌아오는 최소 비용! 비트마스크 외판원 순회 (Bitmask TSP DP)](problems-high/020-bitmask-tsp-dynamic-programming/problem.md) | 동적 계획법(DP), 비트마스크(Bitmask), 외판원 순회(TSP), $O(N^2 2^N)$ | 방문 도시 집합을 비트마스크 상태로 압축하고 메모이제이션하여 최단 순회 여행 비용 계산 |
 
 ---
 
