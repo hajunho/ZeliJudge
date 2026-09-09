@@ -96,6 +96,7 @@ problems/
 | **#053** | [DB에 없는 데이터만 골라서 공격당했어요?!: 캐시 관통(Cache Penetration)과 블룸 필터(Bloom Filter)](problems/053-bloom-filter-cache-penetration/problem.md) | **확률적 자료구조/보안**, 캐시 관통(Cache Penetration), Null 객체 캐싱 한계, 블룸 필터(Bloom Filter), 위음성 0% 원칙, Kirsch-Mitzenmacher 이중 해싱 | 해커가 존재하지 않는 음수/난수 ID만 초당 수만 건 요청해 캐시 관통하고 DB 풀스캔으로 마비시킨 참사 |
 | **#054** | [배포했더니 구버전 서버와 신버전 서버가 서로 데이터를 깨먹어요?!: 하위 호환성 없는 DB 마이그레이션과 Expand-and-Contract 패턴](problems/054-zero-downtime-schema-migration/problem.md) | **데이터베이스 엔지니어링/무중단 배포**, DDL 스키마 변경, Expand-and-Contract 패턴, Dual Write(동시 쓰기), Fallback Read, Online DDL 락 | 롤링 배포 중에 컬럼 삭제/이름 변경했다가 구버전 팟과 신버전 팟이 500 SQL 에러 폭탄 터진 참사 |
 | **#055** | [CDN 캐시를 날렸는데 왜 유저 화면에 옛날 CSS/JS가 나와요?!: 정적 자산 캐싱과 Content Hashing (Cache Busting)](problems/055-cache-busting-content-hash/problem.md) | **웹 인프라/브라우저 캐싱**, HTTP Cache-Control(max-age vs no-cache vs no-store), immutable 디렉티브, Content-Based Hashing, Cache Busting | 프론트 배포 후 CDN 무효화 돌렸는데 브라우저 로컬 디스크 캐시 때문에 옛날 JS 실행돼 500 에러 폭발한 참사 |
+| **#056** | [동시 접속자 1만 명이 들어왔더니 서버가 숨도 못 쉬어요?!: C10K 문제와 Thread-per-Client vs I/O Multiplexing (Epoll / Reactor)](problems/056-c10k-thread-vs-io-multiplexing/problem.md) | **시스템 아키텍처/네트워크 I/O**, C10K 문제, 블로킹 스레드 스택(1MB) OOM, 리눅스 epoll I/O 다중화, Reactor 패턴, Nginx/Netty/Node.js | 동시 접속자 수천 명 들어왔을 뿐인데 스레드 1만 개 폭증해 10GB 메모리 고갈 및 컨텍스트 스위칭으로 서버 다운된 참사 |
 
 
 
