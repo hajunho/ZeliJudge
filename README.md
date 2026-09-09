@@ -183,7 +183,7 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | 트랙 | 디렉토리 | 상태 및 규모 | 대상 및 핵심 교육 내용 |
 |:---:|:---:|:---:|---|
 | 🎒 **초등부 트랙 (Junior)** | `problems-elementary/` | **130문제 완결** ✅ | 초등학생 & 코딩 입문: 사칙연산, 조건/반복문, 리스트/문자열, 기초 스택/큐, 2D 격자, 기본 수학 |
-| 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **120문제 (진행 중)** 🚀 | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 기초 그리디 |
+| 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **130문제 완결** ✅ | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 고급 정수론/기하/DP |
 | 🎓 **고등부 트랙 (High)** | `problems-high/` | 중등부 완결 후 예정 🔜 | 고등학생 & KOI/대회: 다이나믹 프로그래밍(DP), 이진 탐색, 그래프(DFS/BFS), 트리 순회, 백트래킹 |
 | 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 110+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/락, Kafka, 캐시 스탬피드, ReDoS, 고가용성 아키텍처 |
 
@@ -462,6 +462,16 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | **#118** | [메모리 O(1)로 과반수 대표 선출! 보이어-무어 과반수 투표 (Majority Vote)](problems-middle/118-boyer-moore-majority-vote/problem.md) | 스트리밍 알고리즘, 보이어-무어 과반수 투표, $O(1)$ 공간, $O(N)$ 시간 | 서로 다른 두 원소를 1:1로 상쇄시키는 원리로 메모리 추가 없이 과반수(> N/2) 원소 검출 |
 | **#119** | [연결 리스트와 수열의 순환 탐지! 플로이드의 토끼와 거북이 (Tortoise and Hare)](problems-middle/119-floyd-cycle-detection-tortoise-hare/problem.md) | 투 포인터, 사이클 감지, 플로이드 알고리즘, 주기와 꼬리, $O(1)$ 공간 | 1칸 거북이와 2칸 토끼의 만남으로 수열의 순환 진입점($\mu$)과 주기($\lambda$)를 메모리 없이 탐지 |
 | **#120** | [돌무더기 게임의 필승 전략! 님(Nim) 게임과 스프라그-그런디 정리 (Game Theory Nim)](problems-middle/120-game-theory-nim-game-grundy/problem.md) | 게임 이론, 님(Nim) 게임, 스프라그-그런디 정리, Nim-Sum, $O(N)$ | 돌무더기 크기들의 비트 XOR 합($\bigoplus A_i$)이 0이 아니면 선공 필승(FIRST)임을 수학적으로 판정 |
+| **#121** | [우주선 암호 키 검증! 밀러-라빈 64비트 소수 판별법 (Miller-Rabin Primality Test)](problems-middle/121-rabin-miller-primality-test/problem.md) | 정수론, 확률론적/결정론적 소수 판별, 페르마 소정리, $O(k \log^3 N)$ | 64비트 이하 모든 정수($\le 2^{64}-1$)에 대해 결정론적 밑수 7개로 밀러-라빈 소수 여부를 초고속 판별 |
+| **#122** | [소인수분해의 마법 열쇠! 폴라드-로 큰 수 소인수분해 (Pollard's Rho Algorithm)](problems-middle/122-pollard-rho-integer-factorization/problem.md) | 정수론, 생일 역설, 플로이드 사이클, 폴라드-로, $O(N^{1/4})$ | $f(x)=(x^2+1)\bmod N$ 수열과 GCD를 결합하여 $10^{18}$ 이하의 큰 합성수를 선형 시간보다 훨씬 빠르게 소인수분해 |
+| **#123** | [우주선이 영역 안에 있나요? 레이 캐스팅 다각형 내부 점 판별 (Ray Casting Point in Polygon)](problems-middle/123-geometry-point-location-ray-casting/problem.md) | 기하 알고리즘, 레이 캐스팅(Ray Casting), 반직선 교차, $O(N)$ | 점에서 오른쪽 수평 반직선을 쏘아 다각형 변과의 교차 횟수(홀수: 내부, 짝수: 외부) 및 변 위 판정 |
+| **#124** | [트리 위에서 가장 가까운 공통 조상! 이진 리프팅 LCA (Lowest Common Ancestor)](problems-middle/124-tree-lowest-common-ancestor-binary-lifting/problem.md) | 트리, 이진 리프팅(Binary Lifting), 희소 배열(Sparse Table), $O(Q \log N)$ | 부모 노드를 $2^k$ 단위로 건너뛰는 희소 테이블을 구축하여 두 노드의 최소 공통 조상을 $O(\log N)$에 도출 |
+| **#125** | [행렬의 부피를 계산하라! 가우스 소거법 행렬식 (Matrix Determinant)](problems-middle/125-matrix-determinant-gaussian/problem.md) | 선형대수학, 행렬식(Determinant), 가우스 소거법, 기본 행 연산, $O(N^3)$ | 부분 피봇팅과 행 덧셈/교환을 통해 행렬을 상삼각 행렬로 변환한 뒤 주대각 성분의 곱으로 행렬식 계산 |
+| **#126** | [문자열 속 모든 패턴을 찾아라! KMP 실패 함수 전체 일치 (Knuth-Morris-Pratt Full Match)](problems-middle/126-kmp-string-pattern-matching-full/problem.md) | 문자열, KMP 알고리즘, 실패 함수 $\pi$ 배열, 패턴 매칭, $O(N + M)$ | 불일치 발생 시 접두사/접미사 일치 길이만큼 건너뛰어 텍스트 내 패턴의 모든 시작 인덱스를 선형 시간에 탐색 |
+| **#127** | [음수 가중치도 끄떡없다! SPFA 큐 최적화 최단 경로 (Shortest Path Faster Algorithm)](problems-middle/127-graph-bellman-ford-spfa/problem.md) | 그래프, 벨만-포드, SPFA, 큐 최적화, 음수 사이클 감지, $O(V \cdot E)$ | 완화(Relaxation)된 정점만 큐에 넣어 불필요한 반복을 줄이고 방문 횟수 $\ge V$인 노드로 음수 사이클 판별 |
+| **#128** | [사각부등식의 마법! 크누스 최적화 구간 분할 DP (Knuth's Optimization DP)](problems-middle/128-knuth-optimization-dp/problem.md) | 동적 계획법(DP), 크누스 최적화, 사각부등식, 단조성, $O(N^2)$ | 최적 분할점 $opt[i][j-1] \le opt[i][j] \le opt[i+1][j]$ 성질을 활용해 구간 합 병합 비용 DP를 $O(N^3)$에서 $O(N^2)$로 단축 |
+| **#129** | [볼록 다각형을 반평면으로 자르기! 서덜랜드-호지만 클리핑 (Halfplane Intersection)](problems-middle/129-geometry-halfplane-intersection-convex-polygon/problem.md) | 기하 알고리즘, 반평면 교집합, 서덜랜드-호지만 클리핑, 신발끈 공식, $O(N)$ | 반평면 직선에 대해 다각형 각 변의 진입/이탈 교점을 순서대로 이어 새로운 볼록 다각형과 넓이 산출 |
+| **#130** | [중등 정보 알고리즘 졸업 피날레! 최단 경로와 펜윅 구간 쿼리 (Middle School Graduation Olympiad)](problems-middle/130-middle-school-curriculum-graduation-olympiad/problem.md) | 종합 올림피아드, 다익스트라(Dijkstra) + 펜윅 트리(Fenwick Tree), $O((V+E)\log V + Q \log N)$ | 다익스트라 최단 경로 산출 후 경로 상의 정점 가중치 동적 변경과 구간 합 질의를 펜윅 트리로 실시간 처리 |
 
 ---
 

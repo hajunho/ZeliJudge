@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: 40 30 30 50 -> 300",
+    "input": "4\n40 30 30 50",
+    "expected_output": "300"
+  },
+  {
+    "desc": "파일 1개뿐인 경우: 합칠 필요 없음 -> 0",
+    "input": "1\n100",
+    "expected_output": "0"
+  },
+  {
+    "desc": "파일 2개: 선택의 여지 없음",
+    "input": "2\n10 20",
+    "expected_output": "30"
+  },
+  {
+    "desc": "모두 크기가 같은 파일들",
+    "input": "4\n10 10 10 10",
+    "expected_output": "80"
+  },
+  {
+    "desc": "단조 증가하는 파일 크기",
+    "input": "5\n1 2 3 4 5",
+    "expected_output": "33"
+  },
+  {
+    "desc": "단조 감소하는 파일 크기",
+    "input": "5\n5 4 3 2 1",
+    "expected_output": "33"
+  },
+  {
+    "desc": "피보나치 형태 크기",
+    "input": "5\n1 2 3 5 8",
+    "expected_output": "39"
+  },
+  {
+    "desc": "큰 파일 크기",
+    "input": "3\n1000 2000 3000",
+    "expected_output": "9000"
+  },
+  {
+    "desc": "6개 파일 복합 합병",
+    "input": "6\n3 4 2 1 5 6",
+    "expected_output": "52"
+  },
+  {
+    "desc": "8개 파일 대규모 최적화",
+    "input": "8\n10 5 8 12 6 9 7 11",
+    "expected_output": "204"
+  }
+]

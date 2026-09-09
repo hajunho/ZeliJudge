@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: 교과서 예제 (ABC ABCDAB ABCDABCDABDE, ABCDABD)",
+    "input": "ABC ABCDAB ABCDABCDABDE\nABCDABD",
+    "expected_output": "0"
+  },
+  {
+    "desc": "중첩 매칭이 연속되는 경우 (aaaaa, aa)",
+    "input": "aaaaa\naa",
+    "expected_output": "4\n1 2 3 4"
+  },
+  {
+    "desc": "완전 일치",
+    "input": "hello\nhello",
+    "expected_output": "1\n1"
+  },
+  {
+    "desc": "매칭이 전혀 없는 경우 -> 0",
+    "input": "abcdefg\nxyz",
+    "expected_output": "0"
+  },
+  {
+    "desc": "패턴이 텍스트보다 긴 경우 -> 0",
+    "input": "short\nlongerpattern",
+    "expected_output": "0"
+  },
+  {
+    "desc": "단일 문자 패턴 반복",
+    "input": "banana\na",
+    "expected_output": "3\n2 4 6"
+  },
+  {
+    "desc": "시작 위치에만 딱 1번 등장",
+    "input": "algorithm\nalgo",
+    "expected_output": "1\n1"
+  },
+  {
+    "desc": "끝 위치에만 딱 1번 등장",
+    "input": "algorithm\nrithm",
+    "expected_output": "1\n5"
+  },
+  {
+    "desc": "주기적 패턴 (ababababa, aba)",
+    "input": "ababababa\naba",
+    "expected_output": "4\n1 3 5 7"
+  },
+  {
+    "desc": "복합 문자열 매칭",
+    "input": "abracadabracadabra\nabracadabra",
+    "expected_output": "2\n1 8"
+  }
+]

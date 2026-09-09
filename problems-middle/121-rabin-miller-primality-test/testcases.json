@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: 2, 3, 4, 1000000007",
+    "input": "4\n2\n3\n4\n1000000007",
+    "expected_output": "YES\nYES\nNO\nYES"
+  },
+  {
+    "desc": "1은 소수가 아님 (NO)",
+    "input": "1\n1",
+    "expected_output": "NO"
+  },
+  {
+    "desc": "작은 소수들과 합성수들",
+    "input": "5\n5\n7\n9\n11\n15",
+    "expected_output": "YES\nYES\nNO\nYES\nNO"
+  },
+  {
+    "desc": "짝수 판별 (2는 YES, 짝수는 NO)",
+    "input": "3\n2\n100\n1000000000",
+    "expected_output": "YES\nNO\nNO"
+  },
+  {
+    "desc": "카마이클 수 (561 - 페르마 테스트를 속이는 위장 합성수)",
+    "input": "1\n561",
+    "expected_output": "NO"
+  },
+  {
+    "desc": "카마이클 수 (1105, 1729)",
+    "input": "2\n1105\n1729",
+    "expected_output": "NO\nNO"
+  },
+  {
+    "desc": "큰 소수 (10^9 + 9)",
+    "input": "2\n1000000009\n1000000008",
+    "expected_output": "YES\nNO"
+  },
+  {
+    "desc": "거대 64비트 소수",
+    "input": "2\n999999999999999989\n1000000000000000000",
+    "expected_output": "YES\nNO"
+  },
+  {
+    "desc": "연속된 수들 판별",
+    "input": "5\n97\n98\n99\n100\n101",
+    "expected_output": "YES\nNO\nNO\nNO\nYES"
+  },
+  {
+    "desc": "다양한 크기 정수 8개",
+    "input": "8\n13\n17\n19\n23\n25\n27\n29\n31",
+    "expected_output": "YES\nYES\nYES\nYES\nNO\nNO\nYES\nYES"
+  }
+]

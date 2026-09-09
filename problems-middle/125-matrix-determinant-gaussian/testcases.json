@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: 2x2 행렬 (1*4 - 2*3 = -2.0)",
+    "input": "2\n1 2\n3 4",
+    "expected_output": "-2.0"
+  },
+  {
+    "desc": "1x1 행렬",
+    "input": "1\n42",
+    "expected_output": "42.0"
+  },
+  {
+    "desc": "3x3 단위 행렬 (Det = 1.0)",
+    "input": "3\n1 0 0\n0 1 0\n0 0 1",
+    "expected_output": "1.0"
+  },
+  {
+    "desc": "행 교환이 필요한 2x2 행렬",
+    "input": "2\n0 5\n2 3",
+    "expected_output": "-10.0"
+  },
+  {
+    "desc": "두 행이 동일하여 행렬식이 0인 경우",
+    "input": "3\n1 2 3\n1 2 3\n4 5 6",
+    "expected_output": "0.0"
+  },
+  {
+    "desc": "한 행이 모두 0인 경우 (Det = 0.0)",
+    "input": "3\n1 2 3\n0 0 0\n4 5 6",
+    "expected_output": "0.0"
+  },
+  {
+    "desc": "3x3 일반 행렬",
+    "input": "3\n6 1 1\n4 -2 5\n2 8 7",
+    "expected_output": "-306.0"
+  },
+  {
+    "desc": "음수 원소 포함 2x2",
+    "input": "2\n-2 -3\n-4 -5",
+    "expected_output": "-2.0"
+  },
+  {
+    "desc": "4x4 대각 행렬",
+    "input": "4\n2 0 0 0\n0 3 0 0\n0 0 4 0\n0 0 0 5",
+    "expected_output": "120.0"
+  },
+  {
+    "desc": "복합 4x4 행렬",
+    "input": "4\n1 0 2 -1\n3 0 0 5\n2 1 4 -3\n1 0 5 0",
+    "expected_output": "30.0"
+  }
+]
