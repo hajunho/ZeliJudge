@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: 3개 행렬 (10x30, 30x5, 5x60) -> 4500",
+    "input": "3\n10 30\n30 5\n5 60",
+    "expected_output": "4500"
+  },
+  {
+    "desc": "행렬 1개뿐인 경우: 곱셈 0회",
+    "input": "1\n10 20",
+    "expected_output": "0"
+  },
+  {
+    "desc": "행렬 2개: 선택의 여지 없음",
+    "input": "2\n5 10\n10 20",
+    "expected_output": "1000"
+  },
+  {
+    "desc": "4개 행렬 동일한 정사각형",
+    "input": "4\n10 10\n10 10\n10 10\n10 10",
+    "expected_output": "3000"
+  },
+  {
+    "desc": "차원이 급격히 변하는 4개 행렬",
+    "input": "4\n40 20\n20 30\n30 10\n10 30",
+    "expected_output": "26000"
+  },
+  {
+    "desc": "벡터와 행렬 곱 (1xN)",
+    "input": "3\n1 100\n100 1\n1 100",
+    "expected_output": "200"
+  },
+  {
+    "desc": "5개 행렬 연쇄 곱",
+    "input": "5\n10 20\n20 5\n5 15\n15 30\n30 10",
+    "expected_output": "5250"
+  },
+  {
+    "desc": "2개 큰 차원 행렬",
+    "input": "2\n500 500\n500 500",
+    "expected_output": "125000000"
+  },
+  {
+    "desc": "6개 행렬 최적화",
+    "input": "6\n30 35\n35 15\n15 5\n5 10\n10 20\n20 25",
+    "expected_output": "15125"
+  },
+  {
+    "desc": "7개 행렬 복합 체인",
+    "input": "7\n5 10\n10 3\n3 12\n12 5\n5 50\n50 6\n6 8",
+    "expected_output": "2184"
+  }
+]

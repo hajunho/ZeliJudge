@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: 3개 정점 사이클 + 2개 단독 정점 -> 3개 SCC",
+    "input": "5 5\n1 2\n2 3\n3 1\n3 4\n4 5",
+    "expected_output": "3\n1 2 3\n4\n5"
+  },
+  {
+    "desc": "간선이 없는 그래프: 정점마다 단독 SCC",
+    "input": "3 0",
+    "expected_output": "3\n1\n2\n3"
+  },
+  {
+    "desc": "전체 정점이 하나의 거대한 사이클",
+    "input": "4 4\n1 2\n2 3\n3 4\n4 1",
+    "expected_output": "1\n1 2 3 4"
+  },
+  {
+    "desc": "일렬 일방통행 체인: 사이클 없음",
+    "input": "3 2\n1 2\n2 3",
+    "expected_output": "3\n1\n2\n3"
+  },
+  {
+    "desc": "정점 1개뿐인 그래프",
+    "input": "1 0",
+    "expected_output": "1\n1"
+  },
+  {
+    "desc": "두 정점 사이의 왕복 간선",
+    "input": "2 2\n1 2\n2 1",
+    "expected_output": "1\n1 2"
+  },
+  {
+    "desc": "독립된 2개의 삼각형 사이클",
+    "input": "6 6\n1 2\n2 3\n3 1\n4 5\n5 6\n6 4",
+    "expected_output": "2\n1 2 3\n4 5 6"
+  },
+  {
+    "desc": "연결된 두 사이클과 단방향 다리",
+    "input": "5 6\n1 2\n2 1\n3 4\n4 5\n5 3\n2 3",
+    "expected_output": "2\n1 2\n3 4 5"
+  },
+  {
+    "desc": "스타 형태 방사형 (사이클 없음)",
+    "input": "4 3\n1 2\n1 3\n1 4",
+    "expected_output": "4\n1\n2\n3\n4"
+  },
+  {
+    "desc": "8개 정점 복합 유향 그래프",
+    "input": "8 10\n1 2\n2 3\n3 1\n3 4\n4 5\n5 6\n6 7\n7 5\n7 8\n8 4",
+    "expected_output": "2\n1 2 3\n4 5 6 7 8"
+  }
+]

@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: 4개 단어",
+    "input": "4\nbanana band apple bandana",
+    "expected_output": "apple banana band bandana\n0 3 4"
+  },
+  {
+    "desc": "2개 단어 완전 일치",
+    "input": "2\nhello hello",
+    "expected_output": "hello hello\n5"
+  },
+  {
+    "desc": "공통 접두사가 전혀 없는 단어들",
+    "input": "3\ncat dog elephant",
+    "expected_output": "cat dog elephant\n0 0"
+  },
+  {
+    "desc": "접두사 포함 관계 (a, aa, aaa)",
+    "input": "3\naaa a aa",
+    "expected_output": "a aa aaa\n1 2"
+  },
+  {
+    "desc": "한 글자 단어들",
+    "input": "4\nz b c a",
+    "expected_output": "a b c z\n0 0 0"
+  },
+  {
+    "desc": "길이가 긴 단어들의 공통 접두사",
+    "input": "3\nsuperman supermarket superhero",
+    "expected_output": "superhero superman supermarket\n5 7"
+  },
+  {
+    "desc": "단어 앞부분이 대폭 겹치는 경우",
+    "input": "4\ntest tester testing tests",
+    "expected_output": "test tester testing tests\n4 4 4"
+  },
+  {
+    "desc": "알파벳 역순 입력 정렬",
+    "input": "5\necho delta charlie bravo alpha",
+    "expected_output": "alpha bravo charlie delta echo\n0 0 0 0"
+  },
+  {
+    "desc": "숫자 형태의 문자열 단어들",
+    "input": "4\n12345 12300 12000 10000",
+    "expected_output": "10000 12000 12300 12345\n1 2 3"
+  },
+  {
+    "desc": "복합 6개 단어",
+    "input": "6\npython pytorch pygame pyt java javascript",
+    "expected_output": "java javascript pygame pyt python pytorch\n4 0 2 3 3"
+  }
+]

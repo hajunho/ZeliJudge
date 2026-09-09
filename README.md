@@ -166,6 +166,7 @@ problems/
 | **#123** | [악성 IP 1만 개 차단했더니 왜 서버 패킷 처리가 100배 느려지고 CPU가 100% 찍어요?!: 리눅스 iptables 선형 탐색($O(N)$) vs ipset 해시 테이블($O(1)$) 패킷 필터링 (Linux iptables vs ipset Packet Filtering Benchmark)](problems/123-iptables-linear-search-vs-ipset-hash/problem.md) | **컴퓨터 네트워크/리눅스 커널/보안 엔지니어링**, Netfilter 연결 리스트 체인 O(N) 선형 탐색 한계, iptables 룰 증가 시 ksoftirqd CPU 100% 마비, ipset 인메모리 해시 테이블 O(1) 초고속 룩업, 쿠버네티스 kube-proxy IPVS 모드 전환 원리 | 악성 IP 1만 개 iptables로 막았다가 정상 패킷 지연 100배 폭증해 전사 서버 다운된 참사와 ipset O(1) 해시 테이블 구원 원리 |
 | **#124** | [DB에 컬럼 하나 추가했을 뿐인데 왜 10초 만에 전사 커넥션이 폭사해요?!: MySQL 메타데이터 락(Metadata Lock, MDL) 큐 블로킹과 고스트(gh-ost) 온라인 DDL 알고리즘 (MySQL Metadata Lock & gh-ost Online DDL Simulator)](problems/124-mysql-metadata-lock-online-ddl/problem.md) | **데이터베이스 엔지니어링/동시성 제어/MySQL 내부 아키텍처**, 메타데이터 락(MDL) SHARED vs EXCLUSIVE 호환성, DDL 대기 시 EXCLUSIVE 큐 우선순위와 후속 일반 쿼리 전면 블로킹 참사, HikariCP 커넥션 풀 고갈과 504 타임아웃, gh-ost 섀도우 테이블/청크 백필/Binlog 델타 복제/원자적 컷오버 무중단 스키마 변경 | 롱 트랜잭션 도중 ALTER TABLE 날렸다가 대기 큐 블로킹으로 전사 커넥션 100% 고갈되어 서비스 마비된 참사와 gh-ost 온라인 DDL 구원 원리 |
 | **#125** | [관리자 페이지를 사내 IP로 막았는데 왜 해커가 뚫려요?!: 리버스 프록시(Reverse Proxy) 다계층 네트워크와 X-Forwarded-For(XFF) 헤더 위조(IP Spoofing) 방어 & Trusted Proxy 역방향 체인 검증 (Reverse Proxy Client IP Spoofing Defense)](problems/125-reverse-proxy-client-ip-spoofing/problem.md) | **컴퓨터 네트워크/웹 보안/인프라 아키텍처**, 리버스 프록시(ALB, Nginx) 뒤 클라이언트 IP 유실 문제, X-Forwarded-For 첫 번째 값 맹신 취약점(CWE-290 IP Spoofing), Right-to-Left 역방향 신뢰 체인 탐색 알고리즘, CIDR 서브넷 매칭, Nginx/Tomcat/Spring real_ip 내부 원리 | 사내 VPN IP로 관리자 페이지 막아뒀는데 X-Forwarded-For 헤더 위조 공격에 뚫려 전사 회원 DB 털린 참사와 역방향 신뢰 체인 검증 구원 원리 |
+| **#126** | [CPU 5%인데 왜 서버가 뻗고 로드 애버리지(Load Average)가 100을 찍어요?!: 리눅스 커널 프로세스 D 상태(TASK_UNINTERRUPTIBLE)와 지수 감쇠 이동 평균(EMA) (Linux Load Average & D-State Process Mystery)](problems/126-linux-loadavg-d-state-uninterruptible/problem.md) | **운영체제 커널/시스템 모니터링/리눅스 성능 분석**, CPU 사용률(Utilization) vs 로드 애버리지(Demand)의 본질적 차이, 1993년 리눅스 토발즈의 D 상태 편입 패치, TASK_UNINTERRUPTIBLE 프로세스가 kill -9로도 죽지 않는 하드웨어 보호 이유, 5초 주기 지수 감쇠 이동 평균(EMA), I/O 스토리지 병목 진단 | CPU 5%인데 NFS 지연으로 D 상태 프로세스 폭증해 Load Average 100 찍고 서버 멈춘 참사와 kill -9 불능 원리 및 EMA 커널 공식 |
 
 
 
@@ -180,7 +181,7 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | 트랙 | 디렉토리 | 상태 및 규모 | 대상 및 핵심 교육 내용 |
 |:---:|:---:|:---:|---|
 | 🎒 **초등부 트랙 (Junior)** | `problems-elementary/` | **130문제 완결** ✅ | 초등학생 & 코딩 입문: 사칙연산, 조건/반복문, 리스트/문자열, 기초 스택/큐, 2D 격자, 기본 수학 |
-| 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **70문제 (진행 중)** 🚀 | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 기초 그리디 |
+| 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **80문제 (진행 중)** 🚀 | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 기초 그리디 |
 | 🎓 **고등부 트랙 (High)** | `problems-high/` | 중등부 완결 후 예정 🔜 | 고등학생 & KOI/대회: 다이나믹 프로그래밍(DP), 이진 탐색, 그래프(DFS/BFS), 트리 순회, 백트래킹 |
 | 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 110+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/락, Kafka, 캐시 스탬피드, ReDoS, 고가용성 아키텍처 |
 
@@ -409,6 +410,16 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | **#068** | [모듈러 나눗셈의 열쇠! 페르마의 소정리와 거듭제곱 역원](problems-middle/068-fermat-little-theorem-modular-inverse/problem.md) | 정수론, 페르마의 소정리, 모듈러 곱셈 역원, 분할 정복 | 소수 $P$에서 $A/B \pmod P$를 $A \cdot B^{P-2} \pmod P$ 거듭제곱으로 안전하게 나눗셈 계산하기 |
 | **#069** | [안전 구역 안일까 밖일까? 볼록 다각형 내부 점 판별 (CCW)](problems-middle/069-point-in-convex-polygon-ccw/problem.md) | 기하 알고리즘, CCW 외적, 볼록 다각형 내부 판정 | 모든 변 벡터에 대해 점이 항상 좌회전(반시계 방향) 쪽에 있는지 검사해 내부 판정하기 |
 | **#070** | [다리가 끊어지면 고립돼요! 그래프의 단절선 (Bridge)](problems-middle/070-graph-biconnected-bridge-detection/problem.md) | 그래프, 단절선(Bridge), DFS 방문 순서, 이중 연결 | 간선을 제거했을 때 컴포넌트가 분리되는 다리 간선들을 DFS 트리 조상 도달 여부로 검출하기 |
+| **#071** | [비트 트릭의 기적! 펜윅 트리와 구간 합 (Fenwick Tree / BIT)](problems-middle/071-fenwick-tree-binary-indexed-tree/problem.md) | 자료구조, 펜윅 트리(BIT), 비트 연산($i \ \& \ -i$), 구간 합, $O(\log N)$ | 값 변경과 구간 합 질의를 $O(\log N)$에 초간결 비트 트릭으로 해결하는 인덱스 트리 구현 |
+| **#072** | [슬라이딩 해시의 기적! 라빈-카프(Rabin-Karp) 부분 문자열 탐색](problems-middle/072-rabin-karp-rolling-hash/problem.md) | 문자열, 라빈-카프, 롤링 해시, 슬라이딩 윈도우, $O(N + M)$ | 다항식 롤링 해시로 윈도우를 한 칸씩 밀며 $O(1)$에 해시 갱신하고 부분 문자열 위치 탐색 |
+| **#073** | [활활 타오르는 불길을 피해라! 다원 BFS와 격자 탈출 (Fire Escape)](problems-middle/073-grid-bfs-fire-escape/problem.md) | 너비 우선 탐색(BFS), 다원 BFS, 시간 맵, 격자 탈출 | 불의 번짐 시간을 다원 BFS로 사전 계산하고 지훈이의 이동 경로와 비교해 최단 탈출 시간 산출 |
+| **#074** | [사전식 정렬과 공통 분모! LCP(Longest Common Prefix) 배열](problems-middle/074-longest-common-prefix-array/problem.md) | 문자열, 접미사 배열 기초, LCP 배열, 사전식 정렬 | 사전순으로 정렬된 단어들 사이의 인접 최장 공통 접두사 길이를 순차 계산하기 |
+| **#075** | [괄호 묶기의 마법! 행렬 곱셈 순서 최적화 (Matrix Chain DP)](problems-middle/075-matrix-chain-multiplication-dp/problem.md) | 동적 계획법(DP), 구간 DP, 행렬 곱셈 순서, $O(N^3)$ | 어떤 괄호 순서로 곱해야 총 원소 곱셈 횟수가 최소가 되는지 구간 분할 점화식으로 계산 |
+| **#076** | [순환 도로의 형성! 유니온-파인드 사이클 판별 (Cycle Detection)](problems-middle/076-disjoint-set-cycle-detection/problem.md) | 자료구조, 유니온-파인드, 서로소 집합, 사이클 판별 | 간선을 차례대로 연결하며 두 정점의 루트가 일치하는 순간의 최초 사이클 발생 도로 순번 포착 |
+| **#077** | [가장 오래 걸리는 핵심 공정을 찾아라! 위상 정렬과 임계 경로 (Critical Path)](problems-middle/077-topological-sort-critical-path/problem.md) | 그래프, 위상 정렬, 임계 경로(CPM), DAG 최장 경로 | 선행 작업 제약이 있는 프로젝트에서 병렬 공정을 고려한 각 작업 완료 시점 및 총 소요 시간 산출 |
+| **#078** | [피라미드 구조의 정렬! 제자리 힙 정렬 (In-Place Heap Sort)](problems-middle/078-heap-sort-in-place/problem.md) | 정렬 알고리즘, 힙 정렬, Max-Heap, 제자리 정렬, $O(1)$ 공간 | 추가 배열 없이 $O(N)$에 상향식 최대 힙을 구축하고 루트 추출로 $O(N \log N)$ 제자리 정렬 |
+| **#079** | [서로가 서로에게 닿는 단짝 그룹! 강한 연결 요소 (Tarjan SCC)](problems-middle/079-tarjan-strongly-connected-components/problem.md) | 그래프, 강한 연결 요소(SCC), 타잔(Tarjan) 알고리즘, DFS 트리 | 단 한 번의 DFS로 상호 도달 가능한 정점 그룹들을 분해하고 정렬된 순서로 출력하기 |
+| **#080** | [평면 위 가장 먼 두 은하의 거리! 회전하는 캘리퍼스 (Rotating Calipers)](problems-middle/080-geometry-rotating-calipers-max-distance/problem.md) | 기하 알고리즘, 볼록 껍질, 회전하는 캘리퍼스, 대척점 쌍, $O(N \log N)$ | 볼록 껍질을 구한 뒤 평행선을 회전시켜 가장 먼 두 점(평면의 지름)의 거리 제곱 구하기 |
 
 ---
 

@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: 겹치는 패턴 등장 (ababababa, aba)",
+    "input": "ababababa\naba",
+    "expected_output": "4\n1 3 5 7"
+  },
+  {
+    "desc": "패턴이 전체 문자열과 동일한 경우",
+    "input": "hello\nhello",
+    "expected_output": "1\n1"
+  },
+  {
+    "desc": "패턴이 전혀 등장하지 않는 경우",
+    "input": "abcdefg\nxyz",
+    "expected_output": "0"
+  },
+  {
+    "desc": "단일 문자 패턴 반복",
+    "input": "aaaaa\na",
+    "expected_output": "5\n1 2 3 4 5"
+  },
+  {
+    "desc": "패턴의 길이가 텍스트보다 긴 경우",
+    "input": "short\nlongerpattern",
+    "expected_output": "0"
+  },
+  {
+    "desc": "끝부분에만 딱 1번 등장",
+    "input": "mississippi\npi",
+    "expected_output": "1\n10"
+  },
+  {
+    "desc": "시작 부분에만 딱 1번 등장",
+    "input": "computer\ncomp",
+    "expected_output": "1\n1"
+  },
+  {
+    "desc": "대소문자 구분 탐색",
+    "input": "aAaAaA\naA",
+    "expected_output": "3\n1 3 5"
+  },
+  {
+    "desc": "숫자 문자열 패턴 탐색",
+    "input": "101010101\n101",
+    "expected_output": "4\n1 3 5 7"
+  },
+  {
+    "desc": "긴 반복 패턴",
+    "input": "abracadabra\nabra",
+    "expected_output": "2\n1 8"
+  }
+]

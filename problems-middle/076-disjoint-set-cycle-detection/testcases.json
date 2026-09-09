@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: 사각형 사이클 형성 4번째 간선",
+    "input": "4 4\n1 2\n2 3\n3 4\n4 1",
+    "expected_output": "CYCLE 4"
+  },
+  {
+    "desc": "사이클 없는 트리 형태: NO CYCLE",
+    "input": "4 3\n1 2\n2 3\n3 4",
+    "expected_output": "NO CYCLE"
+  },
+  {
+    "desc": "삼각형 사이클: 3번째 간선에서 발생",
+    "input": "3 3\n1 2\n2 3\n1 3",
+    "expected_output": "CYCLE 3"
+  },
+  {
+    "desc": "간선 1개뿐인 경우",
+    "input": "2 1\n1 2",
+    "expected_output": "NO CYCLE"
+  },
+  {
+    "desc": "여러 컴포넌트 중 한 곳에서 사이클 발생",
+    "input": "6 4\n1 2\n3 4\n4 5\n3 5",
+    "expected_output": "CYCLE 4"
+  },
+  {
+    "desc": "사이클 발생 후에도 간선이 계속 추가되는 경우 (최초 순번만 출력)",
+    "input": "4 5\n1 2\n2 3\n3 1\n3 4\n4 1",
+    "expected_output": "CYCLE 3"
+  },
+  {
+    "desc": "스타 그래프 (사이클 없음)",
+    "input": "5 4\n1 2\n1 3\n1 4\n1 5",
+    "expected_output": "NO CYCLE"
+  },
+  {
+    "desc": "5개 정점 5개 간선 오각형 사이클",
+    "input": "5 5\n1 2\n2 3\n3 4\n4 5\n5 1",
+    "expected_output": "CYCLE 5"
+  },
+  {
+    "desc": "큰 트리 구조 (사이클 없음)",
+    "input": "8 7\n1 2\n1 3\n2 4\n2 5\n3 6\n3 7\n7 8",
+    "expected_output": "NO CYCLE"
+  },
+  {
+    "desc": "복합 6정점 그래프에서 5번째에 사이클",
+    "input": "6 6\n1 2\n2 3\n4 5\n5 6\n6 4\n1 6",
+    "expected_output": "CYCLE 5"
+  }
+]

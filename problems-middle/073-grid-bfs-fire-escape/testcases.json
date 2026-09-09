@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: 4x4 미로에서 불 피해 탈출",
+    "input": "4 4\n####\n#JF#\n#..#\n#..#",
+    "expected_output": "3"
+  },
+  {
+    "desc": "지훈이가 처음부터 가장자리에 위치한 경우: 1분 탈출",
+    "input": "3 3\n###\n.J.\n###",
+    "expected_output": "2"
+  },
+  {
+    "desc": "불에 둘러싸여 탈출 불가능한 경우",
+    "input": "3 3\n###\n#J#\n#F#",
+    "expected_output": "IMPOSSIBLE"
+  },
+  {
+    "desc": "불이 전혀 없는 미로",
+    "input": "3 3\n###\n#J.\n###",
+    "expected_output": "2"
+  },
+  {
+    "desc": "불이 여러 군데서 시작되는 경우",
+    "input": "5 5\n#####\n#F.F#\n#.J.#\n#...#\n#.#.#",
+    "expected_output": "IMPOSSIBLE"
+  },
+  {
+    "desc": "벽으로 완전히 막힌 고립 공간",
+    "input": "3 3\n###\n#J#\n###",
+    "expected_output": "IMPOSSIBLE"
+  },
+  {
+    "desc": "1x1 미로: 지훈이 혼자 (즉시 탈출)",
+    "input": "1 1\nJ",
+    "expected_output": "1"
+  },
+  {
+    "desc": "긴 복도 탈출 경쟁",
+    "input": "3 6\n######\nFJ...#\n######",
+    "expected_output": "IMPOSSIBLE"
+  },
+  {
+    "desc": "불이 먼저 탈출구를 막는 경우",
+    "input": "4 4\n####\n#J.#\n#.F.\n####",
+    "expected_output": "IMPOSSIBLE"
+  },
+  {
+    "desc": "복잡한 5x5 지그재그 탈출로",
+    "input": "5 5\n#####\n#J..#\n###.#\n#F..#\n#...#",
+    "expected_output": "IMPOSSIBLE"
+  }
+]
