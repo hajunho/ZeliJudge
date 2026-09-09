@@ -158,6 +158,7 @@ problems/
 | **#115** | [커넥션을 닫았는데 왜 커서가 터져요?!: JDBC Statement 누수와 ORA-01000 (JDBC Statement Leak & Cursor Exhaustion)](problems/115-jdbc-statement-cursor-leak/problem.md) | **데이터베이스 엔지니어링/JDBC/자원 관리**, 커넥션 풀(HikariCP) 프록시 반환 함정, PreparedStatement/ResultSet 미반납, DB 서버 ORA-01000 커서 고갈 참사, AutoCloseable try-with-resources RAII 패턴, 응급 풀 축출 | conn.close()만 믿고 Statement를 닫지 않아 물리 커넥션에 고아 커서가 쌓여 ORA-01000으로 전사 DB 쿼리 올스톱된 참사와 안전한 자원 회수 원리 |
 | **#116** | [카프카 메시지 1개 재시도했을 뿐인데 왜 뒤의 100만 개가 멈춰요?!: HOL 블로킹과 논블로킹 재시도 큐 (Kafka Non-Blocking Retry & DLT)](problems/116-kafka-non-blocking-retry-queue/problem.md) | **분산 메시징/이벤트 기반 아키텍처/우버 패턴**, 전통적 인플레이스 재시도의 Head-of-Line (HOL) 블로킹 참사, Spring Kafka @RetryableTopic, 메인 즉시 커밋 및 다단계 지연 토픽(RETRY_1, RETRY_2), 사장 메시지(DLT) 격리 | 메시지 1개 재시도로 단일 파티션이 35초간 잠겨 뒤의 정상 메시지 수만 건이 동결되고 max.poll 초과로 리밸런스 폭풍 터진 참사와 논블로킹 구원 원리 |
 | **#117** | [정규표현식 하나 검사했을 뿐인데 CPU 100%로 서버가 영구 동결?!: ReDoS(정규표현식 서비스 거부 공격)와 NFA 백트래킹 지수 폭발 vs Thompson 선형 RE2 (ReDoS Catastrophic Backtracking & Linear Thompson NFA)](problems/117-redos-regex-catastrophic-backtracking/problem.md) | **정규표현식/컴파일러 이론/보안 엔지니어링**, ReDoS 취약점 정적 분석(Nested Quantifier, Ambiguous Alternation), NFA 백트래킹 $O(2^N)$ 지수 폭발 참사, 백트래킹 max_steps 한도 방어, 켄 톰슨 NFA 상태 전이 및 Google RE2 $O(N)$ 선형 시간 보장 | 중첩 수량자 정규식에 20자 악의적 입력 넣었다가 백트래킹 폭발로 CPU 100% 영구 동결되어 Cloudflare급 전사 마비 터진 참사와 Thompson NFA 구원 원리 |
+| **#118** | [캐시를 걸었는데 왜 1초 만에 10만 명이 몰려와 DB가 폭사해요?!: 캐시 스탬피드(Cache Stampede / Dogpiling)와 뮤텍스 락 vs 확률적 조기 갱신(XFetch / PER Algorithm)](problems/118-cache-stampede-xfetch-algorithm/problem.md) | **캐시 아키텍처/분산 시스템/확률 알고리즘**, 캐시 스탬피드(Cache Stampede / Dogpiling), 뮤텍스 락(Single-Flight) 대기 지연(Latency Spike), VLDB 2015 XFetch 확률적 조기 갱신(Probabilistic Early Expiration), 만료 직전 $-\beta \times \Delta \times \ln(R) > \delta$ 판정, 0ms 지연 및 스탬피드 완전 소멸 | TTL 60초 만료 순간 1만 개 동시 요청이 일제히 Cache Miss 맞아 DB로 쇄도해 DB 폭사한 참사와 XFetch 0ms 무지연 백그라운드 조기 갱신 구원 원리 |
 
 
 
@@ -286,6 +287,16 @@ problems/
 | **#108** | [폭탄 돌리기 게임! M번 패스 후 폭탄을 든 사람](problems-elementary/108-circular-queue-hot-potato/problem.md) | 수학, 나머지 연산(`%`), 순환 큐, 1-based 인덱스 변환 | N명의 친구들이 둥글게 둘러앉아 폭탄을 M번 시계방향으로 돌릴 때 최종 당번 맞추기 |
 | **#109** | [한 글자만 달라요! 단어 변환 사다리 판별기](problems-elementary/109-word-ladder-one-letter-diff/problem.md) | 문자열, 글자 비교, 해밍 거리(Hamming Distance), 불리언 판별 | 길이가 같은 두 단어가 정확히 1글자만 달라 사다리 게임 규칙에 맞는지 검증하기 |
 | **#110** | [스마트폰 화면 회전! 2차원 배열 시계방향 90도 회전](problems-elementary/110-matrix-rotate-90-clockwise/problem.md) | 2차원 배열, 행렬 회전(Rotate), 좌표 변환, 기하 알고리즘 | 스마트폰을 눕혔을 때 $R \times C$ 사진 행렬을 시계방향 90도 회전시켜 $C \times R$로 변환하기 |
+| **#111** | [반복되는 멜로디의 마법! 주기적 문자열 판별기](problems-elementary/111-string-periodic-repeat-check/problem.md) | 문자열, 주기성(Periodicity), 약수 탐색, 패턴 매칭 | 짧은 기본 멜로디 마디가 끊김 없이 반복되어 곡 전체를 이루는지 검증하기 |
+| **#112** | [십자가 보물 레이더! 2차원 십자 합 최댓값 찾기](problems-elementary/112-matrix-cross-sum-maximum/problem.md) | 2차원 배열, 십자 탐색, 브루트포스 완전 탐색 | 지도 위의 한 지점을 중심으로 상하좌우 1칸과 중심의 보물 에너지 합 최댓값 구하기 |
+| **#113** | [중요한 숙제부터 출력해요! 프린터 큐 우선순위 인쇄](problems-elementary/113-queue-printer-priority-order/problem.md) | 자료구조 큐(Queue), 우선순위(Priority), 시뮬레이션 | 더 중요한 인쇄물이 대기 중이면 맨 뒤로 보내며 내 문서가 몇 번째로 출력되는지 맞추기 |
+| **#114** | [우박수의 최고 높이를 찾아라! 콜라츠 수열의 최고점](problems-elementary/114-collatz-max-peak-value/problem.md) | 수학, 콜라츠 추측, 반복문 제어, 최댓값 갱신 | 1이 될 때까지 오르락내리락하는 우박수 궤적 중 가장 높이 치솟은 최고점 구하기 |
+| **#115** | [과목별 최고 득점반은 어디? 2차원 배열 세로 열 합계](problems-elementary/115-matrix-column-sum-totals/problem.md) | 2차원 배열, 열(Column) 중심 순회, 인덱스 역순 순회 | 학생별 과목 점수 표에서 세로 열을 기준으로 각 과목의 총점 계산하기 |
+| **#116** | [컴퓨터 스위치 켜진 개수 세기! 2진수 1의 개수 (Popcount)](problems-elementary/116-binary-count-set-bits/problem.md) | 2진수(Binary), 비트 연산, 자릿수 카운팅, Popcount | 10진수 숫자를 컴퓨터의 2진수로 변환했을 때 켜진 스위치('1')의 총 개수 세기 |
+| **#117** | [웹 브라우저의 마법! 뒤로 가기와 앞으로 가기 2스택](problems-elementary/117-browser-back-forward-stacks/problem.md) | 자료구조 스택(Stack), 2스택 상태 전이, 웹 브라우저 네비게이션 | 뒤로 가기 스택과 앞으로 가기 스택을 이용해 현재 방문 중인 웹페이지 시뮬레이션하기 |
+| **#118** | [모두가 모이기 가장 편한 장소! 맨해튼 거리와 중앙값](problems-elementary/118-manhattan-meeting-point-median/problem.md) | 수학, 맨해튼 거리, 중앙값(Median), 최적화 | 친구들의 일직선 좌표에서 모두의 이동 거리 합을 최소로 만드는 최적의 모임 장소 찾기 |
+| **#119** | [피자 조각 곱셈과 나눗셈! 분수 연산과 기약분수](problems-elementary/119-fraction-multiply-divide/problem.md) | 수학, 분수 곱셈/나눗셈, 역수, 최대공약수(GCD), 기약분수 | 두 분수의 곱셈 또는 나눗셈 연산을 수행하고 가장 간단한 기약분수로 나타내기 |
+| **#120** | [나무의 가장 끝 잎사귀를 찾아라! 트리의 리프(Leaf) 노드](problems-elementary/120-tree-leaf-nodes-finder/problem.md) | 트리(Tree), 이진 트리, 리프 노드(Leaf Node), 오름차순 정렬 | 자식 방이 하나도 없는 가장 바깥쪽 끝방(리프 노드)들의 번호를 오름차순으로 찾기 |
 
 ---
 
