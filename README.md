@@ -129,6 +129,7 @@ problems/
 | **#086** | [새벽 3시 백업만 돌면 Redis가 왜 죽어요?!: Linux fork(), Copy-On-Write (COW)와 메모리 폭증 (Linux fork() & Copy-On-Write Memory Spike)](problems/086-copy-on-write-fork-memory-spike/problem.md) | **운영체제 커널/메모리 관리**, Linux fork() 가상 메모리 페이지 테이블, Copy-On-Write (COW), 페이지 폴트 복제, Transparent HugePages (THP) 증폭 참사, OOM-Killer 방어 | BGSAVE 백그라운드 스냅샷 도중 쓰기 트래픽에 의해 페이지가 무더기 복제되어 메모리가 2배로 폭증해 OOM-Killer에 즉사당한 참사 |
 | **#087** | [전원이 갑자기 꺼졌는데 결제 내역이 왜 살아있죠?!: 데이터베이스 Write-Ahead Logging (WAL)과 ARIES 장애 복구 (Database WAL & ARIES Recovery)](problems/087-database-wal-crash-recovery-aries/problem.md) | **데이터베이스 스토리지/장애 복구**, Steal & No-Force 버퍼 관리, WAL(Write-Ahead Logging) 선행 기록, ARIES 3단계 복구(Analysis, Redo, Undo), 체크포인트 플러시 | 서버실 누전 정전 시 버퍼 풀 메모리가 증발했음에도 WAL 순방향 Redo와 역방향 Undo로 100% 무결성 복구한 원리 |
 | **#088** | [멀티스레드로 바꿨더니 왜 10배나 느려져요?!: CPU 캐시 라인(64바이트)과 거짓 공유(False Sharing)의 덫 (CPU Cache Line & False Sharing with MESI)](problems/088-cpu-cache-false-sharing-mesi/problem.md) | **컴퓨터 구조/동시성 아키텍처**, 64바이트 캐시 라인, MESI 캐시 일관성 프로토콜(M, E, S, I), 거짓 공유(False Sharing) 버스 핑퐁 무효화, 64바이트 캐시 라인 패딩(@Contended) | 멀티스레드로 독립 카운터를 갱신했는데 동일 캐시 라인에 묶여 버스 무효화 폭풍으로 싱글스레드보다 10배 느려진 참사 |
+| **#089** | [와이파이로 다운로드만 걸면 왜 핑이 1000ms로 치솟아요?!: 네트워크 버퍼블로트(Bufferbloat)와 TCP 혼잡 제어 (Reno vs Google BBR)](problems/089-tcp-bufferbloat-reno-vs-bbr/problem.md) | **컴퓨터 네트워크/전송 계층**, 버퍼블로트(Bufferbloat), 손실 기반 TCP Reno/Cubic 한계, 대역폭-지연 곱(BDP), Google BBR 모델 기반 혼잡 제어, 대화형 핑 지연시간 방어 | 다운로드 시 공유기 대형 버퍼가 가득 차 게임 핑이 60배 폭증하는 버퍼블로트 참사와 BBR 0ms 큐잉 지연 원리 |
 
 ---
 
