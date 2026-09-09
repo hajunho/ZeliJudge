@@ -1,0 +1,42 @@
+[
+  {
+    "input": "abab\n",
+    "output": "7"
+  },
+  {
+    "input": "aaaa\n",
+    "output": "4"
+  },
+  {
+    "input": "a\n",
+    "output": "1"
+  },
+  {
+    "input": "abcde\n",
+    "output": "15"
+  },
+  {
+    "input": "banana\n",
+    "output": "15"
+  },
+  {
+    "input": "mississippi\n",
+    "output": "53"
+  },
+  {
+    "input": "abcdefghijklmnopqrstuvwxyz\n",
+    "output": "351"
+  },
+  {
+    "input": "abacabadabacaba\n",
+    "output": "85"
+  },
+  {
+    "input": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\n",
+    "output": "2600"
+  },
+  {
+    "input": "abcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabc\n",
+    "output": "897"
+  }
+]

@@ -192,7 +192,7 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 |:---:|:---:|:---:|---|
 | 🎒 **초등부 트랙 (Junior)** | `problems-elementary/` | **130문제 완결** ✅ | 초등학생 & 코딩 입문: 사칙연산, 조건/반복문, 리스트/문자열, 기초 스택/큐, 2D 격자, 기본 수학 |
 | 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **130문제 완결** ✅ | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 고급 정수론/기하/DP |
-| 🎓 **고등부 트랙 (High)** | `problems-high/` | **100문제 (진행 중, 76.9%)** 🚀 | 고등학생 & KOI/대회: 일반화 CRT, 2D 세그트리, 삼분 탐색, 쾨닉 정점커버, 희소배열 경로 최대, KMP DFA DP, 오일러 피 체, TSP 경로 복원, 선분 교차 분리집합, 트리 최소 지배 집합 DP |
+| 🎓 **고등부 트랙 (High)** | `problems-high/` | **110문제 (진행 중, 84.6%)** 🚀 | 고등학생 & KOI/대회: 단절선 2-ECC, 이산 로그 BSGS, FPS 미적분, 트리 HLD 경로 합, 다각형 삼각분할 DP, 분기 한정 0-1 배낭, 접미사 오토마톤, 단조 덱 CHT, 르장드르 공식, 에드몬즈 블로섬 |
 | 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 110+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/락, Kafka, 캐시 스탬피드, ReDoS, 고가용성 아키텍처 |
 
 ---
@@ -594,6 +594,16 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | **#098** | [방문한 도시의 최적 순서를 복원하라! 비트마스크 TSP 경로 역추적 (Bitmask TSP Path)](problems-high/098-dp-bitmask-tsp-path-reconstruction/problem.md) | 동적 계획법(DP), 비트마스킹, 외판원 순회(TSP), 경로 역추적, $O(N^2 2^N)$ | $N$개 도시를 모두 방문하고 복귀하는 최단 경로 비용을 비트마스크 DP로 구하고 실제 최적 방문 도시 순서를 역추적하여 복원 |
 | **#099** | [엉킨 실타래를 연결 컴포넌트로 분리하라! 선분 교차와 분리 집합 (Segment Intersection DSU)](problems-high/099-geometry-segment-intersection-components/problem.md) | 기하학, CCW, 선분 교차 판정(Segment Intersection), 분리 집합(Union-Find), 연결 요소 | 2차원 평면 위의 $N$개 선분 간의 상호 교차 여부를 CCW로 판정하고 분리 집합(DSU)으로 그룹화하여 연결 컴포넌트 수와 최대 크기 산출 |
 | **#100** | [최소 감시 초소로 트리를 지켜라! 트리 최소 지배 집합 3상태 DP (Tree Minimum Dominating Set)](problems-high/100-dp-tree-dominating-set/problem.md) | 트리, 동적 계획법(Tree DP), 최소 지배 집합(Minimum Dominating Set), 3상태 DP, $O(N)$ | 트리의 모든 정점이 자신이 선택되거나 선택된 이웃 정점과 인접하도록 하는 최소 정점 선택 수를 3가지 상태 DP로 $O(N)$에 계산 |
+| **#101** | [다리가 무너져도 고립되지 않는 섬들! 단절선과 2-간선 연결 요소 (Bridge & 2-Edge-Connected Components)](problems-high/101-graph-bridge-two-edge-connected/problem.md) | 그래프, 단절선(Bridges), 2-간선 연결 요소(2-Edge-Connected), Tarjan DFS Tree, Low-link, $O(V + E)$ | 무향 그래프에서 간선 하나를 제거했을 때 연결이 끊어지는 단절선을 구하고, 단절선을 제외한 2-간선 연결 컴포넌트들의 크기를 계산 |
+| **#102** | [거인의 보폭으로 지수를 맞춰라! 이산 로그와 아기걸음 거인걸음 (Baby-step Giant-step)](problems-high/102-math-discrete-log-baby-step-giant-step/problem.md) | 수학, 정수론, 이산 로그(Discrete Logarithm), BSGS(Baby-step Giant-step), 모듈러 거듭제곱, $O(\sqrt{P})$ | $A^x \equiv B \pmod P$를 만족하는 최소 음이 아닌 정수 $x$를 $O(\sqrt{P})$ 해시 맵 기법으로 빠르게 탐색 |
+| **#103** | [무한 급수를 미분하고 적분하라! 형식적 멱급수의 미적분 (Formal Power Series Calculus)](problems-high/103-polynomial-fps-taylor-derivative/problem.md) | 수학, 다항식, 형식적 멱급수(FPS), 미분(Derivative), 부정적분(Integral), $O(N)$ | 모듈러 $998,244,353$ 상에서 주어진 다항식의 도함수와 부정적분을 $O(N)$ 선형 시간에 계산 |
+| **#104** | [트리를 고속도로로 분할하라! Heavy-Light Decomposition (HLD) 경로 합](problems-high/104-tree-heavy-light-decomposition-path-sum/problem.md) | 트리, HLD(Heavy-Light Decomposition), 세그먼트 트리, 경로 쿼리, 점 갱신, $O(\log^2 N)$ | 트리를 무거운 간선 체인으로 분할하는 HLD와 세그먼트 트리를 연계하여 경로 가중치 합을 $O(\log^2 N)$에 질의 |
+| **#105** | [다각형을 삼각형으로 쪼개는 최소 비용! 볼록 다각형 삼각분할 DP (Convex Polygon Triangulation)](problems-high/105-dp-convex-polygon-triangulation/problem.md) | 동적 계획법(DP), 기하학, 다각형 삼각분할(Polygon Triangulation), 구간 DP, $O(N^3)$ | 볼록 다각형을 서로 교차하지 않는 대각선으로 $N-2$개의 삼각형으로 분할할 때 둘레 합의 최솟값을 구간 DP로 산출 |
+| **#106** | [유망하지 않은 가지는 과감히 쳐내라! 분기 한정법 0-1 배낭 문제 (Branch and Bound Knapsack)](problems-high/106-branch-and-bound-01-knapsack/problem.md) | 완전 탐색, 백트래킹, 분기 한정법(Branch and Bound), 0-1 배낭 문제, 상한(Upper Bound) 휴리스틱 | 물건을 쪼갤 수 있는 연속 배낭 상한선(Relaxation Bound)을 계산하여 유망하지 않은 상태를 가지치기 |
+| **#107** | [문자열의 모든 접미사를 선형 상태로 압축하라! 접미사 오토마톤 (Suffix Automaton)](problems-high/107-string-suffix-automaton-distinct-substrings/problem.md) | 문자열, 접미사 오토마톤(Suffix Automaton, SAM), 서로 다른 부분문자열, 선형 시간, $O(N)$ | 문자열의 모든 부분문자열을 $O(N)$ 상태와 전이로 나타내는 접미사 오토마톤으로 서로 다른 부분문자열 수를 계산 |
+| **#108** | [기울기가 감소하는 직선들의 최솟값을 선형 시간으로! 단조 덱 컨벡스 헐 트릭 (Convex Hull Trick Deque)](problems-high/108-geometry-dynamic-convex-hull-trick-deque/problem.md) | 기하학, 동적 계획법 최적화, 컨벡스 헐 트릭(CHT), 단조 덱(Monotonic Deque), $O(N)$ | 기울기가 단조 감소하고 질의 점이 단조 증가할 때 단조 덱을 이용해 $O(N)$에 동적 최솟값을 질의 |
+| **#109** | [거대 팩토리얼 속 소수의 지수를 세어라! 르장드르 공식 (Legendre's Formula & Prime Powers)](problems-high/109-math-lucas-legendre-prime-powers/problem.md) | 수학, 정수론, 르장드르 공식(Legendre's Formula), 소인수분해, 팩토리얼 진법, $O(\log_p N)$ | 르장드르 공식을 통해 거대 정수 $N!$과 중앙 이항계수 $\binom{2N}{N}$에 포함된 소인수 $P$의 지수를 $O(\log_P N)$에 계산 |
+| **#110** | [꽃봉오리를 오므려 홀수 주기를 수축하라! 에드몬즈의 블로섬 알고리즘 (Edmonds' Blossom Algorithm)](problems-high/110-graph-general-matching-blossom/problem.md) | 그래프, 최대 매칭, 일반 그래프 매칭, 에드몬즈 블로섬(Edmonds' Blossom Algorithm), 꽃봉오리 축소, $O(V^3)$ | 이분 그래프가 아닌 일반 그래프에서 홀수 사이클을 축소하는 블로섬 알고리즘으로 최대 매칭을 도출 |
 
 ---
 
