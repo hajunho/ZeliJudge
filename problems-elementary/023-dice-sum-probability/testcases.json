@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "K = 4",
+    "input": "4\n",
+    "expected_output": "3\n1 3\n2 2\n3 1"
+  },
+  {
+    "id": 2,
+    "description": "최소 합 K = 2 (1가지)",
+    "input": "2\n",
+    "expected_output": "1\n1 1"
+  },
+  {
+    "id": 3,
+    "description": "최대 합 K = 12 (1가지)",
+    "input": "12\n",
+    "expected_output": "1\n6 6"
+  },
+  {
+    "id": 4,
+    "description": "가장 확률 높은 K = 7 (6가지)",
+    "input": "7\n",
+    "expected_output": "6\n1 6\n2 5\n3 4\n4 3\n5 2\n6 1"
+  },
+  {
+    "id": 5,
+    "description": "K = 3",
+    "input": "3\n",
+    "expected_output": "2\n1 2\n2 1"
+  },
+  {
+    "id": 6,
+    "description": "K = 5",
+    "input": "5\n",
+    "expected_output": "4\n1 4\n2 3\n3 2\n4 1"
+  },
+  {
+    "id": 7,
+    "description": "K = 6",
+    "input": "6\n",
+    "expected_output": "5\n1 5\n2 4\n3 3\n4 2\n5 1"
+  },
+  {
+    "id": 8,
+    "description": "K = 8",
+    "input": "8\n",
+    "expected_output": "5\n2 6\n3 5\n4 4\n5 3\n6 2"
+  },
+  {
+    "id": 9,
+    "description": "K = 9",
+    "input": "9\n",
+    "expected_output": "4\n3 6\n4 5\n5 4\n6 3"
+  },
+  {
+    "id": 10,
+    "description": "K = 10",
+    "input": "10\n",
+    "expected_output": "3\n4 6\n5 5\n6 4"
+  }
+]

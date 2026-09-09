@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "N = 5 -> 120",
+    "input": "5\n",
+    "expected_output": "120"
+  },
+  {
+    "id": 2,
+    "description": "N = 3 -> 6",
+    "input": "3\n",
+    "expected_output": "6"
+  },
+  {
+    "id": 3,
+    "description": "N = 1 최소 레벨",
+    "input": "1\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 4,
+    "description": "N = 2",
+    "input": "2\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 5,
+    "description": "N = 4",
+    "input": "4\n",
+    "expected_output": "24"
+  },
+  {
+    "id": 6,
+    "description": "N = 6",
+    "input": "6\n",
+    "expected_output": "720"
+  },
+  {
+    "id": 7,
+    "description": "N = 7",
+    "input": "7\n",
+    "expected_output": "5040"
+  },
+  {
+    "id": 8,
+    "description": "N = 8",
+    "input": "8\n",
+    "expected_output": "40320"
+  },
+  {
+    "id": 9,
+    "description": "N = 10",
+    "input": "10\n",
+    "expected_output": "3628800"
+  },
+  {
+    "id": 10,
+    "description": "N = 15 최대 레벨",
+    "input": "15\n",
+    "expected_output": "1307674368000"
+  }
+]

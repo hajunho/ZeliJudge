@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 올바른 괄호: (())",
+    "input": "(())",
+    "expected_output": "YES"
+  },
+  {
+    "id": 2,
+    "description": "기본 나란한 괄호: ()()",
+    "input": "()()",
+    "expected_output": "YES"
+  },
+  {
+    "id": 3,
+    "description": "닫는 괄호 먼저: )(",
+    "input": ")(",
+    "expected_output": "NO"
+  },
+  {
+    "id": 4,
+    "description": "덜 닫힌 괄호: ((()",
+    "input": "((()",
+    "expected_output": "NO"
+  },
+  {
+    "id": 5,
+    "description": "가장 기본: ()",
+    "input": "()",
+    "expected_output": "YES"
+  },
+  {
+    "id": 6,
+    "description": "한 글자 열림: (",
+    "input": "(",
+    "expected_output": "NO"
+  },
+  {
+    "id": 7,
+    "description": "한 글자 닫힘: )",
+    "input": ")",
+    "expected_output": "NO"
+  },
+  {
+    "id": 8,
+    "description": "복잡한 올바른 괄호: ((()())())",
+    "input": "((()())())",
+    "expected_output": "YES"
+  },
+  {
+    "id": 9,
+    "description": "가운데서 뒤집힘: ()(())(",
+    "input": "()(())(",
+    "expected_output": "NO"
+  },
+  {
+    "id": 10,
+    "description": "긴 올바른 괄호: ()()()()()",
+    "input": "()()()()()",
+    "expected_output": "YES"
+  }
+]

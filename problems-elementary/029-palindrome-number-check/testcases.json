@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "121 대칭수",
+    "input": "121\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 2,
+    "description": "12321 대칭수",
+    "input": "12321\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 3,
+    "description": "123 비대칭수",
+    "input": "123\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 4,
+    "description": "한 자리 숫자 7 (무조건 YES)",
+    "input": "7\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 5,
+    "description": "한 자리 숫자 1 (무조건 YES)",
+    "input": "1\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 6,
+    "description": "두 자리 대칭 88",
+    "input": "88\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 7,
+    "description": "두 자리 비대칭 89",
+    "input": "89\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 8,
+    "description": "끝이 0으로 끝나는 수 100",
+    "input": "100\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 9,
+    "description": "짝수 길이 대칭수 123321",
+    "input": "123321\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 10,
+    "description": "큰 대칭수 1000000001",
+    "input": "1000000001\n",
+    "expected_output": "YES"
+  }
+]

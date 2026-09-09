@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제 1: 3명 중 5일차 -> jiyoung",
+    "input": "3\nminsoo jiyoung chulsoo\n5\n",
+    "expected_output": "jiyoung"
+  },
+  {
+    "id": 2,
+    "description": "마지막 순번: 4일차 -> d",
+    "input": "4\na b c d\n4\n",
+    "expected_output": "d"
+  },
+  {
+    "id": 3,
+    "description": "한 바퀴 더 돈 마지막 순번: 8일차 -> d",
+    "input": "4\na b c d\n8\n",
+    "expected_output": "d"
+  },
+  {
+    "id": 4,
+    "description": "첫날: 1일차",
+    "input": "3\nkim lee park\n1\n",
+    "expected_output": "kim"
+  },
+  {
+    "id": 5,
+    "description": "2명 번갈아: 2일차",
+    "input": "2\ntom jerry\n2\n",
+    "expected_output": "jerry"
+  },
+  {
+    "id": 6,
+    "description": "2명 번갈아: 홀수일 99일차",
+    "input": "2\ntom jerry\n99\n",
+    "expected_output": "tom"
+  },
+  {
+    "id": 7,
+    "description": "2명 번갈아: 짝수일 100일차",
+    "input": "2\ntom jerry\n100\n",
+    "expected_output": "jerry"
+  },
+  {
+    "id": 8,
+    "description": "큰 날짜: 1000일차",
+    "input": "5\na b c d e\n1000\n",
+    "expected_output": "e"
+  },
+  {
+    "id": 9,
+    "description": "큰 날짜: 999일차",
+    "input": "5\na b c d e\n999\n",
+    "expected_output": "d"
+  },
+  {
+    "id": 10,
+    "description": "7명 요일 순환: 50일차",
+    "input": "7\nmon tue wed thu fri sat sun\n50\n",
+    "expected_output": "mon"
+  }
+]

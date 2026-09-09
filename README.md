@@ -189,6 +189,16 @@ problems/
 | **#018** | [새싹초등학교 반장 선거 개표기](problems-elementary/018-class-president-vote/problem.md) | 딕셔너리(Dictionary), 빈도수 세기, 최빈값(Mode) | 투표용지에서 가장 많은 표를 얻은 당선자와 득표수 발표하기 |
 | **#019** | [유행어 만들기! 앞 글자만 딴 마법 줄임말](problems-elementary/019-acronym-maker/problem.md) | 문자열 분리(`split`), 첫 글자 추출, 대문자 변환 | 긴 문장의 단어 첫 글자만 따서 두문자어(줄임말) 만들기 |
 | **#020** | [가을 운동회 100m 달리기 등수 매기기](problems-elementary/020-running-race-rank/problem.md) | 리스트 튜플 정렬, 다중 속성 정렬, 순위 부여 | 달리기 기록(초)을 비교하여 1등부터 꼴찌까지 전광판에 등수 매기기 |
+| **#021** | [보물찾기 카드 짝 맞추기와 중복 제거](problems-elementary/021-card-match-duplicate/problem.md) | 집합(Set), 중복 제거(Deduplication), 정렬 | 중복된 카드를 제외하고 고유한 카드 종류 수와 목록 구하기 |
+| **#022** | [마법사의 레벨업과 팩토리얼(!) 계산기](problems-elementary/022-magic-wand-factorial/problem.md) | 반복문 누적 곱, 팩토리얼($N!$), 지수적 증가 | 마법 지팡이 레벨 N에 따른 $1 \times 2 \times \dots \times N$ 위력 계산하기 |
+| **#023** | [보드게임 주사위 2개의 눈금 합 맞추기](problems-elementary/023-dice-sum-probability/problem.md) | 이중 반복문, 완전 탐색(Brute Force), 순서쌍 | 주사위 2개를 던져 눈금의 합이 K가 되는 모든 경우의 수와 쌍 구하기 |
+| **#024** | [피자 조각 나누기와 최소 피자 판 수 구하기](problems-elementary/024-pizza-slice-equality/problem.md) | 산술 연산, 올림(Ceil) 계산, 나눗셈 응용 | 한 판에 8조각인 피자를 N명이 S조각씩 먹기 위한 최소 판 수 구하기 |
+| **#025** | [짝수만 골라 담는 마법 주머니](problems-elementary/025-even-filter-sum/problem.md) | 조건 필터링, 나머지 연산자(`%`), 리스트 컴프리헨션 | N개의 숫자 중 짝수만 골라내어 짝수 개수와 합계 구하기 |
+| **#026** | [연속된 글자 줄이기! 런렝스 압축의 마법](problems-elementary/026-string-compression-run/problem.md) | 문자열 압축(Run-Length Encoding), 연속 카운팅 | 연속된 글자를 `문자+개수`로 줄여서 전송 데이터 압축하기 |
+| **#027** | [한 자리 숫자가 될 때까지 자릿수 더하기](problems-elementary/027-digital-root-sum/problem.md) | 자릿수 분해, while 반복문 제어, 디지털 루트 | 자릿수를 더해 한 자리 수가 될 때까지 반복하는 마법 숫자 찾기 |
+| **#028** | [매일매일 돌아가는 청소 당번 시계](problems-elementary/028-classroom-cleaner-turn/problem.md) | 나머지 연산자(`%`), 순환 큐(Circular), 인덱스 매핑 | N명의 친구가 번호순으로 순환할 때 D일째 청소 당번 찾기 |
+| **#029** | [거꾸로 읽어도 똑같은 회문 숫자 찾기](problems-elementary/029-palindrome-number-check/problem.md) | 수학, 숫자 뒤집기, 팰린드롬 판별, 형 변환 | 앞뒤로 읽어도 똑같은 대칭수(회문 숫자)인지 판별하기 |
+| **#030** | [급식실 식판 쌓기와 올바른 괄호 짝 맞추기](problems-elementary/030-bracket-pair-balance/problem.md) | 스택(Stack), 괄호 매칭, 후입선출(LIFO) | 식판 쌓기 원리로 열린 괄호와 닫힌 괄호의 짝이 맞는지 검사하기 |
 
 ---
 

@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제 1: AAABBC",
+    "input": "AAABBC\n",
+    "expected_output": "A3B2C1"
+  },
+  {
+    "id": 2,
+    "description": "한 글자 반복: ZZZZZ",
+    "input": "ZZZZZ\n",
+    "expected_output": "Z5"
+  },
+  {
+    "id": 3,
+    "description": "연속 없는 단어: XYZ",
+    "input": "XYZ\n",
+    "expected_output": "X1Y1Z1"
+  },
+  {
+    "id": 4,
+    "description": "단 한 글자: A",
+    "input": "A\n",
+    "expected_output": "A1"
+  },
+  {
+    "id": 5,
+    "description": "두 글자 동일: AA",
+    "input": "AA\n",
+    "expected_output": "A2"
+  },
+  {
+    "id": 6,
+    "description": "두 글자 다름: AB",
+    "input": "AB\n",
+    "expected_output": "A1B1"
+  },
+  {
+    "id": 7,
+    "description": "왔다갔다 패턴: ABABA",
+    "input": "ABABA\n",
+    "expected_output": "A1B1A1B1A1"
+  },
+  {
+    "id": 8,
+    "description": "대량 반복: AAAAAABBBBBCCCC",
+    "input": "AAAAAABBBBBCCCC\n",
+    "expected_output": "A6B5C4"
+  },
+  {
+    "id": 9,
+    "description": "끝 글자만 반복: ABCCCC",
+    "input": "ABCCCC\n",
+    "expected_output": "A1B1C4"
+  },
+  {
+    "id": 10,
+    "description": "앞 글자만 반복: AAAABC",
+    "input": "AAAABC\n",
+    "expected_output": "A4B1C1"
+  }
+]

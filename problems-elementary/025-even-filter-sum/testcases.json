@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제 1 (짝수 2, 4 -> 합 6)",
+    "input": "5\n1 2 3 4 5\n",
+    "expected_output": "2\n6"
+  },
+  {
+    "id": 2,
+    "description": "모두 홀수인 경우",
+    "input": "4\n1 3 5 7\n",
+    "expected_output": "0\n0"
+  },
+  {
+    "id": 3,
+    "description": "모두 짝수인 경우",
+    "input": "3\n2 4 6\n",
+    "expected_output": "3\n12"
+  },
+  {
+    "id": 4,
+    "description": "숫자 1개: 짝수",
+    "input": "1\n100\n",
+    "expected_output": "1\n100"
+  },
+  {
+    "id": 5,
+    "description": "숫자 1개: 홀수",
+    "input": "1\n99\n",
+    "expected_output": "0\n0"
+  },
+  {
+    "id": 6,
+    "description": "큰 짝수들",
+    "input": "4\n1000 200 500 8\n",
+    "expected_output": "4\n1708"
+  },
+  {
+    "id": 7,
+    "description": "홀짝 번갈아 등장",
+    "input": "6\n10 11 12 13 14 15\n",
+    "expected_output": "3\n36"
+  },
+  {
+    "id": 8,
+    "description": "동일 짝수 반복",
+    "input": "5\n2 2 2 2 2\n",
+    "expected_output": "5\n10"
+  },
+  {
+    "id": 9,
+    "description": "10개 혼합",
+    "input": "10\n1 4 9 16 25 36 49 64 81 100\n",
+    "expected_output": "5\n220"
+  },
+  {
+    "id": 10,
+    "description": "홀수 9개 짝수 1개",
+    "input": "10\n1 3 5 7 9 11 13 15 17 20\n",
+    "expected_output": "1\n20"
+  }
+]

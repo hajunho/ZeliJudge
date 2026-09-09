@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제 1",
+    "input": "5\npikachu eevee pikachu charmander eevee\n",
+    "expected_output": "3\ncharmander eevee pikachu"
+  },
+  {
+    "id": 2,
+    "description": "모두 동일한 카드",
+    "input": "3\nmewtwo mewtwo mewtwo\n",
+    "expected_output": "1\nmewtwo"
+  },
+  {
+    "id": 3,
+    "description": "이미 중복 없는 카드들",
+    "input": "4\ndog cat bird fish\n",
+    "expected_output": "4\nbird cat dog fish"
+  },
+  {
+    "id": 4,
+    "description": "카드 1장만 있는 경우",
+    "input": "1\npikachu\n",
+    "expected_output": "1\npikachu"
+  },
+  {
+    "id": 5,
+    "description": "2장 동일",
+    "input": "2\napple apple\n",
+    "expected_output": "1\napple"
+  },
+  {
+    "id": 6,
+    "description": "2장 다름",
+    "input": "2\nbanana apple\n",
+    "expected_output": "2\napple banana"
+  },
+  {
+    "id": 7,
+    "description": "여러 장 중복 섞임",
+    "input": "8\na b a c b d c a\n",
+    "expected_output": "4\na b c d"
+  },
+  {
+    "id": 8,
+    "description": "알파벳 역순 입력",
+    "input": "5\ne d c b a\n",
+    "expected_output": "5\na b c d e"
+  },
+  {
+    "id": 9,
+    "description": "긴 이름 카드들",
+    "input": "6\ncharizard blastoise venusaur charizard blastoise pikachu\n",
+    "expected_output": "4\nblastoise charizard pikachu venusaur"
+  },
+  {
+    "id": 10,
+    "description": "10장 카드 중복 제거",
+    "input": "10\nz y x z y w v u z v\n",
+    "expected_output": "6\nu v w x y z"
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "987 -> 24 -> 6",
+    "input": "987\n",
+    "expected_output": "6"
+  },
+  {
+    "id": 2,
+    "description": "한 자리 수 5 -> 5",
+    "input": "5\n",
+    "expected_output": "5"
+  },
+  {
+    "id": 3,
+    "description": "38 -> 11 -> 2",
+    "input": "38\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 4,
+    "description": "10 -> 1",
+    "input": "10\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 5,
+    "description": "99 -> 18 -> 9",
+    "input": "99\n",
+    "expected_output": "9"
+  },
+  {
+    "id": 6,
+    "description": "1000000000 (10억) -> 1",
+    "input": "1000000000\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 7,
+    "description": "999999999 -> 81 -> 9",
+    "input": "999999999\n",
+    "expected_output": "9"
+  },
+  {
+    "id": 8,
+    "description": "123456789 -> 45 -> 9",
+    "input": "123456789\n",
+    "expected_output": "9"
+  },
+  {
+    "id": 9,
+    "description": "5555 -> 20 -> 2",
+    "input": "5555\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 10,
+    "description": "777 -> 21 -> 3",
+    "input": "777\n",
+    "expected_output": "3"
+  }
+]
