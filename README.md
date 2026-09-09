@@ -265,6 +265,16 @@ problems/
 | **#088** | [회오리 김밥 풀기! 2차원 행렬 나선형 읽기](problems-elementary/088-spiral-matrix-unrolling/problem.md) | 2차원 배열, 나선형 순회(Spiral Unroll), 방문 처리, 시뮬레이션 | 사각형 행렬을 바깥 테두리부터 시계방향으로 빙글빙글 소용돌이치며 1차원으로 풀기 |
 | **#089** | [고대 시계탑의 비밀! 로마 숫자를 10진수로 변환하기](problems-elementary/089-roman-to-integer-converter/problem.md) | 문자열 파싱, 딕셔너리 매핑, 조건 연산, 로마 숫자 | IV, IX 같은 감산 규칙을 고려하여 고대 로마 숫자를 10진수 숫자로 계산하기 |
 | **#090** | [가계도 트리와 가족들의 세대(깊이) 계산기](problems-elementary/090-family-tree-generation-depth/problem.md) | 트리(Tree), 루트(Root), 깊이(Depth), 부모-자식 관계, BFS/DFS | 시조 조상님(1번)으로부터 각 가족 구성원의 세대 깊이(Depth) 계산하기 |
+| **#091** | [여러 보물 상자의 열쇠! N개 수의 최대공약수](problems-elementary/091-gcd-multiple-numbers/problem.md) | 수학, 최대공약수(GCD), 누적 연산, 유클리드 호제법 | 여러 개의 보물 상자 속 금화들을 공평하게 나누기 위한 N개 수의 최대공약수 구하기 |
+| **#092** | [거울에 비친 마법진! 대칭 행렬(Symmetric) 검사](problems-elementary/092-matrix-symmetry-check/problem.md) | 2차원 배열, 행렬 전치, 대칭성, 이중 반복문 | 마법진의 주대각선을 기준으로 거울처럼 완벽히 대칭($A[i][j] == A[j][i]$)인지 검증하기 |
+| **#093** | [문장 속 숨은 글자 찾기! 부분 수열(Subsequence) 판별](problems-elementary/093-subsequence-word-detective/problem.md) | 문자열, 투 포인터(Two Pointer), 부분 수열(Subsequence) | 원래 순서를 유지하며 문장에서 특정 비밀 단어를 만들 수 있는지 투 포인터로 검사하기 |
+| **#094** | [달팽이 격자 속 보물 찾기! K의 좌표 역추적](problems-elementary/094-snail-matrix-number-location/problem.md) | 2차원 배열, 나선형 순회(Spiral), 좌표 역추적, 1-based 인덱스 | 1부터 $N^2$까지 나선형으로 채워진 격자에서 숫자 K가 위치한 행과 열 번호 찾기 |
+| **#095** | [계속해서 오르는 등산로! 최장 연속 증가 구간 길이](problems-elementary/095-longest-continuous-increasing-run/problem.md) | 배열 순회, 연속 구간(Streak), 상태 유지, 최댓값 갱신 | 고도가 계속해서 엄격히 높아지는 가장 긴 연속 오르막 구간의 길이(지점 수) 구하기 |
+| **#096** | [지뢰를 찾아라! 8방향 지뢰찾기 숫자 지도 만들기](problems-elementary/096-minesweeper-board-hint-generator/problem.md) | 2차원 격자, 8방향 탐색($dr, dc$), 경계 검사, 지뢰찾기 | 각 빈칸을 둘러싼 8방향의 지뢰 개수를 세어 지뢰찾기 게임의 숫자 힌트 판 완성하기 |
+| **#097** | [동물원 족보 탐험! 이진 트리의 전위 순회(Preorder)](problems-elementary/097-binary-tree-preorder-walk/problem.md) | 트리(Tree), 이진 트리(Binary Tree), 재귀(Recursion), 전위 순회 | [현재 -> 왼쪽 자식 -> 오른쪽 자식] 순서로 방문하는 전위 순회 탐험 경로 출력하기 |
+| **#098** | [피자 조각 약분하기! 가장 깔끔한 기약분수 만들기](problems-elementary/098-fraction-simplifier-gcd/problem.md) | 수학, 최대공약수(GCD), 분수 약분, 기약분수 | 분자와 분모를 최대공약수로 나누어 더 이상 나눌 수 없는 가장 간단한 기약분수로 변환하기 |
+| **#099** | [미니 4x4 스도쿠 행과 열 중복 검사기](problems-elementary/099-mini-sudoku-validator/problem.md) | 2차원 배열, 집합(Set), 스도쿠 규칙, 중복 검사 | 4개의 모든 행과 4개의 모든 열에 1부터 4까지 중복 없이 들어있는지 검증하기 |
+| **#100** | [대망의 100번! 버블 정렬 vs 선택 정렬 스왑 대결](problems-elementary/100-grand-sorting-swap-race/problem.md) | 정렬 알고리즘, 버블 정렬, 선택 정렬, 연산 카운팅, 비교 분석 | 대망의 100번째 문제! 두 대표 정렬 알고리즘의 원소 교환(Swap) 횟수를 비교 분석하기 |
 
 ---
 

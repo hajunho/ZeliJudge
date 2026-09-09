@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 3x3 대칭 행렬 -> YES",
+    "input": "3\n1 2 3\n2 4 5\n3 5 6\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 2,
+    "description": "기본 3x3 비대칭 행렬 -> NO",
+    "input": "3\n1 2 3\n4 5 6\n7 8 9\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 3,
+    "description": "1x1 단일 칸 -> YES",
+    "input": "1\n42\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 4,
+    "description": "2x2 대칭 행렬 -> YES",
+    "input": "2\n1 9\n9 1\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 5,
+    "description": "2x2 비대칭 행렬 -> NO",
+    "input": "2\n1 2\n3 4\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 6,
+    "description": "모든 원소가 동일한 행렬 -> YES",
+    "input": "3\n0 0 0\n0 0 0\n0 0 0\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 7,
+    "description": "4x4 대칭 행렬 -> YES",
+    "input": "4\n1 0 0 0\n0 2 0 0\n0 0 3 0\n0 0 0 4\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 8,
+    "description": "단 1칸만 어긋난 경우 -> NO",
+    "input": "3\n1 2 3\n2 4 5\n3 6 6\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 9,
+    "description": "음수 포함 대칭 행렬 -> YES",
+    "input": "2\n-1 -5\n-5 -2\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 10,
+    "description": "4x4 복합 대칭 행렬 -> YES",
+    "input": "4\n1 5 7 9\n5 2 6 8\n7 6 3 4\n9 8 4 0\n",
+    "expected_output": "YES"
+  }
+]

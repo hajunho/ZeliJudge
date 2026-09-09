@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "올바른 4x4 스도쿠 -> YES",
+    "input": "1 2 3 4\n3 4 1 2\n2 1 4 3\n4 3 2 1\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 2,
+    "description": "행에 중복 발생 (1 1 3 4) -> NO",
+    "input": "1 1 3 4\n3 4 1 2\n2 1 4 3\n4 3 2 1\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 3,
+    "description": "열에 중복 발생 (1열에 1이 두 번) -> NO",
+    "input": "1 2 3 4\n1 4 3 2\n2 3 4 1\n4 1 2 3\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 4,
+    "description": "순환 순서 올바른 판 -> YES",
+    "input": "1 2 3 4\n2 3 4 1\n3 4 1 2\n4 1 2 3\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 5,
+    "description": "모두 1인 불량 판 -> NO",
+    "input": "1 1 1 1\n1 1 1 1\n1 1 1 1\n1 1 1 1\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 6,
+    "description": "역순 배치 올바른 판 -> YES",
+    "input": "4 3 2 1\n1 2 3 4\n2 1 4 3\n3 4 1 2\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 7,
+    "description": "숫자 5가 섞인 판 -> NO",
+    "input": "1 2 3 5\n2 3 4 1\n3 4 1 2\n4 1 2 3\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 8,
+    "description": "마지막 행만 중복 -> NO",
+    "input": "1 2 3 4\n2 3 4 1\n3 4 1 2\n4 4 1 2\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 9,
+    "description": "또 다른 올바른 판 -> YES",
+    "input": "2 1 4 3\n4 3 2 1\n1 2 3 4\n3 4 1 2\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 10,
+    "description": "마지막 열만 중복 -> NO",
+    "input": "1 2 3 4\n2 3 4 1\n3 4 1 4\n4 1 2 3\n",
+    "expected_output": "NO"
+  }
+]

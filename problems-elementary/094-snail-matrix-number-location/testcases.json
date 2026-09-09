@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "N = 3, K = 9 (3x3 정중앙 9 -> 2행 2열)",
+    "input": "3 9\n",
+    "expected_output": "2 2"
+  },
+  {
+    "id": 2,
+    "description": "N = 3, K = 1 (맨 왼쪽 위 1 -> 1행 1열)",
+    "input": "3 1\n",
+    "expected_output": "1 1"
+  },
+  {
+    "id": 3,
+    "description": "N = 3, K = 5 (우하단 5 -> 3행 3열)",
+    "input": "3 5\n",
+    "expected_output": "3 3"
+  },
+  {
+    "id": 4,
+    "description": "N = 1, K = 1 -> 1 1",
+    "input": "1 1\n",
+    "expected_output": "1 1"
+  },
+  {
+    "id": 5,
+    "description": "N = 2, K = 4 -> 2 1 (2x2: 1 2 / 4 3)",
+    "input": "2 4\n",
+    "expected_output": "2 1"
+  },
+  {
+    "id": 6,
+    "description": "N = 4, K = 16 (중앙 안쪽)",
+    "input": "4 16\n",
+    "expected_output": "3 2"
+  },
+  {
+    "id": 7,
+    "description": "N = 4, K = 1 -> 1 1",
+    "input": "4 1\n",
+    "expected_output": "1 1"
+  },
+  {
+    "id": 8,
+    "description": "N = 5, K = 25 (정중앙 25 -> 3행 3열)",
+    "input": "5 25\n",
+    "expected_output": "3 3"
+  },
+  {
+    "id": 9,
+    "description": "N = 5, K = 13 (좌하단 모서리: 5행 1열)",
+    "input": "5 13\n",
+    "expected_output": "5 1"
+  },
+  {
+    "id": 10,
+    "description": "N = 6, K = 36",
+    "input": "6 36\n",
+    "expected_output": "4 3"
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: abcde 속 ace -> YES",
+    "input": "abcde\nace\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 2,
+    "description": "기본 예제: abcde 속 aec (순서 어긋남) -> NO",
+    "input": "abcde\naec\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 3,
+    "description": "완전 동일 단어: hello 속 hello -> YES",
+    "input": "hello\nhello\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 4,
+    "description": "한 글자 찾기: python 속 y -> YES",
+    "input": "python\ny\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 5,
+    "description": "없는 글자 포함: apple 속 z -> NO",
+    "input": "apple\nz\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 6,
+    "description": "중복 글자 순서: aabbaa 속 aba -> YES",
+    "input": "aabbaa\naba\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 7,
+    "description": "중복 글자 부족: aba 속 abba -> NO",
+    "input": "aba\nabba\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 8,
+    "description": "긴 문자열 속 부분 수열",
+    "input": "ahbgdc\nabc\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 9,
+    "description": "긴 문자열 속 불일치",
+    "input": "ahbgdc\naxc\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 10,
+    "description": "알파벳 전체 속 단어",
+    "input": "ABCDEFGHIJKLMNOPQRSTUVWXYZ\nACEGIK\n",
+    "expected_output": "YES"
+  }
+]

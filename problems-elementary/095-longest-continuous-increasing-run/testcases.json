@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: 1 3 5 4 7 -> 1 3 5 (길이 3)",
+    "input": "5\n1 3 5 4 7\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 2,
+    "description": "전체 증가: 1 2 3 4 5 -> 5",
+    "input": "5\n1 2 3 4 5\n",
+    "expected_output": "5"
+  },
+  {
+    "id": 3,
+    "description": "전체 감소: 5 4 3 2 1 -> 1",
+    "input": "5\n5 4 3 2 1\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 4,
+    "description": "원소 1개: 10 -> 1",
+    "input": "1\n10\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 5,
+    "description": "모두 동일한 수 (엄격 증가 아님): 2 2 2 2 -> 1",
+    "input": "4\n2 2 2 2\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 6,
+    "description": "마지막 구간이 최장: 5 4 1 2 3 4 -> 4",
+    "input": "6\n5 4 1 2 3 4\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 7,
+    "description": "증가와 감소 반복: 1 2 1 2 1 2 -> 2",
+    "input": "6\n1 2 1 2 1 2\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 8,
+    "description": "음수 포함: -5 -3 -1 0 5 -> 5",
+    "input": "5\n-5 -3 -1 0 5\n",
+    "expected_output": "5"
+  },
+  {
+    "id": 9,
+    "description": "중간이 최장: 10 20 1 2 3 4 5 2 3 -> 5",
+    "input": "9\n10 20 1 2 3 4 5 2 3\n",
+    "expected_output": "5"
+  },
+  {
+    "id": 10,
+    "description": "2개 원소 증가: 3 7 -> 2",
+    "input": "2\n3 7\n",
+    "expected_output": "2"
+  }
+]

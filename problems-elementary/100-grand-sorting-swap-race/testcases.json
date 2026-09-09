@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: 3 1 2 -> 버블 2회, 선택 2회",
+    "input": "3\n3 1 2\n",
+    "expected_output": "2 2"
+  },
+  {
+    "id": 2,
+    "description": "이미 정렬됨: 1 2 3 -> 버블 0, 선택 0",
+    "input": "3\n1 2 3\n",
+    "expected_output": "0 0"
+  },
+  {
+    "id": 3,
+    "description": "완전 역순: 3 2 1 -> 버블 3회 (3+0 or 2+1), 선택 1회 (3과 1 바꿈 -> 1 2 3 끝)",
+    "input": "3\n3 2 1\n",
+    "expected_output": "3 1"
+  },
+  {
+    "id": 4,
+    "description": "원소 1개: 10 -> 0 0",
+    "input": "1\n10\n",
+    "expected_output": "0 0"
+  },
+  {
+    "id": 5,
+    "description": "4개 역순: 4 3 2 1 -> 버블 6회, 선택 2회 (4와 1, 3과 2)",
+    "input": "4\n4 3 2 1\n",
+    "expected_output": "6 2"
+  },
+  {
+    "id": 6,
+    "description": "2개 원소 역순: 5 2 -> 버블 1, 선택 1",
+    "input": "2\n5 2\n",
+    "expected_output": "1 1"
+  },
+  {
+    "id": 7,
+    "description": "중복 원소 포함: 2 1 2 1 -> 버블 3, 선택 2",
+    "input": "4\n2 1 2 1\n",
+    "expected_output": "3 2"
+  },
+  {
+    "id": 8,
+    "description": "5개 원소: 5 1 4 2 8 -> 버블 4회, 선택 2회",
+    "input": "5\n5 1 4 2 8\n",
+    "expected_output": "4 2"
+  },
+  {
+    "id": 9,
+    "description": "모두 같은 원소: 5 5 5 5 -> 버블 0, 선택 0",
+    "input": "4\n5 5 5 5\n",
+    "expected_output": "0 0"
+  },
+  {
+    "id": 10,
+    "description": "대망의 100번 축하 6개 원소: 6 5 4 3 2 1 -> 버블 15회, 선택 3회",
+    "input": "6\n6 5 4 3 2 1\n",
+    "expected_output": "15 3"
+  }
+]
