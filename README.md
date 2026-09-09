@@ -75,6 +75,7 @@ problems/
 | **#032** | [동시에 상품 수정 눌렀더니 이전 사람 수정한 게 통째로 날아갔어요?!: 갱신 분실과 락](problems/032-optimistic-vs-pessimistic-lock/problem.md) | **동시성 제어/DB 트랜잭션**, 갱신 분실(Lost Update), 버전 기반 낙관적 락(OCC) vs 배타적 비관적 락(PCC) | 두 MD가 동시에 상품 수정했다가 이전 사람 수정한 100페이지가 감쪽같이 사라진 참사 |
 | **#033** | [파일 1GB 보냈을 뿐인데 CPU가 100% 찍고 뻗었어요?!: Zero-Copy의 마법](problems/033-zero-copy-memory-transfer/problem.md) | **운영체제 I/O/네트워크**, 커널 모드 vs 유저 모드 4회 컨텍스트 스위칭, CPU 2회 메모리 복사 vs Zero-Copy(`sendfile`) | 정적 동영상 서빙하다 CPU 100% 병목으로 전사 다운로드 멈춘 참사 |
 | **#034** | [조회수 1 올라갈 때마다 DB UPDATE 쳤더니 DB가 터졌어요?!: Write-Back 캐시](problems/034-write-back-cache-flush/problem.md) | **캐시 쓰기 전략/배치 처리**, 행 단위 배타락(X-Lock) 경합, Write-Through vs Write-Back, 크기/시간 기반 배치 플러시 | 초당 3천 번 조회수 UPDATE 때리다 DB 커넥션 풀 고갈 사망한 참사 |
+| **#035** | [주문은 성공했는데 결제가 취소되면 어떡하죠?!: 2PC vs Saga 패턴](problems/035-two-phase-commit-vs-saga/problem.md) | **분산 트랜잭션/MSA**, 2PC 동기 블로킹/SPOF vs Saga 보상 트랜잭션(Compensating Transaction) 역순 롤백 | DB 쪼갰다가 결제 실패 시 주문/재고 롤백 안 되어 데이터 불일치 터진 참사 |
 
 
 
