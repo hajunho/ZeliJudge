@@ -93,6 +93,7 @@ problems/
 | **#050** | [서버가 죽었는데 왜 트래픽이 죽은 서버로 계속 가요?!: DNS 캐싱(TTL)의 덫 vs BGP Anycast / Floating VIP 페일오버](problems/050-dns-ttl-vs-anycast-vip/problem.md) | **네트워크 인프라/고가용성(HA)**, DNS 계층 캐싱, Java JVM 영구 캐시(-1) 좀비 트래픽, BGP Anycast, Keepalived VRRP Floating VIP | DNS 레코드 바꿨는데 클라이언트/JVM 캐시 때문에 30분 넘게 불탄 서버로 트래픽 쏟아져 결제 폭망한 참사 |
 | **#051** | [캐시가 만료되는 순간 DB가 폭발했어요?!: 캐시 스탬피드(Cache Stampede)와 분산 락 vs stale-while-revalidate](problems/051-cache-stampede-xfetch/problem.md) | **분산 캐시/동시성**, 캐시 스탬피드(Thundering Herd), Single-Flight 분산 락(Mutex), RFC 5861 stale-while-revalidate, XFetch 확률적 조기 만료 | 캐시 만료 순간 동시 5,000건 요청이 DB로 직행해 커넥션 풀 고갈 및 CPU 100%로 DB 폭사한 참사 |
 | **#052** | [서버가 잠깐 멈췄는데 재시도가 폭풍처럼 몰아쳐요?!: 재시도 폭풍(Retry Storm)과 지수 백오프 + 지터(Exponential Backoff with Jitter)](problems/052-retry-storm-exponential-backoff-jitter/problem.md) | **분산 시스템/네트워크 회복 탄력성**, 재시도 폭풍(Retry Storm), 고정 백오프의 동기화 파동(Synchronization Waves), AWS Full Jitter 지수 백오프, 재시도 예산(Retry Budget) | 서버가 1초 순단됐는데 수만 대 클라이언트가 동시 재시도 때려서 영구 재부팅 불가 빠진 참사 |
+| **#053** | [DB에 없는 데이터만 골라서 공격당했어요?!: 캐시 관통(Cache Penetration)과 블룸 필터(Bloom Filter)](problems/053-bloom-filter-cache-penetration/problem.md) | **확률적 자료구조/보안**, 캐시 관통(Cache Penetration), Null 객체 캐싱 한계, 블룸 필터(Bloom Filter), 위음성 0% 원칙, Kirsch-Mitzenmacher 이중 해싱 | 해커가 존재하지 않는 음수/난수 ID만 초당 수만 건 요청해 캐시 관통하고 DB 풀스캔으로 마비시킨 참사 |
 
 
 
