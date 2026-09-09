@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: 2 4 -10 4 -9 -> 2 3 0 3 1",
+    "input": "5\n2 4 -10 4 -9\n",
+    "expected_output": "2 3 0 3 1"
+  },
+  {
+    "id": 2,
+    "description": "이미 0 1 2 순위인 경우: 10 20 30 -> 0 1 2",
+    "input": "3\n10 20 30\n",
+    "expected_output": "0 1 2"
+  },
+  {
+    "id": 3,
+    "description": "역순 수열: 30 20 10 -> 2 1 0",
+    "input": "3\n30 20 10\n",
+    "expected_output": "2 1 0"
+  },
+  {
+    "id": 4,
+    "description": "모두 동일한 수: 5 5 5 5 -> 0 0 0 0",
+    "input": "4\n5 5 5 5\n",
+    "expected_output": "0 0 0 0"
+  },
+  {
+    "id": 5,
+    "description": "원소 1개뿐: 999999999 -> 0",
+    "input": "1\n999999999\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 6,
+    "description": "극단적 큰 수와 음수",
+    "input": "4\n-1000000000 1000000000 0 -500\n",
+    "expected_output": "0 3 2 1"
+  },
+  {
+    "id": 7,
+    "description": "중복 원소가 많은 경우",
+    "input": "6\n1 2 1 2 1 2\n",
+    "expected_output": "0 1 0 1 0 1"
+  },
+  {
+    "id": 8,
+    "description": "음수들만 있는 경우",
+    "input": "3\n-30 -10 -20\n",
+    "expected_output": "0 2 1"
+  },
+  {
+    "id": 9,
+    "description": "7개 원소 복합",
+    "input": "7\n100 50 100 200 50 300 200\n",
+    "expected_output": "1 0 1 2 0 3 2"
+  },
+  {
+    "id": 10,
+    "description": "연속된 수",
+    "input": "5\n4 2 1 5 3\n",
+    "expected_output": "3 1 0 4 2"
+  }
+]

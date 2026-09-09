@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "A=6, B=9, C=12 -> GCD 3의 배수이므로 YES",
+    "input": "6 9 12\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 2,
+    "description": "A=6, B=9, C=5 -> GCD 3의 배수 아니므로 NO",
+    "input": "6 9 5\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 3,
+    "description": "서로소인 경우: A=3, B=5 -> GCD=1이므로 모든 C 가능",
+    "input": "3 5 7\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 4,
+    "description": "A와 B가 같음: A=4, B=4, C=8 -> YES",
+    "input": "4 4 8\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 5,
+    "description": "A=4, B=4, C=7 -> NO",
+    "input": "4 4 7\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 6,
+    "description": "C가 A와 정확히 같음: 무조건 가능",
+    "input": "10 15 10\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 7,
+    "description": "짝수 2개와 홀수 C: A=4, B=6, C=9 -> NO",
+    "input": "4 6 9\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 8,
+    "description": "큰 수 서로소: 1000000007, 1000000009 -> YES",
+    "input": "1000000007 1000000009 42\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 9,
+    "description": "GCD 5: A=15, B=25, C=100 -> YES",
+    "input": "15 25 100\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 10,
+    "description": "GCD 5: A=15, B=25, C=102 -> NO",
+    "input": "15 25 102\n",
+    "expected_output": "NO"
+  }
+]

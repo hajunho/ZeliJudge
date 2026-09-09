@@ -176,7 +176,7 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | 트랙 | 디렉토리 | 상태 및 규모 | 대상 및 핵심 교육 내용 |
 |:---:|:---:|:---:|---|
 | 🎒 **초등부 트랙 (Junior)** | `problems-elementary/` | **130문제 완결** ✅ | 초등학생 & 코딩 입문: 사칙연산, 조건/반복문, 리스트/문자열, 기초 스택/큐, 2D 격자, 기본 수학 |
-| 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **10문제 (진행 중)** 🚀 | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 기초 그리디 |
+| 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **20문제 (진행 중)** 🚀 | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 기초 그리디 |
 | 🎓 **고등부 트랙 (High)** | `problems-high/` | 중등부 완결 후 예정 🔜 | 고등학생 & KOI/대회: 다이나믹 프로그래밍(DP), 이진 탐색, 그래프(DFS/BFS), 트리 순회, 백트래킹 |
 | 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 110+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/락, Kafka, 캐시 스탬피드, ReDoS, 고가용성 아키텍처 |
 
@@ -345,6 +345,16 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | **#008** | [분수 통분의 달인! N개 분수의 통분과 덧셈](problems-middle/008-euclidean-extended-lcm-sum/problem.md) | 수학, 최소공배수(LCM), 최대공약수(GCD), 통분 | 분모가 다른 N개 분수를 최소공배수로 통분해 더하고 기약분수로 나타내기 |
 | **#009** | [거울 속의 거울! 재귀 함수와 깊이 추적](problems-middle/009-recursive-call-stack-trace/problem.md) | 재귀(Recursion), 기저 조건(Base Case), 호출 스택 | 함수가 자신을 호출할 때 메모리 스택의 변화와 탈출 조건의 중요성 배우기 |
 | **#010** | [2차원 평면 회전! 행렬의 회전 대칭성 판별](problems-middle/010-matrix-rotation-symmetry-check/problem.md) | 2차원 배열, 평면 변환, 점대칭/선대칭, 기하 알고리즘 | $N \times N$ 타일을 90도, 180도, 270도 회전시켰을 때 원본과 같은지 대칭성 판정 |
+| **#011** | [구간 합의 지름길! 1차원 누적합(Prefix Sum)과 O(1) 쿼리](problems-middle/011-prefix-sum-range-query/problem.md) | 누적합, Prefix Sum, 구간 쿼리, $O(1)$ 알고리즘 | $O(N)$으로 누적합 배열을 전처리해 쿼리당 $O(1)$의 빛의 속도로 구간합 계산하기 |
+| **#012** | [숫자가 너무 커요! 1차원 좌표 압축 (Coordinate Compression)](problems-middle/012-coordinate-compression-rank/problem.md) | 정렬, 좌표 압축, 이분 탐색, 해시 맵 | 10억 단위 거대한 좌표들을 중복 제거 후 오름차순 순위(0, 1, 2...)로 정규화하기 |
+| **#013** | [중첩된 괄호의 세계! 소/중/대괄호 짝 검사기](problems-middle/013-parentheses-multi-type-validator/problem.md) | 스택, 괄호 매칭, 구문 분석, 자료구조 | `()`, `{}`, `[]` 혼합 수식에서 여는 괄호와 닫는 괄호의 짝과 중첩 유효성 검사하기 |
+| **#014** | [요세푸스 순열의 완성! (Josephus Permutation)](problems-middle/014-josephus-full-permutation/problem.md) | 자료구조, 원형 큐, 데크(deque), 시뮬레이션 | 둥글게 둘러앉은 친구들이 K번째마다 탈락할 때 모든 사람들의 전체 탈락 순열 구하기 |
+| **#015** | [손안의 카드 정리하기! 삽입 정렬과 이동 횟수 (Insertion Sort)](problems-middle/015-insertion-sort-step-by-step/problem.md) | 정렬, 삽입 정렬, 시뮬레이션, 역순 쌍 | 이미 정렬된 영역의 올바른 위치에 삽입하며 밀려난 총 이동(Shift) 횟수 계산하기 |
+| **#016** | [정수해를 찾아라! 일차 디오판토스 방정식 Ax + By = C](problems-middle/016-diophantine-linear-solvable/problem.md) | 정수론, 디오판토스 방정식, 최대공약수(GCD), 베주 항등식 | 베주 항등식을 이용해 $Ax + By = C$에 정수해가 존재하는지 $\gcd(A, B)$로 판별하기 |
+| **#017** | [모든 부분집합을 펼쳐라! 2진수 비트마스크 (Bitmask Subsets)](problems-middle/017-bitmask-subsets-generator/problem.md) | 비트마스크, 부분집합, 완전 탐색, 조합론 | 원소 N개 집합의 $2^N$개 부분집합을 0부터 $2^N-1$ 비트마스크 순서로 남김없이 생성하기 |
+| **#018** | [SNS 친구 네트워크! 인접 리스트와 친구 수 (Graph Degree)](problems-middle/018-graph-adjacency-list-degrees/problem.md) | 그래프, 인접 리스트, 차수(Degree), 자료구조 | 메모리 효율적인 인접 리스트로 친구 관계를 구성하고 각 사용자의 친구 수(차수) 계산하기 |
+| **#019** | [2차원 미로 최단 탈출로! 너비 우선 탐색 (2D Grid BFS)](problems-middle/019-bfs-grid-shortest-distance/problem.md) | BFS, 너비 우선 탐색, 최단 경로, 2차원 격자, 큐 | 미로에서 큐와 거리 배열을 이용해 시작점부터 출구까지 도달하는 최단 칸 수 구하기 |
+| **#020** | [달팽이 수열 심화! R x C 직사각형 나선형 격자 채우기](problems-middle/020-matrix-spiral-fill-rectangular/problem.md) | 2차원 배열, 시뮬레이션, 나선형 순회, 방향 벡터 | 가로세로가 다른 $R \times C$ 직사각형 모눈종이에 시계방향 나선형으로 1부터 $R \times C$ 채우기 |
 
 ---
 

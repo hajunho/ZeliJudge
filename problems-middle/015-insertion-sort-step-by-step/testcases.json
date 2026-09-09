@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: [4, 3, 2, 1] -> 역순이므로 6회 이동, 정렬 1 2 3 4",
+    "input": "4\n4 3 2 1\n",
+    "expected_output": "6\n1 2 3 4"
+  },
+  {
+    "id": 2,
+    "description": "이미 정렬됨: [1, 2, 3, 4] -> 0회 이동",
+    "input": "4\n1 2 3 4\n",
+    "expected_output": "0\n1 2 3 4"
+  },
+  {
+    "id": 3,
+    "description": "원소 1개: [42] -> 0회",
+    "input": "1\n42\n",
+    "expected_output": "0\n42"
+  },
+  {
+    "id": 4,
+    "description": "원소 2개 교환: [5, 2] -> 1회",
+    "input": "2\n5 2\n",
+    "expected_output": "1\n2 5"
+  },
+  {
+    "id": 5,
+    "description": "원소 2개 이미 정렬: [2, 5] -> 0회",
+    "input": "2\n2 5\n",
+    "expected_output": "0\n2 5"
+  },
+  {
+    "id": 6,
+    "description": "중복 원소 포함: [3, 1, 2, 1] -> 4회",
+    "input": "4\n3 1 2 1\n",
+    "expected_output": "4\n1 1 2 3"
+  },
+  {
+    "id": 7,
+    "description": "음수 포함 배열",
+    "input": "5\n0 -2 5 3 -1\n",
+    "expected_output": "5\n-2 -1 0 3 5"
+  },
+  {
+    "id": 8,
+    "description": "모두 동일한 수",
+    "input": "4\n7 7 7 7\n",
+    "expected_output": "0\n7 7 7 7"
+  },
+  {
+    "id": 9,
+    "description": "난수 5개",
+    "input": "5\n2 1 3 5 4\n",
+    "expected_output": "2\n1 2 3 4 5"
+  },
+  {
+    "id": 10,
+    "description": "하나만 맨 앞으로 이동: [2, 3, 4, 1] -> 3회",
+    "input": "4\n2 3 4 1\n",
+    "expected_output": "3\n1 2 3 4"
+  }
+]

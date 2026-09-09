@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 삼각형 그래프: 3명 서로 친구 (각자 2명씩)",
+    "input": "3 3\n1 2\n2 3\n3 1\n",
+    "expected_output": "2 2 2"
+  },
+  {
+    "id": 2,
+    "description": "스타 그래프: 1번이 중심 (1번은 3명, 나머지는 1명씩)",
+    "input": "4 3\n1 2\n1 3\n1 4\n",
+    "expected_output": "3 1 1 1"
+  },
+  {
+    "id": 3,
+    "description": "친구 관계가 전혀 없음 (E = 0)",
+    "input": "3 0\n",
+    "expected_output": "0 0 0"
+  },
+  {
+    "id": 4,
+    "description": "일렬 연결 그래프: 1-2-3-4",
+    "input": "4 3\n1 2\n2 3\n3 4\n",
+    "expected_output": "1 2 2 1"
+  },
+  {
+    "id": 5,
+    "description": "혼자 떨어진 외톨이 포함",
+    "input": "4 1\n1 2\n",
+    "expected_output": "1 1 0 0"
+  },
+  {
+    "id": 6,
+    "description": "정점 1개뿐",
+    "input": "1 0\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 7,
+    "description": "완전 그래프 4명 (각자 3명씩)",
+    "input": "4 6\n1 2\n1 3\n1 4\n2 3\n2 4\n3 4\n",
+    "expected_output": "3 3 3 3"
+  },
+  {
+    "id": 8,
+    "description": "5명 원형 순환",
+    "input": "5 5\n1 2\n2 3\n3 4\n4 5\n5 1\n",
+    "expected_output": "2 2 2 2 2"
+  },
+  {
+    "id": 9,
+    "description": "복합 네트워크 6명",
+    "input": "6 4\n1 2\n2 3\n4 5\n5 6\n",
+    "expected_output": "1 2 1 1 2 1"
+  },
+  {
+    "id": 10,
+    "description": "비대칭 연결 5명",
+    "input": "5 4\n1 2\n1 3\n2 4\n3 4\n",
+    "expected_output": "2 2 2 2 0"
+  }
+]

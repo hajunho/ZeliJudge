@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 2x3 직사각형: 1 2 3 / 6 5 4",
+    "input": "2 3\n",
+    "expected_output": "1 2 3\n6 5 4"
+  },
+  {
+    "id": 2,
+    "description": "1x1 격자 -> 1",
+    "input": "1 1\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 3,
+    "description": "1x4 가로 일렬: 1 2 3 4",
+    "input": "1 4\n",
+    "expected_output": "1 2 3 4"
+  },
+  {
+    "id": 4,
+    "description": "4x1 세로 일렬: 1/2/3/4",
+    "input": "4 1\n",
+    "expected_output": "1\n2\n3\n4"
+  },
+  {
+    "id": 5,
+    "description": "3x3 정사각: 1 2 3 / 8 9 4 / 7 6 5",
+    "input": "3 3\n",
+    "expected_output": "1 2 3\n8 9 4\n7 6 5"
+  },
+  {
+    "id": 6,
+    "description": "3x2 세로 직사각형",
+    "input": "3 2\n",
+    "expected_output": "1 2\n6 3\n5 4"
+  },
+  {
+    "id": 7,
+    "description": "3x4 가로 직사각형",
+    "input": "3 4\n",
+    "expected_output": "1 2 3 4\n10 11 12 5\n9 8 7 6"
+  },
+  {
+    "id": 8,
+    "description": "4x3 세로 직사각형",
+    "input": "4 3\n",
+    "expected_output": "1 2 3\n10 11 4\n9 12 5\n8 7 6"
+  },
+  {
+    "id": 9,
+    "description": "2x2 정사각",
+    "input": "2 2\n",
+    "expected_output": "1 2\n4 3"
+  },
+  {
+    "id": 10,
+    "description": "4x4 정사각",
+    "input": "4 4\n",
+    "expected_output": "1 2 3 4\n12 13 14 5\n11 16 15 6\n10 9 8 7"
+  }
+]
