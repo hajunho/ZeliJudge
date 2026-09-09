@@ -171,6 +171,7 @@ problems/
 | **#128** | [무중단 배포(Zero Downtime)라면서 왜 롤링 업데이트마다 502 에러가 터져요?!: 쿠버네티스 Pod Graceful Shutdown과 엔드포인트 등록 해제(Deregistration) 비동기 레이스 컨디션 (Kubernetes Pod Graceful Shutdown & Endpoint Race)](problems/128-k8s-pod-graceful-shutdown-race/problem.md) | **클라우드 인프라/컨테이너/분산 시스템**, Kubelet 컨테이너 라이프사이클 vs 제어 평면 엔드포인트 전파의 비동기 분리, preStop Hook sleep 5 완충 원리, SIGTERM 즉시 소켓 차단 및 502 Bad Gateway(Connection Refused) 참사, terminationGracePeriodSeconds 카운트다운 함정, In-flight Request Drain | 롤링 배포 돌렸더니 Ingress가 닫힌 포트로 트래픽 계속 쏴서 502 에러 수백 건 터진 참사와 preStop 훅 및 완벽한 무중단 배포 구원 원리 |
 | **#129** | [방금 쓴 글을 등록했는데 왜 목록에 안 보여요?!: DB 마스터-슬레이브 복제 지연(Replication Lag)과 Read-Your-Own-Writes 일관성 라우팅 알고리즘 (Database Replication Lag & Read-Your-Own-Writes Consistency)](problems/129-db-replication-lag-read-your-own-writes/problem.md) | **데이터베이스 엔지니어링/분산 시스템/일관성 모델**, 비동기 복제(Asynchronous Replication)와 Binlog/Relay log 재생 지연, Read-Your-Own-Writes (Write-After-Read) 일관성 원리, NAIVE_REPLICA_ONLY vs SESSION_MASTER_PINNING(시간 창 핀닝) vs CAUSAL_GTID_CONSISTENCY(GTID 대기 및 폴백) | DB 부하 분산하려고 Read Replica 붙였다가 방금 쓴 글/주문이 안 보이는 Stale Read로 고객센터 폭발한 참사와 GTID/세션 핀닝 구원 원리 |
 | **#130** | [keepalive 32를 줬는데 왜 백엔드 소켓이 10만 개까지 치솟고 로컬 포트가 말라죽어요?!: Nginx 리버스 프록시 Upstream Keepalive 커넥션 풀과 HTTP/1.0 Close 트랩 (Nginx Upstream Keepalive Pool & HTTP/1.0 Close Trap)](problems/130-nginx-upstream-keepalive-pool/problem.md) | **컴퓨터 네트워크/리버스 프록시/시스템 엔지니어링**, Nginx 기본 HTTP/1.0 프록시 사양 및 Connection: close 강제 헤더 트랩, upstream keepalive 32의 유휴 풀 보관 조건, proxy_http_version 1.1 및 proxy_set_header Connection "" 필수 설정, 2MSL TIME_WAIT 소켓 누적과 에페머럴 포트 고갈(EADDRNOTAVAIL 99) | upstream에 keepalive 걸었는데 5분 만에 TIME_WAIT 소켓 28,000개 쌓여 포트 고갈로 502 폭사한 참사와 2줄 필수 헤더 구원 원리 |
+| **#131** | [크롬 업데이트 이후 왜 결제 승인/로그인만 하면 세션이 풀려요?!: 브라우저 쿠키 보안 3대 플래그(SameSite: Strict/Lax/None, HttpOnly, Secure)와 CSRF 방어 & 3rd-Party Callback 참사 (Browser Cookie SameSite & CSRF Defense)](problems/131-browser-cookie-samesite-csrf/problem.md) | **웹 보안/브라우저 아키텍처/쿠키 세션 엔지니어링**, 2020년 2월 Chrome 80 사태, SameSite 기본값 변경(None -> Lax), SameSite=None의 Secure 필수 제약, Site vs Origin (eTLD+1), Top-level GET vs Cross-Site POST 차단, 3rd-Party PG 결제/OAuth 콜백 세션 유실 참사, HttpOnly XSS 탈취 방어 | 크롬 80 배포 당일 PG 결제창에서 돌아오면 세션 쿠키 차단으로 전사 결제 마비된 참사와 SameSite 3총사 및 안전한 콜백 아키텍처 |
 
 
 
@@ -186,7 +187,7 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 |:---:|:---:|:---:|---|
 | 🎒 **초등부 트랙 (Junior)** | `problems-elementary/` | **130문제 완결** ✅ | 초등학생 & 코딩 입문: 사칙연산, 조건/반복문, 리스트/문자열, 기초 스택/큐, 2D 격자, 기본 수학 |
 | 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **130문제 완결** ✅ | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 고급 정수론/기하/DP |
-| 🎓 **고등부 트랙 (High)** | `problems-high/` | **30문제 (진행 중)** 🚀 | 고등학생 & KOI/대회: 세그/펜윅/Lazy 트리, LCS, 볼록껍질, SCC, 이분매칭, TSP, 최대유량, 최소컷, LCA, KMP, Trie, 트리DP |
+| 🎓 **고등부 트랙 (High)** | `problems-high/` | **40문제 (진행 중)** 🚀 | 고등학생 & KOI/대회: 세그/Lazy/머지소트 트리, 벨만-포드/SPFA, 아호-코라식, 회전하는 캘리퍼스, SOS DP, 확장유클리드, CRT, 2-SAT |
 | 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 110+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/락, Kafka, 캐시 스탬피드, ReDoS, 고가용성 아키텍처 |
 
 ---
@@ -518,6 +519,16 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | **#028** | [인접한 두 정점을 동시에 고르지 않기! 트리 다이나믹 프로그래밍 (Tree DP Maximum Independent Set)](problems-high/028-dp-tree-independent-set/problem.md) | 트리 동적 계획법(Tree DP), 최대 독립 집합(MIS), 서브트리 DP, $O(N)$ | 현재 노드의 선택 여부에 따른 자식 노드들의 최대 가중치 상태 전이를 상향식으로 누적 계산 |
 | **#029** | [자릿수를 따라 결정되는 상태! 자릿수 동적 계획법 (Digit DP)](problems-high/029-dp-digit-count/problem.md) | 동적 계획법(DP), 자릿수 DP(Digit DP), 메모이제이션, $O(\text{len} \times \dots)$ | 큰 정수 범위 $[A, B]$에서 특정 숫자 등장 횟수를 상위 자릿수 상태 및 접두사 제한 플래그로 고속 집계 |
 | **#030** | [신발끈 공식으로 다각형 넓이 구하기! 신발끈 정리 (Shoelace Formula)](problems-high/030-ccw-polygon-area-shoelace/problem.md) | 기하학, 신발끈 공식(Gauss's Area Formula), 다각형 면적, $O(N)$ | 순서대로 주어진 꼭짓점 좌표들의 외적 대각 곱의 합과 차를 이용해 오목/볼록 단순 다각형 면적 도출 |
+| **#031** | [음수 가중치도 끄떡없다! 벨만-포드 최단 경로와 음수 사이클 (Bellman-Ford Algorithm)](problems-high/031-graph-bellman-ford-negative-cycle/problem.md) | 그래프, 최단 경로, 벨만-포드, 음수 사이클 판정, $O(VE)$ | $V-1$번의 간선 완화 후 $V$번째 추가 완화 발생 여부로 음수 사이클을 판정하고 최단 거리 도출 |
+| **#032** | [큐로 필요한 노드만 갱신하라! SPFA 최단 경로 (Shortest Path Faster Algorithm)](problems-high/032-graph-spfa-queue-optimization/problem.md) | 그래프, SPFA, 큐 최적화, 갱신 횟수 카운팅, 평균 $O(E)$ | 거리가 실제로 갱신된 정점만 큐에 넣어 불필요한 반복을 제거하고 큐 진입 $\ge V$회로 음수 사이클 감지 |
+| **#033** | [수많은 키워드를 한 번에 검출하라! 아호-코라식 다중 패턴 매칭 (Aho-Corasick Algorithm)](problems-high/033-string-aho-corasick-multi-pattern/problem.md) | 문자열, 아호-코라식(Aho-Corasick), 트라이 + 실패 링크, $O(|T| + \sum |P_i|)$ | 여러 패턴의 트라이에 KMP 실패 링크를 BFS로 연결하여 본문 단 1회 순회로 다중 키워드 총 출현 수 집계 |
+| **#034** | [평면 위 가장 먼 두 점! 회전하는 캘리퍼스 (Rotating Calipers Diameter)](problems-high/034-geometry-rotating-calipers-diameter/problem.md) | 기하학, 볼록 껍질(Convex Hull), 회전하는 캘리퍼스, 대척점 쌍, $O(N \log N)$ | 볼록 껍질을 구한 뒤 평행한 두 접선을 회전시키며 최대 대척점 간 거리를 선형 시간에 탐색 |
+| **#035** | [구간 안에서 k보다 큰 수는 몇 개? 머지 소트 트리 (Merge Sort Tree)](problems-high/035-segment-tree-merge-sort-tree/problem.md) | 세그먼트 트리, 머지 소트 트리(Merge Sort Tree), 이진 탐색(`bisect_right`), $O(Q \log^2 N)$ | 세그먼트 트리 각 노드에 정렬 리스트를 유지하여 구간 내 $k$ 초과 원소 개수를 $O(\log^2 N)$에 질의 |
+| **#036** | [모든 부분집합의 합을 초고속으로! SOS DP (Sum Over Subsets)](problems-high/036-dp-sos-sum-over-subsets/problem.md) | 동적 계획법(DP), SOS DP(Sum Over Subsets), 비트마스크, $O(N 2^N)$ | 비트 위치별로 하위 마스크 합을 점진 누적하여 $2^N$개 모든 마스크의 부분집합 합을 $O(N 2^N)$에 계산 |
+| **#037** | [일차 부정방정식의 정수해를 구하라! 확장 유클리드 호제법 (Extended Euclidean Algorithm)](problems-high/037-math-extended-euclidean-diophantine/problem.md) | 정수론, 확장 유클리드 호제법(Extended GCD), 베주 항등식, $Ax + By = C$ | $C$의 $\gcd(A, B)$ 배수 여부로 해의 존재성을 검증하고 최소 비음수 $x$를 갖는 정수해 산출 |
+| **#038** | [서로 다른 주기들이 만나는 날! 중국인의 나머지 정리 (Chinese Remainder Theorem)](problems-high/038-math-chinese-remainder-theorem/problem.md) | 정수론, 중국인의 나머지 정리(CRT), 모듈로 역원, 연립 합동식 | 서로소인 법(Modulus)들에 대해 확장 유클리드 모듈로 역원을 적용하여 연립 합동식의 최소 양의 정수해 도출 |
+| **#039** | [사각부등식의 마법! 크누스 최적화 구간 분할 DP (Knuth's Optimization DP)](problems-high/039-dp-knuth-optimization/problem.md) | 동적 계획법(DP), 크누스 최적화, 사각부등식 단조성, $O(N^2)$ | 최적 분할점 $opt[i][j-1] \le opt[i][j] \le opt[i+1][j]$ 성질로 연속 수열 병합 비용을 $O(N^2)$에 최적화 |
+| **#040** | [명제들의 참/거짓을 만족시켜라! 2-SAT과 강결합 컴포넌트 (2-SAT with SCC)](problems-high/040-graph-two-sat-scc/problem.md) | 그래프 이론, 2-SAT(2-Satisfiability), 함의 그래프, 타잔(Tarjan) SCC, $O(N + M)$ | 2-CNF 논리식을 함의 방향 그래프로 변환하고 동일 SCC 내 $x_i$와 $\neg x_i$ 공존 여부로 만족성 판정 |
 
 ---
 
