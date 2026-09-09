@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: F(10) = 55",
+    "input": "10",
+    "expected_output": "55"
+  },
+  {
+    "desc": "N = 0 기저 케이스",
+    "input": "0",
+    "expected_output": "0"
+  },
+  {
+    "desc": "N = 1 기저 케이스",
+    "input": "1",
+    "expected_output": "1"
+  },
+  {
+    "desc": "N = 2",
+    "input": "2",
+    "expected_output": "1"
+  },
+  {
+    "desc": "N = 20",
+    "input": "20",
+    "expected_output": "6765"
+  },
+  {
+    "desc": "N = 100",
+    "input": "100",
+    "expected_output": "687995182"
+  },
+  {
+    "desc": "N = 1000",
+    "input": "1000",
+    "expected_output": "517691607"
+  },
+  {
+    "desc": "N = 1000000 (100만)",
+    "input": "1000000",
+    "expected_output": "918091266"
+  },
+  {
+    "desc": "N = 1000000000 (10억)",
+    "input": "1000000000",
+    "expected_output": "21"
+  },
+  {
+    "desc": "N = 10^15 초대형 정수",
+    "input": "1000000000000000",
+    "expected_output": "648325137"
+  }
+]

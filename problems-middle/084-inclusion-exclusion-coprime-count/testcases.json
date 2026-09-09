@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: N=20, 소수 2와 3 -> 13",
+    "input": "20 2\n2 3",
+    "expected_output": "13"
+  },
+  {
+    "desc": "소수 1개뿐인 경우",
+    "input": "100 1\n5",
+    "expected_output": "20"
+  },
+  {
+    "desc": "소수 3개 (2, 3, 5)와 N=30",
+    "input": "30 3\n2 3 5",
+    "expected_output": "22"
+  },
+  {
+    "desc": "N이 소수보다 작은 경우: 0",
+    "input": "5 2\n7 11",
+    "expected_output": "0"
+  },
+  {
+    "desc": "큰 N=1000000000 (10억)과 2개 소수",
+    "input": "1000000000 2\n2 5",
+    "expected_output": "600000000"
+  },
+  {
+    "desc": "4개 소수 (2, 3, 5, 7)와 N=100",
+    "input": "100 4\n2 3 5 7",
+    "expected_output": "78"
+  },
+  {
+    "desc": "서로 큰 소수들",
+    "input": "1000 3\n13 17 19",
+    "expected_output": "175"
+  },
+  {
+    "desc": "소수가 딱 하나이고 N=1인 경우",
+    "input": "1 1\n2",
+    "expected_output": "0"
+  },
+  {
+    "desc": "5개 소수",
+    "input": "1000 5\n2 3 5 7 11",
+    "expected_output": "793"
+  },
+  {
+    "desc": "큰 N과 6개 소수",
+    "input": "500000 6\n2 3 5 7 11 13",
+    "expected_output": "404096"
+  }
+]

@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: ABCDGH vs ACDGHR -> 4, CDGH",
+    "input": "ABCDGH\nACDGHR",
+    "expected_output": "4\nCDGH"
+  },
+  {
+    "desc": "완전 일치하는 두 문자열",
+    "input": "HELLO\nHELLO",
+    "expected_output": "5\nHELLO"
+  },
+  {
+    "desc": "공통 글자가 전혀 없는 경우",
+    "input": "ABCDE\nXYZ",
+    "expected_output": "0"
+  },
+  {
+    "desc": "단 한 글자만 일치",
+    "input": "APPLE\nPEAR",
+    "expected_output": "1\nA"
+  },
+  {
+    "desc": "동일한 문자 연속",
+    "input": "AAAAA\nAA",
+    "expected_output": "2\nAA"
+  },
+  {
+    "desc": "부분 문자열 포함 관계",
+    "input": "BANANA\nANAN",
+    "expected_output": "4\nANAN"
+  },
+  {
+    "desc": "긴 접두사 일치",
+    "input": "KOREAKOREA\nKOREA",
+    "expected_output": "5\nKOREA"
+  },
+  {
+    "desc": "길이가 1인 두 문자열",
+    "input": "A\nA",
+    "expected_output": "1\nA"
+  },
+  {
+    "desc": "동일 길이 복수 후보 중 S1에서 먼저 나온 것",
+    "input": "ABXYCD\nCDXYAB",
+    "expected_output": "2\nAB"
+  },
+  {
+    "desc": "복합 문자열",
+    "input": "ALGORITHMSDATASTRUCTURES\nSTRUCTURESDATAALGORITHMS",
+    "expected_output": "10\nALGORITHMS"
+  }
+]

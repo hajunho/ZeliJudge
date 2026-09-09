@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: 10x10 정사각형과 중심점 -> 40.00",
+    "input": "5\n0 0\n10 0\n0 10\n10 10\n5 5",
+    "expected_output": "40.00"
+  },
+  {
+    "desc": "점 1개뿐인 경우 -> 0.00",
+    "input": "1\n5 5",
+    "expected_output": "0.00"
+  },
+  {
+    "desc": "점 2개인 경우 (왕복 선분 둘레)",
+    "input": "2\n0 0\n3 4",
+    "expected_output": "10.00"
+  },
+  {
+    "desc": "직각삼각형 (밑변 3, 높이 4, 빗변 5) -> 12.00",
+    "input": "3\n0 0\n3 0\n0 4",
+    "expected_output": "12.00"
+  },
+  {
+    "desc": "마름모 (대각선 길이 6, 8) -> 둘레 20.00",
+    "input": "4\n3 0\n-3 0\n0 4\n0 -4",
+    "expected_output": "20.00"
+  },
+  {
+    "desc": "일직선 상의 점들",
+    "input": "4\n0 0\n2 0\n5 0\n10 0",
+    "expected_output": "20.00"
+  },
+  {
+    "desc": "중복된 점들이 다수 포함된 경우",
+    "input": "6\n0 0\n0 0\n10 0\n10 0\n0 10\n10 10",
+    "expected_output": "40.00"
+  },
+  {
+    "desc": "내부 점이 많은 경우",
+    "input": "7\n0 0\n20 0\n20 20\n0 20\n5 5\n10 10\n15 15",
+    "expected_output": "80.00"
+  },
+  {
+    "desc": "음수 좌표 직사각형",
+    "input": "4\n-10 -5\n10 -5\n10 5\n-10 5",
+    "expected_output": "60.00"
+  },
+  {
+    "desc": "다각형 내부 여러 점",
+    "input": "8\n0 0\n6 0\n8 4\n6 8\n0 8\n-2 4\n2 3\n4 5",
+    "expected_output": "29.89"
+  }
+]

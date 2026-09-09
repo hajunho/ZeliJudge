@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: 5개 정점, 단절점 3과 4",
+    "input": "5 5\n1 2\n2 3\n3 1\n3 4\n4 5",
+    "expected_output": "2\n3 4"
+  },
+  {
+    "desc": "원형 사이클: 단절점 없음 (0개)",
+    "input": "4 4\n1 2\n2 3\n3 4\n4 1",
+    "expected_output": "0"
+  },
+  {
+    "desc": "트리 구조의 내부 노드는 모두 단절점",
+    "input": "4 3\n1 2\n2 3\n3 4",
+    "expected_output": "2\n2 3"
+  },
+  {
+    "desc": "스타 그래프: 중심 정점이 유일한 단절점",
+    "input": "5 4\n1 2\n1 3\n1 4\n1 5",
+    "expected_output": "1\n1"
+  },
+  {
+    "desc": "간선이 없는 그래프: 0개",
+    "input": "3 0",
+    "expected_output": "0"
+  },
+  {
+    "desc": "완전 그래프 K4: 단절점 없음",
+    "input": "4 6\n1 2\n1 3\n1 4\n2 3\n2 4\n3 4",
+    "expected_output": "0"
+  },
+  {
+    "desc": "두 삼각형이 한 정점을 공유하는 모래시계 그래프",
+    "input": "5 6\n1 2\n2 3\n3 1\n3 4\n4 5\n5 3",
+    "expected_output": "1\n3"
+  },
+  {
+    "desc": "덤벨 그래프 (두 삼각형 사이 1개 간선)",
+    "input": "6 7\n1 2\n2 3\n3 1\n3 4\n4 5\n5 6\n6 4",
+    "expected_output": "2\n3 4"
+  },
+  {
+    "desc": "정점 2개에 간선 1개: 단절점 없음",
+    "input": "2 1\n1 2",
+    "expected_output": "0"
+  },
+  {
+    "desc": "복합 7개 정점 그래프",
+    "input": "7 7\n1 2\n2 3\n3 1\n3 4\n4 5\n5 6\n6 4",
+    "expected_output": "2\n3 4"
+  }
+]

@@ -181,7 +181,7 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | 트랙 | 디렉토리 | 상태 및 규모 | 대상 및 핵심 교육 내용 |
 |:---:|:---:|:---:|---|
 | 🎒 **초등부 트랙 (Junior)** | `problems-elementary/` | **130문제 완결** ✅ | 초등학생 & 코딩 입문: 사칙연산, 조건/반복문, 리스트/문자열, 기초 스택/큐, 2D 격자, 기본 수학 |
-| 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **80문제 (진행 중)** 🚀 | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 기초 그리디 |
+| 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **90문제 (진행 중)** 🚀 | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 기초 그리디 |
 | 🎓 **고등부 트랙 (High)** | `problems-high/` | 중등부 완결 후 예정 🔜 | 고등학생 & KOI/대회: 다이나믹 프로그래밍(DP), 이진 탐색, 그래프(DFS/BFS), 트리 순회, 백트래킹 |
 | 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 110+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/락, Kafka, 캐시 스탬피드, ReDoS, 고가용성 아키텍처 |
 
@@ -420,6 +420,16 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | **#078** | [피라미드 구조의 정렬! 제자리 힙 정렬 (In-Place Heap Sort)](problems-middle/078-heap-sort-in-place/problem.md) | 정렬 알고리즘, 힙 정렬, Max-Heap, 제자리 정렬, $O(1)$ 공간 | 추가 배열 없이 $O(N)$에 상향식 최대 힙을 구축하고 루트 추출로 $O(N \log N)$ 제자리 정렬 |
 | **#079** | [서로가 서로에게 닿는 단짝 그룹! 강한 연결 요소 (Tarjan SCC)](problems-middle/079-tarjan-strongly-connected-components/problem.md) | 그래프, 강한 연결 요소(SCC), 타잔(Tarjan) 알고리즘, DFS 트리 | 단 한 번의 DFS로 상호 도달 가능한 정점 그룹들을 분해하고 정렬된 순서로 출력하기 |
 | **#080** | [평면 위 가장 먼 두 은하의 거리! 회전하는 캘리퍼스 (Rotating Calipers)](problems-middle/080-geometry-rotating-calipers-max-distance/problem.md) | 기하 알고리즘, 볼록 껍질, 회전하는 캘리퍼스, 대척점 쌍, $O(N \log N)$ | 볼록 껍질을 구한 뒤 평행선을 회전시켜 가장 먼 두 점(평면의 지름)의 거리 제곱 구하기 |
+| **#081** | [연속된 글자들의 완벽한 일치! 최장 공통 부분 문자열 (Longest Common Substring)](problems-middle/081-longest-common-substring-dp/problem.md) | 동적 계획법(DP), 최장 공통 부분 문자열, 2차원 DP, $O(NM)$ | 떨어져 있는 부분 수열(LCS)과 달리 연속된 부분 문자열의 최대 길이와 실제 문자열 추출 |
+| **#082** | [한 번에 구간 전체에 점수 더하기! 차분 펜윅 트리 (Range Update Point Query)](problems-middle/082-fenwick-tree-range-update-point-query/problem.md) | 자료구조, 펜윅 트리(BIT), 차분 배열, 구간 덧셈, $O(\log N)$ | 구간 전체에 $v$를 더하는 갱신을 차분 배열의 양 끝점 2회 갱신으로 $O(\log N)$에 처리 |
+| **#083** | [내비게이션 최단 경로 안내! 다익스트라 경로 역추적 (Path Reconstruction)](problems-middle/083-dijkstra-trace-path/problem.md) | 그래프, 다익스트라, 최단 경로, 역추적(Parent Array), $O(E \log V)$ | 최단 거리 계산과 동시에 부모 노드를 기록하여 출발지부터 목적지까지의 실제 경로 복원 |
+| **#084** | [겹치는 건 빼고 빠진 건 더해라! 포함-배제의 원리 (Inclusion-Exclusion)](problems-middle/084-inclusion-exclusion-coprime-count/problem.md) | 정수론, 조합론, 포함-배제의 원리(PIE), 비트마스크, $O(2^K)$ | 홀수 개 교집합은 더하고 짝수 개 교집합은 빼는 비트마스크 순회로 배수의 총 개수 계산 |
+| **#085** | [정렬 없이 K번째 순위 찾기! BST와 중위 순회 (In-Order Kth Smallest)](problems-middle/085-binary-search-tree-kth-smallest/problem.md) | 트리 자료구조, 이진 검색 트리(BST), 중위 순회, $O(\log N)$ | Left-Root-Right 중위 순회가 자연스러운 오름차순 정렬이 됨을 이용해 K번째 최솟값 추출 |
+| **#086** | [물을 가장 많이 담는 기둥 쌍을 찾아라! 양 끝단 투 포인터 수조 (Container With Most Water)](problems-middle/086-two-pointer-water-container/problem.md) | 투 포인터, 탐욕법(Greedy), 담수량 최적화, $O(N)$ | 양 끝단에서 시작해 더 낮은 기둥을 안쪽으로 좁혀가며 최대 물의 양을 선형 시간에 탐색 |
+| **#087** | [모든 도시를 딱 한 번씩 방문하고 돌아오기! 외판원 순회 기초 (Bitmask DP TSP)](problems-middle/087-bitmask-tsp-small/problem.md) | 동적 계획법(DP), 비트마스크 DP, 외판원 순회(TSP), 상태 압축, $O(N^2 2^N)$ | 방문한 도시 집합을 비트마스크로 표현하여 $N \le 12$ 도시의 최소 순회 비용 산출 |
+| **#088** | [이 라우터가 꺼지면 전산망이 두 동강 나요! 그래프의 단절점 (Articulation Point)](problems-middle/088-articulation-point-cut-vertex/problem.md) | 그래프, 단절점(Cut Vertex), DFS 트리, Tarjan 알고리즘, $O(V + E)$ | 노드 제거 시 컴포넌트가 분리되는 핵심 정점들을 DFS 트리 상의 우회로 부재 조건으로 검출 |
+| **#089** | [N이 10억이어도 0.001초 만에! 행렬 거듭제곱과 거대 피보나치 수 (Matrix Exponentiation)](problems-middle/089-matrix-exponentiation-fibonacci/problem.md) | 정수론, 행렬 곱셈, 분할 정복 거듭제곱, $O(\log N)$, 모듈러 연산 | 피보나치 점화식을 $2 \times 2$ 행렬 거듭제곱으로 변환하여 $N=10^{15}$의 값을 1ms에 계산 |
+| **#090** | [점들을 둘러싸는 울타리의 총 둘레! 볼록 껍질 둘레 계산 (Convex Hull Perimeter)](problems-middle/090-geometry-convex-hull-perimeter/problem.md) | 기하 알고리즘, 볼록 껍질, 모노톤 체인, 유클리드 둘레, $O(N \log N)$ | 점 집합의 볼록 껍질 다각형을 구하고 외곽 변들의 유클리드 거리를 모두 합산해 둘레 산출 |
 
 ---
 
