@@ -83,6 +83,7 @@ problems/
 | **#040** | [DB 1대에 1억 건이 넘어가니 죽으려고 해요?!: 데이터베이스 샤딩과 리밸런싱](problems/040-database-sharding-rebalancing/problem.md) | **분산 스토리지/샤딩**, 수평 분할(Sharding), 모듈로 해시의 재배치 저주($\frac{K}{K+1}$) vs 디렉토리 샤딩 선택적 리밸런싱 | 단일 DB 용량 폭발 후 샤드 1대 증설했다가 데이터 80%를 다른 DB로 이사보내느라 3일간 서비스 마비된 참사 |
 | **#041** | [동시에 좋아요를 1,000명이 눌렀더니 숫자가 50밖에 안 올라가요?!: 분산 카운터와 샤디드 카운터](problems/041-distributed-sharded-counter/problem.md) | **동시성 제어/분산 카운터**, 단일 행 배타락(X-Lock) 경합, Lock Wait Timeout 폭발 방어, 샤디드 카운터(Sharded Counter) 병렬 확장 | 실시간 라이브 방송에서 10만 명이 동시 하트 연타하다 단일 행 UPDATE 락 대기열 폭발로 99% 요청 롤백된 참사 |
 | **#042** | [DB가 잠깐 끊겼는데 왜 서버 100대가 전부 강제 재부팅돼요?!: 헬스체크와 Liveness vs Readiness Probe](problems/042-health-check-liveness-readiness/problem.md) | **클라우드 네이티브/인프라**, 쿠버네티스 헬스체크 3총사, 딥 헬스체크 안티패턴, 연쇄 재시작 폭풍(Cascading Restart Storm) 방어 | 외부 DB 3초 지연에 딥 헬스체크 걸어뒀다가 100대 파드 동시 재부팅으로 DB 영구 폭사한 참사 |
+| **#043** | [로그를 많이 남겼더니 서버가 멈췄어요?!: 동기식 로깅 vs 비동기 링 버퍼(Disruptor Ring Buffer)](problems/043-async-logging-ring-buffer/problem.md) | **시스템 아키텍처/I/O 모델**, 파일 쓰기 배타락 병목, LMAX Disruptor 링 버퍼, 배치 I/O 플러시, 지능형 드롭 정책(discardingThreshold) | 디버깅한다고 logger.info 남발했다가 디스크 I/O 락 경합으로 톰캣 스레드 풀 고갈 서버 다운된 참사 |
 
 
 
