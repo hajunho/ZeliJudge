@@ -69,6 +69,7 @@ problems/
 | **#026** | [캐시가 만료된 그 1초, DB가 폭발했다: 캐시 스탬피드와 뮤텍스](problems/026-cache-stampede-mutex/problem.md) | **캐싱 아키텍처/성능 최적화**, 캐시 스탬피드(Cache Stampede), 동시 DB 돌진, 싱글플라이트(Singleflight) 락 | 인기 검색어 캐시 만료 순간 수백 개 쿼리 동시 폭주로 DB 커넥션 풀 사망한 참사 |
 | **#027** | [옆 동네 서버가 터졌는데 우리 서버까지 죽어요?: 서킷 브레이커](problems/027-circuit-breaker-pattern/problem.md) | **분산 시스템/장애 격리**, 서킷 브레이커(Circuit Breaker), 연쇄 장애(Cascading Failure), FSM 상태 머신 | 외부 카드사 화재로 30초 타임아웃 기다리다 우리 쇼핑몰 스레드 풀 전멸한 참사 |
 | **#028** | [서버 1대 늘렸더니 캐시 99%가 날아갔어요?!: 안정 해시(Consistent Hashing)](problems/028-consistent-hashing/problem.md) | **분산 해싱/샤딩**, 모듈로 연산($\% N$)의 재배치 저주($\frac{N}{N+1}$), 원형 링(Ring)과 $O(\log N)$ 안정 해시 | 캐시 서버 1대 증설했다가 캐시 적중률 0%로 곤두박질치며 DB 폭발한 참사 |
+| **#029** | [존재하지 않는 1억 개의 유령 아이디를 조회해서 DB를 죽였다?!: 블룸 필터(Bloom Filter)](problems/029-bloom-filter/problem.md) | **확률적 자료구조**, 캐시 관통(Cache Penetration) 방어, 비트 배열과 다중 해시, 거짓 긍정(False Positive)과 $O(K)$ 필터 | 무작위 유령 아이디 10만 건 DDoS 공격에 캐시 뚫리고 DB 커넥션 풀 사망한 참사 |
 
 
 
