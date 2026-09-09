@@ -1,0 +1,34 @@
+[
+  {
+    "input": "{\"config\": {\"saga_pattern\": \"ORCHESTRATION\", \"outbox_pattern_enabled\": true, \"max_compensation_retries\": 3}, \"transaction\": {\"order_id\": \"ord-101\", \"steps\": [{\"service\": \"ORDER\"}, {\"service\": \"INVENTORY\"}, {\"service\": \"PAYMENT\"}, {\"service\": \"DELIVERY\"}]}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"OPTIMAL_ORCHESTRATED_SAGA_EVENTUAL_CONSISTENCY\", \"metrics\": {\"saga_pattern\": \"ORCHESTRATION\", \"completed_steps\": [\"ORDER\", \"INVENTORY\", \"PAYMENT\", \"DELIVERY\"], \"compensated_steps\": [], \"uncompensated_services\": [], \"dual_write_loss\": false, \"final_state\": \"COMMITTED\"}}"
+  },
+  {
+    "input": "{\"config\": {\"saga_pattern\": \"ORCHESTRATION\", \"outbox_pattern_enabled\": true, \"max_compensation_retries\": 3}, \"transaction\": {\"order_id\": \"ord-102\", \"steps\": [{\"service\": \"ORDER\"}, {\"service\": \"INVENTORY\"}, {\"service\": \"PAYMENT\"}, {\"service\": \"DELIVERY\"}], \"injected_failures\": {\"PAYMENT\": \"INSUFFICIENT_CREDIT_LIMIT\"}}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"SAGA_COMPENSATED_ROLLBACK_SUCCESS\", \"metrics\": {\"saga_pattern\": \"ORCHESTRATION\", \"completed_steps\": [\"ORDER\", \"INVENTORY\"], \"compensated_steps\": [\"INVENTORY\", \"ORDER\"], \"uncompensated_services\": [], \"dual_write_loss\": false, \"final_state\": \"SAFELY_COMPENSATED\"}}"
+  },
+  {
+    "input": "{\"config\": {\"saga_pattern\": \"ORCHESTRATION\", \"outbox_pattern_enabled\": false, \"max_compensation_retries\": 3}, \"transaction\": {\"order_id\": \"ord-103\", \"steps\": [{\"service\": \"ORDER\"}, {\"service\": \"INVENTORY\"}, {\"service\": \"PAYMENT\"}], \"network_failure_step\": \"ORDER\"}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"DUAL_WRITE_MESSAGE_LOSS_INCONSISTENCY\", \"metrics\": {\"saga_pattern\": \"ORCHESTRATION\", \"completed_steps\": [\"ORDER\"], \"compensated_steps\": [], \"uncompensated_services\": [\"ORDER\"], \"dual_write_loss\": true, \"final_state\": \"GHOST_COMMITTED_STATE\"}}"
+  },
+  {
+    "input": "{\"config\": {\"saga_pattern\": \"ORCHESTRATION\", \"outbox_pattern_enabled\": true, \"max_compensation_retries\": 3}, \"transaction\": {\"order_id\": \"ord-104\", \"steps\": [{\"service\": \"ORDER\"}, {\"service\": \"INVENTORY\"}, {\"service\": \"PAYMENT\"}], \"injected_failures\": {\"PAYMENT\": \"FRAUD_SUSPECTED\", \"INVENTORY_COMPENSATION_RETRIES\": 5}}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"COMPENSATING_RETRY_EXHAUSTION_INCONSISTENCY\", \"metrics\": {\"saga_pattern\": \"ORCHESTRATION\", \"completed_steps\": [\"ORDER\", \"INVENTORY\"], \"compensated_steps\": [\"ORDER\"], \"uncompensated_services\": [\"INVENTORY\"], \"dual_write_loss\": false, \"final_state\": \"PARTIALLY_COMPENSATED_DRIFT\"}}"
+  },
+  {
+    "input": "{\"config\": {\"saga_pattern\": \"CHOREOGRAPHY\", \"outbox_pattern_enabled\": true, \"max_compensation_retries\": 3}, \"transaction\": {\"order_id\": \"ord-105\", \"steps\": [{\"service\": \"ORDER\"}, {\"service\": \"INVENTORY\"}, {\"service\": \"NOTIFICATION\"}, {\"service\": \"ORDER\"}]}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"CHOREOGRAPHY_CIRCULAR_EVENT_STORM\", \"metrics\": {\"saga_pattern\": \"CHOREOGRAPHY\", \"completed_steps\": [], \"compensated_steps\": [], \"uncompensated_services\": [], \"dual_write_loss\": false, \"final_state\": \"CIRCULAR_STORM\"}}"
+  },
+  {
+    "input": "{\"config\": {\"saga_pattern\": \"CHOREOGRAPHY\", \"outbox_pattern_enabled\": true, \"max_compensation_retries\": 3}, \"transaction\": {\"order_id\": \"ord-106\", \"steps\": [{\"service\": \"ORDER\"}, {\"service\": \"PAYMENT\"}]}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"CHOREOGRAPHY_SIMPLE_SAGA_SUCCESS\", \"metrics\": {\"saga_pattern\": \"CHOREOGRAPHY\", \"completed_steps\": [\"ORDER\", \"PAYMENT\"], \"compensated_steps\": [], \"uncompensated_services\": [], \"dual_write_loss\": false, \"final_state\": \"COMMITTED\"}}"
+  },
+  {
+    "input": "{\"config\": {\"saga_pattern\": \"CHOREOGRAPHY\", \"outbox_pattern_enabled\": true, \"max_compensation_retries\": 3}, \"transaction\": {\"order_id\": \"ord-107\", \"steps\": [{\"service\": \"ORDER\"}, {\"service\": \"INVENTORY\"}, {\"service\": \"PAYMENT\"}, {\"service\": \"PROMOTION\"}, {\"service\": \"DELIVERY\"}]}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"CHOREOGRAPHY_CIRCULAR_EVENT_STORM\", \"metrics\": {\"saga_pattern\": \"CHOREOGRAPHY\", \"completed_steps\": [], \"compensated_steps\": [], \"uncompensated_services\": [], \"dual_write_loss\": false, \"final_state\": \"CIRCULAR_STORM\"}}"
+  },
+  {
+    "input": "{\"config\": {\"saga_pattern\": \"ORCHESTRATION\", \"outbox_pattern_enabled\": true, \"max_compensation_retries\": 4}, \"transaction\": {\"order_id\": \"ord-108\", \"steps\": [{\"service\": \"ORDER\"}, {\"service\": \"INVENTORY\"}, {\"service\": \"PAYMENT\"}, {\"service\": \"DELIVERY\"}], \"injected_failures\": {\"DELIVERY\": \"ADDRESS_UNREACHABLE\", \"PAYMENT_COMPENSATION_RETRIES\": 2, \"INVENTORY_COMPENSATION_RETRIES\": 1, \"ORDER_COMPENSATION_RETRIES\": 0}}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"SAGA_COMPENSATED_ROLLBACK_SUCCESS\", \"metrics\": {\"saga_pattern\": \"ORCHESTRATION\", \"completed_steps\": [\"ORDER\", \"INVENTORY\", \"PAYMENT\"], \"compensated_steps\": [\"PAYMENT\", \"INVENTORY\", \"ORDER\"], \"uncompensated_services\": [], \"dual_write_loss\": false, \"final_state\": \"SAFELY_COMPENSATED\"}}"
+  }
+]
