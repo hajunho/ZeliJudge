@@ -80,6 +80,7 @@ problems/
 | **#037** | [방금 글 썼는데 새로고침하니 사라졌어요?!: DB 복제 지연과 Read-Your-Own-Writes](problems/037-replication-lag-read-your-writes/problem.md) | **분산 데이터베이스/복제**, Master-Slave 비동기 복제 지연, Monotonic Read 붕괴, Time Window vs LSN 기반 정밀 라우팅 | DB 분산하겠다고 Slave로 보냈다가 글 작성 직후 404 및 구버전 노출로 중복 작성 폭탄 터진 참사 |
 | **#038** | [새로고침 10번 눌렀더니 똑같은 알림이 10개 왔어요?!: 메시지 큐 At-Least-Once와 컨슈머 멱등성](problems/038-message-queue-idempotent-consumer/problem.md) | **메시지 큐/비동기 처리**, At-Least-Once 전달 보장, ACK 타임아웃 재전송, 2단계 멱등 컨슈머(Message ID & Business Key) | 비동기 큐 도입 후 네트워크 재전송과 결제 광클로 1명에게 쿠폰/알림 5연타 중복 지급된 대형 손실 사고 |
 | **#039** | [서버 3대로 늘렸더니 로그인 세션이 자꾸 풀려요?!: Sticky Session vs Redis 분산 세션 vs JWT](problems/039-session-consistency-redis-jwt/problem.md) | **웹 아키텍처/세션 클러스터링**, 무상태(Stateless) 웹 서버, 라운드로빈 세션 불일치, Sticky Session 한계 vs Redis 중앙 분산 세션 | 서버 스케일아웃 후 클릭할 때마다 '로그인이 필요합니다'로 튕겨나가고 서버 재기동 시 세션 증발한 참사 |
+| **#040** | [DB 1대에 1억 건이 넘어가니 죽으려고 해요?!: 데이터베이스 샤딩과 리밸런싱](problems/040-database-sharding-rebalancing/problem.md) | **분산 스토리지/샤딩**, 수평 분할(Sharding), 모듈로 해시의 재배치 저주($\frac{K}{K+1}$) vs 디렉토리 샤딩 선택적 리밸런싱 | 단일 DB 용량 폭발 후 샤드 1대 증설했다가 데이터 80%를 다른 DB로 이사보내느라 3일간 서비스 마비된 참사 |
 
 
 
