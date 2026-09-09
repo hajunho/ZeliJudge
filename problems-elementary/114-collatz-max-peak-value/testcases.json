@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "N = 6 (6 -> 3 -> 10 -> 5 -> 16 -> 8 -> 4 -> 2 -> 1, 최댓값 16)",
+    "input": "6\n",
+    "expected_output": "16"
+  },
+  {
+    "id": 2,
+    "description": "N = 1 (시작이 1 -> 최댓값 1)",
+    "input": "1\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 3,
+    "description": "N = 2 (2 -> 1 -> 최댓값 2)",
+    "input": "2\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 4,
+    "description": "N = 3 (3 -> 10 -> 5 -> 16 -> ... 최댓값 16)",
+    "input": "3\n",
+    "expected_output": "16"
+  },
+  {
+    "id": 5,
+    "description": "N = 4 (4 -> 2 -> 1 -> 최댓값 4)",
+    "input": "4\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 6,
+    "description": "N = 7 (7은 매우 높이 솟구침: 최댓값 52)",
+    "input": "7\n",
+    "expected_output": "52"
+  },
+  {
+    "id": 7,
+    "description": "2의 거듭제곱: 16 -> 최댓값 16",
+    "input": "16\n",
+    "expected_output": "16"
+  },
+  {
+    "id": 8,
+    "description": "N = 27 (엄청난 고봉: 최댓값 9232)",
+    "input": "27\n",
+    "expected_output": "9232"
+  },
+  {
+    "id": 9,
+    "description": "N = 10 -> 최댓값 16",
+    "input": "10\n",
+    "expected_output": "16"
+  },
+  {
+    "id": 10,
+    "description": "N = 100 (시작 값이 최대 피크인 경우) -> 최댓값 100",
+    "input": "100\n",
+    "expected_output": "100"
+  }
+]

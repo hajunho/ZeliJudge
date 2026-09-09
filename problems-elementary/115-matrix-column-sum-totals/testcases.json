@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 2x3: 1 2 3 / 4 5 6 -> 5 7 9",
+    "input": "2 3\n1 2 3\n4 5 6\n",
+    "expected_output": "5 7 9"
+  },
+  {
+    "id": 2,
+    "description": "1x1 단일 칸: 42 -> 42",
+    "input": "1 1\n42\n",
+    "expected_output": "42"
+  },
+  {
+    "id": 3,
+    "description": "1x4 가로 행렬: 1 2 3 4 -> 1 2 3 4",
+    "input": "1 4\n1 2 3 4\n",
+    "expected_output": "1 2 3 4"
+  },
+  {
+    "id": 4,
+    "description": "4x1 세로 행렬: 1/2/3/4 -> 10",
+    "input": "4 1\n1\n2\n3\n4\n",
+    "expected_output": "10"
+  },
+  {
+    "id": 5,
+    "description": "3x3 행렬",
+    "input": "3 3\n1 2 3\n4 5 6\n7 8 9\n",
+    "expected_output": "12 15 18"
+  },
+  {
+    "id": 6,
+    "description": "모두 0인 행렬",
+    "input": "2 2\n0 0\n0 0\n",
+    "expected_output": "0 0"
+  },
+  {
+    "id": 7,
+    "description": "음수 포함 행렬",
+    "input": "2 3\n-1 -2 -3\n1 2 3\n",
+    "expected_output": "0 0 0"
+  },
+  {
+    "id": 8,
+    "description": "큰 숫자 행렬",
+    "input": "2 2\n100 200\n300 400\n",
+    "expected_output": "400 600"
+  },
+  {
+    "id": 9,
+    "description": "3x2 행렬",
+    "input": "3 2\n10 20\n30 40\n50 60\n",
+    "expected_output": "90 120"
+  },
+  {
+    "id": 10,
+    "description": "4x3 행렬",
+    "input": "4 3\n1 1 1\n2 2 2\n3 3 3\n4 4 4\n",
+    "expected_output": "10 10 10"
+  }
+]

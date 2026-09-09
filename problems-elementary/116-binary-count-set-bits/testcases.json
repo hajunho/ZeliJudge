@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "N = 7 (2진수 111 -> 3개)",
+    "input": "7\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 2,
+    "description": "N = 0 (2진수 0 -> 0개)",
+    "input": "0\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 3,
+    "description": "N = 1 (2진수 1 -> 1개)",
+    "input": "1\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 4,
+    "description": "N = 2 (2진수 10 -> 1개)",
+    "input": "2\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 5,
+    "description": "N = 15 (2진수 1111 -> 4개)",
+    "input": "15\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 6,
+    "description": "N = 16 (2의 거듭제곱: 10000 -> 1개)",
+    "input": "16\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 7,
+    "description": "N = 255 (2진수 11111111 -> 8개)",
+    "input": "255\n",
+    "expected_output": "8"
+  },
+  {
+    "id": 8,
+    "description": "N = 100 (2진수 1100100 -> 3개)",
+    "input": "100\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 9,
+    "description": "N = 1023 (10비트 모두 1 -> 10개)",
+    "input": "1023\n",
+    "expected_output": "10"
+  },
+  {
+    "id": 10,
+    "description": "N = 1000000",
+    "input": "1000000\n",
+    "expected_output": "7"
+  }
+]

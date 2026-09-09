@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제 1: abcabc -> YES (abc 2회)",
+    "input": "abcabc\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 2,
+    "description": "기본 예제 2: aba -> NO",
+    "input": "aba\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 3,
+    "description": "동일 문자 반복: aaaa -> YES (a 4회)",
+    "input": "aaaa\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 4,
+    "description": "2글자 3회 반복: ababab -> YES (ab 3회)",
+    "input": "ababab\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 5,
+    "description": "2글자 다른 경우: ab -> NO",
+    "input": "ab\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 6,
+    "description": "2글자 같은 경우: aa -> YES",
+    "input": "aa\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 7,
+    "description": "거의 반복되나 끝이 다름: abcabd -> NO",
+    "input": "abcabd\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 8,
+    "description": "긴 단어 반복: pythonpython -> YES",
+    "input": "pythonpython\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 9,
+    "description": "긴 단어 비반복: helloworld -> NO",
+    "input": "helloworld\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 10,
+    "description": "4글자 단위 3회: zelijudgezelijudgezelijudge -> YES",
+    "input": "zelijudgezelijudgezelijudge\n",
+    "expected_output": "YES"
+  }
+]

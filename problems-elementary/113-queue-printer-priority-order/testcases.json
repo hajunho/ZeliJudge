@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제 1: 1 2 3 4 중 2번 문서 (중요도 3) -> 2번째 인쇄 (4 -> 3)",
+    "input": "4 2\n1 2 3 4\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 2,
+    "description": "문서 1개뿐: 1 0 -> 1번째",
+    "input": "1 0\n5\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 3,
+    "description": "모두 동일한 중요도: 4 2 (1 1 1 1) -> 3번째",
+    "input": "4 2\n1 1 1 1\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 4,
+    "description": "내 문서가 가장 높은 중요도: 4 0 (9 1 1 1) -> 1번째",
+    "input": "4 0\n9 1 1 1\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 5,
+    "description": "내 문서가 맨 꼴찌로 인쇄: 4 0 (1 2 3 4) -> 4번째",
+    "input": "4 0\n1 2 3 4\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 6,
+    "description": "6개 문서 복합: 6 0 (1 1 9 1 1 1) -> 5번째",
+    "input": "6 0\n1 1 9 1 1 1\n",
+    "expected_output": "5"
+  },
+  {
+    "id": 7,
+    "description": "동일 중요도 섞임: 4 3 (2 1 2 1) -> 3번째",
+    "input": "4 3\n2 1 2 1\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 8,
+    "description": "중요도 순서 역순 배치: 3 0 (3 2 1) -> 1번째",
+    "input": "3 0\n3 2 1\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 9,
+    "description": "5개 문서 중간: 5 2 (2 3 5 4 1) -> 5(1등), 4(2등), 3(3등) 중 내 문서는 5이므로 1번째",
+    "input": "5 2\n2 3 5 4 1\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 10,
+    "description": "5개 문서 1번 문서: 5 1 (2 3 5 4 1) -> 5(1st), 4(2nd), 3(3rd) -> 3번째",
+    "input": "5 1\n2 3 5 4 1\n",
+    "expected_output": "3"
+  }
+]

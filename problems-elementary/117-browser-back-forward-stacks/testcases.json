@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 방문 및 뒤로 가기: visit google -> visit naver -> back -> google",
+    "input": "3\nVISIT google\nVISIT naver\nBACK\n",
+    "expected_output": "google"
+  },
+  {
+    "id": 2,
+    "description": "앞으로 가기: visit a -> back -> forward -> a",
+    "input": "3\nVISIT a\nBACK\nFORWARD\n",
+    "expected_output": "a"
+  },
+  {
+    "id": 3,
+    "description": "빈 상태에서 BACK 무시: BACK -> home",
+    "input": "1\nBACK\n",
+    "expected_output": "home"
+  },
+  {
+    "id": 4,
+    "description": "빈 상태에서 FORWARD 무시: FORWARD -> home",
+    "input": "1\nFORWARD\n",
+    "expected_output": "home"
+  },
+  {
+    "id": 5,
+    "description": "새 방문 시 FORWARD 초기화: visit a -> back -> visit b -> forward(무시) -> b",
+    "input": "4\nVISIT a\nBACK\nVISIT b\nFORWARD\n",
+    "expected_output": "b"
+  },
+  {
+    "id": 6,
+    "description": "연속 BACK: visit a -> visit b -> visit c -> back -> back -> a",
+    "input": "5\nVISIT a\nVISIT b\nVISIT c\nBACK\nBACK\n",
+    "expected_output": "a"
+  },
+  {
+    "id": 7,
+    "description": "끝까지 BACK 후 home",
+    "input": "3\nVISIT a\nVISIT b\nBACK\n",
+    "expected_output": "a"
+  },
+  {
+    "id": 8,
+    "description": "방문만 1번: VISIT zeli -> zeli",
+    "input": "1\nVISIT zeli\n",
+    "expected_output": "zeli"
+  },
+  {
+    "id": 9,
+    "description": "복합 탐색",
+    "input": "6\nVISIT naver\nVISIT daum\nBACK\nFORWARD\nBACK\nBACK\n",
+    "expected_output": "home"
+  },
+  {
+    "id": 10,
+    "description": "긴 탐색 체인",
+    "input": "5\nVISIT a\nVISIT b\nBACK\nFORWARD\nVISIT c\n",
+    "expected_output": "c"
+  }
+]
