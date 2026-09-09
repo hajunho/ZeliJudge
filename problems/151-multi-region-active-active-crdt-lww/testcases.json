@@ -1,0 +1,37 @@
+[
+  {
+    "desc": "Case 1: Classic Clock Drift Lost Update Disaster (LWW Silent Overwrite vs HLC Causal Preservation)",
+    "input": "REGIONS SEOUL IAD FRA\nDRIFT IAD -500\nWRITE_LWW 100 SEOUL nickname Alice_Seoul\nWRITE_HLC 100 SEOUL nickname Alice_Seoul\nREPLICATE 200 SEOUL IAD\nWRITE_LWW 300 IAD nickname Alice_IAD\nWRITE_HLC 300 IAD nickname Alice_IAD\nPN_INC SEOUL likes 10\nPN_INC FRA likes 5\nPN_DEC IAD likes 2\nORSET_ADD SEOUL cart itemA tag1\nORSET_ADD IAD cart itemB tag2\nREPLICATE_ALL 400\nQUERY SEOUL\nAUDIT\nEND",
+    "expected_output": "REGION: SEOUL\n  LWW: nickname=Alice_Seoul\n  HLC: nickname=Alice_IAD\n  PN_COUNTER: likes=13\n  OR_SET: cart=[itemA,itemB]\n=== AUDIT SUMMARY ===\nLWW_STATUS: CONVERGED\n  [ANOMALY] LOST_UPDATE on key 'nickname': expected 'Alice_IAD' (written at t=300 by IAD) but got 'Alice_Seoul'\nHLC_STATUS: CONVERGED\nPN_STATUS: CONVERGED\nORSET_STATUS: CONVERGED"
+  },
+  {
+    "desc": "Case 2: Pure No-Drift Baseline (Happy Path Synchronization with zero anomalies)",
+    "input": "REGIONS SEOUL TOKYO\nDRIFT SEOUL 0\nDRIFT TOKYO 0\nWRITE_LWW 1000 SEOUL status ACTIVE\nWRITE_HLC 1000 SEOUL status ACTIVE\nWRITE_LWW 1200 TOKYO status INACTIVE\nWRITE_HLC 1200 TOKYO status INACTIVE\nPN_INC SEOUL views 100\nPN_INC TOKYO views 50\nORSET_ADD SEOUL badges gold tag_g1\nORSET_ADD TOKYO badges silver tag_s1\nREPLICATE_ALL 1500\nQUERY TOKYO\nAUDIT\nEND",
+    "expected_output": "REGION: TOKYO\n  LWW: status=INACTIVE\n  HLC: status=INACTIVE\n  PN_COUNTER: views=150\n  OR_SET: badges=[gold,silver]\n=== AUDIT SUMMARY ===\nLWW_STATUS: CONVERGED\n  [LWW_ANOMALIES] NONE\nHLC_STATUS: CONVERGED\nPN_STATUS: CONVERGED\nORSET_STATUS: CONVERGED"
+  },
+  {
+    "desc": "Case 3: Concurrent Write Tie-Breaking & Symmetrical Convergence (Deterministic Region Tie-breaker)",
+    "input": "REGIONS SEOUL IAD\nDRIFT SEOUL 0\nDRIFT IAD 0\nWRITE_LWW 500 SEOUL leader SEOUL\nWRITE_HLC 500 SEOUL leader SEOUL\nWRITE_LWW 500 IAD leader IAD\nWRITE_HLC 500 IAD leader IAD\nREPLICATE_ALL 600\nQUERY SEOUL\nQUERY IAD\nAUDIT\nEND",
+    "expected_output": "REGION: SEOUL\n  LWW: leader=SEOUL\n  HLC: leader=SEOUL\n  PN_COUNTER: EMPTY\n  OR_SET: EMPTY\nREGION: IAD\n  LWW: leader=SEOUL\n  HLC: leader=SEOUL\n  PN_COUNTER: EMPTY\n  OR_SET: EMPTY\n=== AUDIT SUMMARY ===\nLWW_STATUS: CONVERGED\n  [ANOMALY] LOST_UPDATE on key 'leader': expected 'IAD' (written at t=500 by IAD) but got 'SEOUL'\nHLC_STATUS: CONVERGED\nPN_STATUS: CONVERGED\nORSET_STATUS: CONVERGED"
+  },
+  {
+    "desc": "Case 4: PN-Counter Invariant under Complex Cross-Region Partitions & Burst Operations",
+    "input": "REGIONS SEOUL NRT IAD FRA\nPN_INC SEOUL inventory 100\nPN_DEC NRT inventory 20\nREPLICATE 100 SEOUL NRT\nPN_DEC NRT inventory 15\nPN_INC IAD inventory 50\nPN_DEC FRA inventory 30\nREPLICATE 200 IAD FRA\nPN_DEC FRA inventory 10\nREPLICATE_ALL 300\nQUERY SEOUL\nQUERY FRA\nAUDIT\nEND",
+    "expected_output": "REGION: SEOUL\n  LWW: EMPTY\n  HLC: EMPTY\n  PN_COUNTER: inventory=75\n  OR_SET: EMPTY\nREGION: FRA\n  LWW: EMPTY\n  HLC: EMPTY\n  PN_COUNTER: inventory=75\n  OR_SET: EMPTY\n=== AUDIT SUMMARY ===\nLWW_STATUS: CONVERGED\n  [LWW_ANOMALIES] NONE\nHLC_STATUS: CONVERGED\nPN_STATUS: CONVERGED\nORSET_STATUS: CONVERGED"
+  },
+  {
+    "desc": "Case 5: OR-Set Add-Wins Semantics under Concurrent Delete & Re-add Race",
+    "input": "REGIONS US EU\nORSET_ADD US cart laptop tag_us_1\nREPLICATE 100 US EU\nORSET_REM US cart laptop\nORSET_ADD EU cart laptop tag_eu_2\nORSET_ADD EU cart mouse tag_eu_3\nREPLICATE_ALL 200\nQUERY US\nQUERY EU\nAUDIT\nEND",
+    "expected_output": "REGION: US\n  LWW: EMPTY\n  HLC: EMPTY\n  PN_COUNTER: EMPTY\n  OR_SET: cart=[laptop,mouse]\nREGION: EU\n  LWW: EMPTY\n  HLC: EMPTY\n  PN_COUNTER: EMPTY\n  OR_SET: cart=[laptop,mouse]\n=== AUDIT SUMMARY ===\nLWW_STATUS: CONVERGED\n  [LWW_ANOMALIES] NONE\nHLC_STATUS: CONVERGED\nPN_STATUS: CONVERGED\nORSET_STATUS: CONVERGED"
+  },
+  {
+    "desc": "Case 6: Network Partition (Split-Brain) and Reconciliation (DIVERGED -> CONVERGED transition)",
+    "input": "REGIONS WEST EAST\nWRITE_LWW 100 WEST role ADMIN\nWRITE_HLC 100 WEST role ADMIN\nWRITE_LWW 200 EAST role GUEST\nWRITE_HLC 200 EAST role GUEST\nQUERY WEST\nQUERY EAST\nAUDIT\nREPLICATE_ALL 300\nQUERY WEST\nAUDIT\nEND",
+    "expected_output": "REGION: WEST\n  LWW: role=ADMIN\n  HLC: role=ADMIN\n  PN_COUNTER: EMPTY\n  OR_SET: EMPTY\nREGION: EAST\n  LWW: role=GUEST\n  HLC: role=GUEST\n  PN_COUNTER: EMPTY\n  OR_SET: EMPTY\n=== AUDIT SUMMARY ===\nLWW_STATUS: DIVERGED\n  [ANOMALY] LOST_UPDATE on key 'role': expected 'GUEST' (written at t=200 by EAST) but got 'ADMIN'\nHLC_STATUS: DIVERGED\nPN_STATUS: CONVERGED\nORSET_STATUS: CONVERGED\nREGION: WEST\n  LWW: role=GUEST\n  HLC: role=GUEST\n  PN_COUNTER: EMPTY\n  OR_SET: EMPTY\n=== AUDIT SUMMARY ===\nLWW_STATUS: CONVERGED\n  [LWW_ANOMALIES] NONE\nHLC_STATUS: CONVERGED\nPN_STATUS: CONVERGED\nORSET_STATUS: CONVERGED"
+  },
+  {
+    "desc": "Case 7: Enterprise Global Active-Active E-Commerce Cluster Stress Test (Multi-drift, Cascading Replications)",
+    "input": "REGIONS ICN NRT SFO IAD FRA\nDRIFT ICN 0\nDRIFT NRT -100\nDRIFT SFO 250\nDRIFT IAD -600\nDRIFT FRA 150\nWRITE_LWW 100 ICN title Engineer\nWRITE_HLC 100 ICN title Engineer\nREPLICATE 150 ICN NRT\nWRITE_LWW 200 NRT title Senior_Engineer\nWRITE_HLC 200 NRT title Senior_Engineer\nREPLICATE 250 NRT IAD\nWRITE_LWW 300 IAD title Staff_Engineer\nWRITE_HLC 300 IAD title Staff_Engineer\nPN_INC ICN karma 50\nPN_INC NRT karma 30\nPN_DEC SFO karma 10\nPN_INC IAD karma 20\nPN_DEC FRA karma 5\nORSET_ADD ICN tags cloud tag_c1\nORSET_ADD NRT tags ai tag_a1\nORSET_ADD SFO tags distributed tag_d1\nREPLICATE 400 ICN FRA\nREPLICATE 450 NRT FRA\nORSET_REM FRA tags cloud\nORSET_ADD IAD tags cloud tag_c2\nREPLICATE_ALL 600\nQUERY ICN\nQUERY IAD\nAUDIT\nEND",
+    "expected_output": "REGION: ICN\n  LWW: title=Senior_Engineer\n  HLC: title=Staff_Engineer\n  PN_COUNTER: karma=85\n  OR_SET: tags=[ai,cloud,distributed]\nREGION: IAD\n  LWW: title=Senior_Engineer\n  HLC: title=Staff_Engineer\n  PN_COUNTER: karma=85\n  OR_SET: tags=[ai,cloud,distributed]\n=== AUDIT SUMMARY ===\nLWW_STATUS: CONVERGED\n  [ANOMALY] LOST_UPDATE on key 'title': expected 'Staff_Engineer' (written at t=300 by IAD) but got 'Senior_Engineer'\nHLC_STATUS: CONVERGED\nPN_STATUS: CONVERGED\nORSET_STATUS: CONVERGED"
+  }
+]
