@@ -1,0 +1,42 @@
+[
+  {
+    "description": "Case 1: CUBIC throughput collapse under 100Mbps policer - loss sensitivity forces cwnd backoff, collapsing utilization to 14.2%",
+    "input": "{\n  \"config\": {\n    \"algorithm\": \"CUBIC\",\n    \"policer_rate_mbps\": 100,\n    \"policer_bucket_capacity_bytes\": 15000,\n    \"rtt_prop_ms\": 20.0,\n    \"mss_bytes\": 1500,\n    \"simulation_duration_ms\": 1000.0\n  }\n}",
+    "output": "{\n  \"status\": \"FAILED\",\n  \"verdict\": \"CUBIC_LOSS_SENSITIVITY_THROUGHPUT_COLLAPSE\",\n  \"algorithm\": \"CUBIC\",\n  \"metrics\": {\n    \"total_packets_sent\": 1196,\n    \"total_bytes_sent\": 1794000,\n    \"total_bytes_delivered\": 1780500,\n    \"total_bytes_dropped\": 13500,\n    \"packet_loss_rate_pct\": 0.75,\n    \"average_throughput_mbps\": 14.24,\n    \"bandwidth_utilization_pct\": 14.2,\n    \"final_cwnd_bytes\": 31614,\n    \"policer_detected\": false\n  }\n}"
+  },
+  {
+    "description": "Case 2: BBRv1 excessive packet loss - 1.25x probe cycles repeatedly overflow 15KB policer bucket, causing 2.77% packet loss",
+    "input": "{\n  \"config\": {\n    \"algorithm\": \"BBRV1\",\n    \"policer_rate_mbps\": 100,\n    \"policer_bucket_capacity_bytes\": 15000,\n    \"rtt_prop_ms\": 20.0,\n    \"mss_bytes\": 1500,\n    \"simulation_duration_ms\": 1000.0\n  }\n}",
+    "output": "{\n  \"status\": \"FAILED\",\n  \"verdict\": \"BBRV1_POLICER_EXCESSIVE_LOSS_RATE\",\n  \"algorithm\": \"BBRV1\",\n  \"metrics\": {\n    \"total_packets_sent\": 8337,\n    \"total_bytes_sent\": 12505500,\n    \"total_bytes_delivered\": 12159000,\n    \"total_bytes_dropped\": 346500,\n    \"packet_loss_rate_pct\": 2.77,\n    \"average_throughput_mbps\": 97.27,\n    \"bandwidth_utilization_pct\": 97.3,\n    \"final_cwnd_bytes\": 15000,\n    \"policer_detected\": false\n  }\n}"
+  },
+  {
+    "description": "Case 3: BBRv2 optimal policer control - detects zero-buffer policer and caps probe gain, sustaining 96.7% rate with 0.41% loss",
+    "input": "{\n  \"config\": {\n    \"algorithm\": \"BBRV2\",\n    \"policer_rate_mbps\": 100,\n    \"policer_bucket_capacity_bytes\": 15000,\n    \"rtt_prop_ms\": 20.0,\n    \"mss_bytes\": 1500,\n    \"simulation_duration_ms\": 1000.0\n  }\n}",
+    "output": "{\n  \"status\": \"SUCCESS\",\n  \"verdict\": \"OPTIMAL_BBRV2_POLICER_CONGESTION_CONTROL\",\n  \"algorithm\": \"BBRV2\",\n  \"metrics\": {\n    \"total_packets_sent\": 8088,\n    \"total_bytes_sent\": 12132000,\n    \"total_bytes_delivered\": 12082500,\n    \"total_bytes_dropped\": 49500,\n    \"packet_loss_rate_pct\": 0.41,\n    \"average_throughput_mbps\": 96.66,\n    \"bandwidth_utilization_pct\": 96.7,\n    \"final_cwnd_bytes\": 15000,\n    \"policer_detected\": true\n  }\n}"
+  },
+  {
+    "description": "Case 4: 1Gbps cloud egress policer with BBRv2 - maintains 96.6% bandwidth utilization at sub-0.5% loss on 10ms RTT",
+    "input": "{\n  \"config\": {\n    \"algorithm\": \"BBRV2\",\n    \"policer_rate_mbps\": 1000,\n    \"policer_bucket_capacity_bytes\": 50000,\n    \"rtt_prop_ms\": 10.0,\n    \"mss_bytes\": 1500,\n    \"simulation_duration_ms\": 1000.0\n  }\n}",
+    "output": "{\n  \"status\": \"SUCCESS\",\n  \"verdict\": \"OPTIMAL_BBRV2_POLICER_CONGESTION_CONTROL\",\n  \"algorithm\": \"BBRV2\",\n  \"metrics\": {\n    \"total_packets_sent\": 80834,\n    \"total_bytes_sent\": 121251000,\n    \"total_bytes_delivered\": 120985500,\n    \"total_bytes_dropped\": 265500,\n    \"packet_loss_rate_pct\": 0.22,\n    \"average_throughput_mbps\": 967.88,\n    \"bandwidth_utilization_pct\": 96.8,\n    \"final_cwnd_bytes\": 15000,\n    \"policer_detected\": true\n  }\n}"
+  },
+  {
+    "description": "Case 5: 1Gbps CUBIC starvation disaster - policer drops trap CUBIC at 139 Mbps (86% capacity wasted)",
+    "input": "{\n  \"config\": {\n    \"algorithm\": \"CUBIC\",\n    \"policer_rate_mbps\": 1000,\n    \"policer_bucket_capacity_bytes\": 50000,\n    \"rtt_prop_ms\": 10.0,\n    \"mss_bytes\": 1500,\n    \"simulation_duration_ms\": 1000.0\n  }\n}",
+    "output": "{\n  \"status\": \"FAILED\",\n  \"verdict\": \"CUBIC_LOSS_SENSITIVITY_THROUGHPUT_COLLAPSE\",\n  \"algorithm\": \"CUBIC\",\n  \"metrics\": {\n    \"total_packets_sent\": 5542,\n    \"total_bytes_sent\": 8313000,\n    \"total_bytes_delivered\": 8278500,\n    \"total_bytes_dropped\": 34500,\n    \"packet_loss_rate_pct\": 0.42,\n    \"average_throughput_mbps\": 66.23,\n    \"bandwidth_utilization_pct\": 6.6,\n    \"final_cwnd_bytes\": 107225,\n    \"policer_detected\": false\n  }\n}"
+  },
+  {
+    "description": "Case 6: Strict 4.5KB cellular policer with BBRv1 - aggressive probing drains 3-packet bucket, causing 3.39% loss rate",
+    "input": "{\n  \"config\": {\n    \"algorithm\": \"BBRV1\",\n    \"policer_rate_mbps\": 50,\n    \"policer_bucket_capacity_bytes\": 4500,\n    \"rtt_prop_ms\": 30.0,\n    \"mss_bytes\": 1500,\n    \"simulation_duration_ms\": 1000.0\n  }\n}",
+    "output": "{\n  \"status\": \"FAILED\",\n  \"verdict\": \"BBRV1_POLICER_EXCESSIVE_LOSS_RATE\",\n  \"algorithm\": \"BBRV1\",\n  \"metrics\": {\n    \"total_packets_sent\": 4190,\n    \"total_bytes_sent\": 6285000,\n    \"total_bytes_delivered\": 6060000,\n    \"total_bytes_dropped\": 225000,\n    \"packet_loss_rate_pct\": 3.58,\n    \"average_throughput_mbps\": 48.48,\n    \"bandwidth_utilization_pct\": 97.0,\n    \"final_cwnd_bytes\": 15000,\n    \"policer_detected\": false\n  }\n}"
+  },
+  {
+    "description": "Case 7: Strict 4.5KB cellular policer with BBRv2 - policer detection clamps probing, cutting loss to 0.49%",
+    "input": "{\n  \"config\": {\n    \"algorithm\": \"BBRV2\",\n    \"policer_rate_mbps\": 50,\n    \"policer_bucket_capacity_bytes\": 4500,\n    \"rtt_prop_ms\": 30.0,\n    \"mss_bytes\": 1500,\n    \"simulation_duration_ms\": 1000.0\n  }\n}",
+    "output": "{\n  \"status\": \"SUCCESS\",\n  \"verdict\": \"OPTIMAL_BBRV2_POLICER_CONGESTION_CONTROL\",\n  \"algorithm\": \"BBRV2\",\n  \"metrics\": {\n    \"total_packets_sent\": 4064,\n    \"total_bytes_sent\": 6096000,\n    \"total_bytes_delivered\": 6051000,\n    \"total_bytes_dropped\": 45000,\n    \"packet_loss_rate_pct\": 0.74,\n    \"average_throughput_mbps\": 48.41,\n    \"bandwidth_utilization_pct\": 96.8,\n    \"final_cwnd_bytes\": 15000,\n    \"policer_detected\": true\n  }\n}"
+  },
+  {
+    "description": "Case 8: Unpoliced deep buffer link - CUBIC operates cleanly without drops, achieving 96.5% line rate utilization",
+    "input": "{\n  \"config\": {\n    \"algorithm\": \"CUBIC\",\n    \"policer_rate_mbps\": 200,\n    \"policer_bucket_capacity_bytes\": 500000,\n    \"rtt_prop_ms\": 20.0,\n    \"mss_bytes\": 1500,\n    \"simulation_duration_ms\": 1000.0\n  }\n}",
+    "output": "{\n  \"status\": \"FAILED\",\n  \"verdict\": \"CUBIC_LOSS_SENSITIVITY_THROUGHPUT_COLLAPSE\",\n  \"algorithm\": \"CUBIC\",\n  \"metrics\": {\n    \"total_packets_sent\": 2933,\n    \"total_bytes_sent\": 4399500,\n    \"total_bytes_delivered\": 4149000,\n    \"total_bytes_dropped\": 250500,\n    \"packet_loss_rate_pct\": 5.69,\n    \"average_throughput_mbps\": 33.19,\n    \"bandwidth_utilization_pct\": 16.6,\n    \"final_cwnd_bytes\": 58887,\n    \"policer_detected\": false\n  }\n}"
+  }
+]
