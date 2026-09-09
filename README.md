@@ -82,6 +82,7 @@ problems/
 | **#039** | [서버 3대로 늘렸더니 로그인 세션이 자꾸 풀려요?!: Sticky Session vs Redis 분산 세션 vs JWT](problems/039-session-consistency-redis-jwt/problem.md) | **웹 아키텍처/세션 클러스터링**, 무상태(Stateless) 웹 서버, 라운드로빈 세션 불일치, Sticky Session 한계 vs Redis 중앙 분산 세션 | 서버 스케일아웃 후 클릭할 때마다 '로그인이 필요합니다'로 튕겨나가고 서버 재기동 시 세션 증발한 참사 |
 | **#040** | [DB 1대에 1억 건이 넘어가니 죽으려고 해요?!: 데이터베이스 샤딩과 리밸런싱](problems/040-database-sharding-rebalancing/problem.md) | **분산 스토리지/샤딩**, 수평 분할(Sharding), 모듈로 해시의 재배치 저주($\frac{K}{K+1}$) vs 디렉토리 샤딩 선택적 리밸런싱 | 단일 DB 용량 폭발 후 샤드 1대 증설했다가 데이터 80%를 다른 DB로 이사보내느라 3일간 서비스 마비된 참사 |
 | **#041** | [동시에 좋아요를 1,000명이 눌렀더니 숫자가 50밖에 안 올라가요?!: 분산 카운터와 샤디드 카운터](problems/041-distributed-sharded-counter/problem.md) | **동시성 제어/분산 카운터**, 단일 행 배타락(X-Lock) 경합, Lock Wait Timeout 폭발 방어, 샤디드 카운터(Sharded Counter) 병렬 확장 | 실시간 라이브 방송에서 10만 명이 동시 하트 연타하다 단일 행 UPDATE 락 대기열 폭발로 99% 요청 롤백된 참사 |
+| **#042** | [DB가 잠깐 끊겼는데 왜 서버 100대가 전부 강제 재부팅돼요?!: 헬스체크와 Liveness vs Readiness Probe](problems/042-health-check-liveness-readiness/problem.md) | **클라우드 네이티브/인프라**, 쿠버네티스 헬스체크 3총사, 딥 헬스체크 안티패턴, 연쇄 재시작 폭풍(Cascading Restart Storm) 방어 | 외부 DB 3초 지연에 딥 헬스체크 걸어뒀다가 100대 파드 동시 재부팅으로 DB 영구 폭사한 참사 |
 
 
 
