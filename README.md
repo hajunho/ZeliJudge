@@ -88,6 +88,7 @@ problems/
 | **#045** | [카프카 컨슈머를 10대로 늘렸는데 왜 3대만 일해요?!: 파티션(Partition)과 컨슈머 그룹의 1:1 매핑 법칙](problems/045-kafka-partition-consumer-mapping/problem.md) | **메시지 브로커/스트리밍**, 카프카 파티션 순서 보장 철칙, Range vs RoundRobin 할당 전략, 리밸런싱, 유휴 컨슈머(Idle) 자원 낭비 방어 | 메시지 밀린다고 컨슈머 10대로 늘렸다가 파티션 3개 병목으로 7대가 놀며 서버비만 날린 참사 |
 | **#046** | [외부 API 5개 불렀을 뿐인데 응답이 15초나 걸려요?!: 직렬 동기 호출 vs 병렬 비동기 I/O (Async Fan-Out / Gather)](problems/046-parallel-fanout-async-gather/problem.md) | **비동기 프로그래밍/분산 I/O**, 직렬 지연($\sum T_i$) vs 병렬 지연($\max T_i$), Fan-Out/Fan-In, Fail-Fast vs All-Settled 우아한 저하 | 외부 API를 for 루프 순차 호출했다가 지연시간 10초 돌파로 전 사용자 화면 멈춰버린 참사 |
 | **#047** | [100장 한정 쿠폰인데 왜 105장이 발급돼요?!: 트랜잭션 격리 수준(Isolation Level)과 팬텀 리드(Phantom Read)](problems/047-transaction-isolation-phantom-read/problem.md) | **DB 트랜잭션/동시성**, ANSI SQL 4대 격리 수준, MVCC 스냅샷 격리의 한계, 넥스트 키 락(Next-Key Lock), 팬텀 오버부킹 방어 | 트랜잭션 걸고 count 확인 후 INSERT 쳤는데 스냅샷 뒤에 숨은 유령 데이터로 105장 초과 발급된 참사 |
+| **#048** | [새로 배포했더니 502 Bad Gateway가 10초 동안 떠요?!: 쿠버네티스 무중단 배포와 그레이스풀 셧다운(Graceful Shutdown & PreStop Hook)](problems/048-zero-downtime-graceful-shutdown/problem.md) | **클라우드 네이티브/배포 아키텍처**, 인플라이트 요청 보존, Kube-Proxy 엔드포인트 전파 딜레이 완충, PreStop sleep 훅, Zero-Downtime 롤링 업데이트 | 롤링 배포 믿고 preStop 없이 배포했다가 엔드포인트 전파 지연으로 502 에러 뿜어 결제 터진 참사 |
 
 
 
