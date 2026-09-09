@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "3000 + 7000 = 10000 -> YES",
+    "input": "4 10000\n3000 7000 2000 5000\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 2,
+    "description": "조합 불가능 -> NO",
+    "input": "3 5000\n1000 2000 6000\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 3,
+    "description": "같은 가격 2개 5+5=10 -> YES",
+    "input": "2 10\n5 5\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 4,
+    "description": "하나의 물건을 2번 쓸 수 없음: 5 하나로 10 만들기 불가 -> NO",
+    "input": "2 10\n5 3\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 5,
+    "description": "양 끝단 합 1 + 9 = 10 -> YES",
+    "input": "4 10\n1 4 8 9\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 6,
+    "description": "모든 물건이 목표보다 큼 -> NO",
+    "input": "3 100\n200 300 400\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 7,
+    "description": "5개 중 가운데 조합 -> YES",
+    "input": "5 50\n10 20 30 40 50\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 8,
+    "description": "큰 가격들 3000 + 7000 = 10000",
+    "input": "5 10000\n1000 2000 3000 7000 9000\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 9,
+    "description": "정확히 일치 없음",
+    "input": "4 15\n1 2 4 8\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 10,
+    "description": "10개 물건 중 조합 존재",
+    "input": "10 100\n5 12 25 33 48 52 61 70 88 95\n",
+    "expected_output": "YES"
+  }
+]

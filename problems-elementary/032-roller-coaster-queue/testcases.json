@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제 1: 2명 탑승, 2명 대기",
+    "input": "2\n4\nalice bob charlie david\n",
+    "expected_output": "alice bob\ncharlie david"
+  },
+  {
+    "id": 2,
+    "description": "기본 예제 2: 모두 탑승하고 대기열 비어있음",
+    "input": "3\n2\ntom jerry\n",
+    "expected_output": "tom jerry\nEMPTY"
+  },
+  {
+    "id": 3,
+    "description": "딱 맞게 탑승",
+    "input": "3\n3\na b c\n",
+    "expected_output": "a b c\nEMPTY"
+  },
+  {
+    "id": 4,
+    "description": "1명만 탑승",
+    "input": "1\n3\nfirst second third\n",
+    "expected_output": "first\nsecond third"
+  },
+  {
+    "id": 5,
+    "description": "1명만 줄 서있고 1명 탑승",
+    "input": "1\n1\nsolo\n",
+    "expected_output": "solo\nEMPTY"
+  },
+  {
+    "id": 6,
+    "description": "5명 탑승 정원에 8명 대기",
+    "input": "5\n8\np1 p2 p3 p4 p5 p6 p7 p8\n",
+    "expected_output": "p1 p2 p3 p4 p5\np6 p7 p8"
+  },
+  {
+    "id": 7,
+    "description": "정원 10명 대기 4명",
+    "input": "10\n4\nw x y z\n",
+    "expected_output": "w x y z\nEMPTY"
+  },
+  {
+    "id": 8,
+    "description": "정원 4명 5명 대기 (1명 남음)",
+    "input": "4\n5\na b c d e\n",
+    "expected_output": "a b c d\ne"
+  },
+  {
+    "id": 9,
+    "description": "긴 이름 친구들",
+    "input": "2\n3\ncharlotte alexander benjamin\n",
+    "expected_output": "charlotte alexander\nbenjamin"
+  },
+  {
+    "id": 10,
+    "description": "정원 3명 6명 대기",
+    "input": "3\n6\n1 2 3 4 5 6\n",
+    "expected_output": "1 2 3\n4 5 6"
+  }
+]

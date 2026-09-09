@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "12와 18 -> 6",
+    "input": "12 18\n",
+    "expected_output": "6"
+  },
+  {
+    "id": 2,
+    "description": "8과 16 -> 8",
+    "input": "8 16\n",
+    "expected_output": "8"
+  },
+  {
+    "id": 3,
+    "description": "서로소: 7과 11 -> 1",
+    "input": "7 11\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 4,
+    "description": "둘 다 같은 수: 100 100 -> 100",
+    "input": "100 100\n",
+    "expected_output": "100"
+  },
+  {
+    "id": 5,
+    "description": "1과 다른 수: 1 50 -> 1",
+    "input": "1 50\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 6,
+    "description": "24와 36 -> 12",
+    "input": "24 36\n",
+    "expected_output": "12"
+  },
+  {
+    "id": 7,
+    "description": "100과 25 -> 25",
+    "input": "100 25\n",
+    "expected_output": "25"
+  },
+  {
+    "id": 8,
+    "description": "큰 수: 120 180 -> 60",
+    "input": "120 180\n",
+    "expected_output": "60"
+  },
+  {
+    "id": 9,
+    "description": "서로소 큰 수: 999 1000 -> 1",
+    "input": "999 1000\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 10,
+    "description": "10000과 2500 -> 2500",
+    "input": "10000 2500\n",
+    "expected_output": "2500"
+  }
+]

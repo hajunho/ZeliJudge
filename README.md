@@ -200,6 +200,16 @@ problems/
 | **#028** | [매일매일 돌아가는 청소 당번 시계](problems-elementary/028-classroom-cleaner-turn/problem.md) | 나머지 연산자(`%`), 순환 큐(Circular), 인덱스 매핑 | N명의 친구가 번호순으로 순환할 때 D일째 청소 당번 찾기 |
 | **#029** | [거꾸로 읽어도 똑같은 회문 숫자 찾기](problems-elementary/029-palindrome-number-check/problem.md) | 수학, 숫자 뒤집기, 팰린드롬 판별, 형 변환 | 앞뒤로 읽어도 똑같은 대칭수(회문 숫자)인지 판별하기 |
 | **#030** | [급식실 식판 쌓기와 올바른 괄호 짝 맞추기](problems-elementary/030-bracket-pair-balance/problem.md) | 스택(Stack), 괄호 매칭, 후입선출(LIFO) | 식판 쌓기 원리로 열린 괄호와 닫힌 괄호의 짝이 맞는지 검사하기 |
+| **#031** | [소수(Prime) 보물찾기 탐정단](problems-elementary/031-prime-number-detective/problem.md) | 수학, 소수(Prime) 판별, 제곱근($\sqrt{N}$) 탐색 | 1과 자기 자신으로만 나누어떨어지는 순수한 소수 보물 찾기 |
+| **#032** | [놀이공원 롤러코스터 대기열과 큐(Queue)](problems-elementary/032-roller-coaster-queue/problem.md) | 큐(Queue), 선입선출(FIFO), 리스트 슬라이싱 | 먼저 온 사람이 먼저 타는 공평한 롤러코스터 대기열 시뮬레이션 |
+| **#033** | [사탕과 초콜릿 남김없이 포장하기 (최대공약수)](problems-elementary/033-gcd-snack-sharing/problem.md) | 수학, 최대공약수(GCD), 유클리드 호제법 | 사탕과 초콜릿을 남김없이 똑같이 나눌 수 있는 최대 선물 상자 수 구하기 |
+| **#034** | [교실 빙고 게임! 몇 줄 완성했니?](problems-elementary/034-bingo-line-counter/problem.md) | 2차원 배열 순회, 가로/세로/대각선 탐색 | 3x3 빙고판에서 완성된 가로, 세로, 대각선 빙고 줄 수 세기 |
+| **#035** | [마법진의 대각선 에너지 합 구하기](problems-elementary/035-matrix-diagonal-sum/problem.md) | 2차원 리스트, 주대각선 인덱스, O(N) 순회 | 정사각형 마법진의 주대각선에 새겨진 마나 에너지 총합 구하기 |
+| **#036** | [동화책 속 가장 많이 등장한 단어 찾기](problems-elementary/036-word-frequency-counter/problem.md) | 텍스트 마이닝, 딕셔너리 빈도수, 최빈 단어 | 동화책 문장에서 가장 자주 등장한 단어와 그 횟수 구하기 |
+| **#037** | [1부터 100까지! 업다운 숫자 맞추기](problems-elementary/037-binary-search-guess-game/problem.md) | 이진 탐색(Binary Search), 절반 분할 탐색 | UP/DOWN 힌트로 매번 가운데 숫자를 불러 정답을 맞추는 질문 횟수 구하기 |
+| **#038** | [매일매일 연속 출석왕 챌린지](problems-elementary/038-cumulative-attendance-streak/problem.md) | 연속 구간 최대 길이(Max Streak), 상태 갱신 | 한 달 출석부에서 가장 길게 연속으로 출석한 최장 일수 구하기 |
+| **#039** | [장바구니 두 상품 합쳐서 만원 맞추기](problems-elementary/039-two-sum-target-find/problem.md) | 완전 탐색, 투 포인터, 합 맞추기 (Two Sum) | 두 장난감의 가격을 더해 목표 금액을 딱 맞출 수 있는지 찾기 |
+| **#040** | [거품이 뽀글뽀글! 버블 정렬 시뮬레이션](problems-elementary/040-bubble-sort-step-by-step/problem.md) | 정렬 알고리즘, 버블 정렬(Bubble Sort), 자리 바꾸기 | 인접한 두 수를 비교하며 최댓값을 맨 뒤로 보내는 버블 정렬 1회전 수행하기 |
 
 ---
 

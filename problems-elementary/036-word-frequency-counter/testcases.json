@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "cat 3회 최다",
+    "input": "cat dog cat bird cat dog\n",
+    "expected_output": "cat 3"
+  },
+  {
+    "id": 2,
+    "description": "동점자 apple vs banana (사전순 apple)",
+    "input": "apple banana apple banana\n",
+    "expected_output": "apple 2"
+  },
+  {
+    "id": 3,
+    "description": "단어 1개",
+    "input": "rabbit\n",
+    "expected_output": "rabbit 1"
+  },
+  {
+    "id": 4,
+    "description": "모두 1번씩 등장 (사전순 첫 단어 a)",
+    "input": "zebra lion elephant cat dog a\n",
+    "expected_output": "a 1"
+  },
+  {
+    "id": 5,
+    "description": "동일 단어만 반복",
+    "input": "love love love love\n",
+    "expected_output": "love 4"
+  },
+  {
+    "id": 6,
+    "description": "긴 문장",
+    "input": "the little prince looked at the star and the flower\n",
+    "expected_output": "the 3"
+  },
+  {
+    "id": 7,
+    "description": "동점 3개",
+    "input": "c b a c b a\n",
+    "expected_output": "a 2"
+  },
+  {
+    "id": 8,
+    "description": "다양한 동물",
+    "input": "fox bear wolf fox bear fox\n",
+    "expected_output": "fox 3"
+  },
+  {
+    "id": 9,
+    "description": "프로그래밍 단어",
+    "input": "code code bug code fix bug\n",
+    "expected_output": "code 3"
+  },
+  {
+    "id": 10,
+    "description": "동점 긴 단어",
+    "input": "orange banana orange banana\n",
+    "expected_output": "banana 2"
+  }
+]

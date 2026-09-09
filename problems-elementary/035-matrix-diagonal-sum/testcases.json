@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "3x3 행렬: 1+5+9=15",
+    "input": "3\n1 2 3\n4 5 6\n7 8 9\n",
+    "expected_output": "15"
+  },
+  {
+    "id": 2,
+    "description": "2x2 행렬: 10+40=50",
+    "input": "2\n10 20\n30 40\n",
+    "expected_output": "50"
+  },
+  {
+    "id": 3,
+    "description": "모두 1인 4x4 행렬",
+    "input": "4\n1 1 1 1\n1 1 1 1\n1 1 1 1\n1 1 1 1\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 4,
+    "description": "단위행렬(대각선만 1)",
+    "input": "3\n1 0 0\n0 1 0\n0 0 1\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 5,
+    "description": "5x5 행렬",
+    "input": "5\n2 0 0 0 0\n0 4 0 0 0\n0 0 6 0 0\n0 0 0 8 0\n0 0 0 0 10\n",
+    "expected_output": "30"
+  },
+  {
+    "id": 6,
+    "description": "대각선에 큰 숫자",
+    "input": "2\n999 1\n2 999\n",
+    "expected_output": "1998"
+  },
+  {
+    "id": 7,
+    "description": "3x3 음수 아닌 자연수",
+    "input": "3\n10 20 30\n40 50 60\n70 80 90\n",
+    "expected_output": "150"
+  },
+  {
+    "id": 8,
+    "description": "4x4 연속 숫자 1~16",
+    "input": "4\n1 2 3 4\n5 6 7 8\n9 10 11 12\n13 14 15 16\n",
+    "expected_output": "34"
+  },
+  {
+    "id": 9,
+    "description": "대각선만 0인 행렬",
+    "input": "3\n0 5 5\n5 0 5\n5 5 0\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 10,
+    "description": "2x2 작은 수",
+    "input": "2\n1 9\n8 2\n",
+    "expected_output": "3"
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제 1: 3일 연속",
+    "input": "7\nO O X O O O X\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 2,
+    "description": "모두 결석 (0일)",
+    "input": "4\nX X X X\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 3,
+    "description": "개근 (5일 모두 출석)",
+    "input": "5\nO O O O O\n",
+    "expected_output": "5"
+  },
+  {
+    "id": 4,
+    "description": "하루만 출석",
+    "input": "1\nO\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 5,
+    "description": "하루만 결석",
+    "input": "1\nX\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 6,
+    "description": "퐁당퐁당 (최장 1일)",
+    "input": "6\nO X O X O X\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 7,
+    "description": "맨 끝에 최장 스트릭 위치",
+    "input": "9\nO X O O X O O O O\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 8,
+    "description": "맨 앞에 최장 스트릭 위치",
+    "input": "8\nO O O O X O O X\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 9,
+    "description": "10일 출석",
+    "input": "10\nO O X O O O O O X O\n",
+    "expected_output": "5"
+  },
+  {
+    "id": 10,
+    "description": "긴 결석 후 2일 연속",
+    "input": "7\nX X X X O O X\n",
+    "expected_output": "2"
+  }
+]

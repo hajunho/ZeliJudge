@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제 1: 7 (소수)",
+    "input": "7\n",
+    "expected_output": "PRIME"
+  },
+  {
+    "id": 2,
+    "description": "기본 예제 2: 4 (합성수)",
+    "input": "4\n",
+    "expected_output": "COMPOSITE"
+  },
+  {
+    "id": 3,
+    "description": "1은 소수가 아님",
+    "input": "1\n",
+    "expected_output": "COMPOSITE"
+  },
+  {
+    "id": 4,
+    "description": "가장 작은 소수 2",
+    "input": "2\n",
+    "expected_output": "PRIME"
+  },
+  {
+    "id": 5,
+    "description": "소수 3",
+    "input": "3\n",
+    "expected_output": "PRIME"
+  },
+  {
+    "id": 6,
+    "description": "홀수 합성수 9 (3x3)",
+    "input": "9\n",
+    "expected_output": "COMPOSITE"
+  },
+  {
+    "id": 7,
+    "description": "두 자리 소수 13",
+    "input": "13\n",
+    "expected_output": "PRIME"
+  },
+  {
+    "id": 8,
+    "description": "두 자리 합성수 91 (7x13 조심!)",
+    "input": "91\n",
+    "expected_output": "COMPOSITE"
+  },
+  {
+    "id": 9,
+    "description": "세 자리 소수 997",
+    "input": "997\n",
+    "expected_output": "PRIME"
+  },
+  {
+    "id": 10,
+    "description": "큰 짝수 10000",
+    "input": "10000\n",
+    "expected_output": "COMPOSITE"
+  }
+]

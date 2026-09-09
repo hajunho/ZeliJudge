@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "가로 1줄 + 대각선 1줄 -> 2줄",
+    "input": "O O O\nX O X\nX X O\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 2,
+    "description": "X자 대각선 2줄 -> 2줄",
+    "input": "O X O\nX O X\nO X O\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 3,
+    "description": "빙고 0줄",
+    "input": "X X X\nX X X\nX X X\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 4,
+    "description": "모두 O (가로3 + 세로3 + 대각선2 = 8줄)",
+    "input": "O O O\nO O O\nO O O\n",
+    "expected_output": "8"
+  },
+  {
+    "id": 5,
+    "description": "세로 가운데 1줄",
+    "input": "X O X\nX O X\nX O X\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 6,
+    "description": "가로 가운데 1줄",
+    "input": "X X X\nO O O\nX X X\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 7,
+    "description": "가로 3줄 모두 완성 (대각선 없음) -> 3줄",
+    "input": "O O O\nO O O\nX X X\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 8,
+    "description": "세로 2줄 완성",
+    "input": "O X O\nO X O\nO X O\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 9,
+    "description": "역대각선(/) 1줄 완성",
+    "input": "X X O\nX O X\nO X X\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 10,
+    "description": "주대각선(\\) 1줄 완성",
+    "input": "O X X\nX O X\nX X O\n",
+    "expected_output": "1"
+  }
+]
