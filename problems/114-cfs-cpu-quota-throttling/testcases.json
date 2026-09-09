@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "name": "정상 부하(할당 코어와 스레드 일치) 및 스로틀링 0회(0.00%) 검증",
+    "input": "CONFIG period_us=100000 quota_us=200000 burst_us=0\nSET_THREADS count=2\nELAPSE duration_ms=100\nREPORT\n",
+    "output": "CONFIG_OK period_us=100000 quota_us=200000 burst_us=0\nSET_THREADS_OK count=2\nELAPSE_OK duration_ms=100\n--- CFS_CPU_STAT ---\nNR_PERIODS: 1\nNR_THROTTLED: 1\nTHROTTLED_PERIODS_PCT: 100.00%\nTHROTTLED_TIME_US: 0\nTOTAL_CPU_TIME_US: 200000\nBURST_POOL_US: 0\nSTATUS: RUNNABLE\n--- END_REPORT ---\n"
+  },
+  {
+    "id": 2,
+    "name": "멀티스레드 쿼터 조기 소진(8스레드)과 75% 스로틀링 참사",
+    "input": "CONFIG period_us=100000 quota_us=200000 burst_us=0\nSET_THREADS count=8\nELAPSE duration_ms=100\nREPORT\n",
+    "output": "CONFIG_OK period_us=100000 quota_us=200000 burst_us=0\nSET_THREADS_OK count=8\nELAPSE_OK duration_ms=100\n--- CFS_CPU_STAT ---\nNR_PERIODS: 1\nNR_THROTTLED: 1\nTHROTTLED_PERIODS_PCT: 100.00%\nTHROTTLED_TIME_US: 75000\nTOTAL_CPU_TIME_US: 200000\nBURST_POOL_US: 0\nSTATUS: RUNNABLE\n--- END_REPORT ---\n"
+  },
+  {
+    "id": 3,
+    "name": "주기 중간(Mid-Period) 스로틀링 발생 및 주기 마감 시 복구 관측",
+    "input": "CONFIG period_us=100000 quota_us=200000 burst_us=0\nSET_THREADS count=4\nELAPSE duration_ms=60\nREPORT\nELAPSE duration_ms=40\nREPORT\n",
+    "output": "CONFIG_OK period_us=100000 quota_us=200000 burst_us=0\nSET_THREADS_OK count=4\nELAPSE_OK duration_ms=60\n--- CFS_CPU_STAT ---\nNR_PERIODS: 0\nNR_THROTTLED: 1\nTHROTTLED_PERIODS_PCT: 100.00%\nTHROTTLED_TIME_US: 10000\nTOTAL_CPU_TIME_US: 200000\nBURST_POOL_US: 0\nSTATUS: THROTTLED\n--- END_REPORT ---\nELAPSE_OK duration_ms=40\n--- CFS_CPU_STAT ---\nNR_PERIODS: 1\nNR_THROTTLED: 1\nTHROTTLED_PERIODS_PCT: 100.00%\nTHROTTLED_TIME_US: 50000\nTOTAL_CPU_TIME_US: 200000\nBURST_POOL_US: 0\nSTATUS: RUNNABLE\n--- END_REPORT ---\n"
+  },
+  {
+    "id": 4,
+    "name": "Linux 5.14+ CFS Burst 잔여 쿼터 저축 및 스파이크 완충",
+    "input": "CONFIG period_us=100000 quota_us=200000 burst_us=100000\nSET_THREADS count=1\nELAPSE duration_ms=100\nREPORT\nSET_THREADS count=3\nELAPSE duration_ms=100\nREPORT\n",
+    "output": "CONFIG_OK period_us=100000 quota_us=200000 burst_us=100000\nSET_THREADS_OK count=1\nELAPSE_OK duration_ms=100\n--- CFS_CPU_STAT ---\nNR_PERIODS: 1\nNR_THROTTLED: 0\nTHROTTLED_PERIODS_PCT: 0.00%\nTHROTTLED_TIME_US: 0\nTOTAL_CPU_TIME_US: 100000\nBURST_POOL_US: 0\nSTATUS: RUNNABLE\n--- END_REPORT ---\nSET_THREADS_OK count=3\nELAPSE_OK duration_ms=100\n--- CFS_CPU_STAT ---\nNR_PERIODS: 2\nNR_THROTTLED: 1\nTHROTTLED_PERIODS_PCT: 50.00%\nTHROTTLED_TIME_US: 0\nTOTAL_CPU_TIME_US: 400000\nBURST_POOL_US: 0\nSTATUS: RUNNABLE\n--- END_REPORT ---\n"
+  },
+  {
+    "id": 5,
+    "name": "유휴 상태(Threads=0)와 버스트 풀 상한(Burst Cap) 제한",
+    "input": "CONFIG period_us=100000 quota_us=100000 burst_us=50000\nSET_THREADS count=0\nELAPSE duration_ms=300\nREPORT\n",
+    "output": "CONFIG_OK period_us=100000 quota_us=100000 burst_us=50000\nSET_THREADS_OK count=0\nELAPSE_OK duration_ms=300\n--- CFS_CPU_STAT ---\nNR_PERIODS: 3\nNR_THROTTLED: 0\nTHROTTLED_PERIODS_PCT: 0.00%\nTHROTTLED_TIME_US: 0\nTOTAL_CPU_TIME_US: 0\nBURST_POOL_US: 0\nSTATUS: RUNNABLE\n--- END_REPORT ---\n"
+  },
+  {
+    "id": 6,
+    "name": "지속적 과부하 다중 주기 스로틀링 누적 통계",
+    "input": "CONFIG period_us=50000 quota_us=50000 burst_us=0\nSET_THREADS count=4\nELAPSE duration_ms=500\nREPORT\n",
+    "output": "CONFIG_OK period_us=50000 quota_us=50000 burst_us=0\nSET_THREADS_OK count=4\nELAPSE_OK duration_ms=500\n--- CFS_CPU_STAT ---\nNR_PERIODS: 10\nNR_THROTTLED: 10\nTHROTTLED_PERIODS_PCT: 100.00%\nTHROTTLED_TIME_US: 375000\nTOTAL_CPU_TIME_US: 500000\nBURST_POOL_US: 0\nSTATUS: RUNNABLE\n--- END_REPORT ---\n"
+  },
+  {
+    "id": 7,
+    "name": "대규모 변동 트래픽(100주기) 스케줄러 시뮬레이션 스트레스 테스트",
+    "input": "CONFIG period_us=100000 quota_us=200000 burst_us=100000\nSET_THREADS count=6\nELAPSE duration_ms=100\nSET_THREADS count=1\nELAPSE duration_ms=100\nSET_THREADS count=6\nELAPSE duration_ms=100\nSET_THREADS count=1\nELAPSE duration_ms=100\nSET_THREADS count=6\nELAPSE duration_ms=100\nSET_THREADS count=1\nELAPSE duration_ms=100\nSET_THREADS count=6\nELAPSE duration_ms=100\nSET_THREADS count=1\nELAPSE duration_ms=100\nSET_THREADS count=6\nELAPSE duration_ms=100\nSET_THREADS count=1\nELAPSE duration_ms=100\nSET_THREADS count=6\nELAPSE duration_ms=100\nSET_THREADS count=1\nELAPSE duration_ms=100\nSET_THREADS count=6\nELAPSE duration_ms=100\nSET_THREADS count=1\nELAPSE duration_ms=100\nSET_THREADS count=6\nELAPSE duration_ms=100\nSET_THREADS count=1\nELAPSE duration_ms=100\nSET_THREADS count=6\nELAPSE duration_ms=100\nSET_THREADS count=1\nELAPSE duration_ms=100\nSET_THREADS count=6\nELAPSE duration_ms=100\nSET_THREADS count=1\nELAPSE duration_ms=100\nREPORT\nRESET\nCONFIG period_us=50000 quota_us=100000 burst_us=50000\nSET_THREADS count=5\nELAPSE duration_ms=50\nSET_THREADS count=5\nELAPSE duration_ms=50\nSET_THREADS count=2\nELAPSE duration_ms=50\nSET_THREADS count=5\nELAPSE duration_ms=50\nSET_THREADS count=5\nELAPSE duration_ms=50\nSET_THREADS count=2\nELAPSE duration_ms=50\nSET_THREADS count=5\nELAPSE duration_ms=50\nSET_THREADS count=5\nELAPSE duration_ms=50\nSET_THREADS count=2\nELAPSE duration_ms=50\nSET_THREADS count=5\nELAPSE duration_ms=50\nSET_THREADS count=5\nELAPSE duration_ms=50\nSET_THREADS count=2\nELAPSE duration_ms=50\nSET_THREADS count=5\nELAPSE duration_ms=50\nSET_THREADS count=5\nELAPSE duration_ms=50\nSET_THREADS count=2\nELAPSE duration_ms=50\nSET_THREADS count=5\nELAPSE duration_ms=50\nSET_THREADS count=5\nELAPSE duration_ms=50\nSET_THREADS count=2\nELAPSE duration_ms=50\nSET_THREADS count=5\nELAPSE duration_ms=50\nSET_THREADS count=5\nELAPSE duration_ms=50\nREPORT\n",
+    "output": "CONFIG_OK period_us=100000 quota_us=200000 burst_us=100000\nSET_THREADS_OK count=6\nELAPSE_OK duration_ms=100\nSET_THREADS_OK count=1\nELAPSE_OK duration_ms=100\nSET_THREADS_OK count=6\nELAPSE_OK duration_ms=100\nSET_THREADS_OK count=1\nELAPSE_OK duration_ms=100\nSET_THREADS_OK count=6\nELAPSE_OK duration_ms=100\nSET_THREADS_OK count=1\nELAPSE_OK duration_ms=100\nSET_THREADS_OK count=6\nELAPSE_OK duration_ms=100\nSET_THREADS_OK count=1\nELAPSE_OK duration_ms=100\nSET_THREADS_OK count=6\nELAPSE_OK duration_ms=100\nSET_THREADS_OK count=1\nELAPSE_OK duration_ms=100\nSET_THREADS_OK count=6\nELAPSE_OK duration_ms=100\nSET_THREADS_OK count=1\nELAPSE_OK duration_ms=100\nSET_THREADS_OK count=6\nELAPSE_OK duration_ms=100\nSET_THREADS_OK count=1\nELAPSE_OK duration_ms=100\nSET_THREADS_OK count=6\nELAPSE_OK duration_ms=100\nSET_THREADS_OK count=1\nELAPSE_OK duration_ms=100\nSET_THREADS_OK count=6\nELAPSE_OK duration_ms=100\nSET_THREADS_OK count=1\nELAPSE_OK duration_ms=100\nSET_THREADS_OK count=6\nELAPSE_OK duration_ms=100\nSET_THREADS_OK count=1\nELAPSE_OK duration_ms=100\n--- CFS_CPU_STAT ---\nNR_PERIODS: 20\nNR_THROTTLED: 10\nTHROTTLED_PERIODS_PCT: 50.00%\nTHROTTLED_TIME_US: 516666\nTOTAL_CPU_TIME_US: 3900004\nBURST_POOL_US: 0\nSTATUS: RUNNABLE\n--- END_REPORT ---\nRESET_OK\nCONFIG_OK period_us=50000 quota_us=100000 burst_us=50000\nSET_THREADS_OK count=5\nELAPSE_OK duration_ms=50\nSET_THREADS_OK count=5\nELAPSE_OK duration_ms=50\nSET_THREADS_OK count=2\nELAPSE_OK duration_ms=50\nSET_THREADS_OK count=5\nELAPSE_OK duration_ms=50\nSET_THREADS_OK count=5\nELAPSE_OK duration_ms=50\nSET_THREADS_OK count=2\nELAPSE_OK duration_ms=50\nSET_THREADS_OK count=5\nELAPSE_OK duration_ms=50\nSET_THREADS_OK count=5\nELAPSE_OK duration_ms=50\nSET_THREADS_OK count=2\nELAPSE_OK duration_ms=50\nSET_THREADS_OK count=5\nELAPSE_OK duration_ms=50\nSET_THREADS_OK count=5\nELAPSE_OK duration_ms=50\nSET_THREADS_OK count=2\nELAPSE_OK duration_ms=50\nSET_THREADS_OK count=5\nELAPSE_OK duration_ms=50\nSET_THREADS_OK count=5\nELAPSE_OK duration_ms=50\nSET_THREADS_OK count=2\nELAPSE_OK duration_ms=50\nSET_THREADS_OK count=5\nELAPSE_OK duration_ms=50\nSET_THREADS_OK count=5\nELAPSE_OK duration_ms=50\nSET_THREADS_OK count=2\nELAPSE_OK duration_ms=50\nSET_THREADS_OK count=5\nELAPSE_OK duration_ms=50\nSET_THREADS_OK count=5\nELAPSE_OK duration_ms=50\n--- CFS_CPU_STAT ---\nNR_PERIODS: 20\nNR_THROTTLED: 20\nTHROTTLED_PERIODS_PCT: 100.00%\nTHROTTLED_TIME_US: 420000\nTOTAL_CPU_TIME_US: 2000000\nBURST_POOL_US: 0\nSTATUS: RUNNABLE\n--- END_REPORT ---\n"
+  }
+]
