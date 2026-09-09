@@ -60,6 +60,7 @@ problems/
 | **#017** | [9시간 늦게 산 사람이 1등?: 시간대(Timezone)의 덫과 UTC 절대 시계](problems/017-timezone-and-utc/problem.md) | **글로벌 시간/분산 시스템**, Naive vs Aware Datetime, Unix Epoch Time, ISO 8601 및 서머타임 | 시차 오프셋 무시하고 날짜 문자열로 정렬했다가 해외 선착순 구매 순위 뒤바뀐 참사 |
 | **#018** | [롤러코스터 대기열과 50억 번의 발걸음: list.pop(0) vs collections.deque](problems/018-queue-shift-vs-deque/problem.md) | **자료구조/메모리 물리배치**, 동적 배열의 원소 메모리 시프트($O(N)$), 이중 연결 리스트 덱($O(1)$) | 10만 명 대기열에서 `pop(0)` 썼다가 50억 번 메모리 복사로 서버 CPU 100% 뻗은 참사 |
 | **#019** | [C++을 검색했는데 왜 C가 나와?: URL 인코딩(Percent-Encoding)과 예약어의 배신](problems/019-url-percent-encoding/problem.md) | **네트워크/웹 프로토콜**, RFC 3986 퍼센트 인코딩, 예약어 충돌(`+`, `&`, `#`), 쿼리 파라미터 파싱 왜곡 | f-string으로 URL 조립했다가 `+`는 공백, `&`/`#`은 잘려나가 검색어 다 훼손된 참사 |
+| **#020** | [도서관 신청서에 불을 지르다: SQL Injection과 파라미터 바인딩](problems/020-sql-injection-prepared-stmt/problem.md) | **정보보안/데이터베이스**, Code as Data vs Data as Code, AST 파싱 왜곡, Prepared Statement | f-string으로 쿼리 합쳤다가 주석 공격(`--`)과 `' OR '1'='1`로 최고관리자 털린 참사 |
 
 
 
