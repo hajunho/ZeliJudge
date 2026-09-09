@@ -119,6 +119,7 @@ problems/
 | **#076** | [게시글 100개 조회했는데 왜 DB 쿼리가 101번 날아가요?!: ORM N+1 문제와 데이터로더 배치 최적화 (N+1 Query Problem & DataLoader Batching)](problems/076-n-plus-one-query-dataloader/problem.md) | **데이터베이스 엔지니어링/ORM 아키텍처**, 객체-관계 불일치, 지연 로딩(Lazy Loading) 안티패턴, 네트워크 RTT 누적 지연, 페이스북 DataLoader(배치 수집, 중복 제거, IN 쿼리) | 게시글 20개 조회 시 연관 작성자 쿼리가 20번 연쇄 전송되어 RTT 누적으로 응답 속도 3초 폭증하고 DB 풀 마비된 참사 |
 | **#077** | [UUID 썼더니 DB가 느려지고 시계가 뒤로 갔더니 PK가 충돌해요?!: 분산 유일 ID 생성과 트위터 스노우플레이크 (Twitter Snowflake ID & Clock Backward Defense)](problems/077-distributed-id-snowflake-clock-backward/problem.md) | **분산 시스템/비트 엔지니어링**, 64비트 Snowflake ID 비트 레이아웃, B-Tree 인덱스 단편화 방어, NTP 시계 역행(Clock Backward) 감지, 가상 시간 전진(Virtual Clock Advance) | UUID의 Page Split으로 DB 쓰기 성능 10토막 나고, 시계 2ms 역행으로 중복 PK 발급되어 결제 데이터 증발한 참사 |
 | **#078** | [외부 API를 불렀는데 왜 'Cannot assign requested address' 에러가 나요?!: TCP TIME_WAIT 소켓 고갈과 HTTP 커넥션 풀링 (TCP TIME_WAIT & Connection Pool Starvation)](problems/078-tcp-time-wait-connection-pool/problem.md) | **네트워크 엔지니어링/소켓 라이프사이클**, TCP 3-Way Handshake 및 4-Way Teardown, TIME_WAIT과 2MSL(60초), 임시 포트(Ephemeral Port) 고갈, HTTP Keep-Alive 및 커넥션 풀 재사용 | 매 요청마다 단기 연결을 맺고 끊다가 TIME_WAIT 소켓 28,000개 누적으로 포트 고갈되어 모든 외부 API 호출 셧다운된 참사 |
+| **#079** | [캐시 만료 1초 만에 DB가 폭사했어요?!: 캐시 스탬피드와 뮤텍스 락 & XFetch 확률적 조기 만료 (Cache Stampede & Mutex vs XFetch)](problems/079-cache-stampede-xfetch-mutex/problem.md) | **분산 캐시 엔지니어링/성능 최적화**, 캐시 스탬피드(Thundering Herd), 분산 뮤텍스 락(Mutex Lock), Vitter 교수의 XFetch 확률적 조기 갱신 알고리즘, DB 크래시 방어 | 인기 검색어 캐시 TTL 60초 만료 순간 5,000개 요청이 일제히 DB로 쏟아져 DB CPU 100% 폭사하고 사이트 전면 다운된 참사 |
 
 
 
