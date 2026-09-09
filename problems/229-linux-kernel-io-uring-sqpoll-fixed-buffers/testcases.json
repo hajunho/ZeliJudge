@@ -1,0 +1,34 @@
+[
+  {
+    "input": "{\"config\": {\"io_engine\": \"POSIX_AIO\", \"direct_io\": false, \"sla_latency_us\": 25.0}, \"workload\": {\"target_iops\": 500000.0, \"io_size_bytes\": 4096, \"traffic_profile\": \"ACTIVE\"}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"POSIX_AIO_NON_DIRECT_SYNCHRONOUS_BLOCKING_FALLBACK\", \"metrics\": {\"io_engine\": \"POSIX_AIO\", \"actual_iops\": 50000.0, \"throughput_mbps\": 195.31, \"syscalls_per_sec\": 50000, \"avg_latency_us\": 180.0, \"sq_overflow\": false, \"zero_syscall_rate\": 0.0}}"
+  },
+  {
+    "input": "{\"config\": {\"io_engine\": \"POSIX_AIO\", \"direct_io\": true, \"sla_latency_us\": 25.0}, \"workload\": {\"target_iops\": 500000.0, \"io_size_bytes\": 4096, \"traffic_profile\": \"ACTIVE\"}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"POSIX_AIO_SYSCALL_CONTEXT_SWITCH_BOTTLENECK\", \"metrics\": {\"io_engine\": \"POSIX_AIO\", \"actual_iops\": 320000.0, \"throughput_mbps\": 1250.0, \"syscalls_per_sec\": 20000, \"avg_latency_us\": 50.0, \"sq_overflow\": false, \"zero_syscall_rate\": 0.0}}"
+  },
+  {
+    "input": "{\"config\": {\"io_engine\": \"IO_URING\", \"direct_io\": true, \"sq_entries\": 1024, \"sqpoll_enabled\": true, \"fixed_buffers_enabled\": true, \"iopoll_enabled\": true, \"sla_latency_us\": 20.0}, \"workload\": {\"target_iops\": 500000.0, \"io_size_bytes\": 4096, \"traffic_profile\": \"ACTIVE\"}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"OPTIMAL_IO_URING_ZERO_SYSCALL_FIXED_BUFFER\", \"metrics\": {\"io_engine\": \"IO_URING\", \"actual_iops\": 500000.0, \"throughput_mbps\": 1953.12, \"syscalls_per_sec\": 0, \"avg_latency_us\": 5.0, \"sq_overflow\": false, \"zero_syscall_rate\": 1.0}}"
+  },
+  {
+    "input": "{\"config\": {\"io_engine\": \"IO_URING\", \"direct_io\": true, \"sq_entries\": 32, \"sqpoll_enabled\": true, \"fixed_buffers_enabled\": true, \"iopoll_enabled\": true, \"sla_latency_us\": 20.0}, \"workload\": {\"target_iops\": 800000.0, \"io_size_bytes\": 4096, \"traffic_profile\": \"ACTIVE\"}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"IO_URING_SQ_RING_OVERFLOW_DROP\", \"metrics\": {\"io_engine\": \"IO_URING\", \"actual_iops\": 640000.0, \"throughput_mbps\": 2500.0, \"syscalls_per_sec\": 0, \"avg_latency_us\": 45.0, \"sq_overflow\": true, \"zero_syscall_rate\": 1.0}}"
+  },
+  {
+    "input": "{\"config\": {\"io_engine\": \"IO_URING\", \"direct_io\": true, \"sq_entries\": 512, \"sqpoll_enabled\": true, \"sqpoll_idle_timeout_ms\": 10000, \"fixed_buffers_enabled\": true, \"iopoll_enabled\": true, \"sla_latency_us\": 20.0}, \"workload\": {\"target_iops\": 10.0, \"io_size_bytes\": 4096, \"traffic_profile\": \"IDLE\"}}",
+    "output": "{\"status\": \"WARNING\", \"verdict\": \"IO_URING_SQPOLL_CPU_SPIN_ENERGY_WASTE\", \"metrics\": {\"io_engine\": \"IO_URING\", \"actual_iops\": 10.0, \"throughput_mbps\": 0.04, \"syscalls_per_sec\": 0, \"avg_latency_us\": 3.5, \"sq_overflow\": false, \"zero_syscall_rate\": 1.0}}"
+  },
+  {
+    "input": "{\"config\": {\"io_engine\": \"IO_URING\", \"direct_io\": true, \"sq_entries\": 512, \"sqpoll_enabled\": true, \"sqpoll_idle_timeout_ms\": 1000, \"fixed_buffers_enabled\": true, \"iopoll_enabled\": true, \"sla_latency_us\": 20.0}, \"workload\": {\"target_iops\": 10.0, \"io_size_bytes\": 4096, \"traffic_profile\": \"IDLE\"}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"IO_URING_SQPOLL_IDLE_SLEEP_OPTIMIZED\", \"metrics\": {\"io_engine\": \"IO_URING\", \"actual_iops\": 10.0, \"throughput_mbps\": 0.04, \"syscalls_per_sec\": 0, \"avg_latency_us\": 6.5, \"sq_overflow\": false, \"zero_syscall_rate\": 1.0}}"
+  },
+  {
+    "input": "{\"config\": {\"io_engine\": \"IO_URING\", \"direct_io\": true, \"sq_entries\": 512, \"sqpoll_enabled\": true, \"fixed_buffers_enabled\": false, \"iopoll_enabled\": false, \"sla_latency_us\": 12.0}, \"workload\": {\"target_iops\": 200000.0, \"io_size_bytes\": 4096, \"traffic_profile\": \"ACTIVE\"}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"IO_URING_LATENCY_SLA_EXCEEDED\", \"metrics\": {\"io_engine\": \"IO_URING\", \"actual_iops\": 200000.0, \"throughput_mbps\": 781.25, \"syscalls_per_sec\": 0, \"avg_latency_us\": 15.5, \"sq_overflow\": false, \"zero_syscall_rate\": 1.0}}"
+  },
+  {
+    "input": "{\"config\": {\"io_engine\": \"POSIX_AIO\", \"direct_io\": true, \"sla_latency_us\": 60.0}, \"workload\": {\"target_iops\": 100000.0, \"io_size_bytes\": 4096, \"traffic_profile\": \"ACTIVE\"}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"STANDARD_POSIX_AIO_SUCCESS\", \"metrics\": {\"io_engine\": \"POSIX_AIO\", \"actual_iops\": 100000.0, \"throughput_mbps\": 390.62, \"syscalls_per_sec\": 6250, \"avg_latency_us\": 39.69, \"sq_overflow\": false, \"zero_syscall_rate\": 0.0}}"
+  }
+]
