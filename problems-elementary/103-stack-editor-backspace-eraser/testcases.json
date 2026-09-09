@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제 1: abc#d##e -> ae",
+    "input": "abc#d##e\n",
+    "expected_output": "ae"
+  },
+  {
+    "id": 2,
+    "description": "모두 지워짐: a#b#c# -> EMPTY",
+    "input": "a#b#c#\n",
+    "expected_output": "EMPTY"
+  },
+  {
+    "id": 3,
+    "description": "지울 글자가 없을 때 # 입력: ###a -> a",
+    "input": "###a\n",
+    "expected_output": "a"
+  },
+  {
+    "id": 4,
+    "description": "#이 없는 일반 문자열: hello -> hello",
+    "input": "hello\n",
+    "expected_output": "hello"
+  },
+  {
+    "id": 5,
+    "description": "처음부터 빈 백스페이스만: #### -> EMPTY",
+    "input": "####\n",
+    "expected_output": "EMPTY"
+  },
+  {
+    "id": 6,
+    "description": "연속 백스페이스: python#### -> py",
+    "input": "python####\n",
+    "expected_output": "py"
+  },
+  {
+    "id": 7,
+    "description": "단일 문자",
+    "input": "z\n",
+    "expected_output": "z"
+  },
+  {
+    "id": 8,
+    "description": "단일 문자 지움: z# -> EMPTY",
+    "input": "z#\n",
+    "expected_output": "EMPTY"
+  },
+  {
+    "id": 9,
+    "description": "복합 편집: zeli#judge##rocks -> zeljudgerocks? 아니 zeli(1지움)->zel + judge(2지움)->jud + rocks -> zeljudrocks",
+    "input": "zeli#judge##rocks\n",
+    "expected_output": "zeljudrocks"
+  },
+  {
+    "id": 10,
+    "description": "긴 문자열",
+    "input": "abcde#####fghij#####\n",
+    "expected_output": "EMPTY"
+  }
+]

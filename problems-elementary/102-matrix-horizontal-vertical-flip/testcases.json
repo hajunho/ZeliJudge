@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "2x3 좌우 반전 H: 1 2 3 / 4 5 6 -> 3 2 1 / 6 5 4",
+    "input": "2 3 H\n1 2 3\n4 5 6\n",
+    "expected_output": "3 2 1\n6 5 4"
+  },
+  {
+    "id": 2,
+    "description": "2x3 상하 반전 V: 1 2 3 / 4 5 6 -> 4 5 6 / 1 2 3",
+    "input": "2 3 V\n1 2 3\n4 5 6\n",
+    "expected_output": "4 5 6\n1 2 3"
+  },
+  {
+    "id": 3,
+    "description": "1x1 단일 칸 H -> 42",
+    "input": "1 1 H\n42\n",
+    "expected_output": "42"
+  },
+  {
+    "id": 4,
+    "description": "1x1 단일 칸 V -> 42",
+    "input": "1 1 V\n42\n",
+    "expected_output": "42"
+  },
+  {
+    "id": 5,
+    "description": "1x4 가로 행렬 H",
+    "input": "1 4 H\n1 2 3 4\n",
+    "expected_output": "4 3 2 1"
+  },
+  {
+    "id": 6,
+    "description": "4x1 세로 행렬 V",
+    "input": "4 1 V\n1\n2\n3\n4\n",
+    "expected_output": "4\n3\n2\n1"
+  },
+  {
+    "id": 7,
+    "description": "3x3 좌우 반전 H",
+    "input": "3 3 H\n1 0 0\n0 1 0\n0 0 1\n",
+    "expected_output": "0 0 1\n0 1 0\n1 0 0"
+  },
+  {
+    "id": 8,
+    "description": "3x3 상하 반전 V",
+    "input": "3 3 V\n1 2 3\n4 5 6\n7 8 9\n",
+    "expected_output": "7 8 9\n4 5 6\n1 2 3"
+  },
+  {
+    "id": 9,
+    "description": "동일한 원소들 H",
+    "input": "2 2 H\n0 0\n0 0\n",
+    "expected_output": "0 0\n0 0"
+  },
+  {
+    "id": 10,
+    "description": "음수 포함 V",
+    "input": "2 2 V\n-1 -2\n-3 -4\n",
+    "expected_output": "-3 -4\n-1 -2"
+  }
+]

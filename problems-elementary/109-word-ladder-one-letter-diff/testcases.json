@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: hot vs hit -> YES",
+    "input": "hot\nhit\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 2,
+    "description": "2글자 차이: hot vs dog -> NO",
+    "input": "hot\ndog\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 3,
+    "description": "완전히 동일한 단어 (0글자 차이): cat vs cat -> NO",
+    "input": "cat\ncat\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 4,
+    "description": "1글자 단어 다른 글자: a vs b -> YES",
+    "input": "a\nb\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 5,
+    "description": "1글자 단어 같은 글자: a vs a -> NO",
+    "input": "a\na\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 6,
+    "description": "첫 글자만 다름: cold vs bold -> YES",
+    "input": "cold\nbold\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 7,
+    "description": "마지막 글자만 다름: cold vs cord -> YES",
+    "input": "cold\ncord\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 8,
+    "description": "긴 단어 1글자 차이: python vs tython -> YES",
+    "input": "python\ntython\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 9,
+    "description": "긴 단어 2글자 차이: python vs typhnn -> NO",
+    "input": "python\ntyphnn\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 10,
+    "description": "모든 글자가 다른 경우: abcde vs vwxyz -> NO",
+    "input": "abcde\nvwxyz\n",
+    "expected_output": "NO"
+  }
+]

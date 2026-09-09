@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 완전 이진 트리 (1의 자식 2, 3) -> 2 1 3",
+    "input": "3\n1 2 3\n2 0 0\n3 0 0\n",
+    "expected_output": "2 1 3"
+  },
+  {
+    "id": 2,
+    "description": "노드 1개만 있음 -> 1",
+    "input": "1\n1 0 0\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 3,
+    "description": "왼쪽 편향 트리 (1 -> 2 -> 3) -> 3 2 1",
+    "input": "3\n1 2 0\n2 3 0\n3 0 0\n",
+    "expected_output": "3 2 1"
+  },
+  {
+    "id": 4,
+    "description": "오른쪽 편향 트리 (1 -> 2 -> 3) -> 1 2 3",
+    "input": "3\n1 0 2\n2 0 3\n3 0 0\n",
+    "expected_output": "1 2 3"
+  },
+  {
+    "id": 5,
+    "description": "5개 노드: 1의 자식 (2, 3), 2의 자식 (4, 5) -> 4 2 5 1 3",
+    "input": "5\n1 2 3\n2 4 5\n3 0 0\n4 0 0\n5 0 0\n",
+    "expected_output": "4 2 5 1 3"
+  },
+  {
+    "id": 6,
+    "description": "4개 노드 지그재그",
+    "input": "4\n1 2 0\n2 0 3\n3 4 0\n4 0 0\n",
+    "expected_output": "2 4 3 1"
+  },
+  {
+    "id": 7,
+    "description": "7개 노드 완전 이진 트리 -> 4 2 5 1 6 3 7",
+    "input": "7\n1 2 3\n2 4 5\n3 6 7\n4 0 0\n5 0 0\n6 0 0\n7 0 0\n",
+    "expected_output": "4 2 5 1 6 3 7"
+  },
+  {
+    "id": 8,
+    "description": "오른쪽 서브트리만 복잡",
+    "input": "4\n1 0 2\n2 3 4\n3 0 0\n4 0 0\n",
+    "expected_output": "1 3 2 4"
+  },
+  {
+    "id": 9,
+    "description": "입력 순서 뒤섞임",
+    "input": "3\n3 0 0\n1 2 3\n2 0 0\n",
+    "expected_output": "2 1 3"
+  },
+  {
+    "id": 10,
+    "description": "6개 노드 트리",
+    "input": "6\n1 2 3\n2 4 0\n3 5 6\n4 0 0\n5 0 0\n6 0 0\n",
+    "expected_output": "4 2 1 5 3 6"
+  }
+]

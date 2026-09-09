@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: 12 -> 2 2 3",
+    "input": "12\n",
+    "expected_output": "2 2 3"
+  },
+  {
+    "id": 2,
+    "description": "소수 자체: 7 -> 7",
+    "input": "7\n",
+    "expected_output": "7"
+  },
+  {
+    "id": 3,
+    "description": "2의 거듭제곱: 16 -> 2 2 2 2",
+    "input": "16\n",
+    "expected_output": "2 2 2 2"
+  },
+  {
+    "id": 4,
+    "description": "100 -> 2 2 5 5",
+    "input": "100\n",
+    "expected_output": "2 2 5 5"
+  },
+  {
+    "id": 5,
+    "description": "두 소수의 곱: 77 -> 7 11",
+    "input": "77\n",
+    "expected_output": "7 11"
+  },
+  {
+    "id": 6,
+    "description": "세 소수의 곱: 30 -> 2 3 5",
+    "input": "30\n",
+    "expected_output": "2 3 5"
+  },
+  {
+    "id": 7,
+    "description": "가장 작은 합성수: 4 -> 2 2",
+    "input": "4\n",
+    "expected_output": "2 2"
+  },
+  {
+    "id": 8,
+    "description": "큰 소수: 9973 -> 9973",
+    "input": "9973\n",
+    "expected_output": "9973"
+  },
+  {
+    "id": 9,
+    "description": "제곱수: 81 -> 3 3 3 3",
+    "input": "81\n",
+    "expected_output": "3 3 3 3"
+  },
+  {
+    "id": 10,
+    "description": "큰 수: 1000000 -> 2 2 2 2 2 2 5 5 5 5 5 5",
+    "input": "1000000\n",
+    "expected_output": "2 2 2 2 2 2 5 5 5 5 5 5"
+  }
+]

@@ -276,6 +276,16 @@ problems/
 | **#098** | [피자 조각 약분하기! 가장 깔끔한 기약분수 만들기](problems-elementary/098-fraction-simplifier-gcd/problem.md) | 수학, 최대공약수(GCD), 분수 약분, 기약분수 | 분자와 분모를 최대공약수로 나누어 더 이상 나눌 수 없는 가장 간단한 기약분수로 변환하기 |
 | **#099** | [미니 4x4 스도쿠 행과 열 중복 검사기](problems-elementary/099-mini-sudoku-validator/problem.md) | 2차원 배열, 집합(Set), 스도쿠 규칙, 중복 검사 | 4개의 모든 행과 4개의 모든 열에 1부터 4까지 중복 없이 들어있는지 검증하기 |
 | **#100** | [대망의 100번! 버블 정렬 vs 선택 정렬 스왑 대결](problems-elementary/100-grand-sorting-swap-race/problem.md) | 정렬 알고리즘, 버블 정렬, 선택 정렬, 연산 카운팅, 비교 분석 | 대망의 100번째 문제! 두 대표 정렬 알고리즘의 원소 교환(Swap) 횟수를 비교 분석하기 |
+| **#101** | [피자 파티 통분하기! 두 분수의 덧셈과 기약분수](problems-elementary/101-fraction-addition-irreducible/problem.md) | 수학, 분수 덧셈, 통분, 최대공약수(GCD), 기약분수 | 두 분수를 통분하여 더하고 최대공약수로 나누어 가장 깔끔한 기약분수로 나타내기 |
+| **#102** | [스마트폰 사진 뒤집기! 좌우 반전과 상하 반전](problems-elementary/102-matrix-horizontal-vertical-flip/problem.md) | 2차원 배열, 행렬 변환, 리스트 슬라이싱(`[::-1]`), 뒤집기 | H(좌우 수평 반전)와 V(상하 수직 반전) 명령에 따라 사진 행렬을 대칭 변환하기 |
+| **#103** | [메모장 커서와 글자 지우기 백스페이스](problems-elementary/103-stack-editor-backspace-eraser/problem.md) | 스택(Stack), 문자열 조작, 후입선출(LIFO), 텍스트 에디터 | 글자를 입력하다 백스페이스(`#`)를 누르면 직전 글자를 지우는 에디터 시뮬레이션 |
+| **#104** | [동물원 족보 탐험 2! 이진 트리의 중위 순회(Inorder)](problems-elementary/104-binary-tree-inorder-walk/problem.md) | 트리(Tree), 이진 트리(Binary Tree), 재귀(Recursion), 중위 순회 | [왼쪽 자식 $\rightarrow$ 현재 방 $\rightarrow$ 오른쪽 자식] 순서로 방문하는 중위 순회 탐험하기 |
+| **#105** | [동물원 족보 탐험 3! 이진 트리의 후위 순회(Postorder)](problems-elementary/105-binary-tree-postorder-walk/problem.md) | 트리(Tree), 이진 트리(Binary Tree), 재귀(Recursion), 후위 순회 | [왼쪽 자식 $\rightarrow$ 오른쪽 자식 $\rightarrow$ 현재 방] 순서로 방을 청소하며 나오는 후위 순회 |
+| **#106** | [소인수분해 나무! 소수들의 곱으로 분해하기](problems-elementary/106-prime-factorization-factor-tree/problem.md) | 수학, 정수론, 소수, 소인수분해, 반복문 | 자연수를 더 이상 쪼갤 수 없는 소수들의 곱으로 분해하는 소인수분해 알고리즘 |
+| **#107** | [성벽 순찰대! 2차원 행렬의 테두리(둘레) 합](problems-elementary/107-matrix-boundary-perimeter-sum/problem.md) | 2차원 배열, 테두리(Boundary) 순회, 중복 방지, 조건식 | 직사각형 성채의 가장자리 성벽에 배치된 경비병들의 총합을 중복 없이 계산하기 |
+| **#108** | [폭탄 돌리기 게임! M번 패스 후 폭탄을 든 사람](problems-elementary/108-circular-queue-hot-potato/problem.md) | 수학, 나머지 연산(`%`), 순환 큐, 1-based 인덱스 변환 | N명의 친구들이 둥글게 둘러앉아 폭탄을 M번 시계방향으로 돌릴 때 최종 당번 맞추기 |
+| **#109** | [한 글자만 달라요! 단어 변환 사다리 판별기](problems-elementary/109-word-ladder-one-letter-diff/problem.md) | 문자열, 글자 비교, 해밍 거리(Hamming Distance), 불리언 판별 | 길이가 같은 두 단어가 정확히 1글자만 달라 사다리 게임 규칙에 맞는지 검증하기 |
+| **#110** | [스마트폰 화면 회전! 2차원 배열 시계방향 90도 회전](problems-elementary/110-matrix-rotate-90-clockwise/problem.md) | 2차원 배열, 행렬 회전(Rotate), 좌표 변환, 기하 알고리즘 | 스마트폰을 눕혔을 때 $R \times C$ 사진 행렬을 시계방향 90도 회전시켜 $C \times R$로 변환하기 |
 
 ---
 

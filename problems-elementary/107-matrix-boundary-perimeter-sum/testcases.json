@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 3x3: 1~9 중 중앙 5를 제외한 8개 합 (45 - 5 = 40)",
+    "input": "3 3\n1 2 3\n4 5 6\n7 8 9\n",
+    "expected_output": "40"
+  },
+  {
+    "id": 2,
+    "description": "1x1 단일 칸: 전체가 테두리 -> 42",
+    "input": "1 1\n42\n",
+    "expected_output": "42"
+  },
+  {
+    "id": 3,
+    "description": "1x4 가로 행렬: 모두 테두리 (1+2+3+4 = 10)",
+    "input": "1 4\n1 2 3 4\n",
+    "expected_output": "10"
+  },
+  {
+    "id": 4,
+    "description": "4x1 세로 행렬: 모두 테두리 (1+2+3+4 = 10)",
+    "input": "4 1\n1\n2\n3\n4\n",
+    "expected_output": "10"
+  },
+  {
+    "id": 5,
+    "description": "2x2 행렬: 모두 테두리 (1+2+3+4 = 10)",
+    "input": "2 2\n1 2\n3 4\n",
+    "expected_output": "10"
+  },
+  {
+    "id": 6,
+    "description": "4x4 행렬 (내부 4개 제외)",
+    "input": "4 4\n1 1 1 1\n1 9 9 1\n1 9 9 1\n1 1 1 1\n",
+    "expected_output": "12"
+  },
+  {
+    "id": 7,
+    "description": "모두 0인 행렬",
+    "input": "3 3\n0 0 0\n0 0 0\n0 0 0\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 8,
+    "description": "음수 포함 행렬",
+    "input": "3 3\n-1 -2 -3\n-4 10 -5\n-6 -7 -8\n",
+    "expected_output": "-36"
+  },
+  {
+    "id": 9,
+    "description": "3x4 직사각형 행렬",
+    "input": "3 4\n1 2 3 4\n5 0 0 6\n7 8 9 10\n",
+    "expected_output": "55"
+  },
+  {
+    "id": 10,
+    "description": "2x3 행렬 (내부 칸 없음, 모두 테두리)",
+    "input": "2 3\n1 2 3\n4 5 6\n",
+    "expected_output": "21"
+  }
+]
