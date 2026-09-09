@@ -46,6 +46,7 @@ problems/
 | **#003** | [순진한 재귀함수의 최후: 콜 스택 오버플로우](problems/003-call-stack-overflow/problem.md) | **콜 스택(Call Stack) 프레임**, 재귀(Recursion)와 반복문 변환 | 디렉토리 구조 순회 중 깊은 폴더에서 프로세스 강제 종료 |
 | **#004** | [비동기의 배신과 한정판 티켓 참사: Race Condition & Mutex](problems/004-race-condition-mutex/problem.md) | **동시성 제어(Concurrency)**, 경쟁 상태, 원자성(Atomicity), 뮤텍스 락 | 비동기로 짠 티켓팅/포인트 차감에서 동시 클릭으로 잔고 마이너스(-380) 발생 |
 | **#005** | [문자열 덧셈의 늪: 불변 객체(Immutable)와 메모리 복사 지옥](problems/005-string-immutability/problem.md) | **메모리 구조**, 문자열 불변성(Immutability), $O(N^2)$ 메모리 복사, 가변 버퍼와 `join()` | 10만 건 로그를 `+=`로 합치다가 1시간 동안 서버 멈춘 사건 |
+| **#006** | [쿼리 지옥과 DB 사망: N+1 문제와 스트리밍 집계](problems/006-n-plus-one-generator/problem.md) | **데이터베이스 인덱싱**, N+1 쿼리 최적화, 해시 맵 그룹핑, Eager Loading vs 지연 평가 | 루프 안에서 주문상품을 개별 쿼리하다가 DB 커넥션 풀 고갈 및 OOM 폭발 |
 
 ---
 
