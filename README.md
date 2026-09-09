@@ -45,6 +45,7 @@ problems/
 | **#002** | [사라진 1원의 저주: IEEE 754 부동소수점](problems/002-floating-point-trap/problem.md) | **컴퓨터의 실수 표현 (IEEE 754)**, 2진수 소수 변환의 한계 | 장바구니 결제 합산에서 0.1 + 0.2 != 0.3 오차 발생 |
 | **#003** | [순진한 재귀함수의 최후: 콜 스택 오버플로우](problems/003-call-stack-overflow/problem.md) | **콜 스택(Call Stack) 프레임**, 재귀(Recursion)와 반복문 변환 | 디렉토리 구조 순회 중 깊은 폴더에서 프로세스 강제 종료 |
 | **#004** | [비동기의 배신과 한정판 티켓 참사: Race Condition & Mutex](problems/004-race-condition-mutex/problem.md) | **동시성 제어(Concurrency)**, 경쟁 상태, 원자성(Atomicity), 뮤텍스 락 | 비동기로 짠 티켓팅/포인트 차감에서 동시 클릭으로 잔고 마이너스(-380) 발생 |
+| **#005** | [문자열 덧셈의 늪: 불변 객체(Immutable)와 메모리 복사 지옥](problems/005-string-immutability/problem.md) | **메모리 구조**, 문자열 불변성(Immutability), $O(N^2)$ 메모리 복사, 가변 버퍼와 `join()` | 10만 건 로그를 `+=`로 합치다가 1시간 동안 서버 멈춘 사건 |
 
 ---
 
