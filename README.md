@@ -48,6 +48,7 @@ problems/
 | **#005** | [문자열 덧셈의 늪: 불변 객체(Immutable)와 메모리 복사 지옥](problems/005-string-immutability/problem.md) | **메모리 구조**, 문자열 불변성(Immutability), $O(N^2)$ 메모리 복사, 가변 버퍼와 `join()` | 10만 건 로그를 `+=`로 합치다가 1시간 동안 서버 멈춘 사건 |
 | **#006** | [쿼리 지옥과 DB 사망: N+1 문제와 스트리밍 집계](problems/006-n-plus-one-generator/problem.md) | **데이터베이스 인덱싱**, N+1 쿼리 최적화, 해시 맵 그룹핑, Eager Loading vs 지연 평가 | 루프 안에서 주문상품을 개별 쿼리하다가 DB 커넥션 풀 고갈 및 OOM 폭발 |
 | **#007** | [정렬의 배신과 최악의 분할: 퀵소트 O(N²) 함정과 Timsort](problems/007-quicksort-worst-case/problem.md) | **분할 정복**, 퀵소트 최악 시간 복잡도($O(N^2)$), 3-Way 분할, Timsort 하이브리드 원리 | 이미 정렬된 체결 데이터에서 퀵소트가 $O(N^2)$로 10분간 멈춰버린 참사 |
+| **#008** | [끝없는 폴링과 소켓 고갈: Polling vs Event-Driven](problems/008-polling-vs-event-driven/problem.md) | **네트워크 I/O 모델**, Short Polling의 비극, 이벤트 기반 푸시, I/O 다중화(epoll/웹소켓) | 0.1초마다 상태 확인 요청을 날리다가 소켓 FD 고갈로 서버실 폭파된 사건 |
 
 ---
 
