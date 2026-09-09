@@ -111,6 +111,7 @@ problems/
 | **#068** | [서버 시간을 찍었더니 UTC와 KST가 뒤섞여 결제/정산 일자가 뒤바뀌었어요?!: 분산 시스템의 타임존(Timezone) 혼란과 ISO-8601 UTC 단일 원천 원칙 (Timezone Chaos & UTC Single Source of Truth)](problems/068-timezone-utc-iso8601-standard/problem.md) | **분산 시스템/시간 엔지니어링**, UTC 단일 원천(Single Source of Truth), ISO-8601 표준 직렬화, 경계선 변환(Boundary Conversion), 나이브 시간 차감 오판 및 일일 마감 정산 왜곡 방어 | Docker 배포 후 9시간 지연 버그로 밤 11시 30분 결제가 어제 매출로 잡혀 수억 원 정산 오차 나고 24시간 환불이 15시간 만에 만료된 참사 |
 | **#069** | [DB 커밋은 됐는데 카프카 메시지 발행에 실패했어요?!: 분산 트랜잭션 듀얼 라이트의 저주와 트랜잭셔널 아웃박스 패턴 (Dual Write Problem & Transactional Outbox Pattern)](problems/069-transactional-outbox-pattern/problem.md) | **분산 트랜잭션/이벤트 주도 아키텍처**, 듀얼 라이트(Dual Write) 문제, 트랜잭셔널 아웃박스 패턴(Transactional Outbox Pattern), 로컬 ACID 원자적 커밋, 릴레이 폴링 및 At-Least-Once 무손실 보장 | 주문 DB 커밋 후 카프카 네트워크 타임아웃으로 결제 완료 이벤트가 유실되어 돈은 나갔는데 배송이 영구 누락된 참사 |
 | **#070** | [서버가 멈췄는데 아무도 몰라요?!: 데드락 탐지와 대기 그래프 사이클 (Deadlock Detection & Wait-For Graph Cycle)](problems/070-deadlock-detection-wait-for-graph/problem.md) | **데이터베이스 엔지니어링/동시성 제어**, 코프만(Coffman) 4대 조건, 대기 그래프(Wait-For Graph), DFS 사이클 탐지, 비용 기반 희생자(Victim) 선정 및 0-Tick 롤백 복구 | 결제 트랜잭션 2개가 서로의 행 락을 교차 대기하다가 50초간 전사 DB가 영구 블로킹되어 커넥션 풀 전멸한 참사 |
+| **#071** | [서버 메모리가 왜 조금씩 계속 늘어나요?!: 가비지 컬렉션(GC)과 메모리 누수의 덫 (Garbage Collection & Memory Leak via GC Roots)](problems/071-garbage-collection-memory-leak/problem.md) | **런타임 메모리 엔지니어링/가비지 컬렉션**, GC Roots 도달 가능성 분석(Reachability Analysis), 무제한 정적 캐시(Unbounded Cache) 및 미해제 리스너 누수, LRU 자동 축출 기반 OOM 방어 | 만료 정책 없는 static Map과 이벤트 리스너 해제 누락으로 수백만 개 유령 객체가 GC Root에 고정되어 매일 새벽 OOM 폭사한 참사 |
 
 
 
