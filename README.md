@@ -66,6 +66,7 @@ problems/
 | **#023** | [A는 B를 기다리고 B는 A를 기다린다: 데드락과 락 획득 순서의 저주](problems/023-deadlock-lock-ordering/problem.md) | **동시성 제어/운영체제**, 코프먼 4대 조건, 원형 대기(Circular Wait), 글로벌 락 정렬(Global Lock Ordering) | 맞송금 트랜잭션에서 서로 상대 계좌 락을 기다리며 CPU 0%로 서버 침묵 마비된 참사 |
 | **#024** | [새로고침 5번 눌렀더니 결제가 5번 됐어요?!: 멱등성과 멱등키](problems/024-api-idempotency-key/problem.md) | **분산 시스템/API 설계**, 멱등성(Idempotency), 네트워크 타임아웃 재시도, 멱등키(Idempotency-Key) 캐시 재생 | 결제 중 와이파이 단절로 새로고침 광클했다가 5번 중복 결제 터져 통장 털린 참사 |
 | **#025** | [1초에 1,000명이 몰려왔다!: 처리율 제한 장치와 토큰 버킷](problems/025-rate-limiting-token-bucket/problem.md) | **시스템 아키텍처/트래픽 제어**, 토큰 버킷(Token Bucket), 버스트(Burst) 트래픽 수용, 지연 충전(Lazy Refill) | 무료 AI API 열었다가 무한 루프 매크로 폭탄 맞아 DB 터지고 수백만 원 과금된 참사 |
+| **#026** | [캐시가 만료된 그 1초, DB가 폭발했다: 캐시 스탬피드와 뮤텍스](problems/026-cache-stampede-mutex/problem.md) | **캐싱 아키텍처/성능 최적화**, 캐시 스탬피드(Cache Stampede), 동시 DB 돌진, 싱글플라이트(Singleflight) 락 | 인기 검색어 캐시 만료 순간 수백 개 쿼리 동시 폭주로 DB 커넥션 풀 사망한 참사 |
 
 
 
