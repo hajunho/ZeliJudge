@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 반시계 방향: 1",
+    "input": "1 1 5 5 3 7\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 2,
+    "description": "기본 시계 방향: -1",
+    "input": "1 1 5 5 7 3\n",
+    "expected_output": "-1"
+  },
+  {
+    "id": 3,
+    "description": "기본 일직선: 0",
+    "input": "1 1 3 3 5 5\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 4,
+    "description": "원점 기준 직각 삼각형 반시계",
+    "input": "0 0 1 0 0 1\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 5,
+    "description": "원점 기준 직각 삼각형 시계",
+    "input": "0 0 0 1 1 0\n",
+    "expected_output": "-1"
+  },
+  {
+    "id": 6,
+    "description": "가로 일직선",
+    "input": "0 0 5 0 10 0\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 7,
+    "description": "세로 일직선",
+    "input": "0 0 0 5 0 10\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 8,
+    "description": "음수 좌표 포함 반시계",
+    "input": "-2 -2 2 -2 0 3\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 9,
+    "description": "음수 좌표 포함 시계",
+    "input": "-2 -2 0 3 2 -2\n",
+    "expected_output": "-1"
+  },
+  {
+    "id": 10,
+    "description": "큰 좌표 일직선",
+    "input": "-1000 -1000 0 0 1000 1000\n",
+    "expected_output": "0"
+  }
+]

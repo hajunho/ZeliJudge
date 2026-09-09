@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: 5 2 3 1 4 -> 6회",
+    "input": "5\n5 2 3 1 4\n",
+    "expected_output": "6"
+  },
+  {
+    "id": 2,
+    "description": "이미 정렬된 경우: 0회",
+    "input": "5\n1 2 3 4 5\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 3,
+    "description": "완전 역순 정렬: N(N-1)/2 = 10회",
+    "input": "5\n5 4 3 2 1\n",
+    "expected_output": "10"
+  },
+  {
+    "id": 4,
+    "description": "원소 1개뿐: 0회",
+    "input": "1\n42\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 5,
+    "description": "2개 원소 정렬됨: 0회",
+    "input": "2\n1 2\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 6,
+    "description": "2개 원소 역순: 1회",
+    "input": "2\n2 1\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 7,
+    "description": "모두 동일한 원소: 0회",
+    "input": "4\n3 3 3 3\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 8,
+    "description": "음수 포함 수열",
+    "input": "5\n-5 2 -1 0 3\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 9,
+    "description": "지그재그 수열: 2 1 4 3 6 5 -> 3회",
+    "input": "6\n2 1 4 3 6 5\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 10,
+    "description": "10개 난수 정렬",
+    "input": "10\n9 8 7 6 5 4 3 2 1 0\n",
+    "expected_output": "45"
+  }
+]

@@ -178,7 +178,7 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | 트랙 | 디렉토리 | 상태 및 규모 | 대상 및 핵심 교육 내용 |
 |:---:|:---:|:---:|---|
 | 🎒 **초등부 트랙 (Junior)** | `problems-elementary/` | **130문제 완결** ✅ | 초등학생 & 코딩 입문: 사칙연산, 조건/반복문, 리스트/문자열, 기초 스택/큐, 2D 격자, 기본 수학 |
-| 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **30문제 (진행 중)** 🚀 | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 기초 그리디 |
+| 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **40문제 (진행 중)** 🚀 | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 기초 그리디 |
 | 🎓 **고등부 트랙 (High)** | `problems-high/` | 중등부 완결 후 예정 🔜 | 고등학생 & KOI/대회: 다이나믹 프로그래밍(DP), 이진 탐색, 그래프(DFS/BFS), 트리 순회, 백트래킹 |
 | 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 110+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/락, Kafka, 캐시 스탬피드, ReDoS, 고가용성 아키텍처 |
 
@@ -367,6 +367,16 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | **#028** | [최대한 많은 회의 잡기! 활동 선택 문제 (Greedy Interval Scheduling)](problems-middle/028-greedy-meeting-room-allocation/problem.md) | 그리디, 활동 선택 문제, 정렬, 스케줄링 | 끝나는 시간이 빠른 순서대로 회의를 배정하여 겹치지 않고 진행할 수 있는 최대 회의 수 구하기 |
 | **#029** | [쪼갤 수 있는 보석 배낭! 분할 가능 배낭 문제 (Fractional Knapsack)](problems-middle/029-fractional-knapsack-greedy/problem.md) | 그리디, 분할 배낭, 단위 무게당 가치 | 보석을 원하는 만큼 쪼갤 수 있을 때 단위 무게당 가치가 높은 순으로 최대 가치 담기 |
 | **#030** | [바다에 둘러싸인 섬의 둘레 구하기 (Matrix Island Perimeter)](problems-middle/030-matrix-island-perimeter-floodfill/problem.md) | 2차원 배열, 격자 탐색, 둘레 계산, 시뮬레이션 | 2차원 격자 지도에서 육지(1)가 바다(0)나 격자 경계와 맞닿은 변의 총 둘레 계산하기 |
+| **#031** | [길치 탈출! 다익스트라(Dijkstra) 최단 경로](problems-middle/031-dijkstra-shortest-path/problem.md) | 최단 경로, 다익스트라, 우선순위 큐(Heap), $O(E \log V)$ | 1번 장소에서 출발하여 모든 장소로 도달하는 최단 소요 시간을 최소 힙으로 고속 탐색하기 |
+| **#032** | [전설의 원판 옮기기! 하노이의 탑 (Tower of Hanoi)](problems-middle/032-tower-of-hanoi-recursive/problem.md) | 재귀, 분할 정복, 점화식, $O(2^N)$ | $N$개의 원판을 최소 횟수($2^N-1$)로 3번 기둥으로 옮기는 분할 정복 재귀 구현하기 |
+| **#033** | [피보나치 토끼 증식! 동적 계획법과 메모이제이션](problems-middle/033-fibonacci-dp-memoization/problem.md) | 동적 계획법(DP), 메모이제이션, 피보나치, $O(N)$ | 지수 시간($O(2^N)$)의 중복 계산 참사를 $O(N)$ 상향식 DP로 해결하고 모듈러 연산 적용하기 |
+| **#034** | [네모난 밭의 보물 합! 2차원 누적합 (2D Prefix Sum)](problems-middle/034-2d-prefix-sum-submatrix/problem.md) | 2차원 누적합, 포함-배제 원리, 구간 쿼리, $O(1)$ | 밭의 임의 직사각형 구역의 합을 포함-배제 원리를 이용해 쿼리당 $O(1)$에 계산하기 |
+| **#035** | [세 가지 길로 숲을 거닐다! 이진 트리 순회 (Pre/In/Post-order)](problems-middle/035-tree-traversal-pre-in-post/problem.md) | 트리 순회, 전위/중위/후위, 재귀, 자료구조 | 루트의 방문 시점에 따라 전위(VLR), 중위(LVR), 후위(LRV)로 이진 트리를 탐색하기 |
+| **#036** | [우리는 한 팀! 유니온 파인드 (Union-Find 서로소 집합)](problems-middle/036-disjoint-set-union-find/problem.md) | 서로소 집합, 유니온 파인드, 경로 압축, $O(\alpha(N))$ | 팀 합치기(Union)와 같은 팀 판별(Find)을 경로 압축 최적화로 사실상 $O(1)$에 처리하기 |
+| **#037** | [최소 비용 전력망 연결! 크루스칼 (Kruskal MST)](problems-middle/037-kruskal-minimum-spanning-tree/problem.md) | 최소 신장 트리(MST), 크루스칼, 그리디, 유니온 파인드 | 간선을 가중치 오름차순으로 정렬 후 사이클 없이 모든 마을을 잇는 최소 비용 전력망 구성하기 |
+| **#038** | [마법의 비밀번호 후보! 순열(Permutation) 백트래킹](problems-middle/038-backtracking-permutations-n-p-r/problem.md) | 백트래킹, 순열($_N P_R$), 상태 복구, 완전 탐색 | 1부터 N까지 수 중 중복 없이 R개를 뽑는 모든 순열을 사전순으로 탐색하고 복구하기 |
+| **#039** | [옆 사람과 자리 바꾸기! 버블 정렬과 스왑 횟수](problems-middle/039-bubble-sort-inversion-count/problem.md) | 버블 정렬, 스왑 횟수, 반전(Inversion), $O(N^2)$ | 인접 원소를 교환하며 정렬할 때 총 Swap 횟수가 초기 수열의 반전 쌍 개수와 일치함을 체험하기 |
+| **#040** | [시계 방향일까 반시계 방향일까? 세 점의 방향성 (CCW)](problems-middle/040-geometry-ccw-shoelace/problem.md) | 기하, CCW, 신발끈 공식, 벡터 외적 | 평면 위 세 점의 좌표로 벡터 외적을 구해 반시계(1), 시계(-1), 일직선(0) 회전 판별하기 |
 
 ---
 

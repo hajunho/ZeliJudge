@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: 7개 노드",
+    "input": "7\nA B C\nB D .\nC E F\nE . .\nF . G\nD . .\nG . .\n",
+    "expected_output": "ABDCEFG\nDBAECFG\nDBEGFCA"
+  },
+  {
+    "id": 2,
+    "description": "단일 노드: 루트만 존재",
+    "input": "1\nA . .\n",
+    "expected_output": "A\nA\nA"
+  },
+  {
+    "id": 3,
+    "description": "왼쪽으로만 치우친 편향 트리",
+    "input": "3\nA B .\nB C .\nC . .\n",
+    "expected_output": "ABC\nCBA\nCBA"
+  },
+  {
+    "id": 4,
+    "description": "오른쪽으로만 치우친 편향 트리",
+    "input": "3\nA . B\nB . C\nC . .\n",
+    "expected_output": "ABC\nABC\nCBA"
+  },
+  {
+    "id": 5,
+    "description": "루트와 양쪽 자식 2개",
+    "input": "3\nA B C\nB . .\nC . .\n",
+    "expected_output": "ABC\nBAC\nBCA"
+  },
+  {
+    "id": 6,
+    "description": "지그재그 형태 4개 노드",
+    "input": "4\nA B .\nB . C\nC D .\nD . .\n",
+    "expected_output": "ABCD\nBDCA\nDCBA"
+  },
+  {
+    "id": 7,
+    "description": "완전 이진 트리 7개 노드 (A부터 G)",
+    "input": "7\nA B C\nB D E\nC F G\nD . .\nE . .\nF . .\nG . .\n",
+    "expected_output": "ABDECFG\nDBEAFCG\nDEBFGCA"
+  },
+  {
+    "id": 8,
+    "description": "오른쪽 서브트리만 풍성한 트리",
+    "input": "5\nA B C\nB . .\nC D E\nD . .\nE . .\n",
+    "expected_output": "ABCDE\nBADCE\nBDECA"
+  },
+  {
+    "id": 9,
+    "description": "왼쪽 서브트리만 풍성한 트리",
+    "input": "5\nA B C\nB D E\nC . .\nD . .\nE . .\n",
+    "expected_output": "ABDEC\nDBEAC\nDEBCA"
+  },
+  {
+    "id": 10,
+    "description": "8개 노드 복합 이진 트리",
+    "input": "8\nA B C\nB D .\nC E F\nD G H\nE . .\nF . .\nG . .\nH . .\n",
+    "expected_output": "ABDGHCEF\nGDHBAECF\nGHDBEFCA"
+  }
+]
