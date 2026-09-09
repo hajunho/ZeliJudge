@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: 손자산경 수수께끼 (2 mod 3, 3 mod 5) -> 8",
+    "input": "2 3 3 5",
+    "expected_output": "8"
+  },
+  {
+    "desc": "나머지가 모두 0인 경우: 최소 양의 정수는 m1 * m2",
+    "input": "0 2 0 3",
+    "expected_output": "6"
+  },
+  {
+    "desc": "동일한 나머지 r1 == r2",
+    "input": "1 4 1 7",
+    "expected_output": "1"
+  },
+  {
+    "desc": "연속된 두 수 (서로소 보장: m, m+1)",
+    "input": "3 10 4 11",
+    "expected_output": "103"
+  },
+  {
+    "desc": "큰 소수 두 개",
+    "input": "5 1009 12 1013",
+    "expected_output": "764827"
+  },
+  {
+    "desc": "한쪽 나머지가 0인 경우",
+    "input": "0 7 2 5",
+    "expected_output": "7"
+  },
+  {
+    "desc": "2와 홀수 소수",
+    "input": "1 2 4 9",
+    "expected_output": "13"
+  },
+  {
+    "desc": "큰 수 합동식",
+    "input": "123 10007 456 10009",
+    "expected_output": "48413989"
+  },
+  {
+    "desc": "나머지가 m-1인 경우 (X = -1 mod m)",
+    "input": "2 3 6 7",
+    "expected_output": "20"
+  },
+  {
+    "desc": "거대 서로소 두 수",
+    "input": "9999999 1000000007 8888888 1000000009",
+    "expected_output": "500555563513888919"
+  }
+]

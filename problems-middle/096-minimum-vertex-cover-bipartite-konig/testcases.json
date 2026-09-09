@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: 3x3 이분 그래프 4개 간선 -> 3",
+    "input": "3 3 4\n1 1\n1 2\n2 2\n3 3",
+    "expected_output": "3"
+  },
+  {
+    "desc": "간선이 없는 경우: 0명",
+    "input": "2 2 0",
+    "expected_output": "0"
+  },
+  {
+    "desc": "A 구역 1번 방에 모든 통로가 몰린 스타 그래프: 1명으로 올킬",
+    "input": "1 4 4\n1 1\n1 2\n1 3\n1 4",
+    "expected_output": "1"
+  },
+  {
+    "desc": "완벽한 일대일 매칭 3쌍",
+    "input": "3 3 3\n1 1\n2 2\n3 3",
+    "expected_output": "3"
+  },
+  {
+    "desc": "2x2 완전 이분 그래프 K(2, 2)",
+    "input": "2 2 4\n1 1\n1 2\n2 1\n2 2",
+    "expected_output": "2"
+  },
+  {
+    "desc": "단일 간선",
+    "input": "1 1 1\n1 1",
+    "expected_output": "1"
+  },
+  {
+    "desc": "지그재그 체인 연결",
+    "input": "4 4 4\n1 1\n2 1\n2 2\n3 2",
+    "expected_output": "2"
+  },
+  {
+    "desc": "중복 간선이 없는 5x5 그래프",
+    "input": "5 5 6\n1 1\n1 2\n2 3\n3 3\n4 4\n5 5",
+    "expected_output": "4"
+  },
+  {
+    "desc": "크기가 비대칭인 5x2 그래프",
+    "input": "5 2 5\n1 1\n2 1\n3 1\n4 2\n5 2",
+    "expected_output": "2"
+  },
+  {
+    "desc": "복합 6x6 이분 그래프",
+    "input": "6 6 8\n1 1\n2 2\n3 2\n3 3\n4 4\n5 4\n5 5\n6 6",
+    "expected_output": "6"
+  }
+]

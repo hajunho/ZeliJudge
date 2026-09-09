@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: 6개 수 -> 28 (5 XOR 25)",
+    "input": "6\n3 10 5 25 2 8",
+    "expected_output": "28"
+  },
+  {
+    "desc": "두 수뿐인 경우",
+    "input": "2\n1 2",
+    "expected_output": "3"
+  },
+  {
+    "desc": "완전히 보수 관계인 두 수 (7과 0)",
+    "input": "3\n7 0 7",
+    "expected_output": "7"
+  },
+  {
+    "desc": "모두 동일한 수들 -> 0",
+    "input": "4\n5 5 5 5",
+    "expected_output": "0"
+  },
+  {
+    "desc": "2의 거듭제곱들",
+    "input": "4\n1 2 4 8",
+    "expected_output": "12"
+  },
+  {
+    "desc": "0이 포함된 수열",
+    "input": "3\n0 15 10",
+    "expected_output": "15"
+  },
+  {
+    "desc": "연속된 수들",
+    "input": "5\n1 2 3 4 5",
+    "expected_output": "7"
+  },
+  {
+    "desc": "큰 수들 (10^9 근처)",
+    "input": "3\n1000000000 500000000 750000000",
+    "expected_output": "830042752"
+  },
+  {
+    "desc": "8개 수 복합",
+    "input": "8\n14 70 53 83 49 91 36 80",
+    "expected_output": "127"
+  },
+  {
+    "desc": "10개 난수 형태",
+    "input": "10\n100 200 300 400 500 600 700 800 900 1000",
+    "expected_output": "1000"
+  }
+]

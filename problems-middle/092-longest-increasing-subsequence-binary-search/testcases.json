@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: 6개 원소 -> 길이 4 (10 20 30 50)",
+    "input": "6\n10 20 10 30 20 50",
+    "expected_output": "4\n10 20 30 50"
+  },
+  {
+    "desc": "원소 1개뿐인 수열",
+    "input": "1\n42",
+    "expected_output": "1\n42"
+  },
+  {
+    "desc": "이미 완벽하게 정렬된 수열",
+    "input": "5\n1 2 3 4 5",
+    "expected_output": "5\n1 2 3 4 5"
+  },
+  {
+    "desc": "역정렬된 수열 (LIS 길이는 1)",
+    "input": "5\n5 4 3 2 1",
+    "expected_output": "1\n1"
+  },
+  {
+    "desc": "모두 동일한 원소 (엄격 증가이므로 길이 1)",
+    "input": "4\n7 7 7 7",
+    "expected_output": "1\n7"
+  },
+  {
+    "desc": "음수를 포함하는 수열",
+    "input": "5\n-10 -5 0 5 10",
+    "expected_output": "5\n-10 -5 0 5 10"
+  },
+  {
+    "desc": "지그재그 진동 수열",
+    "input": "6\n1 5 2 6 3 7",
+    "expected_output": "4\n1 2 3 7"
+  },
+  {
+    "desc": "동일 값 갱신이 빈번한 경우",
+    "input": "6\n10 10 20 20 30 30",
+    "expected_output": "3\n10 20 30"
+  },
+  {
+    "desc": "큰 값과 작은 값이 뒤섞인 8개 수열",
+    "input": "8\n3 2 6 4 5 1 7 8",
+    "expected_output": "5\n2 4 5 7 8"
+  },
+  {
+    "desc": "10개 원소 복합 LIS",
+    "input": "10\n10 9 2 5 3 7 101 18 20 21",
+    "expected_output": "6\n2 3 7 18 20 21"
+  }
+]

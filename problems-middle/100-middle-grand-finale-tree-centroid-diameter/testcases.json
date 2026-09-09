@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: 5개 도시 트리",
+    "input": "5\n1 2 3\n1 3 2\n2 4 5\n2 5 4",
+    "expected_output": "2\n10"
+  },
+  {
+    "desc": "도시 1개뿐인 경우: 중심 1, 지름 0",
+    "input": "1",
+    "expected_output": "1\n0"
+  },
+  {
+    "desc": "도시 2개: 간선 1개 (가중치 10)",
+    "input": "2\n1 2 10",
+    "expected_output": "1\n10"
+  },
+  {
+    "desc": "일렬 직선 트리 4개 도시",
+    "input": "4\n1 2 5\n2 3 5\n3 4 5",
+    "expected_output": "2\n15"
+  },
+  {
+    "desc": "스타 형태 트리 (1번이 중심)",
+    "input": "5\n1 2 1\n1 3 2\n1 4 3\n1 5 4",
+    "expected_output": "1\n7"
+  },
+  {
+    "desc": "완전 대칭 이진 트리 7개 도시",
+    "input": "7\n1 2 2\n1 3 2\n2 4 3\n2 5 3\n3 6 3\n3 7 3",
+    "expected_output": "1\n10"
+  },
+  {
+    "desc": "가중치가 매우 큰 트리",
+    "input": "3\n1 2 1000\n2 3 2000",
+    "expected_output": "2\n3000"
+  },
+  {
+    "desc": "무게중심이 2개인 트리 (짝수 N=4)",
+    "input": "4\n1 2 1\n2 3 1\n3 4 1",
+    "expected_output": "2\n3"
+  },
+  {
+    "desc": "긴 체인과 가지가 결합된 트리",
+    "input": "6\n1 2 10\n2 3 20\n3 4 30\n2 5 5\n3 6 5",
+    "expected_output": "2\n60"
+  },
+  {
+    "desc": "10개 도시 복합 트리",
+    "input": "10\n1 2 4\n1 3 8\n2 4 8\n2 5 2\n3 6 1\n3 7 4\n5 8 10\n5 9 2\n7 10 3",
+    "expected_output": "1\n31"
+  }
+]

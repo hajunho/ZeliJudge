@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: ushers에서 he, she, his, hers 매칭 -> 3",
+    "input": "4\nhe she his hers\nushers",
+    "expected_output": "3"
+  },
+  {
+    "desc": "매칭이 전혀 없는 경우 -> 0",
+    "input": "2\ncat dog\napplebanana",
+    "expected_output": "0"
+  },
+  {
+    "desc": "단일 패턴이 반복되는 경우",
+    "input": "1\na\naaaaa",
+    "expected_output": "5"
+  },
+  {
+    "desc": "부분 문자열 포함 관계 (a, aa, aaa)",
+    "input": "3\na aa aaa\naaa",
+    "expected_output": "6"
+  },
+  {
+    "desc": "본문 전체가 단어 하나와 일치",
+    "input": "1\nhello\nhello",
+    "expected_output": "1"
+  },
+  {
+    "desc": "단어 앞부분이 겹치는 경우",
+    "input": "3\nabc ab a\nabcd",
+    "expected_output": "3"
+  },
+  {
+    "desc": "본문 길이가 1인 경우",
+    "input": "2\nx y\nz",
+    "expected_output": "0"
+  },
+  {
+    "desc": "중복된 단어가 여러 번 등장하는 긴 텍스트",
+    "input": "3\nban ana an\nbanana",
+    "expected_output": "5"
+  },
+  {
+    "desc": "공통 접미사를 공유하는 단어들",
+    "input": "4\ning sing ring bring\nspringrings",
+    "expected_output": "4"
+  },
+  {
+    "desc": "복합 다중 패턴 탐색",
+    "input": "5\ntest tester testin sting ing\ntestingtested",
+    "expected_output": "5"
+  }
+]

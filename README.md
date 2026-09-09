@@ -167,6 +167,7 @@ problems/
 | **#124** | [DB에 컬럼 하나 추가했을 뿐인데 왜 10초 만에 전사 커넥션이 폭사해요?!: MySQL 메타데이터 락(Metadata Lock, MDL) 큐 블로킹과 고스트(gh-ost) 온라인 DDL 알고리즘 (MySQL Metadata Lock & gh-ost Online DDL Simulator)](problems/124-mysql-metadata-lock-online-ddl/problem.md) | **데이터베이스 엔지니어링/동시성 제어/MySQL 내부 아키텍처**, 메타데이터 락(MDL) SHARED vs EXCLUSIVE 호환성, DDL 대기 시 EXCLUSIVE 큐 우선순위와 후속 일반 쿼리 전면 블로킹 참사, HikariCP 커넥션 풀 고갈과 504 타임아웃, gh-ost 섀도우 테이블/청크 백필/Binlog 델타 복제/원자적 컷오버 무중단 스키마 변경 | 롱 트랜잭션 도중 ALTER TABLE 날렸다가 대기 큐 블로킹으로 전사 커넥션 100% 고갈되어 서비스 마비된 참사와 gh-ost 온라인 DDL 구원 원리 |
 | **#125** | [관리자 페이지를 사내 IP로 막았는데 왜 해커가 뚫려요?!: 리버스 프록시(Reverse Proxy) 다계층 네트워크와 X-Forwarded-For(XFF) 헤더 위조(IP Spoofing) 방어 & Trusted Proxy 역방향 체인 검증 (Reverse Proxy Client IP Spoofing Defense)](problems/125-reverse-proxy-client-ip-spoofing/problem.md) | **컴퓨터 네트워크/웹 보안/인프라 아키텍처**, 리버스 프록시(ALB, Nginx) 뒤 클라이언트 IP 유실 문제, X-Forwarded-For 첫 번째 값 맹신 취약점(CWE-290 IP Spoofing), Right-to-Left 역방향 신뢰 체인 탐색 알고리즘, CIDR 서브넷 매칭, Nginx/Tomcat/Spring real_ip 내부 원리 | 사내 VPN IP로 관리자 페이지 막아뒀는데 X-Forwarded-For 헤더 위조 공격에 뚫려 전사 회원 DB 털린 참사와 역방향 신뢰 체인 검증 구원 원리 |
 | **#126** | [CPU 5%인데 왜 서버가 뻗고 로드 애버리지(Load Average)가 100을 찍어요?!: 리눅스 커널 프로세스 D 상태(TASK_UNINTERRUPTIBLE)와 지수 감쇠 이동 평균(EMA) (Linux Load Average & D-State Process Mystery)](problems/126-linux-loadavg-d-state-uninterruptible/problem.md) | **운영체제 커널/시스템 모니터링/리눅스 성능 분석**, CPU 사용률(Utilization) vs 로드 애버리지(Demand)의 본질적 차이, 1993년 리눅스 토발즈의 D 상태 편입 패치, TASK_UNINTERRUPTIBLE 프로세스가 kill -9로도 죽지 않는 하드웨어 보호 이유, 5초 주기 지수 감쇠 이동 평균(EMA), I/O 스토리지 병목 진단 | CPU 5%인데 NFS 지연으로 D 상태 프로세스 폭증해 Load Average 100 찍고 서버 멈춘 참사와 kill -9 불능 원리 및 EMA 커널 공식 |
+| **#127** | [브라우저에선 초록불인데 왜 모바일 앱에선 결제가 다 터져요?!: TLS X.509 인증서 체인(Certificate Chain)과 누락된 중간 CA(Intermediate CA) & AIA(Authority Information Access)의 저주 (TLS Certificate Chain Validation & AIA Fetching)](problems/127-tls-certificate-chain-and-aia/problem.md) | **컴퓨터 네트워크/정보보안/PKI 인프라**, X.509 인증서 체인(Leaf -> Intermediate -> Root), cert.pem vs fullchain.pem의 치명적 차이, 데스크톱 브라우저 AIA(Authority Information Access) 백그라운드 페칭 vs 모바일 앱(OkHttp) 즉시 검증 실패, Trust Store 앵커 검증 | Nginx에 cert.pem만 넣었다가 PC에선 잘 되는데 모바일 앱 결제 30%가 Trust anchor not found로 전면 마비된 참사와 fullchain.pem 구원 원리 |
 
 
 
@@ -181,7 +182,7 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | 트랙 | 디렉토리 | 상태 및 규모 | 대상 및 핵심 교육 내용 |
 |:---:|:---:|:---:|---|
 | 🎒 **초등부 트랙 (Junior)** | `problems-elementary/` | **130문제 완결** ✅ | 초등학생 & 코딩 입문: 사칙연산, 조건/반복문, 리스트/문자열, 기초 스택/큐, 2D 격자, 기본 수학 |
-| 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **90문제 (진행 중)** 🚀 | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 기초 그리디 |
+| 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **100문제 (진행 중)** 🚀 | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 기초 그리디 |
 | 🎓 **고등부 트랙 (High)** | `problems-high/` | 중등부 완결 후 예정 🔜 | 고등학생 & KOI/대회: 다이나믹 프로그래밍(DP), 이진 탐색, 그래프(DFS/BFS), 트리 순회, 백트래킹 |
 | 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 110+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/락, Kafka, 캐시 스탬피드, ReDoS, 고가용성 아키텍처 |
 
@@ -430,6 +431,16 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | **#088** | [이 라우터가 꺼지면 전산망이 두 동강 나요! 그래프의 단절점 (Articulation Point)](problems-middle/088-articulation-point-cut-vertex/problem.md) | 그래프, 단절점(Cut Vertex), DFS 트리, Tarjan 알고리즘, $O(V + E)$ | 노드 제거 시 컴포넌트가 분리되는 핵심 정점들을 DFS 트리 상의 우회로 부재 조건으로 검출 |
 | **#089** | [N이 10억이어도 0.001초 만에! 행렬 거듭제곱과 거대 피보나치 수 (Matrix Exponentiation)](problems-middle/089-matrix-exponentiation-fibonacci/problem.md) | 정수론, 행렬 곱셈, 분할 정복 거듭제곱, $O(\log N)$, 모듈러 연산 | 피보나치 점화식을 $2 \times 2$ 행렬 거듭제곱으로 변환하여 $N=10^{15}$의 값을 1ms에 계산 |
 | **#090** | [점들을 둘러싸는 울타리의 총 둘레! 볼록 껍질 둘레 계산 (Convex Hull Perimeter)](problems-middle/090-geometry-convex-hull-perimeter/problem.md) | 기하 알고리즘, 볼록 껍질, 모노톤 체인, 유클리드 둘레, $O(N \log N)$ | 점 집합의 볼록 껍질 다각형을 구하고 외곽 변들의 유클리드 거리를 모두 합산해 둘레 산출 |
+| **#091** | [참일까 거짓일까? 2-SAT과 함의 그래프 (2-Satisfiability via SCC)](problems-middle/091-two-sat-implication-graph-scc/problem.md) | 그래프, 2-SAT, 함의 그래프, 강한 연결 요소(SCC), $O(N + M)$ | 불리언 변수 절들을 함의 간선으로 변환하고 타잔 SCC로 모순 여부 및 진리값 해 복원 |
+| **#092** | [O(N²)의 한계를 넘어! 이분 탐색 최장 증가 부분 수열 (LIS O(N log N))](problems-middle/092-longest-increasing-subsequence-binary-search/problem.md) | 이분 탐색, 최장 증가 부분 수열(LIS), Patience Sorting, $O(N \log N)$ | `tails` 배열에 이진 탐색을 적용하여 10만 개 수열의 LIS 길이와 실제 수열 복원 |
+| **#093** | [구간 내 최솟값을 한눈에! 세그먼트 트리 구간 최솟값 쿼리 (RMQ)](problems-middle/093-segment-tree-range-minimum-query/problem.md) | 자료구조, 세그먼트 트리, 구간 최솟값 쿼리(RMQ), $O(\log N)$ | 수열의 동적 단일점 갱신과 임의 구간의 최솟값을 로그 시간에 고속 질의하기 |
+| **#094** | [고대 수학자의 암호 풀이! 중국인의 나머지 정리 (CRT)](problems-middle/094-chinese-remainder-theorem/problem.md) | 정수론, 중국인의 나머지 정리(CRT), 확장 유클리드, 연립합동식 | 서로소인 두 법에 대한 연립합동식을 만족하는 유일한 최소 양의 정수 해 도출 |
+| **#095** | [트리를 일렬로 펴서 배열로 만들기! 오일러 투어 테크닉 (Euler Tour Technique)](problems-middle/095-euler-tour-technique-subtree-query/problem.md) | 트리, 오일러 투어 테크닉(ETT), 펜윅 트리, 서브트리 쿼리, $O(\log N)$ | 트리의 진입/퇴출 시점을 기록해 서브트리를 1차원 연속 구간으로 평탄화하여 쿼리 처리 |
+| **#096** | [감시 카메라 최소 설치! 이분 매칭과 쾨닉의 정리 (König's Theorem)](problems-middle/096-minimum-vertex-cover-bipartite-konig/problem.md) | 이분 매칭, 쾨닉의 정리(König), 최소 버텍스 커버, Kuhn 알고리즘 | 모든 통로를 감시하기 위한 최소 정점 커버 크기가 최대 이분 매칭 크기와 같음을 활용 |
+| **#097** | [비트의 갈림길을 따라! 트라이를 이용한 두 수의 최대 XOR (Maximum XOR Pair)](problems-middle/097-trie-xor-maximum-pair/problem.md) | 자료구조, 이진 트라이(Binary Trie), 비트 조작, 그리디, $O(30 N)$ | 30비트 이진 트라이를 구축하고 반대 비트를 탐욕적으로 추적해 두 수의 최대 XOR 산출 |
+| **#098** | [여러 단어를 동시에 한 번에 검색! 아호-코라식(Aho-Corasick) 다중 패턴 탐색](problems-middle/098-aho-corasick-multi-pattern-matching/problem.md) | 문자열, 아호-코라식(Aho-Corasick), 트라이, 실패 링크, $O(|Text| + \sum |P|)$ | 트라이에 BFS로 실패 링크를 연결하여 본문 텍스트 단 1회 순회로 다중 패턴 동시 매칭 |
+| **#099** | [꼭짓점 좌표만으로 땅의 넓이 구하기! 신발끈 공식 (Shoelace Formula)](problems-middle/099-geometry-shoelace-polygon-area/problem.md) | 기하 알고리즘, 신발끈 공식, 다각형 넓이, 벡터 외적, $O(N)$ | 단순 다각형의 꼭짓점 좌표 외적 합으로 오목/볼록 상관없이 정확한 다각형 면적 계산 |
+| **#100** | [영예의 100번째 문제! 트리의 무게중심과 가중치 지름 (Tree Centroid & Diameter)](problems-middle/100-middle-grand-finale-tree-centroid-diameter/problem.md) | 트리 DP, 무게중심(Centroid), 트리 지름(Diameter), 2단계 BFS, $O(N)$ | 중등부 100번째 피날레: 서브트리 크기 조건의 무게중심과 최장 가중치 경로 지름 동시 계산 |
 
 ---
 
