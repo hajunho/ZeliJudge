@@ -61,6 +61,7 @@ problems/
 | **#018** | [롤러코스터 대기열과 50억 번의 발걸음: list.pop(0) vs collections.deque](problems/018-queue-shift-vs-deque/problem.md) | **자료구조/메모리 물리배치**, 동적 배열의 원소 메모리 시프트($O(N)$), 이중 연결 리스트 덱($O(1)$) | 10만 명 대기열에서 `pop(0)` 썼다가 50억 번 메모리 복사로 서버 CPU 100% 뻗은 참사 |
 | **#019** | [C++을 검색했는데 왜 C가 나와?: URL 인코딩(Percent-Encoding)과 예약어의 배신](problems/019-url-percent-encoding/problem.md) | **네트워크/웹 프로토콜**, RFC 3986 퍼센트 인코딩, 예약어 충돌(`+`, `&`, `#`), 쿼리 파라미터 파싱 왜곡 | f-string으로 URL 조립했다가 `+`는 공백, `&`/`#`은 잘려나가 검색어 다 훼손된 참사 |
 | **#020** | [도서관 신청서에 불을 지르다: SQL Injection과 파라미터 바인딩](problems/020-sql-injection-prepared-stmt/problem.md) | **정보보안/데이터베이스**, Code as Data vs Data as Code, AST 파싱 왜곡, Prepared Statement | f-string으로 쿼리 합쳤다가 주석 공격(`--`)과 `' OR '1'='1`로 최고관리자 털린 참사 |
+| **#021** | [async로 짰는데 왜 1초씩 멈춰요?: 이벤트 루프와 블로킹 I/O의 배신](problems/021-asyncio-event-loop-blocking/problem.md) | **비동기 런타임/동시성**, 싱글 스레드 이벤트 루프, 협력적 멀티태스킹, time.sleep() 동결 지연 | FastAPI에 무심코 time.sleep() 넣었다가 전 사용자 화면이 2초씩 멈춘 참사 |
 
 
 
