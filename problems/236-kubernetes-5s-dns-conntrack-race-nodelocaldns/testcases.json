@@ -1,0 +1,34 @@
+[
+  {
+    "input": "{\"config\": {\"dns_architecture\": \"NODELOCAL_DNSCACHE\", \"resolv_options\": \"DEFAULT\", \"conntrack_max\": 131072, \"conntrack_count\": 45000, \"kube_proxy_mode\": \"IPTABLES\", \"dns_timeout_sec\": 5.0}, \"workload\": {\"total_dns_lookups\": 10000, \"parallel_a_aaaa_queries\": true, \"traffic_concurrency\": 250, \"cache_hit_rate\": 0.85}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"OPTIMAL_NODELOCAL_DNSCACHE_DEFENSE\", \"metrics\": {\"conntrack_usage_pct\": 34.3, \"five_second_stalls_count\": 0, \"avg_dns_latency_ms\": 0.4, \"p99_dns_latency_ms\": 0.8, \"conntrack_entries_created\": 0, \"netfilter_race_drops\": 0}}"
+  },
+  {
+    "input": "{\"config\": {\"dns_architecture\": \"CORE_DNS_CLUSTERIP\", \"resolv_options\": \"DEFAULT\", \"conntrack_max\": 131072, \"conntrack_count\": 45000, \"kube_proxy_mode\": \"IPTABLES\", \"dns_timeout_sec\": 5.0}, \"workload\": {\"total_dns_lookups\": 10000, \"parallel_a_aaaa_queries\": true, \"traffic_concurrency\": 250, \"cache_hit_rate\": 0.85}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"KUBERNETES_5S_DNS_CONNTRACK_RACE_DISASTER\", \"metrics\": {\"conntrack_usage_pct\": 49.6, \"five_second_stalls_count\": 350, \"avg_dns_latency_ms\": 177.4, \"p99_dns_latency_ms\": 5005.0, \"conntrack_entries_created\": 20000, \"netfilter_race_drops\": 350}}"
+  },
+  {
+    "input": "{\"config\": {\"dns_architecture\": \"CORE_DNS_CLUSTERIP\", \"resolv_options\": \"SINGLE_REQUEST_REOPEN\", \"conntrack_max\": 131072, \"conntrack_count\": 45000, \"kube_proxy_mode\": \"IPTABLES\", \"dns_timeout_sec\": 5.0}, \"workload\": {\"total_dns_lookups\": 10000, \"parallel_a_aaaa_queries\": true, \"traffic_concurrency\": 250, \"cache_hit_rate\": 0.85}}",
+    "output": "{\"status\": \"WARNING\", \"verdict\": \"SINGLE_REQUEST_REOPEN_SERIAL_LATENCY_WORKAROUND\", \"metrics\": {\"conntrack_usage_pct\": 49.6, \"five_second_stalls_count\": 0, \"avg_dns_latency_ms\": 6.5, \"p99_dns_latency_ms\": 14.5, \"conntrack_entries_created\": 20000, \"netfilter_race_drops\": 0}}"
+  },
+  {
+    "input": "{\"config\": {\"dns_architecture\": \"CORE_DNS_CLUSTERIP\", \"resolv_options\": \"DEFAULT\", \"conntrack_max\": 65536, \"conntrack_count\": 55000, \"kube_proxy_mode\": \"IPTABLES\", \"dns_timeout_sec\": 5.0}, \"workload\": {\"total_dns_lookups\": 10000, \"parallel_a_aaaa_queries\": true, \"traffic_concurrency\": 250, \"cache_hit_rate\": 0.85}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"CONNTRACK_TABLE_EXHAUSTION_PACKET_DROP\", \"metrics\": {\"conntrack_usage_pct\": 114.4, \"five_second_stalls_count\": 4000, \"avg_dns_latency_ms\": 2500.0, \"p99_dns_latency_ms\": 5005.0, \"conntrack_entries_created\": 20000, \"netfilter_race_drops\": 4000}}"
+  },
+  {
+    "input": "{\"config\": {\"dns_architecture\": \"CORE_DNS_CLUSTERIP\", \"resolv_options\": \"DEFAULT\", \"conntrack_max\": 131072, \"conntrack_count\": 45000, \"kube_proxy_mode\": \"IPVS\", \"dns_timeout_sec\": 5.0}, \"workload\": {\"total_dns_lookups\": 10000, \"parallel_a_aaaa_queries\": true, \"traffic_concurrency\": 200, \"cache_hit_rate\": 0.85}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"IPVS_UDP_CONNTRACK_RACE_INTERMITTENT_STALL\", \"metrics\": {\"conntrack_usage_pct\": 49.6, \"five_second_stalls_count\": 120, \"avg_dns_latency_ms\": 61.8, \"p99_dns_latency_ms\": 5003.0, \"conntrack_entries_created\": 20000, \"netfilter_race_drops\": 120}}"
+  },
+  {
+    "input": "{\"config\": {\"dns_architecture\": \"CORE_DNS_CLUSTERIP\", \"resolv_options\": \"DEFAULT\", \"conntrack_max\": 131072, \"conntrack_count\": 30000, \"kube_proxy_mode\": \"IPTABLES\", \"dns_timeout_sec\": 5.0}, \"workload\": {\"total_dns_lookups\": 5000, \"parallel_a_aaaa_queries\": false, \"traffic_concurrency\": 150, \"cache_hit_rate\": 0.85}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"IPV4_ONLY_NO_AAAA_COLLISION\", \"metrics\": {\"conntrack_usage_pct\": 30.5, \"five_second_stalls_count\": 0, \"avg_dns_latency_ms\": 2.5, \"p99_dns_latency_ms\": 5.0, \"conntrack_entries_created\": 10000, \"netfilter_race_drops\": 0}}"
+  },
+  {
+    "input": "{\"config\": {\"dns_architecture\": \"NODELOCAL_DNSCACHE\", \"resolv_options\": \"DEFAULT\", \"conntrack_max\": 131072, \"conntrack_count\": 40000, \"kube_proxy_mode\": \"IPTABLES\", \"dns_timeout_sec\": 5.0}, \"workload\": {\"total_dns_lookups\": 50000, \"parallel_a_aaaa_queries\": true, \"traffic_concurrency\": 500, \"cache_hit_rate\": 0.9}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"OPTIMAL_NODELOCAL_DNSCACHE_DEFENSE\", \"metrics\": {\"conntrack_usage_pct\": 30.5, \"five_second_stalls_count\": 0, \"avg_dns_latency_ms\": 0.4, \"p99_dns_latency_ms\": 0.8, \"conntrack_entries_created\": 0, \"netfilter_race_drops\": 0}}"
+  },
+  {
+    "input": "{\"config\": {\"dns_architecture\": \"CORE_DNS_CLUSTERIP\", \"resolv_options\": \"DEFAULT\", \"conntrack_max\": 131072, \"conntrack_count\": 20000, \"kube_proxy_mode\": \"IPTABLES\", \"dns_timeout_sec\": 5.0}, \"workload\": {\"total_dns_lookups\": 10000, \"parallel_a_aaaa_queries\": true, \"traffic_concurrency\": 50, \"cache_hit_rate\": 0.8}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"KUBERNETES_5S_DNS_CONNTRACK_RACE_DISASTER\", \"metrics\": {\"conntrack_usage_pct\": 30.5, \"five_second_stalls_count\": 50, \"avg_dns_latency_ms\": 27.5, \"p99_dns_latency_ms\": 5005.0, \"conntrack_entries_created\": 20000, \"netfilter_race_drops\": 50}}"
+  }
+]
