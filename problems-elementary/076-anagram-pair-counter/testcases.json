@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: cat tac act dog -> cat/tac/act 3개 (3쌍), dog 1개 -> 총 3쌍",
+    "input": "4\ncat tac act dog\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 2,
+    "description": "아나그램 없음: a b c d -> 0쌍",
+    "input": "4\na b c d\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 3,
+    "description": "단 1쌍: listen silent -> 1쌍",
+    "input": "2\nlisten silent\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 4,
+    "description": "모두 동일한 단어: aaa aaa aaa -> 3쌍",
+    "input": "3\naaa aaa aaa\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 5,
+    "description": "2개 그룹: ab ba cd dc -> 1 + 1 = 2쌍",
+    "input": "4\nab ba cd dc\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 6,
+    "description": "단어 1개만 주어짐",
+    "input": "1\nhello\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 7,
+    "description": "4개 단어가 모두 아나그램: abcd bcda cdab dabc -> 4C2 = 6쌍",
+    "input": "4\nabcd bcda cdab dabc\n",
+    "expected_output": "6"
+  },
+  {
+    "id": 8,
+    "description": "길이가 다른 단어들 혼합",
+    "input": "5\na aa aaa a a\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 9,
+    "description": "여러 아나그램 쌍 섞임",
+    "input": "6\nart rat tar star tars tsra\n",
+    "expected_output": "6"
+  },
+  {
+    "id": 10,
+    "description": "철자는 비슷하나 개수가 다른 경우",
+    "input": "4\naab abb aab abb\n",
+    "expected_output": "2"
+  }
+]

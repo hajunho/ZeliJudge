@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "9 -> 2진수 1001 (대칭) -> YES",
+    "input": "9\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 2,
+    "description": "10 -> 2진수 1010 (비대칭) -> NO",
+    "input": "10\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 3,
+    "description": "1 -> 2진수 1 (한 자리 대칭) -> YES",
+    "input": "1\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 4,
+    "description": "3 -> 2진수 11 -> YES",
+    "input": "3\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 5,
+    "description": "5 -> 2진수 101 -> YES",
+    "input": "5\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 6,
+    "description": "7 -> 2진수 111 -> YES",
+    "input": "7\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 7,
+    "description": "15 -> 2진수 1111 -> YES",
+    "input": "15\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 8,
+    "description": "17 -> 2진수 10001 -> YES",
+    "input": "17\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 9,
+    "description": "18 -> 2진수 10010 -> NO",
+    "input": "18\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 10,
+    "description": "33 -> 2진수 100001 -> YES",
+    "input": "33\n",
+    "expected_output": "YES"
+  }
+]

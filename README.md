@@ -243,6 +243,16 @@ problems/
 | **#068** | [4비트씩 모여라! 2진수를 16진수로 변환하기](problems-elementary/068-binary-to-hex-grouping/problem.md) | 진법 변환, 비트(Bit)와 니블(Nibble), 2진수와 16진수 | 0과 1로 된 2진수를 4비트씩 묶어 16진수 1자리로 압축 변환하기 |
 | **#069** | [여름방학 폭염 경보! 연속 K일간의 최고 기온 합](problems-elementary/069-sliding-window-heatwave-sum/problem.md) | 슬라이딩 윈도우(Sliding Window), 누적합, 연속 부분 수열 | N일간의 기온 기록 중 연속 K일 동안의 기온 합 최댓값을 O(N)으로 구하기 |
 | **#070** | [웹 브라우저의 마법! 열린 태그와 닫힌 태그 짝 검사](problems-elementary/070-stack-html-tag-validator/problem.md) | 자료구조 스택(Stack), 괄호/태그 유효성 검사, 구문 파싱 | HTML의 열린 태그와 닫힌 태그가 올바르게 중첩(LIFO)되어 닫히는지 검증하기 |
+| **#071** | [둥글게 둥글게! 요세푸스 원형 탈락 게임](problems-elementary/071-josephus-circle-elimination/problem.md) | 원형 큐(Circular Queue), 시뮬레이션, 요세푸스 순열 | 둥글게 앉은 친구들이 K번째마다 탈락할 때 최후의 1인 우승자 번호 구하기 |
+| **#072** | [달팽이의 나선형 숫자 채우기](problems-elementary/072-matrix-snail-array/problem.md) | 2차원 배열, 방향 벡터(dx/dy), 나선형 순회(Spiral) | 시계방향(우->하->좌->상)으로 90도 회전하며 N x N 모눈종이에 1부터 N^2 채우기 |
+| **#073** | [조난 신호 SOS! 무전기 모스 부호 번역기](problems-elementary/073-morse-code-decoder/problem.md) | 딕셔너리(Dictionary), 문자열 파싱, 모스 부호 | 무인도에서 온 점(.)과 선(-)의 모스 부호 신호를 알파벳 대문자 단어로 해독하기 |
+| **#074** | [숲속 다람쥐의 도토리와 짝수 피보나치 합](problems-elementary/074-fibonacci-even-sum/problem.md) | 피보나치 수열, 반복문 제어, 짝수 필터링 누적합 | M 이하인 피보나치 수 중 짝수 개 도토리 자루들의 총합 구하기 |
+| **#075** | [개구리의 순간이동과 최단 점프 횟수 (1D BFS)](problems-elementary/075-frog-jump-bfs-minimum/problem.md) | 너비 우선 탐색(BFS), 최단 경로, 큐(Queue), 시뮬레이션 | 앞뒤 1칸 또는 2배 순간이동 점프로 목표 지점까지 도달하는 최소 시간(초) 구하기 |
+| **#076** | [단어 카드 속 숨은 아나그램 쌍 찾기](problems-elementary/076-anagram-pair-counter/problem.md) | 해시 맵(딕셔너리), 문자열 정렬, 조합($nC_2$) | N개의 단어 중 철자를 바꾸면 같아지는 아나그램 관계의 단어 쌍의 총 개수 세기 |
+| **#077** | [2진수로 바꾸어도 똑같은 거울 대칭수 판별기](problems-elementary/077-binary-palindrome-check/problem.md) | 수학, 2진수 변환(`bin`), 회문(Palindrome) 판별 | 10진수 숫자를 2진수로 변환했을 때 앞뒤가 똑같은 거울 대칭수인지 판별하기 |
+| **#078** | [문자열 압축 대결! 절약된 글자 수 계산기](problems-elementary/078-rle-savings-calculator/problem.md) | 문자열 압축(RLE), 길이 비교, 산술 연산 | 런렝스 압축으로 표현했을 때 원본 대비 절약된 글자 수(원본 길이 - 압축 길이) 계산하기 |
+| **#079** | [스마트 주차장의 동시 주차 최대 차량 수](problems-elementary/079-parking-lot-peak-cars/problem.md) | 구간 시뮬레이션, 시간 배열 카운팅, 최대 동시성 | 차량들의 입차/출차 시간 기록을 바탕으로 동시에 주차되어 있던 최다 차량 수 구하기 |
+| **#080** | [동굴 탐험과 괄호의 최대 중첩 깊이](problems-elementary/080-bracket-max-depth/problem.md) | 스택(Stack), 괄호 중첩 레벨(Depth), 최댓값 갱신 | 열린 괄호와 닫힌 괄호로 이루어진 동굴 지도에서 가장 깊은 방의 깊이 구하기 |
 
 ---
 

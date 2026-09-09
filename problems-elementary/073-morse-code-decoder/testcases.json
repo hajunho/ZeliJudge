@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "유명한 구조 신호: ... --- ... -> SOS",
+    "input": "... --- ...\n",
+    "expected_output": "SOS"
+  },
+  {
+    "id": 2,
+    "description": "인사말: .... . .-.. .-.. --- -> HELLO",
+    "input": ".... . .-.. .-.. ---\n",
+    "expected_output": "HELLO"
+  },
+  {
+    "id": 3,
+    "description": "한 글자: .- -> A",
+    "input": ".-\n",
+    "expected_output": "A"
+  },
+  {
+    "id": 4,
+    "description": "한 글자: --.. -> Z",
+    "input": "--..\n",
+    "expected_output": "Z"
+  },
+  {
+    "id": 5,
+    "description": "파이썬: .--. -.-- - .... --- -. -> PYTHON",
+    "input": ".--. -.-- - .... --- -.\n",
+    "expected_output": "PYTHON"
+  },
+  {
+    "id": 6,
+    "description": "ZELI: --.. . .-.. .. -> ZELI",
+    "input": "--.. . .-.. ..\n",
+    "expected_output": "ZELI"
+  },
+  {
+    "id": 7,
+    "description": "AI: .- .. -> AI",
+    "input": ".- ..\n",
+    "expected_output": "AI"
+  },
+  {
+    "id": 8,
+    "description": "HELP: .... . .-.. .--. -> HELP",
+    "input": ".... . .-.. .--.\n",
+    "expected_output": "HELP"
+  },
+  {
+    "id": 9,
+    "description": "CAT: -.-. .- - -> CAT",
+    "input": "-.-. .- -\n",
+    "expected_output": "CAT"
+  },
+  {
+    "id": 10,
+    "description": "DOG: -.. --- --. -> DOG",
+    "input": "-.. --- --.\n",
+    "expected_output": "DOG"
+  }
+]

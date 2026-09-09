@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: M = 10 -> 2 + 8 = 10",
+    "input": "10\n",
+    "expected_output": "10"
+  },
+  {
+    "id": 2,
+    "description": "M = 1 (짝수 없음 -> 0)",
+    "input": "1\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 3,
+    "description": "M = 2 -> 2",
+    "input": "2\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 4,
+    "description": "M = 5 -> 2",
+    "input": "5\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 5,
+    "description": "M = 8 -> 2 + 8 = 10",
+    "input": "8\n",
+    "expected_output": "10"
+  },
+  {
+    "id": 6,
+    "description": "M = 34 -> 2 + 8 + 34 = 44",
+    "input": "34\n",
+    "expected_output": "44"
+  },
+  {
+    "id": 7,
+    "description": "M = 100 -> 2 + 8 + 34 = 44",
+    "input": "100\n",
+    "expected_output": "44"
+  },
+  {
+    "id": 8,
+    "description": "M = 150 -> 2 + 8 + 34 + 144 = 188",
+    "input": "150\n",
+    "expected_output": "188"
+  },
+  {
+    "id": 9,
+    "description": "M = 1000 -> 188 + 610 = 798",
+    "input": "1000\n",
+    "expected_output": "798"
+  },
+  {
+    "id": 10,
+    "description": "M = 1000000 -> 1089154",
+    "input": "1000000\n",
+    "expected_output": "1089154"
+  }
+]

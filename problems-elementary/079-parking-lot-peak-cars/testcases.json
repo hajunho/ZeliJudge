@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: (1, 5), (2, 6), (4, 8) -> 시간 4에 3대 동시 주차",
+    "input": "3\n1 5\n2 6\n4 8\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 2,
+    "description": "전혀 겹치지 않는 경우: (1, 3), (3, 5) -> 최대 1대 (3시 출차-입차 교대)",
+    "input": "2\n1 3\n3 5\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 3,
+    "description": "1대만 주차",
+    "input": "1\n0 10\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 4,
+    "description": "모두 동일한 시간 주차: 3대 모두 (2, 4) -> 3대",
+    "input": "3\n2 4\n2 4\n2 4\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 5,
+    "description": "포함 관계: (0, 10), (2, 8), (4, 6) -> 시간 4에 3대",
+    "input": "3\n0 10\n2 8\n4 6\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 6,
+    "description": "연속된 4대 비중복",
+    "input": "4\n0 1\n1 2\n2 3\n3 4\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 7,
+    "description": "5대 차량 중 4대 동시",
+    "input": "5\n1 7\n2 8\n3 9\n4 10\n15 20\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 8,
+    "description": "짧은 순간 겹침",
+    "input": "2\n10 20\n19 25\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 9,
+    "description": "출차 직후 입차 연속",
+    "input": "3\n1 5\n5 10\n10 15\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 10,
+    "description": "대규모 겹침 (5대 동시)",
+    "input": "5\n10 50\n20 40\n30 60\n25 35\n30 32\n",
+    "expected_output": "5"
+  }
+]

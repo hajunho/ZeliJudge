@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: ( ( () ) () ) -> 깊이 3",
+    "input": "((())())\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 2,
+    "description": "단일 괄호 쌍: () -> 깊이 1",
+    "input": "()\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 3,
+    "description": "단순 나열: ()()() -> 깊이 1",
+    "input": "()()()\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 4,
+    "description": "깊은 중첩: (((()))) -> 깊이 4",
+    "input": "(((())))\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 5,
+    "description": "5중 중첩: ((((())))) -> 깊이 5",
+    "input": "((((()))))\n",
+    "expected_output": "5"
+  },
+  {
+    "id": 6,
+    "description": "2중 중첩 나열: (()) (()) -> 깊이 2",
+    "input": "(())(())\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 7,
+    "description": "비대칭 깊이: (()((()))) -> 깊이 4",
+    "input": "(()((())))\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 8,
+    "description": "복합 구조: (()())((())) -> 깊이 3",
+    "input": "(()())((()))\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 9,
+    "description": "깊이 2 복합: (()()) -> 깊이 2",
+    "input": "(()())\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 10,
+    "description": "6중 중첩: (((((())))))) -> 깊이 6",
+    "input": "(((((())))))\n",
+    "expected_output": "6"
+  }
+]

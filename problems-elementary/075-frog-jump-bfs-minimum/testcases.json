@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: 5에서 17 (5 -> 10 -> 9 -> 18 -> 17 또는 5 -> 4 -> 8 -> 16 -> 17 : 4초)",
+    "input": "5 17\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 2,
+    "description": "이미 도착해 있는 경우: 10 10 -> 0초",
+    "input": "10 10\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 3,
+    "description": "바로 다음 칸: 4 5 -> 1초",
+    "input": "4 5\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 4,
+    "description": "순간이동 1번: 5 10 -> 1초",
+    "input": "5 10\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 5,
+    "description": "뒤로만 이동: 10 7 -> 3초 (10->9->8->7)",
+    "input": "10 7\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 6,
+    "description": "0에서 출발: 0 5 -> (0->1->2->4->5 : 4초)",
+    "input": "0 5\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 7,
+    "description": "2배 점프 연쇄: 1 16 -> (1->2->4->8->16 : 4초)",
+    "input": "1 16\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 8,
+    "description": "2배 점프 후 뒤로 1칸: 1 15 -> (1->2->4->8->16->15 : 5초)",
+    "input": "1 15\n",
+    "expected_output": "5"
+  },
+  {
+    "id": 9,
+    "description": "50에서 100 -> 1초",
+    "input": "50 100\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 10,
+    "description": "3에서 50 -> 5초 (3->6->12->24->25->50)",
+    "input": "3 50\n",
+    "expected_output": "5"
+  }
+]
