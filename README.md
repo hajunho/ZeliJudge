@@ -64,6 +64,7 @@ problems/
 | **#021** | [async로 짰는데 왜 1초씩 멈춰요?: 이벤트 루프와 블로킹 I/O의 배신](problems/021-asyncio-event-loop-blocking/problem.md) | **비동기 런타임/동시성**, 싱글 스레드 이벤트 루프, 협력적 멀티태스킹, time.sleep() 동결 지연 | FastAPI에 무심코 time.sleep() 넣었다가 전 사용자 화면이 2초씩 멈춘 참사 |
 | **#022** | [로컬에선 되는데 왜 배포하니까 빨간 줄이 떠요?: CORS와 Preflight](problems/022-cors-preflight-handshake/problem.md) | **웹 보안/HTTP 프로토콜**, 동일 출처 정책(SOP), OPTIONS 정찰병(Preflight), 와일드카드 크레덴셜 모순 | Postman에선 잘 되는데 브라우저에서만 빨간 에러 뜨고 OPTIONS 405로 본 요청 사살된 참사 |
 | **#023** | [A는 B를 기다리고 B는 A를 기다린다: 데드락과 락 획득 순서의 저주](problems/023-deadlock-lock-ordering/problem.md) | **동시성 제어/운영체제**, 코프먼 4대 조건, 원형 대기(Circular Wait), 글로벌 락 정렬(Global Lock Ordering) | 맞송금 트랜잭션에서 서로 상대 계좌 락을 기다리며 CPU 0%로 서버 침묵 마비된 참사 |
+| **#024** | [새로고침 5번 눌렀더니 결제가 5번 됐어요?!: 멱등성과 멱등키](problems/024-api-idempotency-key/problem.md) | **분산 시스템/API 설계**, 멱등성(Idempotency), 네트워크 타임아웃 재시도, 멱등키(Idempotency-Key) 캐시 재생 | 결제 중 와이파이 단절로 새로고침 광클했다가 5번 중복 결제 터져 통장 털린 참사 |
 
 
 
