@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제 1: 5개 중 3개 정상, 2개 불량",
+    "input": "5 100 5\n98 105 110 92 100\n",
+    "expected_output": "3 2"
+  },
+  {
+    "id": 2,
+    "description": "모두 정상인 경우",
+    "input": "4 50 2\n50 51 49 52\n",
+    "expected_output": "4 0"
+  },
+  {
+    "id": 3,
+    "description": "모두 불량인 경우",
+    "input": "3 100 5\n80 120 150\n",
+    "expected_output": "0 3"
+  },
+  {
+    "id": 4,
+    "description": "경계값 정확히 일치: T-E 와 T+E",
+    "input": "4 100 10\n90 110 89 111\n",
+    "expected_output": "2 2"
+  },
+  {
+    "id": 5,
+    "description": "봉지 1개만 검사",
+    "input": "1 200 10\n205\n",
+    "expected_output": "1 0"
+  },
+  {
+    "id": 6,
+    "description": "목표 무게와 정확히 같은 봉지들",
+    "input": "5 70 5\n70 70 70 70 70\n",
+    "expected_output": "5 0"
+  },
+  {
+    "id": 7,
+    "description": "10개 봉지 혼합 검사",
+    "input": "10 500 20\n510 480 520 479 500 521 495 505 460 540\n",
+    "expected_output": "6 4"
+  },
+  {
+    "id": 8,
+    "description": "오차가 1그램으로 매우 엄격한 경우",
+    "input": "5 30 1\n30 29 31 28 32\n",
+    "expected_output": "3 2"
+  },
+  {
+    "id": 9,
+    "description": "큰 무게 단위 검사",
+    "input": "6 1000 50\n950 1050 949 1051 1000 980\n",
+    "expected_output": "4 2"
+  },
+  {
+    "id": 10,
+    "description": "골고루 섞인 8개 봉지",
+    "input": "8 150 15\n135 165 134 166 140 160 150 200\n",
+    "expected_output": "5 3"
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제 1",
+    "input": "4\nzebra\napple\ncat\nbanana\ncat\n",
+    "expected_output": "3\napple banana cat zebra"
+  },
+  {
+    "id": 2,
+    "description": "첫 번째 책을 찾는 경우",
+    "input": "3\nbanana\napple\norange\napple\n",
+    "expected_output": "1\napple banana orange"
+  },
+  {
+    "id": 3,
+    "description": "마지막 책을 찾는 경우",
+    "input": "3\nbanana\napple\norange\norange\n",
+    "expected_output": "3\napple banana orange"
+  },
+  {
+    "id": 4,
+    "description": "책이 1권뿐인 경우",
+    "input": "1\nmagic\nmagic\n",
+    "expected_output": "1\nmagic"
+  },
+  {
+    "id": 5,
+    "description": "이미 알파벳 순서대로 주어진 경우",
+    "input": "5\nant\nbird\ncat\ndog\nelephant\ndog\n",
+    "expected_output": "4\nant bird cat dog elephant"
+  },
+  {
+    "id": 6,
+    "description": "역순으로 주어진 경우",
+    "input": "4\nzoo\nyak\nwolf\nvulture\nyak\n",
+    "expected_output": "3\nvulture wolf yak zoo"
+  },
+  {
+    "id": 7,
+    "description": "첫 글자가 같은 단어들 (두 번째 글자로 순서 결정)",
+    "input": "4\nblue\nblack\nbrown\nbaby\nblack\n",
+    "expected_output": "2\nbaby black blue brown"
+  },
+  {
+    "id": 8,
+    "description": "길이가 다른 비슷한 단어들",
+    "input": "4\napp\napple\napplication\napply\napple\n",
+    "expected_output": "2\napp apple application apply"
+  },
+  {
+    "id": 9,
+    "description": "알파벳 A부터 Z 골고루",
+    "input": "6\nmoon\nsun\nstar\nearth\nmars\njupiter\nearth\n",
+    "expected_output": "1\nearth jupiter mars moon star sun"
+  },
+  {
+    "id": 10,
+    "description": "7권의 동물 책",
+    "input": "7\ntiger\nlion\nbear\nfox\nwolf\ndeer\nrabbit\nlion\n",
+    "expected_output": "4\nbear deer fox lion rabbit tiger wolf"
+  }
+]

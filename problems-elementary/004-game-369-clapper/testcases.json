@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "1부터 10까지 기본 테스트",
+    "input": "10\n",
+    "expected_output": "1\n2\nCLAP\n4\n5\nCLAP\n7\n8\nCLAP\n10"
+  },
+  {
+    "id": 2,
+    "description": "1부터 15까지",
+    "input": "15\n",
+    "expected_output": "1\n2\nCLAP\n4\n5\nCLAP\n7\n8\nCLAP\n10\n11\n12\nCLAP\n14\n15"
+  },
+  {
+    "id": 3,
+    "description": "N = 1 최소 케이스",
+    "input": "1\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 4,
+    "description": "N = 3 첫 박수",
+    "input": "3\n",
+    "expected_output": "1\n2\nCLAP"
+  },
+  {
+    "id": 5,
+    "description": "30번대 진입 (30, 31, 32, 33 포함)",
+    "input": "35\n",
+    "expected_output": "1\n2\nCLAP\n4\n5\nCLAP\n7\n8\nCLAP\n10\n11\n12\nCLAP\n14\n15\nCLAP\n17\n18\nCLAP\n20\n21\n22\nCLAP\n24\n25\nCLAP\n27\n28\nCLAP\nCLAP\nCLAP\nCLAP\nCLAP-CLAP\nCLAP\nCLAP"
+  },
+  {
+    "id": 6,
+    "description": "39와 40 경계",
+    "input": "40\n",
+    "expected_output": "1\n2\nCLAP\n4\n5\nCLAP\n7\n8\nCLAP\n10\n11\n12\nCLAP\n14\n15\nCLAP\n17\n18\nCLAP\n20\n21\n22\nCLAP\n24\n25\nCLAP\n27\n28\nCLAP\nCLAP\nCLAP\nCLAP\nCLAP-CLAP\nCLAP\nCLAP\nCLAP-CLAP\nCLAP\nCLAP\nCLAP-CLAP\n40"
+  },
+  {
+    "id": 7,
+    "description": "N = 50",
+    "input": "50\n",
+    "expected_output": "1\n2\nCLAP\n4\n5\nCLAP\n7\n8\nCLAP\n10\n11\n12\nCLAP\n14\n15\nCLAP\n17\n18\nCLAP\n20\n21\n22\nCLAP\n24\n25\nCLAP\n27\n28\nCLAP\nCLAP\nCLAP\nCLAP\nCLAP-CLAP\nCLAP\nCLAP\nCLAP-CLAP\nCLAP\nCLAP\nCLAP-CLAP\n40\n41\n42\nCLAP\n44\n45\nCLAP\n47\n48\nCLAP\n50"
+  },
+  {
+    "id": 8,
+    "description": "66, 69 등 60번대 포함 (N=70)",
+    "input": "70\n",
+    "expected_output": "1\n2\nCLAP\n4\n5\nCLAP\n7\n8\nCLAP\n10\n11\n12\nCLAP\n14\n15\nCLAP\n17\n18\nCLAP\n20\n21\n22\nCLAP\n24\n25\nCLAP\n27\n28\nCLAP\nCLAP\nCLAP\nCLAP\nCLAP-CLAP\nCLAP\nCLAP\nCLAP-CLAP\nCLAP\nCLAP\nCLAP-CLAP\n40\n41\n42\nCLAP\n44\n45\nCLAP\n47\n48\nCLAP\n50\n51\n52\nCLAP\n54\n55\nCLAP\n57\n58\nCLAP\nCLAP\nCLAP\nCLAP\nCLAP-CLAP\nCLAP\nCLAP\nCLAP-CLAP\nCLAP\nCLAP\nCLAP-CLAP\n70"
+  },
+  {
+    "id": 9,
+    "description": "99, 100 포함 최대 N=100",
+    "input": "100\n",
+    "expected_output": "1\n2\nCLAP\n4\n5\nCLAP\n7\n8\nCLAP\n10\n11\n12\nCLAP\n14\n15\nCLAP\n17\n18\nCLAP\n20\n21\n22\nCLAP\n24\n25\nCLAP\n27\n28\nCLAP\nCLAP\nCLAP\nCLAP\nCLAP-CLAP\nCLAP\nCLAP\nCLAP-CLAP\nCLAP\nCLAP\nCLAP-CLAP\n40\n41\n42\nCLAP\n44\n45\nCLAP\n47\n48\nCLAP\n50\n51\n52\nCLAP\n54\n55\nCLAP\n57\n58\nCLAP\nCLAP\nCLAP\nCLAP\nCLAP-CLAP\nCLAP\nCLAP\nCLAP-CLAP\nCLAP\nCLAP\nCLAP-CLAP\n70\n71\n72\nCLAP\n74\n75\nCLAP\n77\n78\nCLAP\n80\n81\n82\nCLAP\n84\n85\nCLAP\n87\n88\nCLAP\nCLAP\nCLAP\nCLAP\nCLAP-CLAP\nCLAP\nCLAP\nCLAP-CLAP\nCLAP\nCLAP\nCLAP-CLAP\n100"
+  },
+  {
+    "id": 10,
+    "description": "N = 5",
+    "input": "5\n",
+    "expected_output": "1\n2\nCLAP\n4\n5"
+  }
+]

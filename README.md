@@ -139,10 +139,35 @@ problems/
 | **#096** | [데이터가 없어서 잠금 걸었더니 다른 사람이랑 데드락이 터졌어요?!: MySQL InnoDB 갭 락(Gap Lock)과 넥스트 키 락(Next-Key Lock)의 팬텀 리드 방어와 데드락 미스터리 (MySQL InnoDB Gap Lock & Next-Key Lock Phantom Read Deadlock)](problems/096-innodb-gap-lock-phantom-read/problem.md) | **데이터베이스 스토리지/트랜잭션 격리수준**, 팬텀 리드(Phantom Read) 방어, 레코드 락(Record Lock), 갭 락(Gap Lock), 넥스트 키 락(Next-Key Lock), 인서트 인텐션 락(Insert Intention Lock) 충돌, Wait-For Graph 데드락 감지, Read Committed(RC) 격리수준 튜닝 | 없는 유저 ID에 비관적 락 걸고 INSERT 하려다 두 트랜잭션이 동일 갭에 돗자리 깔고 상호 대기하여 전사 가입 서비스 데드락 마비된 참사 |
 | **#097** | [배치 작업 5분 돌렸을 뿐인데 왜 전사 메시지 처리가 멈추고 파티션이 핑퐁을 쳐요?!: Apache Kafka 컨슈머 리밸런스 폭풍과 max.poll.interval.ms의 배신 (Kafka Consumer Rebalance Storm & max.poll.interval.ms)](problems/097-kafka-consumer-rebalance-storm/problem.md) | **분산 메시징/이벤트 드리븐 아키텍처**, 하트비트 스레드 vs 폴 루프 분리, max.poll.interval.ms 초과와 강제 퇴출(Eviction), CommitFailedException 차단, 리밸런스 폭풍(Rebalance Storm), max.poll.records 하향 및 워커 스레드 풀 분리 | 대용량 정산 5분 돌렸다가 다음 poll() 늦어서 컨슈머가 강제 퇴출되고 다른 컨슈머로 무한 이전되며 전사 파이프라인 마비 및 중복 결제 폭발한 참사 |
 | **#098** | [쿠버네티스 파드에 메모리 1GB 줬는데 왜 자바는 600MB만 쓰다 OOMKilled로 즉사당해요?!: Linux Cgroup v2와 커널 페이지 캐시 & JVM 메모리 오해 (Linux Cgroup v2 Page Cache & OOM-Killer)](problems/098-cgroup-oom-killer-page-cache/problem.md) | **운영체제 커널/컨테이너 인프라**, Cgroup v2 메모리 회계(Anon, File, Kernel), 페이지 캐시(Page Cache)와 Direct Reclaim 한계, memory.high 스로틀링, memory.max 초과와 OOM-Killer(Exit Code 137), UseContainerSupport 및 MaxRAMPercentage | JVM 힙은 600MB만 썼는데 파일 I/O로 페이지 캐시가 350MB 쌓인 상태에서 추가 할당했다가 1GB 한도 초과로 커널 OOM-Killer에 즉사당한 참사 |
+| **#099** | [배열 정렬만 먼저 했을 뿐인데 왜 루프 도는 속도가 6배나 빨라져요?!: CPU 분기 예측기와 파이프라인 플러시의 마법 (Branch Predictor & Pipeline Flush with Sorted Array)](problems/099-branch-predictor-sorted-array/problem.md) | **컴퓨터 구조/마이크로아키텍처**, 명령어 파이프라인(Pipeline Depth), 제어 해저드(Control Hazard), 2-Bit 포화 카운터(2-bit Saturating Counter), 분기 예측 실패 페널티(Pipeline Flush), 분기 없는 프로그래밍(Branchless CMOV) | 정렬되지 않은 무작위 배열에서 분기 예측 실패율 50%로 파이프라인 플러시 폭풍이 터져 정렬된 배열보다 루프 속도가 6배 곤두박질친 미스터리 |
 
 
 
 
+
+---
+
+## 🎒 ZeliJudge Junior: 초등학생 & 코딩 입문자를 위한 기초 트랙 (`problems-elementary/`)
+
+> *"기존 `problems/` 폴더의 실무 분산 시스템·동시성·OS 문제가 너무 어렵게 느껴지셨나요?"*  
+> 코딩을 처음 시작하는 초등학생과 입문자를 위해, 일상 속 친근한 이야기와 핵심 컴퓨팅 사고력(Computational Thinking)을 배우는 **초등 전용 문제 트랙**을 제공합니다!
+
+모든 문제는 동일한 표준 구조(`problem.md`, `theory.md`, `testcases.json`, `solution.py`)를 따르며, 눈높이에 맞춘 쉽고 흥미진진한 컴퓨터 원리를 함께 담고 있습니다.
+
+### 📚 주니어 문제 목록 (Junior Problem Index)
+
+| 번호 | 문제명 | 핵심 컴퓨팅 사고 / CS 개념 | 줄거리 & 실생활 시나리오 |
+|:---:|---|---|---|
+| **#001** | [생일 파티 사탕 공평하게 나누기](problems-elementary/001-candy-fair-share/problem.md) | 사칙연산, 몫(`//`)과 나머지(`%`), 정수 연산 | 친구들과 사탕을 똑같이 나누고 남은 사탕 개수 구하기 |
+| **#002** | [거꾸로 말해요! 마법 비밀 암호](problems-elementary/002-secret-word-reverser/problem.md) | 문자열(String), 인덱스(Index), 슬라이싱 뒤집기 | 비밀 일기를 쓰기 위해 단어 글자 순서를 거꾸로 뒤집는 암호기 |
+| **#003** | [스마트 횡단보도 안전 지킴이](problems-elementary/003-traffic-light-safety/problem.md) | 조건문(`if/elif/else`), 불리언(Boolean), 논리곱/합(`and/or`) | 보행자 신호, 남은 시간, 차량 유무를 판단해 안전하게 건너기 |
+| **#004** | [3·6·9 박수 게임 심판관](problems-elementary/004-game-369-clapper/problem.md) | 반복문(`for`), 자릿수 분해, 글자 카운팅(`count`) | 1부터 N까지 숫자에 들어간 3, 6, 9의 개수만큼 박수 짝! 치기 |
+| **#005** | [소풍 기념 사진! 키 순서대로 줄 서기](problems-elementary/005-line-up-by-height/problem.md) | 리스트(List), 최댓값/최솟값, 정렬(Sorting) | 친구들의 얼굴이 다 나오도록 키 작은 순서부터 큰 순서로 줄 세우기 |
+| **#006** | [삐리비리! 스마트 청소 로봇의 하루](problems-elementary/006-robot-vacuum-cleaner/problem.md) | 2차원 격자 좌표계(Grid), 시뮬레이션, 방향 이동 | 방 안의 벽과 가구를 피해 명령(U/D/L/R)대로 이동하기 |
+| **#007** | [보물 상자를 여는 4개의 전구 스위치](problems-elementary/007-magic-binary-switches/problem.md) | 2진수(Binary)와 10진수(Decimal), 자릿값(8-4-2-1) | 0과 1로 켜지고 꺼지는 전구 스위치로 보물 상자 비밀번호 풀기 |
+| **#008** | [앞으로 읽어도 뒤로 읽어도 똑같은 거울 단어](problems-elementary/008-tomato-palindrome/problem.md) | 회문(Palindrome), 양방향 탐색, 대칭성 | '토마토', 'level'처럼 앞뒤가 똑같은 거울 단어 판독기 |
+| **#009** | [과자 공장의 무게 검사기와 불량품 찾기](problems-elementary/009-snack-bag-weight/problem.md) | 리스트 순회, 조건 필터링, 허용 오차 범위 검사 | 기준 무게보다 너무 가볍거나 무거운 불량 봉지 골라내기 |
+| **#010** | [도서관 책 정리와 가나다 사전 순서](problems-elementary/010-magic-word-dictionary/problem.md) | 사전식 정렬(Lexicographical), 아스키코드, 위치 찾기 | 책 제목 목록을 알파벳 사전 순서로 정리하고 찾는 책 순번 구하기 |
 
 ---
 
@@ -161,10 +186,13 @@ problems/
 저장소를 클론한 후, 터미널에서 바로 문제를 채점할 수 있습니다:
 
 ```bash
-# 전체 문제 채점
+# 기본 문제 전체 채점
 python tools/test_runner.py
 
-# 특정 문제만 채점 (예: #001, #002, #003)
+# 초등학생용 주니어 트랙(problems-elementary) 전체 채점
+python tools/test_runner.py elementary
+
+# 특정 문제만 채점 (예: #001, #002, candy 등)
 python tools/test_runner.py 001
 ```
 

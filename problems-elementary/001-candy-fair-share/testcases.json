@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "예제 1: 4명이서 15개 나누기",
+    "input": "4 15\n",
+    "expected_output": "3 3"
+  },
+  {
+    "id": 2,
+    "description": "예제 2: 딱 떨어지는 경우 (5명 20개)",
+    "input": "5 20\n",
+    "expected_output": "4 0"
+  },
+  {
+    "id": 3,
+    "description": "예제 3: 사탕보다 사람이 더 많은 경우",
+    "input": "10 7\n",
+    "expected_output": "0 7"
+  },
+  {
+    "id": 4,
+    "description": "혼자서 다 먹는 경우 (1명)",
+    "input": "1 100\n",
+    "expected_output": "100 0"
+  },
+  {
+    "id": 5,
+    "description": "사탕이 0개인 경우",
+    "input": "3 0\n",
+    "expected_output": "0 0"
+  },
+  {
+    "id": 6,
+    "description": "큰 숫자 케이스",
+    "input": "7 1000000\n",
+    "expected_output": "142857 1"
+  },
+  {
+    "id": 7,
+    "description": "나머지가 사람수-1 인 경우",
+    "input": "6 23\n",
+    "expected_output": "3 5"
+  },
+  {
+    "id": 8,
+    "description": "사람 100명 사탕 999개",
+    "input": "100 999\n",
+    "expected_output": "9 99"
+  },
+  {
+    "id": 9,
+    "description": "사람 1000명 사탕 1000개",
+    "input": "1000 1000\n",
+    "expected_output": "1 0"
+  },
+  {
+    "id": 10,
+    "description": "사람 25명 사탕 204개",
+    "input": "25 204\n",
+    "expected_output": "8 4"
+  }
+]

@@ -82,16 +82,40 @@ def run_problem_test(problem_dir: Path):
 
 def main():
     root_dir = Path(__file__).resolve().parent.parent
-    problems_dir = root_dir / "problems"
+    
+    # 검색할 문제 디렉토리 목록 (기본: problems, problems-elementary)
+    possible_dirs = [
+        root_dir / "problems",
+        root_dir / "problems-elementary"
+    ]
 
     target_problems = []
+    
     if len(sys.argv) > 1:
-        query = sys.argv[1]
-        for p in sorted(problems_dir.iterdir()):
-            if p.is_dir() and query in p.name:
-                target_problems.append(p)
+        query = sys.argv[1].strip()
+        
+        # 만약 인자가 'elementary' 또는 'problems-elementary'인 경우
+        if query in ["elementary", "problems-elementary"]:
+            elem_dir = root_dir / "problems-elementary"
+            if elem_dir.exists():
+                target_problems = [p for p in sorted(elem_dir.iterdir()) if p.is_dir()]
+        elif query in ["main", "problems"]:
+            main_dir = root_dir / "problems"
+            if main_dir.exists():
+                target_problems = [p for p in sorted(main_dir.iterdir()) if p.is_dir()]
+        else:
+            # 특정 폴더 경로나 문제 이름 검색
+            for p_dir in possible_dirs:
+                if not p_dir.exists():
+                    continue
+                for p in sorted(p_dir.iterdir()):
+                    if p.is_dir() and (query in p.name or query in str(p)):
+                        target_problems.append(p)
     else:
-        target_problems = [p for p in sorted(problems_dir.iterdir()) if p.is_dir()]
+        # 인자 없으면 problems 디렉토리 기본 채점
+        main_dir = root_dir / "problems"
+        if main_dir.exists():
+            target_problems = [p for p in sorted(main_dir.iterdir()) if p.is_dir()]
 
     if not target_problems:
         print("채점할 문제 디렉토리를 찾을 수 없습니다.")

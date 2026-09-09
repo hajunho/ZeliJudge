@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "안전하게 건널 수 있는 경우",
+    "input": "GREEN 12 EMPTY\n",
+    "expected_output": "CROSS"
+  },
+  {
+    "id": 2,
+    "description": "시간이 부족한 경우 (3초)",
+    "input": "GREEN 3 EMPTY\n",
+    "expected_output": "WAIT"
+  },
+  {
+    "id": 3,
+    "description": "초록불이지만 차가 달리는 위험한 경우",
+    "input": "GREEN 10 CAR\n",
+    "expected_output": "STOP"
+  },
+  {
+    "id": 4,
+    "description": "빨간불인 경우",
+    "input": "RED 25 EMPTY\n",
+    "expected_output": "STOP"
+  },
+  {
+    "id": 5,
+    "description": "빨간불에 차까지 있는 경우",
+    "input": "RED 0 CAR\n",
+    "expected_output": "STOP"
+  },
+  {
+    "id": 6,
+    "description": "경계값: 정확히 5초 남고 차 없음",
+    "input": "GREEN 5 EMPTY\n",
+    "expected_output": "CROSS"
+  },
+  {
+    "id": 7,
+    "description": "경계값: 정확히 4초 남고 차 없음",
+    "input": "GREEN 4 EMPTY\n",
+    "expected_output": "WAIT"
+  },
+  {
+    "id": 8,
+    "description": "0초 남은 초록불",
+    "input": "GREEN 0 EMPTY\n",
+    "expected_output": "WAIT"
+  },
+  {
+    "id": 9,
+    "description": "시간 5초 남았지만 차가 달림",
+    "input": "GREEN 5 CAR\n",
+    "expected_output": "STOP"
+  },
+  {
+    "id": 10,
+    "description": "넉넉한 시간(50초) 안전",
+    "input": "GREEN 50 EMPTY\n",
+    "expected_output": "CROSS"
+  }
+]

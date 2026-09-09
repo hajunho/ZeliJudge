@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "홀수 길이 회문: level",
+    "input": "level\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 2,
+    "description": "일반 단어: robot",
+    "input": "robot\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 3,
+    "description": "홀수 길이 회문: kayak",
+    "input": "kayak\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 4,
+    "description": "짝수 길이 회문: noon",
+    "input": "noon\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 5,
+    "description": "한 글자 단어 (무조건 회문)",
+    "input": "a\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 6,
+    "description": "두 글자 회문: bb",
+    "input": "bb\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 7,
+    "description": "두 글자 비회문: ab",
+    "input": "ab\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 8,
+    "description": "긴 회문 단어: racecar",
+    "input": "racecar\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 9,
+    "description": "양 끝만 같고 가운데 다른 단어: rabor",
+    "input": "rabor\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 10,
+    "description": "매우 긴 회문",
+    "input": "abacabadabacaba\n",
+    "expected_output": "YES"
+  }
+]

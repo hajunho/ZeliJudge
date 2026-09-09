@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제 1",
+    "input": "4 4\n....\n.#..\n....\n...#\n1 1\nRRDDRU\n",
+    "expected_output": "2 4"
+  },
+  {
+    "id": 2,
+    "description": "벽 밖으로 나가려는 명령 무시 (상단 벽)",
+    "input": "3 3\n...\n.#.\n...\n2 1\nUUUU\n",
+    "expected_output": "1 1"
+  },
+  {
+    "id": 3,
+    "description": "장식장(#)에 부딪히는 이동 무시",
+    "input": "3 3\n...\n.#.\n...\n2 1\nRRRR\n",
+    "expected_output": "2 1"
+  },
+  {
+    "id": 4,
+    "description": "벽을 우회해서 목적지 도착",
+    "input": "3 3\n...\n.#.\n...\n2 1\nURRD\n",
+    "expected_output": "2 3"
+  },
+  {
+    "id": 5,
+    "description": "제자리 왕복 (UDLR)",
+    "input": "3 3\n...\n...\n...\n2 2\nUDLR\n",
+    "expected_output": "2 2"
+  },
+  {
+    "id": 6,
+    "description": "네 모서리 순회",
+    "input": "3 3\n...\n...\n...\n1 1\nRRDDLLUU\n",
+    "expected_output": "1 1"
+  },
+  {
+    "id": 7,
+    "description": "복잡한 미로형 방",
+    "input": "5 5\n.####\n....#\n###.#\n#...#\n#.#..\n1 1\nDDDDRRRR\n",
+    "expected_output": "2 4"
+  },
+  {
+    "id": 8,
+    "description": "길을 따라 정확히 통과",
+    "input": "5 5\n.####\n....#\n###.#\n#...#\n#.#..\n1 1\nDRRRDDLLDD\n",
+    "expected_output": "5 2"
+  },
+  {
+    "id": 9,
+    "description": "우하단 구석으로 직진",
+    "input": "4 5\n.....\n.....\n.....\n.....\n1 1\nRRRRDDD\n",
+    "expected_output": "4 5"
+  },
+  {
+    "id": 10,
+    "description": "한 칸 이동 후 멈춤",
+    "input": "2 2\n..\n..\n1 1\nR\n",
+    "expected_output": "1 2"
+  }
+]

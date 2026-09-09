@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "예제 1: HELLO",
+    "input": "HELLO\n",
+    "expected_output": "OLLEH"
+  },
+  {
+    "id": 2,
+    "description": "예제 2: MAGIC",
+    "input": "MAGIC\n",
+    "expected_output": "CIGAM"
+  },
+  {
+    "id": 3,
+    "description": "예제 3: 대소문자 혼합",
+    "input": "Python\n",
+    "expected_output": "nohtyP"
+  },
+  {
+    "id": 4,
+    "description": "한 글자 단어",
+    "input": "A\n",
+    "expected_output": "A"
+  },
+  {
+    "id": 5,
+    "description": "두 글자 단어",
+    "input": "GO\n",
+    "expected_output": "OG"
+  },
+  {
+    "id": 6,
+    "description": "원래 뒤집어도 똑같은 단어",
+    "input": "LEVEL\n",
+    "expected_output": "LEVEL"
+  },
+  {
+    "id": 7,
+    "description": "긴 단어",
+    "input": "Supercalifragilisticexpialidocious\n",
+    "expected_output": "suoicodilaipxecitsiligarfilacrepuS"
+  },
+  {
+    "id": 8,
+    "description": "반복되는 글자",
+    "input": "AAAAABBBBB\n",
+    "expected_output": "BBBBBAAAAA"
+  },
+  {
+    "id": 9,
+    "description": "알파벳 전체",
+    "input": "abcdefghijklmnopqrstuvwxyz\n",
+    "expected_output": "zyxwvutsrqponmlkjihgfedcba"
+  },
+  {
+    "id": 10,
+    "description": "코딩 질문 단어",
+    "input": "ZeliJudge\n",
+    "expected_output": "egduJileZ"
+  }
+]
