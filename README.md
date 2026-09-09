@@ -52,6 +52,8 @@ problems/
 | **#009** | [캐시의 배신과 메모리 누수: LRU 캐시의 마법](problems/009-lru-cache-memory-leak/problem.md) | **메모리 계층 구조**, 캐시 지역성(Locality), 해시 맵 + 이중 연결 리스트 $O(1)$ LRU 캐시 | 무한 증식 딕셔너리 캐시로 인해 3일 뒤 리눅스 OOM Killer로 프로세스 사살된 사건 |
 | **#010** | [복사했는데 왜 둘 다 바뀌어?: 얕은 복사와 참조의 덫](problems/010-shallow-vs-deep-copy/problem.md) | **메모리 참조(Reference)**, 변수의 본질(포스트잇), 얕은 복사(Shallow) vs 깊은 복사(Deep) | 게임 인벤토리 복사 후 강화 취소했는데 원본까지 같이 깎여버린 버그 |
 | **#011** | [반복문에서 지웠는데 왜 남아?: 기차 좌석과 인덱스 시프트의 저주](problems/011-iterating-mutation-trap/problem.md) | **자료구조와 반복자(Iterator)**, 인덱스 시프트(Index Shift), 불변 리스트 컴프리헨션 vs 필터링 | 채팅 금지어 연속 필터링 루프 돌렸는데 욕설이 절반이나 살아남아 검열 뚫린 참사 |
+| **#012** | [남의 장바구니에 내 물건이 왜 있어?: 가변 기본 인자(Mutable Default)의 저주](problems/012-mutable-default-argument/problem.md) | **언어 런타임**, 정의 시점(Definition Time) vs 호출 시점, 함수의 `__defaults__` 속성, None 센티넬 패턴 | 장바구니 기본 인자를 `cart=[]`로 뒀다가 이전 손님 물건이 다음 손님에게 유출된 참사 |
+
 
 
 ---
