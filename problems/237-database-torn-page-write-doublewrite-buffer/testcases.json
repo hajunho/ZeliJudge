@@ -1,0 +1,34 @@
+[
+  {
+    "input": "{\"config\": {\"engine\": \"INNODB\", \"doublewrite_enabled\": true, \"full_page_writes_enabled\": true, \"nvme_atomic_write_unit_kb\": 4, \"page_size_kb\": 16}, \"workload\": {\"dirty_pages_count\": 5000, \"power_cut_during_flush\": true, \"power_cut_offset_kb\": 8, \"redo_log_delta_entries\": 12000}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"OPTIMAL_DOUBLEWRITE_BUFFER_CRASH_RECOVERY\", \"metrics\": {\"torn_pages_detected\": 1, \"pages_restored\": 1, \"crash_recovery_success\": true, \"data_corruption\": false, \"write_amplification_factor\": 2.0, \"hardware_atomic_guaranteed\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"engine\": \"INNODB\", \"doublewrite_enabled\": false, \"full_page_writes_enabled\": true, \"nvme_atomic_write_unit_kb\": 4, \"page_size_kb\": 16}, \"workload\": {\"dirty_pages_count\": 5000, \"power_cut_during_flush\": true, \"power_cut_offset_kb\": 8, \"redo_log_delta_entries\": 12000}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"TORN_PAGE_WRITE_PERMANENT_CORRUPTION\", \"metrics\": {\"torn_pages_detected\": 1, \"pages_restored\": 0, \"crash_recovery_success\": false, \"data_corruption\": true, \"write_amplification_factor\": 1.0, \"hardware_atomic_guaranteed\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"engine\": \"POSTGRESQL\", \"doublewrite_enabled\": false, \"full_page_writes_enabled\": true, \"nvme_atomic_write_unit_kb\": 4, \"page_size_kb\": 8}, \"workload\": {\"dirty_pages_count\": 6000, \"power_cut_during_flush\": true, \"power_cut_offset_kb\": 4, \"redo_log_delta_entries\": 15000}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"OPTIMAL_POSTGRESQL_FULL_PAGE_WRITE_RECOVERY\", \"metrics\": {\"torn_pages_detected\": 1, \"pages_restored\": 1, \"crash_recovery_success\": true, \"data_corruption\": false, \"write_amplification_factor\": 1.35, \"hardware_atomic_guaranteed\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"engine\": \"POSTGRESQL\", \"doublewrite_enabled\": false, \"full_page_writes_enabled\": false, \"nvme_atomic_write_unit_kb\": 4, \"page_size_kb\": 8}, \"workload\": {\"dirty_pages_count\": 6000, \"power_cut_during_flush\": true, \"power_cut_offset_kb\": 4, \"redo_log_delta_entries\": 15000}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"TORN_PAGE_WRITE_PERMANENT_CORRUPTION\", \"metrics\": {\"torn_pages_detected\": 1, \"pages_restored\": 0, \"crash_recovery_success\": false, \"data_corruption\": true, \"write_amplification_factor\": 1.0, \"hardware_atomic_guaranteed\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"engine\": \"INNODB\", \"doublewrite_enabled\": false, \"full_page_writes_enabled\": false, \"nvme_atomic_write_unit_kb\": 16, \"page_size_kb\": 16}, \"workload\": {\"dirty_pages_count\": 8000, \"power_cut_during_flush\": true, \"power_cut_offset_kb\": 8, \"redo_log_delta_entries\": 20000}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"OPTIMAL_NVME_HARDWARE_ATOMIC_WRITE_RECOVERY\", \"metrics\": {\"torn_pages_detected\": 0, \"pages_restored\": 0, \"crash_recovery_success\": true, \"data_corruption\": false, \"write_amplification_factor\": 1.0, \"hardware_atomic_guaranteed\": true}}"
+  },
+  {
+    "input": "{\"config\": {\"engine\": \"RAW_WAL_ONLY\", \"doublewrite_enabled\": false, \"full_page_writes_enabled\": false, \"nvme_atomic_write_unit_kb\": 4, \"page_size_kb\": 16}, \"workload\": {\"dirty_pages_count\": 3000, \"power_cut_during_flush\": true, \"power_cut_offset_kb\": 4, \"redo_log_delta_entries\": 8000}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"TORN_PAGE_WRITE_PERMANENT_CORRUPTION\", \"metrics\": {\"torn_pages_detected\": 1, \"pages_restored\": 0, \"crash_recovery_success\": false, \"data_corruption\": true, \"write_amplification_factor\": 1.0, \"hardware_atomic_guaranteed\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"engine\": \"INNODB\", \"doublewrite_enabled\": false, \"full_page_writes_enabled\": false, \"nvme_atomic_write_unit_kb\": 4, \"page_size_kb\": 16}, \"workload\": {\"dirty_pages_count\": 5000, \"power_cut_during_flush\": false, \"power_cut_offset_kb\": 0, \"redo_log_delta_entries\": 10000}}",
+    "output": "{\"status\": \"WARNING\", \"verdict\": \"NO_CRASH_BUT_TORN_WRITE_VULNERABLE\", \"metrics\": {\"torn_pages_detected\": 0, \"pages_restored\": 0, \"crash_recovery_success\": true, \"data_corruption\": false, \"write_amplification_factor\": 1.0, \"hardware_atomic_guaranteed\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"engine\": \"POSTGRESQL\", \"doublewrite_enabled\": false, \"full_page_writes_enabled\": true, \"nvme_atomic_write_unit_kb\": 4, \"page_size_kb\": 8}, \"workload\": {\"dirty_pages_count\": 4000, \"power_cut_during_flush\": false, \"power_cut_offset_kb\": 0, \"redo_log_delta_entries\": 9000}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"CLEAN_FLUSH_PROTECTED_STATE\", \"metrics\": {\"torn_pages_detected\": 0, \"pages_restored\": 0, \"crash_recovery_success\": true, \"data_corruption\": false, \"write_amplification_factor\": 1.35, \"hardware_atomic_guaranteed\": false}}"
+  }
+]
