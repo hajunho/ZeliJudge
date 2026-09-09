@@ -187,7 +187,7 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 |:---:|:---:|:---:|---|
 | 🎒 **초등부 트랙 (Junior)** | `problems-elementary/` | **130문제 완결** ✅ | 초등학생 & 코딩 입문: 사칙연산, 조건/반복문, 리스트/문자열, 기초 스택/큐, 2D 격자, 기본 수학 |
 | 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **130문제 완결** ✅ | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 고급 정수론/기하/DP |
-| 🎓 **고등부 트랙 (High)** | `problems-high/` | **40문제 (진행 중)** 🚀 | 고등학생 & KOI/대회: 세그/Lazy/머지소트 트리, 벨만-포드/SPFA, 아호-코라식, 회전하는 캘리퍼스, SOS DP, 확장유클리드, CRT, 2-SAT |
+| 🎓 **고등부 트랙 (High)** | `problems-high/` | **50문제 (진행 중)** 🚀 | 고등학생 & KOI/대회: 디닉 최대유량, MCMF, 라인 스위핑, Suffix Array/LCP, Mo's, HLD, CHT, D&C 최적화, 볼록다각형 탐색, FFT |
 | 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 110+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/락, Kafka, 캐시 스탬피드, ReDoS, 고가용성 아키텍처 |
 
 ---
@@ -529,6 +529,16 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | **#038** | [서로 다른 주기들이 만나는 날! 중국인의 나머지 정리 (Chinese Remainder Theorem)](problems-high/038-math-chinese-remainder-theorem/problem.md) | 정수론, 중국인의 나머지 정리(CRT), 모듈로 역원, 연립 합동식 | 서로소인 법(Modulus)들에 대해 확장 유클리드 모듈로 역원을 적용하여 연립 합동식의 최소 양의 정수해 도출 |
 | **#039** | [사각부등식의 마법! 크누스 최적화 구간 분할 DP (Knuth's Optimization DP)](problems-high/039-dp-knuth-optimization/problem.md) | 동적 계획법(DP), 크누스 최적화, 사각부등식 단조성, $O(N^2)$ | 최적 분할점 $opt[i][j-1] \le opt[i][j] \le opt[i+1][j]$ 성질로 연속 수열 병합 비용을 $O(N^2)$에 최적화 |
 | **#040** | [명제들의 참/거짓을 만족시켜라! 2-SAT과 강결합 컴포넌트 (2-SAT with SCC)](problems-high/040-graph-two-sat-scc/problem.md) | 그래프 이론, 2-SAT(2-Satisfiability), 함의 그래프, 타잔(Tarjan) SCC, $O(N + M)$ | 2-CNF 논리식을 함의 방향 그래프로 변환하고 동일 SCC 내 $x_i$와 $\neg x_i$ 공존 여부로 만족성 판정 |
+| **#041** | [블로킹 유량으로 초고속 네트워크 유량! 디닉(Dinic) 알고리즘 (Dinic's Maximum Flow)](problems-high/041-dinic-maximum-flow/problem.md) | 네트워크 유량, 디닉(Dinic) 알고리즘, 레벨 그래프 BFS, 블로킹 유량 DFS, $O(V^2 E)$ | BFS 레벨 그래프와 Work 포인터 DFS 블로킹 유량으로 에드몬즈-카프보다 훨씬 빠른 최대 유량 도출 |
+| **#042** | [최대 유량을 최소의 비용으로! 최소 비용 최대 유량 (MCMF Min-Cost Max-Flow)](problems-high/042-mcmf-min-cost-max-flow/problem.md) | 네트워크 유량, MCMF, SPFA 비용 최단 경로, 역간선 음수 비용, $O(F \cdot VE)$ | 비용 잔여 그래프에서 SPFA로 최저 비용 경로를 찾아 유량을 흘리며 최대 유량과 최소 총비용 동시 산출 |
+| **#043** | [겹친 직사각형들의 총면적을 구하라! 라인 스위핑과 직사각형 합집합 (Rectangle Union Area Sweeping)](problems-high/043-geometry-line-sweeping-rectangle-union/problem.md) | 기하학, 라인 스위핑(Line Sweeping), 세그먼트 트리, $O(N \log N)$ | 수직선 스위핑 이벤트와 y구간 덮임 길이를 관리하는 세그먼트 트리로 직사각형 합집합 면적 계산 |
+| **#044** | [문자열의 모든 접미사를 사전순으로! 접미사 배열과 LCP 배열 (Suffix Array and LCP Array)](problems-high/044-string-suffix-array-lcp/problem.md) | 문자열, 접미사 배열(Suffix Array), 맨버-마이어스, 카사이(Kasai) LCP, $O(N \log^2 N)$ | $2^k$ 랭크 기반 접미사 사전순 정렬과 인접 접미사 최장 공통 접두사(LCP) 선형 시간 산출 |
+| **#045** | [쿼리를 재배열하여 마법처럼 풀자! Mo's 알고리즘과 평방분할 (Mo's Algorithm Sqrt Decomposition)](problems-high/045-sqrt-decomposition-mo-algorithm/problem.md) | 오프라인 쿼리, Mo's 알고리즘, 제곱근 분할법(Sqrt Decomposition), $O((N+Q)\sqrt{N})$ | 정적 구간 쿼리들을 $\sqrt{N}$ 블록으로 재정렬하고 양방향 투 포인터 이동으로 서로 다른 원소 수 질의 |
+| **#046** | [트리를 무거운 사슬로 분해하라! HLD와 경로 쿼리 (Heavy-Light Decomposition)](problems-high/046-tree-heavy-light-decomposition/problem.md) | 트리, HLD(Heavy-Light Decomposition), 체인 분할, 세그먼트 트리, $O(\log^2 N)$ | 무거운 간선 체인으로 트리를 분해하여 임의의 두 노드 간 단순 경로 합과 점 갱신을 로그 제곱 시간에 처리 |
+| **#047** | [일차함수들의 최적화! 컨벡스 헐 트릭 (Convex Hull Trick CHT)](problems-high/047-dp-convex-hull-trick/problem.md) | 동적 계획법(DP), 컨벡스 헐 트릭(CHT), 직선의 볼록 껍질, $O(N)$ | $DP[j] + A[i] B[j]$ 꼴의 2차식 DP를 기울기 단조성과 스택 교점 관리를 통해 $O(N)$ 선형 시간에 최적화 |
+| **#048** | [분할하여 지배하는 동적 계획법! D&C 최적화 (Divide and Conquer Optimization DP)](problems-high/048-dp-divide-and-conquer-optimization/problem.md) | 동적 계획법(DP), 분할 정복 최적화(D&C Optimization), 최적 분할점 단조성, $O(KN \log N)$ | 사각부등식을 만족하는 $K$개 그룹 분할 DP를 최적점 단조성에 기반한 재귀 분할로 $O(KN \log N)$에 단축 |
+| **#049** | [점이 볼록 다각형 안에 있을까? 이진 탐색 다각형 내부 판정 (Point in Convex Polygon Binary Search)](problems-high/049-geometry-point-in-convex-polygon-binary-search/problem.md) | 기하학, 볼록 다각형 내부 점 판정, 각도 삼각분할 이진 탐색, CCW, $O(\log N)$ | 기준점 부채꼴 삼각 분할과 CCW 방향각 이진 탐색을 통해 쿼리당 $O(\log N)$에 다각형 내부 판별 |
+| **#050** | [다항식 곱셈을 번개처럼! 고속 푸리에 변환 (Fast Fourier Transform FFT)](problems-high/050-fft-fast-fourier-transform-polynomial-multiplication/problem.md) | 수학, 고속 푸리에 변환(FFT), 쿨리-튜키 분할 정복, 다항식 합성곱, $O(N \log N)$ | 복소수 원시근을 이용해 점 값 표현으로 상호 변환하여 고차 다항식의 곱셈을 $O(N \log N)$에 초고속 계산 |
 
 ---
 
