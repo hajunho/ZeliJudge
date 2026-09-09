@@ -476,6 +476,30 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 
 ---
 
+## 🎓 ZeliJudge High: 고등학생 & 정보올림피아드/알고리즘 대회 대비 심화 트랙 (`problems-high/`)
+
+> *"KOI(한국정보올림피아드) 고등부, ICPC, USACO Gold, Codeforces Div.2 등 본격적인 알고리즘 대회를 정복하고 싶으신가요?"*  
+> 고등학생과 알고리즘 대회 지망생을 위해, 본격적인 시간·공간 복잡도 최적화, 고급 다이나믹 프로그래밍(DP), 그래프 심화, 백트래킹 가지치기, 분할 정복, 고급 기하 및 세그먼트 트리를 체계적으로 다루는 **고등 심화 문제 트랙(총 130문제 목표)**을 제공합니다!
+
+모든 문제는 동일한 4대 표준 구조(`problem.md`, `theory.md`, `testcases.json`, `solution.py`)를 엄격히 따르며, 코너 케이스를 포함한 최소 10개의 철저한 검증 테스트 케이스를 갖추고 있습니다.
+
+### 📚 고등부 문제 목록 (High Problem Index)
+
+| 번호 | 문제명 | 핵심 알고리즘 및 CS 개념 | 문제 핵심 & 알고리즘 기법 |
+|:---:|---|---|---|
+| **#001** | [연속된 수들의 합! 투 포인터 부분합 최적화 (Two Pointer Subarray Sum)](problems-high/001-two-pointer-subarray-sum/problem.md) | 투 포인터(Two Pointers), 누적합, 단조성, $O(N)$ | 연속 부분 수열의 합이 정확히 $M$이 되는 구간 수를 양방향 포인터 전진으로 선형 시간에 탐색 |
+| **#002** | [최적의 길이를 결정하라! 매개변수 탐색과 랜선 자르기 (Parametric Search)](problems-high/002-binary-search-parametric-search/problem.md) | 이진 탐색(Binary Search), 매개변수 탐색, 결정 문제 변환, $O(K \log (\max L))$ | $N$개 이상의 랜선을 만들 수 있는 최대 길이를 참/거짓 경계값 이진 탐색으로 도출 |
+| **#003** | [가장 길게 증가하는 부분 수열! LIS O(N log N) (Longest Increasing Subsequence)](problems-high/003-lis-longest-increasing-subsequence-nlogn/problem.md) | 동적 계획법(DP), 이진 탐색(`bisect_left`), 인내 정렬, $O(N \log N)$ | 각 길이별 최소 끝값을 유지하는 `tails` 배열과 이진 탐색으로 $10^5$ 수열의 LIS 길이 초고속 산출 |
+| **#004** | [한정된 무게 속 최대의 가치! 0-1 배낭 문제와 1차원 공간 최적화 (0-1 Knapsack DP)](problems-high/004-knapsack-01-dynamic-programming/problem.md) | 동적 계획법(DP), 0-1 Knapsack, 1차원 공간 최적화(역순 순회), $O(NW)$ | 배낭 무게 한도 내에서 물건별 가치 최대화를 역순 루프로 $O(W)$ 공간에 해결 |
+| **#005** | [벽 부수고 이동하기! 3차원 상태 BFS 최단 경로 (BFS Wall Break Shortest Path)](problems-high/005-graph-bfs-shortest-maze/problem.md) | 너비 우선 탐색(BFS), 상태 공간 탐색 `(r, c, broken)`, 3차원 방문 배열, $O(NM)$ | 벽을 최대 1번 부술 수 있는 3차원 상태 전이로 격자 미로 탈출 최단 경로 산출 |
+| **#006** | [체스판 위의 평화! N-Queen과 백트래킹 (N-Queen Backtracking)](problems-high/006-graph-dfs-backtracking-n-queen/problem.md) | 깊이 우선 탐색(DFS), 백트래킹(Backtracking), 열/대각선 가지치기, $O(N!)$ | 열과 두 대각선 충돌 배열을 활용한 강력한 가지치기로 $N \times N$ 체스판 N-Queen 배치 총수 도출 |
+| **#007** | [최소 비용으로 모든 도시 연결하기! 크루스칼 MST (Kruskal's Minimum Spanning Tree)](problems-high/007-disjoint-set-kruskal-mst/problem.md) | 최소 신장 트리(MST), 그리디, 분리 집합(Union-Find with 경로 압축), $O(E \log E)$ | 간선 가중치 오름차순 정렬과 상호 배타적 집합을 통해 사이클 없이 최소 비용 연결망 구축 |
+| **#008** | [네트워크 최단 경로! 힙(Heap) 기반 다익스트라 (Dijkstra Shortest Path)](problems-high/008-dijkstra-priority-queue/problem.md) | 최단 경로, 다익스트라(Dijkstra), 우선순위 큐(Min-Heap `heapq`), $O((V+E)\log V)$ | 시작 정점에서 모든 다른 정점으로 가는 양의 가중치 네트워크 최단 거리를 힙으로 계산 |
+| **#009** | [선수 과목 순서대로 수강하기! 진입 차수 기반 위상 정렬 (Topological Sort)](problems-high/009-topological-sort-indegree/problem.md) | 방향 비순환 그래프(DAG), 위상 정렬, 카안(Kahn) 알고리즘, 진입 차수 큐, $O(V+E)$ | 선수 제약 조건 그래프에서 진입 차수 0인 노드를 큐로 탐색하며 유효한 전체 실행 순서 복원 |
+| **#010** | [모든 정점 쌍의 최단 거리! 플로이드-워셜 알고리즘 (Floyd-Warshall All-Pairs Shortest Path)](problems-high/010-floyd-warshall-all-pairs-shortest/problem.md) | 동적 계획법(DP), 플로이드-워셜(Floyd-Warshall), 거쳐가는 정점 $k$ 3중 루프, $O(V^3)$ | 모든 $(i, j)$ 정점 쌍 사이의 최단 거리를 경유지 $k$를 축으로 점진 갱신하는 2차원 거리 행렬 산출 |
+
+---
+
 ## 🖥️ 채점 환경 및 ZeliDesk 연동
 
 `ZeliJudge`는 특정 회사의 독점 서버나 유료 채점 인프라에 의존하지 않습니다.
