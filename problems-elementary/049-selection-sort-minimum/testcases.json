@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제 1: 9 4 2 7 5 -> 2 4 9 7 5",
+    "input": "5\n9 4 2 7 5\n",
+    "expected_output": "2 4 9 7 5"
+  },
+  {
+    "id": 2,
+    "description": "이미 맨 앞이 최솟값 -> 변함 없음",
+    "input": "3\n1 2 3\n",
+    "expected_output": "1 2 3"
+  },
+  {
+    "id": 3,
+    "description": "10 20 5 8 -> 5 20 10 8",
+    "input": "4\n10 20 5 8\n",
+    "expected_output": "5 20 10 8"
+  },
+  {
+    "id": 4,
+    "description": "맨 끝이 최솟값",
+    "input": "3\n5 4 1\n",
+    "expected_output": "1 4 5"
+  },
+  {
+    "id": 5,
+    "description": "2개 숫자 교환",
+    "input": "2\n10 2\n",
+    "expected_output": "2 10"
+  },
+  {
+    "id": 6,
+    "description": "2개 숫자 유지",
+    "input": "2\n2 10\n",
+    "expected_output": "2 10"
+  },
+  {
+    "id": 7,
+    "description": "동일 최솟값 2개 (첫 번째와 교환)",
+    "input": "4\n5 2 2 8\n",
+    "expected_output": "2 5 2 8"
+  },
+  {
+    "id": 8,
+    "description": "모두 동일한 수",
+    "input": "4\n7 7 7 7\n",
+    "expected_output": "7 7 7 7"
+  },
+  {
+    "id": 9,
+    "description": "큰 숫자 혼합",
+    "input": "5\n500 200 100 800 300\n",
+    "expected_output": "100 200 500 800 300"
+  },
+  {
+    "id": 10,
+    "description": "역순 배열",
+    "input": "5\n5 4 3 2 1\n",
+    "expected_output": "1 4 3 2 5"
+  }
+]

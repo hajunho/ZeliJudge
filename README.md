@@ -152,6 +152,7 @@ problems/
 | **#109** | [수신자가 숨넘어가는데 계속 쐈더니 패킷이 통째로 증발해요?!: TCP 흐름 제어(Flow Control) 슬라이딩 윈도우와 제로 윈도우 프로브(Zero Window Probe)](problems/109-tcp-flow-control-sliding-window/problem.md) | **컴퓨터 네트워크/전송 계층(TCP)**, 혼잡 제어(cwnd) vs 흐름 제어(rwnd), 수신 소켓 버퍼(rcv_buf) 포화, TCP ZeroWindow 통보 및 송신 중단, 윈도우 갱신(Window Update) 유실 교착상태, 지속 타이머(Persist Timer)와 1바이트 Zero Window Probe(ZWP) 복구 | 수신 서버 CPU 과부하로 버퍼 포화 시 Zero Window 발생과 윈도우 갱신 패킷 유실 교착상태를 ZWP로 뚫어내는 흐름 제어 원리 |
 | **#110** | [연결 1개 들어왔는데 왜 워커 100개가 동시에 깨어나서 CPU 100%를 찍어요?!: 리눅스 천둥 치는 무리(Thundering Herd)와 EPOLLEXCLUSIVE & SO_REUSEPORT (Linux Epoll Thundering Herd)](problems/110-thundering-herd-epoll-exclusive/problem.md) | **운영체제 커널/네트워크 I/O/웹서버 아키텍처**, 천둥 치는 무리(Thundering Herd), 단일 리슨 소켓 공유 시 동시 기상 및 EAGAIN 폭발, Nginx accept_mutex, Linux 4.5 EPOLLEXCLUSIVE 단일 기상, Linux 3.9 SO_REUSEPORT 4-Tuple 커널 해시 분산 | 연결 1개마다 32개 워커가 동시 기상하여 컨텍스트 스위칭으로 CPU 100% 마비된 참사와 EPOLLEXCLUSIVE 및 SO_REUSEPORT를 통한 0-Wasted 아키텍처 |
 | **#111** | [카프카 배치를 압축했더니 CPU가 100% 찍거나 네트워크가 터져요?!: Kafka 메시지 압축 알고리즘 4대장(GZIP vs Snappy vs LZ4 vs Zstandard)과 실무 트레이드오프 (Kafka Batch Compression Tradeoff)](problems/111-kafka-batch-compression-tradeoff/problem.md) | **분산 메시징/데이터 스트리밍/압축 알고리즘**, RecordBatch 일괄 압축, Small Batch Penalty(사전 오버헤드), GZIP(고압축/CPU폭발) vs Snappy(경량) vs LZ4(초고속 Decompress/표준) vs ZSTD(레벨 튜닝), 브로커 리컴프레션(Recompression) 참사 방어 | 브로커 압축 설정을 임의 변경했다가 프로듀서 배치마다 Decompress/Recompress 폭풍 터져 브로커 CPU 100% 마비된 참사와 실무 코덱 트레이드오프 최적화 원리 |
+| **#112** | [DNS 레코드 바꿨는데 왜 3일 동안 옛날 서버로 접속돼요?!: 다계층 DNS 캐싱(브라우저 -> OS Resolver -> 공유기/ISP -> JVM)과 네거티브 캐시의 저주 (Multi-Tier DNS Cache Invalidation & RFC 2308)](problems/112-multi-tier-dns-cache-invalidation/problem.md) | **컴퓨터 네트워크/DNS 인프라/클라우드**, 4단계 다계층 해석(App -> OS -> ISP -> Authoritative), JVM -1 영구 캐싱 좀비 트래픽, ISP min_ttl_clamp 강제 상향, RFC 2308 네거티브 캐시(NXDOMAIN) 함정 | DNS 레코드 변경 후 JVM 영구 캐시와 ISP 최소 TTL 강제로 3일 동안 죽은 서버로 결제 트래픽 쏟아져 전사 장애 터진 참사와 단계별 플러시 치유 원리 |
 
 
 
@@ -210,6 +211,16 @@ problems/
 | **#038** | [매일매일 연속 출석왕 챌린지](problems-elementary/038-cumulative-attendance-streak/problem.md) | 연속 구간 최대 길이(Max Streak), 상태 갱신 | 한 달 출석부에서 가장 길게 연속으로 출석한 최장 일수 구하기 |
 | **#039** | [장바구니 두 상품 합쳐서 만원 맞추기](problems-elementary/039-two-sum-target-find/problem.md) | 완전 탐색, 투 포인터, 합 맞추기 (Two Sum) | 두 장난감의 가격을 더해 목표 금액을 딱 맞출 수 있는지 찾기 |
 | **#040** | [거품이 뽀글뽀글! 버블 정렬 시뮬레이션](problems-elementary/040-bubble-sort-step-by-step/problem.md) | 정렬 알고리즘, 버블 정렬(Bubble Sort), 자리 바꾸기 | 인접한 두 수를 비교하며 최댓값을 맨 뒤로 보내는 버블 정렬 1회전 수행하기 |
+| **#041** | [번식하는 마법 토끼 가족과 피보나치 수열](problems-elementary/041-fibonacci-rabbit-family/problem.md) | 수학, 피보나치 수열(Fibonacci), 반복문과 점화식 | 마법 숲 토끼 가족의 증가 규칙으로 N번째 달의 토끼 수 구하기 |
+| **#042** | [뒤죽박죽 글자 섞기! 아나그램(Anagram) 탐정](problems-elementary/042-anagram-word-scramble/problem.md) | 문자열, 아나그램(Anagram), 정렬 비교 | 두 단어의 글자들을 정렬해 완전히 같은 철자로 만들어졌는지 판별하기 |
+| **#043** | [가로 세로 대각선이 모두 같은 3x3 마방진 검사기](problems-elementary/043-magic-square-sum-check/problem.md) | 2차원 배열 전수 검사, 마방진(Magic Square) | 가로, 세로, 대각선 8개 라인의 합이 모두 일치하는 완벽한 마방진인지 검사하기 |
+| **#044** | [보물섬 나침반과 4방향 최종 좌표](problems-elementary/044-treasure-island-compass/problem.md) | 시뮬레이션, 2차원 좌표계(X, Y), 벡터 이동 | 동서남북(E, W, S, N) 걸음 수 명령을 따라 최종 도착 좌표 구하기 |
+| **#045** | [해커를 막아라! 비밀번호 안전성 검사기](problems-elementary/045-password-strength-checker/problem.md) | 문자열 검증, 불리언 플래그, 정보보안 기초 | 길이, 대문자, 소문자, 숫자를 모두 갖춘 안전한 비밀번호인지 검증하기 |
+| **#046** | [매일매일 모은 용돈! 특정 기간 저금통 합계](problems-elementary/046-prefix-sum-piggy-bank/problem.md) | 누적합(Prefix Sum), 리스트 슬라이싱, 구간 합 | 1일부터 N일까지 저금 기록 중 L일부터 R일까지 모은 용돈 총합 구하기 |
+| **#047** | [두 노선 버스가 동시에 정류장에 오는 시간 (최소공배수)](problems-elementary/047-lcm-bus-timetable/problem.md) | 수학, 최소공배수(LCM), 주기와 배수 | 두 버스가 출발 후 처음으로 다시 정류장에 동시 도착하는 시간 구하기 |
+| **#048** | [비밀 압축문 해제하기! 런렝스 복원기](problems-elementary/048-rle-decompress-string/problem.md) | 문자열 파싱, 글자 반복 곱셈, 압축 해제 | A3B2C1 같은 런렝스 압축 문자열을 원래 단어로 감쪽같이 복원하기 |
+| **#049** | [가장 작은 것부터 맨 앞으로! 선택 정렬 1회전](problems-elementary/049-selection-sort-minimum/problem.md) | 정렬 알고리즘, 선택 정렬(Selection Sort), 최솟값 스왑 | 배열에서 가장 작은 수를 찾아 맨 앞자리와 자리를 바꾸는 1회전 수행하기 |
+| **#050** | [전설의 황금 원판 옮기기! 하노이의 탑 최소 이동 횟수](problems-elementary/050-hanoi-tower-moves/problem.md) | 수학, 하노이의 탑, 거듭제곱($2^N - 1$), 재귀 기초 | 크기 규칙을 지키며 N개의 원판을 옮기기 위한 최소 이동 횟수 계산하기 |
 
 ---
 

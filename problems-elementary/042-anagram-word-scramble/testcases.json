@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "listen & silent -> YES",
+    "input": "listen\nsilent\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 2,
+    "description": "earth & heart -> YES",
+    "input": "earth\nheart\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 3,
+    "description": "apple & pale (길이 다름) -> NO",
+    "input": "apple\npale\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 4,
+    "description": "완전히 동일한 단어 -> YES",
+    "input": "magic\nmagic\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 5,
+    "description": "한 글자 다름: cat & car -> NO",
+    "input": "cat\ncar\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 6,
+    "description": "한 글자 동일: a & a -> YES",
+    "input": "a\na\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 7,
+    "description": "한 글자 다름: a & b -> NO",
+    "input": "a\nb\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 8,
+    "description": "해리포터 명대사: tom marvolo riddle",
+    "input": "iamlordvoldemort\ntommarvoloriddle\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 9,
+    "description": "철자 개수 불일치: aab & abb -> NO",
+    "input": "aab\nabb\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 10,
+    "description": "긴 아나그램",
+    "input": "conversation\nvoicesranton\n",
+    "expected_output": "YES"
+  }
+]

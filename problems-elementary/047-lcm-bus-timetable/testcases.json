@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "10과 15 -> 30",
+    "input": "10 15\n",
+    "expected_output": "30"
+  },
+  {
+    "id": 2,
+    "description": "4와 6 -> 12",
+    "input": "4 6\n",
+    "expected_output": "12"
+  },
+  {
+    "id": 3,
+    "description": "서로소: 3과 5 -> 15",
+    "input": "3 5\n",
+    "expected_output": "15"
+  },
+  {
+    "id": 4,
+    "description": "둘이 같은 간격: 20 20 -> 20",
+    "input": "20 20\n",
+    "expected_output": "20"
+  },
+  {
+    "id": 5,
+    "description": "배수 관계: 5와 15 -> 15",
+    "input": "5 15\n",
+    "expected_output": "15"
+  },
+  {
+    "id": 6,
+    "description": "1과 다른 수: 1 42 -> 42",
+    "input": "1 42\n",
+    "expected_output": "42"
+  },
+  {
+    "id": 7,
+    "description": "12와 18 -> 36",
+    "input": "12 18\n",
+    "expected_output": "36"
+  },
+  {
+    "id": 8,
+    "description": "큰 수 서로소: 9 10 -> 90",
+    "input": "9 10\n",
+    "expected_output": "90"
+  },
+  {
+    "id": 9,
+    "description": "14와 21 -> 42",
+    "input": "14 21\n",
+    "expected_output": "42"
+  },
+  {
+    "id": 10,
+    "description": "최대 간격 100과 75 -> 300",
+    "input": "100 75\n",
+    "expected_output": "300"
+  }
+]

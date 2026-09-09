@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "표준 마방진 (합 15)",
+    "input": "8 1 6\n3 5 7\n4 9 2\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 2,
+    "description": "일반 연속수 (마방진 아님)",
+    "input": "1 2 3\n4 5 6\n7 8 9\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 3,
+    "description": "모두 동일한 숫자 (마방진 성립)",
+    "input": "5 5 5\n5 5 5\n5 5 5\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 4,
+    "description": "대각선만 다른 경우",
+    "input": "2 7 6\n9 5 1\n4 3 8\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 5,
+    "description": "가로 세로는 맞는데 대각선이 틀린 케이스",
+    "input": "1 5 9\n8 3 4\n6 7 2\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 6,
+    "description": "모두 10인 마방진",
+    "input": "10 10 10\n10 10 10\n10 10 10\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 7,
+    "description": "변형 마방진 (합 30)",
+    "input": "16 2 12\n6 10 14\n8 18 4\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 8,
+    "description": "한 칸만 1 차이나는 가짜 마방진",
+    "input": "8 1 6\n3 5 7\n4 9 3\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 9,
+    "description": "무작위 불일치 숫자",
+    "input": "12 45 67\n23 11 90\n44 55 66\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 10,
+    "description": "회전된 마방진",
+    "input": "6 1 8\n7 5 3\n2 9 4\n",
+    "expected_output": "YES"
+  }
+]

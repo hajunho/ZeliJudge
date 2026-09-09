@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제 1: A3B2C1 -> AAABBC",
+    "input": "A3B2C1\n",
+    "expected_output": "AAABBC"
+  },
+  {
+    "id": 2,
+    "description": "Z5 -> ZZZZZ",
+    "input": "Z5\n",
+    "expected_output": "ZZZZZ"
+  },
+  {
+    "id": 3,
+    "description": "X1Y1Z1 -> XYZ",
+    "input": "X1Y1Z1\n",
+    "expected_output": "XYZ"
+  },
+  {
+    "id": 4,
+    "description": "한 글자 A1 -> A",
+    "input": "A1\n",
+    "expected_output": "A"
+  },
+  {
+    "id": 5,
+    "description": "두 자리 숫자: A10 -> AAAAAAAAAA",
+    "input": "A10\n",
+    "expected_output": "AAAAAAAAAA"
+  },
+  {
+    "id": 6,
+    "description": "교차 패턴: A1B1A1B1",
+    "input": "A1B1A1B1\n",
+    "expected_output": "ABAB"
+  },
+  {
+    "id": 7,
+    "description": "여러 글자 혼합",
+    "input": "K4O2R1E1A1\n",
+    "expected_output": "KKKKOOREA"
+  },
+  {
+    "id": 8,
+    "description": "12개 반복: M12",
+    "input": "M12\n",
+    "expected_output": "MMMMMMMMMMMM"
+  },
+  {
+    "id": 9,
+    "description": "젤리저지 단어 복원",
+    "input": "Z1E1L1I1\n",
+    "expected_output": "ZELI"
+  },
+  {
+    "id": 10,
+    "description": "두 자리 수 포함 복합: A2B12C3",
+    "input": "A2B12C3\n",
+    "expected_output": "AABBBBBBBBBBBBCCC"
+  }
+]

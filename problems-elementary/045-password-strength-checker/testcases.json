@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "모든 조건 만족: Pass1234",
+    "input": "Pass1234\n",
+    "expected_output": "STRONG"
+  },
+  {
+    "id": 2,
+    "description": "대문자 없음, 숫자 없음: password",
+    "input": "password\n",
+    "expected_output": "WEAK"
+  },
+  {
+    "id": 3,
+    "description": "소문자 없음: PASS1234",
+    "input": "PASS1234\n",
+    "expected_output": "WEAK"
+  },
+  {
+    "id": 4,
+    "description": "길이 부족(5자): Pass1",
+    "input": "Pass1\n",
+    "expected_output": "WEAK"
+  },
+  {
+    "id": 5,
+    "description": "숫자만 있음(8자): 12345678",
+    "input": "12345678\n",
+    "expected_output": "WEAK"
+  },
+  {
+    "id": 6,
+    "description": "숫자 누락: PasswordString",
+    "input": "PasswordString\n",
+    "expected_output": "WEAK"
+  },
+  {
+    "id": 7,
+    "description": "정확히 8자 통과: Abcdefg1",
+    "input": "Abcdefg1\n",
+    "expected_output": "STRONG"
+  },
+  {
+    "id": 8,
+    "description": "매우 긴 안전한 비번",
+    "input": "SuperSecretCode2026ZeliJudge",
+    "expected_output": "STRONG"
+  },
+  {
+    "id": 9,
+    "description": "대문자만 8자: ABCDEFGH",
+    "input": "ABCDEFGH\n",
+    "expected_output": "WEAK"
+  },
+  {
+    "id": 10,
+    "description": "7글자 탈락 (경계값): Pass123",
+    "input": "Pass123\n",
+    "expected_output": "WEAK"
+  }
+]
