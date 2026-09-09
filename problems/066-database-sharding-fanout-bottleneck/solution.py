@@ -34,12 +34,19 @@ def solve():
     S = num_shards
     all_shards_list = [f"S{i}" for i in range(S)]
 
+    from collections import defaultdict
+
     # Storage for Strategy A: Date-Based Sharding
-    # shard_id -> list of (order_id, user_id, created_date, amount)
     date_shards = {i: [] for i in range(S)}
+    date_by_user = [defaultdict(list) for _ in range(S)]
+    date_by_dt = [defaultdict(list) for _ in range(S)]
+    date_by_user_dt = [defaultdict(list) for _ in range(S)]
 
     # Storage for Strategy B: User-Based Sharding
     user_shards = {i: [] for i in range(S)}
+    user_by_user = [defaultdict(list) for _ in range(S)]
+    user_by_dt = [defaultdict(list) for _ in range(S)]
+    user_by_user_dt = [defaultdict(list) for _ in range(S)]
 
     out_lines = []
     act_idx = 1
@@ -65,10 +72,16 @@ def solve():
             # Date-based placement
             d_shard = get_shard(dt, S)
             date_shards[d_shard].append((oid, uid, dt, amt))
+            date_by_user[d_shard][uid].append(oid)
+            date_by_dt[d_shard][dt].append(oid)
+            date_by_user_dt[d_shard][(uid, dt)].append(oid)
 
             # User-based placement
             u_shard = get_shard(uid, S)
             user_shards[u_shard].append((oid, uid, dt, amt))
+            user_by_user[u_shard][uid].append(oid)
+            user_by_dt[u_shard][dt].append(oid)
+            user_by_user_dt[u_shard][(uid, dt)].append(oid)
 
             out_lines.append(f"ACT {act_idx} INSERT {oid} DATE_SHARD:STORED_AT=S{d_shard} USER_SHARD:STORED_AT=S{u_shard}")
 
@@ -81,18 +94,13 @@ def solve():
             d_targets = all_shards_list
             d_matches = []
             for s_id in range(S):
-                for o in date_shards[s_id]:
-                    if o[1] == uid:
-                        d_matches.append(o[0])
+                d_matches.extend(date_by_user[s_id].get(uid, []))
 
             # User-based: Targeted single shard
             u_fanout = 1
             u_target_id = get_shard(uid, S)
             u_targets = [f"S{u_target_id}"]
-            u_matches = []
-            for o in user_shards[u_target_id]:
-                if o[1] == uid:
-                    u_matches.append(o[0])
+            u_matches = user_by_user[u_target_id].get(uid, [])
 
             if sorted(d_matches) != sorted(u_matches):
                 consistency_passed = False
@@ -114,19 +122,14 @@ def solve():
             d_fanout = 1
             d_target_id = get_shard(dt, S)
             d_targets = [f"S{d_target_id}"]
-            d_matches = []
-            for o in date_shards[d_target_id]:
-                if o[2] == dt:
-                    d_matches.append(o[0])
+            d_matches = date_by_dt[d_target_id].get(dt, [])
 
             # User-based: Scatter-Gather to ALL shards
             u_fanout = S
             u_targets = all_shards_list
             u_matches = []
             for s_id in range(S):
-                for o in user_shards[s_id]:
-                    if o[2] == dt:
-                        u_matches.append(o[0])
+                u_matches.extend(user_by_dt[s_id].get(dt, []))
 
             if sorted(d_matches) != sorted(u_matches):
                 consistency_passed = False
@@ -149,19 +152,13 @@ def solve():
             d_fanout = 1
             d_target_id = get_shard(dt, S)
             d_targets = [f"S{d_target_id}"]
-            d_matches = []
-            for o in date_shards[d_target_id]:
-                if o[1] == uid and o[2] == dt:
-                    d_matches.append(o[0])
+            d_matches = date_by_user_dt[d_target_id].get((uid, dt), [])
 
             # User-based: Targeted by user
             u_fanout = 1
             u_target_id = get_shard(uid, S)
             u_targets = [f"S{u_target_id}"]
-            u_matches = []
-            for o in user_shards[u_target_id]:
-                if o[1] == uid and o[2] == dt:
-                    u_matches.append(o[0])
+            u_matches = user_by_user_dt[u_target_id].get((uid, dt), [])
 
             if sorted(d_matches) != sorted(u_matches):
                 consistency_passed = False
