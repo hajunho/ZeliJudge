@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "name": "정상 AUTO_CLOSE 모드와 완벽한 자원 반납(HEALTHY)",
+    "input": "CONFIG max_cursors=50 pool_size=5 mode=AUTO_CLOSE\nEXECUTE_QUERY count=30\nSTATUS\n",
+    "output": "CONFIG_OK max_cursors=50 pool_size=5 mode=AUTO_CLOSE\nEXECUTE_OK executed=30 active_cursors=0\n--- JDBC_POOL_STATUS ---\nMODE: AUTO_CLOSE\nPOOL_SIZE: 5\nMAX_CURSORS: 50\nACTIVE_CURSORS: 0\nTOTAL_QUERIES: 30\nCURSOR_ERRORS: 0\nSTATUS: HEALTHY\n--- END_STATUS ---\n"
+  },
+  {
+    "id": 2,
+    "name": "LEAK_ALL 모드 커서 점진적 누수 및 LEAKING 상태 감지",
+    "input": "CONFIG max_cursors=50 pool_size=5 mode=LEAK_ALL\nEXECUTE_QUERY count=20\nSTATUS\n",
+    "output": "CONFIG_OK max_cursors=50 pool_size=5 mode=LEAK_ALL\nEXECUTE_OK executed=20 active_cursors=20\n--- JDBC_POOL_STATUS ---\nMODE: LEAK_ALL\nPOOL_SIZE: 5\nMAX_CURSORS: 50\nACTIVE_CURSORS: 20\nTOTAL_QUERIES: 20\nCURSOR_ERRORS: 0\nSTATUS: LEAKING\n--- END_STATUS ---\n"
+  },
+  {
+    "id": 3,
+    "name": "ORA-01000 최대 열린 커서 수 초과 참사(EXHAUSTED)",
+    "input": "CONFIG max_cursors=30 pool_size=3 mode=LEAK_ALL\nEXECUTE_QUERY count=35\nSTATUS\n",
+    "output": "CONFIG_OK max_cursors=30 pool_size=3 mode=LEAK_ALL\nEXECUTE_FAIL executed=30 failed=5 reason=ORA-01000_MAX_CURSORS_EXCEEDED active_cursors=30\n--- JDBC_POOL_STATUS ---\nMODE: LEAK_ALL\nPOOL_SIZE: 3\nMAX_CURSORS: 30\nACTIVE_CURSORS: 30\nTOTAL_QUERIES: 30\nCURSOR_ERRORS: 1\nSTATUS: EXHAUSTED\n--- END_STATUS ---\n"
+  },
+  {
+    "id": 4,
+    "name": "응급 커넥션 풀 축출(EVICT_IDLE_CONNECTIONS)과 누수 커서 강제 회수",
+    "input": "CONFIG max_cursors=25 pool_size=5 mode=LEAK_ALL\nEXECUTE_QUERY count=20\nSTATUS\nEVICT_IDLE_CONNECTIONS\nSTATUS\n",
+    "output": "CONFIG_OK max_cursors=25 pool_size=5 mode=LEAK_ALL\nEXECUTE_OK executed=20 active_cursors=20\n--- JDBC_POOL_STATUS ---\nMODE: LEAK_ALL\nPOOL_SIZE: 5\nMAX_CURSORS: 25\nACTIVE_CURSORS: 20\nTOTAL_QUERIES: 20\nCURSOR_ERRORS: 0\nSTATUS: LEAKING\n--- END_STATUS ---\nEVICT_OK freed_cursors=20 remaining_cursors=0\n--- JDBC_POOL_STATUS ---\nMODE: LEAK_ALL\nPOOL_SIZE: 5\nMAX_CURSORS: 25\nACTIVE_CURSORS: 0\nTOTAL_QUERIES: 20\nCURSOR_ERRORS: 0\nSTATUS: HEALTHY\n--- END_STATUS ---\n"
+  },
+  {
+    "id": 5,
+    "name": "LEAK_RESULTSET 모드(DB 커서는 정상 해제, 클라이언트 버퍼 누수)",
+    "input": "CONFIG max_cursors=20 pool_size=4 mode=LEAK_RESULTSET\nEXECUTE_QUERY count=30\nSTATUS\n",
+    "output": "CONFIG_OK max_cursors=20 pool_size=4 mode=LEAK_RESULTSET\nEXECUTE_OK executed=30 active_cursors=0\n--- JDBC_POOL_STATUS ---\nMODE: LEAK_RESULTSET\nPOOL_SIZE: 4\nMAX_CURSORS: 20\nACTIVE_CURSORS: 0\nTOTAL_QUERIES: 30\nCURSOR_ERRORS: 0\nSTATUS: HEALTHY\n--- END_STATUS ---\n"
+  },
+  {
+    "id": 6,
+    "name": "누수 발생 후 축출 및 AUTO_CLOSE 전환 자가 치유 시나리오",
+    "input": "CONFIG max_cursors=40 pool_size=4 mode=LEAK_ALL\nEXECUTE_QUERY count=35\nSTATUS\nEVICT_IDLE_CONNECTIONS\nRESET\nCONFIG max_cursors=40 pool_size=4 mode=AUTO_CLOSE\nEXECUTE_QUERY count=100\nSTATUS\n",
+    "output": "CONFIG_OK max_cursors=40 pool_size=4 mode=LEAK_ALL\nEXECUTE_OK executed=35 active_cursors=35\n--- JDBC_POOL_STATUS ---\nMODE: LEAK_ALL\nPOOL_SIZE: 4\nMAX_CURSORS: 40\nACTIVE_CURSORS: 35\nTOTAL_QUERIES: 35\nCURSOR_ERRORS: 0\nSTATUS: LEAKING\n--- END_STATUS ---\nEVICT_OK freed_cursors=35 remaining_cursors=0\nRESET_OK\nCONFIG_OK max_cursors=40 pool_size=4 mode=AUTO_CLOSE\nEXECUTE_OK executed=100 active_cursors=0\n--- JDBC_POOL_STATUS ---\nMODE: AUTO_CLOSE\nPOOL_SIZE: 4\nMAX_CURSORS: 40\nACTIVE_CURSORS: 0\nTOTAL_QUERIES: 100\nCURSOR_ERRORS: 0\nSTATUS: HEALTHY\n--- END_STATUS ---\n"
+  },
+  {
+    "id": 7,
+    "name": "대규모 복합 커넥션 풀 쿼리 스트레스 테스트 (1,000건 다중 세션)",
+    "input": "CONFIG max_cursors=200 pool_size=10 mode=AUTO_CLOSE\nEXECUTE_QUERY count=500\nSTATUS\nCONFIG max_cursors=200 pool_size=10 mode=LEAK_ALL\nEXECUTE_QUERY count=150\nSTATUS\nEVICT_IDLE_CONNECTIONS\nSTATUS\nRESET\nCONFIG max_cursors=500 pool_size=20 mode=AUTO_CLOSE\nEXECUTE_QUERY count=1000\nSTATUS\n",
+    "output": "CONFIG_OK max_cursors=200 pool_size=10 mode=AUTO_CLOSE\nEXECUTE_OK executed=500 active_cursors=0\n--- JDBC_POOL_STATUS ---\nMODE: AUTO_CLOSE\nPOOL_SIZE: 10\nMAX_CURSORS: 200\nACTIVE_CURSORS: 0\nTOTAL_QUERIES: 500\nCURSOR_ERRORS: 0\nSTATUS: HEALTHY\n--- END_STATUS ---\nCONFIG_OK max_cursors=200 pool_size=10 mode=LEAK_ALL\nEXECUTE_OK executed=150 active_cursors=150\n--- JDBC_POOL_STATUS ---\nMODE: LEAK_ALL\nPOOL_SIZE: 10\nMAX_CURSORS: 200\nACTIVE_CURSORS: 150\nTOTAL_QUERIES: 650\nCURSOR_ERRORS: 0\nSTATUS: LEAKING\n--- END_STATUS ---\nEVICT_OK freed_cursors=150 remaining_cursors=0\n--- JDBC_POOL_STATUS ---\nMODE: LEAK_ALL\nPOOL_SIZE: 10\nMAX_CURSORS: 200\nACTIVE_CURSORS: 0\nTOTAL_QUERIES: 650\nCURSOR_ERRORS: 0\nSTATUS: HEALTHY\n--- END_STATUS ---\nRESET_OK\nCONFIG_OK max_cursors=500 pool_size=20 mode=AUTO_CLOSE\nEXECUTE_OK executed=1000 active_cursors=0\n--- JDBC_POOL_STATUS ---\nMODE: AUTO_CLOSE\nPOOL_SIZE: 20\nMAX_CURSORS: 500\nACTIVE_CURSORS: 0\nTOTAL_QUERIES: 1000\nCURSOR_ERRORS: 0\nSTATUS: HEALTHY\n--- END_STATUS ---\n"
+  }
+]
