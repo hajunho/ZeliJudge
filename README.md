@@ -101,6 +101,7 @@ problems/
 | **#058** | [배송 완료된 상품이 왜 '결제 대기'로 되돌아가요?!: 네트워크 패킷 지연과 시퀀스 번호 재정렬 버퍼 (Out-of-Order Delivery & Reordering Buffer)](problems/058-out-of-order-reordering-buffer/problem.md) | **분산 이벤트 스트리밍/네트워크**, Out-of-Order 패킷 지연, 상태 역전(State Regression) 참사, 시퀀스 번호 단조 증가, 재정렬 버퍼(Reordering Buffer), 연쇄 드레인(Drain), HOL 블로킹 타임아웃 | 분산 네트워크 지연으로 이벤트가 뒤죽박죽 도착해 이미 배송 완료된 상품이 '결제 대기'로 되돌아가 중복 배송된 참사 |
 | **#059** | [이메일 발송 API가 느려졌는데 왜 쇼핑몰 전체가 마비돼요?!: 롱 러닝 트랜잭션과 커넥션 풀 고갈 (Long-Running Transaction & HikariCP Pool Starvation)](problems/059-long-running-transaction-connection-starvation/problem.md) | **데이터베이스 엔지니어링/동시성**, 습관성 `@Transactional` 안티패턴, HikariCP 커넥션 풀 라이프사이클, 외부 I/O 블로킹 고갈, 트랜잭션 범위 최소화, 아웃박스 패턴 | 외부 이메일/결제 API 지연 발생 시 10개 커넥션이 영구 묶여 로그인/메인페이지 등 전사 500 타임아웃 폭사한 참사 |
 | **#060** | [질문보다 답변이 먼저 뜨는 타임머신 버그?!: 분산 시계 드리프트와 램포트 논리적 시계 (Physical Clock Drift vs Lamport Logical Clock)](problems/060-lamport-logical-clock/problem.md) | **분산 시스템/시간과 인과율**, 레슬리 램포트 튜링상 논문, NTP 시계 드리프트/스큐, 일어남-선행($\to$) 인과 관계, 램포트 논리 시계 알고리즘, 전체 순서화(Total Ordering) | 노드 간 시계 오차로 질문보다 답변이 먼저 도착해 메신저 대화 타임라인이 거꾸로 뒤집힌 참사 |
+| **#061** | [분산 락을 걸었는데 왜 두 명이 동시에 결제돼요?!: 분산 락의 덫과 펜싱 토큰 (Distributed Lock STW Pause & Martin Kleppmann's Fencing Token)](problems/061-distributed-lock-fencing-token/problem.md) | **분산 시스템/동시성 격리**, 마틴 클레프만 vs 안티레즈 논쟁, Stop-The-World GC 락 만료, 펜싱 토큰(Fencing Token), 스토리지 기반 울타리 검증, 락 하이재킹 방어 | GC 일시정지로 락이 만료된 사이 다른 노드가 락을 얻었는데, 깨어난 유령 노드가 데이터를 덮어써 결제 데이터가 파괴된 참사 |
 
 
 
