@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제 1: K=3 (KHOOR 안에 HELLO 복원)",
+    "input": "KHOOR\nHELLO\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 2,
+    "description": "K=0 (밀리지 않은 원래 단어)",
+    "input": "PYTHON\nPYTHON\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 3,
+    "description": "K=1 (BCDE 안에 ABCD 복원)",
+    "input": "BCDE\nABCD\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 4,
+    "description": "K=25 (바로 전 글자로 시프트: Z 안에 A 복원)",
+    "input": "Z\nA\n",
+    "expected_output": "25"
+  },
+  {
+    "id": 5,
+    "description": "긴 문장 속 부분 단어 찾기 (K=5)",
+    "input": "AAAAPXJHWJYZZZZ\nSECRET\n",
+    "expected_output": "5"
+  },
+  {
+    "id": 6,
+    "description": "알파벳 경계 순환 (K=4: EXXE -> ATTA)",
+    "input": "EXXE\nATTA\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 7,
+    "description": "힌트 단어가 중간에 위치 (K=10)",
+    "input": "ZZZZROVZYYYY\nHELP\n",
+    "expected_output": "10"
+  },
+  {
+    "id": 8,
+    "description": "K=13 (유명한 ROT13)",
+    "input": "URYYB\nHELLO\n",
+    "expected_output": "13"
+  },
+  {
+    "id": 9,
+    "description": "한 글자 찾기 (K=7)",
+    "input": "H\nA\n",
+    "expected_output": "7"
+  },
+  {
+    "id": 10,
+    "description": "긴 암호문 속 찾기 (K=8)",
+    "input": "MYDEARNEWZTLZZ\nWORLD\n",
+    "expected_output": "8"
+  }
+]

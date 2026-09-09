@@ -232,6 +232,16 @@ problems/
 | **#058** | [모니터 속 1,600만 가지 색! RGB 16진수 색상 코드 변환기](problems-elementary/058-rgb-color-hex-converter/problem.md) | 진법 변환(10진수 -> 16진수), 포맷팅, 자리맞춤 | 0~255 범위의 R, G, B 빛의 삼원색 값을 6자리 HEX 코드로 변환하기 |
 | **#059** | [컴퓨터와 숫자 대결! 3자리 숫자 야구 스트라이크/볼 판정기](problems-elementary/059-baseball-game-strike-ball/problem.md) | 자릿수 일치 비교, 포함 여부 검사(`in`), 조건 카운팅 | 자릿수와 숫자가 모두 같으면 S, 숫자는 있지만 자리가 다르면 B 판정하기 |
 | **#060** | [괄호 없이 계산해요! 스택(Stack) 후위 표기법 계산기](problems-elementary/060-stack-postfix-calculator/problem.md) | 자료구조 스택(Stack), 후위 표기법(RPN), 후입선출 | 컴퓨터가 괄호 없이 사칙연산을 빠르게 처리하는 스택 계산기 구현하기 |
+| **#061** | [맞물려 돌아가는 톱니바퀴! 최대공약수와 최소공배수](problems-elementary/061-gear-ratio-gcd-lcm/problem.md) | 수학, 최대공약수(GCD), 최소공배수(LCM), 유클리드 호제법 | 두 톱니바퀴가 처음 위치에서 다시 맞물릴 때까지의 회전수와 공약수 계산하기 |
+| **#062** | [지그재그 트랙터의 밭 갈기 시뮬레이션](problems-elementary/062-tractor-zigzag-field-walk/problem.md) | 2차원 리스트 탐색, 지그재그 순회, 인덱스 조건 분기 | 짝수행은 좌->우, 홀수행은 우->좌로 지그재그 주행하며 영양소 수치 기록하기 |
+| **#063** | [프로야구 9이닝 스코어보드와 승리팀 판정](problems-elementary/063-baseball-scoreboard-winner/problem.md) | 리스트 합계(`sum`), 조건 분기, 문자열 포맷팅 | 1회부터 9회까지의 이닝별 점수를 합산하여 최종 점수와 승리팀(AWAY/HOME/DRAW) 발표하기 |
+| **#064** | [마법사의 주문! 문장 속 단어 순서 거꾸로 뒤집기](problems-elementary/064-word-order-reverser/problem.md) | 문자열 분리(`split`), 리스트 뒤집기(`reversed`), 문자열 결합(`join`) | 띄어쓰기로 구분된 문장의 단어 순서만 마법처럼 거꾸로 뒤집기 |
+| **#065** | [마술사의 카드 트릭! 버리고 밑으로 넣기 큐](problems-elementary/065-magic-card-discard-bottom/problem.md) | 자료구조 큐(Queue), 선입선출(FIFO), 데크(`deque`) 시뮬레이션 | 맨 위 카드는 버리고 다음 카드는 맨 밑으로 넣을 때 마지막 남는 카드 번호 맞추기 |
+| **#066** | [비밀 암호 해독가! 잃어버린 시프트 열쇠(K) 찾기](problems-elementary/066-caesar-cipher-key-finder/problem.md) | 완전 탐색(Brute Force), 문자열 복호화, 포함 여부 검사(`in`) | 카이사르 암호문 속에 숨겨진 원래 힌트 단어를 찾아내는 암호 열쇠 K 알아내기 |
+| **#067** | [바둑판 마을의 택시 거리(맨해튼 거리) 계산기](problems-elementary/067-taxi-manhattan-distance/problem.md) | 수학, 좌표계, 절대값(`abs`), 맨해튼 거리 | 격자 도로망에서 손님들의 출발점과 도착점 사이 택시 이동 거리 총합 구하기 |
+| **#068** | [4비트씩 모여라! 2진수를 16진수로 변환하기](problems-elementary/068-binary-to-hex-grouping/problem.md) | 진법 변환, 비트(Bit)와 니블(Nibble), 2진수와 16진수 | 0과 1로 된 2진수를 4비트씩 묶어 16진수 1자리로 압축 변환하기 |
+| **#069** | [여름방학 폭염 경보! 연속 K일간의 최고 기온 합](problems-elementary/069-sliding-window-heatwave-sum/problem.md) | 슬라이딩 윈도우(Sliding Window), 누적합, 연속 부분 수열 | N일간의 기온 기록 중 연속 K일 동안의 기온 합 최댓값을 O(N)으로 구하기 |
+| **#070** | [웹 브라우저의 마법! 열린 태그와 닫힌 태그 짝 검사](problems-elementary/070-stack-html-tag-validator/problem.md) | 자료구조 스택(Stack), 괄호/태그 유효성 검사, 구문 파싱 | HTML의 열린 태그와 닫힌 태그가 올바르게 중첩(LIFO)되어 닫히는지 검증하기 |
 
 ---
 

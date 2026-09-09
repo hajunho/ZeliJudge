@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "올바른 중첩 태그: <b> <i> </i> </b> -> YES",
+    "input": "<b> <i> </i> </b>\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 2,
+    "description": "잘못 엇갈려 닫힌 태그: <b> <i> </b> </i> -> NO",
+    "input": "<b> <i> </b> </i>\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 3,
+    "description": "단일 쌍: <p> </p> -> YES",
+    "input": "<p> </p>\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 4,
+    "description": "닫는 태그 누락: <b> <i> </i> -> NO",
+    "input": "<b> <i> </i>\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 5,
+    "description": "여는 태그 없이 닫기 먼저: </b> -> NO",
+    "input": "</b>\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 6,
+    "description": "나란히 연속된 태그들: <b> </b> <i> </i> <p> </p> -> YES",
+    "input": "<b> </b> <i> </i> <p> </p>\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 7,
+    "description": "4중 깊은 중첩: <p> <b> <u> <i> </i> </u> </b> </p> -> YES",
+    "input": "<p> <b> <u> <i> </i> </u> </b> </p>\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 8,
+    "description": "안쪽 태그 짝이 맞지 않음: <p> <b> </i> </b> </p> -> NO",
+    "input": "<p> <b> </i> </b> </p>\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 9,
+    "description": "끝나고 불필요한 닫는 태그: <p> </p> </p> -> NO",
+    "input": "<p> </p> </p>\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 10,
+    "description": "모든 태그 종류 혼합 정상: <b> </b> <u> <i> </i> </u> <p> </p> -> YES",
+    "input": "<b> </b> <u> <i> </i> </u> <p> </p>\n",
+    "expected_output": "YES"
+  }
+]

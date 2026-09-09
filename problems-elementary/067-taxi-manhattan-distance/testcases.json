@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: (1,1)->(4,5) 거리 |1-4|+|1-5| = 3+4 = 7",
+    "input": "1\n1 1 4 5\n",
+    "expected_output": "7"
+  },
+  {
+    "id": 2,
+    "description": "2명 손님 합계: (0,0)->(2,3) 5 + (1,2)->(1,2) 0 = 5",
+    "input": "2\n0 0 2 3\n1 2 1 2\n",
+    "expected_output": "5"
+  },
+  {
+    "id": 3,
+    "description": "수평 직진만 이동: (0,0)->(10,0) 거리 10",
+    "input": "1\n0 0 10 0\n",
+    "expected_output": "10"
+  },
+  {
+    "id": 4,
+    "description": "수직 직진만 이동: (5,2)->(5,9) 거리 7",
+    "input": "1\n5 2 5 9\n",
+    "expected_output": "7"
+  },
+  {
+    "id": 5,
+    "description": "음수 좌표 포함: (-2, -3) -> (3, 4) 거리 5 + 7 = 12",
+    "input": "1\n-2 -3 3 4\n",
+    "expected_output": "12"
+  },
+  {
+    "id": 6,
+    "description": "3명의 손님 누적 거리",
+    "input": "3\n1 1 2 2\n3 3 5 5\n0 0 0 0\n",
+    "expected_output": "6"
+  },
+  {
+    "id": 7,
+    "description": "좌우 대칭 이동",
+    "input": "2\n-5 0 5 0\n0 -5 0 5\n",
+    "expected_output": "20"
+  },
+  {
+    "id": 8,
+    "description": "큰 좌표 거리",
+    "input": "1\n1000 2000 3000 4000\n",
+    "expected_output": "4000"
+  },
+  {
+    "id": 9,
+    "description": "4명 손님",
+    "input": "4\n1 2 3 4\n-1 -1 1 1\n5 5 2 2\n0 10 10 0\n",
+    "expected_output": "34"
+  },
+  {
+    "id": 10,
+    "description": "제자리 이동만 모인 경우",
+    "input": "3\n1 1 1 1\n2 2 2 2\n3 3 3 3\n",
+    "expected_output": "0"
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 2x3 밭: 1 2 3 / 4 5 6 -> 1 2 3 6 5 4",
+    "input": "2 3\n1 2 3\n4 5 6\n",
+    "expected_output": "1 2 3 6 5 4"
+  },
+  {
+    "id": 2,
+    "description": "3x3 밭: 1~9",
+    "input": "3 3\n1 2 3\n4 5 6\n7 8 9\n",
+    "expected_output": "1 2 3 6 5 4 7 8 9"
+  },
+  {
+    "id": 3,
+    "description": "1x4 가로 밭 (뒤집힘 없음)",
+    "input": "1 4\n10 20 30 40\n",
+    "expected_output": "10 20 30 40"
+  },
+  {
+    "id": 4,
+    "description": "4x1 세로 밭",
+    "input": "4 1\n5\n6\n7\n8\n",
+    "expected_output": "5 6 7 8"
+  },
+  {
+    "id": 5,
+    "description": "1x1 단일 칸",
+    "input": "1 1\n42\n",
+    "expected_output": "42"
+  },
+  {
+    "id": 6,
+    "description": "2x2 밭: 10 20 / 30 40 -> 10 20 40 30",
+    "input": "2 2\n10 20\n30 40\n",
+    "expected_output": "10 20 40 30"
+  },
+  {
+    "id": 7,
+    "description": "4x2 밭",
+    "input": "4 2\n1 2\n3 4\n5 6\n7 8\n",
+    "expected_output": "1 2 4 3 5 6 8 7"
+  },
+  {
+    "id": 8,
+    "description": "3x4 밭",
+    "input": "3 4\n1 2 3 4\n5 6 7 8\n9 10 11 12\n",
+    "expected_output": "1 2 3 4 8 7 6 5 9 10 11 12"
+  },
+  {
+    "id": 9,
+    "description": "모두 동일한 숫자",
+    "input": "2 3\n0 0 0\n0 0 0\n",
+    "expected_output": "0 0 0 0 0 0"
+  },
+  {
+    "id": 10,
+    "description": "음수 포함된 밭",
+    "input": "2 3\n-1 -2 -3\n-4 -5 -6\n",
+    "expected_output": "-1 -2 -3 -6 -5 -4"
+  }
+]

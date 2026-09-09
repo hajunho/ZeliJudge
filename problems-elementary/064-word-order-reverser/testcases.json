@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제 1: I love python coding -> coding python love I",
+    "input": "I love python coding\n",
+    "expected_output": "coding python love I"
+  },
+  {
+    "id": 2,
+    "description": "단어 2개: Hello World -> World Hello",
+    "input": "Hello World\n",
+    "expected_output": "World Hello"
+  },
+  {
+    "id": 3,
+    "description": "단어 1개: Magic -> Magic",
+    "input": "Magic\n",
+    "expected_output": "Magic"
+  },
+  {
+    "id": 4,
+    "description": "사전 순 단어: a b c d e -> e d c b a",
+    "input": "a b c d e\n",
+    "expected_output": "e d c b a"
+  },
+  {
+    "id": 5,
+    "description": "동일한 단어 반복: yes no yes no -> no yes no yes",
+    "input": "yes no yes no\n",
+    "expected_output": "no yes no yes"
+  },
+  {
+    "id": 6,
+    "description": "회문 문장: step on no pets -> pets no on step",
+    "input": "step on no pets\n",
+    "expected_output": "pets no on step"
+  },
+  {
+    "id": 7,
+    "description": "긴 문장",
+    "input": "The quick brown fox jumps over the lazy dog\n",
+    "expected_output": "dog lazy the over jumps fox brown quick The"
+  },
+  {
+    "id": 8,
+    "description": "대소문자 섞인 단어들",
+    "input": "OpenAI Gemini Claude Antigravity\n",
+    "expected_output": "Antigravity Claude Gemini OpenAI"
+  },
+  {
+    "id": 9,
+    "description": "숫자 모양 단어들: one two three four -> four three two one",
+    "input": "one two three four\n",
+    "expected_output": "four three two one"
+  },
+  {
+    "id": 10,
+    "description": "3개 단어: Data Structure Algorithm -> Algorithm Structure Data",
+    "input": "Data Structure Algorithm\n",
+    "expected_output": "Algorithm Structure Data"
+  }
+]

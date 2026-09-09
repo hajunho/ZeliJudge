@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제 1: 12와 18 -> GCD 6, LCM 36",
+    "input": "12 18\n",
+    "expected_output": "6 36"
+  },
+  {
+    "id": 2,
+    "description": "서로소: 7과 11 -> GCD 1, LCM 77",
+    "input": "7 11\n",
+    "expected_output": "1 77"
+  },
+  {
+    "id": 3,
+    "description": "배수 관계: 6과 24 -> GCD 6, LCM 24",
+    "input": "6 24\n",
+    "expected_output": "6 24"
+  },
+  {
+    "id": 4,
+    "description": "동일한 두 수: 15와 15 -> GCD 15, LCM 15",
+    "input": "15 15\n",
+    "expected_output": "15 15"
+  },
+  {
+    "id": 5,
+    "description": "1과 임의의 수: 1과 50 -> GCD 1, LCM 50",
+    "input": "1 50\n",
+    "expected_output": "1 50"
+  },
+  {
+    "id": 6,
+    "description": "두 자릿수 수: 45와 75 -> GCD 15, LCM 225",
+    "input": "45 75\n",
+    "expected_output": "15 225"
+  },
+  {
+    "id": 7,
+    "description": "톱니바퀴 예시: 16과 28 -> GCD 4, LCM 112",
+    "input": "16 28\n",
+    "expected_output": "4 112"
+  },
+  {
+    "id": 8,
+    "description": "큰 소수 곱: 13과 17 -> GCD 1, LCM 221",
+    "input": "13 17\n",
+    "expected_output": "1 221"
+  },
+  {
+    "id": 9,
+    "description": "세 자릿수 수: 120과 180 -> GCD 60, LCM 360",
+    "input": "120 180\n",
+    "expected_output": "60 360"
+  },
+  {
+    "id": 10,
+    "description": "최대 범위 근처: 1000과 2500 -> GCD 500, LCM 5000",
+    "input": "1000 2500\n",
+    "expected_output": "500 5000"
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제 1: 1101 0101 -> D5",
+    "input": "11010101\n",
+    "expected_output": "D5"
+  },
+  {
+    "id": 2,
+    "description": "단일 4자리: 1010 -> A",
+    "input": "1010\n",
+    "expected_output": "A"
+  },
+  {
+    "id": 3,
+    "description": "모두 0인 경우: 0000 -> 0",
+    "input": "0000\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 4,
+    "description": "모두 1인 경우: 1111 1111 -> FF",
+    "input": "11111111\n",
+    "expected_output": "FF"
+  },
+  {
+    "id": 5,
+    "description": "숫자만 변환되는 경우: 0001 0010 0011 -> 123",
+    "input": "000100100011\n",
+    "expected_output": "123"
+  },
+  {
+    "id": 6,
+    "description": "16비트 단어: 1000 0000 0000 0001 -> 8001",
+    "input": "1000000000000001\n",
+    "expected_output": "8001"
+  },
+  {
+    "id": 7,
+    "description": "DEAD 변환: 1101 1110 1010 1101 -> DEAD",
+    "input": "1101111010101101\n",
+    "expected_output": "DEAD"
+  },
+  {
+    "id": 8,
+    "description": "BEEF 변환: 1011 1110 1110 1111 -> BEEF",
+    "input": "1011111011101111\n",
+    "expected_output": "BEEF"
+  },
+  {
+    "id": 9,
+    "description": "0과 1 교차: 0101 1010 -> 5A",
+    "input": "01011010\n",
+    "expected_output": "5A"
+  },
+  {
+    "id": 10,
+    "description": "32비트 긴 2진수: 0111 1111 1111 1111 0000 0000 0000 0000 -> 7FFF0000",
+    "input": "01111111111111110000000000000000\n",
+    "expected_output": "7FFF0000"
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제 N = 6 -> 4 (1버림,2밑,3버림,4밑,5버림,6밑 -> 2,4,6 -> 2버림,4밑,6버림 -> 4남음)",
+    "input": "6\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 2,
+    "description": "N = 1 -> 1 (처음부터 1장)",
+    "input": "1\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 3,
+    "description": "N = 2 -> 2 (1버리고 2남음)",
+    "input": "2\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 4,
+    "description": "N = 3 -> 2 (1버림,2밑,3버림 -> 2남음)",
+    "input": "3\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 5,
+    "description": "2의 거듭제곱 N = 4 -> 4",
+    "input": "4\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 6,
+    "description": "2의 거듭제곱 N = 8 -> 8",
+    "input": "8\n",
+    "expected_output": "8"
+  },
+  {
+    "id": 7,
+    "description": "N = 7 -> 6",
+    "input": "7\n",
+    "expected_output": "6"
+  },
+  {
+    "id": 8,
+    "description": "N = 10 -> 4",
+    "input": "10\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 9,
+    "description": "N = 100 -> 72",
+    "input": "100\n",
+    "expected_output": "72"
+  },
+  {
+    "id": 10,
+    "description": "최대 범위 N = 1000 -> 976",
+    "input": "1000\n",
+    "expected_output": "976"
+  }
+]

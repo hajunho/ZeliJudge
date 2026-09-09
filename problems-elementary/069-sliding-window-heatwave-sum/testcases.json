@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: 10일 중 연속 3일 최대 합 (25 28 30 = 83)",
+    "input": "10 3\n12 15 20 25 28 30 22 18 19 21\n",
+    "expected_output": "83"
+  },
+  {
+    "id": 2,
+    "description": "K = 1 (단일 날짜 최댓값: 35)",
+    "input": "5 1\n20 25 35 15 30\n",
+    "expected_output": "35"
+  },
+  {
+    "id": 3,
+    "description": "K = N (전체 날짜 합)",
+    "input": "4 4\n10 20 30 40\n",
+    "expected_output": "100"
+  },
+  {
+    "id": 4,
+    "description": "모두 음수 기온 (겨울 한파: 최댓값 -13)",
+    "input": "5 2\n-10 -5 -8 -12 -3\n",
+    "expected_output": "-13"
+  },
+  {
+    "id": 5,
+    "description": "처음 K일이 최대인 경우",
+    "input": "5 2\n40 40 10 10 10\n",
+    "expected_output": "80"
+  },
+  {
+    "id": 6,
+    "description": "마지막 K일이 최대인 경우",
+    "input": "5 2\n10 10 10 40 40\n",
+    "expected_output": "80"
+  },
+  {
+    "id": 7,
+    "description": "동일한 기온 연속",
+    "input": "6 3\n25 25 25 25 25 25\n",
+    "expected_output": "75"
+  },
+  {
+    "id": 8,
+    "description": "0도 포함된 경우",
+    "input": "4 2\n-5 0 5 -10\n",
+    "expected_output": "5"
+  },
+  {
+    "id": 9,
+    "description": "기온 등락이 심한 경우",
+    "input": "7 3\n10 30 10 30 10 30 10\n",
+    "expected_output": "70"
+  },
+  {
+    "id": 10,
+    "description": "긴 리스트 테스트 (N=8, K=4)",
+    "input": "8 4\n1 2 3 4 5 6 7 8\n",
+    "expected_output": "26"
+  }
+]
