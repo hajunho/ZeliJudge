@@ -84,6 +84,7 @@ problems/
 | **#041** | [동시에 좋아요를 1,000명이 눌렀더니 숫자가 50밖에 안 올라가요?!: 분산 카운터와 샤디드 카운터](problems/041-distributed-sharded-counter/problem.md) | **동시성 제어/분산 카운터**, 단일 행 배타락(X-Lock) 경합, Lock Wait Timeout 폭발 방어, 샤디드 카운터(Sharded Counter) 병렬 확장 | 실시간 라이브 방송에서 10만 명이 동시 하트 연타하다 단일 행 UPDATE 락 대기열 폭발로 99% 요청 롤백된 참사 |
 | **#042** | [DB가 잠깐 끊겼는데 왜 서버 100대가 전부 강제 재부팅돼요?!: 헬스체크와 Liveness vs Readiness Probe](problems/042-health-check-liveness-readiness/problem.md) | **클라우드 네이티브/인프라**, 쿠버네티스 헬스체크 3총사, 딥 헬스체크 안티패턴, 연쇄 재시작 폭풍(Cascading Restart Storm) 방어 | 외부 DB 3초 지연에 딥 헬스체크 걸어뒀다가 100대 파드 동시 재부팅으로 DB 영구 폭사한 참사 |
 | **#043** | [로그를 많이 남겼더니 서버가 멈췄어요?!: 동기식 로깅 vs 비동기 링 버퍼(Disruptor Ring Buffer)](problems/043-async-logging-ring-buffer/problem.md) | **시스템 아키텍처/I/O 모델**, 파일 쓰기 배타락 병목, LMAX Disruptor 링 버퍼, 배치 I/O 플러시, 지능형 드롭 정책(discardingThreshold) | 디버깅한다고 logger.info 남발했다가 디스크 I/O 락 경합으로 톰캣 스레드 풀 고갈 서버 다운된 참사 |
+| **#044** | [DB 타임아웃을 3초로 걸었는데 왜 60초 동안 안 풀려요?!: 네트워크 소켓 타임아웃의 3대 덫 (Connect vs Socket Read vs Statement Timeout)](problems/044-socket-timeout-layering/problem.md) | **네트워크/분산 시스템**, TCP SYN 지수 백오프(127초), 방화벽 패킷 블랙홀(Silent Drop), 4대 타임아웃 위계질서, 스레드 기아(Thread Starvation) 방어 | 쿼리 타임아웃만 믿고 소켓 타임아웃 누락했다가 방화벽 드롭 시 127초간 스레드 풀 전멸한 참사 |
 
 
 
