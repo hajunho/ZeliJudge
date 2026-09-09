@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: x0=2, f(x)=(2x-1)%7 -> 0 3",
+    "input": "2 2 -1 7",
+    "expected_output": "0 3"
+  },
+  {
+    "desc": "즉시 고정점(Fixed Point, 주기 1)에 도달하는 경우",
+    "input": "1 1 0 10",
+    "expected_output": "0 1"
+  },
+  {
+    "desc": "꼬리가 존재하는 수열",
+    "input": "1 2 0 8",
+    "expected_output": "3 1"
+  },
+  {
+    "desc": "선형 합동 생성기 LCG 표준 모듈러",
+    "input": "3 5 7 11",
+    "expected_output": "0 5"
+  },
+  {
+    "desc": "긴 꼬리를 갖는 수열",
+    "input": "1 2 1 16",
+    "expected_output": "3 1"
+  },
+  {
+    "desc": "순수 사이클 (mu = 0)",
+    "input": "1 3 0 7",
+    "expected_output": "0 6"
+  },
+  {
+    "desc": "소수 모듈러 P=13",
+    "input": "2 4 1 13",
+    "expected_output": "0 6"
+  },
+  {
+    "desc": "M이 큰 경우",
+    "input": "123 101 456 10007",
+    "expected_output": "0 10006"
+  },
+  {
+    "desc": "주기가 2인 진동 사이클",
+    "input": "0 -1 1 10",
+    "expected_output": "0 2"
+  },
+  {
+    "desc": "복합 LCG 수열",
+    "input": "7 13 17 97",
+    "expected_output": "0 96"
+  }
+]

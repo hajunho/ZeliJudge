@@ -168,6 +168,7 @@ problems/
 | **#125** | [관리자 페이지를 사내 IP로 막았는데 왜 해커가 뚫려요?!: 리버스 프록시(Reverse Proxy) 다계층 네트워크와 X-Forwarded-For(XFF) 헤더 위조(IP Spoofing) 방어 & Trusted Proxy 역방향 체인 검증 (Reverse Proxy Client IP Spoofing Defense)](problems/125-reverse-proxy-client-ip-spoofing/problem.md) | **컴퓨터 네트워크/웹 보안/인프라 아키텍처**, 리버스 프록시(ALB, Nginx) 뒤 클라이언트 IP 유실 문제, X-Forwarded-For 첫 번째 값 맹신 취약점(CWE-290 IP Spoofing), Right-to-Left 역방향 신뢰 체인 탐색 알고리즘, CIDR 서브넷 매칭, Nginx/Tomcat/Spring real_ip 내부 원리 | 사내 VPN IP로 관리자 페이지 막아뒀는데 X-Forwarded-For 헤더 위조 공격에 뚫려 전사 회원 DB 털린 참사와 역방향 신뢰 체인 검증 구원 원리 |
 | **#126** | [CPU 5%인데 왜 서버가 뻗고 로드 애버리지(Load Average)가 100을 찍어요?!: 리눅스 커널 프로세스 D 상태(TASK_UNINTERRUPTIBLE)와 지수 감쇠 이동 평균(EMA) (Linux Load Average & D-State Process Mystery)](problems/126-linux-loadavg-d-state-uninterruptible/problem.md) | **운영체제 커널/시스템 모니터링/리눅스 성능 분석**, CPU 사용률(Utilization) vs 로드 애버리지(Demand)의 본질적 차이, 1993년 리눅스 토발즈의 D 상태 편입 패치, TASK_UNINTERRUPTIBLE 프로세스가 kill -9로도 죽지 않는 하드웨어 보호 이유, 5초 주기 지수 감쇠 이동 평균(EMA), I/O 스토리지 병목 진단 | CPU 5%인데 NFS 지연으로 D 상태 프로세스 폭증해 Load Average 100 찍고 서버 멈춘 참사와 kill -9 불능 원리 및 EMA 커널 공식 |
 | **#127** | [브라우저에선 초록불인데 왜 모바일 앱에선 결제가 다 터져요?!: TLS X.509 인증서 체인(Certificate Chain)과 누락된 중간 CA(Intermediate CA) & AIA(Authority Information Access)의 저주 (TLS Certificate Chain Validation & AIA Fetching)](problems/127-tls-certificate-chain-and-aia/problem.md) | **컴퓨터 네트워크/정보보안/PKI 인프라**, X.509 인증서 체인(Leaf -> Intermediate -> Root), cert.pem vs fullchain.pem의 치명적 차이, 데스크톱 브라우저 AIA(Authority Information Access) 백그라운드 페칭 vs 모바일 앱(OkHttp) 즉시 검증 실패, Trust Store 앵커 검증 | Nginx에 cert.pem만 넣었다가 PC에선 잘 되는데 모바일 앱 결제 30%가 Trust anchor not found로 전면 마비된 참사와 fullchain.pem 구원 원리 |
+| **#128** | [무중단 배포(Zero Downtime)라면서 왜 롤링 업데이트마다 502 에러가 터져요?!: 쿠버네티스 Pod Graceful Shutdown과 엔드포인트 등록 해제(Deregistration) 비동기 레이스 컨디션 (Kubernetes Pod Graceful Shutdown & Endpoint Race)](problems/128-k8s-pod-graceful-shutdown-race/problem.md) | **클라우드 인프라/컨테이너/분산 시스템**, Kubelet 컨테이너 라이프사이클 vs 제어 평면 엔드포인트 전파의 비동기 분리, preStop Hook sleep 5 완충 원리, SIGTERM 즉시 소켓 차단 및 502 Bad Gateway(Connection Refused) 참사, terminationGracePeriodSeconds 카운트다운 함정, In-flight Request Drain | 롤링 배포 돌렸더니 Ingress가 닫힌 포트로 트래픽 계속 쏴서 502 에러 수백 건 터진 참사와 preStop 훅 및 완벽한 무중단 배포 구원 원리 |
 
 
 
@@ -182,7 +183,7 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | 트랙 | 디렉토리 | 상태 및 규모 | 대상 및 핵심 교육 내용 |
 |:---:|:---:|:---:|---|
 | 🎒 **초등부 트랙 (Junior)** | `problems-elementary/` | **130문제 완결** ✅ | 초등학생 & 코딩 입문: 사칙연산, 조건/반복문, 리스트/문자열, 기초 스택/큐, 2D 격자, 기본 수학 |
-| 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **110문제 (진행 중)** 🚀 | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 기초 그리디 |
+| 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **120문제 (진행 중)** 🚀 | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 기초 그리디 |
 | 🎓 **고등부 트랙 (High)** | `problems-high/` | 중등부 완결 후 예정 🔜 | 고등학생 & KOI/대회: 다이나믹 프로그래밍(DP), 이진 탐색, 그래프(DFS/BFS), 트리 순회, 백트래킹 |
 | 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 110+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/락, Kafka, 캐시 스탬피드, ReDoS, 고가용성 아키텍처 |
 
@@ -451,6 +452,16 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | **#108** | [물건 개수가 제한된 배낭! 이진 분할 최적화 (Bounded Knapsack)](problems-middle/108-knapsack-bounded-binary-splitting/problem.md) | 동적 계획법(DP), 제한 배낭 문제, 이진 분할(Binary Splitting), $O(W \sum \log K)$ | 각 보석의 수량을 $1, 2, 4, \dots$ 거듭제곱 묶음으로 쪼개어 0-1 배낭 DP로 초고속 최적화 |
 | **#109** | [모든 길을 딱 한 번씩만 지나기! 히어홀저(Hierholzer) 오일러 회로](problems-middle/109-graph-eulerian-circuit-hierholzer/problem.md) | 그래프, 오일러 회로(Eulerian Circuit), 히어홀저 알고리즘, 스택, $O(V + E)$ | 모든 정점의 차수가 짝수임을 검사하고 스택을 통해 모든 간선을 1회 순회하는 경로 복원 |
 | **#110** | [무수히 많은 정수해의 규칙! 일차 디오판토스 방정식의 일반해 (Linear Diophantine)](problems-middle/110-extended-gcd-linear-diophantine-all-solutions/problem.md) | 정수론, 디오판토스 방정식, 확장 유클리드, 일반해, $O(\log(\min(A, B)))$ | $Ax + By = C$의 정수해 존재성을 판정하고 $x \ge 0$을 만족하는 최소 비음수 정수해 도출 |
+| **#111** | [나중에 필요할 때 전파하자! 느리게 갱신되는 세그먼트 트리 (Lazy Propagation)](problems-middle/111-segment-tree-lazy-propagation/problem.md) | 자료구조, 세그먼트 트리, Lazy Propagation, 구간 덧셈/구간 합, $O(\log N)$ | 자식 노드 방문 시점에 지연된 갱신 값을 물려주어 구간 갱신과 구간 합 질의를 모두 $O(\log N)$에 처리 |
+| **#112** | [파이프라인의 최대 물길을 뚫어라! 디닉(Dinic) 네트워크 유량 (Maximum Flow)](problems-middle/112-dinic-maximum-flow-basis/problem.md) | 네트워크 유량, 디닉(Dinic) 알고리즘, 레벨 그래프, 블로킹 유량, $O(V^2 E)$ | BFS로 레벨 그래프를 구축하고 DFS로 블로킹 유량을 일괄 밀어내어 소스-싱크 최대 유량 산출 |
+| **#113** | [모든 부분집합의 비밀 합계! SOS DP (Sum Over Subsets)](problems-middle/113-sos-dp-sum-over-subsets/problem.md) | 동적 계획법(DP), SOS DP(Sum Over Subsets), 비트마스크, $O(N 2^N)$ | 비트 위치별 하위 마스크 합계를 누적하여 $0$부터 $2^N-1$까지 모든 서브셋 합을 고속 계산 |
+| **#114** | [도시의 아름다운 윤곽선! 라인 스위핑과 스카이라인 (Skyline Problem)](problems-middle/114-geometry-line-sweep-skyline/problem.md) | 기하 알고리즘, 라인 스위핑, 우선순위 큐(Max-Heap), $O(N \log N)$ | 빌딩의 시작/끝 수직선 이벤트를 스위핑하며 현재 최고 높이 변화점들을 스카이라인 꼭짓점으로 추출 |
+| **#115** | [모든 회문을 선형 시간에! 매내처(Manacher) 알고리즘 (O(N) Palindrome)](problems-middle/115-string-manacher-algorithm/problem.md) | 문자열, 매내처(Manacher) 알고리즘, 팰린드롬, $O(N)$ | 더미 문자 `#`과 기존 회문의 대칭 반지름을 재사용하여 모든 중심에서의 회문 반경을 선형 시간에 계산 |
+| **#116** | [미지수들을 하나씩 지워나가는 마법! 가우스 소거법 (Gaussian Elimination)](problems-middle/116-matrix-gaussian-elimination-linear-system/problem.md) | 선형대수학, 가우스 소거법, 부분 피봇팅, 후방 대입, $O(N^3)$ | 전방 소거로 상삼각 행렬을 만들고 후방 대입으로 $N$원 연립일차방정식의 정확한 해 도출 |
+| **#117** | [어느 도시를 수도로 삼을까? 전방향 트리 DP (Tree Re-rooting DP)](problems-middle/117-tree-rerooting-dp/problem.md) | 트리 DP, Re-rooting, 상향식+하향식 2-Pass DP, $O(N)$ | 루트가 부모에서 자식으로 이동할 때의 거리 변화량을 반영하여 모든 정점의 전역 거리 총합 산출 |
+| **#118** | [메모리 O(1)로 과반수 대표 선출! 보이어-무어 과반수 투표 (Majority Vote)](problems-middle/118-boyer-moore-majority-vote/problem.md) | 스트리밍 알고리즘, 보이어-무어 과반수 투표, $O(1)$ 공간, $O(N)$ 시간 | 서로 다른 두 원소를 1:1로 상쇄시키는 원리로 메모리 추가 없이 과반수(> N/2) 원소 검출 |
+| **#119** | [연결 리스트와 수열의 순환 탐지! 플로이드의 토끼와 거북이 (Tortoise and Hare)](problems-middle/119-floyd-cycle-detection-tortoise-hare/problem.md) | 투 포인터, 사이클 감지, 플로이드 알고리즘, 주기와 꼬리, $O(1)$ 공간 | 1칸 거북이와 2칸 토끼의 만남으로 수열의 순환 진입점($\mu$)과 주기($\lambda$)를 메모리 없이 탐지 |
+| **#120** | [돌무더기 게임의 필승 전략! 님(Nim) 게임과 스프라그-그런디 정리 (Game Theory Nim)](problems-middle/120-game-theory-nim-game-grundy/problem.md) | 게임 이론, 님(Nim) 게임, 스프라그-그런디 정리, Nim-Sum, $O(N)$ | 돌무더기 크기들의 비트 XOR 합($\bigoplus A_i$)이 0이 아니면 선공 필승(FIRST)임을 수학적으로 판정 |
 
 ---
 

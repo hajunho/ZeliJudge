@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: 7개 원소 중 2가 4번 등장 -> 2",
+    "input": "7\n2 2 1 1 1 2 2",
+    "expected_output": "2"
+  },
+  {
+    "desc": "원소 1개뿐인 수열: 무조건 과반수",
+    "input": "1\n42",
+    "expected_output": "42"
+  },
+  {
+    "desc": "동률(2:2)이라 과반수가 없는 경우 -> NO MAJORITY",
+    "input": "4\n1 2 1 2",
+    "expected_output": "NO MAJORITY"
+  },
+  {
+    "desc": "모두 동일한 원소",
+    "input": "5\n7 7 7 7 7",
+    "expected_output": "7"
+  },
+  {
+    "desc": "모두 다른 원소들 -> NO MAJORITY",
+    "input": "5\n1 2 3 4 5",
+    "expected_output": "NO MAJORITY"
+  },
+  {
+    "desc": "음수가 과반수인 경우",
+    "input": "5\n-5 3 -5 -5 10",
+    "expected_output": "-5"
+  },
+  {
+    "desc": "정확히 절반만 등장하고 초과하지 못한 경우 (N=6, 3번)",
+    "input": "6\n1 1 1 2 3 4",
+    "expected_output": "NO MAJORITY"
+  },
+  {
+    "desc": "큰 정수 값들",
+    "input": "5\n1000000000 1000000000 5 1000000000 8",
+    "expected_output": "1000000000"
+  },
+  {
+    "desc": "9개 원소 중 5번 등장",
+    "input": "9\n3 3 4 2 4 4 2 4 4",
+    "expected_output": "4"
+  },
+  {
+    "desc": "10개 원소 다양한 값 -> NO MAJORITY",
+    "input": "10\n1 2 3 4 5 1 2 3 4 5",
+    "expected_output": "NO MAJORITY"
+  }
+]

@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: abacaba -> 7",
+    "input": "abacaba",
+    "expected_output": "7"
+  },
+  {
+    "desc": "단일 문자: 1",
+    "input": "a",
+    "expected_output": "1"
+  },
+  {
+    "desc": "짝수 팰린드롬: abba -> 4",
+    "input": "abba",
+    "expected_output": "4"
+  },
+  {
+    "desc": "모두 동일한 문자들: aaaaa -> 5",
+    "input": "aaaaa",
+    "expected_output": "5"
+  },
+  {
+    "desc": "대칭이 전혀 없는 문자열: abcde -> 1",
+    "input": "abcde",
+    "expected_output": "1"
+  },
+  {
+    "desc": "중간에 위치한 팰린드롬",
+    "input": "xyzracecarxyz",
+    "expected_output": "7"
+  },
+  {
+    "desc": "끝에 위치한 팰린드롬",
+    "input": "bananarefer",
+    "expected_output": "5"
+  },
+  {
+    "desc": "2개 문자 연속: aa -> 2",
+    "input": "aa",
+    "expected_output": "2"
+  },
+  {
+    "desc": "긴 복합 문자열",
+    "input": "forgeeksskeegfor",
+    "expected_output": "10"
+  },
+  {
+    "desc": "중첩 팰린드롬 패턴",
+    "input": "abacdfgdcaba",
+    "expected_output": "3"
+  }
+]

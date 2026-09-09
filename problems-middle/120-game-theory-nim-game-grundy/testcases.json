@@ -1,0 +1,52 @@
+[
+  {
+    "desc": "기본 예제: 3 4 5 -> FIRST (Nim-sum = 2)",
+    "input": "3\n3 4 5",
+    "expected_output": "FIRST"
+  },
+  {
+    "desc": "돌무더기 1개: 선공이 다 가져가면 즉시 승리 -> FIRST",
+    "input": "1\n10",
+    "expected_output": "FIRST"
+  },
+  {
+    "desc": "돌무더기 2개 크기가 완전히 같은 경우 (A xor A = 0) -> SECOND",
+    "input": "2\n7 7",
+    "expected_output": "SECOND"
+  },
+  {
+    "desc": "돌무더기 2개 크기가 다른 경우 -> FIRST",
+    "input": "2\n5 8",
+    "expected_output": "FIRST"
+  },
+  {
+    "desc": "돌무더기 3개 Nim-sum이 0인 경우 -> SECOND (1 xor 2 xor 3 = 0)",
+    "input": "3\n1 2 3",
+    "expected_output": "SECOND"
+  },
+  {
+    "desc": "모든 돌무더기가 1개씩인 경우 (홀수 개 -> FIRST)",
+    "input": "5\n1 1 1 1 1",
+    "expected_output": "FIRST"
+  },
+  {
+    "desc": "모든 돌무더기가 1개씩인 경우 (짝수 개 -> SECOND)",
+    "input": "4\n1 1 1 1",
+    "expected_output": "SECOND"
+  },
+  {
+    "desc": "돌 개수가 매우 큰 경우 (10^9)",
+    "input": "2\n1000000000 1000000000",
+    "expected_output": "SECOND"
+  },
+  {
+    "desc": "4개 돌무더기 복합 -> FIRST",
+    "input": "4\n10 15 20 25",
+    "expected_output": "FIRST"
+  },
+  {
+    "desc": "5개 돌무더기 복합 -> SECOND",
+    "input": "5\n4 8 12 16 20",
+    "expected_output": "FIRST"
+  }
+]
