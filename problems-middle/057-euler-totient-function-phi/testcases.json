@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "N = 10 -> 4",
+    "input": "10\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 2,
+    "description": "N = 12 -> 4",
+    "input": "12\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 3,
+    "description": "N = 1: 1과 서로소는 1 하나 -> 1",
+    "input": "1\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 4,
+    "description": "소수 N = 7: phi(p) = p - 1 = 6",
+    "input": "7\n",
+    "expected_output": "6"
+  },
+  {
+    "id": 5,
+    "description": "소수 N = 13 -> 12",
+    "input": "13\n",
+    "expected_output": "12"
+  },
+  {
+    "id": 6,
+    "description": "2의 거듭제곱 N = 16: 16 * (1 - 1/2) = 8",
+    "input": "16\n",
+    "expected_output": "8"
+  },
+  {
+    "id": 7,
+    "description": "N = 100: 100 * (1/2) * (4/5) = 40",
+    "input": "100\n",
+    "expected_output": "40"
+  },
+  {
+    "id": 8,
+    "description": "두 소수의 곱 N = 15: (3-1)*(5-1) = 8",
+    "input": "15\n",
+    "expected_output": "8"
+  },
+  {
+    "id": 9,
+    "description": "큰 수 N = 999999937 (소수) -> 999999936",
+    "input": "999999937\n",
+    "expected_output": "999999936"
+  },
+  {
+    "id": 10,
+    "description": "10억 N = 1000000000: 400000000",
+    "input": "1000000000\n",
+    "expected_output": "400000000"
+  }
+]

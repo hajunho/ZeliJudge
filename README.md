@@ -179,7 +179,7 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | 트랙 | 디렉토리 | 상태 및 규모 | 대상 및 핵심 교육 내용 |
 |:---:|:---:|:---:|---|
 | 🎒 **초등부 트랙 (Junior)** | `problems-elementary/` | **130문제 완결** ✅ | 초등학생 & 코딩 입문: 사칙연산, 조건/반복문, 리스트/문자열, 기초 스택/큐, 2D 격자, 기본 수학 |
-| 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **50문제 (진행 중)** 🚀 | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 기초 그리디 |
+| 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **60문제 (진행 중)** 🚀 | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 기초 그리디 |
 | 🎓 **고등부 트랙 (High)** | `problems-high/` | 중등부 완결 후 예정 🔜 | 고등학생 & KOI/대회: 다이나믹 프로그래밍(DP), 이진 탐색, 그래프(DFS/BFS), 트리 순회, 백트래킹 |
 | 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 110+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/락, Kafka, 캐시 스탬피드, ReDoS, 고가용성 아키텍처 |
 
@@ -388,6 +388,16 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | **#048** | [타임머신과 시간 왜곡! 벨만-포드 (Bellman-Ford 최단 경로)](problems-middle/048-bellman-ford-negative-cycle/problem.md) | 최단 경로, 벨만-포드, 음수 가중치, 음수 사이클 | 음수 가중치가 존재하는 웜홀 그래프에서 최단 시간을 구하고 무한 루프 음수 사이클 감지하기 |
 | **#049** | [레이저 광선의 충돌! CCW 선분 교차 판별 (Line Intersection)](problems-middle/049-line-segment-intersection-ccw/problem.md) | 기하 알고리즘, 선분 교차, CCW, Bounding Box | 두 선분의 끝점 회전 방향 곱과 일직선 바운딩 박스를 검사해 교차 여부 완벽 판정하기 |
 | **#050** | [체스판의 평화! N-Queen 경우의 수 (Backtracking)](problems-middle/050-n-queen-backtracking-counter/problem.md) | 백트래킹, N-Queen, 대각선 판별, 상태 공간 트리 | $N \times N$ 체스판에서 퀸 $N$개가 서로 공격하지 못하도록 배치하는 총 경우의 수 계산하기 |
+| **#051** | [패턴 매칭의 나침반! KMP 실패 함수 (Failure Function)](problems-middle/051-string-kmp-failure-function/problem.md) | 문자열, KMP 알고리즘, 실패 함수($\pi$), 접두사/접미사 | 불일치 시 건너뛸 위치를 알려주는 가장 긴 접두사-접미사 일치 길이 $\pi$ 배열 구하기 |
+| **#052** | [번개 같은 구간 합과 수정! 세그먼트 트리 (Segment Tree)](problems-middle/052-segment-tree-point-update-range-sum/problem.md) | 자료구조, 세그먼트 트리, 단일점 갱신, 구간합, $O(\log N)$ | 값 변경과 구간 합 쿼리 모두를 $O(\log N)$에 완벽하게 처리하는 이진 트리 구축하기 |
+| **#053** | [동전 조합의 모든 길! 동전 교환 경우의 수 (Coin Change II)](problems-middle/053-coin-change-ways-dp/problem.md) | 동적 계획법(DP), 동전 교환, 중복 조합, 모듈러 | 순서를 고려하지 않고 주어진 동전들로 목표 금액 K원을 만드는 모든 조합의 수 산출하기 |
+| **#054** | [모든 점을 감싸는 마법의 고무줄! 볼록 껍질 (Convex Hull)](problems-middle/054-convex-hull-graham-scan/problem.md) | 기하 알고리즘, 볼록 껍질, 모노톤 체인, Graham Scan | 평면 위 모든 점을 포함하는 가장 작은 볼록 다각형을 이루는 외곽 꼭짓점 개수 구하기 |
+| **#055** | [나무를 따라 내려가는 탐색! 이진 검색 트리 (BST)](problems-middle/055-binary-search-tree-insert-search/problem.md) | 트리 자료구조, 이진 검색 트리(BST), 탐색 경로, $O(\log N)$ | 왼쪽 작은 값, 오른쪽 큰 값 규칙으로 원소들을 트리에 삽입하고 탐색 경로 추적하기 |
+| **#056** | [족보의 가장 가까운 공통 조상! 최소 공통 조상 (LCA)](problems-middle/056-lowest-common-ancestor-tree/problem.md) | 트리, 최소 공통 조상(LCA), 깊이(Depth), 그래프 탐색 | 두 노드의 깊이를 맞춘 후 동시에 부모로 올라가며 가장 가까운 공통 조상 노드 찾기 |
+| **#057** | [나와 서로소인 친구들! 오일러 피 함수 (Euler's Totient)](problems-middle/057-euler-totient-function-phi/problem.md) | 정수론, 오일러 피 함수, 소인수분해, $O(\sqrt{N})$ | 1부터 N까지 자연수 중 N과 서로소인 수의 개수를 오일러 곱셈 공식으로 고속 계산하기 |
+| **#058** | [겹치는 회의가 너무 많아요! 최소 회의실 개수 (Meeting Rooms II)](problems-middle/058-greedy-meeting-rooms-min-heap/problem.md) | 그리디, 우선순위 큐(Min-Heap), 회의실 배정, 스케줄링 | 겹치는 회의들을 차질 없이 모두 진행하기 위해 필요한 최소 회의실 개수 힙으로 산출하기 |
+| **#059** | [우리 부서 식구는 모두 몇 명? 트리의 서브트리 크기 (Tree DP)](problems-middle/059-tree-dp-subtree-size-counting/problem.md) | 트리, 트리 DP, 서브트리 크기, 후위 순회, $O(N)$ | 자식들의 서브트리 크기 합에 자신을 더하는 상향식 트리 DP로 모든 부서 인원수 집계하기 |
+| **#060** | [검색창 자동완성의 비밀! 트라이(Trie) 접두사 사전](problems-middle/060-trie-prefix-dictionary-search/problem.md) | 자료구조, 트라이(Trie), 접두사 검색, 문자열 탐색 | 공통 접두사를 공유하는 트리 구조를 구축하여 특정 접두사로 시작하는 단어 수 $O(L)$에 탐색 |
 
 ---
 

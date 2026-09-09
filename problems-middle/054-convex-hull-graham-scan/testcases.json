@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: 8개 점 정사각형 내외 -> 4",
+    "input": "8\n1 1\n1 2\n2 2\n2 1\n0 0\n0 3\n3 3\n3 0\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 2,
+    "description": "삼각형 3개 점: 3",
+    "input": "3\n0 0\n5 0\n0 5\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 3,
+    "description": "삼각형 내부 점 1개: 3",
+    "input": "4\n0 0\n6 0\n0 6\n2 2\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 4,
+    "description": "정사각형 4개 점: 4",
+    "input": "4\n0 0\n10 0\n10 10\n0 10\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 5,
+    "description": "일직선 상에 있는 점들 (꼭짓점은 양 끝 2개지만 다각형 기본 2): 2",
+    "input": "3\n0 0\n1 1\n2 2\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 6,
+    "description": "마름모 4개 점: 4",
+    "input": "4\n0 5\n5 0\n0 -5\n-5 0\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 7,
+    "description": "5각형 형태 5개 점",
+    "input": "5\n0 3\n3 2\n2 -2\n-2 -2\n-3 2\n",
+    "expected_output": "5"
+  },
+  {
+    "id": 8,
+    "description": "중복 좌표 포함",
+    "input": "5\n0 0\n0 0\n4 0\n0 4\n2 2\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 9,
+    "description": "음수 좌표 포함 사각형",
+    "input": "5\n-2 -2\n2 -2\n2 2\n-2 2\n0 0\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 10,
+    "description": "원형 6각형 볼록 껍질",
+    "input": "7\n2 0\n1 2\n-1 2\n-2 0\n-1 -2\n1 -2\n0 0\n",
+    "expected_output": "6"
+  }
+]
