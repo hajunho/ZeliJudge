@@ -54,6 +54,8 @@ problems/
 | **#011** | [반복문에서 지웠는데 왜 남아?: 기차 좌석과 인덱스 시프트의 저주](problems/011-iterating-mutation-trap/problem.md) | **자료구조와 반복자(Iterator)**, 인덱스 시프트(Index Shift), 불변 리스트 컴프리헨션 vs 필터링 | 채팅 금지어 연속 필터링 루프 돌렸는데 욕설이 절반이나 살아남아 검열 뚫린 참사 |
 | **#012** | [남의 장바구니에 내 물건이 왜 있어?: 가변 기본 인자(Mutable Default)의 저주](problems/012-mutable-default-argument/problem.md) | **언어 런타임**, 정의 시점(Definition Time) vs 호출 시점, 함수의 `__defaults__` 속성, None 센티넬 패턴 | 장바구니 기본 인자를 `cart=[]`로 뒀다가 이전 손님 물건이 다음 손님에게 유출된 참사 |
 | **#013** | [256은 되고 257은 왜 안 돼?: 값(Equality)과 주소(Identity)의 배신 (is vs ==)](problems/013-equality-vs-identity/problem.md) | **메모리 아키텍처**, 값(Value) vs 객체 주소(Identity), Small Integer Cache(-5~256), 문자열 인터닝 | 250원 테스트는 다 통과했는데 300원부터 결제 승인 거절된 `is` 비교 참사 |
+| **#014** | [닫히지 않는 문과 사라진 손잡이: 파일 디스크립터(FD) 누수와 with 문의 구원](problems/014-file-descriptor-leak/problem.md) | **운영체제 커널**, 파일 디스크립터(FD) 한도(`ulimit`), RAII 패턴, 컨텍스트 매니저(`with`)의 `__exit__` 보장 | 예외 발생 시 `close()` 건너뛰어 서버의 모든 소켓/파일이 마비된 참사 |
+
 
 
 
