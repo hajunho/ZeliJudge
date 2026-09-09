@@ -77,6 +77,7 @@ problems/
 | **#034** | [조회수 1 올라갈 때마다 DB UPDATE 쳤더니 DB가 터졌어요?!: Write-Back 캐시](problems/034-write-back-cache-flush/problem.md) | **캐시 쓰기 전략/배치 처리**, 행 단위 배타락(X-Lock) 경합, Write-Through vs Write-Back, 크기/시간 기반 배치 플러시 | 초당 3천 번 조회수 UPDATE 때리다 DB 커넥션 풀 고갈 사망한 참사 |
 | **#035** | [주문은 성공했는데 결제가 취소되면 어떡하죠?!: 2PC vs Saga 패턴](problems/035-two-phase-commit-vs-saga/problem.md) | **분산 트랜잭션/MSA**, 2PC 동기 블로킹/SPOF vs Saga 보상 트랜잭션(Compensating Transaction) 역순 롤백 | DB 쪼갰다가 결제 실패 시 주문/재고 롤백 안 되어 데이터 불일치 터진 참사 |
 | **#036** | [인덱스를 5개나 걸었는데 왜 10초나 걸려요?!: 복합 인덱스와 Leftmost Prefix의 저주](problems/036-composite-index-leftmost-prefix/problem.md) | **DB 인덱싱/옵티마이저**, B-Tree 사전식 다차원 정렬, Leftmost Prefix 규칙, 등치(=) vs 범위(RANGE) 무력화 경계, 최적 인덱스 재배치 | AI가 짜준 복합 인덱스 믿었다가 첫 컬럼 누락 및 범위 조건 뒤 컬럼 인덱스 무효화로 슬로우 쿼리 폭사한 참사 |
+| **#037** | [방금 글 썼는데 새로고침하니 사라졌어요?!: DB 복제 지연과 Read-Your-Own-Writes](problems/037-replication-lag-read-your-writes/problem.md) | **분산 데이터베이스/복제**, Master-Slave 비동기 복제 지연, Monotonic Read 붕괴, Time Window vs LSN 기반 정밀 라우팅 | DB 분산하겠다고 Slave로 보냈다가 글 작성 직후 404 및 구버전 노출로 중복 작성 폭탄 터진 참사 |
 
 
 
