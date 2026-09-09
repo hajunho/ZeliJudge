@@ -1,0 +1,34 @@
+[
+  {
+    "input": "{\"config\": {\"prevote_enabled\": false, \"check_quorum_enabled\": true}, \"topology\": {\"nodes\": [\"L\", \"A\", \"B\", \"C\", \"D\"], \"initial_leader\": \"L\", \"partition_type\": \"ASYMMETRIC\"}, \"workload\": {\"simulation_rounds\": 5, \"client_write_requests\": 1000}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"DISRUPTIVE_SERVER_LEADER_ELECTION_STORM\", \"metrics\": {\"leader\": \"A\", \"leader_term\": 11, \"leader_demotions\": 5, \"disruptive_elections\": 5, \"write_success_rate\": 0.0, \"split_brain_detected\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"prevote_enabled\": true, \"check_quorum_enabled\": true}, \"topology\": {\"nodes\": [\"L\", \"A\", \"B\", \"C\", \"D\"], \"initial_leader\": \"L\", \"partition_type\": \"ASYMMETRIC\"}, \"workload\": {\"simulation_rounds\": 5, \"client_write_requests\": 1000}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"OPTIMAL_PREVOTE_CHECK_QUORUM_DEFENSE\", \"metrics\": {\"leader\": \"L\", \"leader_term\": 1, \"leader_demotions\": 0, \"disruptive_elections\": 0, \"write_success_rate\": 1.0, \"split_brain_detected\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"prevote_enabled\": true, \"check_quorum_enabled\": false}, \"topology\": {\"nodes\": [\"L\", \"A\", \"B\", \"C\", \"D\"], \"initial_leader\": \"L\", \"partition_type\": \"SYMMETRIC_LEADER_ISOLATION\"}, \"workload\": {\"simulation_rounds\": 3, \"client_write_requests\": 500}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"SPLIT_BRAIN_STALE_LEADER_WRITE_ATTEMPT\", \"metrics\": {\"leader\": \"L\", \"leader_term\": 1, \"leader_demotions\": 0, \"disruptive_elections\": 0, \"write_success_rate\": 0.0, \"split_brain_detected\": true}}"
+  },
+  {
+    "input": "{\"config\": {\"prevote_enabled\": true, \"check_quorum_enabled\": true}, \"topology\": {\"nodes\": [\"L\", \"A\", \"B\", \"C\", \"D\"], \"initial_leader\": \"L\", \"partition_type\": \"SYMMETRIC_LEADER_ISOLATION\"}, \"workload\": {\"simulation_rounds\": 3, \"client_write_requests\": 500}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"LEADER_ISOLATED_VOLUNTARY_STEPDOWN\", \"metrics\": {\"leader\": \"A\", \"leader_term\": 2, \"leader_demotions\": 1, \"disruptive_elections\": 0, \"write_success_rate\": 1.0, \"split_brain_detected\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"prevote_enabled\": true, \"check_quorum_enabled\": true}, \"topology\": {\"nodes\": [\"L\", \"A\", \"B\", \"C\", \"D\"], \"initial_leader\": \"L\", \"partition_type\": \"HEALTHY\"}, \"workload\": {\"simulation_rounds\": 5, \"client_write_requests\": 2000}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"RAFT_CLUSTER_HEALTHY_STABLE\", \"metrics\": {\"leader\": \"L\", \"leader_term\": 1, \"leader_demotions\": 0, \"disruptive_elections\": 0, \"write_success_rate\": 1.0, \"split_brain_detected\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"prevote_enabled\": false, \"check_quorum_enabled\": true}, \"topology\": {\"nodes\": [\"L\", \"A\", \"B\", \"C\", \"D\"], \"initial_leader\": \"L\", \"partition_type\": \"ASYMMETRIC\"}, \"workload\": {\"simulation_rounds\": 10, \"client_write_requests\": 5000}}",
+    "output": "{\"status\": \"FAILED\", \"verdict\": \"DISRUPTIVE_SERVER_LEADER_ELECTION_STORM\", \"metrics\": {\"leader\": \"A\", \"leader_term\": 21, \"leader_demotions\": 10, \"disruptive_elections\": 10, \"write_success_rate\": 0.0, \"split_brain_detected\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"prevote_enabled\": true, \"check_quorum_enabled\": true}, \"topology\": {\"nodes\": [\"L\", \"A\", \"B\", \"C\", \"D\", \"E\", \"F\"], \"initial_leader\": \"L\", \"partition_type\": \"ASYMMETRIC\"}, \"workload\": {\"simulation_rounds\": 5, \"client_write_requests\": 1500}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"OPTIMAL_PREVOTE_CHECK_QUORUM_DEFENSE\", \"metrics\": {\"leader\": \"L\", \"leader_term\": 1, \"leader_demotions\": 0, \"disruptive_elections\": 0, \"write_success_rate\": 1.0, \"split_brain_detected\": false}}"
+  },
+  {
+    "input": "{\"config\": {\"prevote_enabled\": true, \"check_quorum_enabled\": true}, \"topology\": {\"nodes\": [\"L\", \"A\", \"B\"], \"initial_leader\": \"L\", \"partition_type\": \"SYMMETRIC_LEADER_ISOLATION\"}, \"workload\": {\"simulation_rounds\": 2, \"client_write_requests\": 800}}",
+    "output": "{\"status\": \"SUCCESS\", \"verdict\": \"LEADER_ISOLATED_VOLUNTARY_STEPDOWN\", \"metrics\": {\"leader\": \"A\", \"leader_term\": 2, \"leader_demotions\": 1, \"disruptive_elections\": 0, \"write_success_rate\": 1.0, \"split_brain_detected\": false}}"
+  }
+]
