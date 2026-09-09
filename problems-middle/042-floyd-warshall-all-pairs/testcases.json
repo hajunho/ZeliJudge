@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: 4개 도시",
+    "input": "4 4\n1 2 4\n1 4 6\n2 3 2\n3 4 1\n",
+    "expected_output": "0 4 6 6\n-1 0 2 3\n-1 -1 0 1\n-1 -1 -1 0"
+  },
+  {
+    "id": 2,
+    "description": "단일 도시",
+    "input": "1 0\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 3,
+    "description": "2개 도시 일방통행",
+    "input": "2 1\n1 2 5\n",
+    "expected_output": "0 5\n-1 0"
+  },
+  {
+    "id": 4,
+    "description": "2개 도시 상호 통행",
+    "input": "2 2\n1 2 3\n2 1 7\n",
+    "expected_output": "0 3\n7 0"
+  },
+  {
+    "id": 5,
+    "description": "3개 도시 삼각형 순환",
+    "input": "3 3\n1 2 1\n2 3 2\n3 1 3\n",
+    "expected_output": "0 1 3\n5 0 2\n3 4 0"
+  },
+  {
+    "id": 6,
+    "description": "도달 불가능한 고립 도시",
+    "input": "3 1\n1 2 10\n",
+    "expected_output": "0 10 -1\n-1 0 -1\n-1 -1 0"
+  },
+  {
+    "id": 7,
+    "description": "직선 경로: 1->2->3->4",
+    "input": "4 3\n1 2 1\n2 3 2\n3 4 3\n",
+    "expected_output": "0 1 3 6\n-1 0 2 5\n-1 -1 0 3\n-1 -1 -1 0"
+  },
+  {
+    "id": 8,
+    "description": "중복 간선 (더 작은 가중치 선택)",
+    "input": "3 3\n1 2 10\n1 2 3\n2 3 4\n",
+    "expected_output": "0 3 7\n-1 0 4\n-1 -1 0"
+  },
+  {
+    "id": 9,
+    "description": "간선 없는 경우",
+    "input": "3 0\n",
+    "expected_output": "0 -1 -1\n-1 0 -1\n-1 -1 0"
+  },
+  {
+    "id": 10,
+    "description": "5개 도시 복합 환승망",
+    "input": "5 7\n1 2 2\n1 3 5\n2 3 1\n2 4 4\n3 4 2\n3 5 7\n4 5 1\n",
+    "expected_output": "0 2 3 5 6\n-1 0 1 3 4\n-1 -1 0 2 3\n-1 -1 -1 0 1\n-1 -1 -1 -1 0"
+  }
+]

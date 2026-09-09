@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: 47과 30",
+    "input": "47 30\n",
+    "expected_output": "-7 11 1"
+  },
+  {
+    "id": 2,
+    "description": "서로소 두 수: 3과 5",
+    "input": "3 5\n",
+    "expected_output": "2 -1 1"
+  },
+  {
+    "id": 3,
+    "description": "배수 관계: 6과 3",
+    "input": "6 3\n",
+    "expected_output": "0 1 3"
+  },
+  {
+    "id": 4,
+    "description": "동일한 수: 7과 7",
+    "input": "7 7\n",
+    "expected_output": "0 1 7"
+  },
+  {
+    "id": 5,
+    "description": "피보나치 인접수 (최악의 단계): 13과 8",
+    "input": "13 8\n",
+    "expected_output": "-3 5 1"
+  },
+  {
+    "id": 6,
+    "description": "피보나치 인접수: 55와 34",
+    "input": "55 34\n",
+    "expected_output": "13 -21 1"
+  },
+  {
+    "id": 7,
+    "description": "소수와 합성수: 17과 100",
+    "input": "17 100\n",
+    "expected_output": "-47 8 1"
+  },
+  {
+    "id": 8,
+    "description": "큰 수 1: 123456과 789",
+    "input": "123456 789\n",
+    "expected_output": "70 -10953 3"
+  },
+  {
+    "id": 9,
+    "description": "1과 임의의 수",
+    "input": "1 9999\n",
+    "expected_output": "1 0 1"
+  },
+  {
+    "id": 10,
+    "description": "거대한 두 수",
+    "input": "1000000007 1000000009\n",
+    "expected_output": "500000004 -500000003 1"
+  }
+]

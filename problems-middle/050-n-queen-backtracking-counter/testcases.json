@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "N = 4: 2가지",
+    "input": "4\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 2,
+    "description": "N = 1: 1가지",
+    "input": "1\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 3,
+    "description": "N = 2: 0가지 (배치 불가)",
+    "input": "2\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 4,
+    "description": "N = 3: 0가지 (배치 불가)",
+    "input": "3\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 5,
+    "description": "N = 5: 10가지",
+    "input": "5\n",
+    "expected_output": "10"
+  },
+  {
+    "id": 6,
+    "description": "N = 6: 4가지",
+    "input": "6\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 7,
+    "description": "N = 7: 40가지",
+    "input": "7\n",
+    "expected_output": "40"
+  },
+  {
+    "id": 8,
+    "description": "N = 8: 92가지 (체스 표준)",
+    "input": "8\n",
+    "expected_output": "92"
+  },
+  {
+    "id": 9,
+    "description": "N = 9: 352가지",
+    "input": "9\n",
+    "expected_output": "352"
+  },
+  {
+    "id": 10,
+    "description": "N = 10: 724가지",
+    "input": "10\n",
+    "expected_output": "724"
+  }
+]

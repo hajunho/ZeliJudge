@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 짝수 사이클(4개): YES",
+    "input": "4 4\n1 2\n2 3\n3 4\n4 1\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 2,
+    "description": "기본 홀수 사이클(삼각형 3개): NO",
+    "input": "3 3\n1 2\n2 3\n3 1\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 3,
+    "description": "단일 노드: YES",
+    "input": "1 0\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 4,
+    "description": "트리 형태 그래프 (트리는 항상 이분 그래프): YES",
+    "input": "5 4\n1 2\n1 3\n2 4\n2 5\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 5,
+    "description": "5각형 홀수 사이클: NO",
+    "input": "5 5\n1 2\n2 3\n3 4\n4 5\n5 1\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 6,
+    "description": "6각형 짝수 사이클: YES",
+    "input": "6 6\n1 2\n2 3\n3 4\n4 5\n5 6\n6 1\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 7,
+    "description": "간선 없는 완전 분리 그래프: YES",
+    "input": "4 0\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 8,
+    "description": "두 컴포넌트 중 하나에 삼각형 포함: NO",
+    "input": "5 4\n1 2\n3 4\n4 5\n5 3\n",
+    "expected_output": "NO"
+  },
+  {
+    "id": 9,
+    "description": "완전 이분 그래프 K(2,3): YES",
+    "input": "5 6\n1 3\n1 4\n1 5\n2 3\n2 4\n2 5\n",
+    "expected_output": "YES"
+  },
+  {
+    "id": 10,
+    "description": "완전 그래프 K4 (삼각형 포함): NO",
+    "input": "4 6\n1 2\n1 3\n1 4\n2 3\n2 4\n3 4\n",
+    "expected_output": "NO"
+  }
+]

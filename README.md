@@ -164,6 +164,7 @@ problems/
 | **#121** | [42KB짜리 압축 파일 하나 풀었을 뿐인데 왜 디스크 1TB가 꽉 차서 서버가 뻗어요?!: 압축 폭탄(Zip Bomb / 42.zip)과 Zip Slip(경로 순회) 방어 (Zip Bomb & Zip Slip Defense)](problems/121-zip-bomb-decompression-ratio-defense/problem.md) | **보안 엔지니어링/압축 알고리즘/시스템 안전**, DEFLATE 극단적 압축 비율 맹점, 압축 폭탄(Zip Bomb / 42.zip 4.5PB 팽창) DoS 참사, Zip Slip 상위 디렉터리 경로 탈출 시스템 파일 덮어쓰기(RCE), 최대 누적 크기/압축 비율/재귀 깊이 5대 방어선 | 42KB zip 파일 업로드 풀었다가 디스크 1TB 꽉 차서 서버실 전체 다운된 참사와 안전한 스트리밍 압축 해제기 구원 원리 |
 | **#122** | [SSD 믿고 DB 돌렸더니 6개월 만에 SSD가 사망하고 속도가 100배 느려졌어요?!: SSD 낸드 플래시 블록 지우기(Erase-Before-Write)와 쓰기 증폭(Write Amplification Factor, WAF) & 가비지 컬렉션(GC) (SSD Flash Erase-Before-Write & WAF Simulator)](problems/122-ssd-nand-flash-write-amplification-gc/problem.md) | **컴퓨터 구조/스토리지 하드웨어/플래시 메모리**, NAND Flash Page 쓰기 vs Block 소거 비대칭성, Erase-Before-Write 물리 제약, Out-of-place 갱신과 무효화(Invalidation), FTL 가비지 컬렉션(GC) 유효 페이지 복사, 쓰기 증폭(WAF) 급상승 참사, TRIM 명령어 구원 원리 | SSD 믿고 무작위 UPDATE 쳤다가 GC 복사 폭풍으로 쓰기 증폭 WAF 폭증하고 플래시 수명 소진되어 SSD 돌연사한 참사와 TRIM 최적화 원리 |
 | **#123** | [악성 IP 1만 개 차단했더니 왜 서버 패킷 처리가 100배 느려지고 CPU가 100% 찍어요?!: 리눅스 iptables 선형 탐색($O(N)$) vs ipset 해시 테이블($O(1)$) 패킷 필터링 (Linux iptables vs ipset Packet Filtering Benchmark)](problems/123-iptables-linear-search-vs-ipset-hash/problem.md) | **컴퓨터 네트워크/리눅스 커널/보안 엔지니어링**, Netfilter 연결 리스트 체인 O(N) 선형 탐색 한계, iptables 룰 증가 시 ksoftirqd CPU 100% 마비, ipset 인메모리 해시 테이블 O(1) 초고속 룩업, 쿠버네티스 kube-proxy IPVS 모드 전환 원리 | 악성 IP 1만 개 iptables로 막았다가 정상 패킷 지연 100배 폭증해 전사 서버 다운된 참사와 ipset O(1) 해시 테이블 구원 원리 |
+| **#124** | [DB에 컬럼 하나 추가했을 뿐인데 왜 10초 만에 전사 커넥션이 폭사해요?!: MySQL 메타데이터 락(Metadata Lock, MDL) 큐 블로킹과 고스트(gh-ost) 온라인 DDL 알고리즘 (MySQL Metadata Lock & gh-ost Online DDL Simulator)](problems/124-mysql-metadata-lock-online-ddl/problem.md) | **데이터베이스 엔지니어링/동시성 제어/MySQL 내부 아키텍처**, 메타데이터 락(MDL) SHARED vs EXCLUSIVE 호환성, DDL 대기 시 EXCLUSIVE 큐 우선순위와 후속 일반 쿼리 전면 블로킹 참사, HikariCP 커넥션 풀 고갈과 504 타임아웃, gh-ost 섀도우 테이블/청크 백필/Binlog 델타 복제/원자적 컷오버 무중단 스키마 변경 | 롱 트랜잭션 도중 ALTER TABLE 날렸다가 대기 큐 블로킹으로 전사 커넥션 100% 고갈되어 서비스 마비된 참사와 gh-ost 온라인 DDL 구원 원리 |
 
 
 
@@ -178,7 +179,7 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | 트랙 | 디렉토리 | 상태 및 규모 | 대상 및 핵심 교육 내용 |
 |:---:|:---:|:---:|---|
 | 🎒 **초등부 트랙 (Junior)** | `problems-elementary/` | **130문제 완결** ✅ | 초등학생 & 코딩 입문: 사칙연산, 조건/반복문, 리스트/문자열, 기초 스택/큐, 2D 격자, 기본 수학 |
-| 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **40문제 (진행 중)** 🚀 | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 기초 그리디 |
+| 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **50문제 (진행 중)** 🚀 | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 기초 그리디 |
 | 🎓 **고등부 트랙 (High)** | `problems-high/` | 중등부 완결 후 예정 🔜 | 고등학생 & KOI/대회: 다이나믹 프로그래밍(DP), 이진 탐색, 그래프(DFS/BFS), 트리 순회, 백트래킹 |
 | 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 110+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/락, Kafka, 캐시 스탬피드, ReDoS, 고가용성 아키텍처 |
 
@@ -377,6 +378,16 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | **#038** | [마법의 비밀번호 후보! 순열(Permutation) 백트래킹](problems-middle/038-backtracking-permutations-n-p-r/problem.md) | 백트래킹, 순열($_N P_R$), 상태 복구, 완전 탐색 | 1부터 N까지 수 중 중복 없이 R개를 뽑는 모든 순열을 사전순으로 탐색하고 복구하기 |
 | **#039** | [옆 사람과 자리 바꾸기! 버블 정렬과 스왑 횟수](problems-middle/039-bubble-sort-inversion-count/problem.md) | 버블 정렬, 스왑 횟수, 반전(Inversion), $O(N^2)$ | 인접 원소를 교환하며 정렬할 때 총 Swap 횟수가 초기 수열의 반전 쌍 개수와 일치함을 체험하기 |
 | **#040** | [시계 방향일까 반시계 방향일까? 세 점의 방향성 (CCW)](problems-middle/040-geometry-ccw-shoelace/problem.md) | 기하, CCW, 신발끈 공식, 벡터 외적 | 평면 위 세 점의 좌표로 벡터 외적을 구해 반시계(1), 시계(-1), 일직선(0) 회전 판별하기 |
+| **#041** | [청팀 백팀 편 가르기! 이분 그래프 (Bipartite Graph)](problems-middle/041-bipartite-graph-two-color/problem.md) | 이분 그래프, BFS/DFS, 2색 칠하기, 홀수 사이클 | 인접한 라이벌끼리 다른 팀으로 배정할 수 있는지 2색 번갈아 칠하기로 판별하기 |
+| **#042** | [도시 간 환승 요금표 완성! 플로이드-워셜 (Floyd-Warshall)](problems-middle/042-floyd-warshall-all-pairs/problem.md) | 플로이드-워셜, 모든 쌍 최단 경로, 3중 루프, $O(V^3)$ | 경유지 k를 거쳐가는 3중 반복문 DP로 모든 도시 쌍의 최소 환승 요금표 완성하기 |
+| **#043** | [유전자 염기서열 비교! 최장 공통 부분 수열 (LCS)](problems-middle/043-longest-common-subsequence/problem.md) | 2차원 DP, 최장 공통 부분 수열(LCS), 문자열 | 두 DNA 염기서열에서 공통으로 나타나는 가장 긴 부분 수열의 길이 구하기 |
+| **#044** | [쪼갤 수 없는 보석 챙기기! 0-1 배낭 문제 (Knapsack DP)](problems-middle/044-knapsack-01-dynamic-programming/problem.md) | 동적 계획법(DP), 0-1 배낭, 역순 순회 공간 최적화 | 조각낼 수 없는 보석들을 배낭 한도 W 내에서 가치가 최대가 되도록 담기 |
+| **#045** | [점점 높아지는 계단 수열! 최장 증가 부분 수열 (LIS)](problems-middle/045-longest-increasing-subsequence-dp/problem.md) | 동적 계획법(DP), 최장 증가 부분 수열(LIS), $O(N^2)$ | 수열에서 원소들이 엄격히 증가하는 가장 긴 부분 수열의 최대 길이 탐색하기 |
+| **#046** | [선수과목 수강 신청 순서 정하기! 위상 정렬 (Topological Sort)](problems-middle/046-topological-sort-indegree-kahn/problem.md) | 위상 정렬, 진입차수(In-degree), 칸(Kahn) 알고리즘 | 선수과목 의존 관계를 진입차수 큐로 풀어내어 사이클 없는 올바른 수강 순서 산출하기 |
+| **#047** | [정수해의 열쇠! 베주 항등식과 확장 유클리드 호제법](problems-middle/047-extended-euclidean-bezout/problem.md) | 정수론, 베주 항등식, 확장 유클리드, 모듈러 역원 | $Ax + By = \gcd(A, B)$를 만족하는 정수해 순서쌍 $(x, y)$와 최대공약수 동시 도출하기 |
+| **#048** | [타임머신과 시간 왜곡! 벨만-포드 (Bellman-Ford 최단 경로)](problems-middle/048-bellman-ford-negative-cycle/problem.md) | 최단 경로, 벨만-포드, 음수 가중치, 음수 사이클 | 음수 가중치가 존재하는 웜홀 그래프에서 최단 시간을 구하고 무한 루프 음수 사이클 감지하기 |
+| **#049** | [레이저 광선의 충돌! CCW 선분 교차 판별 (Line Intersection)](problems-middle/049-line-segment-intersection-ccw/problem.md) | 기하 알고리즘, 선분 교차, CCW, Bounding Box | 두 선분의 끝점 회전 방향 곱과 일직선 바운딩 박스를 검사해 교차 여부 완벽 판정하기 |
+| **#050** | [체스판의 평화! N-Queen 경우의 수 (Backtracking)](problems-middle/050-n-queen-backtracking-counter/problem.md) | 백트래킹, N-Queen, 대각선 판별, 상태 공간 트리 | $N \times N$ 체스판에서 퀸 $N$개가 서로 공격하지 못하도록 배치하는 총 경우의 수 계산하기 |
 
 ---
 

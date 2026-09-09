@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: N=4, W=7 -> 14",
+    "input": "4 7\n6 13\n4 8\n3 6\n5 12\n",
+    "expected_output": "14"
+  },
+  {
+    "id": 2,
+    "description": "보석 1개 담을 수 있음",
+    "input": "1 10\n5 100\n",
+    "expected_output": "100"
+  },
+  {
+    "id": 3,
+    "description": "보석 1개 너무 무거움",
+    "input": "1 5\n10 100\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 4,
+    "description": "모든 보석을 다 담을 수 있음",
+    "input": "3 20\n2 5\n3 10\n5 20\n",
+    "expected_output": "35"
+  },
+  {
+    "id": 5,
+    "description": "배낭 용량 딱 맞춤",
+    "input": "3 10\n5 50\n5 50\n6 70\n",
+    "expected_output": "100"
+  },
+  {
+    "id": 6,
+    "description": "가치 0 또는 가벼운 보석들",
+    "input": "4 10\n1 10\n2 20\n3 30\n4 40\n",
+    "expected_output": "100"
+  },
+  {
+    "id": 7,
+    "description": "큰 가치 대형 배낭",
+    "input": "5 50\n10 60\n20 100\n30 120\n15 80\n25 90\n",
+    "expected_output": "240"
+  },
+  {
+    "id": 8,
+    "description": "무게가 모두 같은 경우",
+    "input": "4 10\n5 20\n5 30\n5 40\n5 50\n",
+    "expected_output": "90"
+  },
+  {
+    "id": 9,
+    "description": "동일 가치 다른 무게",
+    "input": "3 10\n2 50\n4 50\n8 50\n",
+    "expected_output": "100"
+  },
+  {
+    "id": 10,
+    "description": "복합 6개 보석",
+    "input": "6 15\n4 10\n2 4\n3 7\n5 11\n7 18\n6 14\n",
+    "expected_output": "36"
+  }
+]

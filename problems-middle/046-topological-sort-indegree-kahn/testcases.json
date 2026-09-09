@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: 4개 과목",
+    "input": "4 3\n1 2\n1 3\n2 4\n",
+    "expected_output": "1 2 3 4"
+  },
+  {
+    "id": 2,
+    "description": "과목 1개뿐",
+    "input": "1 0\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 3,
+    "description": "간선 없는 완전 독립 과목들: 1 2 3",
+    "input": "3 0\n",
+    "expected_output": "1 2 3"
+  },
+  {
+    "id": 4,
+    "description": "일렬 수강: 1->2->3->4",
+    "input": "4 3\n1 2\n2 3\n3 4\n",
+    "expected_output": "1 2 3 4"
+  },
+  {
+    "id": 5,
+    "description": "선수과목 사이클 발생: 1->2->1 -> -1",
+    "input": "2 2\n1 2\n2 1\n",
+    "expected_output": "-1"
+  },
+  {
+    "id": 6,
+    "description": "3개 노드 사이클: 1->2->3->1 -> -1",
+    "input": "3 3\n1 2\n2 3\n3 1\n",
+    "expected_output": "-1"
+  },
+  {
+    "id": 7,
+    "description": "다이아몬드 의존성: 1->2, 1->3, 2->4, 3->4",
+    "input": "4 4\n1 2\n1 3\n2 4\n3 4\n",
+    "expected_output": "1 2 3 4"
+  },
+  {
+    "id": 8,
+    "description": "역방향 번호 일렬: 3->2->1",
+    "input": "3 2\n3 2\n2 1\n",
+    "expected_output": "3 2 1"
+  },
+  {
+    "id": 9,
+    "description": "부분 사이클 포함: 1->2, 3->4->3 -> -1",
+    "input": "4 3\n1 2\n3 4\n4 3\n",
+    "expected_output": "-1"
+  },
+  {
+    "id": 10,
+    "description": "6개 과목 복합 의존성",
+    "input": "6 7\n1 3\n2 3\n2 4\n3 5\n4 6\n5 6\n1 4\n",
+    "expected_output": "1 2 3 4 5 6"
+  }
+]
