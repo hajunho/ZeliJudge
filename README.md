@@ -71,6 +71,7 @@ problems/
 | **#028** | [서버 1대 늘렸더니 캐시 99%가 날아갔어요?!: 안정 해시(Consistent Hashing)](problems/028-consistent-hashing/problem.md) | **분산 해싱/샤딩**, 모듈로 연산($\% N$)의 재배치 저주($\frac{N}{N+1}$), 원형 링(Ring)과 $O(\log N)$ 안정 해시 | 캐시 서버 1대 증설했다가 캐시 적중률 0%로 곤두박질치며 DB 폭발한 참사 |
 | **#029** | [존재하지 않는 1억 개의 유령 아이디를 조회해서 DB를 죽였다?!: 블룸 필터(Bloom Filter)](problems/029-bloom-filter/problem.md) | **확률적 자료구조**, 캐시 관통(Cache Penetration) 방어, 비트 배열과 다중 해시, 거짓 긍정(False Positive)과 $O(K)$ 필터 | 무작위 유령 아이디 10만 건 DDoS 공격에 캐시 뚫리고 DB 커넥션 풀 사망한 참사 |
 | **#030** | [결제 트랜잭션 안에서 카카오페이 외부 API를 불렀더니 DB가 멈췄어요?!: 커넥션 풀(HikariCP)](problems/030-connection-pool-exhaustion/problem.md) | **DB 아키텍처/동시성**, 커넥션 풀(HikariCP) 고갈, 트랜잭션 경계 분리(Lean Transaction), 리틀의 법칙 | 트랜잭션 안에서 3초 외부 결제 API 호출했다가 커넥션 고갈로 전사 시스템 올스톱된 참사 |
+| **#031** | [쓰기가 왜 이렇게 빨라요?!: LSM-Tree와 MemTable/SSTable 컴팩션](problems/031-lsm-tree-memtable/problem.md) | **스토리지 엔진/I/O 모델**, 디스크 랜덤 I/O vs 순차 쓰기(Append-Only), MemTable 플러시, SSTable K-Way 병합 컴팩션 | 초당 수만 건 로그 RDB에 넣다가 디스크 I/O 100% 찍고 서버 뻗어버린 참사 |
 
 
 
