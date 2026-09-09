@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: 4그루, M=7 -> 15",
+    "input": "4 7\n20 15 10 17\n",
+    "expected_output": "15"
+  },
+  {
+    "id": 2,
+    "description": "예제 2: 5그루, M=20 -> 36",
+    "input": "5 20\n4 42 40 26 46\n",
+    "expected_output": "36"
+  },
+  {
+    "id": 3,
+    "description": "나무 1그루 딱 필요한 만큼",
+    "input": "1 10\n20\n",
+    "expected_output": "10"
+  },
+  {
+    "id": 4,
+    "description": "전부 다 베어야 하는 경우: H=0",
+    "input": "3 15\n5 5 5\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 5,
+    "description": "M = 1 최소 필요 목재",
+    "input": "3 1\n10 20 30\n",
+    "expected_output": "29"
+  },
+  {
+    "id": 6,
+    "description": "모두 동일한 높이의 나무들",
+    "input": "4 8\n10 10 10 10\n",
+    "expected_output": "8"
+  },
+  {
+    "id": 7,
+    "description": "높이 차이가 극단적인 경우",
+    "input": "2 100\n1 200\n",
+    "expected_output": "100"
+  },
+  {
+    "id": 8,
+    "description": "10억 단위 거대한 높이",
+    "input": "3 500000000\n1000000000 800000000 600000000\n",
+    "expected_output": "650000000"
+  },
+  {
+    "id": 9,
+    "description": "나무가 많은 경우",
+    "input": "6 10\n12 15 10 17 8 20\n",
+    "expected_output": "14"
+  },
+  {
+    "id": 10,
+    "description": "정확히 일치하는 절단",
+    "input": "4 12\n15 14 13 12\n",
+    "expected_output": "10"
+  }
+]

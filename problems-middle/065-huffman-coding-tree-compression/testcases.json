@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: 5, 9, 12, 13 -> 77",
+    "input": "4\n5 9 12 13\n",
+    "expected_output": "78"
+  },
+  {
+    "id": 2,
+    "description": "문자 1종류: 10회",
+    "input": "1\n10\n",
+    "expected_output": "10"
+  },
+  {
+    "id": 3,
+    "description": "문자 2종류",
+    "input": "2\n3 7\n",
+    "expected_output": "10"
+  },
+  {
+    "id": 4,
+    "description": "모두 동일한 빈도 4개",
+    "input": "4\n1 1 1 1\n",
+    "expected_output": "8"
+  },
+  {
+    "id": 5,
+    "description": "피보나치 형태 빈도",
+    "input": "5\n1 2 3 5 8\n",
+    "expected_output": "39"
+  },
+  {
+    "id": 6,
+    "description": "2의 거듭제곱 빈도",
+    "input": "4\n1 2 4 8\n",
+    "expected_output": "25"
+  },
+  {
+    "id": 7,
+    "description": "빈도 차이가 극단적인 경우",
+    "input": "3\n1 1 100\n",
+    "expected_output": "104"
+  },
+  {
+    "id": 8,
+    "description": "6개 문자",
+    "input": "6\n45 13 12 16 9 5\n",
+    "expected_output": "224"
+  },
+  {
+    "id": 9,
+    "description": "큰 빈도수",
+    "input": "3\n1000 2000 3000\n",
+    "expected_output": "9000"
+  },
+  {
+    "id": 10,
+    "description": "8개 문자 복합",
+    "input": "8\n2 3 5 7 11 13 17 19\n",
+    "expected_output": "210"
+  }
+]

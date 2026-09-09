@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: ACAYKP vs CAPCAK -> ACAK",
+    "input": "ACAYKP\nCAPCAK\n",
+    "expected_output": "ACAK"
+  },
+  {
+    "id": 2,
+    "description": "완전 일치: ABCDE",
+    "input": "ABCDE\nABCDE\n",
+    "expected_output": "ABCDE"
+  },
+  {
+    "id": 3,
+    "description": "완전 불일치: 빈 문자열",
+    "input": "ABC\nXYZ\n",
+    "expected_output": ""
+  },
+  {
+    "id": 4,
+    "description": "한 글자 일치",
+    "input": "A\nA\n",
+    "expected_output": "A"
+  },
+  {
+    "id": 5,
+    "description": "부분 포함: ABC vs B -> B",
+    "input": "ABC\nB\n",
+    "expected_output": "B"
+  },
+  {
+    "id": 6,
+    "description": "동일 문자 연속: AAAAA vs AA -> AA",
+    "input": "AAAAA\nAA\n",
+    "expected_output": "AA"
+  },
+  {
+    "id": 7,
+    "description": "DNA 서열 1: AGGTAB vs GXTXAYB -> GTAB",
+    "input": "AGGTAB\nGXTXAYB\n",
+    "expected_output": "GTAB"
+  },
+  {
+    "id": 8,
+    "description": "알파벳 서열 2: BANANA vs ATANA -> AANA",
+    "input": "BANANA\nATANA\n",
+    "expected_output": "AANA"
+  },
+  {
+    "id": 9,
+    "description": "교차 서열",
+    "input": "ABCDGH\nAEDFHR\n",
+    "expected_output": "ADH"
+  },
+  {
+    "id": 10,
+    "description": "긴 문자열 복원",
+    "input": "XMJYAUZ\nMZJAWXU\n",
+    "expected_output": "MJAU"
+  }
+]

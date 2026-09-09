@@ -180,7 +180,7 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | 트랙 | 디렉토리 | 상태 및 규모 | 대상 및 핵심 교육 내용 |
 |:---:|:---:|:---:|---|
 | 🎒 **초등부 트랙 (Junior)** | `problems-elementary/` | **130문제 완결** ✅ | 초등학생 & 코딩 입문: 사칙연산, 조건/반복문, 리스트/문자열, 기초 스택/큐, 2D 격자, 기본 수학 |
-| 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **60문제 (진행 중)** 🚀 | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 기초 그리디 |
+| 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **70문제 (진행 중)** 🚀 | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 기초 그리디 |
 | 🎓 **고등부 트랙 (High)** | `problems-high/` | 중등부 완결 후 예정 🔜 | 고등학생 & KOI/대회: 다이나믹 프로그래밍(DP), 이진 탐색, 그래프(DFS/BFS), 트리 순회, 백트래킹 |
 | 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 110+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/락, Kafka, 캐시 스탬피드, ReDoS, 고가용성 아키텍처 |
 
@@ -399,6 +399,16 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | **#058** | [겹치는 회의가 너무 많아요! 최소 회의실 개수 (Meeting Rooms II)](problems-middle/058-greedy-meeting-rooms-min-heap/problem.md) | 그리디, 우선순위 큐(Min-Heap), 회의실 배정, 스케줄링 | 겹치는 회의들을 차질 없이 모두 진행하기 위해 필요한 최소 회의실 개수 힙으로 산출하기 |
 | **#059** | [우리 부서 식구는 모두 몇 명? 트리의 서브트리 크기 (Tree DP)](problems-middle/059-tree-dp-subtree-size-counting/problem.md) | 트리, 트리 DP, 서브트리 크기, 후위 순회, $O(N)$ | 자식들의 서브트리 크기 합에 자신을 더하는 상향식 트리 DP로 모든 부서 인원수 집계하기 |
 | **#060** | [검색창 자동완성의 비밀! 트라이(Trie) 접두사 사전](problems-middle/060-trie-prefix-dictionary-search/problem.md) | 자료구조, 트라이(Trie), 접두사 검색, 문자열 탐색 | 공통 접두사를 공유하는 트리 구조를 구축하여 특정 접두사로 시작하는 단어 수 $O(L)$에 탐색 |
+| **#061** | [나무꾼의 절단기 높이 설정! 매개변수 탐색 (Parametric Search)](problems-middle/061-parametric-search-timber-cutter/problem.md) | 이진 탐색, 매개변수 탐색, 최적화 문제, $O(N \log M)$ | 적어도 M미터의 목재를 확보할 수 있는 절단기의 최대 높이 H를 이분 탐색으로 결정하기 |
+| **#062** | [색종이 겹쳐 붙이기! 2차원 차분 배열과 이모스법 (2D Imos Method)](problems-middle/062-imos-method-2d-difference-array/problem.md) | 누적 합, 2차원 차분 배열, 이모스법(Imos), $O(K + HW)$ | 4개 모서리에 $+1, -1$을 마킹하고 2차원 누적합을 복원해 최고 중첩 두께 구하기 |
+| **#063** | [회문 거울 문자열! 최장 팰린드롬 부분 문자열 (Palindrome)](problems-middle/063-longest-palindromic-substring/problem.md) | 문자열, 팰린드롬, 중심 확장법(Center Expansion), DP | 홀수/짝수 중심에서 양옆으로 확장하며 가장 긴 대칭 회문 부분 문자열과 길이 찾기 |
+| **#064** | [섬들을 잇는 해저 터널! 프림(Prim) 최소 신장 트리](problems-middle/064-prim-minimum-spanning-tree/problem.md) | 그래프, 최소 신장 트리(MST), 프림(Prim), Min-Heap | 시작 정점에서 인접 간선 중 최소 가중치 간선을 힙으로 탐욕 선택해 전체 섬 연결하기 |
+| **#065** | [텍스트 압축의 마법! 허프만 코딩 (Huffman Coding)](problems-middle/065-huffman-coding-tree-compression/problem.md) | 트리, 그리디, 허프만 코딩, 우선순위 큐, 가변 길이 부호 | 빈도수가 낮은 두 노드를 힙으로 합병해 트리를 구성하고 압축된 총 비트 수 산출하기 |
+| **#066** | [신비로운 삼각형의 수열! 파스칼의 삼각형과 이항계수 (nCr)](problems-middle/066-pascal-triangle-binomial-coefficient/problem.md) | 수학, 조합론, 파스칼의 삼각형, DP 덧셈, 모듈러 | 팩토리얼 없이 이전 행의 두 수를 더하는 $O(N^2)$ 점화식으로 이항계수 $\binom{n}{r}$ 구하기 |
+| **#067** | [사라진 DNA 조각 복원! 최장 공통 부분 수열(LCS) 문자열 복원](problems-middle/067-lcs-path-reconstruction-backtracking/problem.md) | 동적 계획법(DP), LCS 역추적(Backtracking), 문자열 | LCS DP 테이블의 마지막 칸에서 거꾸로 역추적하여 실제 최장 공통 부분 문자열 복원하기 |
+| **#068** | [모듈러 나눗셈의 열쇠! 페르마의 소정리와 거듭제곱 역원](problems-middle/068-fermat-little-theorem-modular-inverse/problem.md) | 정수론, 페르마의 소정리, 모듈러 곱셈 역원, 분할 정복 | 소수 $P$에서 $A/B \pmod P$를 $A \cdot B^{P-2} \pmod P$ 거듭제곱으로 안전하게 나눗셈 계산하기 |
+| **#069** | [안전 구역 안일까 밖일까? 볼록 다각형 내부 점 판별 (CCW)](problems-middle/069-point-in-convex-polygon-ccw/problem.md) | 기하 알고리즘, CCW 외적, 볼록 다각형 내부 판정 | 모든 변 벡터에 대해 점이 항상 좌회전(반시계 방향) 쪽에 있는지 검사해 내부 판정하기 |
+| **#070** | [다리가 끊어지면 고립돼요! 그래프의 단절선 (Bridge)](problems-middle/070-graph-biconnected-bridge-detection/problem.md) | 그래프, 단절선(Bridge), DFS 방문 순서, 이중 연결 | 간선을 제거했을 때 컴포넌트가 분리되는 다리 간선들을 DFS 트리 조상 도달 여부로 검출하기 |
 
 ---
 

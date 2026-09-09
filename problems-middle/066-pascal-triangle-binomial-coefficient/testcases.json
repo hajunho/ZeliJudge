@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제 1: 5C2 -> 10",
+    "input": "5 2\n",
+    "expected_output": "10"
+  },
+  {
+    "id": 2,
+    "description": "기본 예제 2: 10C5 -> 252",
+    "input": "10 5\n",
+    "expected_output": "252"
+  },
+  {
+    "id": 3,
+    "description": "K = 0: nC0 -> 1",
+    "input": "10 0\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 4,
+    "description": "K = N: nCn -> 1",
+    "input": "7 7\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 5,
+    "description": "K = 1: nC1 -> n",
+    "input": "100 1\n",
+    "expected_output": "100"
+  },
+  {
+    "id": 6,
+    "description": "K = N - 1: nC(n-1) -> n",
+    "input": "100 99\n",
+    "expected_output": "100"
+  },
+  {
+    "id": 7,
+    "description": "0C0 -> 1",
+    "input": "0 0\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 8,
+    "description": "중간 크기: 20C10",
+    "input": "20 10\n",
+    "expected_output": "184756"
+  },
+  {
+    "id": 9,
+    "description": "모듈러 발생: 100C50",
+    "input": "100 50\n",
+    "expected_output": "538992043"
+  },
+  {
+    "id": 10,
+    "description": "큰 크기: 500C250",
+    "input": "500 250\n",
+    "expected_output": "515561345"
+  }
+]

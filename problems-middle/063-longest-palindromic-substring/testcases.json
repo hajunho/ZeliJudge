@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제 1: babad -> 3",
+    "input": "babad\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 2,
+    "description": "기본 예제 2: cbbd -> 2",
+    "input": "cbbd\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 3,
+    "description": "단일 문자: a -> 1",
+    "input": "a\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 4,
+    "description": "문자열 전체가 팰린드롬: racecar -> 7",
+    "input": "racecar\n",
+    "expected_output": "7"
+  },
+  {
+    "id": 5,
+    "description": "모두 동일한 문자: aaaaa -> 5",
+    "input": "aaaaa\n",
+    "expected_output": "5"
+  },
+  {
+    "id": 6,
+    "description": "짝수 팰린드롬: abba -> 4",
+    "input": "abba\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 7,
+    "description": "모두 다른 문자: abcde -> 1",
+    "input": "abcde\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 8,
+    "description": "끝 부분에 위치: abcdeedcbf -> 6 (cdeedc)",
+    "input": "abcdeedcbf\n",
+    "expected_output": "8"
+  },
+  {
+    "id": 9,
+    "description": "긴 팰린드롬 포함",
+    "input": "xabacabay\n",
+    "expected_output": "7"
+  },
+  {
+    "id": 10,
+    "description": "복합 문자열",
+    "input": "bananas\n",
+    "expected_output": "5"
+  }
+]
