@@ -44,6 +44,7 @@ problems/
 | **#001** | [10만 건 데이터 참사: O(N²)의 늪과 해시 검색](problems/001-big-o-hash-search/problem.md) | **시간 복잡도 (Big-O)**, 해시 테이블 O(1) vs 선형 탐색 O(N) | AI가 짜준 중복 유저 필터링으로 서버가 먹통이 된 사건 |
 | **#002** | [사라진 1원의 저주: IEEE 754 부동소수점](problems/002-floating-point-trap/problem.md) | **컴퓨터의 실수 표현 (IEEE 754)**, 2진수 소수 변환의 한계 | 장바구니 결제 합산에서 0.1 + 0.2 != 0.3 오차 발생 |
 | **#003** | [순진한 재귀함수의 최후: 콜 스택 오버플로우](problems/003-call-stack-overflow/problem.md) | **콜 스택(Call Stack) 프레임**, 재귀(Recursion)와 반복문 변환 | 디렉토리 구조 순회 중 깊은 폴더에서 프로세스 강제 종료 |
+| **#004** | [비동기의 배신과 한정판 티켓 참사: Race Condition & Mutex](problems/004-race-condition-mutex/problem.md) | **동시성 제어(Concurrency)**, 경쟁 상태, 원자성(Atomicity), 뮤텍스 락 | 비동기로 짠 티켓팅/포인트 차감에서 동시 클릭으로 잔고 마이너스(-380) 발생 |
 
 ---
 
