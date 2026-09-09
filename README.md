@@ -79,6 +79,7 @@ problems/
 | **#036** | [인덱스를 5개나 걸었는데 왜 10초나 걸려요?!: 복합 인덱스와 Leftmost Prefix의 저주](problems/036-composite-index-leftmost-prefix/problem.md) | **DB 인덱싱/옵티마이저**, B-Tree 사전식 다차원 정렬, Leftmost Prefix 규칙, 등치(=) vs 범위(RANGE) 무력화 경계, 최적 인덱스 재배치 | AI가 짜준 복합 인덱스 믿었다가 첫 컬럼 누락 및 범위 조건 뒤 컬럼 인덱스 무효화로 슬로우 쿼리 폭사한 참사 |
 | **#037** | [방금 글 썼는데 새로고침하니 사라졌어요?!: DB 복제 지연과 Read-Your-Own-Writes](problems/037-replication-lag-read-your-writes/problem.md) | **분산 데이터베이스/복제**, Master-Slave 비동기 복제 지연, Monotonic Read 붕괴, Time Window vs LSN 기반 정밀 라우팅 | DB 분산하겠다고 Slave로 보냈다가 글 작성 직후 404 및 구버전 노출로 중복 작성 폭탄 터진 참사 |
 | **#038** | [새로고침 10번 눌렀더니 똑같은 알림이 10개 왔어요?!: 메시지 큐 At-Least-Once와 컨슈머 멱등성](problems/038-message-queue-idempotent-consumer/problem.md) | **메시지 큐/비동기 처리**, At-Least-Once 전달 보장, ACK 타임아웃 재전송, 2단계 멱등 컨슈머(Message ID & Business Key) | 비동기 큐 도입 후 네트워크 재전송과 결제 광클로 1명에게 쿠폰/알림 5연타 중복 지급된 대형 손실 사고 |
+| **#039** | [서버 3대로 늘렸더니 로그인 세션이 자꾸 풀려요?!: Sticky Session vs Redis 분산 세션 vs JWT](problems/039-session-consistency-redis-jwt/problem.md) | **웹 아키텍처/세션 클러스터링**, 무상태(Stateless) 웹 서버, 라운드로빈 세션 불일치, Sticky Session 한계 vs Redis 중앙 분산 세션 | 서버 스케일아웃 후 클릭할 때마다 '로그인이 필요합니다'로 튕겨나가고 서버 재기동 시 세션 증발한 참사 |
 
 
 
