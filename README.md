@@ -65,6 +65,7 @@ problems/
 | **#022** | [로컬에선 되는데 왜 배포하니까 빨간 줄이 떠요?: CORS와 Preflight](problems/022-cors-preflight-handshake/problem.md) | **웹 보안/HTTP 프로토콜**, 동일 출처 정책(SOP), OPTIONS 정찰병(Preflight), 와일드카드 크레덴셜 모순 | Postman에선 잘 되는데 브라우저에서만 빨간 에러 뜨고 OPTIONS 405로 본 요청 사살된 참사 |
 | **#023** | [A는 B를 기다리고 B는 A를 기다린다: 데드락과 락 획득 순서의 저주](problems/023-deadlock-lock-ordering/problem.md) | **동시성 제어/운영체제**, 코프먼 4대 조건, 원형 대기(Circular Wait), 글로벌 락 정렬(Global Lock Ordering) | 맞송금 트랜잭션에서 서로 상대 계좌 락을 기다리며 CPU 0%로 서버 침묵 마비된 참사 |
 | **#024** | [새로고침 5번 눌렀더니 결제가 5번 됐어요?!: 멱등성과 멱등키](problems/024-api-idempotency-key/problem.md) | **분산 시스템/API 설계**, 멱등성(Idempotency), 네트워크 타임아웃 재시도, 멱등키(Idempotency-Key) 캐시 재생 | 결제 중 와이파이 단절로 새로고침 광클했다가 5번 중복 결제 터져 통장 털린 참사 |
+| **#025** | [1초에 1,000명이 몰려왔다!: 처리율 제한 장치와 토큰 버킷](problems/025-rate-limiting-token-bucket/problem.md) | **시스템 아키텍처/트래픽 제어**, 토큰 버킷(Token Bucket), 버스트(Burst) 트래픽 수용, 지연 충전(Lazy Refill) | 무료 AI API 열었다가 무한 루프 매크로 폭탄 맞아 DB 터지고 수백만 원 과금된 참사 |
 
 
 
