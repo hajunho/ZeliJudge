@@ -1,0 +1,42 @@
+[
+  {
+    "input": "3\nhe\nshe\nhers\nushers\n",
+    "output": "3"
+  },
+  {
+    "input": "2\na\naa\naaa\n",
+    "output": "5"
+  },
+  {
+    "input": "1\nabc\nabcdeabc\n",
+    "output": "2"
+  },
+  {
+    "input": "4\nin\nout\nput\noutput\ninputoutput\n",
+    "output": "5"
+  },
+  {
+    "input": "3\ncat\ndog\nfish\nbirdcatmouse\n",
+    "output": "1"
+  },
+  {
+    "input": "5\na\nb\nc\nd\ne\nabcde\n",
+    "output": "5"
+  },
+  {
+    "input": "3\naba\nbab\nababa\nababababa\n",
+    "output": "10"
+  },
+  {
+    "input": "2\nxyz\nabc\nxyzabcxyzabc\n",
+    "output": "4"
+  },
+  {
+    "input": "4\ntest\ning\ncase\ns\ntestingcasestest\n",
+    "output": "8"
+  },
+  {
+    "input": "5\napple\nbanana\norange\npeach\ngrape\napplebananagrapepeanchorangedelicious\n",
+    "output": "4"
+  }
+]

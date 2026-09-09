@@ -1,0 +1,42 @@
+[
+  {
+    "input": "3\n1 2 3\n",
+    "output": "First"
+  },
+  {
+    "input": "2\n3 6\n",
+    "output": "Second"
+  },
+  {
+    "input": "1\n1\n",
+    "output": "First"
+  },
+  {
+    "input": "1\n3\n",
+    "output": "Second"
+  },
+  {
+    "input": "4\n1 2 4 5\n",
+    "output": "Second"
+  },
+  {
+    "input": "5\n10 20 30 40 50\n",
+    "output": "Second"
+  },
+  {
+    "input": "3\n1000000000 1000000000 1000000000\n",
+    "output": "First"
+  },
+  {
+    "input": "4\n7 8 9 10\n",
+    "output": "First"
+  },
+  {
+    "input": "6\n15 21 33 42 51 60\n",
+    "output": "Second"
+  },
+  {
+    "input": "10\n1 1000001 2000001 3000001 4000001 5000001 6000001 7000001 8000001 9000001\n",
+    "output": "First"
+  }
+]
