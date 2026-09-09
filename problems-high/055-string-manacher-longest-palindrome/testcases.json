@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "input": "bananas",
+    "expected_output": "5",
+    "description": "Testcase #1"
+  },
+  {
+    "id": 2,
+    "input": "racecar",
+    "expected_output": "7",
+    "description": "Testcase #2"
+  },
+  {
+    "id": 3,
+    "input": "a",
+    "expected_output": "1",
+    "description": "Testcase #3"
+  },
+  {
+    "id": 4,
+    "input": "aa",
+    "expected_output": "2",
+    "description": "Testcase #4"
+  },
+  {
+    "id": 5,
+    "input": "aba",
+    "expected_output": "3",
+    "description": "Testcase #5"
+  },
+  {
+    "id": 6,
+    "input": "abacaba",
+    "expected_output": "7",
+    "description": "Testcase #6"
+  },
+  {
+    "id": 7,
+    "input": "abcdef",
+    "expected_output": "1",
+    "description": "Testcase #7"
+  },
+  {
+    "id": 8,
+    "input": "mississippi",
+    "expected_output": "7",
+    "description": "Testcase #8"
+  },
+  {
+    "id": 9,
+    "input": "noon",
+    "expected_output": "4",
+    "description": "Testcase #9"
+  },
+  {
+    "id": 10,
+    "input": "cbbd",
+    "expected_output": "2",
+    "description": "Testcase #10"
+  }
+]

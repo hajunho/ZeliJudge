@@ -172,6 +172,7 @@ problems/
 | **#129** | [방금 쓴 글을 등록했는데 왜 목록에 안 보여요?!: DB 마스터-슬레이브 복제 지연(Replication Lag)과 Read-Your-Own-Writes 일관성 라우팅 알고리즘 (Database Replication Lag & Read-Your-Own-Writes Consistency)](problems/129-db-replication-lag-read-your-own-writes/problem.md) | **데이터베이스 엔지니어링/분산 시스템/일관성 모델**, 비동기 복제(Asynchronous Replication)와 Binlog/Relay log 재생 지연, Read-Your-Own-Writes (Write-After-Read) 일관성 원리, NAIVE_REPLICA_ONLY vs SESSION_MASTER_PINNING(시간 창 핀닝) vs CAUSAL_GTID_CONSISTENCY(GTID 대기 및 폴백) | DB 부하 분산하려고 Read Replica 붙였다가 방금 쓴 글/주문이 안 보이는 Stale Read로 고객센터 폭발한 참사와 GTID/세션 핀닝 구원 원리 |
 | **#130** | [keepalive 32를 줬는데 왜 백엔드 소켓이 10만 개까지 치솟고 로컬 포트가 말라죽어요?!: Nginx 리버스 프록시 Upstream Keepalive 커넥션 풀과 HTTP/1.0 Close 트랩 (Nginx Upstream Keepalive Pool & HTTP/1.0 Close Trap)](problems/130-nginx-upstream-keepalive-pool/problem.md) | **컴퓨터 네트워크/리버스 프록시/시스템 엔지니어링**, Nginx 기본 HTTP/1.0 프록시 사양 및 Connection: close 강제 헤더 트랩, upstream keepalive 32의 유휴 풀 보관 조건, proxy_http_version 1.1 및 proxy_set_header Connection "" 필수 설정, 2MSL TIME_WAIT 소켓 누적과 에페머럴 포트 고갈(EADDRNOTAVAIL 99) | upstream에 keepalive 걸었는데 5분 만에 TIME_WAIT 소켓 28,000개 쌓여 포트 고갈로 502 폭사한 참사와 2줄 필수 헤더 구원 원리 |
 | **#131** | [크롬 업데이트 이후 왜 결제 승인/로그인만 하면 세션이 풀려요?!: 브라우저 쿠키 보안 3대 플래그(SameSite: Strict/Lax/None, HttpOnly, Secure)와 CSRF 방어 & 3rd-Party Callback 참사 (Browser Cookie SameSite & CSRF Defense)](problems/131-browser-cookie-samesite-csrf/problem.md) | **웹 보안/브라우저 아키텍처/쿠키 세션 엔지니어링**, 2020년 2월 Chrome 80 사태, SameSite 기본값 변경(None -> Lax), SameSite=None의 Secure 필수 제약, Site vs Origin (eTLD+1), Top-level GET vs Cross-Site POST 차단, 3rd-Party PG 결제/OAuth 콜백 세션 유실 참사, HttpOnly XSS 탈취 방어 | 크롬 80 배포 당일 PG 결제창에서 돌아오면 세션 쿠키 차단으로 전사 결제 마비된 참사와 SameSite 3총사 및 안전한 콜백 아키텍처 |
+| **#132** | [gRPC로 바꿨는데 왜 로드밸런서가 트래픽을 서버 1대에만 몰아줘요?!: HTTP/2 단일 TCP 스트림 다중화와 L4 vs L7 로드밸런서의 비극 & gRPC 클라이언트 사이드 부하 분산 (HTTP/2 Multiplexing & L4 vs L7 gRPC Load Balancing)](problems/132-grpc-http2-l4-vs-l7-load-balancing/problem.md) | **마이크로서비스/네트워크 계층/gRPC 아키텍처**, HTTP/2 단일 장기 지속 TCP 연결 다중화(Multiplexing), L4 로드밸런서의 SYN 시점 커넥션 핀닝(Connection Pinning) 참사, L7 Envoy/ALB 스트림 라운드로빈 및 최소 활성 연결(Least Concurrent), gRPC 클라이언트 사이드 서브채널 분산, max_connection_age_ms와 GOAWAY 우아한 재연결 | gRPC로 전환했더니 L4 로드밸런서가 단일 TCP 연결을 파드 1대에만 핀닝하여 1대만 CPU 100% 폭사하고 나머지는 노는 참사와 L7 및 클라이언트 사이드 구원 원리 |
 
 
 
@@ -187,7 +188,7 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 |:---:|:---:|:---:|---|
 | 🎒 **초등부 트랙 (Junior)** | `problems-elementary/` | **130문제 완결** ✅ | 초등학생 & 코딩 입문: 사칙연산, 조건/반복문, 리스트/문자열, 기초 스택/큐, 2D 격자, 기본 수학 |
 | 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **130문제 완결** ✅ | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 고급 정수론/기하/DP |
-| 🎓 **고등부 트랙 (High)** | `problems-high/` | **50문제 (진행 중)** 🚀 | 고등학생 & KOI/대회: 디닉 최대유량, MCMF, 라인 스위핑, Suffix Array/LCP, Mo's, HLD, CHT, D&C 최적화, 볼록다각형 탐색, FFT |
+| 🎓 **고등부 트랙 (High)** | `problems-high/` | **60문제 (진행 중)** 🚀 | 고등학생 & KOI/대회: 센트로이드 분할, 지속성 세그트리(PST), BCC, 반평면 교집합, 매내처, 밀러-라빈, 폴라드-로, 에일리언 트릭, 최소포괄원, 깨진 프로파일 DP |
 | 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 110+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/락, Kafka, 캐시 스탬피드, ReDoS, 고가용성 아키텍처 |
 
 ---
@@ -539,6 +540,16 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | **#048** | [분할하여 지배하는 동적 계획법! D&C 최적화 (Divide and Conquer Optimization DP)](problems-high/048-dp-divide-and-conquer-optimization/problem.md) | 동적 계획법(DP), 분할 정복 최적화(D&C Optimization), 최적 분할점 단조성, $O(KN \log N)$ | 사각부등식을 만족하는 $K$개 그룹 분할 DP를 최적점 단조성에 기반한 재귀 분할로 $O(KN \log N)$에 단축 |
 | **#049** | [점이 볼록 다각형 안에 있을까? 이진 탐색 다각형 내부 판정 (Point in Convex Polygon Binary Search)](problems-high/049-geometry-point-in-convex-polygon-binary-search/problem.md) | 기하학, 볼록 다각형 내부 점 판정, 각도 삼각분할 이진 탐색, CCW, $O(\log N)$ | 기준점 부채꼴 삼각 분할과 CCW 방향각 이진 탐색을 통해 쿼리당 $O(\log N)$에 다각형 내부 판별 |
 | **#050** | [다항식 곱셈을 번개처럼! 고속 푸리에 변환 (Fast Fourier Transform FFT)](problems-high/050-fft-fast-fourier-transform-polynomial-multiplication/problem.md) | 수학, 고속 푸리에 변환(FFT), 쿨리-튜키 분할 정복, 다항식 합성곱, $O(N \log N)$ | 복소수 원시근을 이용해 점 값 표현으로 상호 변환하여 고차 다항식의 곱셈을 $O(N \log N)$에 초고속 계산 |
+| **#051** | [트리의 무게중심으로 분할 정복! 센트로이드 분할 (Tree Centroid Decomposition)](problems-high/051-tree-centroid-decomposition/problem.md) | 트리, 센트로이드 분할(Centroid Decomposition), 분할 정복, $O(N \log N)$ | 서브트리 크기의 절반 이하가 되는 센트로이드를 찾아 분할 정복하며 길이 $K$ 이하 경로 수 효율적 산출 |
+| **#052** | [과거의 트리를 영원히 기억하라! 지속성 세그먼트 트리 (Persistent Segment Tree PST)](problems-high/052-segment-tree-persistent/problem.md) | 자료구조, 지속성 세그먼트 트리(PST), 함수형 트리, 구간 $k$번째 수, $O(\log N)$ | 변경된 경로만 새 노드로 생성하여 버전별 트리를 보존하고 두 버전 간 차이로 구간 $k$번째 수 질의 |
+| **#053** | [정점 하나가 사라져도 끄떡없는 네트워크! 이중 결합 컴포넌트 (Biconnected Components BCC)](problems-high/053-graph-biconnected-components-bcc/problem.md) | 그래프 이론, 이중 결합 컴포넌트(BCC), 단절점, DFS 간선 스택, $O(V + E)$ | 정점 분리 시에도 연결성을 유지하는 극대 이중 결합 부분 그래프들을 DFS 간선 스택으로 추출 |
+| **#054** | [무한한 반평면들이 모여 만드는 다각형! 반평면 교집합 (Halfplane Intersection)](problems-high/054-geometry-halfplane-intersection/problem.md) | 기하학, 반평면 교집합(Halfplane Intersection), 각도 정렬, 덱(Deque) 스위핑, $O(N \log N)$ | 반평면들의 법선/방향 벡터 각도 정렬과 덱 기반 교점 유지 알고리즘으로 볼록 교집합 다각형 면적 도출 |
+| **#055** | [회문(팰린드롬)을 단숨에 꿰뚫다! 매내처 알고리즘 (Manacher's Algorithm)](problems-high/055-string-manacher-longest-palindrome/problem.md) | 문자열, 매내처 알고리즘(Manacher), 최장 회문 부분 문자열, $O(N)$ | 이전 회문의 대칭성과 우측 경계를 활용해 중복 비교를 건너뛰며 모든 중심에 대한 최장 팰린드롬 반지름 선형 산출 |
+| **#056** | [우주적 크기의 소수도 찰나에 판별하라! 밀러-라빈 소수 판별법 (Miller-Rabin Primality Test)](problems-high/056-math-miller-rabin-large-primes/problem.md) | 정수론, 밀러-라빈 소수 판별법, 페르마 소정리, 64비트 결정론적 판별, $O(k \log^3 N)$ | 2의 거듭제곱 분해와 결정론적 기저 집합을 이용해 64비트 정수 범위의 소수 여부를 즉각 판정 |
+| **#057** | [거대한 합성수를 산산조각 내다! 폴라드-로 소인수분해 (Pollard's Rho Algorithm)](problems-high/057-math-pollard-rho-factorization/problem.md) | 정수론, 폴라드-로 소인수분해, 플로이드 순환 탐지, 밀러-라빈, $O(N^{1/4})$ | 의사 난수 다항식 수열의 주기성과 최대공약수($\gcd$)를 결합하여 거대 정수의 비자명한 인수를 초고속 분해 |
+| **#058** | [제약 조건을 패널티로 풀어라! 에일리언 트릭 (Aliens Trick WQS Binary Search)](problems-high/058-dp-aliens-trick-wqs-binary-search/problem.md) | 동적 계획법(DP), 에일리언 트릭(Aliens Trick), WQS 이진 탐색, 볼록성(Convexity), $O(N \log C)$ | 선택 횟수 제약 $K$를 라그랑주 승수 패널티 $C$로 변환하여 제약 없는 1D DP를 이진 탐색으로 최적화 |
+| **#059** | [모든 점을 품는 가장 작은 원! 웰즐의 최소 포괄원 (Welzl's Minimum Enclosing Circle)](problems-high/059-geometry-minimum-enclosing-circle/problem.md) | 기하학, 최소 포괄원(MEC), Welzl 무작위 분할 정복, 기대 선형 시간 $O(N)$ | 무작위 점 추가와 경계점 3개 기저 집합 재귀 탐색을 통해 2차원 점들을 포함하는 최소 반지름 원 중심 도출 |
+| **#060** | [깨진 타일의 틈을 메워라! 깨진 프로파일 DP (Broken Profile DP Contour Grid)](problems-high/060-dp-bitmask-broken-profile/problem.md) | 동적 계획법(DP), 깨진 프로파일(Broken Profile DP), 윤곽선 비트마스크, 타일링, $O(NM 2^M)$ | 격자의 칸을 하나씩 진행하며 경계선(윤곽선)의 $M$비트 점유 상태만을 관리하여 도미노 타일링 경우의 수 산출 |
 
 ---
 
