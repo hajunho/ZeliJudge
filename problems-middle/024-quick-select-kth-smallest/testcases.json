@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: [4, 1, 2, 7, 5]에서 2번째 작은 수 -> 2",
+    "input": "5 2\n4 1 2 7 5\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 2,
+    "description": "최솟값 찾기: K = 1 -> 1",
+    "input": "5 1\n4 1 2 7 5\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 3,
+    "description": "최댓값 찾기: K = N -> 7",
+    "input": "5 5\n4 1 2 7 5\n",
+    "expected_output": "7"
+  },
+  {
+    "id": 4,
+    "description": "원소 1개뿐",
+    "input": "1 1\n42\n",
+    "expected_output": "42"
+  },
+  {
+    "id": 5,
+    "description": "중복 원소가 있는 경우",
+    "input": "5 3\n5 2 2 5 1\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 6,
+    "description": "이미 정렬된 경우",
+    "input": "4 3\n10 20 30 40\n",
+    "expected_output": "30"
+  },
+  {
+    "id": 7,
+    "description": "음수 포함 배열",
+    "input": "5 2\n-10 0 5 -20 3\n",
+    "expected_output": "-10"
+  },
+  {
+    "id": 8,
+    "description": "모두 동일한 수",
+    "input": "4 2\n8 8 8 8\n",
+    "expected_output": "8"
+  },
+  {
+    "id": 9,
+    "description": "중간 순위 찾기",
+    "input": "7 4\n9 1 8 2 7 3 6\n",
+    "expected_output": "6"
+  },
+  {
+    "id": 10,
+    "description": "10개 난수",
+    "input": "10 6\n15 3 2 1 9 8 7 12 11 10\n",
+    "expected_output": "9"
+  }
+]

@@ -177,7 +177,7 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | 트랙 | 디렉토리 | 상태 및 규모 | 대상 및 핵심 교육 내용 |
 |:---:|:---:|:---:|---|
 | 🎒 **초등부 트랙 (Junior)** | `problems-elementary/` | **130문제 완결** ✅ | 초등학생 & 코딩 입문: 사칙연산, 조건/반복문, 리스트/문자열, 기초 스택/큐, 2D 격자, 기본 수학 |
-| 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **20문제 (진행 중)** 🚀 | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 기초 그리디 |
+| 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **30문제 (진행 중)** 🚀 | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 기초 그리디 |
 | 🎓 **고등부 트랙 (High)** | `problems-high/` | 중등부 완결 후 예정 🔜 | 고등학생 & KOI/대회: 다이나믹 프로그래밍(DP), 이진 탐색, 그래프(DFS/BFS), 트리 순회, 백트래킹 |
 | 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 110+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/락, Kafka, 캐시 스탬피드, ReDoS, 고가용성 아키텍처 |
 
@@ -356,6 +356,16 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | **#018** | [SNS 친구 네트워크! 인접 리스트와 친구 수 (Graph Degree)](problems-middle/018-graph-adjacency-list-degrees/problem.md) | 그래프, 인접 리스트, 차수(Degree), 자료구조 | 메모리 효율적인 인접 리스트로 친구 관계를 구성하고 각 사용자의 친구 수(차수) 계산하기 |
 | **#019** | [2차원 미로 최단 탈출로! 너비 우선 탐색 (2D Grid BFS)](problems-middle/019-bfs-grid-shortest-distance/problem.md) | BFS, 너비 우선 탐색, 최단 경로, 2차원 격자, 큐 | 미로에서 큐와 거리 배열을 이용해 시작점부터 출구까지 도달하는 최단 칸 수 구하기 |
 | **#020** | [달팽이 수열 심화! R x C 직사각형 나선형 격자 채우기](problems-middle/020-matrix-spiral-fill-rectangular/problem.md) | 2차원 배열, 시뮬레이션, 나선형 순회, 방향 벡터 | 가로세로가 다른 $R \times C$ 직사각형 모눈종이에 시계방향 나선형으로 1부터 $R \times C$ 채우기 |
+| **#021** | [거듭제곱의 초고속 마법! 분할 정복 거듭제곱 (Binary Exponentiation)](problems-middle/021-binary-exponentiation-modulo/problem.md) | 분할 정복, 거듭제곱, 모듈러 연산, $O(\log B)$ | $A^B \pmod C$를 $O(\log B)$ 분할 정복으로 거대한 지수도 번개처럼 계산하기 |
+| **#022** | [두 개의 정렬된 줄 합치기! 선형 시간 병합 (Merge Sorted Arrays)](problems-middle/022-merge-sorted-arrays-linear/problem.md) | 투 포인터, 병합 정렬, $O(N+M)$ | 두 개의 이미 정렬된 배열을 투 포인터로 비교하며 단 한 번의 순회로 합치기 |
+| **#023** | [소인수분해 표준 분해식 나타내기 (Canonical Prime Factorization)](problems-middle/023-prime-factorization-canonical/problem.md) | 정수론, 소인수분해, 거듭제곱 표현, 수학 | 자연수 N을 소수들의 곱 $p_1^{e_1} \times p_2^{e_2} \dots$ 표준 꼴 문자열로 깔끔하게 정리하기 |
+| **#024** | [정렬하지 않고 K번째 작은 수 찾기! (Quickselect)](problems-middle/024-quick-select-kth-smallest/problem.md) | 퀵셀렉트, 분할 정복, 피벗, 평균 $O(N)$ | 전체 정렬 $O(N \log N)$ 없이 피벗 분할만으로 K번째 원소를 평균 $O(N)$에 찾기 |
+| **#025** | [움직이는 창문 속 챔피언! 슬라이딩 윈도우 최댓값 (Deque Max)](problems-middle/025-queue-deque-sliding-window-max/problem.md) | 덱(Deque), 슬라이딩 윈도우, 모노토닉 큐, $O(N)$ | 크기 K인 연속 윈도우가 오른쪽으로 이동할 때 각 구간의 최댓값을 덱으로 즉시 구하기 |
+| **#026** | [나무의 가장 먼 두 점! 트리 지름 구하기 (Tree Diameter)](problems-middle/026-tree-diameter-two-bfs/problem.md) | 트리, BFS, 최장 경로, 그래프 탐색 | 2번의 BFS 탐색으로 트리에서 가장 거리가 먼 두 정점 사이의 지름(최장 경로) 찾기 |
+| **#027** | [순환 고리를 찾아라! 유향 그래프 사이클 판별 (DFS 3색 검사)](problems-middle/027-dfs-cycle-detection-directed/problem.md) | 그래프, DFS, 사이클 탐지, 3색(Visited) 상태 | 방향 그래프에서 DFS 방문 상태(방문중/완료)를 통해 되돌아가는 역방향 간선 사이클 감지하기 |
+| **#028** | [최대한 많은 회의 잡기! 활동 선택 문제 (Greedy Interval Scheduling)](problems-middle/028-greedy-meeting-room-allocation/problem.md) | 그리디, 활동 선택 문제, 정렬, 스케줄링 | 끝나는 시간이 빠른 순서대로 회의를 배정하여 겹치지 않고 진행할 수 있는 최대 회의 수 구하기 |
+| **#029** | [쪼갤 수 있는 보석 배낭! 분할 가능 배낭 문제 (Fractional Knapsack)](problems-middle/029-fractional-knapsack-greedy/problem.md) | 그리디, 분할 배낭, 단위 무게당 가치 | 보석을 원하는 만큼 쪼갤 수 있을 때 단위 무게당 가치가 높은 순으로 최대 가치 담기 |
+| **#030** | [바다에 둘러싸인 섬의 둘레 구하기 (Matrix Island Perimeter)](problems-middle/030-matrix-island-perimeter-floodfill/problem.md) | 2차원 배열, 격자 탐색, 둘레 계산, 시뮬레이션 | 2차원 격자 지도에서 육지(1)가 바다(0)나 격자 경계와 맞닿은 변의 총 둘레 계산하기 |
 
 ---
 

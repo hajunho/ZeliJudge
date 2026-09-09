@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: [(1,4), (3,5), (0,6), (5,7), (3,8), (5,9), (6,10), (8,11), (8,12), (2,13), (12,14)] -> 4개 ((1,4), (5,7), (8,11), (12,14))",
+    "input": "11\n1 4\n3 5\n0 6\n5 7\n3 8\n5 9\n6 10\n8 11\n8 12\n2 13\n12 14\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 2,
+    "description": "회의 1개뿐",
+    "input": "1\n1 5\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 3,
+    "description": "시작과 종료가 같은 회의: (2,2) -> 즉시 끝남",
+    "input": "3\n1 2\n2 2\n2 3\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 4,
+    "description": "모두 겹치는 회의: 1개만 가능",
+    "input": "3\n1 10\n2 10\n3 10\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 5,
+    "description": "완전히 분리된 3개 회의: 3개 모두 가능",
+    "input": "3\n1 2\n3 4\n5 6\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 6,
+    "description": "종료 시간 동일할 때 시작 시간이 빠른 것 우선 선택",
+    "input": "2\n2 2\n1 2\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 7,
+    "description": "시간 간격이 큰 회의들",
+    "input": "4\n0 100\n100 200\n200 300\n50 250\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 8,
+    "description": "연속된 짧은 회의들",
+    "input": "5\n1 3\n2 4\n3 5\n4 6\n5 7\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 9,
+    "description": "새벽 회의 포함",
+    "input": "3\n0 1\n1 2\n2 3\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 10,
+    "description": "포함 관계: (1, 10) 안에 (2, 3)",
+    "input": "2\n1 10\n2 3\n",
+    "expected_output": "1"
+  }
+]

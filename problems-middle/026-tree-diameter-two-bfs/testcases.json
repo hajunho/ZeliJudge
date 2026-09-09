@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: 1-2, 2-3, 2-4 -> 3과 4 사이 거리 2",
+    "input": "4\n1 2\n2 3\n2 4\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 2,
+    "description": "일렬 트리: 1-2-3-4-5 -> 지름 4",
+    "input": "5\n1 2\n2 3\n3 4\n4 5\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 3,
+    "description": "노드 1개뿐: 지름 0",
+    "input": "1\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 4,
+    "description": "노드 2개: 지름 1",
+    "input": "2\n1 2\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 5,
+    "description": "스타 트리: 1에 2,3,4,5 연결 -> 지름 2",
+    "input": "5\n1 2\n1 3\n1 4\n1 5\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 6,
+    "description": "완전 이진 트리 7개: 지름 4",
+    "input": "7\n1 2\n1 3\n2 4\n2 5\n3 6\n3 7\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 7,
+    "description": "Y자형 트리: 지름 4",
+    "input": "6\n1 2\n2 3\n3 4\n3 5\n5 6\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 8,
+    "description": "긴 가지 트리",
+    "input": "6\n1 2\n2 3\n3 4\n4 5\n3 6\n",
+    "expected_output": "4"
+  },
+  {
+    "id": 9,
+    "description": "대칭 트리 8개",
+    "input": "8\n1 2\n2 3\n3 4\n1 5\n5 6\n6 7\n7 8\n",
+    "expected_output": "7"
+  },
+  {
+    "id": 10,
+    "description": "비대칭 가지",
+    "input": "5\n1 2\n1 3\n3 4\n4 5\n",
+    "expected_output": "4"
+  }
+]

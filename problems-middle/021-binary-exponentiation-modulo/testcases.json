@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: 2^10 mod 1000 = 1024 % 1000 = 24",
+    "input": "2 10 1000\n",
+    "expected_output": "24"
+  },
+  {
+    "id": 2,
+    "description": "B=0: 모든 수의 0제곱은 1 (C > 1)",
+    "input": "5 0 100\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 3,
+    "description": "B=1: A % C",
+    "input": "10 1 7\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 4,
+    "description": "C=1: 어떤 수든 1로 나눈 나머지는 0",
+    "input": "42 42 1\n",
+    "expected_output": "0"
+  },
+  {
+    "id": 5,
+    "description": "홀수 지수: 3^5 mod 10 = 243 % 10 = 3",
+    "input": "3 5 10\n",
+    "expected_output": "3"
+  },
+  {
+    "id": 6,
+    "description": "큰 지수: 2^30 mod 1000000007",
+    "input": "2 30 1000000007\n",
+    "expected_output": "73741817"
+  },
+  {
+    "id": 7,
+    "description": "거대한 지수 계산 (10억)",
+    "input": "3 1000000000 1000000007\n",
+    "expected_output": "235939645"
+  },
+  {
+    "id": 8,
+    "description": "페르마 소정리 형태",
+    "input": "5 6 7\n",
+    "expected_output": "1"
+  },
+  {
+    "id": 9,
+    "description": "짝수 지수 2^16 mod 100",
+    "input": "2 16 100\n",
+    "expected_output": "36"
+  },
+  {
+    "id": 10,
+    "description": "A가 C보다 큰 경우: 15^3 mod 4 = 3^3 mod 4 = 27 mod 4 = 3",
+    "input": "15 3 4\n",
+    "expected_output": "3"
+  }
+]

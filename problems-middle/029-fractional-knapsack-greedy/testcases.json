@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "기본 예제: W=50, (10,60), (20,100), (30,120) -> 60 + 100 + 120*(20/30) = 240.00",
+    "input": "3 50\n10 60\n20 100\n30 120\n",
+    "expected_output": "240.00"
+  },
+  {
+    "id": 2,
+    "description": "보석 1개뿐: 배낭이 더 큼 -> 50.00",
+    "input": "1 10\n5 50\n",
+    "expected_output": "50.00"
+  },
+  {
+    "id": 3,
+    "description": "보석 1개뿐: 배낭이 더 작아서 자름 -> 25.00",
+    "input": "1 5\n10 50\n",
+    "expected_output": "25.00"
+  },
+  {
+    "id": 4,
+    "description": "모든 보석을 다 담아도 배낭이 남음",
+    "input": "2 100\n10 20\n20 40\n",
+    "expected_output": "60.00"
+  },
+  {
+    "id": 5,
+    "description": "단위 무게당 가치가 같은 보석들",
+    "input": "2 10\n10 100\n20 200\n",
+    "expected_output": "100.00"
+  },
+  {
+    "id": 6,
+    "description": "가치가 0이 아닌 미세 분할: W=7",
+    "input": "3 7\n3 10\n4 20\n5 30\n",
+    "expected_output": "40.00"
+  },
+  {
+    "id": 7,
+    "description": "큰 가치 작은 무게 우선: (1, 100) vs (100, 100)",
+    "input": "2 10\n1 100\n100 100\n",
+    "expected_output": "109.00"
+  },
+  {
+    "id": 8,
+    "description": "배낭 용량이 정확히 보석 하나 크기",
+    "input": "3 15\n10 60\n15 90\n20 100\n",
+    "expected_output": "90.00"
+  },
+  {
+    "id": 9,
+    "description": "소수점 발생하는 분할: W=10, 15짜리(100가치) -> 100 * (10/15) = 66.67",
+    "input": "1 10\n15 100\n",
+    "expected_output": "66.67"
+  },
+  {
+    "id": 10,
+    "description": "여러 보석 혼합",
+    "input": "4 20\n5 10\n10 30\n15 60\n20 100\n",
+    "expected_output": "100.00"
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "N = 72 -> 2^3 * 3^2",
+    "input": "72\n",
+    "expected_output": "2^3 * 3^2"
+  },
+  {
+    "id": 2,
+    "description": "N = 12 -> 2^2 * 3 (지수 1 생략)",
+    "input": "12\n",
+    "expected_output": "2^2 * 3"
+  },
+  {
+    "id": 3,
+    "description": "N = 2 (가장 작은 소수) -> 2",
+    "input": "2\n",
+    "expected_output": "2"
+  },
+  {
+    "id": 4,
+    "description": "N = 7 (소수) -> 7",
+    "input": "7\n",
+    "expected_output": "7"
+  },
+  {
+    "id": 5,
+    "description": "N = 100 -> 2^2 * 5^2",
+    "input": "100\n",
+    "expected_output": "2^2 * 5^2"
+  },
+  {
+    "id": 6,
+    "description": "N = 64 (2의 6제곱) -> 2^6",
+    "input": "64\n",
+    "expected_output": "2^6"
+  },
+  {
+    "id": 7,
+    "description": "N = 30 -> 2 * 3 * 5",
+    "input": "30\n",
+    "expected_output": "2 * 3 * 5"
+  },
+  {
+    "id": 8,
+    "description": "N = 999 -> 3^3 * 37",
+    "input": "999\n",
+    "expected_output": "3^3 * 37"
+  },
+  {
+    "id": 9,
+    "description": "N = 1024 -> 2^10",
+    "input": "1024\n",
+    "expected_output": "2^10"
+  },
+  {
+    "id": 10,
+    "description": "큰 소수 제곱: 169 -> 13^2",
+    "input": "169\n",
+    "expected_output": "13^2"
+  }
+]
