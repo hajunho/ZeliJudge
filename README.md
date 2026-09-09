@@ -187,6 +187,7 @@ problems/
 | **#144** | [락 하나 잡으려다 Redis CPU 100% 찍고 서버가 타버렸어요?!: 분산 락(Distributed Lock)과 Redisson Pub/Sub vs Spin-Lock 경합 & Watchdog 만료 시간 자동 연장 (Redis Distributed Lock & Redisson Pub/Sub vs Spin Lock)](problems/144-redis-distributed-lock-redisson-vs-spin/problem.md) | **분산 시스템/동시성 제어/Redis 아키텍처**, `SETNX while-sleep` 스핀 락의 초당 수십만 폴링 폭풍과 Redis CPU 100% 사망, 비원자적 TTL/락 탈취 위험, Redisson Pub/Sub 기반 이벤트 드리븐 대기(0-CPU 폴링 소멸), Lua 스크립트 원자적 해제 & 알림 발행, 슬로우 쿼리 시 락 조기 만료(Premature Expiration)와 재고 마이너스 참사, 백그라운드 Watchdog 타이머 주기적 TTL 자동 갱신 구원 | 선착순 쿠폰 발급에 스핀 락 걸었다가 Redis 다운되고 조기 만료로 재고 마이너스 터진 참사와 Redisson Pub/Sub 및 Watchdog 구원 원리 |
 | **#145** | [1억 건 로그 테이블에 인덱스를 달았는데 왜 쿼리가 30초나 걸려요?!: RDBMS 테이블 파티셔닝(Range Partitioning)과 파티션 프루닝(Partition Pruning) (RDBMS Range Partitioning & Partition Pruning)](problems/145-mysql-partition-pruning-performance/problem.md) | **데이터베이스 엔지니어링/스토리지 아키텍처/SQL 튜닝**, B-Tree 인덱스 비대화와 버퍼 풀 스와핑, 물리적 레인지 파티셔닝, 옵티마이저 파티션 프루닝(Partition Pruning), SARGable 범위 조건 vs Non-SARGable 함수 가공(`DATE(col)`) 시 전 파티션 풀 스캔 참사, 파티션 키 미포함 쿼리 경고, DROP PARTITION 0초 대량 삭제 원리 | 1억 건 결제 로그에 DATE() 함수 씌웠다가 파티션 프루닝 무력화로 전 파티션 풀 스캔 맞아 DB 30초 정지된 참사와 안전한 쿼리 원리 |
 | **#146** | [카프카는 파티션 순서를 보장한다면서요?!: Kafka 프로듀서 멱등성(Idempotent Producer)과 max.in.flight.requests.per.connection 순서 역전 및 중복 참사 (Kafka Idempotent Producer & In-Flight Reordering)](problems/146-kafka-idempotent-producer-in-flight/problem.md) | **분산 메시징/데이터 스트리밍/Kafka KIP-98**, 파이프라이닝(`max.in.flight=5`)과 재시도(`retries>0`) 시 패킷 지연에 의한 파티션 내 순서 역전 참사, 네트워크 ACK 유실로 인한 At-Least-Once 중복 커밋 폭탄, Producer ID(PID)와 시퀀스 번호(SN) 추적, `OutOfOrderSequenceException` 거부 및 중복 자동 드롭(Exactly-Once In-Order Delivery) | 순서대로 쏜 결제 이벤트가 뒤집혀 배송이 주문보다 먼저 생성된 대참사와 KIP-98 멱등성 프로듀서 구원 원리 |
+| **#147** | [파드를 재배포했을 뿐인데 왜 클라이언트의 진행 중이던 결제 스트림 1,000건이 강제 폭사해요?!: HTTP/2 GOAWAY 프레임과 gRPC Graceful Connection Drain (HTTP/2 GOAWAY & gRPC Graceful Connection Drain)](problems/147-grpc-http2-goaway-graceful-drain/problem.md) | **마이크로서비스/네트워크 계층/gRPC 아키텍처**, HTTP/2 단일 장기 지속 TCP 연결 다중화의 명암, 파드 종료 시 소켓 단순 Close로 인한 인플라이트 RPC `UNAVAILABLE` 폭사 참사, HTTP/2 RFC 7540 2단계 GOAWAY 핸드셰이크($2^{31}-1$ 새 스트림 차단 $\to$ 1 RTT 대기 $\to$ 실제 LastStreamId 확정), 기존 스트림 Graceful 완주 및 안전한 투명 재시도(Transparent Retry) 원리 | k8s 롤링 배포 시 소켓 강제 단절로 1,000건 결제 스트림 파괴되던 참사와 2단계 GOAWAY 및 무중단 드레인 구원 원리 |
 
 ---
 
@@ -199,7 +200,7 @@ ZeliJudge는 코딩을 처음 접하는 초등학생부터 고성능 분산 시�
 | 🎒 **초등부 트랙 (Junior)** | `problems-elementary/` | **130문제 완결** ✅ | 초등학생 & 코딩 입문: 사칙연산, 조건/반복문, 리스트/문자열, 기초 스택/큐, 2D 격자, 기본 수학 |
 | 🏫 **중등부 트랙 (Middle)** | `problems-middle/` | **130문제 완결** ✅ | 중학생 & 알고리즘 기초: 정수론, 진법/비트, 다중 정렬, 스택/큐 응용, 재귀/완전탐색, 고급 정수론/기하/DP |
 | 🎓 **고등부 트랙 (High)** | `problems-high/` | **130문제 완결** ✅ | 고등학생 & KOI/대회: 보로노이/들로네, 메르텐스 두 체, 세그트리 비츠, 지배자 트리, 팰린드롬 트리, SMAWK, 매트로이드 교집합, 가우스 정수, 푸시-리레이블, 최종 그랜드 캡스톤 |
-| 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 146+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, 동시성/분산 락, 파티션 프루닝, Kafka 멱등성 프로듀서, DB 인덱스 손익분기점, JWT RTR, 고가용성 아키텍처 |
+| 💼 **실무/시니어 트랙 (Pro)** | `problems/` | 147+ 실무 문제 🔥 | 현업 엔지니어: Linux 커널, TCP/IP, gRPC GOAWAY 무중단 드레인, 분산 락, 파티션 프루닝, Kafka 멱등성, 고가용성 아키텍처 |
 
 ---
 
