@@ -1,0 +1,1230 @@
+[
+  {
+    "testcase_id": 1,
+    "input": {
+      "config": {
+        "mss": 1000,
+        "dupthresh": 3,
+        "initial_cwnd": 10000,
+        "initial_ssthresh": 20000
+      },
+      "trace": [
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 10000,
+          "sack_blocks": [
+            [
+              11000,
+              15000
+            ]
+          ]
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 15000
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 10000,
+          "len": 1000,
+          "snd_nxt": 11000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 11000,
+          "len": 1000,
+          "snd_nxt": 12000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 12000,
+          "len": 1000,
+          "snd_nxt": 13000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 13000,
+          "len": 1000,
+          "snd_nxt": 14000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 14000,
+          "len": 1000,
+          "snd_nxt": 15000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 10000,
+          "in_fast_recovery": true,
+          "pipe": 1000,
+          "cwnd": 5000,
+          "ssthresh": 5000,
+          "retransmitted_seq": 10000,
+          "status": "ENTERED_FAST_RECOVERY"
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 15000,
+          "in_fast_recovery": false,
+          "pipe": 0,
+          "cwnd": 5000,
+          "ssthresh": 5000,
+          "retransmitted_seq": null,
+          "status": "RECOVERY_COMPLETED"
+        },
+        {
+          "op": "GET_STATS",
+          "snd_una": 15000,
+          "snd_nxt": 15000,
+          "high_seq": 15000,
+          "in_fast_recovery": false,
+          "cwnd": 5000,
+          "ssthresh": 5000,
+          "unacked_packets": 0,
+          "fast_recovery_entries": 1,
+          "packets_marked_lost": 1,
+          "fast_retransmits": 1,
+          "recovery_completions": 1
+        }
+      ],
+      "summary": {
+        "snd_una": 15000,
+        "snd_nxt": 15000,
+        "in_fast_recovery": false,
+        "cwnd": 5000,
+        "ssthresh": 5000,
+        "fast_recovery_entries": 1,
+        "packets_marked_lost": 1,
+        "fast_retransmits": 1,
+        "recovery_completions": 1
+      }
+    }
+  },
+  {
+    "testcase_id": 2,
+    "input": {
+      "config": {
+        "mss": 1000,
+        "dupthresh": 3,
+        "initial_cwnd": 12000,
+        "initial_ssthresh": 24000
+      },
+      "trace": [
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 10000,
+          "sack_blocks": [
+            [
+              11000,
+              14000
+            ],
+            [
+              15000,
+              18000
+            ]
+          ]
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 14000,
+          "sack_blocks": [
+            [
+              15000,
+              18000
+            ]
+          ]
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 18000
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 10000,
+          "len": 1000,
+          "snd_nxt": 11000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 11000,
+          "len": 1000,
+          "snd_nxt": 12000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 12000,
+          "len": 1000,
+          "snd_nxt": 13000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 13000,
+          "len": 1000,
+          "snd_nxt": 14000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 14000,
+          "len": 1000,
+          "snd_nxt": 15000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 15000,
+          "len": 1000,
+          "snd_nxt": 16000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 16000,
+          "len": 1000,
+          "snd_nxt": 17000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 17000,
+          "len": 1000,
+          "snd_nxt": 18000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 10000,
+          "in_fast_recovery": true,
+          "pipe": 1000,
+          "cwnd": 6000,
+          "ssthresh": 6000,
+          "retransmitted_seq": 10000,
+          "status": "ENTERED_FAST_RECOVERY"
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 14000,
+          "in_fast_recovery": true,
+          "pipe": 1000,
+          "cwnd": 6000,
+          "ssthresh": 6000,
+          "retransmitted_seq": 14000,
+          "status": "IN_FLIGHT"
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 18000,
+          "in_fast_recovery": false,
+          "pipe": 0,
+          "cwnd": 6000,
+          "ssthresh": 6000,
+          "retransmitted_seq": null,
+          "status": "RECOVERY_COMPLETED"
+        },
+        {
+          "op": "GET_STATS",
+          "snd_una": 18000,
+          "snd_nxt": 18000,
+          "high_seq": 18000,
+          "in_fast_recovery": false,
+          "cwnd": 6000,
+          "ssthresh": 6000,
+          "unacked_packets": 0,
+          "fast_recovery_entries": 1,
+          "packets_marked_lost": 2,
+          "fast_retransmits": 2,
+          "recovery_completions": 1
+        }
+      ],
+      "summary": {
+        "snd_una": 18000,
+        "snd_nxt": 18000,
+        "in_fast_recovery": false,
+        "cwnd": 6000,
+        "ssthresh": 6000,
+        "fast_recovery_entries": 1,
+        "packets_marked_lost": 2,
+        "fast_retransmits": 2,
+        "recovery_completions": 1
+      }
+    }
+  },
+  {
+    "testcase_id": 3,
+    "input": {
+      "config": {
+        "mss": 1000,
+        "dupthresh": 3,
+        "initial_cwnd": 10000,
+        "initial_ssthresh": 20000
+      },
+      "trace": [
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 10000,
+          "sack_blocks": [
+            [
+              11000,
+              13000
+            ]
+          ]
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 10000,
+          "len": 1000,
+          "snd_nxt": 11000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 11000,
+          "len": 1000,
+          "snd_nxt": 12000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 12000,
+          "len": 1000,
+          "snd_nxt": 13000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 10000,
+          "in_fast_recovery": false,
+          "pipe": 1000,
+          "cwnd": 10000,
+          "ssthresh": 20000,
+          "retransmitted_seq": null,
+          "status": "IN_FLIGHT"
+        },
+        {
+          "op": "GET_STATS",
+          "snd_una": 10000,
+          "snd_nxt": 13000,
+          "high_seq": 10000,
+          "in_fast_recovery": false,
+          "cwnd": 10000,
+          "ssthresh": 20000,
+          "unacked_packets": 3,
+          "fast_recovery_entries": 0,
+          "packets_marked_lost": 0,
+          "fast_retransmits": 0,
+          "recovery_completions": 0
+        }
+      ],
+      "summary": {
+        "snd_una": 10000,
+        "snd_nxt": 13000,
+        "in_fast_recovery": false,
+        "cwnd": 10000,
+        "ssthresh": 20000,
+        "fast_recovery_entries": 0,
+        "packets_marked_lost": 0,
+        "fast_retransmits": 0,
+        "recovery_completions": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 4,
+    "input": {
+      "config": {
+        "mss": 1000,
+        "dupthresh": 3,
+        "initial_cwnd": 4000,
+        "initial_ssthresh": 8000
+      },
+      "trace": [
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 10000,
+          "sack_blocks": [
+            [
+              12000,
+              16000
+            ]
+          ]
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 10000,
+          "len": 1000,
+          "snd_nxt": 11000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 11000,
+          "len": 1000,
+          "snd_nxt": 12000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 12000,
+          "len": 1000,
+          "snd_nxt": 13000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 13000,
+          "len": 1000,
+          "snd_nxt": 14000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 14000,
+          "len": 1000,
+          "snd_nxt": 15000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 15000,
+          "len": 1000,
+          "snd_nxt": 16000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 10000,
+          "in_fast_recovery": true,
+          "pipe": 1000,
+          "cwnd": 2000,
+          "ssthresh": 2000,
+          "retransmitted_seq": 10000,
+          "status": "ENTERED_FAST_RECOVERY"
+        },
+        {
+          "op": "GET_STATS",
+          "snd_una": 10000,
+          "snd_nxt": 16000,
+          "high_seq": 16000,
+          "in_fast_recovery": true,
+          "cwnd": 2000,
+          "ssthresh": 2000,
+          "unacked_packets": 6,
+          "fast_recovery_entries": 1,
+          "packets_marked_lost": 2,
+          "fast_retransmits": 1,
+          "recovery_completions": 0
+        }
+      ],
+      "summary": {
+        "snd_una": 10000,
+        "snd_nxt": 16000,
+        "in_fast_recovery": true,
+        "cwnd": 2000,
+        "ssthresh": 2000,
+        "fast_recovery_entries": 1,
+        "packets_marked_lost": 2,
+        "fast_retransmits": 1,
+        "recovery_completions": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 5,
+    "input": {
+      "config": {
+        "mss": 1460,
+        "dupthresh": 3,
+        "initial_cwnd": 14600,
+        "initial_ssthresh": 29200
+      },
+      "trace": [
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1460
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1460
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 11460
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 12920
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 10000,
+          "len": 1460,
+          "snd_nxt": 11460,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 11460,
+          "len": 1460,
+          "snd_nxt": 12920,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 11460,
+          "in_fast_recovery": false,
+          "pipe": 1460,
+          "cwnd": 14600,
+          "ssthresh": 29200,
+          "retransmitted_seq": null,
+          "status": "IN_FLIGHT"
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 12920,
+          "in_fast_recovery": false,
+          "pipe": 0,
+          "cwnd": 14600,
+          "ssthresh": 29200,
+          "retransmitted_seq": null,
+          "status": "IN_FLIGHT"
+        },
+        {
+          "op": "GET_STATS",
+          "snd_una": 12920,
+          "snd_nxt": 12920,
+          "high_seq": 10000,
+          "in_fast_recovery": false,
+          "cwnd": 14600,
+          "ssthresh": 29200,
+          "unacked_packets": 0,
+          "fast_recovery_entries": 0,
+          "packets_marked_lost": 0,
+          "fast_retransmits": 0,
+          "recovery_completions": 0
+        }
+      ],
+      "summary": {
+        "snd_una": 12920,
+        "snd_nxt": 12920,
+        "in_fast_recovery": false,
+        "cwnd": 14600,
+        "ssthresh": 29200,
+        "fast_recovery_entries": 0,
+        "packets_marked_lost": 0,
+        "fast_retransmits": 0,
+        "recovery_completions": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 6,
+    "input": {
+      "config": {
+        "mss": 1000,
+        "dupthresh": 3,
+        "initial_cwnd": 10000,
+        "initial_ssthresh": 20000
+      },
+      "trace": [
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 10000,
+          "sack_blocks": [
+            [
+              11000,
+              12000
+            ]
+          ]
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 10000,
+          "sack_blocks": [
+            [
+              11000,
+              13000
+            ]
+          ]
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 10000,
+          "sack_blocks": [
+            [
+              11000,
+              14000
+            ]
+          ]
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 10000,
+          "len": 1000,
+          "snd_nxt": 11000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 11000,
+          "len": 1000,
+          "snd_nxt": 12000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 12000,
+          "len": 1000,
+          "snd_nxt": 13000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 13000,
+          "len": 1000,
+          "snd_nxt": 14000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 14000,
+          "len": 1000,
+          "snd_nxt": 15000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 10000,
+          "in_fast_recovery": false,
+          "pipe": 4000,
+          "cwnd": 10000,
+          "ssthresh": 20000,
+          "retransmitted_seq": null,
+          "status": "IN_FLIGHT"
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 10000,
+          "in_fast_recovery": false,
+          "pipe": 3000,
+          "cwnd": 10000,
+          "ssthresh": 20000,
+          "retransmitted_seq": null,
+          "status": "IN_FLIGHT"
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 10000,
+          "in_fast_recovery": true,
+          "pipe": 2000,
+          "cwnd": 5000,
+          "ssthresh": 5000,
+          "retransmitted_seq": 10000,
+          "status": "ENTERED_FAST_RECOVERY"
+        },
+        {
+          "op": "GET_STATS",
+          "snd_una": 10000,
+          "snd_nxt": 15000,
+          "high_seq": 15000,
+          "in_fast_recovery": true,
+          "cwnd": 5000,
+          "ssthresh": 5000,
+          "unacked_packets": 5,
+          "fast_recovery_entries": 1,
+          "packets_marked_lost": 1,
+          "fast_retransmits": 1,
+          "recovery_completions": 0
+        }
+      ],
+      "summary": {
+        "snd_una": 10000,
+        "snd_nxt": 15000,
+        "in_fast_recovery": true,
+        "cwnd": 5000,
+        "ssthresh": 5000,
+        "fast_recovery_entries": 1,
+        "packets_marked_lost": 1,
+        "fast_retransmits": 1,
+        "recovery_completions": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 7,
+    "input": {
+      "config": {
+        "mss": 1000,
+        "dupthresh": 3,
+        "initial_cwnd": 10000,
+        "initial_ssthresh": 20000
+      },
+      "trace": [
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 10000,
+          "sack_blocks": [
+            [
+              12000,
+              15000
+            ]
+          ]
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 11000,
+          "sack_blocks": [
+            [
+              12000,
+              15000
+            ]
+          ]
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 10000,
+          "len": 1000,
+          "snd_nxt": 11000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 11000,
+          "len": 1000,
+          "snd_nxt": 12000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 12000,
+          "len": 1000,
+          "snd_nxt": 13000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 13000,
+          "len": 1000,
+          "snd_nxt": 14000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 14000,
+          "len": 1000,
+          "snd_nxt": 15000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 10000,
+          "in_fast_recovery": true,
+          "pipe": 1000,
+          "cwnd": 5000,
+          "ssthresh": 5000,
+          "retransmitted_seq": 10000,
+          "status": "ENTERED_FAST_RECOVERY"
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 11000,
+          "in_fast_recovery": true,
+          "pipe": 1000,
+          "cwnd": 5000,
+          "ssthresh": 5000,
+          "retransmitted_seq": 11000,
+          "status": "IN_FLIGHT"
+        },
+        {
+          "op": "GET_STATS",
+          "snd_una": 11000,
+          "snd_nxt": 15000,
+          "high_seq": 15000,
+          "in_fast_recovery": true,
+          "cwnd": 5000,
+          "ssthresh": 5000,
+          "unacked_packets": 4,
+          "fast_recovery_entries": 1,
+          "packets_marked_lost": 2,
+          "fast_retransmits": 2,
+          "recovery_completions": 0
+        }
+      ],
+      "summary": {
+        "snd_una": 11000,
+        "snd_nxt": 15000,
+        "in_fast_recovery": true,
+        "cwnd": 5000,
+        "ssthresh": 5000,
+        "fast_recovery_entries": 1,
+        "packets_marked_lost": 2,
+        "fast_retransmits": 2,
+        "recovery_completions": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 8,
+    "input": {
+      "config": {
+        "mss": 1000,
+        "dupthresh": 3,
+        "initial_cwnd": 16000,
+        "initial_ssthresh": 32000
+      },
+      "trace": [
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "len": 1000
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 10000,
+          "sack_blocks": [
+            [
+              11000,
+              15000
+            ],
+            [
+              16000,
+              20000
+            ]
+          ]
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 15000,
+          "sack_blocks": [
+            [
+              16000,
+              26000
+            ]
+          ]
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 26000
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 10000,
+          "len": 1000,
+          "snd_nxt": 11000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 11000,
+          "len": 1000,
+          "snd_nxt": 12000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 12000,
+          "len": 1000,
+          "snd_nxt": 13000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 13000,
+          "len": 1000,
+          "snd_nxt": 14000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 14000,
+          "len": 1000,
+          "snd_nxt": 15000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 15000,
+          "len": 1000,
+          "snd_nxt": 16000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 16000,
+          "len": 1000,
+          "snd_nxt": 17000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 17000,
+          "len": 1000,
+          "snd_nxt": 18000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 18000,
+          "len": 1000,
+          "snd_nxt": 19000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 19000,
+          "len": 1000,
+          "snd_nxt": 20000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 20000,
+          "len": 1000,
+          "snd_nxt": 21000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 21000,
+          "len": 1000,
+          "snd_nxt": 22000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 22000,
+          "len": 1000,
+          "snd_nxt": 23000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 23000,
+          "len": 1000,
+          "snd_nxt": 24000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 24000,
+          "len": 1000,
+          "snd_nxt": 25000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "TRANSMIT_NEW",
+          "seq": 25000,
+          "len": 1000,
+          "snd_nxt": 26000,
+          "status": "TRANSMITTED"
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 10000,
+          "in_fast_recovery": true,
+          "pipe": 7000,
+          "cwnd": 8000,
+          "ssthresh": 8000,
+          "retransmitted_seq": 10000,
+          "status": "ENTERED_FAST_RECOVERY"
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 15000,
+          "in_fast_recovery": true,
+          "pipe": 1000,
+          "cwnd": 8000,
+          "ssthresh": 8000,
+          "retransmitted_seq": 15000,
+          "status": "IN_FLIGHT"
+        },
+        {
+          "op": "RECEIVE_ACK",
+          "ack_seq": 26000,
+          "in_fast_recovery": false,
+          "pipe": 0,
+          "cwnd": 8000,
+          "ssthresh": 8000,
+          "retransmitted_seq": null,
+          "status": "RECOVERY_COMPLETED"
+        },
+        {
+          "op": "GET_STATS",
+          "snd_una": 26000,
+          "snd_nxt": 26000,
+          "high_seq": 26000,
+          "in_fast_recovery": false,
+          "cwnd": 8000,
+          "ssthresh": 8000,
+          "unacked_packets": 0,
+          "fast_recovery_entries": 1,
+          "packets_marked_lost": 2,
+          "fast_retransmits": 2,
+          "recovery_completions": 1
+        }
+      ],
+      "summary": {
+        "snd_una": 26000,
+        "snd_nxt": 26000,
+        "in_fast_recovery": false,
+        "cwnd": 8000,
+        "ssthresh": 8000,
+        "fast_recovery_entries": 1,
+        "packets_marked_lost": 2,
+        "fast_retransmits": 2,
+        "recovery_completions": 1
+      }
+    }
+  }
+]
