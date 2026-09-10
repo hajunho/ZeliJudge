@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "description": "Clean direct THP allocation from naturally aligned contiguous free block without compaction",
+    "input": "{\"config\": {\"total_pages\": 16, \"hugepage_order\": 2}, \"initial_allocations\": [], \"commands\": [{\"op\": \"ALLOC_THP\", \"vma_id\": \"vma-fastpath\"}]}",
+    "expected_output": "{\"summary\": {\"total_pages\": 16, \"hugepage_len\": 4, \"free_pages_count\": 12, \"allocated_pages_count\": 4, \"active_thp_count\": 1, \"compaction_runs\": 0, \"pages_migrated_total\": 0, \"pmd_splits_count\": 0}, \"command_history\": [{\"command_index\": 1, \"op\": \"ALLOC_THP\", \"vma_id\": \"vma-fastpath\", \"details\": {\"status\": \"DIRECT_ALLOCATION\", \"base_pfn\": 0, \"hugepage_len\": 4, \"compaction_migrated_pages\": 0}}]}"
+  },
+  {
+    "id": 2,
+    "description": "Fragmented zone direct compaction where dual scanners migrate allocated pages to form aligned block",
+    "input": "{\"config\": {\"total_pages\": 16, \"hugepage_order\": 2}, \"initial_allocations\": [{\"vma_id\": \"vma-frag\", \"pfns\": [0, 4, 8, 12], \"movable\": true}], \"commands\": [{\"op\": \"ALLOC_THP\", \"vma_id\": \"vma-compacted\"}]}",
+    "expected_output": "{\"summary\": {\"total_pages\": 16, \"hugepage_len\": 4, \"free_pages_count\": 8, \"allocated_pages_count\": 8, \"active_thp_count\": 1, \"compaction_runs\": 1, \"pages_migrated_total\": 1, \"pmd_splits_count\": 0}, \"command_history\": [{\"command_index\": 1, \"op\": \"ALLOC_THP\", \"vma_id\": \"vma-compacted\", \"details\": {\"status\": \"COMPACTED_AND_ALLOCATED\", \"base_pfn\": 0, \"hugepage_len\": 4, \"compaction_migrated_pages\": 1}}]}"
+  },
+  {
+    "id": 3,
+    "description": "THP allocation followed by PMD split into individual regular 4KB page table entries",
+    "input": "{\"config\": {\"total_pages\": 16, \"hugepage_order\": 2}, \"initial_allocations\": [], \"commands\": [{\"op\": \"ALLOC_THP\", \"vma_id\": \"vma-split-target\"}, {\"op\": \"SPLIT_HUGE_PMD\", \"pfn\": 0}]}",
+    "expected_output": "{\"summary\": {\"total_pages\": 16, \"hugepage_len\": 4, \"free_pages_count\": 12, \"allocated_pages_count\": 4, \"active_thp_count\": 0, \"compaction_runs\": 0, \"pages_migrated_total\": 0, \"pmd_splits_count\": 1}, \"command_history\": [{\"command_index\": 1, \"op\": \"ALLOC_THP\", \"vma_id\": \"vma-split-target\", \"details\": {\"status\": \"DIRECT_ALLOCATION\", \"base_pfn\": 0, \"hugepage_len\": 4, \"compaction_migrated_pages\": 0}}, {\"command_index\": 2, \"op\": \"SPLIT_HUGE_PMD\", \"vma_id\": \"vma-2\", \"details\": {\"status\": \"SPLIT_SUCCESS\", \"head_pfn\": 0, \"subpages_split\": 4}}]}"
+  },
+  {
+    "id": 4,
+    "description": "Compaction failure when unmovable pinned kernel pages prevent contiguous order-K block formation",
+    "input": "{\"config\": {\"total_pages\": 8, \"hugepage_order\": 2}, \"initial_allocations\": [{\"vma_id\": \"vma-kernel-pinned\", \"pfns\": [0, 4], \"movable\": false}], \"commands\": [{\"op\": \"ALLOC_THP\", \"vma_id\": \"vma-should-fail\"}]}",
+    "expected_output": "{\"summary\": {\"total_pages\": 8, \"hugepage_len\": 4, \"free_pages_count\": 6, \"allocated_pages_count\": 2, \"active_thp_count\": 0, \"compaction_runs\": 1, \"pages_migrated_total\": 0, \"pmd_splits_count\": 0}, \"command_history\": [{\"command_index\": 1, \"op\": \"ALLOC_THP\", \"vma_id\": \"vma-should-fail\", \"details\": {\"status\": \"ALLOCATION_FAILED_OUT_OF_CONTIGUITY\", \"compaction_migrated_pages\": 0}}]}"
+  },
+  {
+    "id": 5,
+    "description": "Multiple consecutive THP allocations filling memory zone up to maximum capacity and rejecting overflow",
+    "input": "{\"config\": {\"total_pages\": 16, \"hugepage_order\": 2}, \"initial_allocations\": [], \"commands\": [{\"op\": \"ALLOC_THP\", \"vma_id\": \"thp-1\"}, {\"op\": \"ALLOC_THP\", \"vma_id\": \"thp-2\"}, {\"op\": \"ALLOC_THP\", \"vma_id\": \"thp-3\"}, {\"op\": \"ALLOC_THP\", \"vma_id\": \"thp-4\"}, {\"op\": \"ALLOC_THP\", \"vma_id\": \"thp-5-overflow\"}]}",
+    "expected_output": "{\"summary\": {\"total_pages\": 16, \"hugepage_len\": 4, \"free_pages_count\": 0, \"allocated_pages_count\": 16, \"active_thp_count\": 4, \"compaction_runs\": 1, \"pages_migrated_total\": 0, \"pmd_splits_count\": 0}, \"command_history\": [{\"command_index\": 1, \"op\": \"ALLOC_THP\", \"vma_id\": \"thp-1\", \"details\": {\"status\": \"DIRECT_ALLOCATION\", \"base_pfn\": 0, \"hugepage_len\": 4, \"compaction_migrated_pages\": 0}}, {\"command_index\": 2, \"op\": \"ALLOC_THP\", \"vma_id\": \"thp-2\", \"details\": {\"status\": \"DIRECT_ALLOCATION\", \"base_pfn\": 4, \"hugepage_len\": 4, \"compaction_migrated_pages\": 0}}, {\"command_index\": 3, \"op\": \"ALLOC_THP\", \"vma_id\": \"thp-3\", \"details\": {\"status\": \"DIRECT_ALLOCATION\", \"base_pfn\": 8, \"hugepage_len\": 4, \"compaction_migrated_pages\": 0}}, {\"command_index\": 4, \"op\": \"ALLOC_THP\", \"vma_id\": \"thp-4\", \"details\": {\"status\": \"DIRECT_ALLOCATION\", \"base_pfn\": 12, \"hugepage_len\": 4, \"compaction_migrated_pages\": 0}}, {\"command_index\": 5, \"op\": \"ALLOC_THP\", \"vma_id\": \"thp-5-overflow\", \"details\": {\"status\": \"ALLOCATION_FAILED_OUT_OF_CONTIGUITY\", \"compaction_migrated_pages\": 0}}]}"
+  },
+  {
+    "id": 6,
+    "description": "Split huge PMD targeting a compound tail page PFN correctly resolving to head page and splitting",
+    "input": "{\"config\": {\"total_pages\": 16, \"hugepage_order\": 2}, \"initial_allocations\": [], \"commands\": [{\"op\": \"ALLOC_THP\", \"vma_id\": \"thp-tail-split\"}, {\"op\": \"SPLIT_HUGE_PMD\", \"pfn\": 2}]}",
+    "expected_output": "{\"summary\": {\"total_pages\": 16, \"hugepage_len\": 4, \"free_pages_count\": 12, \"allocated_pages_count\": 4, \"active_thp_count\": 0, \"compaction_runs\": 0, \"pages_migrated_total\": 0, \"pmd_splits_count\": 1}, \"command_history\": [{\"command_index\": 1, \"op\": \"ALLOC_THP\", \"vma_id\": \"thp-tail-split\", \"details\": {\"status\": \"DIRECT_ALLOCATION\", \"base_pfn\": 0, \"hugepage_len\": 4, \"compaction_migrated_pages\": 0}}, {\"command_index\": 2, \"op\": \"SPLIT_HUGE_PMD\", \"vma_id\": \"vma-2\", \"details\": {\"status\": \"SPLIT_SUCCESS\", \"head_pfn\": 0, \"subpages_split\": 4}}]}"
+  },
+  {
+    "id": 7,
+    "description": "Freeing allocated pages to relieve memory pressure followed by THP allocation with secondary compaction",
+    "input": "{\"config\": {\"total_pages\": 16, \"hugepage_order\": 2}, \"initial_allocations\": [{\"vma_id\": \"vma-data\", \"pfns\": [1, 2, 3, 5, 6, 7], \"movable\": true}], \"commands\": [{\"op\": \"FREE_PAGES\", \"pfns\": [1, 2, 3]}, {\"op\": \"ALLOC_THP\", \"vma_id\": \"thp-after-free\"}]}",
+    "expected_output": "{\"summary\": {\"total_pages\": 16, \"hugepage_len\": 4, \"free_pages_count\": 9, \"allocated_pages_count\": 7, \"active_thp_count\": 1, \"compaction_runs\": 0, \"pages_migrated_total\": 0, \"pmd_splits_count\": 0}, \"command_history\": [{\"command_index\": 1, \"op\": \"FREE_PAGES\", \"vma_id\": \"vma-1\", \"details\": {\"freed_pages_count\": 3}}, {\"command_index\": 2, \"op\": \"ALLOC_THP\", \"vma_id\": \"thp-after-free\", \"details\": {\"status\": \"DIRECT_ALLOCATION\", \"base_pfn\": 0, \"hugepage_len\": 4, \"compaction_migrated_pages\": 0}}]}"
+  },
+  {
+    "id": 8,
+    "description": "Large-scale 64-page memory zone with order-3 compound allocations, direct compaction, and PMD splits",
+    "input": "{\"config\": {\"total_pages\": 64, \"hugepage_order\": 3}, \"initial_allocations\": [{\"vma_id\": \"vma-initial-noise\", \"pfns\": [0, 8, 16, 24, 32, 40, 48, 56], \"movable\": true}], \"commands\": [{\"op\": \"ALLOC_THP\", \"vma_id\": \"thp-order3-a\"}, {\"op\": \"ALLOC_THP\", \"vma_id\": \"thp-order3-b\"}, {\"op\": \"SPLIT_HUGE_PMD\", \"pfn\": 0}, {\"op\": \"ALLOC_THP\", \"vma_id\": \"thp-order3-c\"}]}",
+    "expected_output": "{\"summary\": {\"total_pages\": 64, \"hugepage_len\": 8, \"free_pages_count\": 32, \"allocated_pages_count\": 32, \"active_thp_count\": 2, \"compaction_runs\": 3, \"pages_migrated_total\": 10, \"pmd_splits_count\": 1}, \"command_history\": [{\"command_index\": 1, \"op\": \"ALLOC_THP\", \"vma_id\": \"thp-order3-a\", \"details\": {\"status\": \"COMPACTED_AND_ALLOCATED\", \"base_pfn\": 0, \"hugepage_len\": 8, \"compaction_migrated_pages\": 1}}, {\"command_index\": 2, \"op\": \"ALLOC_THP\", \"vma_id\": \"thp-order3-b\", \"details\": {\"status\": \"COMPACTED_AND_ALLOCATED\", \"base_pfn\": 8, \"hugepage_len\": 8, \"compaction_migrated_pages\": 1}}, {\"command_index\": 3, \"op\": \"SPLIT_HUGE_PMD\", \"vma_id\": \"vma-3\", \"details\": {\"status\": \"SPLIT_SUCCESS\", \"head_pfn\": 0, \"subpages_split\": 8}}, {\"command_index\": 4, \"op\": \"ALLOC_THP\", \"vma_id\": \"thp-order3-c\", \"details\": {\"status\": \"COMPACTED_AND_ALLOCATED\", \"base_pfn\": 0, \"hugepage_len\": 8, \"compaction_migrated_pages\": 8}}]}"
+  }
+]
