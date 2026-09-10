@@ -45,7 +45,16 @@ def run_problem_test(problem_dir: Path):
         tc_id = tc.get("id", idx)
         desc = tc.get("description", f"Testcase #{tc_id}")
         inp = tc.get("input", "")
-        expected = tc.get("expected_output", tc.get("output", "")).strip()
+        if isinstance(inp, (dict, list)):
+            inp = json.dumps(inp, ensure_ascii=False)
+        else:
+            inp = str(inp)
+
+        raw_expected = tc.get("expected_output", tc.get("output", ""))
+        if isinstance(raw_expected, (dict, list)):
+            expected = json.dumps(raw_expected, separators=(',', ':'), ensure_ascii=False)
+        else:
+            expected = str(raw_expected).strip()
 
         start_time = time.perf_counter()
         try:
@@ -67,7 +76,14 @@ def run_problem_test(problem_dir: Path):
 
             actual = res.stdout.strip()
 
-            if actual == expected:
+            is_match = (actual == expected)
+            if not is_match:
+                try:
+                    is_match = (json.loads(actual) == json.loads(expected))
+                except Exception:
+                    is_match = False
+
+            if is_match:
                 print(f"  [{tc_id}/{total}] ✅ PASS ({elapsed:6.1f}ms) - {desc}")
                 passed += 1
             else:

@@ -1,0 +1,1454 @@
+[
+  {
+    "input": {
+      "config": {},
+      "operations": [
+        {
+          "type": "REGISTER_PBUF_RING",
+          "bgid": 1,
+          "ring_entries": 4,
+          "watermark": 1
+        },
+        {
+          "type": "USER_ADD_BUFFERS",
+          "bgid": 1,
+          "buffers": [
+            {
+              "bid": 100,
+              "addr": "0x10000",
+              "len": 2048
+            }
+          ]
+        },
+        {
+          "type": "SUBMIT_RECV",
+          "sqe_id": "sqe_single_1",
+          "fd": 3,
+          "bgid": 1,
+          "multishot": false,
+          "socket_type": "TCP"
+        },
+        {
+          "type": "RX_PACKET_ARRIVAL",
+          "fd": 3,
+          "payload_bytes": 1024,
+          "data_tag": "single_req",
+          "eof": false
+        },
+        {
+          "type": "QUERY_RING_STATE",
+          "bgid": 1
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "REGISTER_PBUF_RING",
+          "bgid": 1,
+          "ring_entries": 4,
+          "status": "REGISTERED"
+        },
+        {
+          "op_index": 1,
+          "type": "USER_ADD_BUFFERS",
+          "bgid": 1,
+          "count_added": 1,
+          "tail": 1,
+          "available_buffers": 1,
+          "low_buffer_warning": false
+        },
+        {
+          "op_index": 2,
+          "type": "SUBMIT_RECV",
+          "sqe_id": "sqe_single_1",
+          "fd": 3,
+          "bgid": 1,
+          "multishot": false,
+          "cqes_generated": 0
+        },
+        {
+          "op_index": 3,
+          "type": "RX_PACKET_ARRIVAL",
+          "fd": 3,
+          "payload_bytes": 1024,
+          "data_tag": "single_req",
+          "eof": false,
+          "cqes_generated": 1
+        },
+        {
+          "op_index": 4,
+          "type": "QUERY_RING_STATE",
+          "bgid": 1,
+          "head": 1,
+          "tail": 1,
+          "available_buffers": 0,
+          "capacity": 4,
+          "low_buffer_warning": true
+        }
+      ],
+      "cqe_log": [
+        {
+          "sqe_id": "sqe_single_1",
+          "fd": 3,
+          "res": 1024,
+          "flags": 6553601,
+          "bid": 100,
+          "buf_addr": "0x10000",
+          "bytes_read": 1024,
+          "truncated": false,
+          "truncated_bytes": 0,
+          "multishot_active": false,
+          "status": "SUCCESS"
+        }
+      ],
+      "summary": {
+        "total_operations": 5,
+        "rings": {
+          "1": {
+            "head": 1,
+            "tail": 1,
+            "available_buffers": 0,
+            "capacity": 4,
+            "low_buffer_warning": true
+          }
+        },
+        "active_sqes": [],
+        "stats": {
+          "total_cqes": 1,
+          "total_bytes_received": 1024,
+          "total_enobufs_errors": 0,
+          "total_canceled_requests": 0,
+          "total_truncated_packets": 0,
+          "total_buffers_added": 1,
+          "total_buffers_consumed": 1
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "operations": [
+        {
+          "type": "REGISTER_PBUF_RING",
+          "bgid": 1,
+          "ring_entries": 8,
+          "watermark": 2
+        },
+        {
+          "type": "USER_ADD_BUFFERS",
+          "bgid": 1,
+          "buffers": [
+            {
+              "bid": 1,
+              "addr": "0x2000",
+              "len": 1024
+            },
+            {
+              "bid": 2,
+              "addr": "0x2400",
+              "len": 1024
+            },
+            {
+              "bid": 3,
+              "addr": "0x2800",
+              "len": 1024
+            },
+            {
+              "bid": 4,
+              "addr": "0x2c00",
+              "len": 1024
+            }
+          ]
+        },
+        {
+          "type": "SUBMIT_RECV",
+          "sqe_id": "sqe_multi_1",
+          "fd": 5,
+          "bgid": 1,
+          "multishot": true,
+          "socket_type": "TCP"
+        },
+        {
+          "type": "RX_PACKET_ARRIVAL",
+          "fd": 5,
+          "payload_bytes": 3500,
+          "data_tag": "large_tcp_stream",
+          "eof": false
+        },
+        {
+          "type": "QUERY_RING_STATE",
+          "bgid": 1
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "REGISTER_PBUF_RING",
+          "bgid": 1,
+          "ring_entries": 8,
+          "status": "REGISTERED"
+        },
+        {
+          "op_index": 1,
+          "type": "USER_ADD_BUFFERS",
+          "bgid": 1,
+          "count_added": 4,
+          "tail": 4,
+          "available_buffers": 4,
+          "low_buffer_warning": false
+        },
+        {
+          "op_index": 2,
+          "type": "SUBMIT_RECV",
+          "sqe_id": "sqe_multi_1",
+          "fd": 5,
+          "bgid": 1,
+          "multishot": true,
+          "cqes_generated": 0
+        },
+        {
+          "op_index": 3,
+          "type": "RX_PACKET_ARRIVAL",
+          "fd": 5,
+          "payload_bytes": 3500,
+          "data_tag": "large_tcp_stream",
+          "eof": false,
+          "cqes_generated": 4
+        },
+        {
+          "op_index": 4,
+          "type": "QUERY_RING_STATE",
+          "bgid": 1,
+          "head": 4,
+          "tail": 4,
+          "available_buffers": 0,
+          "capacity": 8,
+          "low_buffer_warning": true
+        }
+      ],
+      "cqe_log": [
+        {
+          "sqe_id": "sqe_multi_1",
+          "fd": 5,
+          "res": 1024,
+          "flags": 65539,
+          "bid": 1,
+          "buf_addr": "0x2000",
+          "bytes_read": 1024,
+          "truncated": false,
+          "truncated_bytes": 0,
+          "multishot_active": true,
+          "status": "SUCCESS"
+        },
+        {
+          "sqe_id": "sqe_multi_1",
+          "fd": 5,
+          "res": 1024,
+          "flags": 131075,
+          "bid": 2,
+          "buf_addr": "0x2400",
+          "bytes_read": 1024,
+          "truncated": false,
+          "truncated_bytes": 0,
+          "multishot_active": true,
+          "status": "SUCCESS"
+        },
+        {
+          "sqe_id": "sqe_multi_1",
+          "fd": 5,
+          "res": 1024,
+          "flags": 196611,
+          "bid": 3,
+          "buf_addr": "0x2800",
+          "bytes_read": 1024,
+          "truncated": false,
+          "truncated_bytes": 0,
+          "multishot_active": true,
+          "status": "SUCCESS"
+        },
+        {
+          "sqe_id": "sqe_multi_1",
+          "fd": 5,
+          "res": 428,
+          "flags": 262147,
+          "bid": 4,
+          "buf_addr": "0x2c00",
+          "bytes_read": 428,
+          "truncated": false,
+          "truncated_bytes": 0,
+          "multishot_active": true,
+          "status": "SUCCESS"
+        }
+      ],
+      "summary": {
+        "total_operations": 5,
+        "rings": {
+          "1": {
+            "head": 4,
+            "tail": 4,
+            "available_buffers": 0,
+            "capacity": 8,
+            "low_buffer_warning": true
+          }
+        },
+        "active_sqes": [
+          5
+        ],
+        "stats": {
+          "total_cqes": 4,
+          "total_bytes_received": 3500,
+          "total_enobufs_errors": 0,
+          "total_canceled_requests": 0,
+          "total_truncated_packets": 0,
+          "total_buffers_added": 4,
+          "total_buffers_consumed": 4
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "operations": [
+        {
+          "type": "REGISTER_PBUF_RING",
+          "bgid": 1,
+          "ring_entries": 4,
+          "watermark": 2
+        },
+        {
+          "type": "USER_ADD_BUFFERS",
+          "bgid": 1,
+          "buffers": [
+            {
+              "bid": 10,
+              "addr": "0x3000",
+              "len": 1024
+            },
+            {
+              "bid": 11,
+              "addr": "0x3400",
+              "len": 1024
+            }
+          ]
+        },
+        {
+          "type": "SUBMIT_RECV",
+          "sqe_id": "sqe_exhaust_1",
+          "fd": 7,
+          "bgid": 1,
+          "multishot": true,
+          "socket_type": "TCP"
+        },
+        {
+          "type": "RX_PACKET_ARRIVAL",
+          "fd": 7,
+          "payload_bytes": 3000,
+          "data_tag": "overflow_payload",
+          "eof": false
+        },
+        {
+          "type": "QUERY_RING_STATE",
+          "bgid": 1
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "REGISTER_PBUF_RING",
+          "bgid": 1,
+          "ring_entries": 4,
+          "status": "REGISTERED"
+        },
+        {
+          "op_index": 1,
+          "type": "USER_ADD_BUFFERS",
+          "bgid": 1,
+          "count_added": 2,
+          "tail": 2,
+          "available_buffers": 2,
+          "low_buffer_warning": false
+        },
+        {
+          "op_index": 2,
+          "type": "SUBMIT_RECV",
+          "sqe_id": "sqe_exhaust_1",
+          "fd": 7,
+          "bgid": 1,
+          "multishot": true,
+          "cqes_generated": 0
+        },
+        {
+          "op_index": 3,
+          "type": "RX_PACKET_ARRIVAL",
+          "fd": 7,
+          "payload_bytes": 3000,
+          "data_tag": "overflow_payload",
+          "eof": false,
+          "cqes_generated": 3
+        },
+        {
+          "op_index": 4,
+          "type": "QUERY_RING_STATE",
+          "bgid": 1,
+          "head": 2,
+          "tail": 2,
+          "available_buffers": 0,
+          "capacity": 4,
+          "low_buffer_warning": true
+        }
+      ],
+      "cqe_log": [
+        {
+          "sqe_id": "sqe_exhaust_1",
+          "fd": 7,
+          "res": 1024,
+          "flags": 655363,
+          "bid": 10,
+          "buf_addr": "0x3000",
+          "bytes_read": 1024,
+          "truncated": false,
+          "truncated_bytes": 0,
+          "multishot_active": true,
+          "status": "SUCCESS"
+        },
+        {
+          "sqe_id": "sqe_exhaust_1",
+          "fd": 7,
+          "res": 1024,
+          "flags": 720899,
+          "bid": 11,
+          "buf_addr": "0x3400",
+          "bytes_read": 1024,
+          "truncated": false,
+          "truncated_bytes": 0,
+          "multishot_active": true,
+          "status": "SUCCESS"
+        },
+        {
+          "sqe_id": "sqe_exhaust_1",
+          "fd": 7,
+          "res": -105,
+          "flags": 0,
+          "bid": null,
+          "buf_addr": null,
+          "bytes_read": 0,
+          "multishot_active": false,
+          "status": "ENOBUFS"
+        }
+      ],
+      "summary": {
+        "total_operations": 5,
+        "rings": {
+          "1": {
+            "head": 2,
+            "tail": 2,
+            "available_buffers": 0,
+            "capacity": 4,
+            "low_buffer_warning": true
+          }
+        },
+        "active_sqes": [],
+        "stats": {
+          "total_cqes": 3,
+          "total_bytes_received": 2048,
+          "total_enobufs_errors": 1,
+          "total_canceled_requests": 0,
+          "total_truncated_packets": 0,
+          "total_buffers_added": 2,
+          "total_buffers_consumed": 2
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "operations": [
+        {
+          "type": "REGISTER_PBUF_RING",
+          "bgid": 1,
+          "ring_entries": 4,
+          "watermark": 1
+        },
+        {
+          "type": "USER_ADD_BUFFERS",
+          "bgid": 1,
+          "buffers": [
+            {
+              "bid": 20,
+              "addr": "0x4000",
+              "len": 1024
+            }
+          ]
+        },
+        {
+          "type": "SUBMIT_RECV",
+          "sqe_id": "sqe_part_1",
+          "fd": 8,
+          "bgid": 1,
+          "multishot": true,
+          "socket_type": "TCP"
+        },
+        {
+          "type": "RX_PACKET_ARRIVAL",
+          "fd": 8,
+          "payload_bytes": 2048,
+          "data_tag": "chunk_1",
+          "eof": false
+        },
+        {
+          "type": "RETURN_BUFFERS",
+          "bgid": 1,
+          "buffers": [
+            {
+              "bid": 20,
+              "addr": "0x4000",
+              "len": 1024
+            },
+            {
+              "bid": 21,
+              "addr": "0x4400",
+              "len": 1024
+            }
+          ]
+        },
+        {
+          "type": "SUBMIT_RECV",
+          "sqe_id": "sqe_part_2",
+          "fd": 8,
+          "bgid": 1,
+          "multishot": true,
+          "socket_type": "TCP"
+        },
+        {
+          "type": "QUERY_RING_STATE",
+          "bgid": 1
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "REGISTER_PBUF_RING",
+          "bgid": 1,
+          "ring_entries": 4,
+          "status": "REGISTERED"
+        },
+        {
+          "op_index": 1,
+          "type": "USER_ADD_BUFFERS",
+          "bgid": 1,
+          "count_added": 1,
+          "tail": 1,
+          "available_buffers": 1,
+          "low_buffer_warning": false
+        },
+        {
+          "op_index": 2,
+          "type": "SUBMIT_RECV",
+          "sqe_id": "sqe_part_1",
+          "fd": 8,
+          "bgid": 1,
+          "multishot": true,
+          "cqes_generated": 0
+        },
+        {
+          "op_index": 3,
+          "type": "RX_PACKET_ARRIVAL",
+          "fd": 8,
+          "payload_bytes": 2048,
+          "data_tag": "chunk_1",
+          "eof": false,
+          "cqes_generated": 2
+        },
+        {
+          "op_index": 4,
+          "type": "RETURN_BUFFERS",
+          "bgid": 1,
+          "count_added": 2,
+          "tail": 3,
+          "available_buffers": 2,
+          "low_buffer_warning": false
+        },
+        {
+          "op_index": 5,
+          "type": "SUBMIT_RECV",
+          "sqe_id": "sqe_part_2",
+          "fd": 8,
+          "bgid": 1,
+          "multishot": true,
+          "cqes_generated": 1
+        },
+        {
+          "op_index": 6,
+          "type": "QUERY_RING_STATE",
+          "bgid": 1,
+          "head": 2,
+          "tail": 3,
+          "available_buffers": 1,
+          "capacity": 4,
+          "low_buffer_warning": false
+        }
+      ],
+      "cqe_log": [
+        {
+          "sqe_id": "sqe_part_1",
+          "fd": 8,
+          "res": 1024,
+          "flags": 1310723,
+          "bid": 20,
+          "buf_addr": "0x4000",
+          "bytes_read": 1024,
+          "truncated": false,
+          "truncated_bytes": 0,
+          "multishot_active": true,
+          "status": "SUCCESS"
+        },
+        {
+          "sqe_id": "sqe_part_1",
+          "fd": 8,
+          "res": -105,
+          "flags": 0,
+          "bid": null,
+          "buf_addr": null,
+          "bytes_read": 0,
+          "multishot_active": false,
+          "status": "ENOBUFS"
+        },
+        {
+          "sqe_id": "sqe_part_2",
+          "fd": 8,
+          "res": 1024,
+          "flags": 1310723,
+          "bid": 20,
+          "buf_addr": "0x4000",
+          "bytes_read": 1024,
+          "truncated": false,
+          "truncated_bytes": 0,
+          "multishot_active": true,
+          "status": "SUCCESS"
+        }
+      ],
+      "summary": {
+        "total_operations": 7,
+        "rings": {
+          "1": {
+            "head": 2,
+            "tail": 3,
+            "available_buffers": 1,
+            "capacity": 4,
+            "low_buffer_warning": false
+          }
+        },
+        "active_sqes": [
+          8
+        ],
+        "stats": {
+          "total_cqes": 3,
+          "total_bytes_received": 2048,
+          "total_enobufs_errors": 1,
+          "total_canceled_requests": 0,
+          "total_truncated_packets": 0,
+          "total_buffers_added": 3,
+          "total_buffers_consumed": 2
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "operations": [
+        {
+          "type": "REGISTER_PBUF_RING",
+          "bgid": 2,
+          "ring_entries": 4,
+          "watermark": 1
+        },
+        {
+          "type": "USER_ADD_BUFFERS",
+          "bgid": 2,
+          "buffers": [
+            {
+              "bid": 30,
+              "addr": "0x5000",
+              "len": 512
+            },
+            {
+              "bid": 31,
+              "addr": "0x5200",
+              "len": 512
+            }
+          ]
+        },
+        {
+          "type": "SUBMIT_RECV",
+          "sqe_id": "sqe_udp_1",
+          "fd": 9,
+          "bgid": 2,
+          "multishot": true,
+          "socket_type": "UDP"
+        },
+        {
+          "type": "RX_PACKET_ARRIVAL",
+          "fd": 9,
+          "payload_bytes": 1400,
+          "data_tag": "udp_dgram_1",
+          "eof": false,
+          "socket_type": "UDP"
+        },
+        {
+          "type": "RX_PACKET_ARRIVAL",
+          "fd": 9,
+          "payload_bytes": 400,
+          "data_tag": "udp_dgram_2",
+          "eof": false,
+          "socket_type": "UDP"
+        },
+        {
+          "type": "QUERY_RING_STATE",
+          "bgid": 2
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "REGISTER_PBUF_RING",
+          "bgid": 2,
+          "ring_entries": 4,
+          "status": "REGISTERED"
+        },
+        {
+          "op_index": 1,
+          "type": "USER_ADD_BUFFERS",
+          "bgid": 2,
+          "count_added": 2,
+          "tail": 2,
+          "available_buffers": 2,
+          "low_buffer_warning": false
+        },
+        {
+          "op_index": 2,
+          "type": "SUBMIT_RECV",
+          "sqe_id": "sqe_udp_1",
+          "fd": 9,
+          "bgid": 2,
+          "multishot": true,
+          "cqes_generated": 0
+        },
+        {
+          "op_index": 3,
+          "type": "RX_PACKET_ARRIVAL",
+          "fd": 9,
+          "payload_bytes": 1400,
+          "data_tag": "udp_dgram_1",
+          "eof": false,
+          "cqes_generated": 1
+        },
+        {
+          "op_index": 4,
+          "type": "RX_PACKET_ARRIVAL",
+          "fd": 9,
+          "payload_bytes": 400,
+          "data_tag": "udp_dgram_2",
+          "eof": false,
+          "cqes_generated": 1
+        },
+        {
+          "op_index": 5,
+          "type": "QUERY_RING_STATE",
+          "bgid": 2,
+          "head": 2,
+          "tail": 2,
+          "available_buffers": 0,
+          "capacity": 4,
+          "low_buffer_warning": true
+        }
+      ],
+      "cqe_log": [
+        {
+          "sqe_id": "sqe_udp_1",
+          "fd": 9,
+          "res": 512,
+          "flags": 1966083,
+          "bid": 30,
+          "buf_addr": "0x5000",
+          "bytes_read": 512,
+          "truncated": true,
+          "truncated_bytes": 888,
+          "multishot_active": true,
+          "status": "SUCCESS"
+        },
+        {
+          "sqe_id": "sqe_udp_1",
+          "fd": 9,
+          "res": 400,
+          "flags": 2031619,
+          "bid": 31,
+          "buf_addr": "0x5200",
+          "bytes_read": 400,
+          "truncated": false,
+          "truncated_bytes": 0,
+          "multishot_active": true,
+          "status": "SUCCESS"
+        }
+      ],
+      "summary": {
+        "total_operations": 6,
+        "rings": {
+          "2": {
+            "head": 2,
+            "tail": 2,
+            "available_buffers": 0,
+            "capacity": 4,
+            "low_buffer_warning": true
+          }
+        },
+        "active_sqes": [
+          9
+        ],
+        "stats": {
+          "total_cqes": 2,
+          "total_bytes_received": 912,
+          "total_enobufs_errors": 0,
+          "total_canceled_requests": 0,
+          "total_truncated_packets": 1,
+          "total_buffers_added": 2,
+          "total_buffers_consumed": 2
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "operations": [
+        {
+          "type": "REGISTER_PBUF_RING",
+          "bgid": 1,
+          "ring_entries": 4,
+          "watermark": 1
+        },
+        {
+          "type": "USER_ADD_BUFFERS",
+          "bgid": 1,
+          "buffers": [
+            {
+              "bid": 40,
+              "addr": "0x6000",
+              "len": 1024
+            },
+            {
+              "bid": 41,
+              "addr": "0x6400",
+              "len": 1024
+            }
+          ]
+        },
+        {
+          "type": "SUBMIT_RECV",
+          "sqe_id": "sqe_eof_1",
+          "fd": 12,
+          "bgid": 1,
+          "multishot": true,
+          "socket_type": "TCP"
+        },
+        {
+          "type": "RX_PACKET_ARRIVAL",
+          "fd": 12,
+          "payload_bytes": 500,
+          "data_tag": "payload_before_fin",
+          "eof": false
+        },
+        {
+          "type": "RX_PACKET_ARRIVAL",
+          "fd": 12,
+          "payload_bytes": 0,
+          "data_tag": "fin_pkt",
+          "eof": true
+        },
+        {
+          "type": "QUERY_RING_STATE",
+          "bgid": 1
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "REGISTER_PBUF_RING",
+          "bgid": 1,
+          "ring_entries": 4,
+          "status": "REGISTERED"
+        },
+        {
+          "op_index": 1,
+          "type": "USER_ADD_BUFFERS",
+          "bgid": 1,
+          "count_added": 2,
+          "tail": 2,
+          "available_buffers": 2,
+          "low_buffer_warning": false
+        },
+        {
+          "op_index": 2,
+          "type": "SUBMIT_RECV",
+          "sqe_id": "sqe_eof_1",
+          "fd": 12,
+          "bgid": 1,
+          "multishot": true,
+          "cqes_generated": 0
+        },
+        {
+          "op_index": 3,
+          "type": "RX_PACKET_ARRIVAL",
+          "fd": 12,
+          "payload_bytes": 500,
+          "data_tag": "payload_before_fin",
+          "eof": false,
+          "cqes_generated": 1
+        },
+        {
+          "op_index": 4,
+          "type": "RX_PACKET_ARRIVAL",
+          "fd": 12,
+          "payload_bytes": 0,
+          "data_tag": "fin_pkt",
+          "eof": true,
+          "cqes_generated": 1
+        },
+        {
+          "op_index": 5,
+          "type": "QUERY_RING_STATE",
+          "bgid": 1,
+          "head": 1,
+          "tail": 2,
+          "available_buffers": 1,
+          "capacity": 4,
+          "low_buffer_warning": false
+        }
+      ],
+      "cqe_log": [
+        {
+          "sqe_id": "sqe_eof_1",
+          "fd": 12,
+          "res": 500,
+          "flags": 2621443,
+          "bid": 40,
+          "buf_addr": "0x6000",
+          "bytes_read": 500,
+          "truncated": false,
+          "truncated_bytes": 0,
+          "multishot_active": true,
+          "status": "SUCCESS"
+        },
+        {
+          "sqe_id": "sqe_eof_1",
+          "fd": 12,
+          "res": 0,
+          "flags": 0,
+          "bid": null,
+          "buf_addr": null,
+          "bytes_read": 0,
+          "multishot_active": false,
+          "status": "EOF"
+        }
+      ],
+      "summary": {
+        "total_operations": 6,
+        "rings": {
+          "1": {
+            "head": 1,
+            "tail": 2,
+            "available_buffers": 1,
+            "capacity": 4,
+            "low_buffer_warning": false
+          }
+        },
+        "active_sqes": [],
+        "stats": {
+          "total_cqes": 2,
+          "total_bytes_received": 500,
+          "total_enobufs_errors": 0,
+          "total_canceled_requests": 0,
+          "total_truncated_packets": 0,
+          "total_buffers_added": 2,
+          "total_buffers_consumed": 1
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "operations": [
+        {
+          "type": "REGISTER_PBUF_RING",
+          "bgid": 1,
+          "ring_entries": 4,
+          "watermark": 1
+        },
+        {
+          "type": "USER_ADD_BUFFERS",
+          "bgid": 1,
+          "buffers": [
+            {
+              "bid": 50,
+              "addr": "0x7000",
+              "len": 1024
+            }
+          ]
+        },
+        {
+          "type": "SUBMIT_RECV",
+          "sqe_id": "sqe_cancel_1",
+          "fd": 15,
+          "bgid": 1,
+          "multishot": true,
+          "socket_type": "TCP"
+        },
+        {
+          "type": "CANCEL_RECV",
+          "sqe_id": "sqe_cancel_1",
+          "fd": 15
+        },
+        {
+          "type": "RX_PACKET_ARRIVAL",
+          "fd": 15,
+          "payload_bytes": 800,
+          "data_tag": "packet_after_cancel",
+          "eof": false
+        },
+        {
+          "type": "QUERY_RING_STATE",
+          "bgid": 1
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "REGISTER_PBUF_RING",
+          "bgid": 1,
+          "ring_entries": 4,
+          "status": "REGISTERED"
+        },
+        {
+          "op_index": 1,
+          "type": "USER_ADD_BUFFERS",
+          "bgid": 1,
+          "count_added": 1,
+          "tail": 1,
+          "available_buffers": 1,
+          "low_buffer_warning": false
+        },
+        {
+          "op_index": 2,
+          "type": "SUBMIT_RECV",
+          "sqe_id": "sqe_cancel_1",
+          "fd": 15,
+          "bgid": 1,
+          "multishot": true,
+          "cqes_generated": 0
+        },
+        {
+          "op_index": 3,
+          "type": "CANCEL_RECV",
+          "sqe_id": "sqe_cancel_1",
+          "fd": 15,
+          "canceled": true,
+          "status": "ECANCELED"
+        },
+        {
+          "op_index": 4,
+          "type": "RX_PACKET_ARRIVAL",
+          "fd": 15,
+          "payload_bytes": 800,
+          "data_tag": "packet_after_cancel",
+          "eof": false,
+          "cqes_generated": 0
+        },
+        {
+          "op_index": 5,
+          "type": "QUERY_RING_STATE",
+          "bgid": 1,
+          "head": 0,
+          "tail": 1,
+          "available_buffers": 1,
+          "capacity": 4,
+          "low_buffer_warning": false
+        }
+      ],
+      "cqe_log": [
+        {
+          "sqe_id": "sqe_cancel_1",
+          "fd": 15,
+          "res": -125,
+          "flags": 0,
+          "bid": null,
+          "buf_addr": null,
+          "bytes_read": 0,
+          "multishot_active": false,
+          "status": "ECANCELED"
+        }
+      ],
+      "summary": {
+        "total_operations": 6,
+        "rings": {
+          "1": {
+            "head": 0,
+            "tail": 1,
+            "available_buffers": 1,
+            "capacity": 4,
+            "low_buffer_warning": false
+          }
+        },
+        "active_sqes": [],
+        "stats": {
+          "total_cqes": 1,
+          "total_bytes_received": 0,
+          "total_enobufs_errors": 0,
+          "total_canceled_requests": 1,
+          "total_truncated_packets": 0,
+          "total_buffers_added": 1,
+          "total_buffers_consumed": 0
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "operations": [
+        {
+          "type": "REGISTER_PBUF_RING",
+          "bgid": 1,
+          "ring_entries": 8,
+          "watermark": 3
+        },
+        {
+          "type": "REGISTER_PBUF_RING",
+          "bgid": 2,
+          "ring_entries": 4,
+          "watermark": 2
+        },
+        {
+          "type": "USER_ADD_BUFFERS",
+          "bgid": 1,
+          "buffers": [
+            {
+              "bid": 101,
+              "addr": "0x8000",
+              "len": 512
+            },
+            {
+              "bid": 102,
+              "addr": "0x8200",
+              "len": 512
+            },
+            {
+              "bid": 103,
+              "addr": "0x8400",
+              "len": 512
+            },
+            {
+              "bid": 104,
+              "addr": "0x8600",
+              "len": 512
+            }
+          ]
+        },
+        {
+          "type": "USER_ADD_BUFFERS",
+          "bgid": 2,
+          "buffers": [
+            {
+              "bid": 201,
+              "addr": "0x9000",
+              "len": 4096
+            },
+            {
+              "bid": 202,
+              "addr": "0x9400",
+              "len": 4096
+            }
+          ]
+        },
+        {
+          "type": "SUBMIT_RECV",
+          "sqe_id": "sqe_bgid1_sock1",
+          "fd": 20,
+          "bgid": 1,
+          "multishot": true,
+          "socket_type": "TCP"
+        },
+        {
+          "type": "SUBMIT_RECV",
+          "sqe_id": "sqe_bgid2_sock2",
+          "fd": 21,
+          "bgid": 2,
+          "multishot": true,
+          "socket_type": "TCP"
+        },
+        {
+          "type": "RX_PACKET_ARRIVAL",
+          "fd": 20,
+          "payload_bytes": 1200,
+          "data_tag": "sock1_pkt1"
+        },
+        {
+          "type": "RX_PACKET_ARRIVAL",
+          "fd": 21,
+          "payload_bytes": 6000,
+          "data_tag": "sock2_pkt1"
+        },
+        {
+          "type": "QUERY_RING_STATE",
+          "bgid": 1
+        },
+        {
+          "type": "QUERY_RING_STATE",
+          "bgid": 2
+        },
+        {
+          "type": "RETURN_BUFFERS",
+          "bgid": 1,
+          "buffers": [
+            {
+              "bid": 105,
+              "addr": "0x8800",
+              "len": 512
+            }
+          ]
+        },
+        {
+          "type": "QUERY_RING_STATE",
+          "bgid": 1
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "REGISTER_PBUF_RING",
+          "bgid": 1,
+          "ring_entries": 8,
+          "status": "REGISTERED"
+        },
+        {
+          "op_index": 1,
+          "type": "REGISTER_PBUF_RING",
+          "bgid": 2,
+          "ring_entries": 4,
+          "status": "REGISTERED"
+        },
+        {
+          "op_index": 2,
+          "type": "USER_ADD_BUFFERS",
+          "bgid": 1,
+          "count_added": 4,
+          "tail": 4,
+          "available_buffers": 4,
+          "low_buffer_warning": false
+        },
+        {
+          "op_index": 3,
+          "type": "USER_ADD_BUFFERS",
+          "bgid": 2,
+          "count_added": 2,
+          "tail": 2,
+          "available_buffers": 2,
+          "low_buffer_warning": false
+        },
+        {
+          "op_index": 4,
+          "type": "SUBMIT_RECV",
+          "sqe_id": "sqe_bgid1_sock1",
+          "fd": 20,
+          "bgid": 1,
+          "multishot": true,
+          "cqes_generated": 0
+        },
+        {
+          "op_index": 5,
+          "type": "SUBMIT_RECV",
+          "sqe_id": "sqe_bgid2_sock2",
+          "fd": 21,
+          "bgid": 2,
+          "multishot": true,
+          "cqes_generated": 0
+        },
+        {
+          "op_index": 6,
+          "type": "RX_PACKET_ARRIVAL",
+          "fd": 20,
+          "payload_bytes": 1200,
+          "data_tag": "sock1_pkt1",
+          "eof": false,
+          "cqes_generated": 3
+        },
+        {
+          "op_index": 7,
+          "type": "RX_PACKET_ARRIVAL",
+          "fd": 21,
+          "payload_bytes": 6000,
+          "data_tag": "sock2_pkt1",
+          "eof": false,
+          "cqes_generated": 2
+        },
+        {
+          "op_index": 8,
+          "type": "QUERY_RING_STATE",
+          "bgid": 1,
+          "head": 3,
+          "tail": 4,
+          "available_buffers": 1,
+          "capacity": 8,
+          "low_buffer_warning": true
+        },
+        {
+          "op_index": 9,
+          "type": "QUERY_RING_STATE",
+          "bgid": 2,
+          "head": 2,
+          "tail": 2,
+          "available_buffers": 0,
+          "capacity": 4,
+          "low_buffer_warning": true
+        },
+        {
+          "op_index": 10,
+          "type": "RETURN_BUFFERS",
+          "bgid": 1,
+          "count_added": 1,
+          "tail": 5,
+          "available_buffers": 2,
+          "low_buffer_warning": true
+        },
+        {
+          "op_index": 11,
+          "type": "QUERY_RING_STATE",
+          "bgid": 1,
+          "head": 3,
+          "tail": 5,
+          "available_buffers": 2,
+          "capacity": 8,
+          "low_buffer_warning": true
+        }
+      ],
+      "cqe_log": [
+        {
+          "sqe_id": "sqe_bgid1_sock1",
+          "fd": 20,
+          "res": 512,
+          "flags": 6619139,
+          "bid": 101,
+          "buf_addr": "0x8000",
+          "bytes_read": 512,
+          "truncated": false,
+          "truncated_bytes": 0,
+          "multishot_active": true,
+          "status": "SUCCESS"
+        },
+        {
+          "sqe_id": "sqe_bgid1_sock1",
+          "fd": 20,
+          "res": 512,
+          "flags": 6684675,
+          "bid": 102,
+          "buf_addr": "0x8200",
+          "bytes_read": 512,
+          "truncated": false,
+          "truncated_bytes": 0,
+          "multishot_active": true,
+          "status": "SUCCESS"
+        },
+        {
+          "sqe_id": "sqe_bgid1_sock1",
+          "fd": 20,
+          "res": 176,
+          "flags": 6750211,
+          "bid": 103,
+          "buf_addr": "0x8400",
+          "bytes_read": 176,
+          "truncated": false,
+          "truncated_bytes": 0,
+          "multishot_active": true,
+          "status": "SUCCESS"
+        },
+        {
+          "sqe_id": "sqe_bgid2_sock2",
+          "fd": 21,
+          "res": 4096,
+          "flags": 13172739,
+          "bid": 201,
+          "buf_addr": "0x9000",
+          "bytes_read": 4096,
+          "truncated": false,
+          "truncated_bytes": 0,
+          "multishot_active": true,
+          "status": "SUCCESS"
+        },
+        {
+          "sqe_id": "sqe_bgid2_sock2",
+          "fd": 21,
+          "res": 1904,
+          "flags": 13238275,
+          "bid": 202,
+          "buf_addr": "0x9400",
+          "bytes_read": 1904,
+          "truncated": false,
+          "truncated_bytes": 0,
+          "multishot_active": true,
+          "status": "SUCCESS"
+        }
+      ],
+      "summary": {
+        "total_operations": 12,
+        "rings": {
+          "1": {
+            "head": 3,
+            "tail": 5,
+            "available_buffers": 2,
+            "capacity": 8,
+            "low_buffer_warning": true
+          },
+          "2": {
+            "head": 2,
+            "tail": 2,
+            "available_buffers": 0,
+            "capacity": 4,
+            "low_buffer_warning": true
+          }
+        },
+        "active_sqes": [
+          20,
+          21
+        ],
+        "stats": {
+          "total_cqes": 5,
+          "total_bytes_received": 7200,
+          "total_enobufs_errors": 0,
+          "total_canceled_requests": 0,
+          "total_truncated_packets": 0,
+          "total_buffers_added": 7,
+          "total_buffers_consumed": 5
+        }
+      }
+    }
+  }
+]
