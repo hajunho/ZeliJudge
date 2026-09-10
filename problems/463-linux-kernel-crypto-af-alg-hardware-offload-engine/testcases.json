@@ -1,0 +1,840 @@
+[
+  {
+    "input": {
+      "operations": [
+        {
+          "op": "BIND_SOCKET",
+          "fd": 3,
+          "salg_type": "aead",
+          "salg_name": "gcm(aes)"
+        },
+        {
+          "op": "SET_KEY",
+          "fd": 3,
+          "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f"
+        },
+        {
+          "op": "ACCEPT_SESSION",
+          "listen_fd": 3,
+          "conn_fd": 4
+        },
+        {
+          "op": "SEND_MSG",
+          "conn_fd": 4,
+          "data_hex": "41555448436f6e666964656e7469616c205061796c6f61642044617461",
+          "cipher_op": "ENCRYPT",
+          "iv_hex": "000000000000000000000001",
+          "assoclen": 4
+        },
+        {
+          "op": "RECV_MSG",
+          "conn_fd": 4
+        },
+        {
+          "op": "QUERY_STATE"
+        },
+        {
+          "op": "SEND_MSG",
+          "conn_fd": 4,
+          "data_hex": "41555448c53b067c5b0d71b9f24e27a7d92540f1ccfd4dd343b17e45b1ddfc812f8cca558d7d2ba99e65eea3af",
+          "cipher_op": "DECRYPT",
+          "iv_hex": "000000000000000000000001",
+          "assoclen": 4
+        },
+        {
+          "op": "RECV_MSG",
+          "conn_fd": 4
+        },
+        {
+          "op": "QUERY_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "SOCKET_BOUND",
+          "fd": 3,
+          "type": "aead",
+          "name": "gcm(aes)"
+        },
+        {
+          "status": "KEY_CONFIGURED",
+          "fd": 3,
+          "key_len": 32
+        },
+        {
+          "status": "SESSION_ACCEPTED",
+          "listen_fd": 3,
+          "conn_fd": 4,
+          "name": "gcm(aes)"
+        },
+        {
+          "status": "MSG_BUFFERED",
+          "conn_fd": 4,
+          "op": "ENCRYPT",
+          "data_len": 29,
+          "assoclen": 4
+        },
+        {
+          "status": "AEAD_ENCRYPTED",
+          "conn_fd": 4,
+          "ciphertext_len": 25,
+          "tag_hex": "ddfc812f8cca558d7d2ba99e65eea3af",
+          "out_hex": "c53b067c5b0d71b9f24e27a7d92540f1ccfd4dd343b17e45b1ddfc812f8cca558d7d2ba99e65eea3af"
+        },
+        {
+          "active_listeners": 1,
+          "active_connections": 1,
+          "stats": {
+            "sockets_bound": 1,
+            "keys_configured": 1,
+            "sessions_accepted": 1,
+            "encrypt_ops": 1,
+            "decrypt_ops": 1,
+            "hash_ops": 0,
+            "auth_failures": 0
+          }
+        },
+        {
+          "status": "MSG_BUFFERED",
+          "conn_fd": 4,
+          "op": "DECRYPT",
+          "data_len": 45,
+          "assoclen": 4
+        },
+        {
+          "status": "AEAD_DECRYPTED",
+          "conn_fd": 4,
+          "plaintext_hex": "436f6e666964656e7469616c205061796c6f61642044617461",
+          "plaintext_str": "Confidential Payload Data"
+        },
+        {
+          "active_listeners": 1,
+          "active_connections": 1,
+          "stats": {
+            "sockets_bound": 1,
+            "keys_configured": 1,
+            "sessions_accepted": 1,
+            "encrypt_ops": 1,
+            "decrypt_ops": 1,
+            "hash_ops": 0,
+            "auth_failures": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "op": "BIND_SOCKET",
+          "fd": 3,
+          "salg_type": "aead",
+          "salg_name": "gcm(aes)"
+        },
+        {
+          "op": "SET_KEY",
+          "fd": 3,
+          "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f"
+        },
+        {
+          "op": "ACCEPT_SESSION",
+          "listen_fd": 3,
+          "conn_fd": 4
+        },
+        {
+          "op": "SEND_MSG",
+          "conn_fd": 4,
+          "data_hex": "41555448c53b067c5b0d71b9f24e27a7d92540f1ccfd4dd343b17e45b1ddfc812f8cca558d7d2ba99e65eea350",
+          "cipher_op": "DECRYPT",
+          "iv_hex": "000000000000000000000001",
+          "assoclen": 4
+        },
+        {
+          "op": "RECV_MSG",
+          "conn_fd": 4
+        },
+        {
+          "op": "QUERY_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "SOCKET_BOUND",
+          "fd": 3,
+          "type": "aead",
+          "name": "gcm(aes)"
+        },
+        {
+          "status": "KEY_CONFIGURED",
+          "fd": 3,
+          "key_len": 32
+        },
+        {
+          "status": "SESSION_ACCEPTED",
+          "listen_fd": 3,
+          "conn_fd": 4,
+          "name": "gcm(aes)"
+        },
+        {
+          "status": "MSG_BUFFERED",
+          "conn_fd": 4,
+          "op": "DECRYPT",
+          "data_len": 45,
+          "assoclen": 4
+        },
+        {
+          "status": "EBADMSG_AUTH_FAILED",
+          "conn_fd": 4
+        },
+        {
+          "active_listeners": 1,
+          "active_connections": 1,
+          "stats": {
+            "sockets_bound": 1,
+            "keys_configured": 1,
+            "sessions_accepted": 1,
+            "encrypt_ops": 0,
+            "decrypt_ops": 1,
+            "hash_ops": 0,
+            "auth_failures": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "op": "BIND_SOCKET",
+          "fd": 5,
+          "salg_type": "hash",
+          "salg_name": "sha256"
+        },
+        {
+          "op": "ACCEPT_SESSION",
+          "listen_fd": 5,
+          "conn_fd": 6
+        },
+        {
+          "op": "SEND_MSG",
+          "conn_fd": 6,
+          "data_hex": "54686520717569636b2062726f776e20666f78206a756d7073206f76657220746865206c617a7920646f67"
+        },
+        {
+          "op": "RECV_MSG",
+          "conn_fd": 6
+        },
+        {
+          "op": "QUERY_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "SOCKET_BOUND",
+          "fd": 5,
+          "type": "hash",
+          "name": "sha256"
+        },
+        {
+          "status": "SESSION_ACCEPTED",
+          "listen_fd": 5,
+          "conn_fd": 6,
+          "name": "sha256"
+        },
+        {
+          "status": "MSG_BUFFERED",
+          "conn_fd": 6,
+          "op": "ENCRYPT",
+          "data_len": 43,
+          "assoclen": 0
+        },
+        {
+          "status": "DIGEST_GENERATED",
+          "conn_fd": 6,
+          "name": "sha256",
+          "digest_hex": "d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"
+        },
+        {
+          "active_listeners": 1,
+          "active_connections": 1,
+          "stats": {
+            "sockets_bound": 1,
+            "keys_configured": 0,
+            "sessions_accepted": 1,
+            "encrypt_ops": 0,
+            "decrypt_ops": 0,
+            "hash_ops": 1,
+            "auth_failures": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "op": "BIND_SOCKET",
+          "fd": 7,
+          "salg_type": "hash",
+          "salg_name": "hmac(sha256)"
+        },
+        {
+          "op": "ACCEPT_SESSION",
+          "listen_fd": 7,
+          "conn_fd": 8
+        },
+        {
+          "op": "SET_KEY",
+          "fd": 7,
+          "key_hex": "0102030405060708090a0b0c0d0e0f10"
+        },
+        {
+          "op": "ACCEPT_SESSION",
+          "listen_fd": 7,
+          "conn_fd": 8
+        },
+        {
+          "op": "SEND_MSG",
+          "conn_fd": 8,
+          "data_hex": "6d65737361676520746f2061757468656e746963617465"
+        },
+        {
+          "op": "RECV_MSG",
+          "conn_fd": 8
+        },
+        {
+          "op": "QUERY_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "SOCKET_BOUND",
+          "fd": 7,
+          "type": "hash",
+          "name": "hmac(sha256)"
+        },
+        {
+          "status": "ENOKEY_KEY_NOT_SET",
+          "listen_fd": 7
+        },
+        {
+          "status": "KEY_CONFIGURED",
+          "fd": 7,
+          "key_len": 16
+        },
+        {
+          "status": "SESSION_ACCEPTED",
+          "listen_fd": 7,
+          "conn_fd": 8,
+          "name": "hmac(sha256)"
+        },
+        {
+          "status": "MSG_BUFFERED",
+          "conn_fd": 8,
+          "op": "ENCRYPT",
+          "data_len": 23,
+          "assoclen": 0
+        },
+        {
+          "status": "DIGEST_GENERATED",
+          "conn_fd": 8,
+          "name": "hmac(sha256)",
+          "digest_hex": "845fff231b24ce199c4f83008345f7f9e3d3dec2c24686b0727c1b380f0753f9"
+        },
+        {
+          "active_listeners": 1,
+          "active_connections": 1,
+          "stats": {
+            "sockets_bound": 1,
+            "keys_configured": 1,
+            "sessions_accepted": 1,
+            "encrypt_ops": 0,
+            "decrypt_ops": 0,
+            "hash_ops": 1,
+            "auth_failures": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "op": "BIND_SOCKET",
+          "fd": 9,
+          "salg_type": "skcipher",
+          "salg_name": "cbc(aes)"
+        },
+        {
+          "op": "SET_KEY",
+          "fd": 9,
+          "key_hex": "00112233445566778899aabbccddeeff"
+        },
+        {
+          "op": "ACCEPT_SESSION",
+          "listen_fd": 9,
+          "conn_fd": 10
+        },
+        {
+          "op": "SEND_MSG",
+          "conn_fd": 10,
+          "data_hex": "5369787465656e2042797465204d7367",
+          "cipher_op": "ENCRYPT",
+          "iv_hex": "101112131415161718191a1b1c1d1e1f"
+        },
+        {
+          "op": "RECV_MSG",
+          "conn_fd": 10
+        },
+        {
+          "op": "SEND_MSG",
+          "conn_fd": 10,
+          "data_hex": "b00734882d70ed528841f8113a40fa89",
+          "cipher_op": "DECRYPT",
+          "iv_hex": "101112131415161718191a1b1c1d1e1f"
+        },
+        {
+          "op": "RECV_MSG",
+          "conn_fd": 10
+        },
+        {
+          "op": "QUERY_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "SOCKET_BOUND",
+          "fd": 9,
+          "type": "skcipher",
+          "name": "cbc(aes)"
+        },
+        {
+          "status": "KEY_CONFIGURED",
+          "fd": 9,
+          "key_len": 16
+        },
+        {
+          "status": "SESSION_ACCEPTED",
+          "listen_fd": 9,
+          "conn_fd": 10,
+          "name": "cbc(aes)"
+        },
+        {
+          "status": "MSG_BUFFERED",
+          "conn_fd": 10,
+          "op": "ENCRYPT",
+          "data_len": 16,
+          "assoclen": 0
+        },
+        {
+          "status": "CIPHER_PROCESSED",
+          "conn_fd": 10,
+          "op": "ENCRYPT",
+          "out_hex": "b00734882d70ed528841f8113a40fa89"
+        },
+        {
+          "status": "MSG_BUFFERED",
+          "conn_fd": 10,
+          "op": "DECRYPT",
+          "data_len": 16,
+          "assoclen": 0
+        },
+        {
+          "status": "CIPHER_PROCESSED",
+          "conn_fd": 10,
+          "op": "DECRYPT",
+          "out_hex": "5369787465656e2042797465204d7367"
+        },
+        {
+          "active_listeners": 1,
+          "active_connections": 1,
+          "stats": {
+            "sockets_bound": 1,
+            "keys_configured": 1,
+            "sessions_accepted": 1,
+            "encrypt_ops": 1,
+            "decrypt_ops": 1,
+            "hash_ops": 0,
+            "auth_failures": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "op": "BIND_SOCKET",
+          "fd": 11,
+          "salg_type": "unknown_type",
+          "salg_name": "fake_alg"
+        },
+        {
+          "op": "BIND_SOCKET",
+          "fd": 11,
+          "salg_type": "skcipher",
+          "salg_name": "cbc(aes)"
+        },
+        {
+          "op": "BIND_SOCKET",
+          "fd": 11,
+          "salg_type": "skcipher",
+          "salg_name": "cbc(aes)"
+        },
+        {
+          "op": "SET_KEY",
+          "fd": 11,
+          "key_hex": "112233"
+        },
+        {
+          "op": "SET_KEY",
+          "fd": 999,
+          "key_hex": "00112233445566778899aabbccddeeff"
+        },
+        {
+          "op": "QUERY_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ENOENT_NO_CIPHER",
+          "type": "unknown_type",
+          "name": "fake_alg"
+        },
+        {
+          "status": "SOCKET_BOUND",
+          "fd": 11,
+          "type": "skcipher",
+          "name": "cbc(aes)"
+        },
+        {
+          "status": "EBADF_DUPLICATE_FD",
+          "fd": 11
+        },
+        {
+          "status": "EINVAL_KEY_LEN",
+          "len": 3,
+          "allowed": [
+            16,
+            24,
+            32
+          ]
+        },
+        {
+          "status": "EBADF_NOT_LISTENER",
+          "fd": 999
+        },
+        {
+          "active_listeners": 1,
+          "active_connections": 0,
+          "stats": {
+            "sockets_bound": 1,
+            "keys_configured": 0,
+            "sessions_accepted": 0,
+            "encrypt_ops": 0,
+            "decrypt_ops": 0,
+            "hash_ops": 0,
+            "auth_failures": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "op": "BIND_SOCKET",
+          "fd": 15,
+          "salg_type": "hash",
+          "salg_name": "sha512"
+        },
+        {
+          "op": "ACCEPT_SESSION",
+          "listen_fd": 15,
+          "conn_fd": 16
+        },
+        {
+          "op": "BIND_SOCKET",
+          "fd": 17,
+          "salg_type": "skcipher",
+          "salg_name": "ctr(aes)"
+        },
+        {
+          "op": "SET_KEY",
+          "fd": 17,
+          "key_hex": "00112233445566778899aabbccddeeff"
+        },
+        {
+          "op": "ACCEPT_SESSION",
+          "listen_fd": 17,
+          "conn_fd": 18
+        },
+        {
+          "op": "SEND_MSG",
+          "conn_fd": 16,
+          "data_hex": "7368613531322074657374"
+        },
+        {
+          "op": "SEND_MSG",
+          "conn_fd": 18,
+          "data_hex": "6374722074657374",
+          "cipher_op": "ENCRYPT",
+          "iv_hex": "101112131415161718191a1b1c1d1e1f"
+        },
+        {
+          "op": "RECV_MSG",
+          "conn_fd": 16
+        },
+        {
+          "op": "RECV_MSG",
+          "conn_fd": 18
+        },
+        {
+          "op": "QUERY_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "SOCKET_BOUND",
+          "fd": 15,
+          "type": "hash",
+          "name": "sha512"
+        },
+        {
+          "status": "SESSION_ACCEPTED",
+          "listen_fd": 15,
+          "conn_fd": 16,
+          "name": "sha512"
+        },
+        {
+          "status": "SOCKET_BOUND",
+          "fd": 17,
+          "type": "skcipher",
+          "name": "ctr(aes)"
+        },
+        {
+          "status": "KEY_CONFIGURED",
+          "fd": 17,
+          "key_len": 16
+        },
+        {
+          "status": "SESSION_ACCEPTED",
+          "listen_fd": 17,
+          "conn_fd": 18,
+          "name": "ctr(aes)"
+        },
+        {
+          "status": "MSG_BUFFERED",
+          "conn_fd": 16,
+          "op": "ENCRYPT",
+          "data_len": 11,
+          "assoclen": 0
+        },
+        {
+          "status": "MSG_BUFFERED",
+          "conn_fd": 18,
+          "op": "ENCRYPT",
+          "data_len": 8,
+          "assoclen": 0
+        },
+        {
+          "status": "DIGEST_GENERATED",
+          "conn_fd": 16,
+          "name": "sha512",
+          "digest_hex": "5848d90ec8ede2d27ca25029ec01efc26bce9ecaeb43e2d745d94e89bddec4ef96ef6d25e6cac954c41fda0a557959c2e800bbd2a2e27914f7e58511d39e4b7a"
+        },
+        {
+          "status": "CIPHER_PROCESSED",
+          "conn_fd": 18,
+          "op": "ENCRYPT",
+          "out_hex": "801a3edc3c70f006"
+        },
+        {
+          "active_listeners": 2,
+          "active_connections": 2,
+          "stats": {
+            "sockets_bound": 2,
+            "keys_configured": 1,
+            "sessions_accepted": 2,
+            "encrypt_ops": 1,
+            "decrypt_ops": 0,
+            "hash_ops": 1,
+            "auth_failures": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "op": "BIND_SOCKET",
+          "fd": 20,
+          "salg_type": "aead",
+          "salg_name": "gcm(aes)"
+        },
+        {
+          "op": "SET_KEY",
+          "fd": 20,
+          "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f"
+        },
+        {
+          "op": "ACCEPT_SESSION",
+          "listen_fd": 20,
+          "conn_fd": 21
+        },
+        {
+          "op": "SEND_MSG",
+          "conn_fd": 21,
+          "data_hex": "5441473153656372657420496e666f",
+          "cipher_op": "ENCRYPT",
+          "iv_hex": "000000000000000000000001",
+          "assoclen": 4
+        },
+        {
+          "op": "RECV_MSG",
+          "conn_fd": 21
+        },
+        {
+          "op": "BIND_SOCKET",
+          "fd": 22,
+          "salg_type": "hash",
+          "salg_name": "sha256"
+        },
+        {
+          "op": "ACCEPT_SESSION",
+          "listen_fd": 22,
+          "conn_fd": 23
+        },
+        {
+          "op": "SEND_MSG",
+          "conn_fd": 23,
+          "data_hex": "626c6f636b2031"
+        },
+        {
+          "op": "RECV_MSG",
+          "conn_fd": 23
+        },
+        {
+          "op": "SEND_MSG",
+          "conn_fd": 21,
+          "data_hex": "0000000011223344",
+          "cipher_op": "DECRYPT",
+          "iv_hex": "000000000000000000000001",
+          "assoclen": 4
+        },
+        {
+          "op": "RECV_MSG",
+          "conn_fd": 21
+        },
+        {
+          "op": "QUERY_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "SOCKET_BOUND",
+          "fd": 20,
+          "type": "aead",
+          "name": "gcm(aes)"
+        },
+        {
+          "status": "KEY_CONFIGURED",
+          "fd": 20,
+          "key_len": 32
+        },
+        {
+          "status": "SESSION_ACCEPTED",
+          "listen_fd": 20,
+          "conn_fd": 21,
+          "name": "gcm(aes)"
+        },
+        {
+          "status": "MSG_BUFFERED",
+          "conn_fd": 21,
+          "op": "ENCRYPT",
+          "data_len": 15,
+          "assoclen": 4
+        },
+        {
+          "status": "AEAD_ENCRYPTED",
+          "conn_fd": 21,
+          "ciphertext_len": 11,
+          "tag_hex": "06753d2779f75b3a3be7ea798f429bb2",
+          "out_hex": "d5310b68571d349ee8412906753d2779f75b3a3be7ea798f429bb2"
+        },
+        {
+          "status": "SOCKET_BOUND",
+          "fd": 22,
+          "type": "hash",
+          "name": "sha256"
+        },
+        {
+          "status": "SESSION_ACCEPTED",
+          "listen_fd": 22,
+          "conn_fd": 23,
+          "name": "sha256"
+        },
+        {
+          "status": "MSG_BUFFERED",
+          "conn_fd": 23,
+          "op": "ENCRYPT",
+          "data_len": 7,
+          "assoclen": 0
+        },
+        {
+          "status": "DIGEST_GENERATED",
+          "conn_fd": 23,
+          "name": "sha256",
+          "digest_hex": "cabdbdfa02c612a9652e5e4965db9180b25e68ffcdb4deb4b278992a3967c67f"
+        },
+        {
+          "status": "MSG_BUFFERED",
+          "conn_fd": 21,
+          "op": "DECRYPT",
+          "data_len": 8,
+          "assoclen": 4
+        },
+        {
+          "status": "EBADMSG_PAYLOAD_TOO_SHORT"
+        },
+        {
+          "active_listeners": 2,
+          "active_connections": 2,
+          "stats": {
+            "sockets_bound": 2,
+            "keys_configured": 1,
+            "sessions_accepted": 2,
+            "encrypt_ops": 1,
+            "decrypt_ops": 1,
+            "hash_ops": 1,
+            "auth_failures": 1
+          }
+        }
+      ]
+    }
+  }
+]
