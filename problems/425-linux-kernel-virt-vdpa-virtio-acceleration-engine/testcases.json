@@ -1,0 +1,1409 @@
+[
+  {
+    "input": {
+      "config": {
+        "max_vqs": 4,
+        "features_supported": [
+          "VIRTIO_F_VERSION_1",
+          "VIRTIO_NET_F_MRG_RXBUF",
+          "VIRTIO_NET_F_MQ",
+          "VIRTIO_F_LOG_ALL"
+        ]
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "VDPA_DEV_ADD",
+          "dev_name": "vdpa0",
+          "mgmt_dev": "pci/0000:03:00.0"
+        },
+        {
+          "time": 20,
+          "type": "VDPA_SET_FEATURES",
+          "features": [
+            "VIRTIO_F_VERSION_1",
+            "VIRTIO_NET_F_MRG_RXBUF"
+          ]
+        },
+        {
+          "time": 30,
+          "type": "VDPA_DMA_MAP",
+          "iova": "0x1000",
+          "hpa": "0x80001000",
+          "size": 4096,
+          "perm": "RW"
+        },
+        {
+          "time": 40,
+          "type": "VDPA_SET_VRING_STATE",
+          "vq_idx": 1,
+          "num": 256,
+          "avail_idx": 0,
+          "used_idx": 0
+        },
+        {
+          "time": 50,
+          "type": "VDPA_SET_VRING_ENABLE",
+          "vq_idx": 1,
+          "enable": true
+        },
+        {
+          "time": 60,
+          "type": "VDPA_PACKET_TRANSMIT",
+          "vq_idx": 1,
+          "desc_iova": "0x1000",
+          "len": 1514
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "packets_transmitted": 1,
+        "dma_errors": 0,
+        "migration_checkpoints": 0,
+        "dirty_pages_logged": 0,
+        "features_negotiated": [
+          "VIRTIO_F_VERSION_1",
+          "VIRTIO_NET_F_MRG_RXBUF"
+        ],
+        "iotlb_entries": 1
+      },
+      "vqs": {
+        "vq_0": {
+          "num": 256,
+          "avail_idx": 0,
+          "used_idx": 0,
+          "enabled": false,
+          "svq_enabled": false
+        },
+        "vq_1": {
+          "num": 256,
+          "avail_idx": 1,
+          "used_idx": 1,
+          "enabled": true,
+          "svq_enabled": false
+        },
+        "vq_2": {
+          "num": 256,
+          "avail_idx": 0,
+          "used_idx": 0,
+          "enabled": false,
+          "svq_enabled": false
+        },
+        "vq_3": {
+          "num": 256,
+          "avail_idx": 0,
+          "used_idx": 0,
+          "enabled": false,
+          "svq_enabled": false
+        }
+      },
+      "migration_logs": [],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "VDPA_DEV_ADD_SUCCESS",
+          "dev_name": "vdpa0",
+          "mgmt_dev": "pci/0000:03:00.0"
+        },
+        {
+          "time": 20,
+          "event": "VDPA_FEATURES_NEGOTIATED",
+          "features": [
+            "VIRTIO_F_VERSION_1",
+            "VIRTIO_NET_F_MRG_RXBUF"
+          ]
+        },
+        {
+          "time": 30,
+          "event": "VDPA_DMA_MAP_SUCCESS",
+          "iova": "0x1000",
+          "hpa": "0x80001000",
+          "size": 4096,
+          "perm": "RW"
+        },
+        {
+          "time": 40,
+          "event": "VDPA_SET_VRING_STATE",
+          "vq_idx": 1,
+          "num": 256,
+          "avail_idx": 0,
+          "used_idx": 0
+        },
+        {
+          "time": 50,
+          "event": "VDPA_SET_VRING_ENABLE",
+          "vq_idx": 1,
+          "enabled": true
+        },
+        {
+          "time": 60,
+          "event": "VDPA_PACKET_TX_SUCCESS",
+          "vq_idx": 1,
+          "hpa": "0x80001000",
+          "len": 1514,
+          "svq_forwarded": false
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "max_vqs": 2,
+        "features_supported": [
+          "VIRTIO_F_VERSION_1",
+          "VIRTIO_NET_F_CSUM"
+        ]
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "VDPA_DEV_ADD",
+          "dev_name": "vdpa_legacy",
+          "mgmt_dev": "pci/0000:04:00.0"
+        },
+        {
+          "time": 20,
+          "type": "VDPA_SET_FEATURES",
+          "features": [
+            "VIRTIO_NET_F_CSUM"
+          ]
+        },
+        {
+          "time": 30,
+          "type": "VDPA_SET_FEATURES",
+          "features": [
+            "VIRTIO_F_VERSION_1",
+            "VIRTIO_NET_F_CSUM"
+          ]
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "packets_transmitted": 0,
+        "dma_errors": 0,
+        "migration_checkpoints": 0,
+        "dirty_pages_logged": 0,
+        "features_negotiated": [
+          "VIRTIO_F_VERSION_1",
+          "VIRTIO_NET_F_CSUM"
+        ],
+        "iotlb_entries": 0
+      },
+      "vqs": {
+        "vq_0": {
+          "num": 256,
+          "avail_idx": 0,
+          "used_idx": 0,
+          "enabled": false,
+          "svq_enabled": false
+        },
+        "vq_1": {
+          "num": 256,
+          "avail_idx": 0,
+          "used_idx": 0,
+          "enabled": false,
+          "svq_enabled": false
+        }
+      },
+      "migration_logs": [],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "VDPA_DEV_ADD_SUCCESS",
+          "dev_name": "vdpa_legacy",
+          "mgmt_dev": "pci/0000:04:00.0"
+        },
+        {
+          "time": 20,
+          "event": "VDPA_ERROR",
+          "error": "LEGACY_VIRTIO_NOT_SUPPORTED",
+          "requested": [
+            "VIRTIO_NET_F_CSUM"
+          ]
+        },
+        {
+          "time": 30,
+          "event": "VDPA_FEATURES_NEGOTIATED",
+          "features": [
+            "VIRTIO_F_VERSION_1",
+            "VIRTIO_NET_F_CSUM"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "max_vqs": 2,
+        "features_supported": [
+          "VIRTIO_F_VERSION_1"
+        ]
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "VDPA_DEV_ADD",
+          "dev_name": "vdpa_fault",
+          "mgmt_dev": "pci/0000:05:00.0"
+        },
+        {
+          "time": 20,
+          "type": "VDPA_SET_FEATURES",
+          "features": [
+            "VIRTIO_F_VERSION_1"
+          ]
+        },
+        {
+          "time": 30,
+          "type": "VDPA_SET_VRING_ENABLE",
+          "vq_idx": 1,
+          "enable": true
+        },
+        {
+          "time": 40,
+          "type": "VDPA_PACKET_TRANSMIT",
+          "vq_idx": 1,
+          "desc_iova": "0xbad000",
+          "len": 64
+        },
+        {
+          "time": 50,
+          "type": "VDPA_DMA_MAP",
+          "iova": "0xbad000",
+          "hpa": "0x70001000",
+          "size": 4096
+        },
+        {
+          "time": 60,
+          "type": "VDPA_PACKET_TRANSMIT",
+          "vq_idx": 1,
+          "desc_iova": "0xbad000",
+          "len": 64
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "packets_transmitted": 1,
+        "dma_errors": 1,
+        "migration_checkpoints": 0,
+        "dirty_pages_logged": 0,
+        "features_negotiated": [
+          "VIRTIO_F_VERSION_1"
+        ],
+        "iotlb_entries": 1
+      },
+      "vqs": {
+        "vq_0": {
+          "num": 256,
+          "avail_idx": 0,
+          "used_idx": 0,
+          "enabled": false,
+          "svq_enabled": false
+        },
+        "vq_1": {
+          "num": 256,
+          "avail_idx": 1,
+          "used_idx": 1,
+          "enabled": true,
+          "svq_enabled": false
+        }
+      },
+      "migration_logs": [],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "VDPA_DEV_ADD_SUCCESS",
+          "dev_name": "vdpa_fault",
+          "mgmt_dev": "pci/0000:05:00.0"
+        },
+        {
+          "time": 20,
+          "event": "VDPA_FEATURES_NEGOTIATED",
+          "features": [
+            "VIRTIO_F_VERSION_1"
+          ]
+        },
+        {
+          "time": 30,
+          "event": "VDPA_SET_VRING_ENABLE",
+          "vq_idx": 1,
+          "enabled": true
+        },
+        {
+          "time": 40,
+          "event": "VDPA_DMA_FAULT",
+          "vq_idx": 1,
+          "desc_iova": "0xbad000",
+          "error": "IOMMU_TRANSLATION_FAILED"
+        },
+        {
+          "time": 50,
+          "event": "VDPA_DMA_MAP_SUCCESS",
+          "iova": "0xbad000",
+          "hpa": "0x70001000",
+          "size": 4096,
+          "perm": "RW"
+        },
+        {
+          "time": 60,
+          "event": "VDPA_PACKET_TX_SUCCESS",
+          "vq_idx": 1,
+          "hpa": "0x70001000",
+          "len": 64,
+          "svq_forwarded": false
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "max_vqs": 4,
+        "features_supported": [
+          "VIRTIO_F_VERSION_1",
+          "VIRTIO_F_LOG_ALL"
+        ]
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "VDPA_DEV_ADD",
+          "dev_name": "vdpa_mig",
+          "mgmt_dev": "pci/0000:06:00.0"
+        },
+        {
+          "time": 20,
+          "type": "VDPA_SET_FEATURES",
+          "features": [
+            "VIRTIO_F_VERSION_1",
+            "VIRTIO_F_LOG_ALL"
+          ]
+        },
+        {
+          "time": 30,
+          "type": "VDPA_DMA_MAP",
+          "iova": "0x2000",
+          "hpa": "0x90002000",
+          "size": 4096
+        },
+        {
+          "time": 40,
+          "type": "VDPA_SET_VRING_ENABLE",
+          "vq_idx": 1,
+          "enable": true
+        },
+        {
+          "time": 50,
+          "type": "VDPA_PACKET_TRANSMIT",
+          "vq_idx": 1,
+          "desc_iova": "0x2000",
+          "len": 128
+        },
+        {
+          "time": 60,
+          "type": "VDPA_LIVE_MIGRATE_START",
+          "use_svq": true
+        },
+        {
+          "time": 70,
+          "type": "VDPA_PACKET_TRANSMIT",
+          "vq_idx": 1,
+          "desc_iova": "0x2000",
+          "len": 128
+        },
+        {
+          "time": 80,
+          "type": "VDPA_SUSPEND_AND_SAVE_STATE"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "packets_transmitted": 2,
+        "dma_errors": 0,
+        "migration_checkpoints": 1,
+        "dirty_pages_logged": 1,
+        "features_negotiated": [
+          "VIRTIO_F_LOG_ALL",
+          "VIRTIO_F_VERSION_1"
+        ],
+        "iotlb_entries": 1
+      },
+      "vqs": {
+        "vq_0": {
+          "num": 256,
+          "avail_idx": 0,
+          "used_idx": 0,
+          "enabled": false,
+          "svq_enabled": true
+        },
+        "vq_1": {
+          "num": 256,
+          "avail_idx": 2,
+          "used_idx": 2,
+          "enabled": true,
+          "svq_enabled": true
+        },
+        "vq_2": {
+          "num": 256,
+          "avail_idx": 0,
+          "used_idx": 0,
+          "enabled": false,
+          "svq_enabled": true
+        },
+        "vq_3": {
+          "num": 256,
+          "avail_idx": 0,
+          "used_idx": 0,
+          "enabled": false,
+          "svq_enabled": true
+        }
+      },
+      "migration_logs": [
+        {
+          "time": 60,
+          "action": "LIVE_MIGRATION_STARTED",
+          "use_svq": true
+        },
+        {
+          "time": 80,
+          "action": "DEVICE_SUSPENDED_STATE_SAVED",
+          "snapshot": {
+            "dev_name": "vdpa_mig",
+            "dirty_pages_count": 1,
+            "dirty_pages": [
+              "0x90002000"
+            ],
+            "vq_states": {
+              "vq_0": {
+                "avail_idx": 0,
+                "used_idx": 0,
+                "enabled": false
+              },
+              "vq_1": {
+                "avail_idx": 2,
+                "used_idx": 2,
+                "enabled": true
+              },
+              "vq_2": {
+                "avail_idx": 0,
+                "used_idx": 0,
+                "enabled": false
+              },
+              "vq_3": {
+                "avail_idx": 0,
+                "used_idx": 0,
+                "enabled": false
+              }
+            }
+          }
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "VDPA_DEV_ADD_SUCCESS",
+          "dev_name": "vdpa_mig",
+          "mgmt_dev": "pci/0000:06:00.0"
+        },
+        {
+          "time": 20,
+          "event": "VDPA_FEATURES_NEGOTIATED",
+          "features": [
+            "VIRTIO_F_LOG_ALL",
+            "VIRTIO_F_VERSION_1"
+          ]
+        },
+        {
+          "time": 30,
+          "event": "VDPA_DMA_MAP_SUCCESS",
+          "iova": "0x2000",
+          "hpa": "0x90002000",
+          "size": 4096,
+          "perm": "RW"
+        },
+        {
+          "time": 40,
+          "event": "VDPA_SET_VRING_ENABLE",
+          "vq_idx": 1,
+          "enabled": true
+        },
+        {
+          "time": 50,
+          "event": "VDPA_PACKET_TX_SUCCESS",
+          "vq_idx": 1,
+          "hpa": "0x90002000",
+          "len": 128,
+          "svq_forwarded": false
+        },
+        {
+          "time": 60,
+          "event": "VDPA_MIGRATION_START",
+          "svq_active": true
+        },
+        {
+          "time": 70,
+          "event": "VDPA_PACKET_TX_SUCCESS",
+          "vq_idx": 1,
+          "hpa": "0x90002000",
+          "len": 128,
+          "svq_forwarded": true
+        },
+        {
+          "time": 80,
+          "event": "VDPA_DEVICE_SUSPENDED",
+          "dirty_pages_count": 1
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "max_vqs": 4,
+        "features_supported": [
+          "VIRTIO_F_VERSION_1",
+          "VIRTIO_NET_F_MQ"
+        ]
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "VDPA_DEV_ADD",
+          "dev_name": "vdpa_mq",
+          "mgmt_dev": "pci/0000:07:00.0"
+        },
+        {
+          "time": 20,
+          "type": "VDPA_SET_FEATURES",
+          "features": [
+            "VIRTIO_F_VERSION_1",
+            "VIRTIO_NET_F_MQ"
+          ]
+        },
+        {
+          "time": 30,
+          "type": "VDPA_DMA_MAP",
+          "iova": "0x3000",
+          "hpa": "0xa0003000",
+          "size": 4096
+        },
+        {
+          "time": 40,
+          "type": "VDPA_SET_VRING_ENABLE",
+          "vq_idx": 1,
+          "enable": true
+        },
+        {
+          "time": 50,
+          "type": "VDPA_SET_VRING_ENABLE",
+          "vq_idx": 3,
+          "enable": true
+        },
+        {
+          "time": 60,
+          "type": "VDPA_PACKET_TRANSMIT",
+          "vq_idx": 1,
+          "desc_iova": "0x3000",
+          "len": 500
+        },
+        {
+          "time": 70,
+          "type": "VDPA_PACKET_TRANSMIT",
+          "vq_idx": 3,
+          "desc_iova": "0x3000",
+          "len": 1000
+        },
+        {
+          "time": 80,
+          "type": "VDPA_PACKET_TRANSMIT",
+          "vq_idx": 1,
+          "desc_iova": "0x3000",
+          "len": 500
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "packets_transmitted": 3,
+        "dma_errors": 0,
+        "migration_checkpoints": 0,
+        "dirty_pages_logged": 0,
+        "features_negotiated": [
+          "VIRTIO_F_VERSION_1",
+          "VIRTIO_NET_F_MQ"
+        ],
+        "iotlb_entries": 1
+      },
+      "vqs": {
+        "vq_0": {
+          "num": 256,
+          "avail_idx": 0,
+          "used_idx": 0,
+          "enabled": false,
+          "svq_enabled": false
+        },
+        "vq_1": {
+          "num": 256,
+          "avail_idx": 2,
+          "used_idx": 2,
+          "enabled": true,
+          "svq_enabled": false
+        },
+        "vq_2": {
+          "num": 256,
+          "avail_idx": 0,
+          "used_idx": 0,
+          "enabled": false,
+          "svq_enabled": false
+        },
+        "vq_3": {
+          "num": 256,
+          "avail_idx": 1,
+          "used_idx": 1,
+          "enabled": true,
+          "svq_enabled": false
+        }
+      },
+      "migration_logs": [],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "VDPA_DEV_ADD_SUCCESS",
+          "dev_name": "vdpa_mq",
+          "mgmt_dev": "pci/0000:07:00.0"
+        },
+        {
+          "time": 20,
+          "event": "VDPA_FEATURES_NEGOTIATED",
+          "features": [
+            "VIRTIO_F_VERSION_1",
+            "VIRTIO_NET_F_MQ"
+          ]
+        },
+        {
+          "time": 30,
+          "event": "VDPA_DMA_MAP_SUCCESS",
+          "iova": "0x3000",
+          "hpa": "0xa0003000",
+          "size": 4096,
+          "perm": "RW"
+        },
+        {
+          "time": 40,
+          "event": "VDPA_SET_VRING_ENABLE",
+          "vq_idx": 1,
+          "enabled": true
+        },
+        {
+          "time": 50,
+          "event": "VDPA_SET_VRING_ENABLE",
+          "vq_idx": 3,
+          "enabled": true
+        },
+        {
+          "time": 60,
+          "event": "VDPA_PACKET_TX_SUCCESS",
+          "vq_idx": 1,
+          "hpa": "0xa0003000",
+          "len": 500,
+          "svq_forwarded": false
+        },
+        {
+          "time": 70,
+          "event": "VDPA_PACKET_TX_SUCCESS",
+          "vq_idx": 3,
+          "hpa": "0xa0003000",
+          "len": 1000,
+          "svq_forwarded": false
+        },
+        {
+          "time": 80,
+          "event": "VDPA_PACKET_TX_SUCCESS",
+          "vq_idx": 1,
+          "hpa": "0xa0003000",
+          "len": 500,
+          "svq_forwarded": false
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "max_vqs": 2,
+        "features_supported": [
+          "VIRTIO_F_VERSION_1"
+        ]
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "VDPA_DEV_ADD",
+          "dev_name": "vdpa_unmap",
+          "mgmt_dev": "pci/0000:08:00.0"
+        },
+        {
+          "time": 20,
+          "type": "VDPA_SET_FEATURES",
+          "features": [
+            "VIRTIO_F_VERSION_1"
+          ]
+        },
+        {
+          "time": 30,
+          "type": "VDPA_DMA_MAP",
+          "iova": "0x4000",
+          "hpa": "0xb0004000",
+          "size": 4096
+        },
+        {
+          "time": 40,
+          "type": "VDPA_SET_VRING_ENABLE",
+          "vq_idx": 1,
+          "enable": true
+        },
+        {
+          "time": 50,
+          "type": "VDPA_PACKET_TRANSMIT",
+          "vq_idx": 1,
+          "desc_iova": "0x4000",
+          "len": 1500
+        },
+        {
+          "time": 60,
+          "type": "VDPA_DMA_UNMAP",
+          "iova": "0x4000",
+          "size": 4096
+        },
+        {
+          "time": 70,
+          "type": "VDPA_PACKET_TRANSMIT",
+          "vq_idx": 1,
+          "desc_iova": "0x4000",
+          "len": 1500
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "packets_transmitted": 1,
+        "dma_errors": 1,
+        "migration_checkpoints": 0,
+        "dirty_pages_logged": 0,
+        "features_negotiated": [
+          "VIRTIO_F_VERSION_1"
+        ],
+        "iotlb_entries": 0
+      },
+      "vqs": {
+        "vq_0": {
+          "num": 256,
+          "avail_idx": 0,
+          "used_idx": 0,
+          "enabled": false,
+          "svq_enabled": false
+        },
+        "vq_1": {
+          "num": 256,
+          "avail_idx": 1,
+          "used_idx": 1,
+          "enabled": true,
+          "svq_enabled": false
+        }
+      },
+      "migration_logs": [],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "VDPA_DEV_ADD_SUCCESS",
+          "dev_name": "vdpa_unmap",
+          "mgmt_dev": "pci/0000:08:00.0"
+        },
+        {
+          "time": 20,
+          "event": "VDPA_FEATURES_NEGOTIATED",
+          "features": [
+            "VIRTIO_F_VERSION_1"
+          ]
+        },
+        {
+          "time": 30,
+          "event": "VDPA_DMA_MAP_SUCCESS",
+          "iova": "0x4000",
+          "hpa": "0xb0004000",
+          "size": 4096,
+          "perm": "RW"
+        },
+        {
+          "time": 40,
+          "event": "VDPA_SET_VRING_ENABLE",
+          "vq_idx": 1,
+          "enabled": true
+        },
+        {
+          "time": 50,
+          "event": "VDPA_PACKET_TX_SUCCESS",
+          "vq_idx": 1,
+          "hpa": "0xb0004000",
+          "len": 1500,
+          "svq_forwarded": false
+        },
+        {
+          "time": 60,
+          "event": "VDPA_DMA_UNMAP_SUCCESS",
+          "iova": "0x4000",
+          "size": 4096
+        },
+        {
+          "time": 70,
+          "event": "VDPA_DMA_FAULT",
+          "vq_idx": 1,
+          "desc_iova": "0x4000",
+          "error": "IOMMU_TRANSLATION_FAILED"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "max_vqs": 2,
+        "features_supported": [
+          "VIRTIO_F_VERSION_1",
+          "VIRTIO_F_LOG_ALL"
+        ]
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "VDPA_DEV_ADD",
+          "dev_name": "vdpa_multi_dirty",
+          "mgmt_dev": "pci/0000:09:00.0"
+        },
+        {
+          "time": 20,
+          "type": "VDPA_SET_FEATURES",
+          "features": [
+            "VIRTIO_F_VERSION_1",
+            "VIRTIO_F_LOG_ALL"
+          ]
+        },
+        {
+          "time": 30,
+          "type": "VDPA_DMA_MAP",
+          "iova": "0x10000",
+          "hpa": "0xc0010000",
+          "size": 4096
+        },
+        {
+          "time": 40,
+          "type": "VDPA_DMA_MAP",
+          "iova": "0x20000",
+          "hpa": "0xc0020000",
+          "size": 4096
+        },
+        {
+          "time": 50,
+          "type": "VDPA_DMA_MAP",
+          "iova": "0x30000",
+          "hpa": "0xc0030000",
+          "size": 4096
+        },
+        {
+          "time": 60,
+          "type": "VDPA_SET_VRING_ENABLE",
+          "vq_idx": 1,
+          "enable": true
+        },
+        {
+          "time": 70,
+          "type": "VDPA_LIVE_MIGRATE_START",
+          "use_svq": true
+        },
+        {
+          "time": 80,
+          "type": "VDPA_PACKET_TRANSMIT",
+          "vq_idx": 1,
+          "desc_iova": "0x10000",
+          "len": 512
+        },
+        {
+          "time": 90,
+          "type": "VDPA_PACKET_TRANSMIT",
+          "vq_idx": 1,
+          "desc_iova": "0x20000",
+          "len": 512
+        },
+        {
+          "time": 100,
+          "type": "VDPA_PACKET_TRANSMIT",
+          "vq_idx": 1,
+          "desc_iova": "0x30000",
+          "len": 512
+        },
+        {
+          "time": 110,
+          "type": "VDPA_SUSPEND_AND_SAVE_STATE"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "packets_transmitted": 3,
+        "dma_errors": 0,
+        "migration_checkpoints": 1,
+        "dirty_pages_logged": 3,
+        "features_negotiated": [
+          "VIRTIO_F_LOG_ALL",
+          "VIRTIO_F_VERSION_1"
+        ],
+        "iotlb_entries": 3
+      },
+      "vqs": {
+        "vq_0": {
+          "num": 256,
+          "avail_idx": 0,
+          "used_idx": 0,
+          "enabled": false,
+          "svq_enabled": true
+        },
+        "vq_1": {
+          "num": 256,
+          "avail_idx": 3,
+          "used_idx": 3,
+          "enabled": true,
+          "svq_enabled": true
+        }
+      },
+      "migration_logs": [
+        {
+          "time": 70,
+          "action": "LIVE_MIGRATION_STARTED",
+          "use_svq": true
+        },
+        {
+          "time": 110,
+          "action": "DEVICE_SUSPENDED_STATE_SAVED",
+          "snapshot": {
+            "dev_name": "vdpa_multi_dirty",
+            "dirty_pages_count": 3,
+            "dirty_pages": [
+              "0xc0010000",
+              "0xc0020000",
+              "0xc0030000"
+            ],
+            "vq_states": {
+              "vq_0": {
+                "avail_idx": 0,
+                "used_idx": 0,
+                "enabled": false
+              },
+              "vq_1": {
+                "avail_idx": 3,
+                "used_idx": 3,
+                "enabled": true
+              }
+            }
+          }
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "VDPA_DEV_ADD_SUCCESS",
+          "dev_name": "vdpa_multi_dirty",
+          "mgmt_dev": "pci/0000:09:00.0"
+        },
+        {
+          "time": 20,
+          "event": "VDPA_FEATURES_NEGOTIATED",
+          "features": [
+            "VIRTIO_F_LOG_ALL",
+            "VIRTIO_F_VERSION_1"
+          ]
+        },
+        {
+          "time": 30,
+          "event": "VDPA_DMA_MAP_SUCCESS",
+          "iova": "0x10000",
+          "hpa": "0xc0010000",
+          "size": 4096,
+          "perm": "RW"
+        },
+        {
+          "time": 40,
+          "event": "VDPA_DMA_MAP_SUCCESS",
+          "iova": "0x20000",
+          "hpa": "0xc0020000",
+          "size": 4096,
+          "perm": "RW"
+        },
+        {
+          "time": 50,
+          "event": "VDPA_DMA_MAP_SUCCESS",
+          "iova": "0x30000",
+          "hpa": "0xc0030000",
+          "size": 4096,
+          "perm": "RW"
+        },
+        {
+          "time": 60,
+          "event": "VDPA_SET_VRING_ENABLE",
+          "vq_idx": 1,
+          "enabled": true
+        },
+        {
+          "time": 70,
+          "event": "VDPA_MIGRATION_START",
+          "svq_active": true
+        },
+        {
+          "time": 80,
+          "event": "VDPA_PACKET_TX_SUCCESS",
+          "vq_idx": 1,
+          "hpa": "0xc0010000",
+          "len": 512,
+          "svq_forwarded": true
+        },
+        {
+          "time": 90,
+          "event": "VDPA_PACKET_TX_SUCCESS",
+          "vq_idx": 1,
+          "hpa": "0xc0020000",
+          "len": 512,
+          "svq_forwarded": true
+        },
+        {
+          "time": 100,
+          "event": "VDPA_PACKET_TX_SUCCESS",
+          "vq_idx": 1,
+          "hpa": "0xc0030000",
+          "len": 512,
+          "svq_forwarded": true
+        },
+        {
+          "time": 110,
+          "event": "VDPA_DEVICE_SUSPENDED",
+          "dirty_pages_count": 3
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "max_vqs": 4,
+        "features_supported": [
+          "VIRTIO_F_VERSION_1",
+          "VIRTIO_NET_F_MRG_RXBUF",
+          "VIRTIO_NET_F_MQ",
+          "VIRTIO_F_LOG_ALL"
+        ]
+      },
+      "trace": [
+        {
+          "time": 100,
+          "type": "VDPA_DEV_ADD",
+          "dev_name": "vdpa_dpu_prod",
+          "mgmt_dev": "pci/0000:0a:00.0"
+        },
+        {
+          "time": 110,
+          "type": "VDPA_SET_FEATURES",
+          "features": [
+            "VIRTIO_F_VERSION_1",
+            "VIRTIO_NET_F_MQ",
+            "VIRTIO_F_LOG_ALL"
+          ]
+        },
+        {
+          "time": 120,
+          "type": "VDPA_DMA_MAP",
+          "iova": "0x5000",
+          "hpa": "0xd0005000",
+          "size": 4096
+        },
+        {
+          "time": 130,
+          "type": "VDPA_DMA_MAP",
+          "iova": "0x6000",
+          "hpa": "0xd0006000",
+          "size": 4096
+        },
+        {
+          "time": 140,
+          "type": "VDPA_SET_VRING_STATE",
+          "vq_idx": 1,
+          "num": 512,
+          "avail_idx": 10,
+          "used_idx": 10
+        },
+        {
+          "time": 150,
+          "type": "VDPA_SET_VRING_STATE",
+          "vq_idx": 3,
+          "num": 512,
+          "avail_idx": 20,
+          "used_idx": 20
+        },
+        {
+          "time": 160,
+          "type": "VDPA_SET_VRING_ENABLE",
+          "vq_idx": 1,
+          "enable": true
+        },
+        {
+          "time": 170,
+          "type": "VDPA_SET_VRING_ENABLE",
+          "vq_idx": 3,
+          "enable": true
+        },
+        {
+          "time": 180,
+          "type": "VDPA_PACKET_TRANSMIT",
+          "vq_idx": 1,
+          "desc_iova": "0x5000",
+          "len": 1500
+        },
+        {
+          "time": 190,
+          "type": "VDPA_PACKET_TRANSMIT",
+          "vq_idx": 3,
+          "desc_iova": "0x6000",
+          "len": 1500
+        },
+        {
+          "time": 200,
+          "type": "VDPA_LIVE_MIGRATE_START",
+          "use_svq": true
+        },
+        {
+          "time": 210,
+          "type": "VDPA_PACKET_TRANSMIT",
+          "vq_idx": 1,
+          "desc_iova": "0x5000",
+          "len": 1500
+        },
+        {
+          "time": 220,
+          "type": "VDPA_PACKET_TRANSMIT",
+          "vq_idx": 3,
+          "desc_iova": "0x6000",
+          "len": 1500
+        },
+        {
+          "time": 230,
+          "type": "VDPA_PACKET_TRANSMIT",
+          "vq_idx": 1,
+          "desc_iova": "0x7777",
+          "len": 64
+        },
+        {
+          "time": 240,
+          "type": "VDPA_SUSPEND_AND_SAVE_STATE"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "packets_transmitted": 4,
+        "dma_errors": 1,
+        "migration_checkpoints": 1,
+        "dirty_pages_logged": 2,
+        "features_negotiated": [
+          "VIRTIO_F_LOG_ALL",
+          "VIRTIO_F_VERSION_1",
+          "VIRTIO_NET_F_MQ"
+        ],
+        "iotlb_entries": 2
+      },
+      "vqs": {
+        "vq_0": {
+          "num": 256,
+          "avail_idx": 0,
+          "used_idx": 0,
+          "enabled": false,
+          "svq_enabled": true
+        },
+        "vq_1": {
+          "num": 512,
+          "avail_idx": 12,
+          "used_idx": 12,
+          "enabled": true,
+          "svq_enabled": true
+        },
+        "vq_2": {
+          "num": 256,
+          "avail_idx": 0,
+          "used_idx": 0,
+          "enabled": false,
+          "svq_enabled": true
+        },
+        "vq_3": {
+          "num": 512,
+          "avail_idx": 22,
+          "used_idx": 22,
+          "enabled": true,
+          "svq_enabled": true
+        }
+      },
+      "migration_logs": [
+        {
+          "time": 200,
+          "action": "LIVE_MIGRATION_STARTED",
+          "use_svq": true
+        },
+        {
+          "time": 240,
+          "action": "DEVICE_SUSPENDED_STATE_SAVED",
+          "snapshot": {
+            "dev_name": "vdpa_dpu_prod",
+            "dirty_pages_count": 2,
+            "dirty_pages": [
+              "0xd0005000",
+              "0xd0006000"
+            ],
+            "vq_states": {
+              "vq_0": {
+                "avail_idx": 0,
+                "used_idx": 0,
+                "enabled": false
+              },
+              "vq_1": {
+                "avail_idx": 12,
+                "used_idx": 12,
+                "enabled": true
+              },
+              "vq_2": {
+                "avail_idx": 0,
+                "used_idx": 0,
+                "enabled": false
+              },
+              "vq_3": {
+                "avail_idx": 22,
+                "used_idx": 22,
+                "enabled": true
+              }
+            }
+          }
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 100,
+          "event": "VDPA_DEV_ADD_SUCCESS",
+          "dev_name": "vdpa_dpu_prod",
+          "mgmt_dev": "pci/0000:0a:00.0"
+        },
+        {
+          "time": 110,
+          "event": "VDPA_FEATURES_NEGOTIATED",
+          "features": [
+            "VIRTIO_F_LOG_ALL",
+            "VIRTIO_F_VERSION_1",
+            "VIRTIO_NET_F_MQ"
+          ]
+        },
+        {
+          "time": 120,
+          "event": "VDPA_DMA_MAP_SUCCESS",
+          "iova": "0x5000",
+          "hpa": "0xd0005000",
+          "size": 4096,
+          "perm": "RW"
+        },
+        {
+          "time": 130,
+          "event": "VDPA_DMA_MAP_SUCCESS",
+          "iova": "0x6000",
+          "hpa": "0xd0006000",
+          "size": 4096,
+          "perm": "RW"
+        },
+        {
+          "time": 140,
+          "event": "VDPA_SET_VRING_STATE",
+          "vq_idx": 1,
+          "num": 512,
+          "avail_idx": 10,
+          "used_idx": 10
+        },
+        {
+          "time": 150,
+          "event": "VDPA_SET_VRING_STATE",
+          "vq_idx": 3,
+          "num": 512,
+          "avail_idx": 20,
+          "used_idx": 20
+        },
+        {
+          "time": 160,
+          "event": "VDPA_SET_VRING_ENABLE",
+          "vq_idx": 1,
+          "enabled": true
+        },
+        {
+          "time": 170,
+          "event": "VDPA_SET_VRING_ENABLE",
+          "vq_idx": 3,
+          "enabled": true
+        },
+        {
+          "time": 180,
+          "event": "VDPA_PACKET_TX_SUCCESS",
+          "vq_idx": 1,
+          "hpa": "0xd0005000",
+          "len": 1500,
+          "svq_forwarded": false
+        },
+        {
+          "time": 190,
+          "event": "VDPA_PACKET_TX_SUCCESS",
+          "vq_idx": 3,
+          "hpa": "0xd0006000",
+          "len": 1500,
+          "svq_forwarded": false
+        },
+        {
+          "time": 200,
+          "event": "VDPA_MIGRATION_START",
+          "svq_active": true
+        },
+        {
+          "time": 210,
+          "event": "VDPA_PACKET_TX_SUCCESS",
+          "vq_idx": 1,
+          "hpa": "0xd0005000",
+          "len": 1500,
+          "svq_forwarded": true
+        },
+        {
+          "time": 220,
+          "event": "VDPA_PACKET_TX_SUCCESS",
+          "vq_idx": 3,
+          "hpa": "0xd0006000",
+          "len": 1500,
+          "svq_forwarded": true
+        },
+        {
+          "time": 230,
+          "event": "VDPA_DMA_FAULT",
+          "vq_idx": 1,
+          "desc_iova": "0x7777",
+          "error": "IOMMU_TRANSLATION_FAILED"
+        },
+        {
+          "time": 240,
+          "event": "VDPA_DEVICE_SUSPENDED",
+          "dirty_pages_count": 2
+        }
+      ]
+    }
+  }
+]
