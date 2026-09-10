@@ -1,0 +1,618 @@
+[
+  {
+    "input": {
+      "config": {
+        "ctrl_id": "nvme0",
+        "aer_limit": 4,
+        "namespaces": [
+          {
+            "nsid": 1,
+            "size_lba": 1000000,
+            "block_size": 4096,
+            "ro": false
+          }
+        ]
+      },
+      "operations": [
+        {
+          "op": "TRIGGER_EVENT",
+          "event": {
+            "event_type": "SMART_HEALTH",
+            "log_page": 2,
+            "payload": {
+              "critical_warning_bits": 3
+            }
+          }
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "EVENT_PROCESSED",
+          "type": "SMART_HEALTH",
+          "warnings": [
+            "SPARE_BELOW_THRESHOLD",
+            "TEMPERATURE_EXCEEDED"
+          ],
+          "ro_enforced": false
+        },
+        {
+          "ctrl_id": "nvme0",
+          "inflight_aer": 4,
+          "total_events_handled": 1,
+          "smart_warnings_logged": 2,
+          "reset_count": 0,
+          "namespaces": [
+            {
+              "nsid": 1,
+              "size_lba": 1000000,
+              "block_size": 4096,
+              "ro": false
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "ctrl_id": "nvme0",
+        "aer_limit": 4,
+        "namespaces": [
+          {
+            "nsid": 1,
+            "size_lba": 5000000,
+            "block_size": 4096,
+            "ro": false
+          },
+          {
+            "nsid": 2,
+            "size_lba": 8000000,
+            "block_size": 4096,
+            "ro": false
+          }
+        ]
+      },
+      "operations": [
+        {
+          "op": "TRIGGER_EVENT",
+          "event": {
+            "event_type": "SMART_HEALTH",
+            "log_page": 2,
+            "payload": {
+              "critical_warning_bits": 8
+            }
+          }
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "EVENT_PROCESSED",
+          "type": "SMART_HEALTH",
+          "warnings": [
+            "MEDIA_READ_ONLY"
+          ],
+          "ro_enforced": true
+        },
+        {
+          "ctrl_id": "nvme0",
+          "inflight_aer": 4,
+          "total_events_handled": 1,
+          "smart_warnings_logged": 1,
+          "reset_count": 0,
+          "namespaces": [
+            {
+              "nsid": 1,
+              "size_lba": 5000000,
+              "block_size": 4096,
+              "ro": true
+            },
+            {
+              "nsid": 2,
+              "size_lba": 8000000,
+              "block_size": 4096,
+              "ro": true
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "ctrl_id": "nvme0",
+        "aer_limit": 4,
+        "namespaces": [
+          {
+            "nsid": 1,
+            "size_lba": 1000000,
+            "block_size": 4096,
+            "ro": false
+          }
+        ]
+      },
+      "operations": [
+        {
+          "op": "TRIGGER_EVENT",
+          "event": {
+            "event_type": "NOTICE",
+            "log_page": 4,
+            "payload": {
+              "changed_nsids": [
+                1,
+                2
+              ],
+              "ns_updates": {
+                "1": {
+                  "action": "UPDATE",
+                  "size_lba": 2000000,
+                  "block_size": 4096,
+                  "ro": false
+                },
+                "2": {
+                  "action": "ATTACH",
+                  "size_lba": 4000000,
+                  "block_size": 4096,
+                  "ro": false
+                }
+              }
+            }
+          }
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "EVENT_PROCESSED",
+          "type": "NOTICE_CHANGED_NS",
+          "scanned_nsids": [
+            1,
+            2
+          ]
+        },
+        {
+          "ctrl_id": "nvme0",
+          "inflight_aer": 4,
+          "total_events_handled": 1,
+          "smart_warnings_logged": 0,
+          "reset_count": 0,
+          "namespaces": [
+            {
+              "nsid": 1,
+              "size_lba": 2000000,
+              "block_size": 4096,
+              "ro": false
+            },
+            {
+              "nsid": 2,
+              "size_lba": 4000000,
+              "block_size": 4096,
+              "ro": false
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "ctrl_id": "nvme0",
+        "aer_limit": 4,
+        "namespaces": [
+          {
+            "nsid": 1,
+            "size_lba": 1000000,
+            "block_size": 4096,
+            "ro": false
+          },
+          {
+            "nsid": 2,
+            "size_lba": 2000000,
+            "block_size": 4096,
+            "ro": false
+          }
+        ]
+      },
+      "operations": [
+        {
+          "op": "TRIGGER_EVENT",
+          "event": {
+            "event_type": "NOTICE",
+            "log_page": 4,
+            "payload": {
+              "changed_nsids": [
+                2
+              ],
+              "ns_updates": {
+                "2": {
+                  "action": "REMOVE"
+                }
+              }
+            }
+          }
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "EVENT_PROCESSED",
+          "type": "NOTICE_CHANGED_NS",
+          "scanned_nsids": [
+            2
+          ]
+        },
+        {
+          "ctrl_id": "nvme0",
+          "inflight_aer": 4,
+          "total_events_handled": 1,
+          "smart_warnings_logged": 0,
+          "reset_count": 0,
+          "namespaces": [
+            {
+              "nsid": 1,
+              "size_lba": 1000000,
+              "block_size": 4096,
+              "ro": false
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "ctrl_id": "nvme1",
+        "aer_limit": 4,
+        "namespaces": [
+          {
+            "nsid": 1,
+            "size_lba": 10000000,
+            "block_size": 4096,
+            "ro": false
+          }
+        ]
+      },
+      "operations": [
+        {
+          "op": "TRIGGER_EVENT",
+          "event": {
+            "event_type": "TELEMETRY",
+            "log_page": 7,
+            "payload": {
+              "dump_id": "crash_telemetry_ns1_corrupt"
+            }
+          }
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "EVENT_PROCESSED",
+          "type": "TELEMETRY_CAPTURED",
+          "dump_id": "crash_telemetry_ns1_corrupt"
+        },
+        {
+          "ctrl_id": "nvme1",
+          "inflight_aer": 4,
+          "total_events_handled": 1,
+          "smart_warnings_logged": 0,
+          "reset_count": 0,
+          "namespaces": [
+            {
+              "nsid": 1,
+              "size_lba": 10000000,
+              "block_size": 4096,
+              "ro": false
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "ctrl_id": "nvme0",
+        "aer_limit": 4,
+        "initial_inflight_aer": 0,
+        "namespaces": [
+          {
+            "nsid": 1,
+            "size_lba": 1000000,
+            "block_size": 4096,
+            "ro": false
+          }
+        ]
+      },
+      "operations": [
+        {
+          "op": "TRIGGER_EVENT",
+          "event": {
+            "event_type": "SMART_HEALTH",
+            "log_page": 2,
+            "payload": {
+              "critical_warning_bits": 1
+            }
+          }
+        },
+        {
+          "op": "SUBMIT_AER"
+        },
+        {
+          "op": "SUBMIT_AER"
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "EVENT_QUEUED_NO_AER",
+          "event_type": "SMART_HEALTH"
+        },
+        {
+          "status": "EVENT_PROCESSED",
+          "type": "SMART_HEALTH",
+          "warnings": [
+            "SPARE_BELOW_THRESHOLD"
+          ],
+          "ro_enforced": false
+        },
+        {
+          "status": "AER_SUBMITTED",
+          "inflight_aer": 2
+        },
+        {
+          "ctrl_id": "nvme0",
+          "inflight_aer": 2,
+          "total_events_handled": 1,
+          "smart_warnings_logged": 1,
+          "reset_count": 0,
+          "namespaces": [
+            {
+              "nsid": 1,
+              "size_lba": 1000000,
+              "block_size": 4096,
+              "ro": false
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "ctrl_id": "nvme0",
+        "aer_limit": 4,
+        "initial_inflight_aer": 1,
+        "namespaces": [
+          {
+            "nsid": 1,
+            "size_lba": 1000000,
+            "block_size": 4096,
+            "ro": false
+          }
+        ]
+      },
+      "operations": [
+        {
+          "op": "RESET_CONTROLLER"
+        },
+        {
+          "op": "SUBMIT_AER"
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "CTRL_RESET_COMPLETE",
+          "ctrl_id": "nvme0",
+          "inflight_aer": 4
+        },
+        {
+          "status": "AER_QUEUE_FULL",
+          "inflight_aer": 4
+        },
+        {
+          "ctrl_id": "nvme0",
+          "inflight_aer": 4,
+          "total_events_handled": 0,
+          "smart_warnings_logged": 0,
+          "reset_count": 1,
+          "namespaces": [
+            {
+              "nsid": 1,
+              "size_lba": 1000000,
+              "block_size": 4096,
+              "ro": false
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "ctrl_id": "nvme_enterprise_0",
+        "aer_limit": 4,
+        "namespaces": [
+          {
+            "nsid": 1,
+            "size_lba": 50000000,
+            "block_size": 4096,
+            "ro": false
+          },
+          {
+            "nsid": 2,
+            "size_lba": 50000000,
+            "block_size": 4096,
+            "ro": false
+          }
+        ]
+      },
+      "operations": [
+        {
+          "op": "TRIGGER_EVENT",
+          "event": {
+            "event_type": "SMART_HEALTH",
+            "log_page": 2,
+            "payload": {
+              "critical_warning_bits": 4
+            }
+          }
+        },
+        {
+          "op": "TRIGGER_EVENT",
+          "event": {
+            "event_type": "NOTICE",
+            "log_page": 4,
+            "payload": {
+              "changed_nsids": [
+                1,
+                3
+              ],
+              "ns_updates": {
+                "1": {
+                  "action": "UPDATE",
+                  "size_lba": 100000000,
+                  "block_size": 4096,
+                  "ro": false
+                },
+                "3": {
+                  "action": "ATTACH",
+                  "size_lba": 25000000,
+                  "block_size": 4096,
+                  "ro": false
+                }
+              }
+            }
+          }
+        },
+        {
+          "op": "TRIGGER_EVENT",
+          "event": {
+            "event_type": "TELEMETRY",
+            "log_page": 7,
+            "payload": {
+              "dump_id": "nvme_subsys_panic_dump"
+            }
+          }
+        },
+        {
+          "op": "TRIGGER_EVENT",
+          "event": {
+            "event_type": "SMART_HEALTH",
+            "log_page": 2,
+            "payload": {
+              "critical_warning_bits": 8
+            }
+          }
+        },
+        {
+          "op": "RESET_CONTROLLER"
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "EVENT_PROCESSED",
+          "type": "SMART_HEALTH",
+          "warnings": [
+            "RELIABILITY_DEGRADED"
+          ],
+          "ro_enforced": false
+        },
+        {
+          "status": "EVENT_PROCESSED",
+          "type": "NOTICE_CHANGED_NS",
+          "scanned_nsids": [
+            1,
+            3
+          ]
+        },
+        {
+          "status": "EVENT_PROCESSED",
+          "type": "TELEMETRY_CAPTURED",
+          "dump_id": "nvme_subsys_panic_dump"
+        },
+        {
+          "status": "EVENT_PROCESSED",
+          "type": "SMART_HEALTH",
+          "warnings": [
+            "MEDIA_READ_ONLY"
+          ],
+          "ro_enforced": true
+        },
+        {
+          "status": "CTRL_RESET_COMPLETE",
+          "ctrl_id": "nvme_enterprise_0",
+          "inflight_aer": 4
+        },
+        {
+          "ctrl_id": "nvme_enterprise_0",
+          "inflight_aer": 4,
+          "total_events_handled": 4,
+          "smart_warnings_logged": 2,
+          "reset_count": 1,
+          "namespaces": [
+            {
+              "nsid": 1,
+              "size_lba": 100000000,
+              "block_size": 4096,
+              "ro": true
+            },
+            {
+              "nsid": 2,
+              "size_lba": 50000000,
+              "block_size": 4096,
+              "ro": true
+            },
+            {
+              "nsid": 3,
+              "size_lba": 25000000,
+              "block_size": 4096,
+              "ro": true
+            }
+          ]
+        }
+      ]
+    }
+  }
+]
