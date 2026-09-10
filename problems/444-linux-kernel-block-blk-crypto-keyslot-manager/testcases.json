@@ -1,0 +1,1276 @@
+[
+  {
+    "testcase_id": 1,
+    "input": {
+      "config": {
+        "num_keyslots": 4,
+        "supported_modes": [
+          "AES_256_XTS"
+        ],
+        "data_unit_size": 4096,
+        "software_fallback_enabled": true
+      },
+      "trace": [
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B1",
+          "key_id": "K1",
+          "sector": 0,
+          "num_sectors": 8,
+          "timestamp": 10
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B2",
+          "key_id": "K1",
+          "sector": 8,
+          "num_sectors": 8,
+          "timestamp": 15
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "B1"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "B2"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B1",
+          "mode": "HW_KEYSLOT",
+          "slot_id": 0,
+          "dun": 0,
+          "status": "KEYSLOT_ALLOCATED"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B2",
+          "mode": "HW_KEYSLOT",
+          "slot_id": 0,
+          "dun": 1,
+          "status": "KEYSLOT_HIT"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "B1",
+          "slot_id": 0,
+          "remaining_refcount": 1,
+          "status": "HW_KEYSLOT_RELEASED"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "B2",
+          "slot_id": 0,
+          "remaining_refcount": 0,
+          "status": "HW_KEYSLOT_RELEASED"
+        },
+        {
+          "op": "GET_STATS",
+          "keyslot_hits": 1,
+          "keyslot_allocs": 1,
+          "keyslot_evictions": 0,
+          "fallback_sw_crypt": 0,
+          "total_bios_processed": 2,
+          "total_bytes_encrypted": 8192,
+          "slots": [
+            {
+              "slot_id": 0,
+              "key_id": "K1",
+              "refcount": 0,
+              "last_used_timestamp": 15
+            },
+            {
+              "slot_id": 1,
+              "key_id": null,
+              "refcount": 0,
+              "last_used_timestamp": 0
+            },
+            {
+              "slot_id": 2,
+              "key_id": null,
+              "refcount": 0,
+              "last_used_timestamp": 0
+            },
+            {
+              "slot_id": 3,
+              "key_id": null,
+              "refcount": 0,
+              "last_used_timestamp": 0
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "keyslot_hits": 1,
+        "keyslot_allocs": 1,
+        "keyslot_evictions": 0,
+        "fallback_sw_crypt": 0,
+        "total_bios_processed": 2,
+        "total_bytes_encrypted": 8192,
+        "active_bios_in_flight": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 2,
+    "input": {
+      "config": {
+        "num_keyslots": 3,
+        "supported_modes": [
+          "AES_256_XTS"
+        ],
+        "data_unit_size": 4096,
+        "software_fallback_enabled": true
+      },
+      "trace": [
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B_K1",
+          "key_id": "KEY_1",
+          "sector": 0,
+          "num_sectors": 8,
+          "timestamp": 10
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B_K2",
+          "key_id": "KEY_2",
+          "sector": 8,
+          "num_sectors": 8,
+          "timestamp": 20
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B_K3",
+          "key_id": "KEY_3",
+          "sector": 16,
+          "num_sectors": 8,
+          "timestamp": 30
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B_K1",
+          "mode": "HW_KEYSLOT",
+          "slot_id": 0,
+          "dun": 0,
+          "status": "KEYSLOT_ALLOCATED"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B_K2",
+          "mode": "HW_KEYSLOT",
+          "slot_id": 1,
+          "dun": 1,
+          "status": "KEYSLOT_ALLOCATED"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B_K3",
+          "mode": "HW_KEYSLOT",
+          "slot_id": 2,
+          "dun": 2,
+          "status": "KEYSLOT_ALLOCATED"
+        },
+        {
+          "op": "GET_STATS",
+          "keyslot_hits": 0,
+          "keyslot_allocs": 3,
+          "keyslot_evictions": 0,
+          "fallback_sw_crypt": 0,
+          "total_bios_processed": 3,
+          "total_bytes_encrypted": 12288,
+          "slots": [
+            {
+              "slot_id": 0,
+              "key_id": "KEY_1",
+              "refcount": 1,
+              "last_used_timestamp": 10
+            },
+            {
+              "slot_id": 1,
+              "key_id": "KEY_2",
+              "refcount": 1,
+              "last_used_timestamp": 20
+            },
+            {
+              "slot_id": 2,
+              "key_id": "KEY_3",
+              "refcount": 1,
+              "last_used_timestamp": 30
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "keyslot_hits": 0,
+        "keyslot_allocs": 3,
+        "keyslot_evictions": 0,
+        "fallback_sw_crypt": 0,
+        "total_bios_processed": 3,
+        "total_bytes_encrypted": 12288,
+        "active_bios_in_flight": 3
+      }
+    }
+  },
+  {
+    "testcase_id": 3,
+    "input": {
+      "config": {
+        "num_keyslots": 2,
+        "supported_modes": [
+          "AES_256_XTS"
+        ],
+        "data_unit_size": 4096,
+        "software_fallback_enabled": true
+      },
+      "trace": [
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B1",
+          "key_id": "K_A",
+          "sector": 0,
+          "num_sectors": 8,
+          "timestamp": 10
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B2",
+          "key_id": "K_B",
+          "sector": 8,
+          "num_sectors": 8,
+          "timestamp": 20
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "B1"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B3",
+          "key_id": "K_C",
+          "sector": 16,
+          "num_sectors": 8,
+          "timestamp": 30
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B1",
+          "mode": "HW_KEYSLOT",
+          "slot_id": 0,
+          "dun": 0,
+          "status": "KEYSLOT_ALLOCATED"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B2",
+          "mode": "HW_KEYSLOT",
+          "slot_id": 1,
+          "dun": 1,
+          "status": "KEYSLOT_ALLOCATED"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "B1",
+          "slot_id": 0,
+          "remaining_refcount": 0,
+          "status": "HW_KEYSLOT_RELEASED"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B3",
+          "mode": "HW_KEYSLOT",
+          "slot_id": 0,
+          "dun": 2,
+          "status": "KEYSLOT_EVICTED_LRU"
+        },
+        {
+          "op": "GET_STATS",
+          "keyslot_hits": 0,
+          "keyslot_allocs": 2,
+          "keyslot_evictions": 1,
+          "fallback_sw_crypt": 0,
+          "total_bios_processed": 3,
+          "total_bytes_encrypted": 12288,
+          "slots": [
+            {
+              "slot_id": 0,
+              "key_id": "K_C",
+              "refcount": 1,
+              "last_used_timestamp": 30
+            },
+            {
+              "slot_id": 1,
+              "key_id": "K_B",
+              "refcount": 1,
+              "last_used_timestamp": 20
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "keyslot_hits": 0,
+        "keyslot_allocs": 2,
+        "keyslot_evictions": 1,
+        "fallback_sw_crypt": 0,
+        "total_bios_processed": 3,
+        "total_bytes_encrypted": 12288,
+        "active_bios_in_flight": 2
+      }
+    }
+  },
+  {
+    "testcase_id": 4,
+    "input": {
+      "config": {
+        "num_keyslots": 2,
+        "supported_modes": [
+          "AES_256_XTS"
+        ],
+        "data_unit_size": 4096,
+        "software_fallback_enabled": true
+      },
+      "trace": [
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B1",
+          "key_id": "K_X",
+          "sector": 0,
+          "num_sectors": 8,
+          "timestamp": 10
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B2",
+          "key_id": "K_Y",
+          "sector": 8,
+          "num_sectors": 8,
+          "timestamp": 20
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B3",
+          "key_id": "K_Z",
+          "sector": 16,
+          "num_sectors": 8,
+          "timestamp": 30
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "B3"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B1",
+          "mode": "HW_KEYSLOT",
+          "slot_id": 0,
+          "dun": 0,
+          "status": "KEYSLOT_ALLOCATED"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B2",
+          "mode": "HW_KEYSLOT",
+          "slot_id": 1,
+          "dun": 1,
+          "status": "KEYSLOT_ALLOCATED"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B3",
+          "mode": "SW_FALLBACK",
+          "slot_id": null,
+          "dun": 2,
+          "status": "FALLBACK_SW_CRYPT"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "B3",
+          "slot_id": null,
+          "remaining_refcount": 0,
+          "status": "SW_FALLBACK_RELEASED"
+        },
+        {
+          "op": "GET_STATS",
+          "keyslot_hits": 0,
+          "keyslot_allocs": 2,
+          "keyslot_evictions": 0,
+          "fallback_sw_crypt": 1,
+          "total_bios_processed": 3,
+          "total_bytes_encrypted": 12288,
+          "slots": [
+            {
+              "slot_id": 0,
+              "key_id": "K_X",
+              "refcount": 1,
+              "last_used_timestamp": 10
+            },
+            {
+              "slot_id": 1,
+              "key_id": "K_Y",
+              "refcount": 1,
+              "last_used_timestamp": 20
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "keyslot_hits": 0,
+        "keyslot_allocs": 2,
+        "keyslot_evictions": 0,
+        "fallback_sw_crypt": 1,
+        "total_bios_processed": 3,
+        "total_bytes_encrypted": 12288,
+        "active_bios_in_flight": 2
+      }
+    }
+  },
+  {
+    "testcase_id": 5,
+    "input": {
+      "config": {
+        "num_keyslots": 2,
+        "supported_modes": [
+          "AES_256_XTS"
+        ],
+        "data_unit_size": 4096,
+        "software_fallback_enabled": false
+      },
+      "trace": [
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B1",
+          "key_id": "K_1",
+          "sector": 0,
+          "num_sectors": 8,
+          "timestamp": 10
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B2",
+          "key_id": "K_2",
+          "sector": 8,
+          "num_sectors": 8,
+          "timestamp": 20
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B3",
+          "key_id": "K_3",
+          "sector": 16,
+          "num_sectors": 8,
+          "timestamp": 30
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B1",
+          "mode": "HW_KEYSLOT",
+          "slot_id": 0,
+          "dun": 0,
+          "status": "KEYSLOT_ALLOCATED"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B2",
+          "mode": "HW_KEYSLOT",
+          "slot_id": 1,
+          "dun": 1,
+          "status": "KEYSLOT_ALLOCATED"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B3",
+          "status": "KEYSLOTS_BUSY_EBUSY"
+        },
+        {
+          "op": "GET_STATS",
+          "keyslot_hits": 0,
+          "keyslot_allocs": 2,
+          "keyslot_evictions": 0,
+          "fallback_sw_crypt": 0,
+          "total_bios_processed": 3,
+          "total_bytes_encrypted": 12288,
+          "slots": [
+            {
+              "slot_id": 0,
+              "key_id": "K_1",
+              "refcount": 1,
+              "last_used_timestamp": 10
+            },
+            {
+              "slot_id": 1,
+              "key_id": "K_2",
+              "refcount": 1,
+              "last_used_timestamp": 20
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "keyslot_hits": 0,
+        "keyslot_allocs": 2,
+        "keyslot_evictions": 0,
+        "fallback_sw_crypt": 0,
+        "total_bios_processed": 3,
+        "total_bytes_encrypted": 12288,
+        "active_bios_in_flight": 2
+      }
+    }
+  },
+  {
+    "testcase_id": 6,
+    "input": {
+      "config": {
+        "num_keyslots": 2,
+        "supported_modes": [
+          "AES_256_XTS"
+        ],
+        "data_unit_size": 4096,
+        "software_fallback_enabled": true
+      },
+      "trace": [
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B1",
+          "key_id": "SECRET_K",
+          "sector": 0,
+          "num_sectors": 8,
+          "timestamp": 10
+        },
+        {
+          "op": "EVICT_KEY_EXPLICIT",
+          "key_id": "SECRET_K"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "B1"
+        },
+        {
+          "op": "EVICT_KEY_EXPLICIT",
+          "key_id": "SECRET_K"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "B1",
+          "mode": "HW_KEYSLOT",
+          "slot_id": 0,
+          "dun": 0,
+          "status": "KEYSLOT_ALLOCATED"
+        },
+        {
+          "op": "EVICT_KEY_EXPLICIT",
+          "key_id": "SECRET_K",
+          "slot_id": 0,
+          "status": "KEY_STILL_IN_USE"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "B1",
+          "slot_id": 0,
+          "remaining_refcount": 0,
+          "status": "HW_KEYSLOT_RELEASED"
+        },
+        {
+          "op": "EVICT_KEY_EXPLICIT",
+          "key_id": "SECRET_K",
+          "wiped_slots": [
+            0
+          ],
+          "status": "KEY_WIPED_FROM_KEYSLOT"
+        },
+        {
+          "op": "GET_STATS",
+          "keyslot_hits": 0,
+          "keyslot_allocs": 1,
+          "keyslot_evictions": 0,
+          "fallback_sw_crypt": 0,
+          "total_bios_processed": 1,
+          "total_bytes_encrypted": 4096,
+          "slots": [
+            {
+              "slot_id": 0,
+              "key_id": null,
+              "refcount": 0,
+              "last_used_timestamp": 10
+            },
+            {
+              "slot_id": 1,
+              "key_id": null,
+              "refcount": 0,
+              "last_used_timestamp": 0
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "keyslot_hits": 0,
+        "keyslot_allocs": 1,
+        "keyslot_evictions": 0,
+        "fallback_sw_crypt": 0,
+        "total_bios_processed": 1,
+        "total_bytes_encrypted": 4096,
+        "active_bios_in_flight": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 7,
+    "input": {
+      "config": {
+        "num_keyslots": 4,
+        "supported_modes": [
+          "AES_256_XTS"
+        ],
+        "data_unit_size": 512,
+        "software_fallback_enabled": true
+      },
+      "trace": [
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "S1",
+          "key_id": "K1",
+          "sector": 100,
+          "num_sectors": 1,
+          "timestamp": 10
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "S2",
+          "key_id": "K1",
+          "sector": 255,
+          "num_sectors": 4,
+          "timestamp": 20
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "S1"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "S2"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "S1",
+          "mode": "HW_KEYSLOT",
+          "slot_id": 0,
+          "dun": 100,
+          "status": "KEYSLOT_ALLOCATED"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "S2",
+          "mode": "HW_KEYSLOT",
+          "slot_id": 0,
+          "dun": 255,
+          "status": "KEYSLOT_HIT"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "S1",
+          "slot_id": 0,
+          "remaining_refcount": 1,
+          "status": "HW_KEYSLOT_RELEASED"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "S2",
+          "slot_id": 0,
+          "remaining_refcount": 0,
+          "status": "HW_KEYSLOT_RELEASED"
+        },
+        {
+          "op": "GET_STATS",
+          "keyslot_hits": 1,
+          "keyslot_allocs": 1,
+          "keyslot_evictions": 0,
+          "fallback_sw_crypt": 0,
+          "total_bios_processed": 2,
+          "total_bytes_encrypted": 2560,
+          "slots": [
+            {
+              "slot_id": 0,
+              "key_id": "K1",
+              "refcount": 0,
+              "last_used_timestamp": 20
+            },
+            {
+              "slot_id": 1,
+              "key_id": null,
+              "refcount": 0,
+              "last_used_timestamp": 0
+            },
+            {
+              "slot_id": 2,
+              "key_id": null,
+              "refcount": 0,
+              "last_used_timestamp": 0
+            },
+            {
+              "slot_id": 3,
+              "key_id": null,
+              "refcount": 0,
+              "last_used_timestamp": 0
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "keyslot_hits": 1,
+        "keyslot_allocs": 1,
+        "keyslot_evictions": 0,
+        "fallback_sw_crypt": 0,
+        "total_bios_processed": 2,
+        "total_bytes_encrypted": 2560,
+        "active_bios_in_flight": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 8,
+    "input": {
+      "config": {
+        "num_keyslots": 4,
+        "supported_modes": [
+          "AES_256_XTS"
+        ],
+        "data_unit_size": 4096,
+        "software_fallback_enabled": true
+      },
+      "trace": [
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_0",
+          "key_id": "KEY_0",
+          "sector": 0,
+          "num_sectors": 8,
+          "timestamp": 10
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_1",
+          "key_id": "KEY_1",
+          "sector": 8,
+          "num_sectors": 8,
+          "timestamp": 20
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_2",
+          "key_id": "KEY_2",
+          "sector": 16,
+          "num_sectors": 8,
+          "timestamp": 30
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_3",
+          "key_id": "KEY_3",
+          "sector": 24,
+          "num_sectors": 8,
+          "timestamp": 40
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_4",
+          "key_id": "KEY_4",
+          "sector": 32,
+          "num_sectors": 8,
+          "timestamp": 50
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_0"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_5",
+          "key_id": "KEY_5",
+          "sector": 40,
+          "num_sectors": 8,
+          "timestamp": 60
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_1"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_6",
+          "key_id": "KEY_6",
+          "sector": 48,
+          "num_sectors": 8,
+          "timestamp": 70
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_2"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_7",
+          "key_id": "KEY_7",
+          "sector": 56,
+          "num_sectors": 8,
+          "timestamp": 80
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_3"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_8",
+          "key_id": "KEY_0",
+          "sector": 64,
+          "num_sectors": 8,
+          "timestamp": 90
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_4"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_9",
+          "key_id": "KEY_1",
+          "sector": 72,
+          "num_sectors": 8,
+          "timestamp": 100
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_5"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_10",
+          "key_id": "KEY_2",
+          "sector": 80,
+          "num_sectors": 8,
+          "timestamp": 110
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_6"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_11",
+          "key_id": "KEY_3",
+          "sector": 88,
+          "num_sectors": 8,
+          "timestamp": 120
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_7"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_12",
+          "key_id": "KEY_4",
+          "sector": 96,
+          "num_sectors": 8,
+          "timestamp": 130
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_8"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_13",
+          "key_id": "KEY_5",
+          "sector": 104,
+          "num_sectors": 8,
+          "timestamp": 140
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_9"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_14",
+          "key_id": "KEY_6",
+          "sector": 112,
+          "num_sectors": 8,
+          "timestamp": 150
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_10"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_15",
+          "key_id": "KEY_7",
+          "sector": 120,
+          "num_sectors": 8,
+          "timestamp": 160
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_11"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_12"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_13"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_14"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_15"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_0",
+          "mode": "HW_KEYSLOT",
+          "slot_id": 0,
+          "dun": 0,
+          "status": "KEYSLOT_ALLOCATED"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_1",
+          "mode": "HW_KEYSLOT",
+          "slot_id": 1,
+          "dun": 1,
+          "status": "KEYSLOT_ALLOCATED"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_2",
+          "mode": "HW_KEYSLOT",
+          "slot_id": 2,
+          "dun": 2,
+          "status": "KEYSLOT_ALLOCATED"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_3",
+          "mode": "HW_KEYSLOT",
+          "slot_id": 3,
+          "dun": 3,
+          "status": "KEYSLOT_ALLOCATED"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_4",
+          "mode": "SW_FALLBACK",
+          "slot_id": null,
+          "dun": 4,
+          "status": "FALLBACK_SW_CRYPT"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_0",
+          "slot_id": 0,
+          "remaining_refcount": 0,
+          "status": "HW_KEYSLOT_RELEASED"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_5",
+          "mode": "HW_KEYSLOT",
+          "slot_id": 0,
+          "dun": 5,
+          "status": "KEYSLOT_EVICTED_LRU"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_1",
+          "slot_id": 1,
+          "remaining_refcount": 0,
+          "status": "HW_KEYSLOT_RELEASED"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_6",
+          "mode": "HW_KEYSLOT",
+          "slot_id": 1,
+          "dun": 6,
+          "status": "KEYSLOT_EVICTED_LRU"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_2",
+          "slot_id": 2,
+          "remaining_refcount": 0,
+          "status": "HW_KEYSLOT_RELEASED"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_7",
+          "mode": "HW_KEYSLOT",
+          "slot_id": 2,
+          "dun": 7,
+          "status": "KEYSLOT_EVICTED_LRU"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_3",
+          "slot_id": 3,
+          "remaining_refcount": 0,
+          "status": "HW_KEYSLOT_RELEASED"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_8",
+          "mode": "HW_KEYSLOT",
+          "slot_id": 3,
+          "dun": 8,
+          "status": "KEYSLOT_EVICTED_LRU"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_4",
+          "slot_id": null,
+          "remaining_refcount": 0,
+          "status": "SW_FALLBACK_RELEASED"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_9",
+          "mode": "SW_FALLBACK",
+          "slot_id": null,
+          "dun": 9,
+          "status": "FALLBACK_SW_CRYPT"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_5",
+          "slot_id": 0,
+          "remaining_refcount": 0,
+          "status": "HW_KEYSLOT_RELEASED"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_10",
+          "mode": "HW_KEYSLOT",
+          "slot_id": 0,
+          "dun": 10,
+          "status": "KEYSLOT_EVICTED_LRU"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_6",
+          "slot_id": 1,
+          "remaining_refcount": 0,
+          "status": "HW_KEYSLOT_RELEASED"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_11",
+          "mode": "HW_KEYSLOT",
+          "slot_id": 1,
+          "dun": 11,
+          "status": "KEYSLOT_EVICTED_LRU"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_7",
+          "slot_id": 2,
+          "remaining_refcount": 0,
+          "status": "HW_KEYSLOT_RELEASED"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_12",
+          "mode": "HW_KEYSLOT",
+          "slot_id": 2,
+          "dun": 12,
+          "status": "KEYSLOT_EVICTED_LRU"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_8",
+          "slot_id": 3,
+          "remaining_refcount": 0,
+          "status": "HW_KEYSLOT_RELEASED"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_13",
+          "mode": "HW_KEYSLOT",
+          "slot_id": 3,
+          "dun": 13,
+          "status": "KEYSLOT_EVICTED_LRU"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_9",
+          "slot_id": null,
+          "remaining_refcount": 0,
+          "status": "SW_FALLBACK_RELEASED"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_14",
+          "mode": "SW_FALLBACK",
+          "slot_id": null,
+          "dun": 14,
+          "status": "FALLBACK_SW_CRYPT"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_10",
+          "slot_id": 0,
+          "remaining_refcount": 0,
+          "status": "HW_KEYSLOT_RELEASED"
+        },
+        {
+          "op": "SUBMIT_BIO_CRYPT",
+          "bio_id": "BIO_15",
+          "mode": "HW_KEYSLOT",
+          "slot_id": 0,
+          "dun": 15,
+          "status": "KEYSLOT_EVICTED_LRU"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_11",
+          "slot_id": 1,
+          "remaining_refcount": 0,
+          "status": "HW_KEYSLOT_RELEASED"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_12",
+          "slot_id": 2,
+          "remaining_refcount": 0,
+          "status": "HW_KEYSLOT_RELEASED"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_13",
+          "slot_id": 3,
+          "remaining_refcount": 0,
+          "status": "HW_KEYSLOT_RELEASED"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_14",
+          "slot_id": null,
+          "remaining_refcount": 0,
+          "status": "SW_FALLBACK_RELEASED"
+        },
+        {
+          "op": "COMPLETE_BIO_CRYPT",
+          "bio_id": "BIO_15",
+          "slot_id": 0,
+          "remaining_refcount": 0,
+          "status": "HW_KEYSLOT_RELEASED"
+        },
+        {
+          "op": "GET_STATS",
+          "keyslot_hits": 0,
+          "keyslot_allocs": 4,
+          "keyslot_evictions": 9,
+          "fallback_sw_crypt": 3,
+          "total_bios_processed": 16,
+          "total_bytes_encrypted": 65536,
+          "slots": [
+            {
+              "slot_id": 0,
+              "key_id": "KEY_7",
+              "refcount": 0,
+              "last_used_timestamp": 160
+            },
+            {
+              "slot_id": 1,
+              "key_id": "KEY_3",
+              "refcount": 0,
+              "last_used_timestamp": 120
+            },
+            {
+              "slot_id": 2,
+              "key_id": "KEY_4",
+              "refcount": 0,
+              "last_used_timestamp": 130
+            },
+            {
+              "slot_id": 3,
+              "key_id": "KEY_5",
+              "refcount": 0,
+              "last_used_timestamp": 140
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "keyslot_hits": 0,
+        "keyslot_allocs": 4,
+        "keyslot_evictions": 9,
+        "fallback_sw_crypt": 3,
+        "total_bios_processed": 16,
+        "total_bytes_encrypted": 65536,
+        "active_bios_in_flight": 0
+      }
+    }
+  }
+]
