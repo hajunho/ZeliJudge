@@ -1,0 +1,1814 @@
+[
+  {
+    "input": {
+      "config": {},
+      "trace": [
+        {
+          "time": 10,
+          "type": "CREATE_TASK",
+          "task_id": "T_low",
+          "prio": 90
+        },
+        {
+          "time": 20,
+          "type": "CREATE_TASK",
+          "task_id": "T_med",
+          "prio": 50
+        },
+        {
+          "time": 30,
+          "type": "CREATE_TASK",
+          "task_id": "T_high",
+          "prio": 10
+        },
+        {
+          "time": 40,
+          "type": "LOCK",
+          "task_id": "T_low",
+          "mutex_id": "M_bus"
+        },
+        {
+          "time": 50,
+          "type": "LOCK",
+          "task_id": "T_high",
+          "mutex_id": "M_bus"
+        },
+        {
+          "time": 60,
+          "type": "UNLOCK",
+          "task_id": "T_low",
+          "mutex_id": "M_bus"
+        },
+        {
+          "time": 70,
+          "type": "UNLOCK",
+          "task_id": "T_high",
+          "mutex_id": "M_bus"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "pi_boost_count": 1,
+        "pi_deboost_count": 1,
+        "deadlocks_prevented": 0,
+        "total_tasks": 3,
+        "total_mutexes": 1
+      },
+      "tasks": {
+        "T_high": {
+          "normal_prio": 10,
+          "effective_prio": 10,
+          "held_locks": [],
+          "blocked_on": null
+        },
+        "T_low": {
+          "normal_prio": 90,
+          "effective_prio": 90,
+          "held_locks": [],
+          "blocked_on": null
+        },
+        "T_med": {
+          "normal_prio": 50,
+          "effective_prio": 50,
+          "held_locks": [],
+          "blocked_on": null
+        }
+      },
+      "mutexes": {
+        "M_bus": {
+          "owner": null,
+          "waiter_count": 0,
+          "waiters": []
+        }
+      },
+      "pi_logs": [
+        {
+          "time": 50,
+          "action": "PI_BOOST",
+          "task_id": "T_low",
+          "old_prio": 90,
+          "new_prio": 10
+        },
+        {
+          "time": 60,
+          "action": "PI_DEBOOST",
+          "task_id": "T_low",
+          "old_prio": 10,
+          "new_prio": 90
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "TASK_CREATED",
+          "task_id": "T_low",
+          "prio": 90
+        },
+        {
+          "time": 20,
+          "event": "TASK_CREATED",
+          "task_id": "T_med",
+          "prio": 50
+        },
+        {
+          "time": 30,
+          "event": "TASK_CREATED",
+          "task_id": "T_high",
+          "prio": 10
+        },
+        {
+          "time": 40,
+          "event": "LOCK_ACQUIRED_FASTPATH",
+          "task_id": "T_low",
+          "mutex_id": "M_bus"
+        },
+        {
+          "time": 50,
+          "event": "LOCK_BLOCKED",
+          "task_id": "T_high",
+          "mutex_id": "M_bus",
+          "owner": "T_low"
+        },
+        {
+          "time": 60,
+          "event": "LOCK_RELEASED",
+          "task_id": "T_low",
+          "mutex_id": "M_bus"
+        },
+        {
+          "time": 60,
+          "event": "LOCK_HANDOFF",
+          "mutex_id": "M_bus",
+          "from_task": "T_low",
+          "to_task": "T_high"
+        },
+        {
+          "time": 70,
+          "event": "LOCK_RELEASED",
+          "task_id": "T_high",
+          "mutex_id": "M_bus"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "trace": [
+        {
+          "time": 10,
+          "type": "CREATE_TASK",
+          "task_id": "T_owner",
+          "prio": 95
+        },
+        {
+          "time": 20,
+          "type": "CREATE_TASK",
+          "task_id": "T_w1",
+          "prio": 60
+        },
+        {
+          "time": 30,
+          "type": "CREATE_TASK",
+          "task_id": "T_w2",
+          "prio": 20
+        },
+        {
+          "time": 40,
+          "type": "CREATE_TASK",
+          "task_id": "T_w3",
+          "prio": 40
+        },
+        {
+          "time": 50,
+          "type": "LOCK",
+          "task_id": "T_owner",
+          "mutex_id": "M1"
+        },
+        {
+          "time": 60,
+          "type": "LOCK",
+          "task_id": "T_w1",
+          "mutex_id": "M1"
+        },
+        {
+          "time": 70,
+          "type": "LOCK",
+          "task_id": "T_w2",
+          "mutex_id": "M1"
+        },
+        {
+          "time": 80,
+          "type": "LOCK",
+          "task_id": "T_w3",
+          "mutex_id": "M1"
+        },
+        {
+          "time": 90,
+          "type": "UNLOCK",
+          "task_id": "T_owner",
+          "mutex_id": "M1"
+        },
+        {
+          "time": 100,
+          "type": "UNLOCK",
+          "task_id": "T_w2",
+          "mutex_id": "M1"
+        },
+        {
+          "time": 110,
+          "type": "UNLOCK",
+          "task_id": "T_w3",
+          "mutex_id": "M1"
+        },
+        {
+          "time": 120,
+          "type": "UNLOCK",
+          "task_id": "T_w1",
+          "mutex_id": "M1"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "pi_boost_count": 2,
+        "pi_deboost_count": 1,
+        "deadlocks_prevented": 0,
+        "total_tasks": 4,
+        "total_mutexes": 1
+      },
+      "tasks": {
+        "T_owner": {
+          "normal_prio": 95,
+          "effective_prio": 95,
+          "held_locks": [],
+          "blocked_on": null
+        },
+        "T_w1": {
+          "normal_prio": 60,
+          "effective_prio": 60,
+          "held_locks": [],
+          "blocked_on": null
+        },
+        "T_w2": {
+          "normal_prio": 20,
+          "effective_prio": 20,
+          "held_locks": [],
+          "blocked_on": null
+        },
+        "T_w3": {
+          "normal_prio": 40,
+          "effective_prio": 40,
+          "held_locks": [],
+          "blocked_on": null
+        }
+      },
+      "mutexes": {
+        "M1": {
+          "owner": null,
+          "waiter_count": 0,
+          "waiters": []
+        }
+      },
+      "pi_logs": [
+        {
+          "time": 60,
+          "action": "PI_BOOST",
+          "task_id": "T_owner",
+          "old_prio": 95,
+          "new_prio": 60
+        },
+        {
+          "time": 70,
+          "action": "PI_BOOST",
+          "task_id": "T_owner",
+          "old_prio": 60,
+          "new_prio": 20
+        },
+        {
+          "time": 90,
+          "action": "PI_DEBOOST",
+          "task_id": "T_owner",
+          "old_prio": 20,
+          "new_prio": 95
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "TASK_CREATED",
+          "task_id": "T_owner",
+          "prio": 95
+        },
+        {
+          "time": 20,
+          "event": "TASK_CREATED",
+          "task_id": "T_w1",
+          "prio": 60
+        },
+        {
+          "time": 30,
+          "event": "TASK_CREATED",
+          "task_id": "T_w2",
+          "prio": 20
+        },
+        {
+          "time": 40,
+          "event": "TASK_CREATED",
+          "task_id": "T_w3",
+          "prio": 40
+        },
+        {
+          "time": 50,
+          "event": "LOCK_ACQUIRED_FASTPATH",
+          "task_id": "T_owner",
+          "mutex_id": "M1"
+        },
+        {
+          "time": 60,
+          "event": "LOCK_BLOCKED",
+          "task_id": "T_w1",
+          "mutex_id": "M1",
+          "owner": "T_owner"
+        },
+        {
+          "time": 70,
+          "event": "LOCK_BLOCKED",
+          "task_id": "T_w2",
+          "mutex_id": "M1",
+          "owner": "T_owner"
+        },
+        {
+          "time": 80,
+          "event": "LOCK_BLOCKED",
+          "task_id": "T_w3",
+          "mutex_id": "M1",
+          "owner": "T_owner"
+        },
+        {
+          "time": 90,
+          "event": "LOCK_RELEASED",
+          "task_id": "T_owner",
+          "mutex_id": "M1"
+        },
+        {
+          "time": 90,
+          "event": "LOCK_HANDOFF",
+          "mutex_id": "M1",
+          "from_task": "T_owner",
+          "to_task": "T_w2"
+        },
+        {
+          "time": 100,
+          "event": "LOCK_RELEASED",
+          "task_id": "T_w2",
+          "mutex_id": "M1"
+        },
+        {
+          "time": 100,
+          "event": "LOCK_HANDOFF",
+          "mutex_id": "M1",
+          "from_task": "T_w2",
+          "to_task": "T_w3"
+        },
+        {
+          "time": 110,
+          "event": "LOCK_RELEASED",
+          "task_id": "T_w3",
+          "mutex_id": "M1"
+        },
+        {
+          "time": 110,
+          "event": "LOCK_HANDOFF",
+          "mutex_id": "M1",
+          "from_task": "T_w3",
+          "to_task": "T_w1"
+        },
+        {
+          "time": 120,
+          "event": "LOCK_RELEASED",
+          "task_id": "T_w1",
+          "mutex_id": "M1"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "trace": [
+        {
+          "time": 10,
+          "type": "CREATE_TASK",
+          "task_id": "T1",
+          "prio": 80
+        },
+        {
+          "time": 20,
+          "type": "CREATE_TASK",
+          "task_id": "T2",
+          "prio": 60
+        },
+        {
+          "time": 30,
+          "type": "CREATE_TASK",
+          "task_id": "T3",
+          "prio": 40
+        },
+        {
+          "time": 40,
+          "type": "CREATE_TASK",
+          "task_id": "T_vip",
+          "prio": 10
+        },
+        {
+          "time": 50,
+          "type": "LOCK",
+          "task_id": "T1",
+          "mutex_id": "M1"
+        },
+        {
+          "time": 60,
+          "type": "LOCK",
+          "task_id": "T2",
+          "mutex_id": "M2"
+        },
+        {
+          "time": 70,
+          "type": "LOCK",
+          "task_id": "T3",
+          "mutex_id": "M3"
+        },
+        {
+          "time": 80,
+          "type": "LOCK",
+          "task_id": "T2",
+          "mutex_id": "M1"
+        },
+        {
+          "time": 90,
+          "type": "LOCK",
+          "task_id": "T3",
+          "mutex_id": "M2"
+        },
+        {
+          "time": 100,
+          "type": "LOCK",
+          "task_id": "T_vip",
+          "mutex_id": "M3"
+        },
+        {
+          "time": 110,
+          "type": "UNLOCK",
+          "task_id": "T1",
+          "mutex_id": "M1"
+        },
+        {
+          "time": 120,
+          "type": "UNLOCK",
+          "task_id": "T2",
+          "mutex_id": "M2"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "pi_boost_count": 6,
+        "pi_deboost_count": 2,
+        "deadlocks_prevented": 0,
+        "total_tasks": 4,
+        "total_mutexes": 3
+      },
+      "tasks": {
+        "T1": {
+          "normal_prio": 80,
+          "effective_prio": 80,
+          "held_locks": [],
+          "blocked_on": null
+        },
+        "T2": {
+          "normal_prio": 60,
+          "effective_prio": 60,
+          "held_locks": [
+            "M1"
+          ],
+          "blocked_on": null
+        },
+        "T3": {
+          "normal_prio": 40,
+          "effective_prio": 10,
+          "held_locks": [
+            "M2",
+            "M3"
+          ],
+          "blocked_on": null
+        },
+        "T_vip": {
+          "normal_prio": 10,
+          "effective_prio": 10,
+          "held_locks": [],
+          "blocked_on": "M3"
+        }
+      },
+      "mutexes": {
+        "M1": {
+          "owner": "T2",
+          "waiter_count": 0,
+          "waiters": []
+        },
+        "M2": {
+          "owner": "T3",
+          "waiter_count": 0,
+          "waiters": []
+        },
+        "M3": {
+          "owner": "T3",
+          "waiter_count": 1,
+          "waiters": [
+            "T_vip"
+          ]
+        }
+      },
+      "pi_logs": [
+        {
+          "time": 80,
+          "action": "PI_BOOST",
+          "task_id": "T1",
+          "old_prio": 80,
+          "new_prio": 60
+        },
+        {
+          "time": 90,
+          "action": "PI_BOOST",
+          "task_id": "T2",
+          "old_prio": 60,
+          "new_prio": 40
+        },
+        {
+          "time": 90,
+          "action": "PI_BOOST",
+          "task_id": "T1",
+          "old_prio": 60,
+          "new_prio": 40
+        },
+        {
+          "time": 100,
+          "action": "PI_BOOST",
+          "task_id": "T3",
+          "old_prio": 40,
+          "new_prio": 10
+        },
+        {
+          "time": 100,
+          "action": "PI_BOOST",
+          "task_id": "T2",
+          "old_prio": 40,
+          "new_prio": 10
+        },
+        {
+          "time": 100,
+          "action": "PI_BOOST",
+          "task_id": "T1",
+          "old_prio": 40,
+          "new_prio": 10
+        },
+        {
+          "time": 110,
+          "action": "PI_DEBOOST",
+          "task_id": "T1",
+          "old_prio": 10,
+          "new_prio": 80
+        },
+        {
+          "time": 120,
+          "action": "PI_DEBOOST",
+          "task_id": "T2",
+          "old_prio": 10,
+          "new_prio": 60
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "TASK_CREATED",
+          "task_id": "T1",
+          "prio": 80
+        },
+        {
+          "time": 20,
+          "event": "TASK_CREATED",
+          "task_id": "T2",
+          "prio": 60
+        },
+        {
+          "time": 30,
+          "event": "TASK_CREATED",
+          "task_id": "T3",
+          "prio": 40
+        },
+        {
+          "time": 40,
+          "event": "TASK_CREATED",
+          "task_id": "T_vip",
+          "prio": 10
+        },
+        {
+          "time": 50,
+          "event": "LOCK_ACQUIRED_FASTPATH",
+          "task_id": "T1",
+          "mutex_id": "M1"
+        },
+        {
+          "time": 60,
+          "event": "LOCK_ACQUIRED_FASTPATH",
+          "task_id": "T2",
+          "mutex_id": "M2"
+        },
+        {
+          "time": 70,
+          "event": "LOCK_ACQUIRED_FASTPATH",
+          "task_id": "T3",
+          "mutex_id": "M3"
+        },
+        {
+          "time": 80,
+          "event": "LOCK_BLOCKED",
+          "task_id": "T2",
+          "mutex_id": "M1",
+          "owner": "T1"
+        },
+        {
+          "time": 90,
+          "event": "LOCK_BLOCKED",
+          "task_id": "T3",
+          "mutex_id": "M2",
+          "owner": "T2"
+        },
+        {
+          "time": 100,
+          "event": "LOCK_BLOCKED",
+          "task_id": "T_vip",
+          "mutex_id": "M3",
+          "owner": "T3"
+        },
+        {
+          "time": 110,
+          "event": "LOCK_RELEASED",
+          "task_id": "T1",
+          "mutex_id": "M1"
+        },
+        {
+          "time": 110,
+          "event": "LOCK_HANDOFF",
+          "mutex_id": "M1",
+          "from_task": "T1",
+          "to_task": "T2"
+        },
+        {
+          "time": 120,
+          "event": "LOCK_RELEASED",
+          "task_id": "T2",
+          "mutex_id": "M2"
+        },
+        {
+          "time": 120,
+          "event": "LOCK_HANDOFF",
+          "mutex_id": "M2",
+          "from_task": "T2",
+          "to_task": "T3"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "trace": [
+        {
+          "time": 10,
+          "type": "CREATE_TASK",
+          "task_id": "P1",
+          "prio": 50
+        },
+        {
+          "time": 20,
+          "type": "CREATE_TASK",
+          "task_id": "P2",
+          "prio": 40
+        },
+        {
+          "time": 30,
+          "type": "CREATE_TASK",
+          "task_id": "P3",
+          "prio": 30
+        },
+        {
+          "time": 40,
+          "type": "LOCK",
+          "task_id": "P1",
+          "mutex_id": "MA"
+        },
+        {
+          "time": 50,
+          "type": "LOCK",
+          "task_id": "P2",
+          "mutex_id": "MB"
+        },
+        {
+          "time": 60,
+          "type": "LOCK",
+          "task_id": "P3",
+          "mutex_id": "MC"
+        },
+        {
+          "time": 70,
+          "type": "LOCK",
+          "task_id": "P2",
+          "mutex_id": "MA"
+        },
+        {
+          "time": 80,
+          "type": "LOCK",
+          "task_id": "P3",
+          "mutex_id": "MB"
+        },
+        {
+          "time": 90,
+          "type": "LOCK",
+          "task_id": "P1",
+          "mutex_id": "MC"
+        },
+        {
+          "time": 100,
+          "type": "UNLOCK",
+          "task_id": "P1",
+          "mutex_id": "MA"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "pi_boost_count": 3,
+        "pi_deboost_count": 1,
+        "deadlocks_prevented": 1,
+        "total_tasks": 3,
+        "total_mutexes": 3
+      },
+      "tasks": {
+        "P1": {
+          "normal_prio": 50,
+          "effective_prio": 50,
+          "held_locks": [],
+          "blocked_on": null
+        },
+        "P2": {
+          "normal_prio": 40,
+          "effective_prio": 30,
+          "held_locks": [
+            "MA",
+            "MB"
+          ],
+          "blocked_on": null
+        },
+        "P3": {
+          "normal_prio": 30,
+          "effective_prio": 30,
+          "held_locks": [
+            "MC"
+          ],
+          "blocked_on": "MB"
+        }
+      },
+      "mutexes": {
+        "MA": {
+          "owner": "P2",
+          "waiter_count": 0,
+          "waiters": []
+        },
+        "MB": {
+          "owner": "P2",
+          "waiter_count": 1,
+          "waiters": [
+            "P3"
+          ]
+        },
+        "MC": {
+          "owner": "P3",
+          "waiter_count": 0,
+          "waiters": []
+        }
+      },
+      "pi_logs": [
+        {
+          "time": 70,
+          "action": "PI_BOOST",
+          "task_id": "P1",
+          "old_prio": 50,
+          "new_prio": 40
+        },
+        {
+          "time": 80,
+          "action": "PI_BOOST",
+          "task_id": "P2",
+          "old_prio": 40,
+          "new_prio": 30
+        },
+        {
+          "time": 80,
+          "action": "PI_BOOST",
+          "task_id": "P1",
+          "old_prio": 40,
+          "new_prio": 30
+        },
+        {
+          "time": 100,
+          "action": "PI_DEBOOST",
+          "task_id": "P1",
+          "old_prio": 30,
+          "new_prio": 50
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "TASK_CREATED",
+          "task_id": "P1",
+          "prio": 50
+        },
+        {
+          "time": 20,
+          "event": "TASK_CREATED",
+          "task_id": "P2",
+          "prio": 40
+        },
+        {
+          "time": 30,
+          "event": "TASK_CREATED",
+          "task_id": "P3",
+          "prio": 30
+        },
+        {
+          "time": 40,
+          "event": "LOCK_ACQUIRED_FASTPATH",
+          "task_id": "P1",
+          "mutex_id": "MA"
+        },
+        {
+          "time": 50,
+          "event": "LOCK_ACQUIRED_FASTPATH",
+          "task_id": "P2",
+          "mutex_id": "MB"
+        },
+        {
+          "time": 60,
+          "event": "LOCK_ACQUIRED_FASTPATH",
+          "task_id": "P3",
+          "mutex_id": "MC"
+        },
+        {
+          "time": 70,
+          "event": "LOCK_BLOCKED",
+          "task_id": "P2",
+          "mutex_id": "MA",
+          "owner": "P1"
+        },
+        {
+          "time": 80,
+          "event": "LOCK_BLOCKED",
+          "task_id": "P3",
+          "mutex_id": "MB",
+          "owner": "P2"
+        },
+        {
+          "time": 90,
+          "event": "DEADLOCK_DETECTED",
+          "task_id": "P1",
+          "mutex_id": "MC",
+          "owner": "P3"
+        },
+        {
+          "time": 100,
+          "event": "LOCK_RELEASED",
+          "task_id": "P1",
+          "mutex_id": "MA"
+        },
+        {
+          "time": 100,
+          "event": "LOCK_HANDOFF",
+          "mutex_id": "MA",
+          "from_task": "P1",
+          "to_task": "P2"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "trace": [
+        {
+          "time": 10,
+          "type": "CREATE_TASK",
+          "task_id": "T_hub",
+          "prio": 90
+        },
+        {
+          "time": 20,
+          "type": "CREATE_TASK",
+          "task_id": "T_reqA",
+          "prio": 30
+        },
+        {
+          "time": 30,
+          "type": "CREATE_TASK",
+          "task_id": "T_reqB",
+          "prio": 15
+        },
+        {
+          "time": 40,
+          "type": "LOCK",
+          "task_id": "T_hub",
+          "mutex_id": "M_resA"
+        },
+        {
+          "time": 50,
+          "type": "LOCK",
+          "task_id": "T_hub",
+          "mutex_id": "M_resB"
+        },
+        {
+          "time": 60,
+          "type": "LOCK",
+          "task_id": "T_reqA",
+          "mutex_id": "M_resA"
+        },
+        {
+          "time": 70,
+          "type": "LOCK",
+          "task_id": "T_reqB",
+          "mutex_id": "M_resB"
+        },
+        {
+          "time": 80,
+          "type": "UNLOCK",
+          "task_id": "T_hub",
+          "mutex_id": "M_resB"
+        },
+        {
+          "time": 90,
+          "type": "UNLOCK",
+          "task_id": "T_hub",
+          "mutex_id": "M_resA"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "pi_boost_count": 2,
+        "pi_deboost_count": 2,
+        "deadlocks_prevented": 0,
+        "total_tasks": 3,
+        "total_mutexes": 2
+      },
+      "tasks": {
+        "T_hub": {
+          "normal_prio": 90,
+          "effective_prio": 90,
+          "held_locks": [],
+          "blocked_on": null
+        },
+        "T_reqA": {
+          "normal_prio": 30,
+          "effective_prio": 30,
+          "held_locks": [
+            "M_resA"
+          ],
+          "blocked_on": null
+        },
+        "T_reqB": {
+          "normal_prio": 15,
+          "effective_prio": 15,
+          "held_locks": [
+            "M_resB"
+          ],
+          "blocked_on": null
+        }
+      },
+      "mutexes": {
+        "M_resA": {
+          "owner": "T_reqA",
+          "waiter_count": 0,
+          "waiters": []
+        },
+        "M_resB": {
+          "owner": "T_reqB",
+          "waiter_count": 0,
+          "waiters": []
+        }
+      },
+      "pi_logs": [
+        {
+          "time": 60,
+          "action": "PI_BOOST",
+          "task_id": "T_hub",
+          "old_prio": 90,
+          "new_prio": 30
+        },
+        {
+          "time": 70,
+          "action": "PI_BOOST",
+          "task_id": "T_hub",
+          "old_prio": 30,
+          "new_prio": 15
+        },
+        {
+          "time": 80,
+          "action": "PI_DEBOOST",
+          "task_id": "T_hub",
+          "old_prio": 15,
+          "new_prio": 30
+        },
+        {
+          "time": 90,
+          "action": "PI_DEBOOST",
+          "task_id": "T_hub",
+          "old_prio": 30,
+          "new_prio": 90
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "TASK_CREATED",
+          "task_id": "T_hub",
+          "prio": 90
+        },
+        {
+          "time": 20,
+          "event": "TASK_CREATED",
+          "task_id": "T_reqA",
+          "prio": 30
+        },
+        {
+          "time": 30,
+          "event": "TASK_CREATED",
+          "task_id": "T_reqB",
+          "prio": 15
+        },
+        {
+          "time": 40,
+          "event": "LOCK_ACQUIRED_FASTPATH",
+          "task_id": "T_hub",
+          "mutex_id": "M_resA"
+        },
+        {
+          "time": 50,
+          "event": "LOCK_ACQUIRED_FASTPATH",
+          "task_id": "T_hub",
+          "mutex_id": "M_resB"
+        },
+        {
+          "time": 60,
+          "event": "LOCK_BLOCKED",
+          "task_id": "T_reqA",
+          "mutex_id": "M_resA",
+          "owner": "T_hub"
+        },
+        {
+          "time": 70,
+          "event": "LOCK_BLOCKED",
+          "task_id": "T_reqB",
+          "mutex_id": "M_resB",
+          "owner": "T_hub"
+        },
+        {
+          "time": 80,
+          "event": "LOCK_RELEASED",
+          "task_id": "T_hub",
+          "mutex_id": "M_resB"
+        },
+        {
+          "time": 80,
+          "event": "LOCK_HANDOFF",
+          "mutex_id": "M_resB",
+          "from_task": "T_hub",
+          "to_task": "T_reqB"
+        },
+        {
+          "time": 90,
+          "event": "LOCK_RELEASED",
+          "task_id": "T_hub",
+          "mutex_id": "M_resA"
+        },
+        {
+          "time": 90,
+          "event": "LOCK_HANDOFF",
+          "mutex_id": "M_resA",
+          "from_task": "T_hub",
+          "to_task": "T_reqA"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "trace": [
+        {
+          "time": 10,
+          "type": "CREATE_TASK",
+          "task_id": "Worker",
+          "prio": 90
+        },
+        {
+          "time": 20,
+          "type": "CREATE_TASK",
+          "task_id": "Client",
+          "prio": 30
+        },
+        {
+          "time": 30,
+          "type": "LOCK",
+          "task_id": "Worker",
+          "mutex_id": "M_shared"
+        },
+        {
+          "time": 40,
+          "type": "LOCK",
+          "task_id": "Client",
+          "mutex_id": "M_shared"
+        },
+        {
+          "time": 50,
+          "type": "CHANGE_PRIO",
+          "task_id": "Client",
+          "new_prio": 10
+        },
+        {
+          "time": 60,
+          "type": "CHANGE_PRIO",
+          "task_id": "Client",
+          "new_prio": 70
+        },
+        {
+          "time": 70,
+          "type": "CHANGE_PRIO",
+          "task_id": "Worker",
+          "new_prio": 50
+        },
+        {
+          "time": 80,
+          "type": "UNLOCK",
+          "task_id": "Worker",
+          "mutex_id": "M_shared"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "pi_boost_count": 4,
+        "pi_deboost_count": 2,
+        "deadlocks_prevented": 0,
+        "total_tasks": 2,
+        "total_mutexes": 1
+      },
+      "tasks": {
+        "Client": {
+          "normal_prio": 70,
+          "effective_prio": 70,
+          "held_locks": [
+            "M_shared"
+          ],
+          "blocked_on": null
+        },
+        "Worker": {
+          "normal_prio": 50,
+          "effective_prio": 50,
+          "held_locks": [],
+          "blocked_on": null
+        }
+      },
+      "mutexes": {
+        "M_shared": {
+          "owner": "Client",
+          "waiter_count": 0,
+          "waiters": []
+        }
+      },
+      "pi_logs": [
+        {
+          "time": 40,
+          "action": "PI_BOOST",
+          "task_id": "Worker",
+          "old_prio": 90,
+          "new_prio": 30
+        },
+        {
+          "time": 50,
+          "action": "PI_BOOST",
+          "task_id": "Client",
+          "old_prio": 30,
+          "new_prio": 10
+        },
+        {
+          "time": 50,
+          "action": "PI_BOOST",
+          "task_id": "Worker",
+          "old_prio": 30,
+          "new_prio": 10
+        },
+        {
+          "time": 60,
+          "action": "PI_DEBOOST",
+          "task_id": "Client",
+          "old_prio": 10,
+          "new_prio": 70
+        },
+        {
+          "time": 60,
+          "action": "PI_DEBOOST",
+          "task_id": "Worker",
+          "old_prio": 10,
+          "new_prio": 70
+        },
+        {
+          "time": 70,
+          "action": "PI_BOOST",
+          "task_id": "Worker",
+          "old_prio": 70,
+          "new_prio": 50
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "TASK_CREATED",
+          "task_id": "Worker",
+          "prio": 90
+        },
+        {
+          "time": 20,
+          "event": "TASK_CREATED",
+          "task_id": "Client",
+          "prio": 30
+        },
+        {
+          "time": 30,
+          "event": "LOCK_ACQUIRED_FASTPATH",
+          "task_id": "Worker",
+          "mutex_id": "M_shared"
+        },
+        {
+          "time": 40,
+          "event": "LOCK_BLOCKED",
+          "task_id": "Client",
+          "mutex_id": "M_shared",
+          "owner": "Worker"
+        },
+        {
+          "time": 50,
+          "event": "PRIO_CHANGED",
+          "task_id": "Client",
+          "old_prio": 30,
+          "new_prio": 10
+        },
+        {
+          "time": 60,
+          "event": "PRIO_CHANGED",
+          "task_id": "Client",
+          "old_prio": 10,
+          "new_prio": 70
+        },
+        {
+          "time": 70,
+          "event": "PRIO_CHANGED",
+          "task_id": "Worker",
+          "old_prio": 90,
+          "new_prio": 50
+        },
+        {
+          "time": 80,
+          "event": "LOCK_RELEASED",
+          "task_id": "Worker",
+          "mutex_id": "M_shared"
+        },
+        {
+          "time": 80,
+          "event": "LOCK_HANDOFF",
+          "mutex_id": "M_shared",
+          "from_task": "Worker",
+          "to_task": "Client"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "trace": [
+        {
+          "time": 10,
+          "type": "CREATE_TASK",
+          "task_id": "X1",
+          "prio": 50
+        },
+        {
+          "time": 20,
+          "type": "CREATE_TASK",
+          "task_id": "X2",
+          "prio": 40
+        },
+        {
+          "time": 30,
+          "type": "LOCK",
+          "task_id": "X1",
+          "mutex_id": "M_alpha"
+        },
+        {
+          "time": 40,
+          "type": "LOCK",
+          "task_id": "X2",
+          "mutex_id": "M_beta"
+        },
+        {
+          "time": 50,
+          "type": "LOCK",
+          "task_id": "X1",
+          "mutex_id": "M_beta"
+        },
+        {
+          "time": 60,
+          "type": "LOCK",
+          "task_id": "X2",
+          "mutex_id": "M_alpha"
+        },
+        {
+          "time": 70,
+          "type": "UNLOCK",
+          "task_id": "X2",
+          "mutex_id": "M_beta"
+        },
+        {
+          "time": 80,
+          "type": "LOCK",
+          "task_id": "X2",
+          "mutex_id": "M_alpha"
+        },
+        {
+          "time": 90,
+          "type": "UNLOCK",
+          "task_id": "X1",
+          "mutex_id": "M_alpha"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "pi_boost_count": 1,
+        "pi_deboost_count": 1,
+        "deadlocks_prevented": 1,
+        "total_tasks": 2,
+        "total_mutexes": 2
+      },
+      "tasks": {
+        "X1": {
+          "normal_prio": 50,
+          "effective_prio": 50,
+          "held_locks": [
+            "M_beta"
+          ],
+          "blocked_on": null
+        },
+        "X2": {
+          "normal_prio": 40,
+          "effective_prio": 40,
+          "held_locks": [
+            "M_alpha"
+          ],
+          "blocked_on": null
+        }
+      },
+      "mutexes": {
+        "M_alpha": {
+          "owner": "X2",
+          "waiter_count": 0,
+          "waiters": []
+        },
+        "M_beta": {
+          "owner": "X1",
+          "waiter_count": 0,
+          "waiters": []
+        }
+      },
+      "pi_logs": [
+        {
+          "time": 80,
+          "action": "PI_BOOST",
+          "task_id": "X1",
+          "old_prio": 50,
+          "new_prio": 40
+        },
+        {
+          "time": 90,
+          "action": "PI_DEBOOST",
+          "task_id": "X1",
+          "old_prio": 40,
+          "new_prio": 50
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "TASK_CREATED",
+          "task_id": "X1",
+          "prio": 50
+        },
+        {
+          "time": 20,
+          "event": "TASK_CREATED",
+          "task_id": "X2",
+          "prio": 40
+        },
+        {
+          "time": 30,
+          "event": "LOCK_ACQUIRED_FASTPATH",
+          "task_id": "X1",
+          "mutex_id": "M_alpha"
+        },
+        {
+          "time": 40,
+          "event": "LOCK_ACQUIRED_FASTPATH",
+          "task_id": "X2",
+          "mutex_id": "M_beta"
+        },
+        {
+          "time": 50,
+          "event": "LOCK_BLOCKED",
+          "task_id": "X1",
+          "mutex_id": "M_beta",
+          "owner": "X2"
+        },
+        {
+          "time": 60,
+          "event": "DEADLOCK_DETECTED",
+          "task_id": "X2",
+          "mutex_id": "M_alpha",
+          "owner": "X1"
+        },
+        {
+          "time": 70,
+          "event": "LOCK_RELEASED",
+          "task_id": "X2",
+          "mutex_id": "M_beta"
+        },
+        {
+          "time": 70,
+          "event": "LOCK_HANDOFF",
+          "mutex_id": "M_beta",
+          "from_task": "X2",
+          "to_task": "X1"
+        },
+        {
+          "time": 80,
+          "event": "LOCK_BLOCKED",
+          "task_id": "X2",
+          "mutex_id": "M_alpha",
+          "owner": "X1"
+        },
+        {
+          "time": 90,
+          "event": "LOCK_RELEASED",
+          "task_id": "X1",
+          "mutex_id": "M_alpha"
+        },
+        {
+          "time": 90,
+          "event": "LOCK_HANDOFF",
+          "mutex_id": "M_alpha",
+          "from_task": "X1",
+          "to_task": "X2"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "trace": [
+        {
+          "time": 100,
+          "type": "CREATE_TASK",
+          "task_id": "Audio_DSP",
+          "prio": 5
+        },
+        {
+          "time": 110,
+          "type": "CREATE_TASK",
+          "task_id": "Display_Compositor",
+          "prio": 15
+        },
+        {
+          "time": 120,
+          "type": "CREATE_TASK",
+          "task_id": "Net_RX",
+          "prio": 25
+        },
+        {
+          "time": 130,
+          "type": "CREATE_TASK",
+          "task_id": "Storage_Flush",
+          "prio": 70
+        },
+        {
+          "time": 140,
+          "type": "CREATE_TASK",
+          "task_id": "Telemetry",
+          "prio": 95
+        },
+        {
+          "time": 150,
+          "type": "LOCK",
+          "task_id": "Storage_Flush",
+          "mutex_id": "Disk_Lock"
+        },
+        {
+          "time": 160,
+          "type": "LOCK",
+          "task_id": "Storage_Flush",
+          "mutex_id": "Buffer_Lock"
+        },
+        {
+          "time": 170,
+          "type": "LOCK",
+          "task_id": "Display_Compositor",
+          "mutex_id": "Frame_Lock"
+        },
+        {
+          "time": 180,
+          "type": "LOCK",
+          "task_id": "Telemetry",
+          "mutex_id": "Disk_Lock"
+        },
+        {
+          "time": 190,
+          "type": "LOCK",
+          "task_id": "Net_RX",
+          "mutex_id": "Buffer_Lock"
+        },
+        {
+          "time": 200,
+          "type": "LOCK",
+          "task_id": "Display_Compositor",
+          "mutex_id": "Disk_Lock"
+        },
+        {
+          "time": 210,
+          "type": "LOCK",
+          "task_id": "Audio_DSP",
+          "mutex_id": "Frame_Lock"
+        },
+        {
+          "time": 220,
+          "type": "LOCK",
+          "task_id": "Storage_Flush",
+          "mutex_id": "Frame_Lock"
+        },
+        {
+          "time": 230,
+          "type": "UNLOCK",
+          "task_id": "Storage_Flush",
+          "mutex_id": "Disk_Lock"
+        },
+        {
+          "time": 240,
+          "type": "UNLOCK",
+          "task_id": "Storage_Flush",
+          "mutex_id": "Buffer_Lock"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "pi_boost_count": 4,
+        "pi_deboost_count": 2,
+        "deadlocks_prevented": 1,
+        "total_tasks": 5,
+        "total_mutexes": 3
+      },
+      "tasks": {
+        "Audio_DSP": {
+          "normal_prio": 5,
+          "effective_prio": 5,
+          "held_locks": [],
+          "blocked_on": "Frame_Lock"
+        },
+        "Display_Compositor": {
+          "normal_prio": 15,
+          "effective_prio": 5,
+          "held_locks": [
+            "Disk_Lock",
+            "Frame_Lock"
+          ],
+          "blocked_on": null
+        },
+        "Net_RX": {
+          "normal_prio": 25,
+          "effective_prio": 25,
+          "held_locks": [
+            "Buffer_Lock"
+          ],
+          "blocked_on": null
+        },
+        "Storage_Flush": {
+          "normal_prio": 70,
+          "effective_prio": 70,
+          "held_locks": [],
+          "blocked_on": null
+        },
+        "Telemetry": {
+          "normal_prio": 95,
+          "effective_prio": 95,
+          "held_locks": [],
+          "blocked_on": "Disk_Lock"
+        }
+      },
+      "mutexes": {
+        "Buffer_Lock": {
+          "owner": "Net_RX",
+          "waiter_count": 0,
+          "waiters": []
+        },
+        "Disk_Lock": {
+          "owner": "Display_Compositor",
+          "waiter_count": 1,
+          "waiters": [
+            "Telemetry"
+          ]
+        },
+        "Frame_Lock": {
+          "owner": "Display_Compositor",
+          "waiter_count": 1,
+          "waiters": [
+            "Audio_DSP"
+          ]
+        }
+      },
+      "pi_logs": [
+        {
+          "time": 190,
+          "action": "PI_BOOST",
+          "task_id": "Storage_Flush",
+          "old_prio": 70,
+          "new_prio": 25
+        },
+        {
+          "time": 200,
+          "action": "PI_BOOST",
+          "task_id": "Storage_Flush",
+          "old_prio": 25,
+          "new_prio": 15
+        },
+        {
+          "time": 210,
+          "action": "PI_BOOST",
+          "task_id": "Display_Compositor",
+          "old_prio": 15,
+          "new_prio": 5
+        },
+        {
+          "time": 210,
+          "action": "PI_BOOST",
+          "task_id": "Storage_Flush",
+          "old_prio": 15,
+          "new_prio": 5
+        },
+        {
+          "time": 230,
+          "action": "PI_DEBOOST",
+          "task_id": "Storage_Flush",
+          "old_prio": 5,
+          "new_prio": 25
+        },
+        {
+          "time": 240,
+          "action": "PI_DEBOOST",
+          "task_id": "Storage_Flush",
+          "old_prio": 25,
+          "new_prio": 70
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 100,
+          "event": "TASK_CREATED",
+          "task_id": "Audio_DSP",
+          "prio": 5
+        },
+        {
+          "time": 110,
+          "event": "TASK_CREATED",
+          "task_id": "Display_Compositor",
+          "prio": 15
+        },
+        {
+          "time": 120,
+          "event": "TASK_CREATED",
+          "task_id": "Net_RX",
+          "prio": 25
+        },
+        {
+          "time": 130,
+          "event": "TASK_CREATED",
+          "task_id": "Storage_Flush",
+          "prio": 70
+        },
+        {
+          "time": 140,
+          "event": "TASK_CREATED",
+          "task_id": "Telemetry",
+          "prio": 95
+        },
+        {
+          "time": 150,
+          "event": "LOCK_ACQUIRED_FASTPATH",
+          "task_id": "Storage_Flush",
+          "mutex_id": "Disk_Lock"
+        },
+        {
+          "time": 160,
+          "event": "LOCK_ACQUIRED_FASTPATH",
+          "task_id": "Storage_Flush",
+          "mutex_id": "Buffer_Lock"
+        },
+        {
+          "time": 170,
+          "event": "LOCK_ACQUIRED_FASTPATH",
+          "task_id": "Display_Compositor",
+          "mutex_id": "Frame_Lock"
+        },
+        {
+          "time": 180,
+          "event": "LOCK_BLOCKED",
+          "task_id": "Telemetry",
+          "mutex_id": "Disk_Lock",
+          "owner": "Storage_Flush"
+        },
+        {
+          "time": 190,
+          "event": "LOCK_BLOCKED",
+          "task_id": "Net_RX",
+          "mutex_id": "Buffer_Lock",
+          "owner": "Storage_Flush"
+        },
+        {
+          "time": 200,
+          "event": "LOCK_BLOCKED",
+          "task_id": "Display_Compositor",
+          "mutex_id": "Disk_Lock",
+          "owner": "Storage_Flush"
+        },
+        {
+          "time": 210,
+          "event": "LOCK_BLOCKED",
+          "task_id": "Audio_DSP",
+          "mutex_id": "Frame_Lock",
+          "owner": "Display_Compositor"
+        },
+        {
+          "time": 220,
+          "event": "DEADLOCK_DETECTED",
+          "task_id": "Storage_Flush",
+          "mutex_id": "Frame_Lock",
+          "owner": "Display_Compositor"
+        },
+        {
+          "time": 230,
+          "event": "LOCK_RELEASED",
+          "task_id": "Storage_Flush",
+          "mutex_id": "Disk_Lock"
+        },
+        {
+          "time": 230,
+          "event": "LOCK_HANDOFF",
+          "mutex_id": "Disk_Lock",
+          "from_task": "Storage_Flush",
+          "to_task": "Display_Compositor"
+        },
+        {
+          "time": 240,
+          "event": "LOCK_RELEASED",
+          "task_id": "Storage_Flush",
+          "mutex_id": "Buffer_Lock"
+        },
+        {
+          "time": 240,
+          "event": "LOCK_HANDOFF",
+          "mutex_id": "Buffer_Lock",
+          "from_task": "Storage_Flush",
+          "to_task": "Net_RX"
+        }
+      ]
+    }
+  }
+]
