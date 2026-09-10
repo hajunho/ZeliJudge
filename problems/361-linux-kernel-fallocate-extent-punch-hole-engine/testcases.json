@@ -1,0 +1,42 @@
+[
+  {
+    "name": "연속 쓰기 및 단일 익스텐트 자동 병합 (Sequential Writes & Extent Coalescing)",
+    "input": "{\"block_size\":4096,\"initial_file_size\":0,\"operations\":[{\"op\":\"WRITE\",\"offset\":0,\"length\":4096},{\"op\":\"WRITE\",\"offset\":4096,\"length\":4096},{\"op\":\"WRITE\",\"offset\":8192,\"length\":4096}]}",
+    "output": "{\"file_size\":12288,\"block_size\":4096,\"allocated_blocks\":3,\"hole_blocks\":0,\"extent_count\":1,\"extents\":[{\"lblk\":0,\"len\":3,\"pblk\":1000,\"state\":\"WRITTEN\"}],\"stats\":{\"total_blocks_allocated\":3,\"total_blocks_freed\":0},\"op_log\":[{\"op\":\"WRITE\",\"offset\":0,\"length\":4096,\"pblk_start\":1000,\"nr_blocks\":1,\"file_size\":4096},{\"op\":\"WRITE\",\"offset\":4096,\"length\":4096,\"pblk_start\":1001,\"nr_blocks\":1,\"file_size\":8192},{\"op\":\"WRITE\",\"offset\":8192,\"length\":4096,\"pblk_start\":1002,\"nr_blocks\":1,\"file_size\":12288}]}"
+  },
+  {
+    "name": "사전 할당 및 비기록(Unwritten) 익스텐트 생성 (Preallocation & Unwritten Extents)",
+    "input": "{\"block_size\":4096,\"initial_file_size\":0,\"operations\":[{\"op\":\"PREALLOCATE\",\"offset\":0,\"length\":16384,\"keep_size\":false},{\"op\":\"WRITE\",\"offset\":4096,\"length\":4096}]}",
+    "output": "{\"file_size\":16384,\"block_size\":4096,\"allocated_blocks\":4,\"hole_blocks\":0,\"extent_count\":3,\"extents\":[{\"lblk\":0,\"len\":1,\"pblk\":1000,\"state\":\"UNWRITTEN\"},{\"lblk\":1,\"len\":1,\"pblk\":1004,\"state\":\"WRITTEN\"},{\"lblk\":2,\"len\":2,\"pblk\":1002,\"state\":\"UNWRITTEN\"}],\"stats\":{\"total_blocks_allocated\":5,\"total_blocks_freed\":0},\"op_log\":[{\"op\":\"PREALLOCATE\",\"offset\":0,\"length\":16384,\"keep_size\":false,\"file_size\":16384},{\"op\":\"WRITE\",\"offset\":4096,\"length\":4096,\"pblk_start\":1004,\"nr_blocks\":1,\"file_size\":16384}]}"
+  },
+  {
+    "name": "펀치 홀(Punch Hole) 및 스파스 파일 변환 (Punch Hole & Sparse File Creation)",
+    "input": "{\"block_size\":4096,\"initial_file_size\":0,\"operations\":[{\"op\":\"WRITE\",\"offset\":0,\"length\":20480},{\"op\":\"PUNCH_HOLE\",\"offset\":4096,\"length\":8192}]}",
+    "output": "{\"file_size\":20480,\"block_size\":4096,\"allocated_blocks\":3,\"hole_blocks\":2,\"extent_count\":3,\"extents\":[{\"lblk\":0,\"len\":1,\"pblk\":1000,\"state\":\"WRITTEN\"},{\"lblk\":1,\"len\":2,\"pblk\":null,\"state\":\"HOLE\"},{\"lblk\":3,\"len\":2,\"pblk\":1003,\"state\":\"WRITTEN\"}],\"stats\":{\"total_blocks_allocated\":5,\"total_blocks_freed\":2},\"op_log\":[{\"op\":\"WRITE\",\"offset\":0,\"length\":20480,\"pblk_start\":1000,\"nr_blocks\":5,\"file_size\":20480},{\"op\":\"PUNCH_HOLE\",\"offset\":4096,\"length\":8192,\"freed_blocks\":2,\"file_size\":20480}]}"
+  },
+  {
+    "name": "제로 레인지(Zero Range) 및 부분 초기화 (Zero Range with Unwritten Retention)",
+    "input": "{\"block_size\":4096,\"initial_file_size\":0,\"operations\":[{\"op\":\"WRITE\",\"offset\":0,\"length\":16384},{\"op\":\"ZERO_RANGE\",\"offset\":4096,\"length\":8192,\"keep_size\":false}]}",
+    "output": "{\"file_size\":16384,\"block_size\":4096,\"allocated_blocks\":4,\"hole_blocks\":0,\"extent_count\":3,\"extents\":[{\"lblk\":0,\"len\":1,\"pblk\":1000,\"state\":\"WRITTEN\"},{\"lblk\":1,\"len\":2,\"pblk\":1004,\"state\":\"UNWRITTEN\"},{\"lblk\":3,\"len\":1,\"pblk\":1003,\"state\":\"WRITTEN\"}],\"stats\":{\"total_blocks_allocated\":6,\"total_blocks_freed\":0},\"op_log\":[{\"op\":\"WRITE\",\"offset\":0,\"length\":16384,\"pblk_start\":1000,\"nr_blocks\":4,\"file_size\":16384},{\"op\":\"ZERO_RANGE\",\"offset\":4096,\"length\":8192,\"zero_len\":2,\"file_size\":16384}]}"
+  },
+  {
+    "name": "콜랩스 레인지(Collapse Range) 제로-카피 파일 단축 (Zero-Copy Extent Collapsing)",
+    "input": "{\"block_size\":4096,\"initial_file_size\":0,\"operations\":[{\"op\":\"WRITE\",\"offset\":0,\"length\":24576},{\"op\":\"COLLAPSE_RANGE\",\"offset\":4096,\"length\":8192}]}",
+    "output": "{\"file_size\":16384,\"block_size\":4096,\"allocated_blocks\":0,\"hole_blocks\":0,\"extent_count\":0,\"extents\":[],\"stats\":{\"total_blocks_allocated\":6,\"total_blocks_freed\":6},\"op_log\":[{\"op\":\"WRITE\",\"offset\":0,\"length\":24576,\"pblk_start\":1000,\"nr_blocks\":6,\"file_size\":24576},{\"op\":\"COLLAPSE_RANGE\",\"offset\":4096,\"length\":8192,\"freed_blocks\":6,\"file_size\":16384}]}"
+  },
+  {
+    "name": "인서트 레인지(Insert Range) 제로-카피 구멍 삽입 (Zero-Copy Hole Insertion & Shifting)",
+    "input": "{\"block_size\":4096,\"initial_file_size\":0,\"operations\":[{\"op\":\"WRITE\",\"offset\":0,\"length\":8192},{\"op\":\"INSERT_RANGE\",\"offset\":4096,\"length\":8192}]}",
+    "output": "{\"file_size\":16384,\"block_size\":4096,\"allocated_blocks\":2,\"hole_blocks\":2,\"extent_count\":2,\"extents\":[{\"lblk\":0,\"len\":2,\"pblk\":1000,\"state\":\"WRITTEN\"},{\"lblk\":1,\"len\":2,\"pblk\":null,\"state\":\"HOLE\"}],\"stats\":{\"total_blocks_allocated\":2,\"total_blocks_freed\":0},\"op_log\":[{\"op\":\"WRITE\",\"offset\":0,\"length\":8192,\"pblk_start\":1000,\"nr_blocks\":2,\"file_size\":8192},{\"op\":\"INSERT_RANGE\",\"offset\":4096,\"length\":8192,\"inserted_blocks\":2,\"file_size\":16384}]}"
+  },
+  {
+    "name": "스파스 파일과 비연속 물리 블록 파편화 (Sparse File Fragmentation & Non-contiguous Extents)",
+    "input": "{\"block_size\":4096,\"initial_file_size\":0,\"operations\":[{\"op\":\"WRITE\",\"offset\":0,\"length\":32768},{\"op\":\"PUNCH_HOLE\",\"offset\":4096,\"length\":4096},{\"op\":\"PUNCH_HOLE\",\"offset\":16384,\"length\":8192},{\"op\":\"WRITE\",\"offset\":20480,\"length\":4096}]}",
+    "output": "{\"file_size\":32768,\"block_size\":4096,\"allocated_blocks\":6,\"hole_blocks\":2,\"extent_count\":6,\"extents\":[{\"lblk\":0,\"len\":1,\"pblk\":1000,\"state\":\"WRITTEN\"},{\"lblk\":1,\"len\":1,\"pblk\":null,\"state\":\"HOLE\"},{\"lblk\":2,\"len\":2,\"pblk\":1002,\"state\":\"WRITTEN\"},{\"lblk\":4,\"len\":1,\"pblk\":null,\"state\":\"HOLE\"},{\"lblk\":5,\"len\":1,\"pblk\":1008,\"state\":\"WRITTEN\"},{\"lblk\":6,\"len\":2,\"pblk\":1006,\"state\":\"WRITTEN\"}],\"stats\":{\"total_blocks_allocated\":9,\"total_blocks_freed\":3},\"op_log\":[{\"op\":\"WRITE\",\"offset\":0,\"length\":32768,\"pblk_start\":1000,\"nr_blocks\":8,\"file_size\":32768},{\"op\":\"PUNCH_HOLE\",\"offset\":4096,\"length\":4096,\"freed_blocks\":1,\"file_size\":32768},{\"op\":\"PUNCH_HOLE\",\"offset\":16384,\"length\":8192,\"freed_blocks\":2,\"file_size\":32768},{\"op\":\"WRITE\",\"offset\":20480,\"length\":4096,\"pblk_start\":1008,\"nr_blocks\":1,\"file_size\":32768}]}"
+  },
+  {
+    "name": "복합 실무 시나리오: 로그 컴팩션, VM 디스크 트림 및 DB 파일 재구성 (Full Production Storage Lifecycle)",
+    "input": "{\"block_size\":4096,\"initial_file_size\":0,\"operations\":[{\"op\":\"PREALLOCATE\",\"offset\":0,\"length\":65536,\"keep_size\":false},{\"op\":\"WRITE\",\"offset\":0,\"length\":16384},{\"op\":\"WRITE\",\"offset\":32768,\"length\":16384},{\"op\":\"PUNCH_HOLE\",\"offset\":4096,\"length\":8192},{\"op\":\"COLLAPSE_RANGE\",\"offset\":16384,\"length\":16384},{\"op\":\"INSERT_RANGE\",\"offset\":8192,\"length\":8192}]}",
+    "output": "{\"file_size\":57344,\"block_size\":4096,\"allocated_blocks\":10,\"hole_blocks\":4,\"extent_count\":5,\"extents\":[{\"lblk\":0,\"len\":1,\"pblk\":1016,\"state\":\"WRITTEN\"},{\"lblk\":1,\"len\":2,\"pblk\":null,\"state\":\"HOLE\"},{\"lblk\":2,\"len\":2,\"pblk\":null,\"state\":\"HOLE\"},{\"lblk\":5,\"len\":5,\"pblk\":1019,\"state\":\"WRITTEN\"},{\"lblk\":10,\"len\":4,\"pblk\":1012,\"state\":\"UNWRITTEN\"}],\"stats\":{\"total_blocks_allocated\":24,\"total_blocks_freed\":6},\"op_log\":[{\"op\":\"PREALLOCATE\",\"offset\":0,\"length\":65536,\"keep_size\":false,\"file_size\":65536},{\"op\":\"WRITE\",\"offset\":0,\"length\":16384,\"pblk_start\":1016,\"nr_blocks\":4,\"file_size\":65536},{\"op\":\"WRITE\",\"offset\":32768,\"length\":16384,\"pblk_start\":1020,\"nr_blocks\":4,\"file_size\":65536},{\"op\":\"PUNCH_HOLE\",\"offset\":4096,\"length\":8192,\"freed_blocks\":2,\"file_size\":65536},{\"op\":\"COLLAPSE_RANGE\",\"offset\":16384,\"length\":16384,\"freed_blocks\":4,\"file_size\":49152},{\"op\":\"INSERT_RANGE\",\"offset\":8192,\"length\":8192,\"inserted_blocks\":2,\"file_size\":57344}]}"
+  }
+]
