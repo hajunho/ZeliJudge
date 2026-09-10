@@ -1,0 +1,1241 @@
+[
+  {
+    "name": "기본 섀도우 스택 활성화 및 중첩 함수 호출/복귀(Call/Ret) 정상 동작",
+    "input": {
+      "config": {
+        "max_threads": 4
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_THREAD",
+          "thread_id": 1
+        },
+        {
+          "time": 1,
+          "type": "ARCH_PRCTL",
+          "thread_id": 1,
+          "cmd": "ARCH_SHSTK_ENABLE"
+        },
+        {
+          "time": 2,
+          "type": "CALL_FUNC",
+          "thread_id": 1,
+          "func": "main",
+          "ret_addr": 4198400
+        },
+        {
+          "time": 3,
+          "type": "CALL_FUNC",
+          "thread_id": 1,
+          "func": "do_work",
+          "ret_addr": 4198656
+        },
+        {
+          "time": 4,
+          "type": "CALL_FUNC",
+          "thread_id": 1,
+          "func": "helper",
+          "ret_addr": 4198912
+        },
+        {
+          "time": 5,
+          "type": "RET_FUNC",
+          "thread_id": 1
+        },
+        {
+          "time": 6,
+          "type": "RET_FUNC",
+          "thread_id": 1
+        },
+        {
+          "time": 7,
+          "type": "RET_FUNC",
+          "thread_id": 1
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_calls": 3,
+        "total_rets": 3,
+        "successful_rets": 3,
+        "cp_exceptions": 0,
+        "rop_attacks_blocked": 0,
+        "shadow_stack_write_violations": 0,
+        "active_threads": 1
+      },
+      "thread_states": {
+        "1": {
+          "thread_id": 1,
+          "shstk_enabled": true,
+          "shstk_locked": false,
+          "data_stack_depth": 0,
+          "shadow_stack_depth": 0,
+          "is_alive": true
+        }
+      },
+      "security_alerts": [],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_THREAD",
+          "thread_id": 1
+        },
+        {
+          "time": 1,
+          "event": "ARCH_PRCTL",
+          "thread_id": 1,
+          "cmd": "ARCH_SHSTK_ENABLE",
+          "ret": 0,
+          "shstk_enabled": true,
+          "shstk_locked": false
+        },
+        {
+          "time": 2,
+          "event": "CALL_FUNC",
+          "thread_id": 1,
+          "func": "main",
+          "ret_addr": "0x00401000",
+          "shstk_pushed": true,
+          "stack_depth": 1
+        },
+        {
+          "time": 3,
+          "event": "CALL_FUNC",
+          "thread_id": 1,
+          "func": "do_work",
+          "ret_addr": "0x00401100",
+          "shstk_pushed": true,
+          "stack_depth": 2
+        },
+        {
+          "time": 4,
+          "event": "CALL_FUNC",
+          "thread_id": 1,
+          "func": "helper",
+          "ret_addr": "0x00401200",
+          "shstk_pushed": true,
+          "stack_depth": 3
+        },
+        {
+          "time": 5,
+          "event": "RET_FUNC",
+          "thread_id": 1,
+          "status": "SUCCESS",
+          "ret_addr": "0x00401200"
+        },
+        {
+          "time": 6,
+          "event": "RET_FUNC",
+          "thread_id": 1,
+          "status": "SUCCESS",
+          "ret_addr": "0x00401100"
+        },
+        {
+          "time": 7,
+          "event": "RET_FUNC",
+          "thread_id": 1,
+          "status": "SUCCESS",
+          "ret_addr": "0x00401000"
+        }
+      ]
+    }
+  },
+  {
+    "name": "버퍼 오버플로우 기반 ROP 복귀 주소 변조 시 #CP 제어 보호 예외 즉각 차단",
+    "input": {
+      "config": {
+        "max_threads": 4
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_THREAD",
+          "thread_id": 1
+        },
+        {
+          "time": 1,
+          "type": "ARCH_PRCTL",
+          "thread_id": 1,
+          "cmd": "ARCH_SHSTK_ENABLE"
+        },
+        {
+          "time": 2,
+          "type": "CALL_FUNC",
+          "thread_id": 1,
+          "func": "auth_check",
+          "ret_addr": 4202496
+        },
+        {
+          "time": 3,
+          "type": "ATTACK_ROP_CORRUPT_STACK",
+          "thread_id": 1,
+          "offset": 0,
+          "fake_ret_addr": 3735928559
+        },
+        {
+          "time": 4,
+          "type": "RET_FUNC",
+          "thread_id": 1
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_calls": 1,
+        "total_rets": 1,
+        "successful_rets": 0,
+        "cp_exceptions": 1,
+        "rop_attacks_blocked": 1,
+        "shadow_stack_write_violations": 0,
+        "active_threads": 0
+      },
+      "thread_states": {
+        "1": {
+          "thread_id": 1,
+          "shstk_enabled": true,
+          "shstk_locked": false,
+          "data_stack_depth": 0,
+          "shadow_stack_depth": 0,
+          "is_alive": false
+        }
+      },
+      "security_alerts": [
+        {
+          "time": 4,
+          "thread_id": 1,
+          "type": "CONTROL_PROTECTION_EXCEPTION",
+          "reason": "SHADOW_STACK_MISMATCH",
+          "si_code": "SEGV_CPERR",
+          "expected_ret": "0x00402000",
+          "corrupted_ret": "0xdeadbeef"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_THREAD",
+          "thread_id": 1
+        },
+        {
+          "time": 1,
+          "event": "ARCH_PRCTL",
+          "thread_id": 1,
+          "cmd": "ARCH_SHSTK_ENABLE",
+          "ret": 0,
+          "shstk_enabled": true,
+          "shstk_locked": false
+        },
+        {
+          "time": 2,
+          "event": "CALL_FUNC",
+          "thread_id": 1,
+          "func": "auth_check",
+          "ret_addr": "0x00402000",
+          "shstk_pushed": true,
+          "stack_depth": 1
+        },
+        {
+          "time": 3,
+          "event": "ATTACK_ROP_CORRUPT_STACK",
+          "thread_id": 1,
+          "target_idx": 0,
+          "orig_ret": "0x00402000",
+          "fake_ret": "0xdeadbeef"
+        },
+        {
+          "time": 4,
+          "event": "RET_FUNC",
+          "thread_id": 1,
+          "status": "CP_EXCEPTION",
+          "actual_ret": "0xdeadbeef",
+          "expected_ret": "0x00402000"
+        }
+      ]
+    }
+  },
+  {
+    "name": "CET 비활성화 상태와 활성화 상태의 ROP 공격 취약성 및 방어 비교 검증",
+    "input": {
+      "config": {
+        "max_threads": 4
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_THREAD",
+          "thread_id": 1
+        },
+        {
+          "time": 1,
+          "type": "CALL_FUNC",
+          "thread_id": 1,
+          "func": "vuln_service",
+          "ret_addr": 4206592
+        },
+        {
+          "time": 2,
+          "type": "ATTACK_ROP_CORRUPT_STACK",
+          "thread_id": 1,
+          "offset": 0,
+          "fake_ret_addr": 3134193665
+        },
+        {
+          "time": 3,
+          "type": "RET_FUNC",
+          "thread_id": 1
+        },
+        {
+          "time": 4,
+          "type": "CREATE_THREAD",
+          "thread_id": 2
+        },
+        {
+          "time": 5,
+          "type": "ARCH_PRCTL",
+          "thread_id": 2,
+          "cmd": "ARCH_SHSTK_ENABLE"
+        },
+        {
+          "time": 6,
+          "type": "CALL_FUNC",
+          "thread_id": 2,
+          "func": "vuln_service",
+          "ret_addr": 4206592
+        },
+        {
+          "time": 7,
+          "type": "ATTACK_ROP_CORRUPT_STACK",
+          "thread_id": 2,
+          "offset": 0,
+          "fake_ret_addr": 3134193665
+        },
+        {
+          "time": 8,
+          "type": "RET_FUNC",
+          "thread_id": 2
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_calls": 2,
+        "total_rets": 2,
+        "successful_rets": 1,
+        "cp_exceptions": 1,
+        "rop_attacks_blocked": 1,
+        "shadow_stack_write_violations": 0,
+        "active_threads": 1
+      },
+      "thread_states": {
+        "1": {
+          "thread_id": 1,
+          "shstk_enabled": false,
+          "shstk_locked": false,
+          "data_stack_depth": 0,
+          "shadow_stack_depth": 0,
+          "is_alive": true
+        },
+        "2": {
+          "thread_id": 2,
+          "shstk_enabled": true,
+          "shstk_locked": false,
+          "data_stack_depth": 0,
+          "shadow_stack_depth": 0,
+          "is_alive": false
+        }
+      },
+      "security_alerts": [
+        {
+          "time": 8,
+          "thread_id": 2,
+          "type": "CONTROL_PROTECTION_EXCEPTION",
+          "reason": "SHADOW_STACK_MISMATCH",
+          "si_code": "SEGV_CPERR",
+          "expected_ret": "0x00403000",
+          "corrupted_ret": "0xbad00001"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_THREAD",
+          "thread_id": 1
+        },
+        {
+          "time": 1,
+          "event": "CALL_FUNC",
+          "thread_id": 1,
+          "func": "vuln_service",
+          "ret_addr": "0x00403000",
+          "shstk_pushed": false,
+          "stack_depth": 1
+        },
+        {
+          "time": 2,
+          "event": "ATTACK_ROP_CORRUPT_STACK",
+          "thread_id": 1,
+          "target_idx": 0,
+          "orig_ret": "0x00403000",
+          "fake_ret": "0xbad00001"
+        },
+        {
+          "time": 3,
+          "event": "RET_FUNC",
+          "thread_id": 1,
+          "status": "SUCCESS",
+          "ret_addr": "0xbad00001"
+        },
+        {
+          "time": 4,
+          "event": "CREATE_THREAD",
+          "thread_id": 2
+        },
+        {
+          "time": 5,
+          "event": "ARCH_PRCTL",
+          "thread_id": 2,
+          "cmd": "ARCH_SHSTK_ENABLE",
+          "ret": 0,
+          "shstk_enabled": true,
+          "shstk_locked": false
+        },
+        {
+          "time": 6,
+          "event": "CALL_FUNC",
+          "thread_id": 2,
+          "func": "vuln_service",
+          "ret_addr": "0x00403000",
+          "shstk_pushed": true,
+          "stack_depth": 1
+        },
+        {
+          "time": 7,
+          "event": "ATTACK_ROP_CORRUPT_STACK",
+          "thread_id": 2,
+          "target_idx": 0,
+          "orig_ret": "0x00403000",
+          "fake_ret": "0xbad00001"
+        },
+        {
+          "time": 8,
+          "event": "RET_FUNC",
+          "thread_id": 2,
+          "status": "CP_EXCEPTION",
+          "actual_ret": "0xbad00001",
+          "expected_ret": "0x00403000"
+        }
+      ]
+    }
+  },
+  {
+    "name": "공격자의 섀도우 스택 메모리 직접 쓰기(#PF Write Violation) 시도 하드웨어 차단",
+    "input": {
+      "config": {
+        "max_threads": 4
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_THREAD",
+          "thread_id": 1
+        },
+        {
+          "time": 1,
+          "type": "ARCH_PRCTL",
+          "thread_id": 1,
+          "cmd": "ARCH_SHSTK_ENABLE"
+        },
+        {
+          "time": 2,
+          "type": "DIRECT_MEM_WRITE",
+          "thread_id": 1,
+          "target": "DATA_STACK",
+          "addr": 2147479552,
+          "value": 123
+        },
+        {
+          "time": 3,
+          "type": "DIRECT_MEM_WRITE",
+          "thread_id": 1,
+          "target": "SHADOW_STACK",
+          "addr": 2147418112,
+          "value": 3735928559
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_calls": 0,
+        "total_rets": 0,
+        "successful_rets": 0,
+        "cp_exceptions": 0,
+        "rop_attacks_blocked": 0,
+        "shadow_stack_write_violations": 1,
+        "active_threads": 1
+      },
+      "thread_states": {
+        "1": {
+          "thread_id": 1,
+          "shstk_enabled": true,
+          "shstk_locked": false,
+          "data_stack_depth": 0,
+          "shadow_stack_depth": 0,
+          "is_alive": true
+        }
+      },
+      "security_alerts": [
+        {
+          "time": 3,
+          "thread_id": 1,
+          "type": "PAGE_FAULT_EXCEPTION",
+          "reason": "SHADOW_STACK_WRITE_PROTECTED",
+          "si_code": "SEGV_ACCERR",
+          "addr": "0x7fff0000"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_THREAD",
+          "thread_id": 1
+        },
+        {
+          "time": 1,
+          "event": "ARCH_PRCTL",
+          "thread_id": 1,
+          "cmd": "ARCH_SHSTK_ENABLE",
+          "ret": 0,
+          "shstk_enabled": true,
+          "shstk_locked": false
+        },
+        {
+          "time": 2,
+          "event": "DIRECT_MEM_WRITE",
+          "thread_id": 1,
+          "target": "DATA_STACK",
+          "status": "SUCCESS"
+        },
+        {
+          "time": 3,
+          "event": "DIRECT_MEM_WRITE",
+          "thread_id": 1,
+          "target": "SHADOW_STACK",
+          "status": "FAULT_PAGE_PROTECTION"
+        }
+      ]
+    }
+  },
+  {
+    "name": "ARCH_SHSTK_LOCK 적용 후 악의적 비활성화(-EPERM) 방어 검증",
+    "input": {
+      "config": {
+        "max_threads": 4
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_THREAD",
+          "thread_id": 1
+        },
+        {
+          "time": 1,
+          "type": "ARCH_PRCTL",
+          "thread_id": 1,
+          "cmd": "ARCH_SHSTK_ENABLE"
+        },
+        {
+          "time": 2,
+          "type": "ARCH_PRCTL",
+          "thread_id": 1,
+          "cmd": "ARCH_SHSTK_LOCK"
+        },
+        {
+          "time": 3,
+          "type": "ARCH_PRCTL",
+          "thread_id": 1,
+          "cmd": "ARCH_SHSTK_DISABLE"
+        },
+        {
+          "time": 4,
+          "type": "CALL_FUNC",
+          "thread_id": 1,
+          "func": "secure_calc",
+          "ret_addr": 4214784
+        },
+        {
+          "time": 5,
+          "type": "RET_FUNC",
+          "thread_id": 1
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_calls": 1,
+        "total_rets": 1,
+        "successful_rets": 1,
+        "cp_exceptions": 0,
+        "rop_attacks_blocked": 0,
+        "shadow_stack_write_violations": 0,
+        "active_threads": 1
+      },
+      "thread_states": {
+        "1": {
+          "thread_id": 1,
+          "shstk_enabled": true,
+          "shstk_locked": true,
+          "data_stack_depth": 0,
+          "shadow_stack_depth": 0,
+          "is_alive": true
+        }
+      },
+      "security_alerts": [],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_THREAD",
+          "thread_id": 1
+        },
+        {
+          "time": 1,
+          "event": "ARCH_PRCTL",
+          "thread_id": 1,
+          "cmd": "ARCH_SHSTK_ENABLE",
+          "ret": 0,
+          "shstk_enabled": true,
+          "shstk_locked": false
+        },
+        {
+          "time": 2,
+          "event": "ARCH_PRCTL",
+          "thread_id": 1,
+          "cmd": "ARCH_SHSTK_LOCK",
+          "ret": 0,
+          "shstk_enabled": true,
+          "shstk_locked": true
+        },
+        {
+          "time": 3,
+          "event": "ARCH_PRCTL",
+          "thread_id": 1,
+          "cmd": "ARCH_SHSTK_DISABLE",
+          "ret": -1,
+          "shstk_enabled": true,
+          "shstk_locked": true
+        },
+        {
+          "time": 4,
+          "event": "CALL_FUNC",
+          "thread_id": 1,
+          "func": "secure_calc",
+          "ret_addr": "0x00405000",
+          "shstk_pushed": true,
+          "stack_depth": 1
+        },
+        {
+          "time": 5,
+          "event": "RET_FUNC",
+          "thread_id": 1,
+          "status": "SUCCESS",
+          "ret_addr": "0x00405000"
+        }
+      ]
+    }
+  },
+  {
+    "name": "longjmp/예외 처리를 위한 INCSSP 섀도우 스택 언와인딩 정상 동작",
+    "input": {
+      "config": {
+        "max_threads": 4
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_THREAD",
+          "thread_id": 1
+        },
+        {
+          "time": 1,
+          "type": "ARCH_PRCTL",
+          "thread_id": 1,
+          "cmd": "ARCH_SHSTK_ENABLE"
+        },
+        {
+          "time": 2,
+          "type": "CALL_FUNC",
+          "thread_id": 1,
+          "func": "level_1",
+          "ret_addr": 4219136
+        },
+        {
+          "time": 3,
+          "type": "CALL_FUNC",
+          "thread_id": 1,
+          "func": "level_2",
+          "ret_addr": 4219392
+        },
+        {
+          "time": 4,
+          "type": "CALL_FUNC",
+          "thread_id": 1,
+          "func": "level_3",
+          "ret_addr": 4219648
+        },
+        {
+          "time": 5,
+          "type": "INCSSP",
+          "thread_id": 1,
+          "count": 2
+        },
+        {
+          "time": 6,
+          "type": "RET_FUNC",
+          "thread_id": 1
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_calls": 3,
+        "total_rets": 1,
+        "successful_rets": 1,
+        "cp_exceptions": 0,
+        "rop_attacks_blocked": 0,
+        "shadow_stack_write_violations": 0,
+        "active_threads": 1
+      },
+      "thread_states": {
+        "1": {
+          "thread_id": 1,
+          "shstk_enabled": true,
+          "shstk_locked": false,
+          "data_stack_depth": 0,
+          "shadow_stack_depth": 0,
+          "is_alive": true
+        }
+      },
+      "security_alerts": [],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_THREAD",
+          "thread_id": 1
+        },
+        {
+          "time": 1,
+          "event": "ARCH_PRCTL",
+          "thread_id": 1,
+          "cmd": "ARCH_SHSTK_ENABLE",
+          "ret": 0,
+          "shstk_enabled": true,
+          "shstk_locked": false
+        },
+        {
+          "time": 2,
+          "event": "CALL_FUNC",
+          "thread_id": 1,
+          "func": "level_1",
+          "ret_addr": "0x00406100",
+          "shstk_pushed": true,
+          "stack_depth": 1
+        },
+        {
+          "time": 3,
+          "event": "CALL_FUNC",
+          "thread_id": 1,
+          "func": "level_2",
+          "ret_addr": "0x00406200",
+          "shstk_pushed": true,
+          "stack_depth": 2
+        },
+        {
+          "time": 4,
+          "event": "CALL_FUNC",
+          "thread_id": 1,
+          "func": "level_3",
+          "ret_addr": "0x00406300",
+          "shstk_pushed": true,
+          "stack_depth": 3
+        },
+        {
+          "time": 5,
+          "event": "INCSSP",
+          "thread_id": 1,
+          "unwound_frames": 0
+        },
+        {
+          "time": 6,
+          "event": "RET_FUNC",
+          "thread_id": 1,
+          "status": "SUCCESS",
+          "ret_addr": "0x00406100"
+        }
+      ]
+    }
+  },
+  {
+    "name": "멀티스레드 환경에서 독립적 섀도우 스택 운영 및 단일 스레드 공격 격리",
+    "input": {
+      "config": {
+        "max_threads": 4
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_THREAD",
+          "thread_id": 10
+        },
+        {
+          "time": 1,
+          "type": "CREATE_THREAD",
+          "thread_id": 20
+        },
+        {
+          "time": 2,
+          "type": "ARCH_PRCTL",
+          "thread_id": 10,
+          "cmd": "ARCH_SHSTK_ENABLE"
+        },
+        {
+          "time": 3,
+          "type": "ARCH_PRCTL",
+          "thread_id": 20,
+          "cmd": "ARCH_SHSTK_ENABLE"
+        },
+        {
+          "time": 4,
+          "type": "CALL_FUNC",
+          "thread_id": 10,
+          "func": "worker_10",
+          "ret_addr": 4223232
+        },
+        {
+          "time": 5,
+          "type": "CALL_FUNC",
+          "thread_id": 20,
+          "func": "worker_20",
+          "ret_addr": 4223488
+        },
+        {
+          "time": 6,
+          "type": "ATTACK_ROP_CORRUPT_STACK",
+          "thread_id": 20,
+          "offset": 0,
+          "fake_ret_addr": 3203391149
+        },
+        {
+          "time": 7,
+          "type": "RET_FUNC",
+          "thread_id": 20
+        },
+        {
+          "time": 8,
+          "type": "RET_FUNC",
+          "thread_id": 10
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_calls": 2,
+        "total_rets": 2,
+        "successful_rets": 1,
+        "cp_exceptions": 1,
+        "rop_attacks_blocked": 1,
+        "shadow_stack_write_violations": 0,
+        "active_threads": 1
+      },
+      "thread_states": {
+        "10": {
+          "thread_id": 10,
+          "shstk_enabled": true,
+          "shstk_locked": false,
+          "data_stack_depth": 0,
+          "shadow_stack_depth": 0,
+          "is_alive": true
+        },
+        "20": {
+          "thread_id": 20,
+          "shstk_enabled": true,
+          "shstk_locked": false,
+          "data_stack_depth": 0,
+          "shadow_stack_depth": 0,
+          "is_alive": false
+        }
+      },
+      "security_alerts": [
+        {
+          "time": 7,
+          "thread_id": 20,
+          "type": "CONTROL_PROTECTION_EXCEPTION",
+          "reason": "SHADOW_STACK_MISMATCH",
+          "si_code": "SEGV_CPERR",
+          "expected_ret": "0x00407200",
+          "corrupted_ret": "0xbeefdead"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_THREAD",
+          "thread_id": 10
+        },
+        {
+          "time": 1,
+          "event": "CREATE_THREAD",
+          "thread_id": 20
+        },
+        {
+          "time": 2,
+          "event": "ARCH_PRCTL",
+          "thread_id": 10,
+          "cmd": "ARCH_SHSTK_ENABLE",
+          "ret": 0,
+          "shstk_enabled": true,
+          "shstk_locked": false
+        },
+        {
+          "time": 3,
+          "event": "ARCH_PRCTL",
+          "thread_id": 20,
+          "cmd": "ARCH_SHSTK_ENABLE",
+          "ret": 0,
+          "shstk_enabled": true,
+          "shstk_locked": false
+        },
+        {
+          "time": 4,
+          "event": "CALL_FUNC",
+          "thread_id": 10,
+          "func": "worker_10",
+          "ret_addr": "0x00407100",
+          "shstk_pushed": true,
+          "stack_depth": 1
+        },
+        {
+          "time": 5,
+          "event": "CALL_FUNC",
+          "thread_id": 20,
+          "func": "worker_20",
+          "ret_addr": "0x00407200",
+          "shstk_pushed": true,
+          "stack_depth": 1
+        },
+        {
+          "time": 6,
+          "event": "ATTACK_ROP_CORRUPT_STACK",
+          "thread_id": 20,
+          "target_idx": 0,
+          "orig_ret": "0x00407200",
+          "fake_ret": "0xbeefdead"
+        },
+        {
+          "time": 7,
+          "event": "RET_FUNC",
+          "thread_id": 20,
+          "status": "CP_EXCEPTION",
+          "actual_ret": "0xbeefdead",
+          "expected_ret": "0x00407200"
+        },
+        {
+          "time": 8,
+          "event": "RET_FUNC",
+          "thread_id": 10,
+          "status": "SUCCESS",
+          "ret_addr": "0x00407100"
+        }
+      ]
+    }
+  },
+  {
+    "name": "엔터프라이즈 웹 서버 및 고위험 JIT 환경 ROP 체인 공격 다단계 종합 방어",
+    "input": {
+      "config": {
+        "max_threads": 8
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_THREAD",
+          "thread_id": 100
+        },
+        {
+          "time": 1,
+          "type": "CREATE_THREAD",
+          "thread_id": 101
+        },
+        {
+          "time": 2,
+          "type": "CREATE_THREAD",
+          "thread_id": 102
+        },
+        {
+          "time": 3,
+          "type": "ARCH_PRCTL",
+          "thread_id": 100,
+          "cmd": "ARCH_SHSTK_ENABLE"
+        },
+        {
+          "time": 4,
+          "type": "ARCH_PRCTL",
+          "thread_id": 100,
+          "cmd": "ARCH_SHSTK_LOCK"
+        },
+        {
+          "time": 5,
+          "type": "ARCH_PRCTL",
+          "thread_id": 101,
+          "cmd": "ARCH_SHSTK_ENABLE"
+        },
+        {
+          "time": 6,
+          "type": "ARCH_PRCTL",
+          "thread_id": 102,
+          "cmd": "ARCH_SHSTK_ENABLE"
+        },
+        {
+          "time": 7,
+          "type": "CALL_FUNC",
+          "thread_id": 101,
+          "func": "handle_http_request",
+          "ret_addr": 5243136
+        },
+        {
+          "time": 8,
+          "type": "CALL_FUNC",
+          "thread_id": 101,
+          "func": "parse_headers",
+          "ret_addr": 5243392
+        },
+        {
+          "time": 9,
+          "type": "RET_FUNC",
+          "thread_id": 101
+        },
+        {
+          "time": 10,
+          "type": "DIRECT_MEM_WRITE",
+          "thread_id": 102,
+          "target": "SHADOW_STACK",
+          "addr": 2147426304,
+          "value": 1
+        },
+        {
+          "time": 11,
+          "type": "CALL_FUNC",
+          "thread_id": 102,
+          "func": "process_payload",
+          "ret_addr": 5243648
+        },
+        {
+          "time": 12,
+          "type": "CALL_FUNC",
+          "thread_id": 102,
+          "func": "vulnerable_parser",
+          "ret_addr": 5243904
+        },
+        {
+          "time": 13,
+          "type": "ATTACK_ROP_CORRUPT_STACK",
+          "thread_id": 102,
+          "offset": 0,
+          "fake_ret_addr": 5245337
+        },
+        {
+          "time": 14,
+          "type": "RET_FUNC",
+          "thread_id": 102
+        },
+        {
+          "time": 15,
+          "type": "RET_FUNC",
+          "thread_id": 101
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_calls": 4,
+        "total_rets": 3,
+        "successful_rets": 2,
+        "cp_exceptions": 1,
+        "rop_attacks_blocked": 1,
+        "shadow_stack_write_violations": 1,
+        "active_threads": 2
+      },
+      "thread_states": {
+        "100": {
+          "thread_id": 100,
+          "shstk_enabled": true,
+          "shstk_locked": true,
+          "data_stack_depth": 0,
+          "shadow_stack_depth": 0,
+          "is_alive": true
+        },
+        "101": {
+          "thread_id": 101,
+          "shstk_enabled": true,
+          "shstk_locked": false,
+          "data_stack_depth": 0,
+          "shadow_stack_depth": 0,
+          "is_alive": true
+        },
+        "102": {
+          "thread_id": 102,
+          "shstk_enabled": true,
+          "shstk_locked": false,
+          "data_stack_depth": 1,
+          "shadow_stack_depth": 1,
+          "is_alive": false
+        }
+      },
+      "security_alerts": [
+        {
+          "time": 10,
+          "thread_id": 102,
+          "type": "PAGE_FAULT_EXCEPTION",
+          "reason": "SHADOW_STACK_WRITE_PROTECTED",
+          "si_code": "SEGV_ACCERR",
+          "addr": "0x7fff2000"
+        },
+        {
+          "time": 14,
+          "thread_id": 102,
+          "type": "CONTROL_PROTECTION_EXCEPTION",
+          "reason": "SHADOW_STACK_MISMATCH",
+          "si_code": "SEGV_CPERR",
+          "expected_ret": "0x00500400",
+          "corrupted_ret": "0x00500999"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_THREAD",
+          "thread_id": 100
+        },
+        {
+          "time": 1,
+          "event": "CREATE_THREAD",
+          "thread_id": 101
+        },
+        {
+          "time": 2,
+          "event": "CREATE_THREAD",
+          "thread_id": 102
+        },
+        {
+          "time": 3,
+          "event": "ARCH_PRCTL",
+          "thread_id": 100,
+          "cmd": "ARCH_SHSTK_ENABLE",
+          "ret": 0,
+          "shstk_enabled": true,
+          "shstk_locked": false
+        },
+        {
+          "time": 4,
+          "event": "ARCH_PRCTL",
+          "thread_id": 100,
+          "cmd": "ARCH_SHSTK_LOCK",
+          "ret": 0,
+          "shstk_enabled": true,
+          "shstk_locked": true
+        },
+        {
+          "time": 5,
+          "event": "ARCH_PRCTL",
+          "thread_id": 101,
+          "cmd": "ARCH_SHSTK_ENABLE",
+          "ret": 0,
+          "shstk_enabled": true,
+          "shstk_locked": false
+        },
+        {
+          "time": 6,
+          "event": "ARCH_PRCTL",
+          "thread_id": 102,
+          "cmd": "ARCH_SHSTK_ENABLE",
+          "ret": 0,
+          "shstk_enabled": true,
+          "shstk_locked": false
+        },
+        {
+          "time": 7,
+          "event": "CALL_FUNC",
+          "thread_id": 101,
+          "func": "handle_http_request",
+          "ret_addr": "0x00500100",
+          "shstk_pushed": true,
+          "stack_depth": 1
+        },
+        {
+          "time": 8,
+          "event": "CALL_FUNC",
+          "thread_id": 101,
+          "func": "parse_headers",
+          "ret_addr": "0x00500200",
+          "shstk_pushed": true,
+          "stack_depth": 2
+        },
+        {
+          "time": 9,
+          "event": "RET_FUNC",
+          "thread_id": 101,
+          "status": "SUCCESS",
+          "ret_addr": "0x00500200"
+        },
+        {
+          "time": 10,
+          "event": "DIRECT_MEM_WRITE",
+          "thread_id": 102,
+          "target": "SHADOW_STACK",
+          "status": "FAULT_PAGE_PROTECTION"
+        },
+        {
+          "time": 11,
+          "event": "CALL_FUNC",
+          "thread_id": 102,
+          "func": "process_payload",
+          "ret_addr": "0x00500300",
+          "shstk_pushed": true,
+          "stack_depth": 1
+        },
+        {
+          "time": 12,
+          "event": "CALL_FUNC",
+          "thread_id": 102,
+          "func": "vulnerable_parser",
+          "ret_addr": "0x00500400",
+          "shstk_pushed": true,
+          "stack_depth": 2
+        },
+        {
+          "time": 13,
+          "event": "ATTACK_ROP_CORRUPT_STACK",
+          "thread_id": 102,
+          "target_idx": 1,
+          "orig_ret": "0x00500400",
+          "fake_ret": "0x00500999"
+        },
+        {
+          "time": 14,
+          "event": "RET_FUNC",
+          "thread_id": 102,
+          "status": "CP_EXCEPTION",
+          "actual_ret": "0x00500999",
+          "expected_ret": "0x00500400"
+        },
+        {
+          "time": 15,
+          "event": "RET_FUNC",
+          "thread_id": 101,
+          "status": "SUCCESS",
+          "ret_addr": "0x00500100"
+        }
+      ]
+    }
+  }
+]
