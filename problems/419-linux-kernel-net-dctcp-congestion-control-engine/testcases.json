@@ -1,0 +1,1515 @@
+[
+  {
+    "name": "무혼잡(CE 마킹 0개) 상태에서의 표준 cwnd 단조 증가 및 알파 0 유지",
+    "input": {
+      "config": {
+        "g": 0.0625,
+        "mss": 1460,
+        "min_cwnd": 2
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "INIT_FLOW",
+          "flow_id": 1,
+          "initial_cwnd": 10,
+          "initial_ssthresh": 20
+        },
+        {
+          "time": 1,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 2,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 3,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 4,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 5,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 6,
+          "type": "RTT_WINDOW_COMPLETED",
+          "flow_id": 1
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "active_flows": 1,
+        "total_acks": 5,
+        "total_ce_marked_acks": 0,
+        "total_proportional_reductions": 0,
+        "total_loss_events": 0
+      },
+      "flows": {
+        "1": {
+          "flow_id": 1,
+          "final_cwnd": 15.0,
+          "final_ssthresh": 20.0,
+          "final_alpha": 0.0,
+          "state": "SLOW_START",
+          "total_acks": 5,
+          "total_ce_marked_acks": 0,
+          "rtt_cycles": 1,
+          "proportional_reductions": 0,
+          "loss_events": 0,
+          "rtt_logs": [
+            {
+              "rtt_cycle": 1,
+              "time": 6,
+              "bytes_total": 7300,
+              "bytes_ce": 0,
+              "fraction_F": 0.0,
+              "old_alpha": 0.0,
+              "new_alpha": 0.0,
+              "old_cwnd": 15.0,
+              "new_cwnd": 15.0,
+              "reduced": false
+            }
+          ]
+        }
+      },
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "INIT_FLOW",
+          "flow_id": 1,
+          "initial_cwnd": 10,
+          "initial_ssthresh": 20
+        }
+      ]
+    }
+  },
+  {
+    "name": "경미한 혼잡(10% CE 마킹) 감지 시 미세 비례 축소 및 처리량 보존",
+    "input": {
+      "config": {
+        "g": 0.0625,
+        "mss": 1460,
+        "min_cwnd": 2
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "INIT_FLOW",
+          "flow_id": 1,
+          "initial_cwnd": 30,
+          "initial_ssthresh": 20
+        },
+        {
+          "time": 1,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 2,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 3,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 4,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 5,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 6,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 7,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 8,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 9,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 10,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 11,
+          "type": "RTT_WINDOW_COMPLETED",
+          "flow_id": 1
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "active_flows": 1,
+        "total_acks": 10,
+        "total_ce_marked_acks": 1,
+        "total_proportional_reductions": 1,
+        "total_loss_events": 0
+      },
+      "flows": {
+        "1": {
+          "flow_id": 1,
+          "final_cwnd": 30.2369,
+          "final_ssthresh": 30.2369,
+          "final_alpha": 0.0063,
+          "state": "CONGESTION_AVOIDANCE",
+          "total_acks": 10,
+          "total_ce_marked_acks": 1,
+          "rtt_cycles": 1,
+          "proportional_reductions": 1,
+          "loss_events": 0,
+          "rtt_logs": [
+            {
+              "rtt_cycle": 1,
+              "time": 11,
+              "bytes_total": 14600,
+              "bytes_ce": 1460,
+              "fraction_F": 0.1,
+              "old_alpha": 0.0,
+              "new_alpha": 0.0063,
+              "old_cwnd": 30.3317,
+              "new_cwnd": 30.2369,
+              "reduced": true
+            }
+          ]
+        }
+      },
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "INIT_FLOW",
+          "flow_id": 1,
+          "initial_cwnd": 30,
+          "initial_ssthresh": 20
+        }
+      ]
+    }
+  },
+  {
+    "name": "극심한 혼잡(100% CE 마킹 지속) 시 알파=1.0 수렴 및 50% 윈도우 축소",
+    "input": {
+      "config": {
+        "g": 0.0625,
+        "mss": 1460,
+        "min_cwnd": 2
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "INIT_FLOW",
+          "flow_id": 1,
+          "initial_cwnd": 50,
+          "initial_ssthresh": 20
+        },
+        {
+          "time": 1,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 2,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 3,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 4,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 5,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 6,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 7,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 8,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 9,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 10,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 11,
+          "type": "RTT_WINDOW_COMPLETED",
+          "flow_id": 1
+        },
+        {
+          "time": 12,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 13,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 14,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 15,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 16,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 17,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 18,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 19,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 20,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 21,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 22,
+          "type": "RTT_WINDOW_COMPLETED",
+          "flow_id": 1
+        },
+        {
+          "time": 23,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 24,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 25,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 26,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 27,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 28,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 29,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 30,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 31,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 32,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 33,
+          "type": "RTT_WINDOW_COMPLETED",
+          "flow_id": 1
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "active_flows": 1,
+        "total_acks": 30,
+        "total_ce_marked_acks": 30,
+        "total_proportional_reductions": 3,
+        "total_loss_events": 0
+      },
+      "flows": {
+        "1": {
+          "flow_id": 1,
+          "final_cwnd": 42.0397,
+          "final_ssthresh": 42.0397,
+          "final_alpha": 0.176,
+          "state": "CONGESTION_AVOIDANCE",
+          "total_acks": 30,
+          "total_ce_marked_acks": 30,
+          "rtt_cycles": 3,
+          "proportional_reductions": 3,
+          "loss_events": 0,
+          "rtt_logs": [
+            {
+              "rtt_cycle": 1,
+              "time": 11,
+              "bytes_total": 14600,
+              "bytes_ce": 14600,
+              "fraction_F": 1.0,
+              "old_alpha": 0.0,
+              "new_alpha": 0.0625,
+              "old_cwnd": 50.1996,
+              "new_cwnd": 48.6309,
+              "reduced": true
+            },
+            {
+              "rtt_cycle": 2,
+              "time": 22,
+              "bytes_total": 14600,
+              "bytes_ce": 14600,
+              "fraction_F": 1.0,
+              "old_alpha": 0.0625,
+              "new_alpha": 0.1211,
+              "old_cwnd": 48.8361,
+              "new_cwnd": 45.8793,
+              "reduced": true
+            },
+            {
+              "rtt_cycle": 3,
+              "time": 33,
+              "bytes_total": 14600,
+              "bytes_ce": 14600,
+              "fraction_F": 1.0,
+              "old_alpha": 0.1211,
+              "new_alpha": 0.176,
+              "old_cwnd": 46.0968,
+              "new_cwnd": 42.0397,
+              "reduced": true
+            }
+          ]
+        }
+      },
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "INIT_FLOW",
+          "flow_id": 1,
+          "initial_cwnd": 50,
+          "initial_ssthresh": 20
+        }
+      ]
+    }
+  },
+  {
+    "name": "동적 혼잡 펄스 후 지수 감쇠(Exponential Decay)에 의한 알파 원복",
+    "input": {
+      "config": {
+        "g": 0.0625,
+        "mss": 1460,
+        "min_cwnd": 2
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "INIT_FLOW",
+          "flow_id": 1,
+          "initial_cwnd": 40,
+          "initial_ssthresh": 20
+        },
+        {
+          "time": 1,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 2,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 3,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 4,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 5,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 6,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 7,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 8,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 9,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 10,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 11,
+          "type": "RTT_WINDOW_COMPLETED",
+          "flow_id": 1
+        },
+        {
+          "time": 12,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 13,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 14,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 15,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 16,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 17,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 18,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 19,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 20,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 21,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 22,
+          "type": "RTT_WINDOW_COMPLETED",
+          "flow_id": 1
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "active_flows": 1,
+        "total_acks": 20,
+        "total_ce_marked_acks": 8,
+        "total_proportional_reductions": 1,
+        "total_loss_events": 0
+      },
+      "flows": {
+        "1": {
+          "flow_id": 1,
+          "final_cwnd": 39.4972,
+          "final_ssthresh": 39.2431,
+          "final_alpha": 0.0469,
+          "state": "CONGESTION_AVOIDANCE",
+          "total_acks": 20,
+          "total_ce_marked_acks": 8,
+          "rtt_cycles": 2,
+          "proportional_reductions": 1,
+          "loss_events": 0,
+          "rtt_logs": [
+            {
+              "rtt_cycle": 1,
+              "time": 11,
+              "bytes_total": 14600,
+              "bytes_ce": 11680,
+              "fraction_F": 0.8,
+              "old_alpha": 0.0,
+              "new_alpha": 0.05,
+              "old_cwnd": 40.2493,
+              "new_cwnd": 39.2431,
+              "reduced": true
+            },
+            {
+              "rtt_cycle": 2,
+              "time": 22,
+              "bytes_total": 14600,
+              "bytes_ce": 0,
+              "fraction_F": 0.0,
+              "old_alpha": 0.05,
+              "new_alpha": 0.0469,
+              "old_cwnd": 39.4972,
+              "new_cwnd": 39.4972,
+              "reduced": false
+            }
+          ]
+        }
+      },
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "INIT_FLOW",
+          "flow_id": 1,
+          "initial_cwnd": 40,
+          "initial_ssthresh": 20
+        }
+      ]
+    }
+  },
+  {
+    "name": "슬로우 스타트에서 혼잡 회피로의 전이 및 ssthresh 갱신 검증",
+    "input": {
+      "config": {
+        "g": 0.0625,
+        "mss": 1460,
+        "min_cwnd": 2
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "INIT_FLOW",
+          "flow_id": 1,
+          "initial_cwnd": 2,
+          "initial_ssthresh": 6
+        },
+        {
+          "time": 1,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 2,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 3,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 4,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 5,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 6,
+          "type": "RTT_WINDOW_COMPLETED",
+          "flow_id": 1
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "active_flows": 1,
+        "total_acks": 5,
+        "total_ce_marked_acks": 1,
+        "total_proportional_reductions": 1,
+        "total_loss_events": 0
+      },
+      "flows": {
+        "1": {
+          "flow_id": 1,
+          "final_cwnd": 6.1281,
+          "final_ssthresh": 6.1281,
+          "final_alpha": 0.0125,
+          "state": "CONGESTION_AVOIDANCE",
+          "total_acks": 5,
+          "total_ce_marked_acks": 1,
+          "rtt_cycles": 1,
+          "proportional_reductions": 1,
+          "loss_events": 0,
+          "rtt_logs": [
+            {
+              "rtt_cycle": 1,
+              "time": 6,
+              "bytes_total": 7300,
+              "bytes_ce": 1460,
+              "fraction_F": 0.2,
+              "old_alpha": 0.0,
+              "new_alpha": 0.0125,
+              "old_cwnd": 6.1667,
+              "new_cwnd": 6.1281,
+              "reduced": true
+            }
+          ]
+        }
+      },
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "INIT_FLOW",
+          "flow_id": 1,
+          "initial_cwnd": 2,
+          "initial_ssthresh": 6
+        }
+      ]
+    }
+  },
+  {
+    "name": "하드 패킷 손실 폴백과 소프트 ECN 비례 축소의 복합 거동 검증",
+    "input": {
+      "config": {
+        "g": 0.0625,
+        "mss": 1460,
+        "min_cwnd": 2
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "INIT_FLOW",
+          "flow_id": 1,
+          "initial_cwnd": 60,
+          "initial_ssthresh": 50
+        },
+        {
+          "time": 1,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 2,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 3,
+          "type": "RTT_WINDOW_COMPLETED",
+          "flow_id": 1
+        },
+        {
+          "time": 4,
+          "type": "PACKET_LOSS_EVENT",
+          "flow_id": 1
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "active_flows": 1,
+        "total_acks": 2,
+        "total_ce_marked_acks": 1,
+        "total_proportional_reductions": 1,
+        "total_loss_events": 1
+      },
+      "flows": {
+        "1": {
+          "flow_id": 1,
+          "final_cwnd": 29.5477,
+          "final_ssthresh": 29.5477,
+          "final_alpha": 0.0312,
+          "state": "CONGESTION_AVOIDANCE",
+          "total_acks": 2,
+          "total_ce_marked_acks": 1,
+          "rtt_cycles": 1,
+          "proportional_reductions": 1,
+          "loss_events": 1,
+          "rtt_logs": [
+            {
+              "rtt_cycle": 1,
+              "time": 3,
+              "bytes_total": 2920,
+              "bytes_ce": 1460,
+              "fraction_F": 0.5,
+              "old_alpha": 0.0,
+              "new_alpha": 0.0312,
+              "old_cwnd": 60.0333,
+              "new_cwnd": 59.0953,
+              "reduced": true
+            }
+          ]
+        }
+      },
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "INIT_FLOW",
+          "flow_id": 1,
+          "initial_cwnd": 60,
+          "initial_ssthresh": 50
+        }
+      ]
+    }
+  },
+  {
+    "name": "복수 플로우(Flow 1 vs Flow 2) 간 병목 링크 대역폭 공정 분배(Fairness)",
+    "input": {
+      "config": {
+        "g": 0.0625,
+        "mss": 1460,
+        "min_cwnd": 2
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "INIT_FLOW",
+          "flow_id": 1,
+          "initial_cwnd": 50,
+          "initial_ssthresh": 30
+        },
+        {
+          "time": 0,
+          "type": "INIT_FLOW",
+          "flow_id": 2,
+          "initial_cwnd": 20,
+          "initial_ssthresh": 30
+        },
+        {
+          "time": 1,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 2,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 3,
+          "type": "ACK_EVENT",
+          "flow_id": 2,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 4,
+          "type": "ACK_EVENT",
+          "flow_id": 2,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 5,
+          "type": "RTT_WINDOW_COMPLETED",
+          "flow_id": 1
+        },
+        {
+          "time": 6,
+          "type": "RTT_WINDOW_COMPLETED",
+          "flow_id": 2
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "active_flows": 2,
+        "total_acks": 4,
+        "total_ce_marked_acks": 2,
+        "total_proportional_reductions": 2,
+        "total_loss_events": 0
+      },
+      "flows": {
+        "1": {
+          "flow_id": 1,
+          "final_cwnd": 49.2581,
+          "final_ssthresh": 49.2581,
+          "final_alpha": 0.0312,
+          "state": "CONGESTION_AVOIDANCE",
+          "total_acks": 2,
+          "total_ce_marked_acks": 1,
+          "rtt_cycles": 1,
+          "proportional_reductions": 1,
+          "loss_events": 0,
+          "rtt_logs": [
+            {
+              "rtt_cycle": 1,
+              "time": 5,
+              "bytes_total": 2920,
+              "bytes_ce": 1460,
+              "fraction_F": 0.5,
+              "old_alpha": 0.0,
+              "new_alpha": 0.0312,
+              "old_cwnd": 50.04,
+              "new_cwnd": 49.2581,
+              "reduced": true
+            }
+          ]
+        },
+        "2": {
+          "flow_id": 2,
+          "final_cwnd": 21.6562,
+          "final_ssthresh": 21.6562,
+          "final_alpha": 0.0312,
+          "state": "CONGESTION_AVOIDANCE",
+          "total_acks": 2,
+          "total_ce_marked_acks": 1,
+          "rtt_cycles": 1,
+          "proportional_reductions": 1,
+          "loss_events": 0,
+          "rtt_logs": [
+            {
+              "rtt_cycle": 1,
+              "time": 6,
+              "bytes_total": 2920,
+              "bytes_ce": 1460,
+              "fraction_F": 0.5,
+              "old_alpha": 0.0,
+              "new_alpha": 0.0312,
+              "old_cwnd": 22.0,
+              "new_cwnd": 21.6562,
+              "reduced": true
+            }
+          ]
+        }
+      },
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "INIT_FLOW",
+          "flow_id": 1,
+          "initial_cwnd": 50,
+          "initial_ssthresh": 30
+        },
+        {
+          "time": 0,
+          "event": "INIT_FLOW",
+          "flow_id": 2,
+          "initial_cwnd": 20,
+          "initial_ssthresh": 30
+        }
+      ]
+    }
+  },
+  {
+    "name": "하이퍼스케일 데이터센터 맵리듀스 인캐스트(Incast) 방어 종합 시뮬레이션",
+    "input": {
+      "config": {
+        "g": 0.0625,
+        "mss": 1460,
+        "min_cwnd": 2
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "INIT_FLOW",
+          "flow_id": 1,
+          "initial_cwnd": 20,
+          "initial_ssthresh": 15
+        },
+        {
+          "time": 0,
+          "type": "INIT_FLOW",
+          "flow_id": 2,
+          "initial_cwnd": 20,
+          "initial_ssthresh": 15
+        },
+        {
+          "time": 0,
+          "type": "INIT_FLOW",
+          "flow_id": 3,
+          "initial_cwnd": 20,
+          "initial_ssthresh": 15
+        },
+        {
+          "time": 0,
+          "type": "INIT_FLOW",
+          "flow_id": 4,
+          "initial_cwnd": 20,
+          "initial_ssthresh": 15
+        },
+        {
+          "time": 0,
+          "type": "INIT_FLOW",
+          "flow_id": 5,
+          "initial_cwnd": 20,
+          "initial_ssthresh": 15
+        },
+        {
+          "time": 1,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 2,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 3,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 4,
+          "type": "ACK_EVENT",
+          "flow_id": 1,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 5,
+          "type": "RTT_WINDOW_COMPLETED",
+          "flow_id": 1
+        },
+        {
+          "time": 6,
+          "type": "ACK_EVENT",
+          "flow_id": 2,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 7,
+          "type": "ACK_EVENT",
+          "flow_id": 2,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 8,
+          "type": "ACK_EVENT",
+          "flow_id": 2,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 9,
+          "type": "ACK_EVENT",
+          "flow_id": 2,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 10,
+          "type": "RTT_WINDOW_COMPLETED",
+          "flow_id": 2
+        },
+        {
+          "time": 11,
+          "type": "ACK_EVENT",
+          "flow_id": 3,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 12,
+          "type": "ACK_EVENT",
+          "flow_id": 3,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 13,
+          "type": "ACK_EVENT",
+          "flow_id": 3,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 14,
+          "type": "ACK_EVENT",
+          "flow_id": 3,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 15,
+          "type": "RTT_WINDOW_COMPLETED",
+          "flow_id": 3
+        },
+        {
+          "time": 16,
+          "type": "ACK_EVENT",
+          "flow_id": 4,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 17,
+          "type": "ACK_EVENT",
+          "flow_id": 4,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 18,
+          "type": "ACK_EVENT",
+          "flow_id": 4,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 19,
+          "type": "ACK_EVENT",
+          "flow_id": 4,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 20,
+          "type": "RTT_WINDOW_COMPLETED",
+          "flow_id": 4
+        },
+        {
+          "time": 21,
+          "type": "ACK_EVENT",
+          "flow_id": 5,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 22,
+          "type": "ACK_EVENT",
+          "flow_id": 5,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 23,
+          "type": "ACK_EVENT",
+          "flow_id": 5,
+          "bytes_acked": 1460,
+          "ce_marked": true
+        },
+        {
+          "time": 24,
+          "type": "ACK_EVENT",
+          "flow_id": 5,
+          "bytes_acked": 1460,
+          "ce_marked": false
+        },
+        {
+          "time": 25,
+          "type": "RTT_WINDOW_COMPLETED",
+          "flow_id": 5
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "active_flows": 5,
+        "total_acks": 20,
+        "total_ce_marked_acks": 10,
+        "total_proportional_reductions": 5,
+        "total_loss_events": 0
+      },
+      "flows": {
+        "1": {
+          "flow_id": 1,
+          "final_cwnd": 19.8836,
+          "final_ssthresh": 19.8836,
+          "final_alpha": 0.0312,
+          "state": "CONGESTION_AVOIDANCE",
+          "total_acks": 4,
+          "total_ce_marked_acks": 2,
+          "rtt_cycles": 1,
+          "proportional_reductions": 1,
+          "loss_events": 0,
+          "rtt_logs": [
+            {
+              "rtt_cycle": 1,
+              "time": 5,
+              "bytes_total": 5840,
+              "bytes_ce": 2920,
+              "fraction_F": 0.5,
+              "old_alpha": 0.0,
+              "new_alpha": 0.0312,
+              "old_cwnd": 20.1993,
+              "new_cwnd": 19.8836,
+              "reduced": true
+            }
+          ]
+        },
+        "2": {
+          "flow_id": 2,
+          "final_cwnd": 19.8836,
+          "final_ssthresh": 19.8836,
+          "final_alpha": 0.0312,
+          "state": "CONGESTION_AVOIDANCE",
+          "total_acks": 4,
+          "total_ce_marked_acks": 2,
+          "rtt_cycles": 1,
+          "proportional_reductions": 1,
+          "loss_events": 0,
+          "rtt_logs": [
+            {
+              "rtt_cycle": 1,
+              "time": 10,
+              "bytes_total": 5840,
+              "bytes_ce": 2920,
+              "fraction_F": 0.5,
+              "old_alpha": 0.0,
+              "new_alpha": 0.0312,
+              "old_cwnd": 20.1993,
+              "new_cwnd": 19.8836,
+              "reduced": true
+            }
+          ]
+        },
+        "3": {
+          "flow_id": 3,
+          "final_cwnd": 19.8836,
+          "final_ssthresh": 19.8836,
+          "final_alpha": 0.0312,
+          "state": "CONGESTION_AVOIDANCE",
+          "total_acks": 4,
+          "total_ce_marked_acks": 2,
+          "rtt_cycles": 1,
+          "proportional_reductions": 1,
+          "loss_events": 0,
+          "rtt_logs": [
+            {
+              "rtt_cycle": 1,
+              "time": 15,
+              "bytes_total": 5840,
+              "bytes_ce": 2920,
+              "fraction_F": 0.5,
+              "old_alpha": 0.0,
+              "new_alpha": 0.0312,
+              "old_cwnd": 20.1993,
+              "new_cwnd": 19.8836,
+              "reduced": true
+            }
+          ]
+        },
+        "4": {
+          "flow_id": 4,
+          "final_cwnd": 19.8836,
+          "final_ssthresh": 19.8836,
+          "final_alpha": 0.0312,
+          "state": "CONGESTION_AVOIDANCE",
+          "total_acks": 4,
+          "total_ce_marked_acks": 2,
+          "rtt_cycles": 1,
+          "proportional_reductions": 1,
+          "loss_events": 0,
+          "rtt_logs": [
+            {
+              "rtt_cycle": 1,
+              "time": 20,
+              "bytes_total": 5840,
+              "bytes_ce": 2920,
+              "fraction_F": 0.5,
+              "old_alpha": 0.0,
+              "new_alpha": 0.0312,
+              "old_cwnd": 20.1993,
+              "new_cwnd": 19.8836,
+              "reduced": true
+            }
+          ]
+        },
+        "5": {
+          "flow_id": 5,
+          "final_cwnd": 19.8836,
+          "final_ssthresh": 19.8836,
+          "final_alpha": 0.0312,
+          "state": "CONGESTION_AVOIDANCE",
+          "total_acks": 4,
+          "total_ce_marked_acks": 2,
+          "rtt_cycles": 1,
+          "proportional_reductions": 1,
+          "loss_events": 0,
+          "rtt_logs": [
+            {
+              "rtt_cycle": 1,
+              "time": 25,
+              "bytes_total": 5840,
+              "bytes_ce": 2920,
+              "fraction_F": 0.5,
+              "old_alpha": 0.0,
+              "new_alpha": 0.0312,
+              "old_cwnd": 20.1993,
+              "new_cwnd": 19.8836,
+              "reduced": true
+            }
+          ]
+        }
+      },
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "INIT_FLOW",
+          "flow_id": 1,
+          "initial_cwnd": 20,
+          "initial_ssthresh": 15
+        },
+        {
+          "time": 0,
+          "event": "INIT_FLOW",
+          "flow_id": 2,
+          "initial_cwnd": 20,
+          "initial_ssthresh": 15
+        },
+        {
+          "time": 0,
+          "event": "INIT_FLOW",
+          "flow_id": 3,
+          "initial_cwnd": 20,
+          "initial_ssthresh": 15
+        },
+        {
+          "time": 0,
+          "event": "INIT_FLOW",
+          "flow_id": 4,
+          "initial_cwnd": 20,
+          "initial_ssthresh": 15
+        },
+        {
+          "time": 0,
+          "event": "INIT_FLOW",
+          "flow_id": 5,
+          "initial_cwnd": 20,
+          "initial_ssthresh": 15
+        }
+      ]
+    }
+  }
+]
