@@ -1,0 +1,1069 @@
+[
+  {
+    "name": "동일 가중치 스트리밍 큐의 B-WF2Q+ 비례 분배 및 예산 소진 순환",
+    "input": {
+      "config": {
+        "default_budget": 128,
+        "max_budget": 512,
+        "min_budget": 32,
+        "slice_idle": 6,
+        "enable_idling": false,
+        "device_speed_sectors_per_ms": 10,
+        "switch_overhead_ms": 1,
+        "enable_low_latency": false
+      },
+      "queues": [
+        {
+          "qid": "reader_a",
+          "weight": 100
+        },
+        {
+          "qid": "reader_b",
+          "weight": 100
+        }
+      ],
+      "requests": [
+        {
+          "req_id": "a1",
+          "qid": "reader_a",
+          "arrival_time": 0,
+          "sectors": 64
+        },
+        {
+          "req_id": "a2",
+          "qid": "reader_a",
+          "arrival_time": 0,
+          "sectors": 64
+        },
+        {
+          "req_id": "a3",
+          "qid": "reader_a",
+          "arrival_time": 0,
+          "sectors": 64
+        },
+        {
+          "req_id": "b1",
+          "qid": "reader_b",
+          "arrival_time": 0,
+          "sectors": 64
+        },
+        {
+          "req_id": "b2",
+          "qid": "reader_b",
+          "arrival_time": 0,
+          "sectors": 64
+        },
+        {
+          "req_id": "b3",
+          "qid": "reader_b",
+          "arrival_time": 0,
+          "sectors": 64
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_simulation_time": 45,
+        "total_dispatched_requests": 6,
+        "total_sectors_served": 384,
+        "total_idle_time": 0,
+        "total_switch_overhead_time": 3
+      },
+      "queue_metrics": {
+        "reader_a": {
+          "base_weight": 100,
+          "final_budget": 128,
+          "dispatched_count": 3,
+          "total_sectors": 192,
+          "avg_wait_time_ms": 12.0,
+          "avg_service_time_ms": 7.33,
+          "weight_raising_count": 0
+        },
+        "reader_b": {
+          "base_weight": 100,
+          "final_budget": 128,
+          "dispatched_count": 3,
+          "total_sectors": 192,
+          "avg_wait_time_ms": 24.33,
+          "avg_service_time_ms": 7.67,
+          "weight_raising_count": 0
+        }
+      },
+      "expirations": [
+        {
+          "time": 14,
+          "qid": "reader_a",
+          "reason": "BUDGET_EXHAUSTED",
+          "consumed": 128,
+          "new_budget": 256,
+          "vstart": 1.28,
+          "vfinish": 3.84
+        },
+        {
+          "time": 29,
+          "qid": "reader_b",
+          "reason": "BUDGET_EXHAUSTED",
+          "consumed": 128,
+          "new_budget": 256,
+          "vstart": 1.28,
+          "vfinish": 3.84
+        },
+        {
+          "time": 37,
+          "qid": "reader_a",
+          "reason": "EMPTY_NO_IDLE",
+          "consumed": 64,
+          "new_budget": 128,
+          "vstart": 1.28,
+          "vfinish": 1.92
+        },
+        {
+          "time": 45,
+          "qid": "reader_b",
+          "reason": "EMPTY_NO_IDLE",
+          "consumed": 64,
+          "new_budget": 128,
+          "vstart": 1.28,
+          "vfinish": 1.92
+        }
+      ],
+      "dispatch_order": [
+        "a1",
+        "a2",
+        "b1",
+        "b2",
+        "a3",
+        "b3"
+      ]
+    }
+  },
+  {
+    "name": "비대칭 가중치(300:100) 환경에서의 가상 완료 시간 기반 3대1 대역폭 분할",
+    "input": {
+      "config": {
+        "default_budget": 128,
+        "max_budget": 512,
+        "min_budget": 32,
+        "slice_idle": 6,
+        "enable_idling": false,
+        "device_speed_sectors_per_ms": 10,
+        "switch_overhead_ms": 1,
+        "enable_low_latency": false
+      },
+      "queues": [
+        {
+          "qid": "high_prio",
+          "weight": 300
+        },
+        {
+          "qid": "low_prio",
+          "weight": 100
+        }
+      ],
+      "requests": [
+        {
+          "req_id": "hp1",
+          "qid": "high_prio",
+          "arrival_time": 0,
+          "sectors": 128
+        },
+        {
+          "req_id": "hp2",
+          "qid": "high_prio",
+          "arrival_time": 0,
+          "sectors": 128
+        },
+        {
+          "req_id": "hp3",
+          "qid": "high_prio",
+          "arrival_time": 0,
+          "sectors": 128
+        },
+        {
+          "req_id": "lp1",
+          "qid": "low_prio",
+          "arrival_time": 0,
+          "sectors": 128
+        },
+        {
+          "req_id": "lp2",
+          "qid": "low_prio",
+          "arrival_time": 0,
+          "sectors": 128
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_simulation_time": 68,
+        "total_dispatched_requests": 5,
+        "total_sectors_served": 640,
+        "total_idle_time": 0,
+        "total_switch_overhead_time": 3
+      },
+      "queue_metrics": {
+        "high_prio": {
+          "base_weight": 300,
+          "final_budget": 512,
+          "dispatched_count": 3,
+          "total_sectors": 384,
+          "avg_wait_time_ms": 22.67,
+          "avg_service_time_ms": 13.33,
+          "weight_raising_count": 0
+        },
+        "low_prio": {
+          "base_weight": 100,
+          "final_budget": 256,
+          "dispatched_count": 2,
+          "total_sectors": 256,
+          "avg_wait_time_ms": 33.5,
+          "avg_service_time_ms": 14.0,
+          "weight_raising_count": 0
+        }
+      },
+      "expirations": [
+        {
+          "time": 13,
+          "qid": "high_prio",
+          "reason": "BUDGET_EXHAUSTED",
+          "consumed": 128,
+          "new_budget": 256,
+          "vstart": 0.4267,
+          "vfinish": 1.28
+        },
+        {
+          "time": 27,
+          "qid": "low_prio",
+          "reason": "BUDGET_EXHAUSTED",
+          "consumed": 128,
+          "new_budget": 256,
+          "vstart": 1.28,
+          "vfinish": 3.84
+        },
+        {
+          "time": 54,
+          "qid": "high_prio",
+          "reason": "BUDGET_EXHAUSTED",
+          "consumed": 256,
+          "new_budget": 512,
+          "vstart": 0.4267,
+          "vfinish": 1.28
+        },
+        {
+          "time": 68,
+          "qid": "low_prio",
+          "reason": "EMPTY_NO_IDLE",
+          "consumed": 128,
+          "new_budget": 256,
+          "vstart": 1.28,
+          "vfinish": 2.56
+        }
+      ],
+      "dispatch_order": [
+        "hp1",
+        "lp1",
+        "hp2",
+        "hp3",
+        "lp2"
+      ]
+    }
+  },
+  {
+    "name": "인터랙티브 UI 큐의 가중치 부스팅(Weight-Raising) 및 지연 시간 단축",
+    "input": {
+      "config": {
+        "default_budget": 128,
+        "max_budget": 512,
+        "min_budget": 32,
+        "slice_idle": 6,
+        "enable_idling": true,
+        "device_speed_sectors_per_ms": 10,
+        "switch_overhead_ms": 1,
+        "enable_low_latency": true,
+        "think_time_threshold": 16,
+        "burst_sectors_threshold": 128,
+        "wr_boost_factor": 10,
+        "wr_duration_ms": 150
+      },
+      "queues": [
+        {
+          "qid": "batch_worker",
+          "weight": 100
+        },
+        {
+          "qid": "gui_app",
+          "weight": 100
+        }
+      ],
+      "requests": [
+        {
+          "req_id": "b1",
+          "qid": "batch_worker",
+          "arrival_time": 0,
+          "sectors": 128
+        },
+        {
+          "req_id": "b2",
+          "qid": "batch_worker",
+          "arrival_time": 0,
+          "sectors": 128
+        },
+        {
+          "req_id": "g1",
+          "qid": "gui_app",
+          "arrival_time": 5,
+          "sectors": 16
+        },
+        {
+          "req_id": "g2",
+          "qid": "gui_app",
+          "arrival_time": 6,
+          "sectors": 16
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_simulation_time": 38,
+        "total_dispatched_requests": 4,
+        "total_sectors_served": 288,
+        "total_idle_time": 6,
+        "total_switch_overhead_time": 2
+      },
+      "queue_metrics": {
+        "batch_worker": {
+          "base_weight": 100,
+          "final_budget": 256,
+          "dispatched_count": 2,
+          "total_sectors": 256,
+          "avg_wait_time_ms": 12.0,
+          "avg_service_time_ms": 13.5,
+          "weight_raising_count": 1
+        },
+        "gui_app": {
+          "base_weight": 100,
+          "final_budget": 64,
+          "dispatched_count": 2,
+          "total_sectors": 32,
+          "avg_wait_time_ms": 9.0,
+          "avg_service_time_ms": 2.5,
+          "weight_raising_count": 1
+        }
+      },
+      "expirations": [
+        {
+          "time": 13,
+          "qid": "batch_worker",
+          "reason": "BUDGET_EXHAUSTED",
+          "consumed": 128,
+          "new_budget": 256,
+          "vstart": 1.28,
+          "vfinish": 3.84
+        },
+        {
+          "time": 24,
+          "qid": "gui_app",
+          "reason": "EMPTY_TIMEOUT",
+          "consumed": 32,
+          "new_budget": 64,
+          "vstart": 0.0,
+          "vfinish": 0.032
+        },
+        {
+          "time": 38,
+          "qid": "batch_worker",
+          "reason": "EMPTY_NO_IDLE",
+          "consumed": 128,
+          "new_budget": 256,
+          "vstart": 1.28,
+          "vfinish": 2.56
+        }
+      ],
+      "dispatch_order": [
+        "b1",
+        "g1",
+        "g2",
+        "b2"
+      ]
+    }
+  },
+  {
+    "name": "예측적 유휴 대기(Anticipatory Idling)를 통한 인터랙티브 버스트 흡수 및 디스크 시크 방지",
+    "input": {
+      "config": {
+        "default_budget": 128,
+        "max_budget": 512,
+        "min_budget": 32,
+        "slice_idle": 6,
+        "enable_idling": true,
+        "device_speed_sectors_per_ms": 10,
+        "switch_overhead_ms": 2,
+        "enable_low_latency": true,
+        "think_time_threshold": 16,
+        "burst_sectors_threshold": 128,
+        "wr_boost_factor": 10,
+        "wr_duration_ms": 150
+      },
+      "queues": [
+        {
+          "qid": "interactive_term",
+          "weight": 100
+        },
+        {
+          "qid": "bg_indexer",
+          "weight": 100
+        }
+      ],
+      "requests": [
+        {
+          "req_id": "bg1",
+          "qid": "bg_indexer",
+          "arrival_time": 0,
+          "sectors": 100
+        },
+        {
+          "req_id": "bg2",
+          "qid": "bg_indexer",
+          "arrival_time": 0,
+          "sectors": 100
+        },
+        {
+          "req_id": "t1",
+          "qid": "interactive_term",
+          "arrival_time": 2,
+          "sectors": 20
+        },
+        {
+          "req_id": "t2",
+          "qid": "interactive_term",
+          "arrival_time": 18,
+          "sectors": 20
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_simulation_time": 32,
+        "total_dispatched_requests": 4,
+        "total_sectors_served": 240,
+        "total_idle_time": 6,
+        "total_switch_overhead_time": 2
+      },
+      "queue_metrics": {
+        "bg_indexer": {
+          "base_weight": 100,
+          "final_budget": 256,
+          "dispatched_count": 2,
+          "total_sectors": 200,
+          "avg_wait_time_ms": 5.0,
+          "avg_service_time_ms": 10.0,
+          "weight_raising_count": 1
+        },
+        "interactive_term": {
+          "base_weight": 100,
+          "final_budget": 64,
+          "dispatched_count": 2,
+          "total_sectors": 40,
+          "avg_wait_time_ms": 12.0,
+          "avg_service_time_ms": 3.0,
+          "weight_raising_count": 1
+        }
+      },
+      "expirations": [
+        {
+          "time": 20,
+          "qid": "bg_indexer",
+          "reason": "BUDGET_EXHAUSTED",
+          "consumed": 200,
+          "new_budget": 256,
+          "vstart": 0.0,
+          "vfinish": 2.0
+        },
+        {
+          "time": 32,
+          "qid": "interactive_term",
+          "reason": "EMPTY_TIMEOUT",
+          "consumed": 40,
+          "new_budget": 64,
+          "vstart": 0.0,
+          "vfinish": 0.04
+        }
+      ],
+      "dispatch_order": [
+        "bg1",
+        "bg2",
+        "t1",
+        "t2"
+      ]
+    }
+  },
+  {
+    "name": "예측적 유휴 만료(EMPTY_TIMEOUT) 및 소량 소비 큐의 예산 축소(Downscaling)",
+    "input": {
+      "config": {
+        "default_budget": 256,
+        "max_budget": 1024,
+        "min_budget": 32,
+        "slice_idle": 8,
+        "enable_idling": true,
+        "device_speed_sectors_per_ms": 10,
+        "switch_overhead_ms": 1,
+        "enable_low_latency": true,
+        "think_time_threshold": 16,
+        "burst_sectors_threshold": 128,
+        "wr_boost_factor": 10,
+        "wr_duration_ms": 200
+      },
+      "queues": [
+        {
+          "qid": "sparse_app",
+          "weight": 100
+        },
+        {
+          "qid": "heavy_stream",
+          "weight": 100
+        }
+      ],
+      "requests": [
+        {
+          "req_id": "s1",
+          "qid": "sparse_app",
+          "arrival_time": 0,
+          "sectors": 32
+        },
+        {
+          "req_id": "h1",
+          "qid": "heavy_stream",
+          "arrival_time": 2,
+          "sectors": 200
+        },
+        {
+          "req_id": "s2",
+          "qid": "sparse_app",
+          "arrival_time": 50,
+          "sectors": 32
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_simulation_time": 63,
+        "total_dispatched_requests": 3,
+        "total_sectors_served": 264,
+        "total_idle_time": 16,
+        "total_switch_overhead_time": 2
+      },
+      "queue_metrics": {
+        "heavy_stream": {
+          "base_weight": 100,
+          "final_budget": 256,
+          "dispatched_count": 1,
+          "total_sectors": 200,
+          "avg_wait_time_ms": 10.0,
+          "avg_service_time_ms": 21.0,
+          "weight_raising_count": 1
+        },
+        "sparse_app": {
+          "base_weight": 100,
+          "final_budget": 64,
+          "dispatched_count": 2,
+          "total_sectors": 64,
+          "avg_wait_time_ms": 0.0,
+          "avg_service_time_ms": 4.5,
+          "weight_raising_count": 1
+        }
+      },
+      "expirations": [
+        {
+          "time": 12,
+          "qid": "sparse_app",
+          "reason": "EMPTY_TIMEOUT",
+          "consumed": 32,
+          "new_budget": 128,
+          "vstart": 0.0,
+          "vfinish": 0.032
+        },
+        {
+          "time": 33,
+          "qid": "heavy_stream",
+          "reason": "EMPTY_NO_IDLE",
+          "consumed": 200,
+          "new_budget": 256,
+          "vstart": 0.0,
+          "vfinish": 2.0
+        },
+        {
+          "time": 63,
+          "qid": "sparse_app",
+          "reason": "EMPTY_TIMEOUT",
+          "consumed": 32,
+          "new_budget": 64,
+          "vstart": 0.216,
+          "vfinish": 0.248
+        }
+      ],
+      "dispatch_order": [
+        "s1",
+        "h1",
+        "s2"
+      ]
+    }
+  },
+  {
+    "name": "연속 예산 소진에 따른 동적 예산 배가(Upscaling to max_budget) 검증",
+    "input": {
+      "config": {
+        "default_budget": 64,
+        "max_budget": 256,
+        "min_budget": 32,
+        "slice_idle": 4,
+        "enable_idling": false,
+        "device_speed_sectors_per_ms": 10,
+        "switch_overhead_ms": 1,
+        "enable_low_latency": false
+      },
+      "queues": [
+        {
+          "qid": "streamer_x",
+          "weight": 100
+        },
+        {
+          "qid": "streamer_y",
+          "weight": 100
+        }
+      ],
+      "requests": [
+        {
+          "req_id": "x1",
+          "qid": "streamer_x",
+          "arrival_time": 0,
+          "sectors": 64
+        },
+        {
+          "req_id": "y1",
+          "qid": "streamer_y",
+          "arrival_time": 0,
+          "sectors": 64
+        },
+        {
+          "req_id": "x2",
+          "qid": "streamer_x",
+          "arrival_time": 0,
+          "sectors": 128
+        },
+        {
+          "req_id": "y2",
+          "qid": "streamer_y",
+          "arrival_time": 0,
+          "sectors": 128
+        },
+        {
+          "req_id": "x3",
+          "qid": "streamer_x",
+          "arrival_time": 0,
+          "sectors": 256
+        },
+        {
+          "req_id": "y3",
+          "qid": "streamer_y",
+          "arrival_time": 0,
+          "sectors": 256
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_simulation_time": 97,
+        "total_dispatched_requests": 6,
+        "total_sectors_served": 896,
+        "total_idle_time": 0,
+        "total_switch_overhead_time": 5
+      },
+      "queue_metrics": {
+        "streamer_x": {
+          "base_weight": 100,
+          "final_budget": 256,
+          "dispatched_count": 3,
+          "total_sectors": 448,
+          "avg_wait_time_ms": 19.33,
+          "avg_service_time_ms": 16.0,
+          "weight_raising_count": 0
+        },
+        "streamer_y": {
+          "base_weight": 100,
+          "final_budget": 256,
+          "dispatched_count": 3,
+          "total_sectors": 448,
+          "avg_wait_time_ms": 35.33,
+          "avg_service_time_ms": 16.33,
+          "weight_raising_count": 0
+        }
+      },
+      "expirations": [
+        {
+          "time": 7,
+          "qid": "streamer_x",
+          "reason": "BUDGET_EXHAUSTED",
+          "consumed": 64,
+          "new_budget": 128,
+          "vstart": 0.64,
+          "vfinish": 1.92
+        },
+        {
+          "time": 15,
+          "qid": "streamer_y",
+          "reason": "BUDGET_EXHAUSTED",
+          "consumed": 64,
+          "new_budget": 128,
+          "vstart": 0.64,
+          "vfinish": 1.92
+        },
+        {
+          "time": 29,
+          "qid": "streamer_x",
+          "reason": "BUDGET_EXHAUSTED",
+          "consumed": 128,
+          "new_budget": 256,
+          "vstart": 1.92,
+          "vfinish": 4.48
+        },
+        {
+          "time": 43,
+          "qid": "streamer_y",
+          "reason": "BUDGET_EXHAUSTED",
+          "consumed": 128,
+          "new_budget": 256,
+          "vstart": 1.92,
+          "vfinish": 4.48
+        },
+        {
+          "time": 70,
+          "qid": "streamer_x",
+          "reason": "BUDGET_EXHAUSTED",
+          "consumed": 256,
+          "new_budget": 256,
+          "vstart": 1.92,
+          "vfinish": 4.48
+        },
+        {
+          "time": 97,
+          "qid": "streamer_y",
+          "reason": "BUDGET_EXHAUSTED",
+          "consumed": 256,
+          "new_budget": 256,
+          "vstart": 1.92,
+          "vfinish": 4.48
+        }
+      ],
+      "dispatch_order": [
+        "x1",
+        "y1",
+        "x2",
+        "y2",
+        "x3",
+        "y3"
+      ]
+    }
+  },
+  {
+    "name": "버스트 섹터 임계값 초과에 따른 가중치 부스팅 소멸(Decay) 및 기본 가중치 복원",
+    "input": {
+      "config": {
+        "default_budget": 256,
+        "max_budget": 1024,
+        "min_budget": 64,
+        "slice_idle": 6,
+        "enable_idling": true,
+        "device_speed_sectors_per_ms": 10,
+        "switch_overhead_ms": 1,
+        "enable_low_latency": true,
+        "think_time_threshold": 20,
+        "burst_sectors_threshold": 100,
+        "wr_boost_factor": 10,
+        "wr_duration_ms": 300
+      },
+      "queues": [
+        {
+          "qid": "psuedo_interactive",
+          "weight": 100
+        },
+        {
+          "qid": "batch_backup",
+          "weight": 100
+        }
+      ],
+      "requests": [
+        {
+          "req_id": "pi1",
+          "qid": "psuedo_interactive",
+          "arrival_time": 0,
+          "sectors": 60
+        },
+        {
+          "req_id": "bb1",
+          "qid": "batch_backup",
+          "arrival_time": 1,
+          "sectors": 100
+        },
+        {
+          "req_id": "pi2",
+          "qid": "psuedo_interactive",
+          "arrival_time": 2,
+          "sectors": 60
+        },
+        {
+          "req_id": "pi3",
+          "qid": "psuedo_interactive",
+          "arrival_time": 3,
+          "sectors": 60
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_simulation_time": 29,
+        "total_dispatched_requests": 4,
+        "total_sectors_served": 280,
+        "total_idle_time": 0,
+        "total_switch_overhead_time": 1
+      },
+      "queue_metrics": {
+        "batch_backup": {
+          "base_weight": 100,
+          "final_budget": 128,
+          "dispatched_count": 1,
+          "total_sectors": 100,
+          "avg_wait_time_ms": 17.0,
+          "avg_service_time_ms": 11.0,
+          "weight_raising_count": 1
+        },
+        "psuedo_interactive": {
+          "base_weight": 100,
+          "final_budget": 256,
+          "dispatched_count": 3,
+          "total_sectors": 180,
+          "avg_wait_time_ms": 4.33,
+          "avg_service_time_ms": 6.0,
+          "weight_raising_count": 1
+        }
+      },
+      "expirations": [
+        {
+          "time": 18,
+          "qid": "psuedo_interactive",
+          "reason": "EMPTY_NO_IDLE",
+          "consumed": 180,
+          "new_budget": 256,
+          "vstart": 0.0,
+          "vfinish": 1.8
+        },
+        {
+          "time": 29,
+          "qid": "batch_backup",
+          "reason": "EMPTY_NO_IDLE",
+          "consumed": 100,
+          "new_budget": 128,
+          "vstart": 0.0,
+          "vfinish": 1.0
+        }
+      ],
+      "dispatch_order": [
+        "pi1",
+        "pi2",
+        "pi3",
+        "bb1"
+      ]
+    }
+  },
+  {
+    "name": "엔터프라이즈 다중 테넌트(Web, DB, Batch, Log) 복합 워크로드 종합 검증",
+    "input": {
+      "config": {
+        "default_budget": 128,
+        "max_budget": 512,
+        "min_budget": 32,
+        "slice_idle": 6,
+        "enable_idling": true,
+        "device_speed_sectors_per_ms": 10,
+        "switch_overhead_ms": 1,
+        "enable_low_latency": true,
+        "think_time_threshold": 15,
+        "burst_sectors_threshold": 120,
+        "wr_boost_factor": 8,
+        "wr_duration_ms": 120
+      },
+      "queues": [
+        {
+          "qid": "db_wal",
+          "weight": 400
+        },
+        {
+          "qid": "web_api",
+          "weight": 200
+        },
+        {
+          "qid": "batch_etl",
+          "weight": 100
+        },
+        {
+          "qid": "log_archiver",
+          "weight": 50
+        }
+      ],
+      "requests": [
+        {
+          "req_id": "etl1",
+          "qid": "batch_etl",
+          "arrival_time": 0,
+          "sectors": 128
+        },
+        {
+          "req_id": "log1",
+          "qid": "log_archiver",
+          "arrival_time": 0,
+          "sectors": 64
+        },
+        {
+          "req_id": "db1",
+          "qid": "db_wal",
+          "arrival_time": 3,
+          "sectors": 32
+        },
+        {
+          "req_id": "web1",
+          "qid": "web_api",
+          "arrival_time": 5,
+          "sectors": 24
+        },
+        {
+          "req_id": "db2",
+          "qid": "db_wal",
+          "arrival_time": 10,
+          "sectors": 32
+        },
+        {
+          "req_id": "etl2",
+          "qid": "batch_etl",
+          "arrival_time": 12,
+          "sectors": 128
+        },
+        {
+          "req_id": "web2",
+          "qid": "web_api",
+          "arrival_time": 25,
+          "sectors": 24
+        },
+        {
+          "req_id": "log2",
+          "qid": "log_archiver",
+          "arrival_time": 30,
+          "sectors": 64
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_simulation_time": 70,
+        "total_dispatched_requests": 8,
+        "total_sectors_served": 496,
+        "total_idle_time": 12,
+        "total_switch_overhead_time": 4
+      },
+      "queue_metrics": {
+        "batch_etl": {
+          "base_weight": 100,
+          "final_budget": 256,
+          "dispatched_count": 2,
+          "total_sectors": 256,
+          "avg_wait_time_ms": 22.0,
+          "avg_service_time_ms": 13.5,
+          "weight_raising_count": 1
+        },
+        "db_wal": {
+          "base_weight": 400,
+          "final_budget": 128,
+          "dispatched_count": 2,
+          "total_sectors": 64,
+          "avg_wait_time_ms": 9.0,
+          "avg_service_time_ms": 4.5,
+          "weight_raising_count": 1
+        },
+        "log_archiver": {
+          "base_weight": 50,
+          "final_budget": 256,
+          "dispatched_count": 2,
+          "total_sectors": 128,
+          "avg_wait_time_ms": 30.0,
+          "avg_service_time_ms": 7.5,
+          "weight_raising_count": 1
+        },
+        "web_api": {
+          "base_weight": 200,
+          "final_budget": 64,
+          "dispatched_count": 2,
+          "total_sectors": 48,
+          "avg_wait_time_ms": 15.0,
+          "avg_service_time_ms": 3.5,
+          "weight_raising_count": 1
+        }
+      },
+      "expirations": [
+        {
+          "time": 13,
+          "qid": "batch_etl",
+          "reason": "BUDGET_EXHAUSTED",
+          "consumed": 128,
+          "new_budget": 256,
+          "vstart": 1.28,
+          "vfinish": 3.84
+        },
+        {
+          "time": 28,
+          "qid": "db_wal",
+          "reason": "EMPTY_TIMEOUT",
+          "consumed": 64,
+          "new_budget": 128,
+          "vstart": 0.0,
+          "vfinish": 0.064
+        },
+        {
+          "time": 41,
+          "qid": "web_api",
+          "reason": "EMPTY_TIMEOUT",
+          "consumed": 48,
+          "new_budget": 64,
+          "vstart": 0.0,
+          "vfinish": 0.048
+        },
+        {
+          "time": 56,
+          "qid": "log_archiver",
+          "reason": "BUDGET_EXHAUSTED",
+          "consumed": 128,
+          "new_budget": 256,
+          "vstart": 0.0,
+          "vfinish": 2.56
+        },
+        {
+          "time": 70,
+          "qid": "batch_etl",
+          "reason": "EMPTY_NO_IDLE",
+          "consumed": 128,
+          "new_budget": 256,
+          "vstart": 1.28,
+          "vfinish": 2.56
+        }
+      ],
+      "dispatch_order": [
+        "etl1",
+        "db1",
+        "db2",
+        "web1",
+        "web2",
+        "log1",
+        "log2",
+        "etl2"
+      ]
+    }
+  }
+]
