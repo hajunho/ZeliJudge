@@ -1,0 +1,1082 @@
+[
+  {
+    "input": {
+      "vm_config": {
+        "max_gsi": 1024,
+        "apicv_enabled": false,
+        "vcpus": [
+          {
+            "vcpu_id": 0,
+            "apic_id": 0
+          }
+        ]
+      },
+      "operations": [
+        {
+          "op": "REGISTER_IOEVENTFD",
+          "fd_id": "doorbell_tx_0",
+          "bus": "MMIO",
+          "addr": 4096,
+          "len": 2,
+          "flags": [
+            "DATAMATCH"
+          ],
+          "datamatch": 0
+        },
+        {
+          "op": "GUEST_IO_ACCESS",
+          "vcpu_id": 0,
+          "bus": "MMIO",
+          "type": "WRITE",
+          "addr": 4096,
+          "len": 2,
+          "val": 0
+        },
+        {
+          "op": "GUEST_IO_ACCESS",
+          "vcpu_id": 0,
+          "bus": "MMIO",
+          "type": "WRITE",
+          "addr": 4096,
+          "len": 2,
+          "val": 1
+        },
+        {
+          "op": "GUEST_IO_ACCESS",
+          "vcpu_id": 0,
+          "bus": "MMIO",
+          "type": "READ",
+          "addr": 4096,
+          "len": 2,
+          "val": 0
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "IOEVENTFD_REGISTERED",
+          "fd_id": "doorbell_tx_0"
+        },
+        {
+          "status": "HANDLED_IN_KERNEL",
+          "bypassed_userspace": true,
+          "signaled_fd": "doorbell_tx_0",
+          "val": 0
+        },
+        {
+          "status": "KVM_EXIT_IO",
+          "bypassed_userspace": false,
+          "exit_reason": "MMIO",
+          "access_type": "WRITE",
+          "addr": 4096,
+          "len": 2,
+          "val": 1
+        },
+        {
+          "status": "KVM_EXIT_IO",
+          "bypassed_userspace": false,
+          "exit_reason": "MMIO",
+          "access_type": "READ",
+          "addr": 4096,
+          "len": 2,
+          "val": 0
+        },
+        {
+          "ioeventfd_fastpath_hits": 1,
+          "userspace_exits": 2,
+          "irqfd_injections": 0,
+          "apicv_posted_count": 0,
+          "resample_events": 0,
+          "active_ioeventfds": 1,
+          "active_irqfds": 0,
+          "eventfd_signals": {
+            "doorbell_tx_0": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "vm_config": {
+        "max_gsi": 1024,
+        "apicv_enabled": true,
+        "vcpus": [
+          {
+            "vcpu_id": 0,
+            "apic_id": 0
+          },
+          {
+            "vcpu_id": 1,
+            "apic_id": 1
+          }
+        ]
+      },
+      "operations": [
+        {
+          "op": "SET_GSI_ROUTING",
+          "routes": [
+            {
+              "gsi": 64,
+              "type": "MSI",
+              "dest_apic_id": 1,
+              "vector": 80,
+              "delivery_mode": "FIXED"
+            }
+          ]
+        },
+        {
+          "op": "REGISTER_IRQFD",
+          "fd_id": "nvme_cq_notify",
+          "gsi": 64,
+          "flags": []
+        },
+        {
+          "op": "SIGNAL_IRQFD",
+          "fd_id": "nvme_cq_notify",
+          "count": 1
+        },
+        {
+          "op": "SIGNAL_IRQFD",
+          "fd_id": "nvme_cq_notify",
+          "count": 2
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ROUTES_UPDATED",
+          "routes_count": 1
+        },
+        {
+          "status": "IRQFD_REGISTERED",
+          "fd_id": "nvme_cq_notify",
+          "gsi": 64
+        },
+        {
+          "status": "INJECTED",
+          "gsi": 64,
+          "type": "MSI",
+          "target_vcpu": 1,
+          "vector": 80,
+          "method": "APICV_POSTED_INTR"
+        },
+        {
+          "status": "INJECTED",
+          "gsi": 64,
+          "type": "MSI",
+          "target_vcpu": 1,
+          "vector": 80,
+          "method": "APICV_POSTED_INTR"
+        },
+        {
+          "ioeventfd_fastpath_hits": 0,
+          "userspace_exits": 0,
+          "irqfd_injections": 2,
+          "apicv_posted_count": 2,
+          "resample_events": 0,
+          "active_ioeventfds": 0,
+          "active_irqfds": 1,
+          "eventfd_signals": {
+            "nvme_cq_notify": 3
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "vm_config": {
+        "max_gsi": 512,
+        "apicv_enabled": false,
+        "vcpus": [
+          {
+            "vcpu_id": 0,
+            "apic_id": 0
+          }
+        ]
+      },
+      "operations": [
+        {
+          "op": "SET_GSI_ROUTING",
+          "routes": [
+            {
+              "gsi": 11,
+              "type": "IRQCHIP",
+              "irqchip": "IOAPIC",
+              "pin": 11,
+              "vector": 59
+            }
+          ]
+        },
+        {
+          "op": "REGISTER_IRQFD",
+          "fd_id": "pci_intx_line",
+          "gsi": 11,
+          "flags": [
+            "RESAMPLE"
+          ],
+          "resample_fd_id": "resample_pci_line"
+        },
+        {
+          "op": "SIGNAL_IRQFD",
+          "fd_id": "pci_intx_line",
+          "count": 1
+        },
+        {
+          "op": "GUEST_EOI",
+          "vcpu_id": 0,
+          "vector": 59
+        },
+        {
+          "op": "GUEST_EOI",
+          "vcpu_id": 0,
+          "vector": 59
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ROUTES_UPDATED",
+          "routes_count": 1
+        },
+        {
+          "status": "IRQFD_REGISTERED",
+          "fd_id": "pci_intx_line",
+          "gsi": 11
+        },
+        {
+          "status": "LINE_ASSERTED",
+          "gsi": 11,
+          "type": "IRQCHIP",
+          "pin": 11,
+          "vector": 59
+        },
+        {
+          "status": "EOI_HANDLED",
+          "vcpu_id": 0,
+          "vector": 59,
+          "resampled_fds": [
+            "resample_pci_line"
+          ]
+        },
+        {
+          "status": "EOI_HANDLED",
+          "vcpu_id": 0,
+          "vector": 59,
+          "resampled_fds": []
+        },
+        {
+          "ioeventfd_fastpath_hits": 0,
+          "userspace_exits": 0,
+          "irqfd_injections": 1,
+          "apicv_posted_count": 0,
+          "resample_events": 1,
+          "active_ioeventfds": 0,
+          "active_irqfds": 1,
+          "eventfd_signals": {
+            "pci_intx_line": 1,
+            "resample_pci_line": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "vm_config": {
+        "max_gsi": 1024,
+        "apicv_enabled": false,
+        "vcpus": [
+          {
+            "vcpu_id": 0,
+            "apic_id": 0
+          }
+        ]
+      },
+      "operations": [
+        {
+          "op": "REGISTER_IOEVENTFD",
+          "fd_id": "virtio_rx_q0",
+          "bus": "MMIO",
+          "addr": 8192,
+          "len": 2,
+          "flags": [
+            "DATAMATCH"
+          ],
+          "datamatch": 0
+        },
+        {
+          "op": "REGISTER_IOEVENTFD",
+          "fd_id": "virtio_tx_q1",
+          "bus": "MMIO",
+          "addr": 8192,
+          "len": 2,
+          "flags": [
+            "DATAMATCH"
+          ],
+          "datamatch": 1
+        },
+        {
+          "op": "REGISTER_IOEVENTFD",
+          "fd_id": "pio_serial_tx",
+          "bus": "PIO",
+          "addr": 1016,
+          "len": 1,
+          "flags": []
+        },
+        {
+          "op": "GUEST_IO_ACCESS",
+          "vcpu_id": 0,
+          "bus": "MMIO",
+          "type": "WRITE",
+          "addr": 8192,
+          "len": 2,
+          "val": 1
+        },
+        {
+          "op": "GUEST_IO_ACCESS",
+          "vcpu_id": 0,
+          "bus": "MMIO",
+          "type": "WRITE",
+          "addr": 8192,
+          "len": 2,
+          "val": 0
+        },
+        {
+          "op": "GUEST_IO_ACCESS",
+          "vcpu_id": 0,
+          "bus": "PIO",
+          "type": "WRITE",
+          "addr": 1016,
+          "len": 1,
+          "val": 65
+        },
+        {
+          "op": "GUEST_IO_ACCESS",
+          "vcpu_id": 0,
+          "bus": "MMIO",
+          "type": "WRITE",
+          "addr": 8192,
+          "len": 4,
+          "val": 0
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "IOEVENTFD_REGISTERED",
+          "fd_id": "virtio_rx_q0"
+        },
+        {
+          "status": "IOEVENTFD_REGISTERED",
+          "fd_id": "virtio_tx_q1"
+        },
+        {
+          "status": "IOEVENTFD_REGISTERED",
+          "fd_id": "pio_serial_tx"
+        },
+        {
+          "status": "HANDLED_IN_KERNEL",
+          "bypassed_userspace": true,
+          "signaled_fd": "virtio_tx_q1",
+          "val": 1
+        },
+        {
+          "status": "HANDLED_IN_KERNEL",
+          "bypassed_userspace": true,
+          "signaled_fd": "virtio_rx_q0",
+          "val": 0
+        },
+        {
+          "status": "HANDLED_IN_KERNEL",
+          "bypassed_userspace": true,
+          "signaled_fd": "pio_serial_tx",
+          "val": 65
+        },
+        {
+          "status": "KVM_EXIT_IO",
+          "bypassed_userspace": false,
+          "exit_reason": "MMIO",
+          "access_type": "WRITE",
+          "addr": 8192,
+          "len": 4,
+          "val": 0
+        },
+        {
+          "ioeventfd_fastpath_hits": 3,
+          "userspace_exits": 1,
+          "irqfd_injections": 0,
+          "apicv_posted_count": 0,
+          "resample_events": 0,
+          "active_ioeventfds": 3,
+          "active_irqfds": 0,
+          "eventfd_signals": {
+            "pio_serial_tx": 1,
+            "virtio_rx_q0": 1,
+            "virtio_tx_q1": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "vm_config": {
+        "max_gsi": 1024,
+        "apicv_enabled": false,
+        "vcpus": [
+          {
+            "vcpu_id": 0,
+            "apic_id": 0
+          }
+        ]
+      },
+      "operations": [
+        {
+          "op": "REGISTER_IRQFD",
+          "fd_id": "dyn_irq_1",
+          "gsi": 48,
+          "flags": []
+        },
+        {
+          "op": "SIGNAL_IRQFD",
+          "fd_id": "dyn_irq_1",
+          "count": 1
+        },
+        {
+          "op": "SET_GSI_ROUTING",
+          "routes": [
+            {
+              "gsi": 48,
+              "type": "MSI",
+              "dest_apic_id": 0,
+              "vector": 72,
+              "delivery_mode": "FIXED"
+            }
+          ]
+        },
+        {
+          "op": "SIGNAL_IRQFD",
+          "fd_id": "dyn_irq_1",
+          "count": 1
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "IRQFD_REGISTERED",
+          "fd_id": "dyn_irq_1",
+          "gsi": 48
+        },
+        {
+          "status": "UNROUTED_GSI",
+          "fd_id": "dyn_irq_1",
+          "gsi": 48
+        },
+        {
+          "status": "ROUTES_UPDATED",
+          "routes_count": 1
+        },
+        {
+          "status": "INJECTED",
+          "gsi": 48,
+          "type": "MSI",
+          "target_vcpu": 0,
+          "vector": 72,
+          "method": "LAPIC_IRR_INJECT"
+        },
+        {
+          "ioeventfd_fastpath_hits": 0,
+          "userspace_exits": 0,
+          "irqfd_injections": 1,
+          "apicv_posted_count": 0,
+          "resample_events": 0,
+          "active_ioeventfds": 0,
+          "active_irqfds": 1,
+          "eventfd_signals": {
+            "dyn_irq_1": 2
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "vm_config": {
+        "max_gsi": 512,
+        "apicv_enabled": false,
+        "vcpus": [
+          {
+            "vcpu_id": 0,
+            "apic_id": 0
+          }
+        ]
+      },
+      "operations": [
+        {
+          "op": "REGISTER_IOEVENTFD",
+          "fd_id": "test_io",
+          "bus": "MMIO",
+          "addr": 16384,
+          "len": 4,
+          "flags": [
+            "DATAMATCH"
+          ],
+          "datamatch": 100
+        },
+        {
+          "op": "REGISTER_IOEVENTFD",
+          "fd_id": "test_io_dup",
+          "bus": "MMIO",
+          "addr": 16384,
+          "len": 4,
+          "flags": [
+            "DATAMATCH"
+          ],
+          "datamatch": 100
+        },
+        {
+          "op": "REGISTER_IRQFD",
+          "fd_id": "test_irq",
+          "gsi": 24,
+          "flags": []
+        },
+        {
+          "op": "REGISTER_IRQFD",
+          "fd_id": "test_irq",
+          "gsi": 25,
+          "flags": []
+        },
+        {
+          "op": "UNREGISTER_IOEVENTFD",
+          "fd_id": "test_io",
+          "bus": "MMIO",
+          "addr": 16384,
+          "len": 4,
+          "flags": [
+            "DATAMATCH"
+          ],
+          "datamatch": 100
+        },
+        {
+          "op": "UNREGISTER_IOEVENTFD",
+          "fd_id": "test_io",
+          "bus": "MMIO",
+          "addr": 16384,
+          "len": 4,
+          "flags": [
+            "DATAMATCH"
+          ],
+          "datamatch": 100
+        },
+        {
+          "op": "UNREGISTER_IRQFD",
+          "fd_id": "test_irq",
+          "gsi": 24
+        },
+        {
+          "op": "SIGNAL_IRQFD",
+          "fd_id": "test_irq",
+          "count": 1
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "IOEVENTFD_REGISTERED",
+          "fd_id": "test_io"
+        },
+        {
+          "status": "ERROR_ALREADY_EXISTS",
+          "fd_id": "test_io_dup"
+        },
+        {
+          "status": "IRQFD_REGISTERED",
+          "fd_id": "test_irq",
+          "gsi": 24
+        },
+        {
+          "status": "ERROR_ALREADY_EXISTS",
+          "fd_id": "test_irq"
+        },
+        {
+          "status": "IOEVENTFD_DEASSIGNED",
+          "fd_id": "test_io"
+        },
+        {
+          "status": "ERROR_NOT_FOUND",
+          "fd_id": "test_io"
+        },
+        {
+          "status": "IRQFD_DEASSIGNED",
+          "fd_id": "test_irq",
+          "gsi": 24
+        },
+        {
+          "status": "ERROR_UNKNOWN_IRQFD",
+          "fd_id": "test_irq"
+        },
+        {
+          "ioeventfd_fastpath_hits": 0,
+          "userspace_exits": 0,
+          "irqfd_injections": 0,
+          "apicv_posted_count": 0,
+          "resample_events": 0,
+          "active_ioeventfds": 0,
+          "active_irqfds": 0,
+          "eventfd_signals": {
+            "test_io": 0,
+            "test_irq": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "vm_config": {
+        "max_gsi": 2048,
+        "apicv_enabled": false,
+        "vcpus": [
+          {
+            "vcpu_id": 0,
+            "apic_id": 0
+          },
+          {
+            "vcpu_id": 1,
+            "apic_id": 1
+          },
+          {
+            "vcpu_id": 2,
+            "apic_id": 2
+          },
+          {
+            "vcpu_id": 3,
+            "apic_id": 3
+          }
+        ]
+      },
+      "operations": [
+        {
+          "op": "SET_GSI_ROUTING",
+          "routes": [
+            {
+              "gsi": 100,
+              "type": "MSI",
+              "dest_apic_id": 0,
+              "vector": 50,
+              "delivery_mode": "FIXED"
+            },
+            {
+              "gsi": 101,
+              "type": "MSI",
+              "dest_apic_id": 1,
+              "vector": 51,
+              "delivery_mode": "FIXED"
+            },
+            {
+              "gsi": 102,
+              "type": "MSI",
+              "dest_apic_id": 2,
+              "vector": 52,
+              "delivery_mode": "FIXED"
+            },
+            {
+              "gsi": 103,
+              "type": "MSI",
+              "dest_apic_id": 3,
+              "vector": 53,
+              "delivery_mode": "FIXED"
+            }
+          ]
+        },
+        {
+          "op": "REGISTER_IRQFD",
+          "fd_id": "irq_vcpu0",
+          "gsi": 100,
+          "flags": []
+        },
+        {
+          "op": "REGISTER_IRQFD",
+          "fd_id": "irq_vcpu1",
+          "gsi": 101,
+          "flags": []
+        },
+        {
+          "op": "REGISTER_IRQFD",
+          "fd_id": "irq_vcpu2",
+          "gsi": 102,
+          "flags": []
+        },
+        {
+          "op": "REGISTER_IRQFD",
+          "fd_id": "irq_vcpu3",
+          "gsi": 103,
+          "flags": []
+        },
+        {
+          "op": "SIGNAL_IRQFD",
+          "fd_id": "irq_vcpu2",
+          "count": 1
+        },
+        {
+          "op": "SIGNAL_IRQFD",
+          "fd_id": "irq_vcpu3",
+          "count": 1
+        },
+        {
+          "op": "SIGNAL_IRQFD",
+          "fd_id": "irq_vcpu0",
+          "count": 1
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ROUTES_UPDATED",
+          "routes_count": 4
+        },
+        {
+          "status": "IRQFD_REGISTERED",
+          "fd_id": "irq_vcpu0",
+          "gsi": 100
+        },
+        {
+          "status": "IRQFD_REGISTERED",
+          "fd_id": "irq_vcpu1",
+          "gsi": 101
+        },
+        {
+          "status": "IRQFD_REGISTERED",
+          "fd_id": "irq_vcpu2",
+          "gsi": 102
+        },
+        {
+          "status": "IRQFD_REGISTERED",
+          "fd_id": "irq_vcpu3",
+          "gsi": 103
+        },
+        {
+          "status": "INJECTED",
+          "gsi": 102,
+          "type": "MSI",
+          "target_vcpu": 2,
+          "vector": 52,
+          "method": "LAPIC_IRR_INJECT"
+        },
+        {
+          "status": "INJECTED",
+          "gsi": 103,
+          "type": "MSI",
+          "target_vcpu": 3,
+          "vector": 53,
+          "method": "LAPIC_IRR_INJECT"
+        },
+        {
+          "status": "INJECTED",
+          "gsi": 100,
+          "type": "MSI",
+          "target_vcpu": 0,
+          "vector": 50,
+          "method": "LAPIC_IRR_INJECT"
+        },
+        {
+          "ioeventfd_fastpath_hits": 0,
+          "userspace_exits": 0,
+          "irqfd_injections": 3,
+          "apicv_posted_count": 0,
+          "resample_events": 0,
+          "active_ioeventfds": 0,
+          "active_irqfds": 4,
+          "eventfd_signals": {
+            "irq_vcpu0": 1,
+            "irq_vcpu1": 0,
+            "irq_vcpu2": 1,
+            "irq_vcpu3": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "vm_config": {
+        "max_gsi": 2048,
+        "apicv_enabled": true,
+        "vcpus": [
+          {
+            "vcpu_id": 0,
+            "apic_id": 0
+          },
+          {
+            "vcpu_id": 1,
+            "apic_id": 1
+          }
+        ]
+      },
+      "operations": [
+        {
+          "op": "SET_GSI_ROUTING",
+          "routes": [
+            {
+              "gsi": 64,
+              "type": "MSI",
+              "dest_apic_id": 0,
+              "vector": 80,
+              "delivery_mode": "FIXED"
+            },
+            {
+              "gsi": 65,
+              "type": "MSI",
+              "dest_apic_id": 1,
+              "vector": 81,
+              "delivery_mode": "FIXED"
+            },
+            {
+              "gsi": 15,
+              "type": "IRQCHIP",
+              "irqchip": "IOAPIC",
+              "pin": 15,
+              "vector": 47
+            }
+          ]
+        },
+        {
+          "op": "REGISTER_IOEVENTFD",
+          "fd_id": "nvme_sq_doorbell",
+          "bus": "MMIO",
+          "addr": 65536,
+          "len": 4,
+          "flags": []
+        },
+        {
+          "op": "REGISTER_IOEVENTFD",
+          "fd_id": "vhost_tx_q0",
+          "bus": "MMIO",
+          "addr": 131072,
+          "len": 2,
+          "flags": [
+            "DATAMATCH"
+          ],
+          "datamatch": 0
+        },
+        {
+          "op": "REGISTER_IOEVENTFD",
+          "fd_id": "vhost_rx_q1",
+          "bus": "MMIO",
+          "addr": 131072,
+          "len": 2,
+          "flags": [
+            "DATAMATCH"
+          ],
+          "datamatch": 1
+        },
+        {
+          "op": "REGISTER_IRQFD",
+          "fd_id": "nvme_cq_irq",
+          "gsi": 64,
+          "flags": []
+        },
+        {
+          "op": "REGISTER_IRQFD",
+          "fd_id": "vhost_tx_irq",
+          "gsi": 65,
+          "flags": []
+        },
+        {
+          "op": "REGISTER_IRQFD",
+          "fd_id": "legacy_serial_irq",
+          "gsi": 15,
+          "flags": [
+            "RESAMPLE"
+          ],
+          "resample_fd_id": "resample_serial"
+        },
+        {
+          "op": "GUEST_IO_ACCESS",
+          "vcpu_id": 0,
+          "bus": "MMIO",
+          "type": "WRITE",
+          "addr": 65536,
+          "len": 4,
+          "val": 12
+        },
+        {
+          "op": "GUEST_IO_ACCESS",
+          "vcpu_id": 1,
+          "bus": "MMIO",
+          "type": "WRITE",
+          "addr": 131072,
+          "len": 2,
+          "val": 0
+        },
+        {
+          "op": "GUEST_IO_ACCESS",
+          "vcpu_id": 0,
+          "bus": "MMIO",
+          "type": "WRITE",
+          "addr": 131080,
+          "len": 2,
+          "val": 0
+        },
+        {
+          "op": "SIGNAL_IRQFD",
+          "fd_id": "nvme_cq_irq",
+          "count": 1
+        },
+        {
+          "op": "SIGNAL_IRQFD",
+          "fd_id": "vhost_tx_irq",
+          "count": 1
+        },
+        {
+          "op": "SIGNAL_IRQFD",
+          "fd_id": "legacy_serial_irq",
+          "count": 1
+        },
+        {
+          "op": "GUEST_EOI",
+          "vcpu_id": 0,
+          "vector": 47
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ROUTES_UPDATED",
+          "routes_count": 3
+        },
+        {
+          "status": "IOEVENTFD_REGISTERED",
+          "fd_id": "nvme_sq_doorbell"
+        },
+        {
+          "status": "IOEVENTFD_REGISTERED",
+          "fd_id": "vhost_tx_q0"
+        },
+        {
+          "status": "IOEVENTFD_REGISTERED",
+          "fd_id": "vhost_rx_q1"
+        },
+        {
+          "status": "IRQFD_REGISTERED",
+          "fd_id": "nvme_cq_irq",
+          "gsi": 64
+        },
+        {
+          "status": "IRQFD_REGISTERED",
+          "fd_id": "vhost_tx_irq",
+          "gsi": 65
+        },
+        {
+          "status": "IRQFD_REGISTERED",
+          "fd_id": "legacy_serial_irq",
+          "gsi": 15
+        },
+        {
+          "status": "HANDLED_IN_KERNEL",
+          "bypassed_userspace": true,
+          "signaled_fd": "nvme_sq_doorbell",
+          "val": 12
+        },
+        {
+          "status": "HANDLED_IN_KERNEL",
+          "bypassed_userspace": true,
+          "signaled_fd": "vhost_tx_q0",
+          "val": 0
+        },
+        {
+          "status": "KVM_EXIT_IO",
+          "bypassed_userspace": false,
+          "exit_reason": "MMIO",
+          "access_type": "WRITE",
+          "addr": 131080,
+          "len": 2,
+          "val": 0
+        },
+        {
+          "status": "INJECTED",
+          "gsi": 64,
+          "type": "MSI",
+          "target_vcpu": 0,
+          "vector": 80,
+          "method": "APICV_POSTED_INTR"
+        },
+        {
+          "status": "INJECTED",
+          "gsi": 65,
+          "type": "MSI",
+          "target_vcpu": 1,
+          "vector": 81,
+          "method": "APICV_POSTED_INTR"
+        },
+        {
+          "status": "LINE_ASSERTED",
+          "gsi": 15,
+          "type": "IRQCHIP",
+          "pin": 15,
+          "vector": 47
+        },
+        {
+          "status": "EOI_HANDLED",
+          "vcpu_id": 0,
+          "vector": 47,
+          "resampled_fds": [
+            "resample_serial"
+          ]
+        },
+        {
+          "ioeventfd_fastpath_hits": 2,
+          "userspace_exits": 1,
+          "irqfd_injections": 3,
+          "apicv_posted_count": 2,
+          "resample_events": 1,
+          "active_ioeventfds": 3,
+          "active_irqfds": 3,
+          "eventfd_signals": {
+            "legacy_serial_irq": 1,
+            "nvme_cq_irq": 1,
+            "nvme_sq_doorbell": 1,
+            "resample_serial": 1,
+            "vhost_rx_q1": 0,
+            "vhost_tx_irq": 1,
+            "vhost_tx_q0": 1
+          }
+        }
+      ]
+    }
+  }
+]
