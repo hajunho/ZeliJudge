@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "description": "Testcase #1 - Case 1: Classical Block Layer",
+    "input": "{\"sq_size\": 1024, \"cq_size\": 2048, \"io_count\": 500000, \"use_nvme_passthrough\": false, \"use_fixed_buffers\": true, \"use_iopoll\": true, \"reap_batch_size\": 64, \"reap_interval_us\": 10, \"nvme_queue_depth\": 1024}",
+    "expected_output": "{\"status\": \"CLASSICAL_BLOCK_LAYER_BIO_OVERHEAD_BOTTLENECK\", \"io_performance\": {\"completed_iops\": 780000, \"p99_latency_us\": 45.8, \"bio_allocations\": 500000, \"blk_mq_spinlock_contention_pct\": 38.5, \"page_pin_unpin_cycles\": 1000000, \"cqe_overflow_count\": 0, \"sq_stall_count\": 0}, \"diagnostics\": [\"io_uring이 전통적 VFS 및 blk-mq 블록 레이어를 경유하면서 매 I/O마다 bio 구조체 할당/해제 오버헤드가 발생했습니다.\", \"bio 할당 횟수: 500,000회, blk-mq 스핀락 경합률: 38.5%. IOPS가 78만 수준에 머무릅니다.\"], \"recommendation\": \"IORING_OP_URING_CMD NVMe Passthrough를 활성화하여 커널 블록 레이어(bio/blk-mq)를 완전히 바이패스하십시오.\"}"
+  },
+  {
+    "id": 2,
+    "description": "Testcase #2 - Case 2: Dynamic Page Pinning Stall",
+    "input": "{\"sq_size\": 1024, \"cq_size\": 2048, \"io_count\": 500000, \"use_nvme_passthrough\": true, \"use_fixed_buffers\": false, \"use_iopoll\": true, \"reap_batch_size\": 64, \"reap_interval_us\": 10, \"nvme_queue_depth\": 1024}",
+    "expected_output": "{\"status\": \"DYNAMIC_PAGE_PINNING_TLB_SHOOTDOWN_STALL\", \"io_performance\": {\"completed_iops\": 1650000, \"p99_latency_us\": 24.5, \"bio_allocations\": 0, \"blk_mq_spinlock_contention_pct\": 0.0, \"page_pin_unpin_cycles\": 1000000, \"cqe_overflow_count\": 0, \"sq_stall_count\": 0}, \"diagnostics\": [\"NVMe Passthrough는 활성화되었으나 고정 버퍼(IORING_REGISTER_BUFFERS)가 등록되지 않았습니다.\", \"매 I/O마다 get_user_pages_fast() 및 unpin_user_page()가 반복(1,000,000회)되어 mmap_lock 경합 및 TLB shootdown 지연이 발생합니다.\"], \"recommendation\": \"IORING_REGISTER_BUFFERS를 통해 거대 페이지(HugePage)를 사전에 메모리에 고정(Pinning)하여 런타임 락을 제거하십시오.\"}"
+  },
+  {
+    "id": 3,
+    "description": "Testcase #3 - Case 3: IOPOLL Reaping Starvation",
+    "input": "{\"sq_size\": 1024, \"cq_size\": 2048, \"io_count\": 500000, \"use_nvme_passthrough\": true, \"use_fixed_buffers\": true, \"use_iopoll\": true, \"reap_batch_size\": 64, \"reap_interval_us\": 100, \"nvme_queue_depth\": 1024}",
+    "expected_output": "{\"status\": \"IOPOLL_COMPLETION_REAPING_STARVATION\", \"io_performance\": {\"completed_iops\": 1420000, \"p99_latency_us\": 68.2, \"bio_allocations\": 0, \"blk_mq_spinlock_contention_pct\": 0.0, \"page_pin_unpin_cycles\": 0, \"cqe_overflow_count\": 0, \"sq_stall_count\": 75000}, \"diagnostics\": [\"IORING_SETUP_IOPOLL 모드에서 유저스페이스의 폴링 수거 간격(100us)이 너무 길어 NVMe 하드웨어 완료 큐가 회수되지 못했습니다.\", \"제출 큐(SQ) 고갈 및 스톨(75,000회)이 발생하여 P99 지연시간이 68.2us로 폭증했습니다.\"], \"recommendation\": \"전용 폴링 스레드(Dedicated Poller)를 구성하고 reap_interval을 5us 이하로 단축하거나 Adaptive Polling을 적용하십시오.\"}"
+  },
+  {
+    "id": 4,
+    "description": "Testcase #4 - Case 4: CQE Ring Overflow",
+    "input": "{\"sq_size\": 1024, \"cq_size\": 1024, \"io_count\": 300000, \"use_nvme_passthrough\": true, \"use_fixed_buffers\": true, \"use_iopoll\": false, \"reap_batch_size\": 64, \"reap_interval_us\": 20, \"nvme_queue_depth\": 1024}",
+    "expected_output": "{\"status\": \"CQE_RING_OVERFLOW_AUXILIARY_LIST_BLOAT\", \"io_performance\": {\"completed_iops\": 2100000, \"p99_latency_us\": 35.4, \"bio_allocations\": 0, \"blk_mq_spinlock_contention_pct\": 0.0, \"page_pin_unpin_cycles\": 0, \"cqe_overflow_count\": 24000, \"sq_stall_count\": 0}, \"diagnostics\": [\"CQ 링 크기(1024)가 SQ 크기(1024) 대비 부족하여 완료 이벤트가 커널 내부 보조 연결 리스트(cq_overflow_list)로 유출되었습니다.\", \"CQE 오버플로우 24,000건 발생. 보조 리스트 순회 및 동적 메모리 할당으로 제로카피 무잠금 원칙이 훼손되었습니다.\"], \"recommendation\": \"CQ 링 크기를 최소 SQ 크기의 2배 이상(IORING_SETUP_CQSIZE)으로 확장하고 역압(Backpressure)을 적용하십시오.\"}"
+  },
+  {
+    "id": 5,
+    "description": "Testcase #5 - Case 5: Optimal NVMe Passthrough",
+    "input": "{\"sq_size\": 1024, \"cq_size\": 2048, \"io_count\": 500000, \"use_nvme_passthrough\": true, \"use_fixed_buffers\": true, \"use_iopoll\": true, \"reap_batch_size\": 64, \"reap_interval_us\": 5, \"nvme_queue_depth\": 1024}",
+    "expected_output": "{\"status\": \"OPTIMAL_NVME_PASSTHROUGH_ZERO_COPY_PIPELINE\", \"io_performance\": {\"completed_iops\": 3850000, \"p99_latency_us\": 4.8, \"bio_allocations\": 0, \"blk_mq_spinlock_contention_pct\": 0.0, \"page_pin_unpin_cycles\": 0, \"cqe_overflow_count\": 0, \"sq_stall_count\": 0}, \"diagnostics\": [\"커널 블록 레이어 완전 바이패스(bio/blk-mq 0건), 고정 버퍼 DMA 사전 핀닝, 락리스 IOPOLL 전용 수거 파이프라인이 완벽히 가동 중입니다.\", \"초당 385만 IOPS(3.85M IOPS) 달성 및 P99 극저지연(4.8us) 사수 성공. CQE 오버플로우 0건.\"], \"recommendation\": \"최적의 초고성능 NVMe io_uring 패스스루 아키텍처 상태 유지.\"}"
+  },
+  {
+    "id": 6,
+    "description": "Testcase #6 - Case 6: Low Throughput Legacy",
+    "input": "{\"sq_size\": 512, \"cq_size\": 1024, \"io_count\": 50000, \"use_nvme_passthrough\": false, \"use_fixed_buffers\": false, \"use_iopoll\": false, \"reap_batch_size\": 32, \"reap_interval_us\": 20, \"nvme_queue_depth\": 512}",
+    "expected_output": "{\"status\": \"CLASSICAL_BLOCK_LAYER_BIO_OVERHEAD_BOTTLENECK\", \"io_performance\": {\"completed_iops\": 780000, \"p99_latency_us\": 45.8, \"bio_allocations\": 50000, \"blk_mq_spinlock_contention_pct\": 38.5, \"page_pin_unpin_cycles\": 100000, \"cqe_overflow_count\": 0, \"sq_stall_count\": 0}, \"diagnostics\": [\"io_uring이 전통적 VFS 및 blk-mq 블록 레이어를 경유하면서 매 I/O마다 bio 구조체 할당/해제 오버헤드가 발생했습니다.\", \"bio 할당 횟수: 50,000회, blk-mq 스핀락 경합률: 38.5%. IOPS가 78만 수준에 머무릅니다.\"], \"recommendation\": \"IORING_OP_URING_CMD NVMe Passthrough를 활성화하여 커널 블록 레이어(bio/blk-mq)를 완전히 바이패스하십시오.\"}"
+  },
+  {
+    "id": 7,
+    "description": "Testcase #7 - Case 7: Moderate CQ Undersizing",
+    "input": "{\"sq_size\": 2048, \"cq_size\": 2048, \"io_count\": 250000, \"use_nvme_passthrough\": true, \"use_fixed_buffers\": true, \"use_iopoll\": false, \"reap_batch_size\": 64, \"reap_interval_us\": 15, \"nvme_queue_depth\": 2048}",
+    "expected_output": "{\"status\": \"CQE_RING_OVERFLOW_AUXILIARY_LIST_BLOAT\", \"io_performance\": {\"completed_iops\": 2100000, \"p99_latency_us\": 35.4, \"bio_allocations\": 0, \"blk_mq_spinlock_contention_pct\": 0.0, \"page_pin_unpin_cycles\": 0, \"cqe_overflow_count\": 20000, \"sq_stall_count\": 0}, \"diagnostics\": [\"CQ 링 크기(2048)가 SQ 크기(2048) 대비 부족하여 완료 이벤트가 커널 내부 보조 연결 리스트(cq_overflow_list)로 유출되었습니다.\", \"CQE 오버플로우 20,000건 발생. 보조 리스트 순회 및 동적 메모리 할당으로 제로카피 무잠금 원칙이 훼손되었습니다.\"], \"recommendation\": \"CQ 링 크기를 최소 SQ 크기의 2배 이상(IORING_SETUP_CQSIZE)으로 확장하고 역압(Backpressure)을 적용하십시오.\"}"
+  },
+  {
+    "id": 8,
+    "description": "Testcase #8 - Case 8: Ultra-Scale Enterprise",
+    "input": "{\"sq_size\": 2048, \"cq_size\": 4096, \"io_count\": 1000000, \"use_nvme_passthrough\": true, \"use_fixed_buffers\": true, \"use_iopoll\": true, \"reap_batch_size\": 128, \"reap_interval_us\": 2, \"nvme_queue_depth\": 2048}",
+    "expected_output": "{\"status\": \"OPTIMAL_NVME_PASSTHROUGH_ZERO_COPY_PIPELINE\", \"io_performance\": {\"completed_iops\": 3850000, \"p99_latency_us\": 4.8, \"bio_allocations\": 0, \"blk_mq_spinlock_contention_pct\": 0.0, \"page_pin_unpin_cycles\": 0, \"cqe_overflow_count\": 0, \"sq_stall_count\": 0}, \"diagnostics\": [\"커널 블록 레이어 완전 바이패스(bio/blk-mq 0건), 고정 버퍼 DMA 사전 핀닝, 락리스 IOPOLL 전용 수거 파이프라인이 완벽히 가동 중입니다.\", \"초당 385만 IOPS(3.85M IOPS) 달성 및 P99 극저지연(4.8us) 사수 성공. CQE 오버플로우 0건.\"], \"recommendation\": \"최적의 초고성능 NVMe io_uring 패스스루 아키텍처 상태 유지.\"}"
+  }
+]
