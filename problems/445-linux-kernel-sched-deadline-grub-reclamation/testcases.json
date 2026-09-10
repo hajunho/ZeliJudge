@@ -1,0 +1,805 @@
+[
+  {
+    "testcase_id": 1,
+    "input": {
+      "config": {
+        "grub_enabled": true
+      },
+      "trace": [
+        {
+          "op": "ENQUEUE_TASK",
+          "task_id": "T1",
+          "runtime": 3000,
+          "deadline": 10000,
+          "period": 10000,
+          "timestamp": 0
+        },
+        {
+          "op": "STEP_RUN",
+          "task_id": "T1",
+          "elapsed_us": 1000,
+          "timestamp": 1000
+        },
+        {
+          "op": "STEP_RUN",
+          "task_id": "T1",
+          "elapsed_us": 1000,
+          "timestamp": 2000
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ENQUEUE_TASK",
+          "task_id": "T1",
+          "util": 0.3,
+          "cur_budget": 3000,
+          "cur_deadline": 10000,
+          "u_act": 0.3,
+          "status": "TASK_ENQUEUED"
+        },
+        {
+          "op": "STEP_RUN",
+          "task_id": "T1",
+          "elapsed_us": 1000,
+          "budget_consumed": 300,
+          "remaining_budget": 2700,
+          "u_act": 0.3,
+          "reclaimed_us": 700,
+          "status": "STEP_COMPLETED"
+        },
+        {
+          "op": "STEP_RUN",
+          "task_id": "T1",
+          "elapsed_us": 1000,
+          "budget_consumed": 300,
+          "remaining_budget": 2400,
+          "u_act": 0.3,
+          "reclaimed_us": 700,
+          "status": "STEP_COMPLETED"
+        },
+        {
+          "op": "GET_STATS",
+          "grub_enabled": true,
+          "u_act": 0.3,
+          "total_exec_time_us": 2000,
+          "total_budget_consumed_us": 600,
+          "reclaimed_bandwidth_us": 1400,
+          "zero_lag_firings": 0
+        }
+      ],
+      "summary": {
+        "grub_enabled": true,
+        "u_act": 0.3,
+        "total_exec_time_us": 2000,
+        "total_budget_consumed_us": 600,
+        "reclaimed_bandwidth_us": 1400,
+        "zero_lag_firings": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 2,
+    "input": {
+      "config": {
+        "grub_enabled": false
+      },
+      "trace": [
+        {
+          "op": "ENQUEUE_TASK",
+          "task_id": "T1",
+          "runtime": 3000,
+          "deadline": 10000,
+          "period": 10000,
+          "timestamp": 0
+        },
+        {
+          "op": "STEP_RUN",
+          "task_id": "T1",
+          "elapsed_us": 1000,
+          "timestamp": 1000
+        },
+        {
+          "op": "STEP_RUN",
+          "task_id": "T1",
+          "elapsed_us": 1000,
+          "timestamp": 2000
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ENQUEUE_TASK",
+          "task_id": "T1",
+          "util": 0.3,
+          "cur_budget": 3000,
+          "cur_deadline": 10000,
+          "u_act": 0.3,
+          "status": "TASK_ENQUEUED"
+        },
+        {
+          "op": "STEP_RUN",
+          "task_id": "T1",
+          "elapsed_us": 1000,
+          "budget_consumed": 1000,
+          "remaining_budget": 2000,
+          "u_act": 0.3,
+          "reclaimed_us": 0,
+          "status": "STEP_COMPLETED"
+        },
+        {
+          "op": "STEP_RUN",
+          "task_id": "T1",
+          "elapsed_us": 1000,
+          "budget_consumed": 1000,
+          "remaining_budget": 1000,
+          "u_act": 0.3,
+          "reclaimed_us": 0,
+          "status": "STEP_COMPLETED"
+        },
+        {
+          "op": "GET_STATS",
+          "grub_enabled": false,
+          "u_act": 0.3,
+          "total_exec_time_us": 2000,
+          "total_budget_consumed_us": 2000,
+          "reclaimed_bandwidth_us": 0,
+          "zero_lag_firings": 0
+        }
+      ],
+      "summary": {
+        "grub_enabled": false,
+        "u_act": 0.3,
+        "total_exec_time_us": 2000,
+        "total_budget_consumed_us": 2000,
+        "reclaimed_bandwidth_us": 0,
+        "zero_lag_firings": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 3,
+    "input": {
+      "config": {
+        "grub_enabled": true
+      },
+      "trace": [
+        {
+          "op": "ENQUEUE_TASK",
+          "task_id": "TA",
+          "runtime": 2000,
+          "deadline": 10000,
+          "period": 10000,
+          "timestamp": 0
+        },
+        {
+          "op": "ENQUEUE_TASK",
+          "task_id": "TB",
+          "runtime": 3000,
+          "deadline": 10000,
+          "period": 10000,
+          "timestamp": 0
+        },
+        {
+          "op": "STEP_RUN",
+          "task_id": "TA",
+          "elapsed_us": 1000,
+          "timestamp": 1000
+        },
+        {
+          "op": "STEP_RUN",
+          "task_id": "TB",
+          "elapsed_us": 1000,
+          "timestamp": 2000
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ENQUEUE_TASK",
+          "task_id": "TA",
+          "util": 0.2,
+          "cur_budget": 2000,
+          "cur_deadline": 10000,
+          "u_act": 0.2,
+          "status": "TASK_ENQUEUED"
+        },
+        {
+          "op": "ENQUEUE_TASK",
+          "task_id": "TB",
+          "util": 0.3,
+          "cur_budget": 3000,
+          "cur_deadline": 10000,
+          "u_act": 0.5,
+          "status": "TASK_ENQUEUED"
+        },
+        {
+          "op": "STEP_RUN",
+          "task_id": "TA",
+          "elapsed_us": 1000,
+          "budget_consumed": 500,
+          "remaining_budget": 1500,
+          "u_act": 0.5,
+          "reclaimed_us": 500,
+          "status": "STEP_COMPLETED"
+        },
+        {
+          "op": "STEP_RUN",
+          "task_id": "TB",
+          "elapsed_us": 1000,
+          "budget_consumed": 500,
+          "remaining_budget": 2500,
+          "u_act": 0.5,
+          "reclaimed_us": 500,
+          "status": "STEP_COMPLETED"
+        },
+        {
+          "op": "GET_STATS",
+          "grub_enabled": true,
+          "u_act": 0.5,
+          "total_exec_time_us": 2000,
+          "total_budget_consumed_us": 1000,
+          "reclaimed_bandwidth_us": 1000,
+          "zero_lag_firings": 0
+        }
+      ],
+      "summary": {
+        "grub_enabled": true,
+        "u_act": 0.5,
+        "total_exec_time_us": 2000,
+        "total_budget_consumed_us": 1000,
+        "reclaimed_bandwidth_us": 1000,
+        "zero_lag_firings": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 4,
+    "input": {
+      "config": {
+        "grub_enabled": true
+      },
+      "trace": [
+        {
+          "op": "ENQUEUE_TASK",
+          "task_id": "T_BLOCK",
+          "runtime": 2000,
+          "deadline": 10000,
+          "period": 10000,
+          "timestamp": 0
+        },
+        {
+          "op": "STEP_RUN",
+          "task_id": "T_BLOCK",
+          "elapsed_us": 1000,
+          "timestamp": 1000
+        },
+        {
+          "op": "BLOCK_TASK",
+          "task_id": "T_BLOCK",
+          "timestamp": 1000
+        },
+        {
+          "op": "TIMER_TICK",
+          "timestamp": 1500
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ENQUEUE_TASK",
+          "task_id": "T_BLOCK",
+          "util": 0.2,
+          "cur_budget": 2000,
+          "cur_deadline": 10000,
+          "u_act": 0.2,
+          "status": "TASK_ENQUEUED"
+        },
+        {
+          "op": "STEP_RUN",
+          "task_id": "T_BLOCK",
+          "elapsed_us": 1000,
+          "budget_consumed": 200,
+          "remaining_budget": 1800,
+          "u_act": 0.2,
+          "reclaimed_us": 800,
+          "status": "STEP_COMPLETED"
+        },
+        {
+          "op": "BLOCK_TASK",
+          "task_id": "T_BLOCK",
+          "zero_lag_time": 1000,
+          "remaining_budget": 1800,
+          "u_act": 0.0,
+          "status": "TASK_BLOCKED_INACTIVE"
+        },
+        {
+          "op": "TIMER_TICK",
+          "current_time": 1500,
+          "zero_lag_fired_tasks": [],
+          "u_act": 0.0
+        },
+        {
+          "op": "GET_STATS",
+          "grub_enabled": true,
+          "u_act": 0.0,
+          "total_exec_time_us": 1000,
+          "total_budget_consumed_us": 200,
+          "reclaimed_bandwidth_us": 800,
+          "zero_lag_firings": 1
+        }
+      ],
+      "summary": {
+        "grub_enabled": true,
+        "u_act": 0.0,
+        "total_exec_time_us": 1000,
+        "total_budget_consumed_us": 200,
+        "reclaimed_bandwidth_us": 800,
+        "zero_lag_firings": 1
+      }
+    }
+  },
+  {
+    "testcase_id": 5,
+    "input": {
+      "config": {
+        "grub_enabled": true
+      },
+      "trace": [
+        {
+          "op": "ENQUEUE_TASK",
+          "task_id": "T_HEAVY1",
+          "runtime": 5000,
+          "deadline": 10000,
+          "period": 10000,
+          "timestamp": 0
+        },
+        {
+          "op": "ENQUEUE_TASK",
+          "task_id": "T_HEAVY2",
+          "runtime": 4000,
+          "deadline": 10000,
+          "period": 10000,
+          "timestamp": 0
+        },
+        {
+          "op": "STEP_RUN",
+          "task_id": "T_HEAVY1",
+          "elapsed_us": 1000,
+          "timestamp": 1000
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ENQUEUE_TASK",
+          "task_id": "T_HEAVY1",
+          "util": 0.5,
+          "cur_budget": 5000,
+          "cur_deadline": 10000,
+          "u_act": 0.5,
+          "status": "TASK_ENQUEUED"
+        },
+        {
+          "op": "ENQUEUE_TASK",
+          "task_id": "T_HEAVY2",
+          "util": 0.4,
+          "cur_budget": 4000,
+          "cur_deadline": 10000,
+          "u_act": 0.9,
+          "status": "TASK_ENQUEUED"
+        },
+        {
+          "op": "STEP_RUN",
+          "task_id": "T_HEAVY1",
+          "elapsed_us": 1000,
+          "budget_consumed": 900,
+          "remaining_budget": 4100,
+          "u_act": 0.9,
+          "reclaimed_us": 100,
+          "status": "STEP_COMPLETED"
+        },
+        {
+          "op": "GET_STATS",
+          "grub_enabled": true,
+          "u_act": 0.9,
+          "total_exec_time_us": 1000,
+          "total_budget_consumed_us": 900,
+          "reclaimed_bandwidth_us": 100,
+          "zero_lag_firings": 0
+        }
+      ],
+      "summary": {
+        "grub_enabled": true,
+        "u_act": 0.9,
+        "total_exec_time_us": 1000,
+        "total_budget_consumed_us": 900,
+        "reclaimed_bandwidth_us": 100,
+        "zero_lag_firings": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 6,
+    "input": {
+      "config": {
+        "grub_enabled": true
+      },
+      "trace": [
+        {
+          "op": "ENQUEUE_TASK",
+          "task_id": "T_EXH",
+          "runtime": 500,
+          "deadline": 5000,
+          "period": 5000,
+          "timestamp": 0
+        },
+        {
+          "op": "STEP_RUN",
+          "task_id": "T_EXH",
+          "elapsed_us": 6000,
+          "timestamp": 6000
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ENQUEUE_TASK",
+          "task_id": "T_EXH",
+          "util": 0.1,
+          "cur_budget": 500,
+          "cur_deadline": 5000,
+          "u_act": 0.1,
+          "status": "TASK_ENQUEUED"
+        },
+        {
+          "op": "STEP_RUN",
+          "task_id": "T_EXH",
+          "elapsed_us": 6000,
+          "budget_consumed": 500,
+          "remaining_budget": 0,
+          "u_act": 0.1,
+          "reclaimed_us": 5500,
+          "status": "STEP_COMPLETED"
+        },
+        {
+          "op": "GET_STATS",
+          "grub_enabled": true,
+          "u_act": 0.1,
+          "total_exec_time_us": 6000,
+          "total_budget_consumed_us": 500,
+          "reclaimed_bandwidth_us": 5500,
+          "zero_lag_firings": 0
+        }
+      ],
+      "summary": {
+        "grub_enabled": true,
+        "u_act": 0.1,
+        "total_exec_time_us": 6000,
+        "total_budget_consumed_us": 500,
+        "reclaimed_bandwidth_us": 5500,
+        "zero_lag_firings": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 7,
+    "input": {
+      "config": {
+        "grub_enabled": true
+      },
+      "trace": [
+        {
+          "op": "ENQUEUE_TASK",
+          "task_id": "T_SEQ1",
+          "runtime": 1000,
+          "deadline": 5000,
+          "period": 5000,
+          "timestamp": 0
+        },
+        {
+          "op": "STEP_RUN",
+          "task_id": "T_SEQ1",
+          "elapsed_us": 1000,
+          "timestamp": 1000
+        },
+        {
+          "op": "BLOCK_TASK",
+          "task_id": "T_SEQ1",
+          "timestamp": 1000
+        },
+        {
+          "op": "TIMER_TICK",
+          "timestamp": 2000
+        },
+        {
+          "op": "ENQUEUE_TASK",
+          "task_id": "T_SEQ2",
+          "runtime": 1000,
+          "deadline": 5000,
+          "period": 5000,
+          "timestamp": 2000
+        },
+        {
+          "op": "STEP_RUN",
+          "task_id": "T_SEQ2",
+          "elapsed_us": 1000,
+          "timestamp": 3000
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ENQUEUE_TASK",
+          "task_id": "T_SEQ1",
+          "util": 0.2,
+          "cur_budget": 1000,
+          "cur_deadline": 5000,
+          "u_act": 0.2,
+          "status": "TASK_ENQUEUED"
+        },
+        {
+          "op": "STEP_RUN",
+          "task_id": "T_SEQ1",
+          "elapsed_us": 1000,
+          "budget_consumed": 200,
+          "remaining_budget": 800,
+          "u_act": 0.2,
+          "reclaimed_us": 800,
+          "status": "STEP_COMPLETED"
+        },
+        {
+          "op": "BLOCK_TASK",
+          "task_id": "T_SEQ1",
+          "zero_lag_time": 1000,
+          "remaining_budget": 800,
+          "u_act": 0.0,
+          "status": "TASK_BLOCKED_INACTIVE"
+        },
+        {
+          "op": "TIMER_TICK",
+          "current_time": 2000,
+          "zero_lag_fired_tasks": [],
+          "u_act": 0.0
+        },
+        {
+          "op": "ENQUEUE_TASK",
+          "task_id": "T_SEQ2",
+          "util": 0.2,
+          "cur_budget": 1000,
+          "cur_deadline": 7000,
+          "u_act": 0.2,
+          "status": "TASK_ENQUEUED"
+        },
+        {
+          "op": "STEP_RUN",
+          "task_id": "T_SEQ2",
+          "elapsed_us": 1000,
+          "budget_consumed": 200,
+          "remaining_budget": 800,
+          "u_act": 0.2,
+          "reclaimed_us": 800,
+          "status": "STEP_COMPLETED"
+        },
+        {
+          "op": "GET_STATS",
+          "grub_enabled": true,
+          "u_act": 0.2,
+          "total_exec_time_us": 2000,
+          "total_budget_consumed_us": 400,
+          "reclaimed_bandwidth_us": 1600,
+          "zero_lag_firings": 1
+        }
+      ],
+      "summary": {
+        "grub_enabled": true,
+        "u_act": 0.2,
+        "total_exec_time_us": 2000,
+        "total_budget_consumed_us": 400,
+        "reclaimed_bandwidth_us": 1600,
+        "zero_lag_firings": 1
+      }
+    }
+  },
+  {
+    "testcase_id": 8,
+    "input": {
+      "config": {
+        "grub_enabled": true
+      },
+      "trace": [
+        {
+          "op": "ENQUEUE_TASK",
+          "task_id": "VIDEO",
+          "runtime": 3000,
+          "deadline": 15000,
+          "period": 15000,
+          "timestamp": 0
+        },
+        {
+          "op": "ENQUEUE_TASK",
+          "task_id": "AUDIO",
+          "runtime": 1000,
+          "deadline": 10000,
+          "period": 10000,
+          "timestamp": 0
+        },
+        {
+          "op": "ENQUEUE_TASK",
+          "task_id": "CTRL",
+          "runtime": 500,
+          "deadline": 5000,
+          "period": 5000,
+          "timestamp": 0
+        },
+        {
+          "op": "ENQUEUE_TASK",
+          "task_id": "SENS",
+          "runtime": 500,
+          "deadline": 5000,
+          "period": 5000,
+          "timestamp": 0
+        },
+        {
+          "op": "STEP_RUN",
+          "task_id": "VIDEO",
+          "elapsed_us": 2000,
+          "timestamp": 2000
+        },
+        {
+          "op": "BLOCK_TASK",
+          "task_id": "AUDIO",
+          "timestamp": 2000
+        },
+        {
+          "op": "STEP_RUN",
+          "task_id": "CTRL",
+          "elapsed_us": 500,
+          "timestamp": 2500
+        },
+        {
+          "op": "TIMER_TICK",
+          "timestamp": 5000
+        },
+        {
+          "op": "STEP_RUN",
+          "task_id": "VIDEO",
+          "elapsed_us": 2000,
+          "timestamp": 7000
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ENQUEUE_TASK",
+          "task_id": "VIDEO",
+          "util": 0.2,
+          "cur_budget": 3000,
+          "cur_deadline": 15000,
+          "u_act": 0.2,
+          "status": "TASK_ENQUEUED"
+        },
+        {
+          "op": "ENQUEUE_TASK",
+          "task_id": "AUDIO",
+          "util": 0.1,
+          "cur_budget": 1000,
+          "cur_deadline": 10000,
+          "u_act": 0.3,
+          "status": "TASK_ENQUEUED"
+        },
+        {
+          "op": "ENQUEUE_TASK",
+          "task_id": "CTRL",
+          "util": 0.1,
+          "cur_budget": 500,
+          "cur_deadline": 5000,
+          "u_act": 0.4,
+          "status": "TASK_ENQUEUED"
+        },
+        {
+          "op": "ENQUEUE_TASK",
+          "task_id": "SENS",
+          "util": 0.1,
+          "cur_budget": 500,
+          "cur_deadline": 5000,
+          "u_act": 0.5,
+          "status": "TASK_ENQUEUED"
+        },
+        {
+          "op": "STEP_RUN",
+          "task_id": "VIDEO",
+          "elapsed_us": 2000,
+          "budget_consumed": 1000,
+          "remaining_budget": 2000,
+          "u_act": 0.5,
+          "reclaimed_us": 1000,
+          "status": "STEP_COMPLETED"
+        },
+        {
+          "op": "BLOCK_TASK",
+          "task_id": "AUDIO",
+          "zero_lag_time": 0,
+          "remaining_budget": 1000,
+          "u_act": 0.4,
+          "status": "TASK_BLOCKED_INACTIVE"
+        },
+        {
+          "op": "STEP_RUN",
+          "task_id": "CTRL",
+          "elapsed_us": 500,
+          "budget_consumed": 200,
+          "remaining_budget": 300,
+          "u_act": 0.4,
+          "reclaimed_us": 300,
+          "status": "STEP_COMPLETED"
+        },
+        {
+          "op": "TIMER_TICK",
+          "current_time": 5000,
+          "zero_lag_fired_tasks": [],
+          "u_act": 0.4
+        },
+        {
+          "op": "STEP_RUN",
+          "task_id": "VIDEO",
+          "elapsed_us": 2000,
+          "budget_consumed": 800,
+          "remaining_budget": 1200,
+          "u_act": 0.4,
+          "reclaimed_us": 1200,
+          "status": "STEP_COMPLETED"
+        },
+        {
+          "op": "GET_STATS",
+          "grub_enabled": true,
+          "u_act": 0.4,
+          "total_exec_time_us": 4500,
+          "total_budget_consumed_us": 2000,
+          "reclaimed_bandwidth_us": 2500,
+          "zero_lag_firings": 1
+        }
+      ],
+      "summary": {
+        "grub_enabled": true,
+        "u_act": 0.4,
+        "total_exec_time_us": 4500,
+        "total_budget_consumed_us": 2000,
+        "reclaimed_bandwidth_us": 2500,
+        "zero_lag_firings": 1
+      }
+    }
+  }
+]
