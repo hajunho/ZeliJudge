@@ -1,0 +1,665 @@
+[
+  {
+    "name": "유휴 버디 페이지(FREE_BUDDY) MCE 발생 시 프로세스 사살 없이 무손실 격리",
+    "input": {
+      "config": {
+        "total_pages": 128,
+        "panic_on_kernel_error": true
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "MCE_INJECT_ERROR",
+          "pfn": 10,
+          "severity": "UCE",
+          "trigger": "PATROL_SCRUBBER"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_mce_events": 1,
+        "pages_hwpoisoned": 1,
+        "clean_cache_evictions": 0,
+        "free_pages_isolated": 1,
+        "tasks_killed": 0,
+        "soft_offlines_succeeded": 0,
+        "kernel_panics": 0,
+        "system_panicked": false
+      },
+      "killed_pids": [],
+      "recovery_logs": [
+        {
+          "time": 0,
+          "pfn": 10,
+          "original_state": "FREE_BUDDY",
+          "severity": "UCE",
+          "trigger": "PATROL_SCRUBBER",
+          "action": "ISOLATED_FREE_PAGE",
+          "result": "SUCCESS",
+          "killed_tasks": []
+        }
+      ],
+      "event_logs": []
+    }
+  },
+  {
+    "name": "클린 페이지 캐시(CLEAN_PAGECACHE) 무손실 퇴출 및 제로 태스크 사살 복구",
+    "input": {
+      "config": {
+        "total_pages": 128,
+        "panic_on_kernel_error": true
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "ALLOC_PAGE",
+          "pfn": 20,
+          "page_type": "CLEAN_PAGECACHE",
+          "pids": [
+            101,
+            102
+          ],
+          "inode": 5001
+        },
+        {
+          "time": 1,
+          "type": "MCE_INJECT_ERROR",
+          "pfn": 20,
+          "severity": "UCE",
+          "trigger": "SYNC_ACCESS",
+          "accessing_pid": 101
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_mce_events": 1,
+        "pages_hwpoisoned": 1,
+        "clean_cache_evictions": 1,
+        "free_pages_isolated": 0,
+        "tasks_killed": 0,
+        "soft_offlines_succeeded": 0,
+        "kernel_panics": 0,
+        "system_panicked": false
+      },
+      "killed_pids": [],
+      "recovery_logs": [
+        {
+          "time": 1,
+          "pfn": 20,
+          "original_state": "CLEAN_PAGECACHE",
+          "severity": "UCE",
+          "trigger": "SYNC_ACCESS",
+          "action": "EVICTED_CLEAN_CACHE",
+          "result": "SUCCESS",
+          "killed_tasks": []
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "ALLOC_PAGE",
+          "pfn": 20,
+          "page_type": "CLEAN_PAGECACHE",
+          "pids": [
+            101,
+            102
+          ],
+          "inode": 5001
+        }
+      ]
+    }
+  },
+  {
+    "name": "더티 페이지 캐시(DIRTY_PAGECACHE) MCE 시 미반영 데이터 유실 및 SIGBUS 전달",
+    "input": {
+      "config": {
+        "total_pages": 128,
+        "panic_on_kernel_error": true
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "ALLOC_PAGE",
+          "pfn": 30,
+          "page_type": "CLEAN_PAGECACHE",
+          "pids": [
+            201
+          ],
+          "inode": 6001
+        },
+        {
+          "time": 1,
+          "type": "DIRTY_PAGE",
+          "pfn": 30
+        },
+        {
+          "time": 2,
+          "type": "MCE_INJECT_ERROR",
+          "pfn": 30,
+          "severity": "UCE",
+          "trigger": "SYNC_ACCESS",
+          "accessing_pid": 201
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_mce_events": 1,
+        "pages_hwpoisoned": 1,
+        "clean_cache_evictions": 0,
+        "free_pages_isolated": 0,
+        "tasks_killed": 1,
+        "soft_offlines_succeeded": 0,
+        "kernel_panics": 0,
+        "system_panicked": false
+      },
+      "killed_pids": [
+        201
+      ],
+      "recovery_logs": [
+        {
+          "time": 2,
+          "pfn": 30,
+          "original_state": "DIRTY_PAGECACHE",
+          "severity": "UCE",
+          "trigger": "SYNC_ACCESS",
+          "action": "KILLED_DIRTY_CACHE",
+          "result": "SUCCESS",
+          "killed_tasks": [
+            {
+              "pid": 201,
+              "sig": "SIGBUS",
+              "si_code": "BUS_MCEERR_AR"
+            }
+          ]
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "ALLOC_PAGE",
+          "pfn": 30,
+          "page_type": "CLEAN_PAGECACHE",
+          "pids": [
+            201
+          ],
+          "inode": 6001
+        },
+        {
+          "time": 1,
+          "event": "DIRTY_PAGE",
+          "pfn": 30,
+          "new_state": "DIRTY_PAGECACHE"
+        }
+      ]
+    }
+  },
+  {
+    "name": "유저 익명 페이지(ANONYMOUS) 동기적 MCE 폴트 시 BUS_MCEERR_AR 즉각 사살",
+    "input": {
+      "config": {
+        "total_pages": 128,
+        "panic_on_kernel_error": true
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "ALLOC_PAGE",
+          "pfn": 40,
+          "page_type": "ANONYMOUS",
+          "pids": [
+            301
+          ]
+        },
+        {
+          "time": 1,
+          "type": "MCE_INJECT_ERROR",
+          "pfn": 40,
+          "severity": "UCE",
+          "trigger": "SYNC_ACCESS",
+          "accessing_pid": 301
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_mce_events": 1,
+        "pages_hwpoisoned": 1,
+        "clean_cache_evictions": 0,
+        "free_pages_isolated": 0,
+        "tasks_killed": 1,
+        "soft_offlines_succeeded": 0,
+        "kernel_panics": 0,
+        "system_panicked": false
+      },
+      "killed_pids": [
+        301
+      ],
+      "recovery_logs": [
+        {
+          "time": 1,
+          "pfn": 40,
+          "original_state": "ANONYMOUS",
+          "severity": "UCE",
+          "trigger": "SYNC_ACCESS",
+          "action": "KILLED_ANONYMOUS",
+          "result": "SUCCESS",
+          "killed_tasks": [
+            {
+              "pid": 301,
+              "sig": "SIGBUS",
+              "si_code": "BUS_MCEERR_AR"
+            }
+          ]
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "ALLOC_PAGE",
+          "pfn": 40,
+          "page_type": "ANONYMOUS",
+          "pids": [
+            301
+          ],
+          "inode": null
+        }
+      ]
+    }
+  },
+  {
+    "name": "패트롤 스크러버 비동기 MCE 감지 시 BUS_MCEERR_AO 백그라운드 격리",
+    "input": {
+      "config": {
+        "total_pages": 128,
+        "panic_on_kernel_error": true
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "ALLOC_PAGE",
+          "pfn": 50,
+          "page_type": "ANONYMOUS",
+          "pids": [
+            401,
+            402
+          ]
+        },
+        {
+          "time": 1,
+          "type": "MCE_INJECT_ERROR",
+          "pfn": 50,
+          "severity": "UCE",
+          "trigger": "PATROL_SCRUBBER"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_mce_events": 1,
+        "pages_hwpoisoned": 1,
+        "clean_cache_evictions": 0,
+        "free_pages_isolated": 0,
+        "tasks_killed": 2,
+        "soft_offlines_succeeded": 0,
+        "kernel_panics": 0,
+        "system_panicked": false
+      },
+      "killed_pids": [
+        401,
+        402
+      ],
+      "recovery_logs": [
+        {
+          "time": 1,
+          "pfn": 50,
+          "original_state": "ANONYMOUS",
+          "severity": "UCE",
+          "trigger": "PATROL_SCRUBBER",
+          "action": "KILLED_ANONYMOUS",
+          "result": "SUCCESS",
+          "killed_tasks": [
+            {
+              "pid": 401,
+              "sig": "SIGBUS",
+              "si_code": "BUS_MCEERR_AO"
+            },
+            {
+              "pid": 402,
+              "sig": "SIGBUS",
+              "si_code": "BUS_MCEERR_AO"
+            }
+          ]
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "ALLOC_PAGE",
+          "pfn": 50,
+          "page_type": "ANONYMOUS",
+          "pids": [
+            401,
+            402
+          ],
+          "inode": null
+        }
+      ]
+    }
+  },
+  {
+    "name": "커널 핵심 슬랩(SLAB_KERNEL) 및 예약 메모리 손상 시 KERNEL_PANIC 즉각 발생",
+    "input": {
+      "config": {
+        "total_pages": 128,
+        "panic_on_kernel_error": true
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "ALLOC_PAGE",
+          "pfn": 1,
+          "page_type": "SLAB_KERNEL"
+        },
+        {
+          "time": 1,
+          "type": "MCE_INJECT_ERROR",
+          "pfn": 1,
+          "severity": "UCE",
+          "trigger": "SYNC_ACCESS"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_mce_events": 1,
+        "pages_hwpoisoned": 1,
+        "clean_cache_evictions": 0,
+        "free_pages_isolated": 0,
+        "tasks_killed": 0,
+        "soft_offlines_succeeded": 0,
+        "kernel_panics": 1,
+        "system_panicked": true
+      },
+      "killed_pids": [],
+      "recovery_logs": [
+        {
+          "time": 1,
+          "pfn": 1,
+          "original_state": "SLAB_KERNEL",
+          "severity": "UCE",
+          "trigger": "SYNC_ACCESS",
+          "action": "KERNEL_PANIC",
+          "result": "PANIC",
+          "killed_tasks": []
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "ALLOC_PAGE",
+          "pfn": 1,
+          "page_type": "SLAB_KERNEL",
+          "pids": [],
+          "inode": null
+        }
+      ]
+    }
+  },
+  {
+    "name": "선제적 소프트 오프라인(soft_offline_page) 무손실 데이터 마이그레이션 검증",
+    "input": {
+      "config": {
+        "total_pages": 128,
+        "panic_on_kernel_error": true
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "ALLOC_PAGE",
+          "pfn": 60,
+          "page_type": "ANONYMOUS",
+          "pids": [
+            501
+          ]
+        },
+        {
+          "time": 1,
+          "type": "SOFT_OFFLINE_PAGE",
+          "pfn": 60,
+          "spare_pfn": 61
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_mce_events": 0,
+        "pages_hwpoisoned": 1,
+        "clean_cache_evictions": 0,
+        "free_pages_isolated": 0,
+        "tasks_killed": 0,
+        "soft_offlines_succeeded": 1,
+        "kernel_panics": 0,
+        "system_panicked": false
+      },
+      "killed_pids": [],
+      "recovery_logs": [],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "ALLOC_PAGE",
+          "pfn": 60,
+          "page_type": "ANONYMOUS",
+          "pids": [
+            501
+          ],
+          "inode": null
+        },
+        {
+          "time": 1,
+          "event": "SOFT_OFFLINE_PAGE",
+          "source_pfn": 60,
+          "spare_pfn": 61,
+          "migrated_state": "ANONYMOUS"
+        }
+      ]
+    }
+  },
+  {
+    "name": "하이퍼스케일 클라우드 호스트 복합 메모리 장애 격리 및 고가용성 유지 종합 시뮬레이션",
+    "input": {
+      "config": {
+        "total_pages": 256,
+        "panic_on_kernel_error": true
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "ALLOC_PAGE",
+          "pfn": 100,
+          "page_type": "CLEAN_PAGECACHE",
+          "pids": [
+            601,
+            602,
+            603
+          ],
+          "inode": 1001
+        },
+        {
+          "time": 1,
+          "type": "ALLOC_PAGE",
+          "pfn": 101,
+          "page_type": "CLEAN_PAGECACHE",
+          "pids": [
+            601
+          ],
+          "inode": 1002
+        },
+        {
+          "time": 2,
+          "type": "DIRTY_PAGE",
+          "pfn": 101
+        },
+        {
+          "time": 3,
+          "type": "ALLOC_PAGE",
+          "pfn": 102,
+          "page_type": "ANONYMOUS",
+          "pids": [
+            602
+          ]
+        },
+        {
+          "time": 4,
+          "type": "ALLOC_PAGE",
+          "pfn": 103,
+          "page_type": "ANONYMOUS",
+          "pids": [
+            603
+          ]
+        },
+        {
+          "time": 5,
+          "type": "MCE_INJECT_ERROR",
+          "pfn": 100,
+          "severity": "UCE",
+          "trigger": "SYNC_ACCESS",
+          "accessing_pid": 601
+        },
+        {
+          "time": 6,
+          "type": "MCE_INJECT_ERROR",
+          "pfn": 200,
+          "severity": "UCE",
+          "trigger": "PATROL_SCRUBBER"
+        },
+        {
+          "time": 7,
+          "type": "SOFT_OFFLINE_PAGE",
+          "pfn": 103,
+          "spare_pfn": 104
+        },
+        {
+          "time": 8,
+          "type": "MCE_INJECT_ERROR",
+          "pfn": 102,
+          "severity": "UCE",
+          "trigger": "SYNC_ACCESS",
+          "accessing_pid": 602
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_mce_events": 3,
+        "pages_hwpoisoned": 4,
+        "clean_cache_evictions": 1,
+        "free_pages_isolated": 1,
+        "tasks_killed": 1,
+        "soft_offlines_succeeded": 1,
+        "kernel_panics": 0,
+        "system_panicked": false
+      },
+      "killed_pids": [
+        602
+      ],
+      "recovery_logs": [
+        {
+          "time": 5,
+          "pfn": 100,
+          "original_state": "CLEAN_PAGECACHE",
+          "severity": "UCE",
+          "trigger": "SYNC_ACCESS",
+          "action": "EVICTED_CLEAN_CACHE",
+          "result": "SUCCESS",
+          "killed_tasks": []
+        },
+        {
+          "time": 6,
+          "pfn": 200,
+          "original_state": "FREE_BUDDY",
+          "severity": "UCE",
+          "trigger": "PATROL_SCRUBBER",
+          "action": "ISOLATED_FREE_PAGE",
+          "result": "SUCCESS",
+          "killed_tasks": []
+        },
+        {
+          "time": 8,
+          "pfn": 102,
+          "original_state": "ANONYMOUS",
+          "severity": "UCE",
+          "trigger": "SYNC_ACCESS",
+          "action": "KILLED_ANONYMOUS",
+          "result": "SUCCESS",
+          "killed_tasks": [
+            {
+              "pid": 602,
+              "sig": "SIGBUS",
+              "si_code": "BUS_MCEERR_AR"
+            }
+          ]
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "ALLOC_PAGE",
+          "pfn": 100,
+          "page_type": "CLEAN_PAGECACHE",
+          "pids": [
+            601,
+            602,
+            603
+          ],
+          "inode": 1001
+        },
+        {
+          "time": 1,
+          "event": "ALLOC_PAGE",
+          "pfn": 101,
+          "page_type": "CLEAN_PAGECACHE",
+          "pids": [
+            601
+          ],
+          "inode": 1002
+        },
+        {
+          "time": 2,
+          "event": "DIRTY_PAGE",
+          "pfn": 101,
+          "new_state": "DIRTY_PAGECACHE"
+        },
+        {
+          "time": 3,
+          "event": "ALLOC_PAGE",
+          "pfn": 102,
+          "page_type": "ANONYMOUS",
+          "pids": [
+            602
+          ],
+          "inode": null
+        },
+        {
+          "time": 4,
+          "event": "ALLOC_PAGE",
+          "pfn": 103,
+          "page_type": "ANONYMOUS",
+          "pids": [
+            603
+          ],
+          "inode": null
+        },
+        {
+          "time": 7,
+          "event": "SOFT_OFFLINE_PAGE",
+          "source_pfn": 103,
+          "spare_pfn": 104,
+          "migrated_state": "ANONYMOUS"
+        }
+      ]
+    }
+  }
+]
