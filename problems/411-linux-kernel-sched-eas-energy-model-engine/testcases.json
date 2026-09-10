@@ -1,0 +1,1337 @@
+[
+  {
+    "name": "빅(BIG) 코어에서 기상한 저부하 태스크의 리틀(LITTLE) 코어 에너지 최적 이주",
+    "input": {
+      "config": {
+        "capacity_margin": 0.8,
+        "energy_margin_mw": 15,
+        "perf_domains": [
+          {
+            "pd_id": "LITTLE",
+            "cpus": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "max_capacity": 450,
+            "opps": [
+              {
+                "capacity": 200,
+                "freq_mhz": 800,
+                "power_mw": 50
+              },
+              {
+                "capacity": 350,
+                "freq_mhz": 1400,
+                "power_mw": 120
+              },
+              {
+                "capacity": 450,
+                "freq_mhz": 1800,
+                "power_mw": 200
+              }
+            ]
+          },
+          {
+            "pd_id": "BIG",
+            "cpus": [
+              4,
+              5,
+              6,
+              7
+            ],
+            "max_capacity": 1024,
+            "opps": [
+              {
+                "capacity": 500,
+                "freq_mhz": 1200,
+                "power_mw": 350
+              },
+              {
+                "capacity": 800,
+                "freq_mhz": 2000,
+                "power_mw": 800
+              },
+              {
+                "capacity": 1024,
+                "freq_mhz": 2800,
+                "power_mw": 1600
+              }
+            ]
+          }
+        ]
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "WAKEUP_TASK",
+          "task_id": "bg_sync",
+          "task_util": 100,
+          "prev_cpu": 5
+        },
+        {
+          "time": 1,
+          "type": "WAKEUP_TASK",
+          "task_id": "ui_thread",
+          "task_util": 150,
+          "prev_cpu": 6
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_decisions": 2,
+        "eas_optimal_count": 2,
+        "cfs_fallback_count": 0,
+        "final_overutilized": false,
+        "final_system_power_mw": 62.5
+      },
+      "cpu_utilizations": {
+        "0": 100,
+        "1": 150,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0
+      },
+      "eas_decisions": [
+        {
+          "time": 0,
+          "task_id": "bg_sync",
+          "task_util": 100,
+          "prev_cpu": 5,
+          "target_cpu": 0,
+          "decision_mode": "EAS_ENERGY_OPTIMAL",
+          "overutilized": false,
+          "estimated_system_power_mw": 25.0
+        },
+        {
+          "time": 1,
+          "task_id": "ui_thread",
+          "task_util": 150,
+          "prev_cpu": 6,
+          "target_cpu": 1,
+          "decision_mode": "EAS_ENERGY_OPTIMAL",
+          "overutilized": false,
+          "estimated_system_power_mw": 62.5
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "WAKEUP_TASK",
+          "task_id": "bg_sync",
+          "target_cpu": 0,
+          "decision_mode": "EAS_ENERGY_OPTIMAL"
+        },
+        {
+          "time": 1,
+          "event": "WAKEUP_TASK",
+          "task_id": "ui_thread",
+          "target_cpu": 1,
+          "decision_mode": "EAS_ENERGY_OPTIMAL"
+        }
+      ]
+    }
+  },
+  {
+    "name": "리틀 코어 용량 마진(80%) 초과 고부하 태스크의 빅 코어 강제 배치",
+    "input": {
+      "config": {
+        "capacity_margin": 0.8,
+        "energy_margin_mw": 15,
+        "perf_domains": [
+          {
+            "pd_id": "LITTLE",
+            "cpus": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "max_capacity": 450,
+            "opps": [
+              {
+                "capacity": 200,
+                "freq_mhz": 800,
+                "power_mw": 50
+              },
+              {
+                "capacity": 350,
+                "freq_mhz": 1400,
+                "power_mw": 120
+              },
+              {
+                "capacity": 450,
+                "freq_mhz": 1800,
+                "power_mw": 200
+              }
+            ]
+          },
+          {
+            "pd_id": "BIG",
+            "cpus": [
+              4,
+              5,
+              6,
+              7
+            ],
+            "max_capacity": 1024,
+            "opps": [
+              {
+                "capacity": 500,
+                "freq_mhz": 1200,
+                "power_mw": 350
+              },
+              {
+                "capacity": 800,
+                "freq_mhz": 2000,
+                "power_mw": 800
+              },
+              {
+                "capacity": 1024,
+                "freq_mhz": 2800,
+                "power_mw": 1600
+              }
+            ]
+          }
+        ]
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "WAKEUP_TASK",
+          "task_id": "game_render",
+          "task_util": 400,
+          "prev_cpu": 0
+        },
+        {
+          "time": 1,
+          "type": "WAKEUP_TASK",
+          "task_id": "ai_inference",
+          "task_util": 550,
+          "prev_cpu": 1
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_decisions": 2,
+        "eas_optimal_count": 2,
+        "cfs_fallback_count": 0,
+        "final_overutilized": false,
+        "final_system_power_mw": 950.0
+      },
+      "cpu_utilizations": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 400,
+        "5": 550,
+        "6": 0,
+        "7": 0
+      },
+      "eas_decisions": [
+        {
+          "time": 0,
+          "task_id": "game_render",
+          "task_util": 400,
+          "prev_cpu": 0,
+          "target_cpu": 4,
+          "decision_mode": "EAS_ENERGY_OPTIMAL",
+          "overutilized": false,
+          "estimated_system_power_mw": 280.0
+        },
+        {
+          "time": 1,
+          "task_id": "ai_inference",
+          "task_util": 550,
+          "prev_cpu": 1,
+          "target_cpu": 5,
+          "decision_mode": "EAS_ENERGY_OPTIMAL",
+          "overutilized": false,
+          "estimated_system_power_mw": 950.0
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "WAKEUP_TASK",
+          "task_id": "game_render",
+          "target_cpu": 4,
+          "decision_mode": "EAS_ENERGY_OPTIMAL"
+        },
+        {
+          "time": 1,
+          "event": "WAKEUP_TASK",
+          "task_id": "ai_inference",
+          "target_cpu": 5,
+          "decision_mode": "EAS_ENERGY_OPTIMAL"
+        }
+      ]
+    }
+  },
+  {
+    "name": "에너지 절감 마진 미달 시 캐시 친화도(prev_cpu) 유지 및 불필요한 마이그레이션 억제",
+    "input": {
+      "config": {
+        "capacity_margin": 0.8,
+        "energy_margin_mw": 30,
+        "perf_domains": [
+          {
+            "pd_id": "LITTLE",
+            "cpus": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "max_capacity": 450,
+            "opps": [
+              {
+                "capacity": 200,
+                "freq_mhz": 800,
+                "power_mw": 50
+              },
+              {
+                "capacity": 350,
+                "freq_mhz": 1400,
+                "power_mw": 120
+              },
+              {
+                "capacity": 450,
+                "freq_mhz": 1800,
+                "power_mw": 200
+              }
+            ]
+          },
+          {
+            "pd_id": "BIG",
+            "cpus": [
+              4,
+              5,
+              6,
+              7
+            ],
+            "max_capacity": 1024,
+            "opps": [
+              {
+                "capacity": 500,
+                "freq_mhz": 1200,
+                "power_mw": 350
+              },
+              {
+                "capacity": 800,
+                "freq_mhz": 2000,
+                "power_mw": 800
+              },
+              {
+                "capacity": 1024,
+                "freq_mhz": 2800,
+                "power_mw": 1600
+              }
+            ]
+          }
+        ]
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "WAKEUP_TASK",
+          "task_id": "cached_worker",
+          "task_util": 50,
+          "prev_cpu": 2
+        },
+        {
+          "time": 1,
+          "type": "WAKEUP_TASK",
+          "task_id": "cached_worker_2",
+          "task_util": 50,
+          "prev_cpu": 2
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_decisions": 2,
+        "eas_optimal_count": 2,
+        "cfs_fallback_count": 0,
+        "final_overutilized": false,
+        "final_system_power_mw": 25.0
+      },
+      "cpu_utilizations": {
+        "0": 50,
+        "1": 0,
+        "2": 50,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0
+      },
+      "eas_decisions": [
+        {
+          "time": 0,
+          "task_id": "cached_worker",
+          "task_util": 50,
+          "prev_cpu": 2,
+          "target_cpu": 2,
+          "decision_mode": "EAS_ENERGY_OPTIMAL",
+          "overutilized": false,
+          "estimated_system_power_mw": 12.5
+        },
+        {
+          "time": 1,
+          "task_id": "cached_worker_2",
+          "task_util": 50,
+          "prev_cpu": 2,
+          "target_cpu": 0,
+          "decision_mode": "EAS_ENERGY_OPTIMAL",
+          "overutilized": false,
+          "estimated_system_power_mw": 25.0
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "WAKEUP_TASK",
+          "task_id": "cached_worker",
+          "target_cpu": 2,
+          "decision_mode": "EAS_ENERGY_OPTIMAL"
+        },
+        {
+          "time": 1,
+          "event": "WAKEUP_TASK",
+          "task_id": "cached_worker_2",
+          "target_cpu": 0,
+          "decision_mode": "EAS_ENERGY_OPTIMAL"
+        }
+      ]
+    }
+  },
+  {
+    "name": "과부하(Overutilized) 상태 진입 시 EAS 비활성화 및 CFS 로드 밸런싱 폴백",
+    "input": {
+      "config": {
+        "capacity_margin": 0.8,
+        "energy_margin_mw": 15,
+        "perf_domains": [
+          {
+            "pd_id": "LITTLE",
+            "cpus": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "max_capacity": 450,
+            "opps": [
+              {
+                "capacity": 200,
+                "freq_mhz": 800,
+                "power_mw": 50
+              },
+              {
+                "capacity": 350,
+                "freq_mhz": 1400,
+                "power_mw": 120
+              },
+              {
+                "capacity": 450,
+                "freq_mhz": 1800,
+                "power_mw": 200
+              }
+            ]
+          },
+          {
+            "pd_id": "BIG",
+            "cpus": [
+              4,
+              5,
+              6,
+              7
+            ],
+            "max_capacity": 1024,
+            "opps": [
+              {
+                "capacity": 500,
+                "freq_mhz": 1200,
+                "power_mw": 350
+              },
+              {
+                "capacity": 800,
+                "freq_mhz": 2000,
+                "power_mw": 800
+              },
+              {
+                "capacity": 1024,
+                "freq_mhz": 2800,
+                "power_mw": 1600
+              }
+            ]
+          }
+        ]
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "UPDATE_CPU_UTIL",
+          "cpu_id": 4,
+          "util": 850
+        },
+        {
+          "time": 1,
+          "type": "WAKEUP_TASK",
+          "task_id": "heavy_worker",
+          "task_util": 100,
+          "prev_cpu": 4
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_decisions": 1,
+        "eas_optimal_count": 0,
+        "cfs_fallback_count": 1,
+        "final_overutilized": true,
+        "final_system_power_mw": 1353.12
+      },
+      "cpu_utilizations": {
+        "0": 100,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 850,
+        "5": 0,
+        "6": 0,
+        "7": 0
+      },
+      "eas_decisions": [
+        {
+          "time": 1,
+          "task_id": "heavy_worker",
+          "task_util": 100,
+          "prev_cpu": 4,
+          "target_cpu": 0,
+          "decision_mode": "FALLBACK_CFS",
+          "overutilized": true,
+          "estimated_system_power_mw": 1353.12
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "UPDATE_CPU_UTIL",
+          "cpu_id": 4,
+          "new_util": 850
+        },
+        {
+          "time": 1,
+          "event": "WAKEUP_TASK",
+          "task_id": "heavy_worker",
+          "target_cpu": 0,
+          "decision_mode": "FALLBACK_CFS"
+        }
+      ]
+    }
+  },
+  {
+    "name": "최신 트라이-클러스터(Tri-Cluster: LITTLE·MID·PRIME) SoC 3단계 계층형 태스크 디스패치",
+    "input": {
+      "config": {
+        "capacity_margin": 0.8,
+        "energy_margin_mw": 20,
+        "perf_domains": [
+          {
+            "pd_id": "LITTLE",
+            "cpus": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "max_capacity": 300,
+            "opps": [
+              {
+                "capacity": 150,
+                "freq_mhz": 800,
+                "power_mw": 30
+              },
+              {
+                "capacity": 300,
+                "freq_mhz": 1600,
+                "power_mw": 100
+              }
+            ]
+          },
+          {
+            "pd_id": "MID",
+            "cpus": [
+              4,
+              5,
+              6
+            ],
+            "max_capacity": 650,
+            "opps": [
+              {
+                "capacity": 350,
+                "freq_mhz": 1200,
+                "power_mw": 200
+              },
+              {
+                "capacity": 650,
+                "freq_mhz": 2200,
+                "power_mw": 600
+              }
+            ]
+          },
+          {
+            "pd_id": "PRIME",
+            "cpus": [
+              7
+            ],
+            "max_capacity": 1024,
+            "opps": [
+              {
+                "capacity": 500,
+                "freq_mhz": 1500,
+                "power_mw": 500
+              },
+              {
+                "capacity": 1024,
+                "freq_mhz": 3200,
+                "power_mw": 1800
+              }
+            ]
+          }
+        ]
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "WAKEUP_TASK",
+          "task_id": "sensor_poll",
+          "task_util": 80,
+          "prev_cpu": 7
+        },
+        {
+          "time": 1,
+          "type": "WAKEUP_TASK",
+          "task_id": "video_decode",
+          "task_util": 350,
+          "prev_cpu": 0
+        },
+        {
+          "time": 2,
+          "type": "WAKEUP_TASK",
+          "task_id": "bench_burst",
+          "task_util": 700,
+          "prev_cpu": 4
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_decisions": 3,
+        "eas_optimal_count": 3,
+        "cfs_fallback_count": 0,
+        "final_overutilized": false,
+        "final_system_power_mw": 1446.47
+      },
+      "cpu_utilizations": {
+        "0": 80,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 350,
+        "5": 0,
+        "6": 0,
+        "7": 700
+      },
+      "eas_decisions": [
+        {
+          "time": 0,
+          "task_id": "sensor_poll",
+          "task_util": 80,
+          "prev_cpu": 7,
+          "target_cpu": 0,
+          "decision_mode": "EAS_ENERGY_OPTIMAL",
+          "overutilized": false,
+          "estimated_system_power_mw": 16.0
+        },
+        {
+          "time": 1,
+          "task_id": "video_decode",
+          "task_util": 350,
+          "prev_cpu": 0,
+          "target_cpu": 4,
+          "decision_mode": "EAS_ENERGY_OPTIMAL",
+          "overutilized": false,
+          "estimated_system_power_mw": 216.0
+        },
+        {
+          "time": 2,
+          "task_id": "bench_burst",
+          "task_util": 700,
+          "prev_cpu": 4,
+          "target_cpu": 7,
+          "decision_mode": "EAS_ENERGY_OPTIMAL",
+          "overutilized": false,
+          "estimated_system_power_mw": 1446.47
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "WAKEUP_TASK",
+          "task_id": "sensor_poll",
+          "target_cpu": 0,
+          "decision_mode": "EAS_ENERGY_OPTIMAL"
+        },
+        {
+          "time": 1,
+          "event": "WAKEUP_TASK",
+          "task_id": "video_decode",
+          "target_cpu": 4,
+          "decision_mode": "EAS_ENERGY_OPTIMAL"
+        },
+        {
+          "time": 2,
+          "event": "WAKEUP_TASK",
+          "task_id": "bench_burst",
+          "target_cpu": 7,
+          "decision_mode": "EAS_ENERGY_OPTIMAL"
+        }
+      ]
+    }
+  },
+  {
+    "name": "과부하 해소에 따른 EAS 에너지 모델 자동 복구 및 정상 모드 재전이",
+    "input": {
+      "config": {
+        "capacity_margin": 0.8,
+        "energy_margin_mw": 15,
+        "perf_domains": [
+          {
+            "pd_id": "LITTLE",
+            "cpus": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "max_capacity": 450,
+            "opps": [
+              {
+                "capacity": 200,
+                "freq_mhz": 800,
+                "power_mw": 50
+              },
+              {
+                "capacity": 350,
+                "freq_mhz": 1400,
+                "power_mw": 120
+              },
+              {
+                "capacity": 450,
+                "freq_mhz": 1800,
+                "power_mw": 200
+              }
+            ]
+          },
+          {
+            "pd_id": "BIG",
+            "cpus": [
+              4,
+              5,
+              6,
+              7
+            ],
+            "max_capacity": 1024,
+            "opps": [
+              {
+                "capacity": 500,
+                "freq_mhz": 1200,
+                "power_mw": 350
+              },
+              {
+                "capacity": 800,
+                "freq_mhz": 2000,
+                "power_mw": 800
+              },
+              {
+                "capacity": 1024,
+                "freq_mhz": 2800,
+                "power_mw": 1600
+              }
+            ]
+          }
+        ]
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "UPDATE_CPU_UTIL",
+          "cpu_id": 5,
+          "util": 850
+        },
+        {
+          "time": 1,
+          "type": "WAKEUP_TASK",
+          "task_id": "task_a",
+          "task_util": 100,
+          "prev_cpu": 5
+        },
+        {
+          "time": 2,
+          "type": "UPDATE_CPU_UTIL",
+          "cpu_id": 5,
+          "util": 200
+        },
+        {
+          "time": 3,
+          "type": "WAKEUP_TASK",
+          "task_id": "task_b",
+          "task_util": 100,
+          "prev_cpu": 6
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_decisions": 2,
+        "eas_optimal_count": 1,
+        "cfs_fallback_count": 1,
+        "final_overutilized": false,
+        "final_system_power_mw": 190.0
+      },
+      "cpu_utilizations": {
+        "0": 100,
+        "1": 100,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 200,
+        "6": 0,
+        "7": 0
+      },
+      "eas_decisions": [
+        {
+          "time": 1,
+          "task_id": "task_a",
+          "task_util": 100,
+          "prev_cpu": 5,
+          "target_cpu": 0,
+          "decision_mode": "FALLBACK_CFS",
+          "overutilized": true,
+          "estimated_system_power_mw": 1353.12
+        },
+        {
+          "time": 3,
+          "task_id": "task_b",
+          "task_util": 100,
+          "prev_cpu": 6,
+          "target_cpu": 1,
+          "decision_mode": "EAS_ENERGY_OPTIMAL",
+          "overutilized": false,
+          "estimated_system_power_mw": 190.0
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "UPDATE_CPU_UTIL",
+          "cpu_id": 5,
+          "new_util": 850
+        },
+        {
+          "time": 1,
+          "event": "WAKEUP_TASK",
+          "task_id": "task_a",
+          "target_cpu": 0,
+          "decision_mode": "FALLBACK_CFS"
+        },
+        {
+          "time": 2,
+          "event": "UPDATE_CPU_UTIL",
+          "cpu_id": 5,
+          "new_util": 200
+        },
+        {
+          "time": 3,
+          "event": "WAKEUP_TASK",
+          "task_id": "task_b",
+          "target_cpu": 1,
+          "decision_mode": "EAS_ENERGY_OPTIMAL"
+        }
+      ]
+    }
+  },
+  {
+    "name": "동일 성능 도메인(LITTLE) 내 다중 태스크의 OPP 주파수 스케일링 및 분산 수용",
+    "input": {
+      "config": {
+        "capacity_margin": 0.8,
+        "energy_margin_mw": 10,
+        "perf_domains": [
+          {
+            "pd_id": "LITTLE",
+            "cpus": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "max_capacity": 450,
+            "opps": [
+              {
+                "capacity": 200,
+                "freq_mhz": 800,
+                "power_mw": 50
+              },
+              {
+                "capacity": 350,
+                "freq_mhz": 1400,
+                "power_mw": 120
+              },
+              {
+                "capacity": 450,
+                "freq_mhz": 1800,
+                "power_mw": 200
+              }
+            ]
+          },
+          {
+            "pd_id": "BIG",
+            "cpus": [
+              4,
+              5,
+              6,
+              7
+            ],
+            "max_capacity": 1024,
+            "opps": [
+              {
+                "capacity": 500,
+                "freq_mhz": 1200,
+                "power_mw": 350
+              },
+              {
+                "capacity": 800,
+                "freq_mhz": 2000,
+                "power_mw": 800
+              },
+              {
+                "capacity": 1024,
+                "freq_mhz": 2800,
+                "power_mw": 1600
+              }
+            ]
+          }
+        ]
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "WAKEUP_TASK",
+          "task_id": "t1",
+          "task_util": 100,
+          "prev_cpu": 0
+        },
+        {
+          "time": 1,
+          "type": "WAKEUP_TASK",
+          "task_id": "t2",
+          "task_util": 100,
+          "prev_cpu": 1
+        },
+        {
+          "time": 2,
+          "type": "WAKEUP_TASK",
+          "task_id": "t3",
+          "task_util": 100,
+          "prev_cpu": 2
+        },
+        {
+          "time": 3,
+          "type": "WAKEUP_TASK",
+          "task_id": "t4",
+          "task_util": 100,
+          "prev_cpu": 3
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_decisions": 4,
+        "eas_optimal_count": 4,
+        "cfs_fallback_count": 0,
+        "final_overutilized": false,
+        "final_system_power_mw": 100.0
+      },
+      "cpu_utilizations": {
+        "0": 100,
+        "1": 100,
+        "2": 100,
+        "3": 100,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0
+      },
+      "eas_decisions": [
+        {
+          "time": 0,
+          "task_id": "t1",
+          "task_util": 100,
+          "prev_cpu": 0,
+          "target_cpu": 0,
+          "decision_mode": "EAS_ENERGY_OPTIMAL",
+          "overutilized": false,
+          "estimated_system_power_mw": 25.0
+        },
+        {
+          "time": 1,
+          "task_id": "t2",
+          "task_util": 100,
+          "prev_cpu": 1,
+          "target_cpu": 1,
+          "decision_mode": "EAS_ENERGY_OPTIMAL",
+          "overutilized": false,
+          "estimated_system_power_mw": 50.0
+        },
+        {
+          "time": 2,
+          "task_id": "t3",
+          "task_util": 100,
+          "prev_cpu": 2,
+          "target_cpu": 2,
+          "decision_mode": "EAS_ENERGY_OPTIMAL",
+          "overutilized": false,
+          "estimated_system_power_mw": 75.0
+        },
+        {
+          "time": 3,
+          "task_id": "t4",
+          "task_util": 100,
+          "prev_cpu": 3,
+          "target_cpu": 3,
+          "decision_mode": "EAS_ENERGY_OPTIMAL",
+          "overutilized": false,
+          "estimated_system_power_mw": 100.0
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "WAKEUP_TASK",
+          "task_id": "t1",
+          "target_cpu": 0,
+          "decision_mode": "EAS_ENERGY_OPTIMAL"
+        },
+        {
+          "time": 1,
+          "event": "WAKEUP_TASK",
+          "task_id": "t2",
+          "target_cpu": 1,
+          "decision_mode": "EAS_ENERGY_OPTIMAL"
+        },
+        {
+          "time": 2,
+          "event": "WAKEUP_TASK",
+          "task_id": "t3",
+          "target_cpu": 2,
+          "decision_mode": "EAS_ENERGY_OPTIMAL"
+        },
+        {
+          "time": 3,
+          "event": "WAKEUP_TASK",
+          "task_id": "t4",
+          "target_cpu": 3,
+          "decision_mode": "EAS_ENERGY_OPTIMAL"
+        }
+      ]
+    }
+  },
+  {
+    "name": "스마트폰 실시간 모바일 워크로드(UI·백그라운드·카메라 AI·오디오) 복합 에너지 스케줄링 종합 검증",
+    "input": {
+      "config": {
+        "capacity_margin": 0.8,
+        "energy_margin_mw": 15,
+        "perf_domains": [
+          {
+            "pd_id": "LITTLE",
+            "cpus": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "max_capacity": 300,
+            "opps": [
+              {
+                "capacity": 150,
+                "freq_mhz": 800,
+                "power_mw": 30
+              },
+              {
+                "capacity": 300,
+                "freq_mhz": 1600,
+                "power_mw": 100
+              }
+            ]
+          },
+          {
+            "pd_id": "MID",
+            "cpus": [
+              4,
+              5,
+              6
+            ],
+            "max_capacity": 650,
+            "opps": [
+              {
+                "capacity": 350,
+                "freq_mhz": 1200,
+                "power_mw": 200
+              },
+              {
+                "capacity": 650,
+                "freq_mhz": 2200,
+                "power_mw": 600
+              }
+            ]
+          },
+          {
+            "pd_id": "PRIME",
+            "cpus": [
+              7
+            ],
+            "max_capacity": 1024,
+            "opps": [
+              {
+                "capacity": 500,
+                "freq_mhz": 1500,
+                "power_mw": 500
+              },
+              {
+                "capacity": 1024,
+                "freq_mhz": 3200,
+                "power_mw": 1800
+              }
+            ]
+          }
+        ]
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "WAKEUP_TASK",
+          "task_id": "battery_mon",
+          "task_util": 40,
+          "prev_cpu": 0
+        },
+        {
+          "time": 1,
+          "type": "WAKEUP_TASK",
+          "task_id": "network_mgr",
+          "task_util": 50,
+          "prev_cpu": 1
+        },
+        {
+          "time": 2,
+          "type": "WAKEUP_TASK",
+          "task_id": "ui_display",
+          "task_util": 250,
+          "prev_cpu": 4
+        },
+        {
+          "time": 3,
+          "type": "WAKEUP_TASK",
+          "task_id": "camera_ai",
+          "task_util": 750,
+          "prev_cpu": 7
+        },
+        {
+          "time": 4,
+          "type": "UPDATE_CPU_UTIL",
+          "cpu_id": 4,
+          "util": 600
+        },
+        {
+          "time": 5,
+          "type": "WAKEUP_TASK",
+          "task_id": "notification",
+          "task_util": 60,
+          "prev_cpu": 4
+        },
+        {
+          "time": 6,
+          "type": "TASK_SLEEP",
+          "task_id": "camera_ai"
+        },
+        {
+          "time": 7,
+          "type": "UPDATE_CPU_UTIL",
+          "cpu_id": 4,
+          "util": 150
+        },
+        {
+          "time": 8,
+          "type": "WAKEUP_TASK",
+          "task_id": "audio_engine",
+          "task_util": 90,
+          "prev_cpu": 7
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_decisions": 6,
+        "eas_optimal_count": 5,
+        "cfs_fallback_count": 1,
+        "final_overutilized": false,
+        "final_system_power_mw": 133.71
+      },
+      "cpu_utilizations": {
+        "0": 40,
+        "1": 50,
+        "2": 60,
+        "3": 90,
+        "4": 150,
+        "5": 0,
+        "6": 0,
+        "7": 0
+      },
+      "eas_decisions": [
+        {
+          "time": 0,
+          "task_id": "battery_mon",
+          "task_util": 40,
+          "prev_cpu": 0,
+          "target_cpu": 0,
+          "decision_mode": "EAS_ENERGY_OPTIMAL",
+          "overutilized": false,
+          "estimated_system_power_mw": 8.0
+        },
+        {
+          "time": 1,
+          "task_id": "network_mgr",
+          "task_util": 50,
+          "prev_cpu": 1,
+          "target_cpu": 1,
+          "decision_mode": "EAS_ENERGY_OPTIMAL",
+          "overutilized": false,
+          "estimated_system_power_mw": 18.0
+        },
+        {
+          "time": 2,
+          "task_id": "ui_display",
+          "task_util": 250,
+          "prev_cpu": 4,
+          "target_cpu": 4,
+          "decision_mode": "EAS_ENERGY_OPTIMAL",
+          "overutilized": false,
+          "estimated_system_power_mw": 160.86
+        },
+        {
+          "time": 3,
+          "task_id": "camera_ai",
+          "task_util": 750,
+          "prev_cpu": 7,
+          "target_cpu": 7,
+          "decision_mode": "EAS_ENERGY_OPTIMAL",
+          "overutilized": false,
+          "estimated_system_power_mw": 1479.22
+        },
+        {
+          "time": 5,
+          "task_id": "notification",
+          "task_util": 60,
+          "prev_cpu": 4,
+          "target_cpu": 2,
+          "decision_mode": "FALLBACK_CFS",
+          "overutilized": true,
+          "estimated_system_power_mw": 1902.21
+        },
+        {
+          "time": 8,
+          "task_id": "audio_engine",
+          "task_util": 90,
+          "prev_cpu": 7,
+          "target_cpu": 3,
+          "decision_mode": "EAS_ENERGY_OPTIMAL",
+          "overutilized": false,
+          "estimated_system_power_mw": 133.71
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "WAKEUP_TASK",
+          "task_id": "battery_mon",
+          "target_cpu": 0,
+          "decision_mode": "EAS_ENERGY_OPTIMAL"
+        },
+        {
+          "time": 1,
+          "event": "WAKEUP_TASK",
+          "task_id": "network_mgr",
+          "target_cpu": 1,
+          "decision_mode": "EAS_ENERGY_OPTIMAL"
+        },
+        {
+          "time": 2,
+          "event": "WAKEUP_TASK",
+          "task_id": "ui_display",
+          "target_cpu": 4,
+          "decision_mode": "EAS_ENERGY_OPTIMAL"
+        },
+        {
+          "time": 3,
+          "event": "WAKEUP_TASK",
+          "task_id": "camera_ai",
+          "target_cpu": 7,
+          "decision_mode": "EAS_ENERGY_OPTIMAL"
+        },
+        {
+          "time": 4,
+          "event": "UPDATE_CPU_UTIL",
+          "cpu_id": 4,
+          "new_util": 600
+        },
+        {
+          "time": 5,
+          "event": "WAKEUP_TASK",
+          "task_id": "notification",
+          "target_cpu": 2,
+          "decision_mode": "FALLBACK_CFS"
+        },
+        {
+          "time": 6,
+          "event": "TASK_SLEEP",
+          "task_id": "camera_ai",
+          "cpu_id": 7
+        },
+        {
+          "time": 7,
+          "event": "UPDATE_CPU_UTIL",
+          "cpu_id": 4,
+          "new_util": 150
+        },
+        {
+          "time": 8,
+          "event": "WAKEUP_TASK",
+          "task_id": "audio_engine",
+          "target_cpu": 3,
+          "decision_mode": "EAS_ENERGY_OPTIMAL"
+        }
+      ]
+    }
+  }
+]
