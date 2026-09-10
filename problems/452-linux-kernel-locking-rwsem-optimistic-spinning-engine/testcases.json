@@ -1,0 +1,725 @@
+[
+  {
+    "input": {
+      "config": {
+        "handoff_threshold_us": 1000
+      },
+      "operations": [
+        {
+          "op": "DOWN_READ",
+          "thread_id": "R1",
+          "time_us": 10
+        },
+        {
+          "op": "DOWN_READ",
+          "thread_id": "R2",
+          "time_us": 20
+        },
+        {
+          "op": "DOWN_READ",
+          "thread_id": "R3",
+          "time_us": 30
+        },
+        {
+          "op": "UP_READ",
+          "thread_id": "R2",
+          "time_us": 40
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ACQUIRED_READ_FAST",
+          "thread_id": "R1",
+          "readers": 1
+        },
+        {
+          "status": "ACQUIRED_READ_FAST",
+          "thread_id": "R2",
+          "readers": 2
+        },
+        {
+          "status": "ACQUIRED_READ_FAST",
+          "thread_id": "R3",
+          "readers": 3
+        },
+        {
+          "status": "READ_RELEASED",
+          "thread_id": "R2",
+          "readers": 2,
+          "woken_writer": null
+        },
+        {
+          "readers": 2,
+          "writer_locked": false,
+          "owner": null,
+          "waiters_count": 0,
+          "handoff_active": false,
+          "fast_read_hits": 3,
+          "fast_write_hits": 0,
+          "spin_steals": 0,
+          "batched_reader_wakes": 0
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "handoff_threshold_us": 1000
+      },
+      "operations": [
+        {
+          "op": "DOWN_WRITE",
+          "thread_id": "W1",
+          "time_us": 100
+        },
+        {
+          "op": "DOWN_READ",
+          "thread_id": "R1",
+          "time_us": 110
+        },
+        {
+          "op": "DOWN_READ",
+          "thread_id": "R2",
+          "time_us": 120
+        },
+        {
+          "op": "DOWN_READ",
+          "thread_id": "R3",
+          "time_us": 130
+        },
+        {
+          "op": "DOWN_WRITE",
+          "thread_id": "W2",
+          "time_us": 140
+        },
+        {
+          "op": "UP_WRITE",
+          "thread_id": "W1",
+          "time_us": 200
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ACQUIRED_WRITE_FAST",
+          "thread_id": "W1"
+        },
+        {
+          "status": "WAITING_READ",
+          "thread_id": "R1",
+          "wait_pos": 0
+        },
+        {
+          "status": "WAITING_READ",
+          "thread_id": "R2",
+          "wait_pos": 1
+        },
+        {
+          "status": "WAITING_READ",
+          "thread_id": "R3",
+          "wait_pos": 2
+        },
+        {
+          "status": "WAITING_WRITE",
+          "thread_id": "W2",
+          "wait_pos": 3
+        },
+        {
+          "status": "WRITE_RELEASED",
+          "thread_id": "W1",
+          "woken_type": "READ_BATCH",
+          "woken": [
+            "R1",
+            "R2",
+            "R3"
+          ],
+          "readers": 3
+        },
+        {
+          "readers": 3,
+          "writer_locked": false,
+          "owner": null,
+          "waiters_count": 1,
+          "handoff_active": false,
+          "fast_read_hits": 0,
+          "fast_write_hits": 1,
+          "spin_steals": 0,
+          "batched_reader_wakes": 3
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "handoff_threshold_us": 1000
+      },
+      "operations": [
+        {
+          "op": "DOWN_READ",
+          "thread_id": "R1",
+          "time_us": 10
+        },
+        {
+          "op": "DOWN_READ",
+          "thread_id": "R2",
+          "time_us": 20
+        },
+        {
+          "op": "DOWN_WRITE",
+          "thread_id": "W1",
+          "time_us": 30
+        },
+        {
+          "op": "UP_READ",
+          "thread_id": "R1",
+          "time_us": 40
+        },
+        {
+          "op": "UP_READ",
+          "thread_id": "R2",
+          "time_us": 50
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ACQUIRED_READ_FAST",
+          "thread_id": "R1",
+          "readers": 1
+        },
+        {
+          "status": "ACQUIRED_READ_FAST",
+          "thread_id": "R2",
+          "readers": 2
+        },
+        {
+          "status": "WAITING_WRITE",
+          "thread_id": "W1",
+          "wait_pos": 0
+        },
+        {
+          "status": "READ_RELEASED",
+          "thread_id": "R1",
+          "readers": 1,
+          "woken_writer": null
+        },
+        {
+          "status": "READ_RELEASED",
+          "thread_id": "R2",
+          "readers": 0,
+          "woken_writer": "W1"
+        },
+        {
+          "readers": 0,
+          "writer_locked": true,
+          "owner": "W1",
+          "waiters_count": 0,
+          "handoff_active": false,
+          "fast_read_hits": 2,
+          "fast_write_hits": 0,
+          "spin_steals": 0,
+          "batched_reader_wakes": 0
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "handoff_threshold_us": 1000
+      },
+      "operations": [
+        {
+          "op": "DOWN_WRITE",
+          "thread_id": "W1",
+          "time_us": 10
+        },
+        {
+          "op": "TRY_SPIN_ACQUIRE",
+          "thread_id": "W_SPIN",
+          "time_us": 20
+        },
+        {
+          "op": "UP_WRITE",
+          "thread_id": "W1",
+          "time_us": 30
+        },
+        {
+          "op": "TRY_SPIN_ACQUIRE",
+          "thread_id": "W_SPIN",
+          "time_us": 35
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ACQUIRED_WRITE_FAST",
+          "thread_id": "W1"
+        },
+        {
+          "status": "SPIN_STEAL_FAILED_BUSY",
+          "thread_id": "W_SPIN"
+        },
+        {
+          "status": "WRITE_RELEASED",
+          "thread_id": "W1",
+          "woken_type": "NONE",
+          "woken": [],
+          "readers": 0
+        },
+        {
+          "status": "SPIN_STEAL_SUCCESS",
+          "thread_id": "W_SPIN"
+        },
+        {
+          "readers": 0,
+          "writer_locked": true,
+          "owner": "W_SPIN",
+          "waiters_count": 0,
+          "handoff_active": false,
+          "fast_read_hits": 0,
+          "fast_write_hits": 1,
+          "spin_steals": 1,
+          "batched_reader_wakes": 0
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "handoff_threshold_us": 500
+      },
+      "operations": [
+        {
+          "op": "DOWN_WRITE",
+          "thread_id": "W_HOLDER",
+          "time_us": 100
+        },
+        {
+          "op": "DOWN_WRITE",
+          "thread_id": "W_WAITING",
+          "time_us": 200
+        },
+        {
+          "op": "UP_WRITE",
+          "thread_id": "W_HOLDER",
+          "time_us": 300
+        },
+        {
+          "op": "DOWN_WRITE",
+          "thread_id": "W_NEXT_WAITER",
+          "time_us": 400
+        },
+        {
+          "op": "UPDATE_WAITERS_TIME",
+          "time_us": 1000
+        },
+        {
+          "op": "UP_WRITE",
+          "thread_id": "W_WAITING",
+          "time_us": 1010
+        },
+        {
+          "op": "TRY_SPIN_ACQUIRE",
+          "thread_id": "W_THIEF",
+          "time_us": 1015
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ACQUIRED_WRITE_FAST",
+          "thread_id": "W_HOLDER"
+        },
+        {
+          "status": "WAITING_WRITE",
+          "thread_id": "W_WAITING",
+          "wait_pos": 0
+        },
+        {
+          "status": "WRITE_RELEASED",
+          "thread_id": "W_HOLDER",
+          "woken_type": "WRITE",
+          "woken": [
+            "W_WAITING"
+          ],
+          "readers": 0
+        },
+        {
+          "status": "WAITING_WRITE",
+          "thread_id": "W_NEXT_WAITER",
+          "wait_pos": 0
+        },
+        {
+          "status": "HANDOFF_ACTIVATED",
+          "head_thread": "W_NEXT_WAITER",
+          "wait_duration_us": 600
+        },
+        {
+          "status": "WRITE_RELEASED",
+          "thread_id": "W_WAITING",
+          "woken_type": "WRITE",
+          "woken": [
+            "W_NEXT_WAITER"
+          ],
+          "readers": 0
+        },
+        {
+          "status": "SPIN_STEAL_FAILED_BUSY",
+          "thread_id": "W_THIEF"
+        },
+        {
+          "readers": 0,
+          "writer_locked": true,
+          "owner": "W_NEXT_WAITER",
+          "waiters_count": 0,
+          "handoff_active": false,
+          "fast_read_hits": 0,
+          "fast_write_hits": 1,
+          "spin_steals": 0,
+          "batched_reader_wakes": 0
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "handoff_threshold_us": 1000
+      },
+      "operations": [
+        {
+          "op": "DOWN_WRITE",
+          "thread_id": "W1",
+          "time_us": 10
+        },
+        {
+          "op": "DOWN_WRITE",
+          "thread_id": "W2",
+          "time_us": 20
+        },
+        {
+          "op": "DOWN_WRITE",
+          "thread_id": "W3",
+          "time_us": 30
+        },
+        {
+          "op": "UP_WRITE",
+          "thread_id": "W1",
+          "time_us": 50
+        },
+        {
+          "op": "UP_WRITE",
+          "thread_id": "W2",
+          "time_us": 60
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ACQUIRED_WRITE_FAST",
+          "thread_id": "W1"
+        },
+        {
+          "status": "WAITING_WRITE",
+          "thread_id": "W2",
+          "wait_pos": 0
+        },
+        {
+          "status": "WAITING_WRITE",
+          "thread_id": "W3",
+          "wait_pos": 1
+        },
+        {
+          "status": "WRITE_RELEASED",
+          "thread_id": "W1",
+          "woken_type": "WRITE",
+          "woken": [
+            "W2"
+          ],
+          "readers": 0
+        },
+        {
+          "status": "WRITE_RELEASED",
+          "thread_id": "W2",
+          "woken_type": "WRITE",
+          "woken": [
+            "W3"
+          ],
+          "readers": 0
+        },
+        {
+          "readers": 0,
+          "writer_locked": true,
+          "owner": "W3",
+          "waiters_count": 0,
+          "handoff_active": false,
+          "fast_read_hits": 0,
+          "fast_write_hits": 1,
+          "spin_steals": 0,
+          "batched_reader_wakes": 0
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "handoff_threshold_us": 1000
+      },
+      "operations": [
+        {
+          "op": "UP_READ",
+          "thread_id": "R_ROGUE",
+          "time_us": 10
+        },
+        {
+          "op": "UP_WRITE",
+          "thread_id": "W_ROGUE",
+          "time_us": 20
+        },
+        {
+          "op": "DOWN_READ",
+          "thread_id": "R1",
+          "time_us": 30
+        },
+        {
+          "op": "UP_READ",
+          "thread_id": "R1",
+          "time_us": 40
+        },
+        {
+          "op": "UP_READ",
+          "thread_id": "R1",
+          "time_us": 50
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ERROR_UNDERFLOW",
+          "thread_id": "R_ROGUE"
+        },
+        {
+          "status": "ERROR_NOT_LOCKED",
+          "thread_id": "W_ROGUE"
+        },
+        {
+          "status": "ACQUIRED_READ_FAST",
+          "thread_id": "R1",
+          "readers": 1
+        },
+        {
+          "status": "READ_RELEASED",
+          "thread_id": "R1",
+          "readers": 0,
+          "woken_writer": null
+        },
+        {
+          "status": "ERROR_UNDERFLOW",
+          "thread_id": "R1"
+        },
+        {
+          "readers": 0,
+          "writer_locked": false,
+          "owner": null,
+          "waiters_count": 0,
+          "handoff_active": false,
+          "fast_read_hits": 1,
+          "fast_write_hits": 0,
+          "spin_steals": 0,
+          "batched_reader_wakes": 0
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "handoff_threshold_us": 1000
+      },
+      "operations": [
+        {
+          "op": "DOWN_READ",
+          "thread_id": "pf_core0",
+          "time_us": 1000
+        },
+        {
+          "op": "DOWN_READ",
+          "thread_id": "pf_core1",
+          "time_us": 1010
+        },
+        {
+          "op": "DOWN_READ",
+          "thread_id": "pf_core2",
+          "time_us": 1020
+        },
+        {
+          "op": "DOWN_WRITE",
+          "thread_id": "mmap_worker",
+          "time_us": 1030
+        },
+        {
+          "op": "DOWN_READ",
+          "thread_id": "pf_core3",
+          "time_us": 1040
+        },
+        {
+          "op": "DOWN_READ",
+          "thread_id": "pf_core4",
+          "time_us": 1050
+        },
+        {
+          "op": "UP_READ",
+          "thread_id": "pf_core0",
+          "time_us": 1100
+        },
+        {
+          "op": "UP_READ",
+          "thread_id": "pf_core1",
+          "time_us": 1110
+        },
+        {
+          "op": "UP_READ",
+          "thread_id": "pf_core2",
+          "time_us": 1120
+        },
+        {
+          "op": "UP_WRITE",
+          "thread_id": "mmap_worker",
+          "time_us": 1200
+        },
+        {
+          "op": "UP_READ",
+          "thread_id": "pf_core3",
+          "time_us": 1250
+        },
+        {
+          "op": "UP_READ",
+          "thread_id": "pf_core4",
+          "time_us": 1260
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ACQUIRED_READ_FAST",
+          "thread_id": "pf_core0",
+          "readers": 1
+        },
+        {
+          "status": "ACQUIRED_READ_FAST",
+          "thread_id": "pf_core1",
+          "readers": 2
+        },
+        {
+          "status": "ACQUIRED_READ_FAST",
+          "thread_id": "pf_core2",
+          "readers": 3
+        },
+        {
+          "status": "WAITING_WRITE",
+          "thread_id": "mmap_worker",
+          "wait_pos": 0
+        },
+        {
+          "status": "WAITING_READ",
+          "thread_id": "pf_core3",
+          "wait_pos": 1
+        },
+        {
+          "status": "WAITING_READ",
+          "thread_id": "pf_core4",
+          "wait_pos": 2
+        },
+        {
+          "status": "READ_RELEASED",
+          "thread_id": "pf_core0",
+          "readers": 2,
+          "woken_writer": null
+        },
+        {
+          "status": "READ_RELEASED",
+          "thread_id": "pf_core1",
+          "readers": 1,
+          "woken_writer": null
+        },
+        {
+          "status": "READ_RELEASED",
+          "thread_id": "pf_core2",
+          "readers": 0,
+          "woken_writer": "mmap_worker"
+        },
+        {
+          "status": "WRITE_RELEASED",
+          "thread_id": "mmap_worker",
+          "woken_type": "READ_BATCH",
+          "woken": [
+            "pf_core3",
+            "pf_core4"
+          ],
+          "readers": 2
+        },
+        {
+          "status": "READ_RELEASED",
+          "thread_id": "pf_core3",
+          "readers": 1,
+          "woken_writer": null
+        },
+        {
+          "status": "READ_RELEASED",
+          "thread_id": "pf_core4",
+          "readers": 0,
+          "woken_writer": null
+        },
+        {
+          "readers": 0,
+          "writer_locked": false,
+          "owner": null,
+          "waiters_count": 0,
+          "handoff_active": false,
+          "fast_read_hits": 3,
+          "fast_write_hits": 0,
+          "spin_steals": 0,
+          "batched_reader_wakes": 2
+        }
+      ]
+    }
+  }
+]
