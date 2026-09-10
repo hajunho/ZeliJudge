@@ -1,0 +1,1670 @@
+[
+  {
+    "testcase_id": 1,
+    "input": {
+      "config": {
+        "num_cpus": 2,
+        "page_size": 4096,
+        "pages_per_cpu": 4,
+        "overwrite_mode": true
+      },
+      "trace": [
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "EV_1",
+          "cpu_id": 0,
+          "context": "TASK",
+          "length": 64
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "EV_1"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "EV_2",
+          "cpu_id": 0,
+          "context": "TASK",
+          "length": 128
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "EV_2"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "EV_1",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "offset": 0,
+          "length": 64,
+          "status": "RESERVED_CURRENT_PAGE",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "EV_1",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "committed_bytes": 64,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "EV_2",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "offset": 64,
+          "length": 128,
+          "status": "RESERVED_CURRENT_PAGE",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "EV_2",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "committed_bytes": 192,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "GET_STATS",
+          "overwrite_mode": true,
+          "cpus": {
+            "0": {
+              "head_idx": 0,
+              "tail_idx": 0,
+              "total_committed_events": 2,
+              "total_committed_bytes": 192,
+              "overwritten_events": 0,
+              "dropped_events": 0,
+              "active_nesting": 0
+            },
+            "1": {
+              "head_idx": 0,
+              "tail_idx": 0,
+              "total_committed_events": 0,
+              "total_committed_bytes": 0,
+              "overwritten_events": 0,
+              "dropped_events": 0,
+              "active_nesting": 0
+            }
+          }
+        }
+      ],
+      "summary": {
+        "total_committed_events": 2,
+        "total_committed_bytes": 192,
+        "total_overwritten_events": 0,
+        "total_dropped_events": 0,
+        "remaining_reservations": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 2,
+    "input": {
+      "config": {
+        "num_cpus": 2,
+        "page_size": 256,
+        "pages_per_cpu": 4,
+        "overwrite_mode": true
+      },
+      "trace": [
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "P1_A",
+          "cpu_id": 0,
+          "context": "TASK",
+          "length": 150
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "P1_A"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "P1_B",
+          "cpu_id": 0,
+          "context": "TASK",
+          "length": 100
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "P1_B"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "P1_A",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "offset": 0,
+          "length": 150,
+          "status": "RESERVED_CURRENT_PAGE",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "P1_A",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "committed_bytes": 150,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "P1_B",
+          "cpu_id": 0,
+          "page_idx": 1,
+          "offset": 0,
+          "length": 100,
+          "status": "RESERVED_PAGE_ROLLED",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "P1_B",
+          "cpu_id": 0,
+          "page_idx": 1,
+          "committed_bytes": 100,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "GET_STATS",
+          "overwrite_mode": true,
+          "cpus": {
+            "0": {
+              "head_idx": 0,
+              "tail_idx": 1,
+              "total_committed_events": 2,
+              "total_committed_bytes": 250,
+              "overwritten_events": 0,
+              "dropped_events": 0,
+              "active_nesting": 0
+            },
+            "1": {
+              "head_idx": 0,
+              "tail_idx": 0,
+              "total_committed_events": 0,
+              "total_committed_bytes": 0,
+              "overwritten_events": 0,
+              "dropped_events": 0,
+              "active_nesting": 0
+            }
+          }
+        }
+      ],
+      "summary": {
+        "total_committed_events": 2,
+        "total_committed_bytes": 250,
+        "total_overwritten_events": 0,
+        "total_dropped_events": 0,
+        "remaining_reservations": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 3,
+    "input": {
+      "config": {
+        "num_cpus": 1,
+        "page_size": 256,
+        "pages_per_cpu": 3,
+        "overwrite_mode": true
+      },
+      "trace": [
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "P0",
+          "cpu_id": 0,
+          "context": "TASK",
+          "length": 200
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "P0"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "P1",
+          "cpu_id": 0,
+          "context": "TASK",
+          "length": 200
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "P1"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "P2",
+          "cpu_id": 0,
+          "context": "TASK",
+          "length": 200
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "P2"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "P0_OVER",
+          "cpu_id": 0,
+          "context": "TASK",
+          "length": 200
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "P0_OVER"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "P0",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "offset": 0,
+          "length": 200,
+          "status": "RESERVED_CURRENT_PAGE",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "P0",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "committed_bytes": 200,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "P1",
+          "cpu_id": 0,
+          "page_idx": 1,
+          "offset": 0,
+          "length": 200,
+          "status": "RESERVED_PAGE_ROLLED",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "P1",
+          "cpu_id": 0,
+          "page_idx": 1,
+          "committed_bytes": 200,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "P2",
+          "cpu_id": 0,
+          "page_idx": 2,
+          "offset": 0,
+          "length": 200,
+          "status": "RESERVED_PAGE_ROLLED",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "P2",
+          "cpu_id": 0,
+          "page_idx": 2,
+          "committed_bytes": 200,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "P0_OVER",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "offset": 0,
+          "length": 200,
+          "status": "RESERVED_PAGE_ROLLED_OVERWRITE",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "P0_OVER",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "committed_bytes": 200,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "GET_STATS",
+          "overwrite_mode": true,
+          "cpus": {
+            "0": {
+              "head_idx": 1,
+              "tail_idx": 0,
+              "total_committed_events": 4,
+              "total_committed_bytes": 800,
+              "overwritten_events": 1,
+              "dropped_events": 0,
+              "active_nesting": 0
+            }
+          }
+        }
+      ],
+      "summary": {
+        "total_committed_events": 4,
+        "total_committed_bytes": 800,
+        "total_overwritten_events": 1,
+        "total_dropped_events": 0,
+        "remaining_reservations": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 4,
+    "input": {
+      "config": {
+        "num_cpus": 1,
+        "page_size": 256,
+        "pages_per_cpu": 3,
+        "overwrite_mode": false
+      },
+      "trace": [
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "D0",
+          "cpu_id": 0,
+          "context": "TASK",
+          "length": 200
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "D0"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "D1",
+          "cpu_id": 0,
+          "context": "TASK",
+          "length": 200
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "D1"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "D2",
+          "cpu_id": 0,
+          "context": "TASK",
+          "length": 200
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "D2"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "D_FAIL",
+          "cpu_id": 0,
+          "context": "TASK",
+          "length": 200
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "D0",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "offset": 0,
+          "length": 200,
+          "status": "RESERVED_CURRENT_PAGE",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "D0",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "committed_bytes": 200,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "D1",
+          "cpu_id": 0,
+          "page_idx": 1,
+          "offset": 0,
+          "length": 200,
+          "status": "RESERVED_PAGE_ROLLED",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "D1",
+          "cpu_id": 0,
+          "page_idx": 1,
+          "committed_bytes": 200,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "D2",
+          "cpu_id": 0,
+          "page_idx": 2,
+          "offset": 0,
+          "length": 200,
+          "status": "RESERVED_PAGE_ROLLED",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "D2",
+          "cpu_id": 0,
+          "page_idx": 2,
+          "committed_bytes": 200,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "D_FAIL",
+          "status": "DROPPED_BUFFER_FULL",
+          "cpu_id": 0
+        },
+        {
+          "op": "GET_STATS",
+          "overwrite_mode": false,
+          "cpus": {
+            "0": {
+              "head_idx": 0,
+              "tail_idx": 2,
+              "total_committed_events": 3,
+              "total_committed_bytes": 600,
+              "overwritten_events": 0,
+              "dropped_events": 1,
+              "active_nesting": 0
+            }
+          }
+        }
+      ],
+      "summary": {
+        "total_committed_events": 3,
+        "total_committed_bytes": 600,
+        "total_overwritten_events": 0,
+        "total_dropped_events": 1,
+        "remaining_reservations": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 5,
+    "input": {
+      "config": {
+        "num_cpus": 2,
+        "page_size": 4096,
+        "pages_per_cpu": 4,
+        "overwrite_mode": true
+      },
+      "trace": [
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "EV_TASK",
+          "cpu_id": 0,
+          "context": "TASK",
+          "length": 64
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "EV_SOFT",
+          "cpu_id": 0,
+          "context": "SOFTIRQ",
+          "length": 48
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "EV_HARD",
+          "cpu_id": 0,
+          "context": "HARDIRQ",
+          "length": 32
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "EV_NMI",
+          "cpu_id": 0,
+          "context": "NMI",
+          "length": 24
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "EV_NMI"
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "EV_HARD"
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "EV_SOFT"
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "EV_TASK"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "EV_TASK",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "offset": 0,
+          "length": 64,
+          "status": "RESERVED_CURRENT_PAGE",
+          "nesting_depth": 1
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "EV_SOFT",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "offset": 64,
+          "length": 48,
+          "status": "RESERVED_CURRENT_PAGE",
+          "nesting_depth": 2
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "EV_HARD",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "offset": 112,
+          "length": 32,
+          "status": "RESERVED_CURRENT_PAGE",
+          "nesting_depth": 3
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "EV_NMI",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "offset": 144,
+          "length": 24,
+          "status": "RESERVED_CURRENT_PAGE",
+          "nesting_depth": 4
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "EV_NMI",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "committed_bytes": 24,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "EV_HARD",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "committed_bytes": 56,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "EV_SOFT",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "committed_bytes": 104,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "EV_TASK",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "committed_bytes": 168,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "GET_STATS",
+          "overwrite_mode": true,
+          "cpus": {
+            "0": {
+              "head_idx": 0,
+              "tail_idx": 0,
+              "total_committed_events": 4,
+              "total_committed_bytes": 168,
+              "overwritten_events": 0,
+              "dropped_events": 0,
+              "active_nesting": 0
+            },
+            "1": {
+              "head_idx": 0,
+              "tail_idx": 0,
+              "total_committed_events": 0,
+              "total_committed_bytes": 0,
+              "overwritten_events": 0,
+              "dropped_events": 0,
+              "active_nesting": 0
+            }
+          }
+        }
+      ],
+      "summary": {
+        "total_committed_events": 4,
+        "total_committed_bytes": 168,
+        "total_overwritten_events": 0,
+        "total_dropped_events": 0,
+        "remaining_reservations": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 6,
+    "input": {
+      "config": {
+        "num_cpus": 2,
+        "page_size": 4096,
+        "pages_per_cpu": 4,
+        "overwrite_mode": true
+      },
+      "trace": [
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "V_TASK1",
+          "cpu_id": 0,
+          "context": "TASK",
+          "length": 64
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "V_TASK2",
+          "cpu_id": 0,
+          "context": "TASK",
+          "length": 64
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "V_TASK1"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "V_HARD",
+          "cpu_id": 0,
+          "context": "HARDIRQ",
+          "length": 64
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "V_SOFT",
+          "cpu_id": 0,
+          "context": "SOFTIRQ",
+          "length": 64
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "V_HARD"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "V_TASK1",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "offset": 0,
+          "length": 64,
+          "status": "RESERVED_CURRENT_PAGE",
+          "nesting_depth": 1
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "V_TASK2",
+          "status": "ERROR_NESTING_VIOLATION",
+          "current_context": "TASK",
+          "requested_context": "TASK"
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "V_TASK1",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "committed_bytes": 64,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "V_HARD",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "offset": 64,
+          "length": 64,
+          "status": "RESERVED_CURRENT_PAGE",
+          "nesting_depth": 1
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "V_SOFT",
+          "status": "ERROR_NESTING_VIOLATION",
+          "current_context": "HARDIRQ",
+          "requested_context": "SOFTIRQ"
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "V_HARD",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "committed_bytes": 128,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "GET_STATS",
+          "overwrite_mode": true,
+          "cpus": {
+            "0": {
+              "head_idx": 0,
+              "tail_idx": 0,
+              "total_committed_events": 2,
+              "total_committed_bytes": 128,
+              "overwritten_events": 0,
+              "dropped_events": 0,
+              "active_nesting": 0
+            },
+            "1": {
+              "head_idx": 0,
+              "tail_idx": 0,
+              "total_committed_events": 0,
+              "total_committed_bytes": 0,
+              "overwritten_events": 0,
+              "dropped_events": 0,
+              "active_nesting": 0
+            }
+          }
+        }
+      ],
+      "summary": {
+        "total_committed_events": 2,
+        "total_committed_bytes": 128,
+        "total_overwritten_events": 0,
+        "total_dropped_events": 0,
+        "remaining_reservations": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 7,
+    "input": {
+      "config": {
+        "num_cpus": 1,
+        "page_size": 256,
+        "pages_per_cpu": 3,
+        "overwrite_mode": false
+      },
+      "trace": [
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "C_P0",
+          "cpu_id": 0,
+          "context": "TASK",
+          "length": 200
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "C_P0"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "C_P1",
+          "cpu_id": 0,
+          "context": "TASK",
+          "length": 200
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "C_P1"
+        },
+        {
+          "op": "CONSUME_PAGE",
+          "cpu_id": 0
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "C_P2",
+          "cpu_id": 0,
+          "context": "TASK",
+          "length": 200
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "C_P2"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "C_P0_NEW",
+          "cpu_id": 0,
+          "context": "TASK",
+          "length": 200
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "C_P0_NEW"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "C_P0",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "offset": 0,
+          "length": 200,
+          "status": "RESERVED_CURRENT_PAGE",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "C_P0",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "committed_bytes": 200,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "C_P1",
+          "cpu_id": 0,
+          "page_idx": 1,
+          "offset": 0,
+          "length": 200,
+          "status": "RESERVED_PAGE_ROLLED",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "C_P1",
+          "cpu_id": 0,
+          "page_idx": 1,
+          "committed_bytes": 200,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "CONSUME_PAGE",
+          "cpu_id": 0,
+          "consumed_page_id": 0,
+          "entries_consumed": 1,
+          "bytes_consumed": 200,
+          "status": "PAGE_CONSUMED",
+          "new_head_idx": 1
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "C_P2",
+          "cpu_id": 0,
+          "page_idx": 2,
+          "offset": 0,
+          "length": 200,
+          "status": "RESERVED_PAGE_ROLLED",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "C_P2",
+          "cpu_id": 0,
+          "page_idx": 2,
+          "committed_bytes": 200,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "C_P0_NEW",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "offset": 0,
+          "length": 200,
+          "status": "RESERVED_PAGE_ROLLED",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "C_P0_NEW",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "committed_bytes": 200,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "GET_STATS",
+          "overwrite_mode": false,
+          "cpus": {
+            "0": {
+              "head_idx": 1,
+              "tail_idx": 0,
+              "total_committed_events": 4,
+              "total_committed_bytes": 800,
+              "overwritten_events": 0,
+              "dropped_events": 0,
+              "active_nesting": 0
+            }
+          }
+        }
+      ],
+      "summary": {
+        "total_committed_events": 4,
+        "total_committed_bytes": 800,
+        "total_overwritten_events": 0,
+        "total_dropped_events": 0,
+        "remaining_reservations": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 8,
+    "input": {
+      "config": {
+        "num_cpus": 4,
+        "page_size": 512,
+        "pages_per_cpu": 4,
+        "overwrite_mode": true
+      },
+      "trace": [
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_0",
+          "cpu_id": 0,
+          "context": "TASK",
+          "length": 150
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_0"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_1",
+          "cpu_id": 1,
+          "context": "SOFTIRQ",
+          "length": 150
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_1"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_2",
+          "cpu_id": 2,
+          "context": "HARDIRQ",
+          "length": 150
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_2"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_3",
+          "cpu_id": 3,
+          "context": "NMI",
+          "length": 150
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_3"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_4",
+          "cpu_id": 0,
+          "context": "TASK",
+          "length": 150
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_4"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_5",
+          "cpu_id": 1,
+          "context": "SOFTIRQ",
+          "length": 150
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_5"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_6",
+          "cpu_id": 2,
+          "context": "HARDIRQ",
+          "length": 150
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_6"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_7",
+          "cpu_id": 3,
+          "context": "NMI",
+          "length": 150
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_7"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_8",
+          "cpu_id": 0,
+          "context": "TASK",
+          "length": 150
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_8"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_9",
+          "cpu_id": 1,
+          "context": "SOFTIRQ",
+          "length": 150
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_9"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_10",
+          "cpu_id": 2,
+          "context": "HARDIRQ",
+          "length": 150
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_10"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_11",
+          "cpu_id": 3,
+          "context": "NMI",
+          "length": 150
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_11"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_12",
+          "cpu_id": 0,
+          "context": "TASK",
+          "length": 150
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_12"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_13",
+          "cpu_id": 1,
+          "context": "SOFTIRQ",
+          "length": 150
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_13"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_14",
+          "cpu_id": 2,
+          "context": "HARDIRQ",
+          "length": 150
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_14"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_15",
+          "cpu_id": 3,
+          "context": "NMI",
+          "length": 150
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_15"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_16",
+          "cpu_id": 0,
+          "context": "TASK",
+          "length": 150
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_16"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_17",
+          "cpu_id": 1,
+          "context": "SOFTIRQ",
+          "length": 150
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_17"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_18",
+          "cpu_id": 2,
+          "context": "HARDIRQ",
+          "length": 150
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_18"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_19",
+          "cpu_id": 3,
+          "context": "NMI",
+          "length": 150
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_19"
+        },
+        {
+          "op": "CONSUME_PAGE",
+          "cpu_id": 0
+        },
+        {
+          "op": "CONSUME_PAGE",
+          "cpu_id": 1
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_0",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "offset": 0,
+          "length": 150,
+          "status": "RESERVED_CURRENT_PAGE",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_0",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "committed_bytes": 150,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_1",
+          "cpu_id": 1,
+          "page_idx": 0,
+          "offset": 0,
+          "length": 150,
+          "status": "RESERVED_CURRENT_PAGE",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_1",
+          "cpu_id": 1,
+          "page_idx": 0,
+          "committed_bytes": 150,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_2",
+          "cpu_id": 2,
+          "page_idx": 0,
+          "offset": 0,
+          "length": 150,
+          "status": "RESERVED_CURRENT_PAGE",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_2",
+          "cpu_id": 2,
+          "page_idx": 0,
+          "committed_bytes": 150,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_3",
+          "cpu_id": 3,
+          "page_idx": 0,
+          "offset": 0,
+          "length": 150,
+          "status": "RESERVED_CURRENT_PAGE",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_3",
+          "cpu_id": 3,
+          "page_idx": 0,
+          "committed_bytes": 150,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_4",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "offset": 150,
+          "length": 150,
+          "status": "RESERVED_CURRENT_PAGE",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_4",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "committed_bytes": 300,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_5",
+          "cpu_id": 1,
+          "page_idx": 0,
+          "offset": 150,
+          "length": 150,
+          "status": "RESERVED_CURRENT_PAGE",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_5",
+          "cpu_id": 1,
+          "page_idx": 0,
+          "committed_bytes": 300,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_6",
+          "cpu_id": 2,
+          "page_idx": 0,
+          "offset": 150,
+          "length": 150,
+          "status": "RESERVED_CURRENT_PAGE",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_6",
+          "cpu_id": 2,
+          "page_idx": 0,
+          "committed_bytes": 300,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_7",
+          "cpu_id": 3,
+          "page_idx": 0,
+          "offset": 150,
+          "length": 150,
+          "status": "RESERVED_CURRENT_PAGE",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_7",
+          "cpu_id": 3,
+          "page_idx": 0,
+          "committed_bytes": 300,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_8",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "offset": 300,
+          "length": 150,
+          "status": "RESERVED_CURRENT_PAGE",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_8",
+          "cpu_id": 0,
+          "page_idx": 0,
+          "committed_bytes": 450,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_9",
+          "cpu_id": 1,
+          "page_idx": 0,
+          "offset": 300,
+          "length": 150,
+          "status": "RESERVED_CURRENT_PAGE",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_9",
+          "cpu_id": 1,
+          "page_idx": 0,
+          "committed_bytes": 450,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_10",
+          "cpu_id": 2,
+          "page_idx": 0,
+          "offset": 300,
+          "length": 150,
+          "status": "RESERVED_CURRENT_PAGE",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_10",
+          "cpu_id": 2,
+          "page_idx": 0,
+          "committed_bytes": 450,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_11",
+          "cpu_id": 3,
+          "page_idx": 0,
+          "offset": 300,
+          "length": 150,
+          "status": "RESERVED_CURRENT_PAGE",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_11",
+          "cpu_id": 3,
+          "page_idx": 0,
+          "committed_bytes": 450,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_12",
+          "cpu_id": 0,
+          "page_idx": 1,
+          "offset": 0,
+          "length": 150,
+          "status": "RESERVED_PAGE_ROLLED",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_12",
+          "cpu_id": 0,
+          "page_idx": 1,
+          "committed_bytes": 150,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_13",
+          "cpu_id": 1,
+          "page_idx": 1,
+          "offset": 0,
+          "length": 150,
+          "status": "RESERVED_PAGE_ROLLED",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_13",
+          "cpu_id": 1,
+          "page_idx": 1,
+          "committed_bytes": 150,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_14",
+          "cpu_id": 2,
+          "page_idx": 1,
+          "offset": 0,
+          "length": 150,
+          "status": "RESERVED_PAGE_ROLLED",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_14",
+          "cpu_id": 2,
+          "page_idx": 1,
+          "committed_bytes": 150,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_15",
+          "cpu_id": 3,
+          "page_idx": 1,
+          "offset": 0,
+          "length": 150,
+          "status": "RESERVED_PAGE_ROLLED",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_15",
+          "cpu_id": 3,
+          "page_idx": 1,
+          "committed_bytes": 150,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_16",
+          "cpu_id": 0,
+          "page_idx": 1,
+          "offset": 150,
+          "length": 150,
+          "status": "RESERVED_CURRENT_PAGE",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_16",
+          "cpu_id": 0,
+          "page_idx": 1,
+          "committed_bytes": 300,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_17",
+          "cpu_id": 1,
+          "page_idx": 1,
+          "offset": 150,
+          "length": 150,
+          "status": "RESERVED_CURRENT_PAGE",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_17",
+          "cpu_id": 1,
+          "page_idx": 1,
+          "committed_bytes": 300,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_18",
+          "cpu_id": 2,
+          "page_idx": 1,
+          "offset": 150,
+          "length": 150,
+          "status": "RESERVED_CURRENT_PAGE",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_18",
+          "cpu_id": 2,
+          "page_idx": 1,
+          "committed_bytes": 300,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "RESERVE_EVENT",
+          "event_id": "STRESS_19",
+          "cpu_id": 3,
+          "page_idx": 1,
+          "offset": 150,
+          "length": 150,
+          "status": "RESERVED_CURRENT_PAGE",
+          "nesting_depth": 1
+        },
+        {
+          "op": "COMMIT_EVENT",
+          "event_id": "STRESS_19",
+          "cpu_id": 3,
+          "page_idx": 1,
+          "committed_bytes": 300,
+          "status": "COMMITTED_SUCCESS"
+        },
+        {
+          "op": "CONSUME_PAGE",
+          "cpu_id": 0,
+          "consumed_page_id": 0,
+          "entries_consumed": 3,
+          "bytes_consumed": 450,
+          "status": "PAGE_CONSUMED",
+          "new_head_idx": 1
+        },
+        {
+          "op": "CONSUME_PAGE",
+          "cpu_id": 1,
+          "consumed_page_id": 0,
+          "entries_consumed": 3,
+          "bytes_consumed": 450,
+          "status": "PAGE_CONSUMED",
+          "new_head_idx": 1
+        },
+        {
+          "op": "GET_STATS",
+          "overwrite_mode": true,
+          "cpus": {
+            "0": {
+              "head_idx": 1,
+              "tail_idx": 1,
+              "total_committed_events": 5,
+              "total_committed_bytes": 750,
+              "overwritten_events": 0,
+              "dropped_events": 0,
+              "active_nesting": 0
+            },
+            "1": {
+              "head_idx": 1,
+              "tail_idx": 1,
+              "total_committed_events": 5,
+              "total_committed_bytes": 750,
+              "overwritten_events": 0,
+              "dropped_events": 0,
+              "active_nesting": 0
+            },
+            "2": {
+              "head_idx": 0,
+              "tail_idx": 1,
+              "total_committed_events": 5,
+              "total_committed_bytes": 750,
+              "overwritten_events": 0,
+              "dropped_events": 0,
+              "active_nesting": 0
+            },
+            "3": {
+              "head_idx": 0,
+              "tail_idx": 1,
+              "total_committed_events": 5,
+              "total_committed_bytes": 750,
+              "overwritten_events": 0,
+              "dropped_events": 0,
+              "active_nesting": 0
+            }
+          }
+        }
+      ],
+      "summary": {
+        "total_committed_events": 20,
+        "total_committed_bytes": 3000,
+        "total_overwritten_events": 0,
+        "total_dropped_events": 0,
+        "remaining_reservations": 0
+      }
+    }
+  }
+]
