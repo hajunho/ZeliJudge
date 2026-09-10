@@ -1,0 +1,684 @@
+[
+  {
+    "name": "레거시 단일 PGD 환경에서의 Meltdown 부채널 투기적 실행 메모리 유출 검증",
+    "input": {
+      "config": {
+        "enable_kpti": false,
+        "enable_pcid": false,
+        "tlb_capacity": 64,
+        "cr3_switch_cost_cycles": 200,
+        "tlb_miss_penalty_cycles": 100,
+        "invpcid_cost_cycles": 80,
+        "trampoline_overhead_cycles": 30,
+        "base_mem_cycle": 4
+      },
+      "mappings": [
+        {
+          "vaddr": 4194304,
+          "pfn": 256,
+          "is_kernel": false
+        },
+        {
+          "vaddr": 18446612682071080960,
+          "pfn": 768,
+          "is_kernel": true,
+          "is_trampoline": false
+        }
+      ],
+      "instructions": [
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 4194304
+        },
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 18446612682071080960,
+          "is_speculative": true
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_cycles": 208,
+        "execution_cycles": 8,
+        "cr3_switch_cycles": 0,
+        "tlb_miss_cycles": 200,
+        "trampoline_cycles": 0,
+        "invpcid_cycles": 0
+      },
+      "tlb_metrics": {
+        "total_lookups": 2,
+        "hits": 0,
+        "misses": 2,
+        "hit_ratio": 0.0,
+        "flush_count": 0
+      },
+      "security_audit": {
+        "enable_kpti": false,
+        "enable_pcid": false,
+        "meltdown_attempts": 1,
+        "meltdown_blocked": 0,
+        "meltdown_leaks": 1,
+        "is_vulnerable": true
+      }
+    }
+  },
+  {
+    "name": "KPTI 이중 CR3 격리 환경에서의 섀도우 PGD 미매핑 기반 Meltdown 원천 차단",
+    "input": {
+      "config": {
+        "enable_kpti": true,
+        "enable_pcid": false,
+        "tlb_capacity": 64,
+        "cr3_switch_cost_cycles": 200,
+        "tlb_miss_penalty_cycles": 100,
+        "invpcid_cost_cycles": 80,
+        "trampoline_overhead_cycles": 30,
+        "base_mem_cycle": 4
+      },
+      "mappings": [
+        {
+          "vaddr": 4194304,
+          "pfn": 256,
+          "is_kernel": false
+        },
+        {
+          "vaddr": 18446612682071080960,
+          "pfn": 768,
+          "is_kernel": true,
+          "is_trampoline": false
+        }
+      ],
+      "instructions": [
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 4194304
+        },
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 18446612682071080960,
+          "is_speculative": true
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_cycles": 208,
+        "execution_cycles": 8,
+        "cr3_switch_cycles": 0,
+        "tlb_miss_cycles": 200,
+        "trampoline_cycles": 0,
+        "invpcid_cycles": 0
+      },
+      "tlb_metrics": {
+        "total_lookups": 2,
+        "hits": 0,
+        "misses": 2,
+        "hit_ratio": 0.0,
+        "flush_count": 0
+      },
+      "security_audit": {
+        "enable_kpti": true,
+        "enable_pcid": false,
+        "meltdown_attempts": 1,
+        "meltdown_blocked": 1,
+        "meltdown_leaks": 0,
+        "is_vulnerable": false
+      }
+    }
+  },
+  {
+    "name": "KPTI 활성 하에서 트램펄린(.entry.text) 정상 진입 및 시스템 콜 안전 디스패치",
+    "input": {
+      "config": {
+        "enable_kpti": true,
+        "enable_pcid": true,
+        "tlb_capacity": 64,
+        "cr3_switch_cost_cycles": 50,
+        "tlb_miss_penalty_cycles": 100,
+        "invpcid_cost_cycles": 80,
+        "trampoline_overhead_cycles": 30,
+        "base_mem_cycle": 4
+      },
+      "mappings": [
+        {
+          "vaddr": 4194304,
+          "pfn": 256,
+          "is_kernel": false
+        },
+        {
+          "vaddr": 18446744071578845184,
+          "pfn": 512,
+          "is_kernel": true,
+          "is_trampoline": true
+        },
+        {
+          "vaddr": 18446612682071080960,
+          "pfn": 768,
+          "is_kernel": true,
+          "is_trampoline": false
+        }
+      ],
+      "instructions": [
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 4194304
+        },
+        {
+          "op": "SYSCALL_ENTRY"
+        },
+        {
+          "op": "KERNEL_ACCESS",
+          "vaddr": 18446744071578845184
+        },
+        {
+          "op": "KERNEL_ACCESS",
+          "vaddr": 18446612682071080960
+        },
+        {
+          "op": "SYSCALL_EXIT"
+        },
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 4194304
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_cycles": 476,
+        "execution_cycles": 16,
+        "cr3_switch_cycles": 100,
+        "tlb_miss_cycles": 300,
+        "trampoline_cycles": 60,
+        "invpcid_cycles": 0
+      },
+      "tlb_metrics": {
+        "total_lookups": 4,
+        "hits": 1,
+        "misses": 3,
+        "hit_ratio": 0.25,
+        "flush_count": 0
+      },
+      "security_audit": {
+        "enable_kpti": true,
+        "enable_pcid": true,
+        "meltdown_attempts": 0,
+        "meltdown_blocked": 0,
+        "meltdown_leaks": 0,
+        "is_vulnerable": false
+      }
+    }
+  },
+  {
+    "name": "PCID NOFLUSH 태그를 활용한 시스템 콜 전환 시 TLB 플러시 제거 및 히트율 극대화",
+    "input": {
+      "config": {
+        "enable_kpti": true,
+        "enable_pcid": true,
+        "tlb_capacity": 64,
+        "cr3_switch_cost_cycles": 50,
+        "tlb_miss_penalty_cycles": 100,
+        "invpcid_cost_cycles": 80,
+        "trampoline_overhead_cycles": 30,
+        "base_mem_cycle": 4
+      },
+      "mappings": [
+        {
+          "vaddr": 4194304,
+          "pfn": 256,
+          "is_kernel": false
+        },
+        {
+          "vaddr": 5242880,
+          "pfn": 257,
+          "is_kernel": false
+        },
+        {
+          "vaddr": 18446744071578845184,
+          "pfn": 512,
+          "is_kernel": true,
+          "is_trampoline": true
+        },
+        {
+          "vaddr": 18446612682071080960,
+          "pfn": 768,
+          "is_kernel": true,
+          "is_trampoline": false
+        }
+      ],
+      "instructions": [
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 4194304
+        },
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 5242880
+        },
+        {
+          "op": "SYSCALL_ENTRY"
+        },
+        {
+          "op": "KERNEL_ACCESS",
+          "vaddr": 18446612682071080960
+        },
+        {
+          "op": "SYSCALL_EXIT"
+        },
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 4194304
+        },
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 5242880
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_cycles": 480,
+        "execution_cycles": 20,
+        "cr3_switch_cycles": 100,
+        "tlb_miss_cycles": 300,
+        "trampoline_cycles": 60,
+        "invpcid_cycles": 0
+      },
+      "tlb_metrics": {
+        "total_lookups": 5,
+        "hits": 2,
+        "misses": 3,
+        "hit_ratio": 0.4,
+        "flush_count": 0
+      },
+      "security_audit": {
+        "enable_kpti": true,
+        "enable_pcid": true,
+        "meltdown_attempts": 0,
+        "meltdown_blocked": 0,
+        "meltdown_leaks": 0,
+        "is_vulnerable": false
+      }
+    }
+  },
+  {
+    "name": "PCID 미지원 시스템에서의 매 시스템 콜 전역 TLB 플러시 및 심각한 스래싱 페널티",
+    "input": {
+      "config": {
+        "enable_kpti": true,
+        "enable_pcid": false,
+        "tlb_capacity": 64,
+        "cr3_switch_cost_cycles": 200,
+        "tlb_miss_penalty_cycles": 100,
+        "invpcid_cost_cycles": 80,
+        "trampoline_overhead_cycles": 30,
+        "base_mem_cycle": 4
+      },
+      "mappings": [
+        {
+          "vaddr": 4194304,
+          "pfn": 256,
+          "is_kernel": false
+        },
+        {
+          "vaddr": 5242880,
+          "pfn": 257,
+          "is_kernel": false
+        },
+        {
+          "vaddr": 18446744071578845184,
+          "pfn": 512,
+          "is_kernel": true,
+          "is_trampoline": true
+        },
+        {
+          "vaddr": 18446612682071080960,
+          "pfn": 768,
+          "is_kernel": true,
+          "is_trampoline": false
+        }
+      ],
+      "instructions": [
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 4194304
+        },
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 5242880
+        },
+        {
+          "op": "SYSCALL_ENTRY"
+        },
+        {
+          "op": "KERNEL_ACCESS",
+          "vaddr": 18446612682071080960
+        },
+        {
+          "op": "SYSCALL_EXIT"
+        },
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 4194304
+        },
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 5242880
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_cycles": 980,
+        "execution_cycles": 20,
+        "cr3_switch_cycles": 400,
+        "tlb_miss_cycles": 500,
+        "trampoline_cycles": 60,
+        "invpcid_cycles": 0
+      },
+      "tlb_metrics": {
+        "total_lookups": 5,
+        "hits": 0,
+        "misses": 5,
+        "hit_ratio": 0.0,
+        "flush_count": 2
+      },
+      "security_audit": {
+        "enable_kpti": true,
+        "enable_pcid": false,
+        "meltdown_attempts": 0,
+        "meltdown_blocked": 0,
+        "meltdown_leaks": 0,
+        "is_vulnerable": false
+      }
+    }
+  },
+  {
+    "name": "가상 주소 해제(munmap) 시 INVPCID 명령어 기반 정밀 개별 주소 무효화",
+    "input": {
+      "config": {
+        "enable_kpti": true,
+        "enable_pcid": true,
+        "tlb_capacity": 64,
+        "cr3_switch_cost_cycles": 50,
+        "tlb_miss_penalty_cycles": 100,
+        "invpcid_cost_cycles": 80,
+        "trampoline_overhead_cycles": 30,
+        "base_mem_cycle": 4
+      },
+      "mappings": [
+        {
+          "vaddr": 4194304,
+          "pfn": 256,
+          "is_kernel": false
+        },
+        {
+          "vaddr": 6291456,
+          "pfn": 258,
+          "is_kernel": false
+        }
+      ],
+      "instructions": [
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 4194304
+        },
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 6291456
+        },
+        {
+          "op": "UNMAP",
+          "vaddr": 6291456
+        },
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 4194304
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_cycles": 292,
+        "execution_cycles": 12,
+        "cr3_switch_cycles": 0,
+        "tlb_miss_cycles": 200,
+        "trampoline_cycles": 0,
+        "invpcid_cycles": 80
+      },
+      "tlb_metrics": {
+        "total_lookups": 3,
+        "hits": 1,
+        "misses": 2,
+        "hit_ratio": 0.3333,
+        "flush_count": 0
+      },
+      "security_audit": {
+        "enable_kpti": true,
+        "enable_pcid": true,
+        "meltdown_attempts": 0,
+        "meltdown_blocked": 0,
+        "meltdown_leaks": 0,
+        "is_vulnerable": false
+      }
+    }
+  },
+  {
+    "name": "초소형 TLB(용량 4) 환경에서의 LRU 교체 정책 및 용량 한계 미스 회계",
+    "input": {
+      "config": {
+        "enable_kpti": true,
+        "enable_pcid": true,
+        "tlb_capacity": 4,
+        "cr3_switch_cost_cycles": 50,
+        "tlb_miss_penalty_cycles": 100,
+        "invpcid_cost_cycles": 80,
+        "trampoline_overhead_cycles": 30,
+        "base_mem_cycle": 4
+      },
+      "mappings": [
+        {
+          "vaddr": 4096,
+          "pfn": 1,
+          "is_kernel": false
+        },
+        {
+          "vaddr": 8192,
+          "pfn": 2,
+          "is_kernel": false
+        },
+        {
+          "vaddr": 12288,
+          "pfn": 3,
+          "is_kernel": false
+        },
+        {
+          "vaddr": 16384,
+          "pfn": 4,
+          "is_kernel": false
+        },
+        {
+          "vaddr": 20480,
+          "pfn": 5,
+          "is_kernel": false
+        }
+      ],
+      "instructions": [
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 4096
+        },
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 8192
+        },
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 12288
+        },
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 16384
+        },
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 20480
+        },
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 4096
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_cycles": 624,
+        "execution_cycles": 24,
+        "cr3_switch_cycles": 0,
+        "tlb_miss_cycles": 600,
+        "trampoline_cycles": 0,
+        "invpcid_cycles": 0
+      },
+      "tlb_metrics": {
+        "total_lookups": 6,
+        "hits": 0,
+        "misses": 6,
+        "hit_ratio": 0.0,
+        "flush_count": 0
+      },
+      "security_audit": {
+        "enable_kpti": true,
+        "enable_pcid": true,
+        "meltdown_attempts": 0,
+        "meltdown_blocked": 0,
+        "meltdown_leaks": 0,
+        "is_vulnerable": false
+      }
+    }
+  },
+  {
+    "name": "고성능 DB 서버 엔터프라이즈 복합 워크로드(대량 시스템 콜 + 공격 탐지 + 캐시 유지)",
+    "input": {
+      "config": {
+        "enable_kpti": true,
+        "enable_pcid": true,
+        "tlb_capacity": 64,
+        "cr3_switch_cost_cycles": 50,
+        "tlb_miss_penalty_cycles": 100,
+        "invpcid_cost_cycles": 80,
+        "trampoline_overhead_cycles": 30,
+        "base_mem_cycle": 4
+      },
+      "mappings": [
+        {
+          "vaddr": 4194304,
+          "pfn": 256,
+          "is_kernel": false
+        },
+        {
+          "vaddr": 5242880,
+          "pfn": 257,
+          "is_kernel": false
+        },
+        {
+          "vaddr": 2147418112,
+          "pfn": 258,
+          "is_kernel": false
+        },
+        {
+          "vaddr": 18446744071578845184,
+          "pfn": 512,
+          "is_kernel": true,
+          "is_trampoline": true
+        },
+        {
+          "vaddr": 18446612682071080960,
+          "pfn": 768,
+          "is_kernel": true,
+          "is_trampoline": false
+        }
+      ],
+      "instructions": [
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 4194304
+        },
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 5242880
+        },
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 2147418112
+        },
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 18446612682071080960,
+          "is_speculative": true
+        },
+        {
+          "op": "SYSCALL_ENTRY"
+        },
+        {
+          "op": "KERNEL_ACCESS",
+          "vaddr": 18446744071578845184
+        },
+        {
+          "op": "KERNEL_ACCESS",
+          "vaddr": 18446612682071080960
+        },
+        {
+          "op": "SYSCALL_EXIT"
+        },
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 4194304
+        },
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 5242880
+        },
+        {
+          "op": "SYSCALL_ENTRY"
+        },
+        {
+          "op": "KERNEL_ACCESS",
+          "vaddr": 18446612682071080960
+        },
+        {
+          "op": "SYSCALL_EXIT"
+        },
+        {
+          "op": "USER_ACCESS",
+          "vaddr": 2147418112
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_cycles": 960,
+        "execution_cycles": 40,
+        "cr3_switch_cycles": 200,
+        "tlb_miss_cycles": 600,
+        "trampoline_cycles": 120,
+        "invpcid_cycles": 0
+      },
+      "tlb_metrics": {
+        "total_lookups": 10,
+        "hits": 4,
+        "misses": 6,
+        "hit_ratio": 0.4,
+        "flush_count": 0
+      },
+      "security_audit": {
+        "enable_kpti": true,
+        "enable_pcid": true,
+        "meltdown_attempts": 1,
+        "meltdown_blocked": 1,
+        "meltdown_leaks": 0,
+        "is_vulnerable": false
+      }
+    }
+  }
+]
