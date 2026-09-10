@@ -1,0 +1,1919 @@
+[
+  {
+    "input": {
+      "operations": [
+        {
+          "op": "LOAD_CODE",
+          "instructions": [
+            {
+              "addr": 4198400,
+              "opcode": "MOV_REG_IMM",
+              "len": 5,
+              "operands": {
+                "dst": "rax",
+                "src": 100
+              }
+            },
+            {
+              "addr": 4198405,
+              "opcode": "ADD_REG_IMM",
+              "len": 5,
+              "operands": {
+                "dst": "rax",
+                "src": 50
+              }
+            },
+            {
+              "addr": 4198410,
+              "opcode": "SUB_REG_IMM",
+              "len": 5,
+              "operands": {
+                "dst": "rax",
+                "src": 20
+              }
+            },
+            {
+              "addr": 4198415,
+              "opcode": "RET",
+              "len": 1,
+              "operands": {}
+            }
+          ]
+        },
+        {
+          "op": "REGISTER_KPROBE",
+          "probe_id": "probe_add",
+          "addr": 4198405,
+          "pre_handler": {
+            "tag": "LOG_BEFORE_ADD"
+          },
+          "post_handler": {
+            "tag": "LOG_AFTER_ADD"
+          }
+        },
+        {
+          "op": "RUN_UNTIL_RET",
+          "max_steps": 10
+        },
+        {
+          "op": "QUERY_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "CODE_LOADED",
+          "insn_count": 4,
+          "entry_rip": 4198400
+        },
+        {
+          "status": "KPROBE_REGISTERED",
+          "probe_id": "probe_add",
+          "addr": 4198405,
+          "slot_addr": 2147418112,
+          "fixup_applied": false
+        },
+        {
+          "total_steps": 4,
+          "events": [
+            {
+              "event": "INSN_EXEC",
+              "rip": 4198400,
+              "opcode": "MOV_REG_IMM",
+              "next_rip": 4198405,
+              "regs": {
+                "rax": 100,
+                "rbx": 0,
+                "rcx": 0,
+                "rdx": 0,
+                "rip": 4198405,
+                "flags": {
+                  "zf": false,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "KPROBE_HIT",
+              "probe_id": "probe_add",
+              "addr": 4198405,
+              "slot_addr": 2147418112,
+              "pre_log": "LOG_BEFORE_ADD",
+              "post_log": "LOG_AFTER_ADD",
+              "next_rip": 4198410,
+              "regs": {
+                "rax": 150,
+                "rbx": 0,
+                "rcx": 0,
+                "rdx": 0,
+                "rip": 4198410,
+                "flags": {
+                  "zf": false,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "INSN_EXEC",
+              "rip": 4198410,
+              "opcode": "SUB_REG_IMM",
+              "next_rip": 4198415,
+              "regs": {
+                "rax": 130,
+                "rbx": 0,
+                "rcx": 0,
+                "rdx": 0,
+                "rip": 4198415,
+                "flags": {
+                  "zf": false,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "INSN_EXEC",
+              "rip": 4198415,
+              "opcode": "RET",
+              "next_rip": null,
+              "regs": {
+                "rax": 130,
+                "rbx": 0,
+                "rcx": 0,
+                "rdx": 0,
+                "rip": null,
+                "flags": {
+                  "zf": false,
+                  "cf": false
+                }
+              }
+            }
+          ],
+          "final_regs": {
+            "rax": 130,
+            "rbx": 0,
+            "rcx": 0,
+            "rdx": 0,
+            "rip": null,
+            "flags": {
+              "zf": false,
+              "cf": false
+            }
+          }
+        },
+        {
+          "active_probes": {
+            "probe_add": {
+              "addr": 4198405,
+              "slot_addr": 2147418112,
+              "hits": 1,
+              "fixup_applied": false
+            }
+          },
+          "free_slots_count": 15,
+          "regs": {
+            "rax": 130,
+            "rbx": 0,
+            "rcx": 0,
+            "rdx": 0,
+            "rip": null,
+            "flags": {
+              "zf": false,
+              "cf": false
+            }
+          },
+          "stats": {
+            "probes_registered": 1,
+            "probes_unregistered": 0,
+            "probe_hits": 1,
+            "ssol_fixups": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "op": "LOAD_CODE",
+          "instructions": [
+            {
+              "addr": 4198400,
+              "opcode": "MOV_REG_IMM",
+              "len": 5,
+              "operands": {
+                "dst": "rbx",
+                "src": 7
+              }
+            },
+            {
+              "addr": 4198405,
+              "opcode": "JMP_REL32",
+              "len": 5,
+              "operands": {
+                "target_addr": 4198420,
+                "disp": 10
+              },
+              "is_rip_relative": true
+            },
+            {
+              "addr": 4198410,
+              "opcode": "MOV_REG_IMM",
+              "len": 5,
+              "operands": {
+                "dst": "rbx",
+                "src": 999
+              }
+            },
+            {
+              "addr": 4198415,
+              "opcode": "NOP",
+              "len": 5,
+              "operands": {}
+            },
+            {
+              "addr": 4198420,
+              "opcode": "ADD_REG_IMM",
+              "len": 5,
+              "operands": {
+                "dst": "rbx",
+                "src": 3
+              }
+            },
+            {
+              "addr": 4198425,
+              "opcode": "RET",
+              "len": 1,
+              "operands": {}
+            }
+          ]
+        },
+        {
+          "op": "REGISTER_KPROBE",
+          "probe_id": "probe_jump",
+          "addr": 4198405
+        },
+        {
+          "op": "RUN_UNTIL_RET",
+          "max_steps": 10
+        },
+        {
+          "op": "QUERY_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "CODE_LOADED",
+          "insn_count": 6,
+          "entry_rip": 4198400
+        },
+        {
+          "status": "KPROBE_REGISTERED",
+          "probe_id": "probe_jump",
+          "addr": 4198405,
+          "slot_addr": 2147418112,
+          "fixup_applied": true
+        },
+        {
+          "total_steps": 4,
+          "events": [
+            {
+              "event": "INSN_EXEC",
+              "rip": 4198400,
+              "opcode": "MOV_REG_IMM",
+              "next_rip": 4198405,
+              "regs": {
+                "rax": 0,
+                "rbx": 7,
+                "rcx": 0,
+                "rdx": 0,
+                "rip": 4198405,
+                "flags": {
+                  "zf": false,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "KPROBE_HIT",
+              "probe_id": "probe_jump",
+              "addr": 4198405,
+              "slot_addr": 2147418112,
+              "pre_log": null,
+              "post_log": null,
+              "next_rip": 4198420,
+              "regs": {
+                "rax": 0,
+                "rbx": 7,
+                "rcx": 0,
+                "rdx": 0,
+                "rip": 4198420,
+                "flags": {
+                  "zf": false,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "INSN_EXEC",
+              "rip": 4198420,
+              "opcode": "ADD_REG_IMM",
+              "next_rip": 4198425,
+              "regs": {
+                "rax": 0,
+                "rbx": 10,
+                "rcx": 0,
+                "rdx": 0,
+                "rip": 4198425,
+                "flags": {
+                  "zf": false,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "INSN_EXEC",
+              "rip": 4198425,
+              "opcode": "RET",
+              "next_rip": null,
+              "regs": {
+                "rax": 0,
+                "rbx": 10,
+                "rcx": 0,
+                "rdx": 0,
+                "rip": null,
+                "flags": {
+                  "zf": false,
+                  "cf": false
+                }
+              }
+            }
+          ],
+          "final_regs": {
+            "rax": 0,
+            "rbx": 10,
+            "rcx": 0,
+            "rdx": 0,
+            "rip": null,
+            "flags": {
+              "zf": false,
+              "cf": false
+            }
+          }
+        },
+        {
+          "active_probes": {
+            "probe_jump": {
+              "addr": 4198405,
+              "slot_addr": 2147418112,
+              "hits": 1,
+              "fixup_applied": true
+            }
+          },
+          "free_slots_count": 15,
+          "regs": {
+            "rax": 0,
+            "rbx": 10,
+            "rcx": 0,
+            "rdx": 0,
+            "rip": null,
+            "flags": {
+              "zf": false,
+              "cf": false
+            }
+          },
+          "stats": {
+            "probes_registered": 1,
+            "probes_unregistered": 0,
+            "probe_hits": 1,
+            "ssol_fixups": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "op": "LOAD_CODE",
+          "instructions": [
+            {
+              "addr": 4198400,
+              "opcode": "MOV_REG_IMM",
+              "len": 5,
+              "operands": {
+                "dst": "rcx",
+                "src": 42
+              }
+            },
+            {
+              "addr": 4198405,
+              "opcode": "CMP_REG_IMM",
+              "len": 5,
+              "operands": {
+                "dst": "rcx",
+                "src": 42
+              }
+            },
+            {
+              "addr": 4198410,
+              "opcode": "JE_REL32",
+              "len": 5,
+              "operands": {
+                "target_addr": 4198425,
+                "disp": 10
+              },
+              "is_rip_relative": true
+            },
+            {
+              "addr": 4198415,
+              "opcode": "MOV_REG_IMM",
+              "len": 5,
+              "operands": {
+                "dst": "rdx",
+                "src": 1
+              }
+            },
+            {
+              "addr": 4198420,
+              "opcode": "RET",
+              "len": 1,
+              "operands": {}
+            },
+            {
+              "addr": 4198425,
+              "opcode": "MOV_REG_IMM",
+              "len": 5,
+              "operands": {
+                "dst": "rdx",
+                "src": 2
+              }
+            },
+            {
+              "addr": 4198430,
+              "opcode": "RET",
+              "len": 1,
+              "operands": {}
+            }
+          ]
+        },
+        {
+          "op": "REGISTER_KPROBE",
+          "probe_id": "probe_branch",
+          "addr": 4198410
+        },
+        {
+          "op": "RUN_UNTIL_RET",
+          "max_steps": 10
+        },
+        {
+          "op": "QUERY_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "CODE_LOADED",
+          "insn_count": 7,
+          "entry_rip": 4198400
+        },
+        {
+          "status": "KPROBE_REGISTERED",
+          "probe_id": "probe_branch",
+          "addr": 4198410,
+          "slot_addr": 2147418112,
+          "fixup_applied": true
+        },
+        {
+          "total_steps": 5,
+          "events": [
+            {
+              "event": "INSN_EXEC",
+              "rip": 4198400,
+              "opcode": "MOV_REG_IMM",
+              "next_rip": 4198405,
+              "regs": {
+                "rax": 0,
+                "rbx": 0,
+                "rcx": 42,
+                "rdx": 0,
+                "rip": 4198405,
+                "flags": {
+                  "zf": true,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "INSN_EXEC",
+              "rip": 4198405,
+              "opcode": "CMP_REG_IMM",
+              "next_rip": 4198410,
+              "regs": {
+                "rax": 0,
+                "rbx": 0,
+                "rcx": 42,
+                "rdx": 0,
+                "rip": 4198410,
+                "flags": {
+                  "zf": true,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "KPROBE_HIT",
+              "probe_id": "probe_branch",
+              "addr": 4198410,
+              "slot_addr": 2147418112,
+              "pre_log": null,
+              "post_log": null,
+              "next_rip": 4198425,
+              "regs": {
+                "rax": 0,
+                "rbx": 0,
+                "rcx": 42,
+                "rdx": 0,
+                "rip": 4198425,
+                "flags": {
+                  "zf": true,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "INSN_EXEC",
+              "rip": 4198425,
+              "opcode": "MOV_REG_IMM",
+              "next_rip": 4198430,
+              "regs": {
+                "rax": 0,
+                "rbx": 0,
+                "rcx": 42,
+                "rdx": 2,
+                "rip": 4198430,
+                "flags": {
+                  "zf": true,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "INSN_EXEC",
+              "rip": 4198430,
+              "opcode": "RET",
+              "next_rip": null,
+              "regs": {
+                "rax": 0,
+                "rbx": 0,
+                "rcx": 42,
+                "rdx": 2,
+                "rip": null,
+                "flags": {
+                  "zf": true,
+                  "cf": false
+                }
+              }
+            }
+          ],
+          "final_regs": {
+            "rax": 0,
+            "rbx": 0,
+            "rcx": 42,
+            "rdx": 2,
+            "rip": null,
+            "flags": {
+              "zf": true,
+              "cf": false
+            }
+          }
+        },
+        {
+          "active_probes": {
+            "probe_branch": {
+              "addr": 4198410,
+              "slot_addr": 2147418112,
+              "hits": 1,
+              "fixup_applied": true
+            }
+          },
+          "free_slots_count": 15,
+          "regs": {
+            "rax": 0,
+            "rbx": 0,
+            "rcx": 42,
+            "rdx": 2,
+            "rip": null,
+            "flags": {
+              "zf": true,
+              "cf": false
+            }
+          },
+          "stats": {
+            "probes_registered": 1,
+            "probes_unregistered": 0,
+            "probe_hits": 1,
+            "ssol_fixups": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "op": "LOAD_CODE",
+          "instructions": [
+            {
+              "addr": 4198400,
+              "opcode": "MOV_REG_IMM",
+              "len": 5,
+              "operands": {
+                "dst": "rax",
+                "src": 1
+              }
+            },
+            {
+              "addr": 4198405,
+              "opcode": "NOP",
+              "len": 1,
+              "operands": {}
+            },
+            {
+              "addr": 4198406,
+              "opcode": "RET",
+              "len": 1,
+              "operands": {}
+            }
+          ]
+        },
+        {
+          "op": "SET_BLACKLIST",
+          "ranges": [
+            {
+              "start": 4198400,
+              "end": 4198405
+            }
+          ]
+        },
+        {
+          "op": "REGISTER_KPROBE",
+          "probe_id": "p_black",
+          "addr": 4198400
+        },
+        {
+          "op": "REGISTER_KPROBE",
+          "probe_id": "p_unaligned",
+          "addr": 4198402
+        },
+        {
+          "op": "REGISTER_KPROBE",
+          "probe_id": "p_valid",
+          "addr": 4198405
+        },
+        {
+          "op": "REGISTER_KPROBE",
+          "probe_id": "p_valid",
+          "addr": 4198406
+        },
+        {
+          "op": "REGISTER_KPROBE",
+          "probe_id": "p_dup_addr",
+          "addr": 4198405
+        },
+        {
+          "op": "UNREGISTER_KPROBE",
+          "probe_id": "non_existent_id"
+        },
+        {
+          "op": "QUERY_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "CODE_LOADED",
+          "insn_count": 3,
+          "entry_rip": 4198400
+        },
+        {
+          "status": "BLACKLIST_CONFIGURED",
+          "ranges_count": 1
+        },
+        {
+          "status": "EINVAL_BLACKLISTED",
+          "addr": 4198400
+        },
+        {
+          "status": "EINVAL_BLACKLISTED",
+          "addr": 4198402
+        },
+        {
+          "status": "KPROBE_REGISTERED",
+          "probe_id": "p_valid",
+          "addr": 4198405,
+          "slot_addr": 2147418112,
+          "fixup_applied": false
+        },
+        {
+          "status": "EEXIST_PROBE_ID",
+          "probe_id": "p_valid"
+        },
+        {
+          "status": "EBUSY_ALREADY_PROBED",
+          "addr": 4198405
+        },
+        {
+          "status": "ENOENT_PROBE_NOT_FOUND",
+          "probe_id": "non_existent_id"
+        },
+        {
+          "active_probes": {
+            "p_valid": {
+              "addr": 4198405,
+              "slot_addr": 2147418112,
+              "hits": 0,
+              "fixup_applied": false
+            }
+          },
+          "free_slots_count": 15,
+          "regs": {
+            "rax": 0,
+            "rbx": 0,
+            "rcx": 0,
+            "rdx": 0,
+            "rip": 4198400,
+            "flags": {
+              "zf": false,
+              "cf": false
+            }
+          },
+          "stats": {
+            "probes_registered": 1,
+            "probes_unregistered": 0,
+            "probe_hits": 0,
+            "ssol_fixups": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "op": "LOAD_CODE",
+          "instructions": [
+            {
+              "addr": 4198400,
+              "opcode": "MOV_REG_IMM",
+              "len": 5,
+              "operands": {
+                "dst": "rax",
+                "src": 10
+              }
+            },
+            {
+              "addr": 4198405,
+              "opcode": "ADD_REG_IMM",
+              "len": 5,
+              "operands": {
+                "dst": "rax",
+                "src": 5
+              }
+            },
+            {
+              "addr": 4198410,
+              "opcode": "RET",
+              "len": 1,
+              "operands": {}
+            }
+          ]
+        },
+        {
+          "op": "REGISTER_KPROBE",
+          "probe_id": "probe_inject",
+          "addr": 4198405,
+          "pre_handler": {
+            "tag": "INJECT_RAX",
+            "set_reg": {
+              "rax": 1000
+            }
+          }
+        },
+        {
+          "op": "STEP"
+        },
+        {
+          "op": "STEP"
+        },
+        {
+          "op": "STEP"
+        },
+        {
+          "op": "QUERY_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "CODE_LOADED",
+          "insn_count": 3,
+          "entry_rip": 4198400
+        },
+        {
+          "status": "KPROBE_REGISTERED",
+          "probe_id": "probe_inject",
+          "addr": 4198405,
+          "slot_addr": 2147418112,
+          "fixup_applied": false
+        },
+        {
+          "event": "INSN_EXEC",
+          "rip": 4198400,
+          "opcode": "MOV_REG_IMM",
+          "next_rip": 4198405,
+          "regs": {
+            "rax": 10,
+            "rbx": 0,
+            "rcx": 0,
+            "rdx": 0,
+            "rip": 4198405,
+            "flags": {
+              "zf": false,
+              "cf": false
+            }
+          }
+        },
+        {
+          "event": "KPROBE_HIT",
+          "probe_id": "probe_inject",
+          "addr": 4198405,
+          "slot_addr": 2147418112,
+          "pre_log": "INJECT_RAX",
+          "post_log": null,
+          "next_rip": 4198410,
+          "regs": {
+            "rax": 1005,
+            "rbx": 0,
+            "rcx": 0,
+            "rdx": 0,
+            "rip": 4198410,
+            "flags": {
+              "zf": false,
+              "cf": false
+            }
+          }
+        },
+        {
+          "event": "INSN_EXEC",
+          "rip": 4198410,
+          "opcode": "RET",
+          "next_rip": null,
+          "regs": {
+            "rax": 1005,
+            "rbx": 0,
+            "rcx": 0,
+            "rdx": 0,
+            "rip": null,
+            "flags": {
+              "zf": false,
+              "cf": false
+            }
+          }
+        },
+        {
+          "active_probes": {
+            "probe_inject": {
+              "addr": 4198405,
+              "slot_addr": 2147418112,
+              "hits": 1,
+              "fixup_applied": false
+            }
+          },
+          "free_slots_count": 15,
+          "regs": {
+            "rax": 1005,
+            "rbx": 0,
+            "rcx": 0,
+            "rdx": 0,
+            "rip": null,
+            "flags": {
+              "zf": false,
+              "cf": false
+            }
+          },
+          "stats": {
+            "probes_registered": 1,
+            "probes_unregistered": 0,
+            "probe_hits": 1,
+            "ssol_fixups": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "op": "LOAD_CODE",
+          "instructions": [
+            {
+              "addr": 4198400,
+              "opcode": "MOV_REG_IMM",
+              "len": 5,
+              "operands": {
+                "dst": "rax",
+                "src": 0
+              }
+            },
+            {
+              "addr": 4198405,
+              "opcode": "ADD_REG_IMM",
+              "len": 5,
+              "operands": {
+                "dst": "rax",
+                "src": 1
+              }
+            },
+            {
+              "addr": 4198410,
+              "opcode": "ADD_REG_IMM",
+              "len": 5,
+              "operands": {
+                "dst": "rax",
+                "src": 2
+              }
+            },
+            {
+              "addr": 4198415,
+              "opcode": "ADD_REG_IMM",
+              "len": 5,
+              "operands": {
+                "dst": "rax",
+                "src": 3
+              }
+            },
+            {
+              "addr": 4198420,
+              "opcode": "RET",
+              "len": 1,
+              "operands": {}
+            }
+          ]
+        },
+        {
+          "op": "REGISTER_KPROBE",
+          "probe_id": "p_first",
+          "addr": 4198405
+        },
+        {
+          "op": "STEP"
+        },
+        {
+          "op": "STEP"
+        },
+        {
+          "op": "UNREGISTER_KPROBE",
+          "probe_id": "p_first"
+        },
+        {
+          "op": "REGISTER_KPROBE",
+          "probe_id": "p_second",
+          "addr": 4198415
+        },
+        {
+          "op": "RUN_UNTIL_RET",
+          "max_steps": 10
+        },
+        {
+          "op": "QUERY_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "CODE_LOADED",
+          "insn_count": 5,
+          "entry_rip": 4198400
+        },
+        {
+          "status": "KPROBE_REGISTERED",
+          "probe_id": "p_first",
+          "addr": 4198405,
+          "slot_addr": 2147418112,
+          "fixup_applied": false
+        },
+        {
+          "event": "INSN_EXEC",
+          "rip": 4198400,
+          "opcode": "MOV_REG_IMM",
+          "next_rip": 4198405,
+          "regs": {
+            "rax": 0,
+            "rbx": 0,
+            "rcx": 0,
+            "rdx": 0,
+            "rip": 4198405,
+            "flags": {
+              "zf": false,
+              "cf": false
+            }
+          }
+        },
+        {
+          "event": "KPROBE_HIT",
+          "probe_id": "p_first",
+          "addr": 4198405,
+          "slot_addr": 2147418112,
+          "pre_log": null,
+          "post_log": null,
+          "next_rip": 4198410,
+          "regs": {
+            "rax": 1,
+            "rbx": 0,
+            "rcx": 0,
+            "rdx": 0,
+            "rip": 4198410,
+            "flags": {
+              "zf": false,
+              "cf": false
+            }
+          }
+        },
+        {
+          "status": "KPROBE_UNREGISTERED",
+          "probe_id": "p_first",
+          "addr": 4198405,
+          "freed_slot": 0
+        },
+        {
+          "status": "KPROBE_REGISTERED",
+          "probe_id": "p_second",
+          "addr": 4198415,
+          "slot_addr": 2147418112,
+          "fixup_applied": false
+        },
+        {
+          "total_steps": 3,
+          "events": [
+            {
+              "event": "INSN_EXEC",
+              "rip": 4198410,
+              "opcode": "ADD_REG_IMM",
+              "next_rip": 4198415,
+              "regs": {
+                "rax": 3,
+                "rbx": 0,
+                "rcx": 0,
+                "rdx": 0,
+                "rip": 4198415,
+                "flags": {
+                  "zf": false,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "KPROBE_HIT",
+              "probe_id": "p_second",
+              "addr": 4198415,
+              "slot_addr": 2147418112,
+              "pre_log": null,
+              "post_log": null,
+              "next_rip": 4198420,
+              "regs": {
+                "rax": 6,
+                "rbx": 0,
+                "rcx": 0,
+                "rdx": 0,
+                "rip": 4198420,
+                "flags": {
+                  "zf": false,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "INSN_EXEC",
+              "rip": 4198420,
+              "opcode": "RET",
+              "next_rip": null,
+              "regs": {
+                "rax": 6,
+                "rbx": 0,
+                "rcx": 0,
+                "rdx": 0,
+                "rip": null,
+                "flags": {
+                  "zf": false,
+                  "cf": false
+                }
+              }
+            }
+          ],
+          "final_regs": {
+            "rax": 6,
+            "rbx": 0,
+            "rcx": 0,
+            "rdx": 0,
+            "rip": null,
+            "flags": {
+              "zf": false,
+              "cf": false
+            }
+          }
+        },
+        {
+          "active_probes": {
+            "p_second": {
+              "addr": 4198415,
+              "slot_addr": 2147418112,
+              "hits": 1,
+              "fixup_applied": false
+            }
+          },
+          "free_slots_count": 15,
+          "regs": {
+            "rax": 6,
+            "rbx": 0,
+            "rcx": 0,
+            "rdx": 0,
+            "rip": null,
+            "flags": {
+              "zf": false,
+              "cf": false
+            }
+          },
+          "stats": {
+            "probes_registered": 2,
+            "probes_unregistered": 1,
+            "probe_hits": 2,
+            "ssol_fixups": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "ssol_config": {
+        "base": 2147418112,
+        "slot_size": 64,
+        "max_slots": 2
+      },
+      "operations": [
+        {
+          "op": "LOAD_CODE",
+          "instructions": [
+            {
+              "addr": 4198400,
+              "opcode": "MOV_REG_IMM",
+              "len": 5,
+              "operands": {
+                "dst": "rax",
+                "src": 1
+              }
+            },
+            {
+              "addr": 4198405,
+              "opcode": "MOV_REG_IMM",
+              "len": 5,
+              "operands": {
+                "dst": "rbx",
+                "src": 2
+              }
+            },
+            {
+              "addr": 4198410,
+              "opcode": "MOV_REG_IMM",
+              "len": 5,
+              "operands": {
+                "dst": "rcx",
+                "src": 3
+              }
+            },
+            {
+              "addr": 4198415,
+              "opcode": "RET",
+              "len": 1,
+              "operands": {}
+            }
+          ]
+        },
+        {
+          "op": "REGISTER_KPROBE",
+          "probe_id": "p0",
+          "addr": 4198400
+        },
+        {
+          "op": "REGISTER_KPROBE",
+          "probe_id": "p1",
+          "addr": 4198405
+        },
+        {
+          "op": "REGISTER_KPROBE",
+          "probe_id": "p2_fail",
+          "addr": 4198410
+        },
+        {
+          "op": "UNREGISTER_KPROBE",
+          "probe_id": "p0"
+        },
+        {
+          "op": "REGISTER_KPROBE",
+          "probe_id": "p2_success",
+          "addr": 4198410
+        },
+        {
+          "op": "RUN_UNTIL_RET",
+          "max_steps": 10
+        },
+        {
+          "op": "QUERY_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "CODE_LOADED",
+          "insn_count": 4,
+          "entry_rip": 4198400
+        },
+        {
+          "status": "KPROBE_REGISTERED",
+          "probe_id": "p0",
+          "addr": 4198400,
+          "slot_addr": 2147418112,
+          "fixup_applied": false
+        },
+        {
+          "status": "KPROBE_REGISTERED",
+          "probe_id": "p1",
+          "addr": 4198405,
+          "slot_addr": 2147418176,
+          "fixup_applied": false
+        },
+        {
+          "status": "ENOSPC_SSOL_FULL"
+        },
+        {
+          "status": "KPROBE_UNREGISTERED",
+          "probe_id": "p0",
+          "addr": 4198400,
+          "freed_slot": 0
+        },
+        {
+          "status": "KPROBE_REGISTERED",
+          "probe_id": "p2_success",
+          "addr": 4198410,
+          "slot_addr": 2147418112,
+          "fixup_applied": false
+        },
+        {
+          "total_steps": 4,
+          "events": [
+            {
+              "event": "INSN_EXEC",
+              "rip": 4198400,
+              "opcode": "MOV_REG_IMM",
+              "next_rip": 4198405,
+              "regs": {
+                "rax": 1,
+                "rbx": 0,
+                "rcx": 0,
+                "rdx": 0,
+                "rip": 4198405,
+                "flags": {
+                  "zf": false,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "KPROBE_HIT",
+              "probe_id": "p1",
+              "addr": 4198405,
+              "slot_addr": 2147418176,
+              "pre_log": null,
+              "post_log": null,
+              "next_rip": 4198410,
+              "regs": {
+                "rax": 1,
+                "rbx": 2,
+                "rcx": 0,
+                "rdx": 0,
+                "rip": 4198410,
+                "flags": {
+                  "zf": false,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "KPROBE_HIT",
+              "probe_id": "p2_success",
+              "addr": 4198410,
+              "slot_addr": 2147418112,
+              "pre_log": null,
+              "post_log": null,
+              "next_rip": 4198415,
+              "regs": {
+                "rax": 1,
+                "rbx": 2,
+                "rcx": 3,
+                "rdx": 0,
+                "rip": 4198415,
+                "flags": {
+                  "zf": false,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "INSN_EXEC",
+              "rip": 4198415,
+              "opcode": "RET",
+              "next_rip": null,
+              "regs": {
+                "rax": 1,
+                "rbx": 2,
+                "rcx": 3,
+                "rdx": 0,
+                "rip": null,
+                "flags": {
+                  "zf": false,
+                  "cf": false
+                }
+              }
+            }
+          ],
+          "final_regs": {
+            "rax": 1,
+            "rbx": 2,
+            "rcx": 3,
+            "rdx": 0,
+            "rip": null,
+            "flags": {
+              "zf": false,
+              "cf": false
+            }
+          }
+        },
+        {
+          "active_probes": {
+            "p1": {
+              "addr": 4198405,
+              "slot_addr": 2147418176,
+              "hits": 1,
+              "fixup_applied": false
+            },
+            "p2_success": {
+              "addr": 4198410,
+              "slot_addr": 2147418112,
+              "hits": 1,
+              "fixup_applied": false
+            }
+          },
+          "free_slots_count": 0,
+          "regs": {
+            "rax": 1,
+            "rbx": 2,
+            "rcx": 3,
+            "rdx": 0,
+            "rip": null,
+            "flags": {
+              "zf": false,
+              "cf": false
+            }
+          },
+          "stats": {
+            "probes_registered": 3,
+            "probes_unregistered": 1,
+            "probe_hits": 2,
+            "ssol_fixups": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "ssol_config": {
+        "base": 2147418112,
+        "slot_size": 64,
+        "max_slots": 8
+      },
+      "operations": [
+        {
+          "op": "LOAD_CODE",
+          "instructions": [
+            {
+              "addr": 4198400,
+              "opcode": "MOV_REG_IMM",
+              "len": 5,
+              "operands": {
+                "dst": "rcx",
+                "src": 3
+              }
+            },
+            {
+              "addr": 4198405,
+              "opcode": "MOV_REG_IMM",
+              "len": 5,
+              "operands": {
+                "dst": "rax",
+                "src": 10
+              }
+            },
+            {
+              "addr": 4198410,
+              "opcode": "ADD_REG_IMM",
+              "len": 5,
+              "operands": {
+                "dst": "rax",
+                "src": 5
+              }
+            },
+            {
+              "addr": 4198415,
+              "opcode": "SUB_REG_IMM",
+              "len": 5,
+              "operands": {
+                "dst": "rcx",
+                "src": 1
+              }
+            },
+            {
+              "addr": 4198420,
+              "opcode": "CMP_REG_IMM",
+              "len": 5,
+              "operands": {
+                "dst": "rcx",
+                "src": 0
+              }
+            },
+            {
+              "addr": 4198425,
+              "opcode": "JE_REL32",
+              "len": 5,
+              "operands": {
+                "target_addr": 4198435,
+                "disp": 5
+              },
+              "is_rip_relative": true
+            },
+            {
+              "addr": 4198430,
+              "opcode": "JMP_REL32",
+              "len": 5,
+              "operands": {
+                "target_addr": 4198410,
+                "disp": -25
+              },
+              "is_rip_relative": true
+            },
+            {
+              "addr": 4198435,
+              "opcode": "RET",
+              "len": 1,
+              "operands": {}
+            }
+          ]
+        },
+        {
+          "op": "REGISTER_KPROBE",
+          "probe_id": "p_add",
+          "addr": 4198410
+        },
+        {
+          "op": "REGISTER_KPROBE",
+          "probe_id": "p_sub",
+          "addr": 4198415
+        },
+        {
+          "op": "REGISTER_KPROBE",
+          "probe_id": "p_loop",
+          "addr": 4198430
+        },
+        {
+          "op": "RUN_UNTIL_RET",
+          "max_steps": 30
+        },
+        {
+          "op": "QUERY_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "CODE_LOADED",
+          "insn_count": 8,
+          "entry_rip": 4198400
+        },
+        {
+          "status": "KPROBE_REGISTERED",
+          "probe_id": "p_add",
+          "addr": 4198410,
+          "slot_addr": 2147418112,
+          "fixup_applied": false
+        },
+        {
+          "status": "KPROBE_REGISTERED",
+          "probe_id": "p_sub",
+          "addr": 4198415,
+          "slot_addr": 2147418176,
+          "fixup_applied": false
+        },
+        {
+          "status": "KPROBE_REGISTERED",
+          "probe_id": "p_loop",
+          "addr": 4198430,
+          "slot_addr": 2147418240,
+          "fixup_applied": true
+        },
+        {
+          "total_steps": 17,
+          "events": [
+            {
+              "event": "INSN_EXEC",
+              "rip": 4198400,
+              "opcode": "MOV_REG_IMM",
+              "next_rip": 4198405,
+              "regs": {
+                "rax": 0,
+                "rbx": 0,
+                "rcx": 3,
+                "rdx": 0,
+                "rip": 4198405,
+                "flags": {
+                  "zf": true,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "INSN_EXEC",
+              "rip": 4198405,
+              "opcode": "MOV_REG_IMM",
+              "next_rip": 4198410,
+              "regs": {
+                "rax": 10,
+                "rbx": 0,
+                "rcx": 3,
+                "rdx": 0,
+                "rip": 4198410,
+                "flags": {
+                  "zf": true,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "KPROBE_HIT",
+              "probe_id": "p_add",
+              "addr": 4198410,
+              "slot_addr": 2147418112,
+              "pre_log": null,
+              "post_log": null,
+              "next_rip": 4198415,
+              "regs": {
+                "rax": 15,
+                "rbx": 0,
+                "rcx": 3,
+                "rdx": 0,
+                "rip": 4198415,
+                "flags": {
+                  "zf": true,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "KPROBE_HIT",
+              "probe_id": "p_sub",
+              "addr": 4198415,
+              "slot_addr": 2147418176,
+              "pre_log": null,
+              "post_log": null,
+              "next_rip": 4198420,
+              "regs": {
+                "rax": 15,
+                "rbx": 0,
+                "rcx": 2,
+                "rdx": 0,
+                "rip": 4198420,
+                "flags": {
+                  "zf": true,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "INSN_EXEC",
+              "rip": 4198420,
+              "opcode": "CMP_REG_IMM",
+              "next_rip": 4198425,
+              "regs": {
+                "rax": 15,
+                "rbx": 0,
+                "rcx": 2,
+                "rdx": 0,
+                "rip": 4198425,
+                "flags": {
+                  "zf": true,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "INSN_EXEC",
+              "rip": 4198425,
+              "opcode": "JE_REL32",
+              "next_rip": 4198430,
+              "regs": {
+                "rax": 15,
+                "rbx": 0,
+                "rcx": 2,
+                "rdx": 0,
+                "rip": 4198430,
+                "flags": {
+                  "zf": true,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "KPROBE_HIT",
+              "probe_id": "p_loop",
+              "addr": 4198430,
+              "slot_addr": 2147418240,
+              "pre_log": null,
+              "post_log": null,
+              "next_rip": 4198410,
+              "regs": {
+                "rax": 15,
+                "rbx": 0,
+                "rcx": 2,
+                "rdx": 0,
+                "rip": 4198410,
+                "flags": {
+                  "zf": true,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "KPROBE_HIT",
+              "probe_id": "p_add",
+              "addr": 4198410,
+              "slot_addr": 2147418112,
+              "pre_log": null,
+              "post_log": null,
+              "next_rip": 4198415,
+              "regs": {
+                "rax": 20,
+                "rbx": 0,
+                "rcx": 2,
+                "rdx": 0,
+                "rip": 4198415,
+                "flags": {
+                  "zf": true,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "KPROBE_HIT",
+              "probe_id": "p_sub",
+              "addr": 4198415,
+              "slot_addr": 2147418176,
+              "pre_log": null,
+              "post_log": null,
+              "next_rip": 4198420,
+              "regs": {
+                "rax": 20,
+                "rbx": 0,
+                "rcx": 1,
+                "rdx": 0,
+                "rip": 4198420,
+                "flags": {
+                  "zf": true,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "INSN_EXEC",
+              "rip": 4198420,
+              "opcode": "CMP_REG_IMM",
+              "next_rip": 4198425,
+              "regs": {
+                "rax": 20,
+                "rbx": 0,
+                "rcx": 1,
+                "rdx": 0,
+                "rip": 4198425,
+                "flags": {
+                  "zf": true,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "INSN_EXEC",
+              "rip": 4198425,
+              "opcode": "JE_REL32",
+              "next_rip": 4198430,
+              "regs": {
+                "rax": 20,
+                "rbx": 0,
+                "rcx": 1,
+                "rdx": 0,
+                "rip": 4198430,
+                "flags": {
+                  "zf": true,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "KPROBE_HIT",
+              "probe_id": "p_loop",
+              "addr": 4198430,
+              "slot_addr": 2147418240,
+              "pre_log": null,
+              "post_log": null,
+              "next_rip": 4198410,
+              "regs": {
+                "rax": 20,
+                "rbx": 0,
+                "rcx": 1,
+                "rdx": 0,
+                "rip": 4198410,
+                "flags": {
+                  "zf": true,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "KPROBE_HIT",
+              "probe_id": "p_add",
+              "addr": 4198410,
+              "slot_addr": 2147418112,
+              "pre_log": null,
+              "post_log": null,
+              "next_rip": 4198415,
+              "regs": {
+                "rax": 25,
+                "rbx": 0,
+                "rcx": 1,
+                "rdx": 0,
+                "rip": 4198415,
+                "flags": {
+                  "zf": true,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "KPROBE_HIT",
+              "probe_id": "p_sub",
+              "addr": 4198415,
+              "slot_addr": 2147418176,
+              "pre_log": null,
+              "post_log": null,
+              "next_rip": 4198420,
+              "regs": {
+                "rax": 25,
+                "rbx": 0,
+                "rcx": 0,
+                "rdx": 0,
+                "rip": 4198420,
+                "flags": {
+                  "zf": true,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "INSN_EXEC",
+              "rip": 4198420,
+              "opcode": "CMP_REG_IMM",
+              "next_rip": 4198425,
+              "regs": {
+                "rax": 25,
+                "rbx": 0,
+                "rcx": 0,
+                "rdx": 0,
+                "rip": 4198425,
+                "flags": {
+                  "zf": true,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "INSN_EXEC",
+              "rip": 4198425,
+              "opcode": "JE_REL32",
+              "next_rip": 4198435,
+              "regs": {
+                "rax": 25,
+                "rbx": 0,
+                "rcx": 0,
+                "rdx": 0,
+                "rip": 4198435,
+                "flags": {
+                  "zf": true,
+                  "cf": false
+                }
+              }
+            },
+            {
+              "event": "INSN_EXEC",
+              "rip": 4198435,
+              "opcode": "RET",
+              "next_rip": null,
+              "regs": {
+                "rax": 25,
+                "rbx": 0,
+                "rcx": 0,
+                "rdx": 0,
+                "rip": null,
+                "flags": {
+                  "zf": true,
+                  "cf": false
+                }
+              }
+            }
+          ],
+          "final_regs": {
+            "rax": 25,
+            "rbx": 0,
+            "rcx": 0,
+            "rdx": 0,
+            "rip": null,
+            "flags": {
+              "zf": true,
+              "cf": false
+            }
+          }
+        },
+        {
+          "active_probes": {
+            "p_add": {
+              "addr": 4198410,
+              "slot_addr": 2147418112,
+              "hits": 3,
+              "fixup_applied": false
+            },
+            "p_loop": {
+              "addr": 4198430,
+              "slot_addr": 2147418240,
+              "hits": 2,
+              "fixup_applied": true
+            },
+            "p_sub": {
+              "addr": 4198415,
+              "slot_addr": 2147418176,
+              "hits": 3,
+              "fixup_applied": false
+            }
+          },
+          "free_slots_count": 5,
+          "regs": {
+            "rax": 25,
+            "rbx": 0,
+            "rcx": 0,
+            "rdx": 0,
+            "rip": null,
+            "flags": {
+              "zf": true,
+              "cf": false
+            }
+          },
+          "stats": {
+            "probes_registered": 3,
+            "probes_unregistered": 0,
+            "probe_hits": 8,
+            "ssol_fixups": 1
+          }
+        }
+      ]
+    }
+  }
+]
