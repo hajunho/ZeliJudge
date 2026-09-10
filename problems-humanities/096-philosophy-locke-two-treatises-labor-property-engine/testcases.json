@@ -1,0 +1,42 @@
+[
+  {
+    "name": "노동 혼합을 통한 정당한 사유 재산권 획득 검증",
+    "input": "{\"config\":{\"common_resources\":500.0,\"spoilage_threshold\":50.0,\"min_subsistence_per_capita\":10.0},\"operations\":[{\"op\":\"ADD_AGENT\",\"id\":\"pioneer_alice\"},{\"op\":\"APPROPRIATE_BY_LABOR\",\"id\":\"pioneer_alice\",\"labor_units\":15,\"yield_per_labor\":2.0}]}",
+    "output": "[{\"status\":\"AGENT_ADDED\",\"id\":\"pioneer_alice\"},{\"status\":\"APPROPRIATION_SUCCESS\",\"id\":\"pioneer_alice\",\"appropriated\":30.0,\"stored_perishable\":30.0,\"estate_land\":7.5,\"common_resources_left\":470.0}]"
+  },
+  {
+    "name": "부패 금지 단서(Spoilage Proviso) 초과 재화 손실 검증",
+    "input": "{\"config\":{\"common_resources\":500.0,\"spoilage_threshold\":30.0,\"min_subsistence_per_capita\":10.0},\"operations\":[{\"op\":\"ADD_AGENT\",\"id\":\"harvester_bob\"},{\"op\":\"APPROPRIATE_BY_LABOR\",\"id\":\"harvester_bob\",\"labor_units\":25,\"yield_per_labor\":2.0}]}",
+    "output": "[{\"status\":\"AGENT_ADDED\",\"id\":\"harvester_bob\"},{\"status\":\"SPOILAGE_LOSS\",\"id\":\"harvester_bob\",\"appropriated\":50.0,\"spoiled_units\":20.0,\"stored_perishable\":30.0,\"estate_land\":12.5,\"common_resources_left\":450.0}]"
+  },
+  {
+    "name": "화폐(금·은) 도입을 통한 부패 한계 극복 및 지속 가치 저장 검증",
+    "input": "{\"config\":{\"common_resources\":500.0,\"spoilage_threshold\":40.0,\"min_subsistence_per_capita\":10.0},\"operations\":[{\"op\":\"ADD_AGENT\",\"id\":\"merchant_carol\"},{\"op\":\"APPROPRIATE_BY_LABOR\",\"id\":\"merchant_carol\",\"labor_units\":15,\"yield_per_labor\":2.0},{\"op\":\"TRADE_MONEY\",\"id\":\"merchant_carol\",\"perishable_amount\":25,\"gold_per_unit\":3.0}]}",
+    "output": "[{\"status\":\"AGENT_ADDED\",\"id\":\"merchant_carol\"},{\"status\":\"APPROPRIATION_SUCCESS\",\"id\":\"merchant_carol\",\"appropriated\":30.0,\"stored_perishable\":30.0,\"estate_land\":7.5,\"common_resources_left\":470.0},{\"status\":\"TRADE_SUCCESS\",\"id\":\"merchant_carol\",\"sold_perishable\":25,\"durable_money_total\":75.0,\"perishable_remaining\":5.0}]"
+  },
+  {
+    "name": "충분성 단서(Sufficiency Proviso, 타인을 위한 몫의 잔여) 위반 거부 검증",
+    "input": "{\"config\":{\"common_resources\":100.0,\"spoilage_threshold\":200.0,\"min_subsistence_per_capita\":20.0},\"operations\":[{\"op\":\"ADD_AGENT\",\"id\":\"user1\"},{\"op\":\"ADD_AGENT\",\"id\":\"user2\"},{\"op\":\"APPROPRIATE_BY_LABOR\",\"id\":\"user1\",\"labor_units\":45,\"yield_per_labor\":2.0}]}",
+    "output": "[{\"status\":\"AGENT_ADDED\",\"id\":\"user1\"},{\"status\":\"AGENT_ADDED\",\"id\":\"user2\"},{\"status\":\"PROVISO_VIOLATION_NOT_ENOUGH_LEFT\",\"id\":\"user1\",\"requested\":90.0,\"per_capita_left\":5.0,\"required_min\":20.0}]"
+  },
+  {
+    "name": "자연상태에서 시민 동의 기반 신탁(Fiduciary Trust) 정부 수립 검증",
+    "input": "{\"config\":{\"common_resources\":300.0,\"spoilage_threshold\":50.0,\"min_subsistence_per_capita\":10.0},\"operations\":[{\"op\":\"ADD_AGENT\",\"id\":\"citizen_a\"},{\"op\":\"ADD_AGENT\",\"id\":\"citizen_b\"},{\"op\":\"EVALUATE_REVOLUTION\"},{\"op\":\"ESTABLISH_COMMONWEALTH\"},{\"op\":\"EVALUATE_REVOLUTION\"}]}",
+    "output": "[{\"status\":\"AGENT_ADDED\",\"id\":\"citizen_a\"},{\"status\":\"AGENT_ADDED\",\"id\":\"citizen_b\"},{\"state\":\"STATE_OF_NATURE\",\"verdict\":\"공통 통치자 없는 자연상태: 각자가 자연법의 집행자\"},{\"status\":\"COMMONWEALTH_ESTABLISHED\",\"signers_count\":2,\"fiduciary_trust\":\"ACTIVE\"},{\"state\":\"LEGITIMATE_COMMONWEALTH\",\"tyranny_score\":0.0,\"average_trust\":1.0,\"justified_revolution\":false,\"verdict\":\"시민의 신탁에 기초한 정당한 입법부 및 법치주의 통치\"}]"
+  },
+  {
+    "name": "정당한 법치주의 재산권 보호 조치 및 신탁 유지 검증",
+    "input": "{\"config\":{\"common_resources\":300.0,\"spoilage_threshold\":50.0,\"min_subsistence_per_capita\":10.0},\"operations\":[{\"op\":\"ADD_AGENT\",\"id\":\"cit_1\"},{\"op\":\"ADD_AGENT\",\"id\":\"cit_2\"},{\"op\":\"ESTABLISH_COMMONWEALTH\"},{\"op\":\"GOVERNMENT_ACTION\",\"action\":\"PROTECT_PROPERTY\"},{\"op\":\"EVALUATE_REVOLUTION\"}]}",
+    "output": "[{\"status\":\"AGENT_ADDED\",\"id\":\"cit_1\"},{\"status\":\"AGENT_ADDED\",\"id\":\"cit_2\"},{\"status\":\"COMMONWEALTH_ESTABLISHED\",\"signers_count\":2,\"fiduciary_trust\":\"ACTIVE\"},{\"action\":\"PROTECT_PROPERTY\",\"tyranny_score\":0.0,\"verdict\":\"재산권(생명·자유·자산) 수호 및 공정한 법 집행\"},{\"state\":\"LEGITIMATE_COMMONWEALTH\",\"tyranny_score\":0.0,\"average_trust\":1.0,\"justified_revolution\":false,\"verdict\":\"시민의 신탁에 기초한 정당한 입법부 및 법치주의 통치\"}]"
+  },
+  {
+    "name": "대표 없는 과세 조치에 따른 폭정 지수 상승 및 신탁 경고 검증",
+    "input": "{\"config\":{\"common_resources\":300.0,\"spoilage_threshold\":50.0,\"min_subsistence_per_capita\":10.0},\"operations\":[{\"op\":\"ADD_AGENT\",\"id\":\"taxpayer_1\"},{\"op\":\"ADD_AGENT\",\"id\":\"taxpayer_2\"},{\"op\":\"ESTABLISH_COMMONWEALTH\"},{\"op\":\"GOVERNMENT_ACTION\",\"action\":\"ARBITRARY_TAX_WITHOUT_CONSENT\",\"severity\":0.45},{\"op\":\"EVALUATE_REVOLUTION\"}]}",
+    "output": "[{\"status\":\"AGENT_ADDED\",\"id\":\"taxpayer_1\"},{\"status\":\"AGENT_ADDED\",\"id\":\"taxpayer_2\"},{\"status\":\"COMMONWEALTH_ESTABLISHED\",\"signers_count\":2,\"fiduciary_trust\":\"ACTIVE\"},{\"action\":\"ARBITRARY_TAX_WITHOUT_CONSENT\",\"tyranny_score\":0.45,\"verdict\":\"대표 없는 과세 및 자의적 재산 침해로 인한 신탁 위반\"},{\"state\":\"LEGITIMATE_COMMONWEALTH\",\"tyranny_score\":0.45,\"average_trust\":0.64,\"justified_revolution\":false,\"verdict\":\"시민의 신탁에 기초한 정당한 입법부 및 법치주의 통치\"}]"
+  },
+  {
+    "name": "폭정 임계치 초과 시 '하늘에의 호소'(저항권/혁명권 정당화) 종합 검증",
+    "input": "{\"config\":{\"common_resources\":1000.0,\"spoilage_threshold\":100.0,\"min_subsistence_per_capita\":10.0,\"tyranny_threshold\":0.65},\"operations\":[{\"op\":\"ADD_AGENT\",\"id\":\"patriot_a\"},{\"op\":\"ADD_AGENT\",\"id\":\"patriot_b\"},{\"op\":\"ADD_AGENT\",\"id\":\"patriot_c\"},{\"op\":\"APPROPRIATE_BY_LABOR\",\"id\":\"patriot_a\",\"labor_units\":20},{\"op\":\"ESTABLISH_COMMONWEALTH\"},{\"op\":\"GOVERNMENT_ACTION\",\"action\":\"ARBITRARY_TAX_WITHOUT_CONSENT\",\"severity\":0.35},{\"op\":\"GOVERNMENT_ACTION\",\"action\":\"CONFISCATE_ESTATE\",\"severity\":0.4},{\"op\":\"EVALUATE_REVOLUTION\"}]}",
+    "output": "[{\"status\":\"AGENT_ADDED\",\"id\":\"patriot_a\"},{\"status\":\"AGENT_ADDED\",\"id\":\"patriot_b\"},{\"status\":\"AGENT_ADDED\",\"id\":\"patriot_c\"},{\"status\":\"APPROPRIATION_SUCCESS\",\"id\":\"patriot_a\",\"appropriated\":40.0,\"stored_perishable\":40.0,\"estate_land\":10.0,\"common_resources_left\":960.0},{\"status\":\"COMMONWEALTH_ESTABLISHED\",\"signers_count\":3,\"fiduciary_trust\":\"ACTIVE\"},{\"action\":\"ARBITRARY_TAX_WITHOUT_CONSENT\",\"tyranny_score\":0.35,\"verdict\":\"대표 없는 과세 및 자의적 재산 침해로 인한 신탁 위반\"},{\"action\":\"CONFISCATE_ESTATE\",\"tyranny_score\":0.75,\"verdict\":\"대표 없는 과세 및 자의적 재산 침해로 인한 신탁 위반\"},{\"state\":\"APPEAL_TO_HEAVEN\",\"tyranny_score\":0.75,\"average_trust\":0.4,\"justified_revolution\":true,\"verdict\":\"신탁 위반에 따른 정부 해체 및 하늘에의 호소(저항권/혁명권 발동)\"}]"
+  }
+]
