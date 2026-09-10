@@ -1,0 +1,648 @@
+[
+  {
+    "input": {
+      "config": {
+        "entropy_threshold": 6.5,
+        "compression_ratio_factor": 0.3
+      },
+      "operations": [
+        {
+          "op": "WRITE_EXTENT_CHUNK",
+          "inode_id": 1,
+          "file_offset": 0,
+          "data_str": "WARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\nWARN [2026-09-10] connection timeout retry queue empty\n"
+        },
+        {
+          "op": "READ_EXTENT",
+          "inode_id": 1,
+          "file_offset": 0,
+          "length": 40
+        },
+        {
+          "op": "QUERY_BTRFS_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "COMPRESSED_EXTENT_WRITTEN",
+          "algorithm": "ZSTD",
+          "entropy": 4.41,
+          "orig_size": 11000,
+          "disk_num_bytes": 4096,
+          "saved_bytes": 8192
+        },
+        {
+          "status": "EXTENT_READ_SUCCESS",
+          "is_compressed": true,
+          "disk_num_bytes_read": 4096,
+          "data_len": 40,
+          "data_preview": "WARN [2026-09-10] connection tim"
+        },
+        {
+          "files": {
+            "1": {
+              "extent_count": 1,
+              "total_file_bytes": 11000,
+              "total_disk_bytes": 4096
+            }
+          },
+          "stats": {
+            "chunks_processed": 1,
+            "heuristic_incompressible_skips": 0,
+            "compression_savings_rejected": 0,
+            "compressed_extents_written": 1,
+            "raw_extents_written": 0,
+            "decompression_reads": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "entropy_threshold": 6.5,
+        "compression_ratio_factor": 0.3
+      },
+      "operations": [
+        {
+          "op": "WRITE_EXTENT_CHUNK",
+          "inode_id": 2,
+          "file_offset": 0,
+          "data_str": "!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@e-Rw?d,Qv>c+Pu=b*Ot<a)Ns;`(Mr:_'Lq9^&Kp8]%Jo7\\$In6[#Hm5Z\"Gl4Y!F"
+        },
+        {
+          "op": "READ_EXTENT",
+          "inode_id": 2,
+          "file_offset": 0,
+          "length": 40
+        },
+        {
+          "op": "QUERY_BTRFS_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "RAW_EXTENT_WRITTEN",
+          "reason": "HEURISTIC_INCOMPRESSIBLE",
+          "entropy": 6.54,
+          "disk_num_bytes": 8192
+        },
+        {
+          "status": "EXTENT_READ_SUCCESS",
+          "is_compressed": false,
+          "disk_num_bytes_read": 8192,
+          "data_len": 40,
+          "data_preview": "!Fk3X}Ej2W|Di1V{Ch0UzBg/TyAf.Sx@"
+        },
+        {
+          "files": {
+            "2": {
+              "extent_count": 1,
+              "total_file_bytes": 8000,
+              "total_disk_bytes": 8192
+            }
+          },
+          "stats": {
+            "chunks_processed": 1,
+            "heuristic_incompressible_skips": 1,
+            "compression_savings_rejected": 0,
+            "compressed_extents_written": 0,
+            "raw_extents_written": 1,
+            "decompression_reads": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "entropy_threshold": 6.5,
+        "compression_ratio_factor": 0.9
+      },
+      "operations": [
+        {
+          "op": "WRITE_EXTENT_CHUNK",
+          "inode_id": 3,
+          "file_offset": 0,
+          "data_str": "abcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcde"
+        },
+        {
+          "op": "QUERY_BTRFS_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "RAW_EXTENT_WRITTEN",
+          "reason": "INSUFFICIENT_SPACE_SAVINGS",
+          "compressed_sectors": 1,
+          "uncompressed_sectors": 1,
+          "disk_num_bytes": 4096
+        },
+        {
+          "files": {
+            "3": {
+              "extent_count": 1,
+              "total_file_bytes": 500,
+              "total_disk_bytes": 4096
+            }
+          },
+          "stats": {
+            "chunks_processed": 1,
+            "heuristic_incompressible_skips": 0,
+            "compression_savings_rejected": 1,
+            "compressed_extents_written": 0,
+            "raw_extents_written": 1,
+            "decompression_reads": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "entropy_threshold": 6.5,
+        "compression_ratio_factor": 0.3
+      },
+      "operations": [
+        {
+          "op": "WRITE_EXTENT_CHUNK",
+          "inode_id": 10,
+          "file_offset": 0,
+          "data_str": "valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk valid data chunk "
+        },
+        {
+          "op": "READ_EXTENT",
+          "inode_id": 999,
+          "file_offset": 0,
+          "length": 10
+        },
+        {
+          "op": "READ_EXTENT",
+          "inode_id": 10,
+          "file_offset": 100000,
+          "length": 10
+        },
+        {
+          "op": "QUERY_BTRFS_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "RAW_EXTENT_WRITTEN",
+          "reason": "INSUFFICIENT_SPACE_SAVINGS",
+          "compressed_sectors": 1,
+          "uncompressed_sectors": 1,
+          "disk_num_bytes": 4096
+        },
+        {
+          "status": "ENOENT_INODE_NOT_FOUND",
+          "inode_id": 999
+        },
+        {
+          "status": "ENXIO_OFFSET_NOT_MAPPED",
+          "file_offset": 100000
+        },
+        {
+          "files": {
+            "10": {
+              "extent_count": 1,
+              "total_file_bytes": 850,
+              "total_disk_bytes": 4096
+            }
+          },
+          "stats": {
+            "chunks_processed": 1,
+            "heuristic_incompressible_skips": 0,
+            "compression_savings_rejected": 1,
+            "compressed_extents_written": 0,
+            "raw_extents_written": 1,
+            "decompression_reads": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "entropy_threshold": 6.5,
+        "compression_ratio_factor": 0.3
+      },
+      "operations": [
+        {
+          "op": "WRITE_EXTENT_CHUNK",
+          "inode_id": 5,
+          "file_offset": 0,
+          "data_str": "alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta "
+        },
+        {
+          "op": "WRITE_EXTENT_CHUNK",
+          "inode_id": 5,
+          "file_offset": 6900,
+          "data_str": "#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt7Tq4Qn1Nk.Kh+He(Eb%B_|?\\y<Yv9Vs6Sp3Pm0Mj-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro2Ol/Li,If)Fc&C`#@]z=Zw:Wt"
+        },
+        {
+          "op": "READ_EXTENT",
+          "inode_id": 5,
+          "file_offset": 100,
+          "length": 25
+        },
+        {
+          "op": "READ_EXTENT",
+          "inode_id": 5,
+          "file_offset": 6950,
+          "length": 25
+        },
+        {
+          "op": "QUERY_BTRFS_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "COMPRESSED_EXTENT_WRITTEN",
+          "algorithm": "ZSTD",
+          "entropy": 3.47,
+          "orig_size": 6900,
+          "disk_num_bytes": 4096,
+          "saved_bytes": 4096
+        },
+        {
+          "status": "COMPRESSED_EXTENT_WRITTEN",
+          "algorithm": "ZSTD",
+          "entropy": 6.49,
+          "orig_size": 10000,
+          "disk_num_bytes": 4096,
+          "saved_bytes": 8192
+        },
+        {
+          "status": "EXTENT_READ_SUCCESS",
+          "is_compressed": true,
+          "disk_num_bytes_read": 4096,
+          "data_len": 25,
+          "data_preview": "ta gamma delta epsilon ze"
+        },
+        {
+          "status": "EXTENT_READ_SUCCESS",
+          "is_compressed": true,
+          "disk_num_bytes_read": 4096,
+          "data_len": 25,
+          "data_preview": "-Jg*Gd'Da$A^{>[x;Xu8Ur5Ro"
+        },
+        {
+          "files": {
+            "5": {
+              "extent_count": 2,
+              "total_file_bytes": 16900,
+              "total_disk_bytes": 8192
+            }
+          },
+          "stats": {
+            "chunks_processed": 2,
+            "heuristic_incompressible_skips": 0,
+            "compression_savings_rejected": 0,
+            "compressed_extents_written": 2,
+            "raw_extents_written": 0,
+            "decompression_reads": 2
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "entropy_threshold": 4.0,
+        "compression_ratio_factor": 0.3
+      },
+      "operations": [
+        {
+          "op": "WRITE_EXTENT_CHUNK",
+          "inode_id": 6,
+          "file_offset": 0,
+          "data_str": "ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() "
+        },
+        {
+          "op": "SET_CONFIG",
+          "entropy_threshold": 6.0
+        },
+        {
+          "op": "WRITE_EXTENT_CHUNK",
+          "inode_id": 6,
+          "file_offset": 3100,
+          "data_str": "ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() ABCDEFGHIJ0123456789!@#$%^&*() "
+        },
+        {
+          "op": "QUERY_BTRFS_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "RAW_EXTENT_WRITTEN",
+          "reason": "HEURISTIC_INCOMPRESSIBLE",
+          "entropy": 4.95,
+          "disk_num_bytes": 4096
+        },
+        {
+          "status": "CONFIG_UPDATED",
+          "entropy_threshold": 6.0,
+          "compression_ratio_factor": 0.3
+        },
+        {
+          "status": "RAW_EXTENT_WRITTEN",
+          "reason": "INSUFFICIENT_SPACE_SAVINGS",
+          "compressed_sectors": 1,
+          "uncompressed_sectors": 1,
+          "disk_num_bytes": 4096
+        },
+        {
+          "files": {
+            "6": {
+              "extent_count": 2,
+              "total_file_bytes": 6200,
+              "total_disk_bytes": 8192
+            }
+          },
+          "stats": {
+            "chunks_processed": 2,
+            "heuristic_incompressible_skips": 1,
+            "compression_savings_rejected": 1,
+            "compressed_extents_written": 0,
+            "raw_extents_written": 2,
+            "decompression_reads": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "entropy_threshold": 6.5,
+        "compression_ratio_factor": 0.3
+      },
+      "operations": [
+        {
+          "op": "WRITE_EXTENT_CHUNK",
+          "inode_id": 101,
+          "file_offset": 0,
+          "data_str": "systemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\nsystemd[1]: Started Service.\n"
+        },
+        {
+          "op": "WRITE_EXTENT_CHUNK",
+          "inode_id": 102,
+          "file_offset": 0,
+          "data_str": " -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|*7DQ^kx&3@MZgt\"/<IVcp}+8ER_ly'4AN[hu#0=JWdq~,9FS`mz(5BO\\iv$1>KXer -:GTan{)6CP]jw%2?LYfs!.;HUbo|"
+        },
+        {
+          "op": "WRITE_EXTENT_CHUNK",
+          "inode_id": 103,
+          "file_offset": 0,
+          "data_str": "kernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\nkernel: [ 0.000000] Linux version 6.6\n"
+        },
+        {
+          "op": "READ_EXTENT",
+          "inode_id": 101,
+          "file_offset": 0,
+          "length": 30
+        },
+        {
+          "op": "READ_EXTENT",
+          "inode_id": 103,
+          "file_offset": 0,
+          "length": 30
+        },
+        {
+          "op": "QUERY_BTRFS_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "COMPRESSED_EXTENT_WRITTEN",
+          "algorithm": "ZSTD",
+          "entropy": 4.07,
+          "orig_size": 8700,
+          "disk_num_bytes": 4096,
+          "saved_bytes": 8192
+        },
+        {
+          "status": "RAW_EXTENT_WRITTEN",
+          "reason": "HEURISTIC_INCOMPRESSIBLE",
+          "entropy": 6.57,
+          "disk_num_bytes": 12288
+        },
+        {
+          "status": "COMPRESSED_EXTENT_WRITTEN",
+          "algorithm": "ZSTD",
+          "entropy": 3.96,
+          "orig_size": 9500,
+          "disk_num_bytes": 4096,
+          "saved_bytes": 8192
+        },
+        {
+          "status": "EXTENT_READ_SUCCESS",
+          "is_compressed": true,
+          "disk_num_bytes_read": 4096,
+          "data_len": 30,
+          "data_preview": "systemd[1]: Started Service.\ns"
+        },
+        {
+          "status": "EXTENT_READ_SUCCESS",
+          "is_compressed": true,
+          "disk_num_bytes_read": 4096,
+          "data_len": 30,
+          "data_preview": "kernel: [ 0.000000] Linux vers"
+        },
+        {
+          "files": {
+            "101": {
+              "extent_count": 1,
+              "total_file_bytes": 8700,
+              "total_disk_bytes": 4096
+            },
+            "102": {
+              "extent_count": 1,
+              "total_file_bytes": 12000,
+              "total_disk_bytes": 12288
+            },
+            "103": {
+              "extent_count": 1,
+              "total_file_bytes": 9500,
+              "total_disk_bytes": 4096
+            }
+          },
+          "stats": {
+            "chunks_processed": 3,
+            "heuristic_incompressible_skips": 1,
+            "compression_savings_rejected": 0,
+            "compressed_extents_written": 2,
+            "raw_extents_written": 1,
+            "decompression_reads": 2
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "entropy_threshold": 6.5,
+        "compression_ratio_factor": 0.3
+      },
+      "operations": [
+        {
+          "op": "WRITE_EXTENT_CHUNK",
+          "inode_id": 200,
+          "file_offset": 0,
+          "data_str": "repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat repeat "
+        },
+        {
+          "op": "WRITE_EXTENT_CHUNK",
+          "inode_id": 200,
+          "file_offset": 7000,
+          "data_str": "!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDsEtFuGvHwIxJyKzL{M|N}O!P\"Q#R$S%T&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d6e7f8g9h:i;j<k=l>m?n@oApBqCrDs"
+        },
+        {
+          "op": "WRITE_EXTENT_CHUNK",
+          "inode_id": 201,
+          "file_offset": 0,
+          "data_str": "JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test "
+        },
+        {
+          "op": "READ_EXTENT",
+          "inode_id": 200,
+          "file_offset": 50,
+          "length": 50
+        },
+        {
+          "op": "READ_EXTENT",
+          "inode_id": 200,
+          "file_offset": 7010,
+          "length": 50
+        },
+        {
+          "op": "READ_EXTENT",
+          "inode_id": 201,
+          "file_offset": 20,
+          "length": 40
+        },
+        {
+          "op": "SET_CONFIG",
+          "entropy_threshold": 5.0
+        },
+        {
+          "op": "WRITE_EXTENT_CHUNK",
+          "inode_id": 202,
+          "file_offset": 0,
+          "data_str": "JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test JSON payload data key value test "
+        },
+        {
+          "op": "QUERY_BTRFS_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "COMPRESSED_EXTENT_WRITTEN",
+          "algorithm": "ZSTD",
+          "entropy": 2.52,
+          "orig_size": 7000,
+          "disk_num_bytes": 4096,
+          "saved_bytes": 4096
+        },
+        {
+          "status": "RAW_EXTENT_WRITTEN",
+          "reason": "HEURISTIC_INCOMPRESSIBLE",
+          "entropy": 6.54,
+          "disk_num_bytes": 12288
+        },
+        {
+          "status": "COMPRESSED_EXTENT_WRITTEN",
+          "algorithm": "ZSTD",
+          "entropy": 3.75,
+          "orig_size": 6600,
+          "disk_num_bytes": 4096,
+          "saved_bytes": 4096
+        },
+        {
+          "status": "EXTENT_READ_SUCCESS",
+          "is_compressed": true,
+          "disk_num_bytes_read": 4096,
+          "data_len": 50,
+          "data_preview": "epeat repeat repeat repeat repea"
+        },
+        {
+          "status": "EXTENT_READ_SUCCESS",
+          "is_compressed": false,
+          "disk_num_bytes_read": 12288,
+          "data_len": 50,
+          "data_preview": "&U'V(W)X*Y+Z,[-\\.]/^0_1`2a3b4c5d"
+        },
+        {
+          "status": "EXTENT_READ_SUCCESS",
+          "is_compressed": true,
+          "disk_num_bytes_read": 4096,
+          "data_len": 40,
+          "data_preview": "y value test JSON payload data k"
+        },
+        {
+          "status": "CONFIG_UPDATED",
+          "entropy_threshold": 5.0,
+          "compression_ratio_factor": 0.3
+        },
+        {
+          "status": "COMPRESSED_EXTENT_WRITTEN",
+          "algorithm": "ZSTD",
+          "entropy": 3.75,
+          "orig_size": 6600,
+          "disk_num_bytes": 4096,
+          "saved_bytes": 4096
+        },
+        {
+          "files": {
+            "200": {
+              "extent_count": 2,
+              "total_file_bytes": 16000,
+              "total_disk_bytes": 16384
+            },
+            "201": {
+              "extent_count": 1,
+              "total_file_bytes": 6600,
+              "total_disk_bytes": 4096
+            },
+            "202": {
+              "extent_count": 1,
+              "total_file_bytes": 6600,
+              "total_disk_bytes": 4096
+            }
+          },
+          "stats": {
+            "chunks_processed": 4,
+            "heuristic_incompressible_skips": 1,
+            "compression_savings_rejected": 0,
+            "compressed_extents_written": 3,
+            "raw_extents_written": 1,
+            "decompression_reads": 2
+          }
+        }
+      ]
+    }
+  }
+]
