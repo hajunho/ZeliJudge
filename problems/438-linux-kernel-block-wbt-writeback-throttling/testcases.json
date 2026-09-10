@@ -1,0 +1,1705 @@
+[
+  {
+    "testcase_id": 1,
+    "input": {
+      "config": {
+        "target_lat_us": 2000,
+        "min_depth": 2,
+        "max_depth": 8,
+        "step_scale": 2
+      },
+      "trace": [
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "WB_1",
+          "type": "WB_WRITE",
+          "timestamp_us": 100
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "WB_2",
+          "type": "WB_WRITE",
+          "timestamp_us": 120
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "READ_1",
+          "type": "READ",
+          "timestamp_us": 150
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "READ_1",
+          "completion_us": 1150
+        },
+        {
+          "op": "STEP_WINDOW"
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "WB_1",
+          "completion_us": 2000
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "WB_2",
+          "completion_us": 2100
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "WB_1",
+          "type": "WB_WRITE",
+          "status": "SUBMITTED_WB",
+          "inflight_wb_writes": 1,
+          "cur_depth": 8
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "WB_2",
+          "type": "WB_WRITE",
+          "status": "SUBMITTED_WB",
+          "inflight_wb_writes": 2,
+          "cur_depth": 8
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "READ_1",
+          "type": "READ",
+          "status": "SUBMITTED_IMMEDIATE",
+          "inflight_reads": 1
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "READ_1",
+          "type": "READ",
+          "duration_us": 1000,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 2,
+          "pending_wb_count": 0
+        },
+        {
+          "op": "STEP_WINDOW",
+          "window_id": 1,
+          "samples_count": 1,
+          "measured_lat_us": 1000,
+          "target_lat_us": 2000,
+          "old_depth": 8,
+          "new_depth": 8,
+          "action": "HELD_MAX_DEPTH",
+          "dispatched_bios": []
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "WB_1",
+          "type": "WB_WRITE",
+          "duration_us": 1900,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 1,
+          "pending_wb_count": 0
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "WB_2",
+          "type": "WB_WRITE",
+          "duration_us": 1980,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 0,
+          "pending_wb_count": 0
+        },
+        {
+          "op": "GET_STATS",
+          "cur_depth": 8,
+          "inflight_reads": 0,
+          "inflight_sync_writes": 0,
+          "inflight_wb_writes": 0,
+          "pending_wb_count": 0,
+          "total_reads_completed": 1,
+          "total_wb_completed": 2,
+          "total_throttled_events": 0,
+          "scale_down_count": 0,
+          "scale_up_count": 0
+        }
+      ],
+      "summary": {
+        "final_cur_depth": 8,
+        "total_reads_completed": 1,
+        "total_wb_completed": 2,
+        "total_throttled_events": 0,
+        "scale_down_count": 0,
+        "scale_up_count": 0,
+        "remaining_pending_wb": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 2,
+    "input": {
+      "config": {
+        "target_lat_us": 1500,
+        "min_depth": 2,
+        "max_depth": 4,
+        "step_scale": 1
+      },
+      "trace": [
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "W1",
+          "type": "WB_WRITE",
+          "timestamp_us": 10
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "W2",
+          "type": "WB_WRITE",
+          "timestamp_us": 20
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "W3",
+          "type": "WB_WRITE",
+          "timestamp_us": 30
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "W4",
+          "type": "WB_WRITE",
+          "timestamp_us": 40
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "W5",
+          "type": "WB_WRITE",
+          "timestamp_us": 50
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "W6",
+          "type": "WB_WRITE",
+          "timestamp_us": 60
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "W1",
+          "completion_us": 100
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "W2",
+          "completion_us": 120
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "W3",
+          "completion_us": 140
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "W4",
+          "completion_us": 150
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "W5",
+          "completion_us": 180
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "W6",
+          "completion_us": 200
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "W1",
+          "type": "WB_WRITE",
+          "status": "SUBMITTED_WB",
+          "inflight_wb_writes": 1,
+          "cur_depth": 4
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "W2",
+          "type": "WB_WRITE",
+          "status": "SUBMITTED_WB",
+          "inflight_wb_writes": 2,
+          "cur_depth": 4
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "W3",
+          "type": "WB_WRITE",
+          "status": "SUBMITTED_WB",
+          "inflight_wb_writes": 3,
+          "cur_depth": 4
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "W4",
+          "type": "WB_WRITE",
+          "status": "SUBMITTED_WB",
+          "inflight_wb_writes": 4,
+          "cur_depth": 4
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "W5",
+          "type": "WB_WRITE",
+          "status": "THROTTLED_WAITING",
+          "pending_position": 1,
+          "cur_depth": 4
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "W6",
+          "type": "WB_WRITE",
+          "status": "THROTTLED_WAITING",
+          "pending_position": 2,
+          "cur_depth": 4
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "W1",
+          "type": "WB_WRITE",
+          "duration_us": 90,
+          "dispatched_bio_id": "W5",
+          "inflight_wb_writes": 4,
+          "pending_wb_count": 1
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "W2",
+          "type": "WB_WRITE",
+          "duration_us": 100,
+          "dispatched_bio_id": "W6",
+          "inflight_wb_writes": 4,
+          "pending_wb_count": 0
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "W3",
+          "type": "WB_WRITE",
+          "duration_us": 110,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 3,
+          "pending_wb_count": 0
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "W4",
+          "type": "WB_WRITE",
+          "duration_us": 110,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 2,
+          "pending_wb_count": 0
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "W5",
+          "type": "WB_WRITE",
+          "duration_us": 130,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 1,
+          "pending_wb_count": 0
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "W6",
+          "type": "WB_WRITE",
+          "duration_us": 140,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 0,
+          "pending_wb_count": 0
+        },
+        {
+          "op": "GET_STATS",
+          "cur_depth": 4,
+          "inflight_reads": 0,
+          "inflight_sync_writes": 0,
+          "inflight_wb_writes": 0,
+          "pending_wb_count": 0,
+          "total_reads_completed": 0,
+          "total_wb_completed": 6,
+          "total_throttled_events": 2,
+          "scale_down_count": 0,
+          "scale_up_count": 0
+        }
+      ],
+      "summary": {
+        "final_cur_depth": 4,
+        "total_reads_completed": 0,
+        "total_wb_completed": 6,
+        "total_throttled_events": 2,
+        "scale_down_count": 0,
+        "scale_up_count": 0,
+        "remaining_pending_wb": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 3,
+    "input": {
+      "config": {
+        "target_lat_us": 2500,
+        "min_depth": 2,
+        "max_depth": 16,
+        "step_scale": 2
+      },
+      "trace": [
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "WB_A",
+          "type": "WB_WRITE",
+          "timestamp_us": 0
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "R1",
+          "type": "READ",
+          "timestamp_us": 10
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "R2",
+          "type": "READ",
+          "timestamp_us": 20
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "R1",
+          "completion_us": 3200
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "R2",
+          "completion_us": 4500
+        },
+        {
+          "op": "STEP_WINDOW"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "WB_A",
+          "type": "WB_WRITE",
+          "status": "SUBMITTED_WB",
+          "inflight_wb_writes": 1,
+          "cur_depth": 16
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "R1",
+          "type": "READ",
+          "status": "SUBMITTED_IMMEDIATE",
+          "inflight_reads": 1
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "R2",
+          "type": "READ",
+          "status": "SUBMITTED_IMMEDIATE",
+          "inflight_reads": 2
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "R1",
+          "type": "READ",
+          "duration_us": 3190,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 1,
+          "pending_wb_count": 0
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "R2",
+          "type": "READ",
+          "duration_us": 4480,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 1,
+          "pending_wb_count": 0
+        },
+        {
+          "op": "STEP_WINDOW",
+          "window_id": 1,
+          "samples_count": 2,
+          "measured_lat_us": 4480,
+          "target_lat_us": 2500,
+          "old_depth": 16,
+          "new_depth": 8,
+          "action": "SCALED_DOWN",
+          "dispatched_bios": []
+        },
+        {
+          "op": "GET_STATS",
+          "cur_depth": 8,
+          "inflight_reads": 0,
+          "inflight_sync_writes": 0,
+          "inflight_wb_writes": 1,
+          "pending_wb_count": 0,
+          "total_reads_completed": 2,
+          "total_wb_completed": 0,
+          "total_throttled_events": 0,
+          "scale_down_count": 1,
+          "scale_up_count": 0
+        }
+      ],
+      "summary": {
+        "final_cur_depth": 8,
+        "total_reads_completed": 2,
+        "total_wb_completed": 0,
+        "total_throttled_events": 0,
+        "scale_down_count": 1,
+        "scale_up_count": 0,
+        "remaining_pending_wb": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 4,
+    "input": {
+      "config": {
+        "target_lat_us": 1000,
+        "min_depth": 4,
+        "max_depth": 16,
+        "step_scale": 2
+      },
+      "trace": [
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "R_HIGH1",
+          "type": "READ",
+          "timestamp_us": 0
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "R_HIGH1",
+          "completion_us": 2500
+        },
+        {
+          "op": "STEP_WINDOW"
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "R_HIGH2",
+          "type": "READ",
+          "timestamp_us": 2600
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "R_HIGH2",
+          "completion_us": 5500
+        },
+        {
+          "op": "STEP_WINDOW"
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "R_HIGH3",
+          "type": "READ",
+          "timestamp_us": 5600
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "R_HIGH3",
+          "completion_us": 8500
+        },
+        {
+          "op": "STEP_WINDOW"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "R_HIGH1",
+          "type": "READ",
+          "status": "SUBMITTED_IMMEDIATE",
+          "inflight_reads": 1
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "R_HIGH1",
+          "type": "READ",
+          "duration_us": 2500,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 0,
+          "pending_wb_count": 0
+        },
+        {
+          "op": "STEP_WINDOW",
+          "window_id": 1,
+          "samples_count": 1,
+          "measured_lat_us": 2500,
+          "target_lat_us": 1000,
+          "old_depth": 16,
+          "new_depth": 8,
+          "action": "SCALED_DOWN",
+          "dispatched_bios": []
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "R_HIGH2",
+          "type": "READ",
+          "status": "SUBMITTED_IMMEDIATE",
+          "inflight_reads": 1
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "R_HIGH2",
+          "type": "READ",
+          "duration_us": 2900,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 0,
+          "pending_wb_count": 0
+        },
+        {
+          "op": "STEP_WINDOW",
+          "window_id": 2,
+          "samples_count": 1,
+          "measured_lat_us": 2900,
+          "target_lat_us": 1000,
+          "old_depth": 8,
+          "new_depth": 4,
+          "action": "SCALED_DOWN",
+          "dispatched_bios": []
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "R_HIGH3",
+          "type": "READ",
+          "status": "SUBMITTED_IMMEDIATE",
+          "inflight_reads": 1
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "R_HIGH3",
+          "type": "READ",
+          "duration_us": 2900,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 0,
+          "pending_wb_count": 0
+        },
+        {
+          "op": "STEP_WINDOW",
+          "window_id": 3,
+          "samples_count": 1,
+          "measured_lat_us": 2900,
+          "target_lat_us": 1000,
+          "old_depth": 4,
+          "new_depth": 4,
+          "action": "HELD_MIN_DEPTH",
+          "dispatched_bios": []
+        },
+        {
+          "op": "GET_STATS",
+          "cur_depth": 4,
+          "inflight_reads": 0,
+          "inflight_sync_writes": 0,
+          "inflight_wb_writes": 0,
+          "pending_wb_count": 0,
+          "total_reads_completed": 3,
+          "total_wb_completed": 0,
+          "total_throttled_events": 0,
+          "scale_down_count": 2,
+          "scale_up_count": 0
+        }
+      ],
+      "summary": {
+        "final_cur_depth": 4,
+        "total_reads_completed": 3,
+        "total_wb_completed": 0,
+        "total_throttled_events": 0,
+        "scale_down_count": 2,
+        "scale_up_count": 0,
+        "remaining_pending_wb": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 5,
+    "input": {
+      "config": {
+        "target_lat_us": 3000,
+        "min_depth": 2,
+        "max_depth": 8,
+        "step_scale": 2
+      },
+      "trace": [
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "R_BAD",
+          "type": "READ",
+          "timestamp_us": 0
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "R_BAD",
+          "completion_us": 6000
+        },
+        {
+          "op": "STEP_WINDOW"
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "R_BAD2",
+          "type": "READ",
+          "timestamp_us": 6100
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "R_BAD2",
+          "completion_us": 12000
+        },
+        {
+          "op": "STEP_WINDOW"
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "R_GOOD1",
+          "type": "READ",
+          "timestamp_us": 12100
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "R_GOOD1",
+          "completion_us": 13000
+        },
+        {
+          "op": "STEP_WINDOW"
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "R_GOOD2",
+          "type": "READ",
+          "timestamp_us": 13100
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "R_GOOD2",
+          "completion_us": 14000
+        },
+        {
+          "op": "STEP_WINDOW"
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "R_GOOD3",
+          "type": "READ",
+          "timestamp_us": 14100
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "R_GOOD3",
+          "completion_us": 15000
+        },
+        {
+          "op": "STEP_WINDOW"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "R_BAD",
+          "type": "READ",
+          "status": "SUBMITTED_IMMEDIATE",
+          "inflight_reads": 1
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "R_BAD",
+          "type": "READ",
+          "duration_us": 6000,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 0,
+          "pending_wb_count": 0
+        },
+        {
+          "op": "STEP_WINDOW",
+          "window_id": 1,
+          "samples_count": 1,
+          "measured_lat_us": 6000,
+          "target_lat_us": 3000,
+          "old_depth": 8,
+          "new_depth": 4,
+          "action": "SCALED_DOWN",
+          "dispatched_bios": []
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "R_BAD2",
+          "type": "READ",
+          "status": "SUBMITTED_IMMEDIATE",
+          "inflight_reads": 1
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "R_BAD2",
+          "type": "READ",
+          "duration_us": 5900,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 0,
+          "pending_wb_count": 0
+        },
+        {
+          "op": "STEP_WINDOW",
+          "window_id": 2,
+          "samples_count": 1,
+          "measured_lat_us": 5900,
+          "target_lat_us": 3000,
+          "old_depth": 4,
+          "new_depth": 2,
+          "action": "SCALED_DOWN",
+          "dispatched_bios": []
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "R_GOOD1",
+          "type": "READ",
+          "status": "SUBMITTED_IMMEDIATE",
+          "inflight_reads": 1
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "R_GOOD1",
+          "type": "READ",
+          "duration_us": 900,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 0,
+          "pending_wb_count": 0
+        },
+        {
+          "op": "STEP_WINDOW",
+          "window_id": 3,
+          "samples_count": 1,
+          "measured_lat_us": 900,
+          "target_lat_us": 3000,
+          "old_depth": 2,
+          "new_depth": 4,
+          "action": "SCALED_UP",
+          "dispatched_bios": []
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "R_GOOD2",
+          "type": "READ",
+          "status": "SUBMITTED_IMMEDIATE",
+          "inflight_reads": 1
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "R_GOOD2",
+          "type": "READ",
+          "duration_us": 900,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 0,
+          "pending_wb_count": 0
+        },
+        {
+          "op": "STEP_WINDOW",
+          "window_id": 4,
+          "samples_count": 1,
+          "measured_lat_us": 900,
+          "target_lat_us": 3000,
+          "old_depth": 4,
+          "new_depth": 6,
+          "action": "SCALED_UP",
+          "dispatched_bios": []
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "R_GOOD3",
+          "type": "READ",
+          "status": "SUBMITTED_IMMEDIATE",
+          "inflight_reads": 1
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "R_GOOD3",
+          "type": "READ",
+          "duration_us": 900,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 0,
+          "pending_wb_count": 0
+        },
+        {
+          "op": "STEP_WINDOW",
+          "window_id": 5,
+          "samples_count": 1,
+          "measured_lat_us": 900,
+          "target_lat_us": 3000,
+          "old_depth": 6,
+          "new_depth": 8,
+          "action": "SCALED_UP",
+          "dispatched_bios": []
+        },
+        {
+          "op": "GET_STATS",
+          "cur_depth": 8,
+          "inflight_reads": 0,
+          "inflight_sync_writes": 0,
+          "inflight_wb_writes": 0,
+          "pending_wb_count": 0,
+          "total_reads_completed": 5,
+          "total_wb_completed": 0,
+          "total_throttled_events": 0,
+          "scale_down_count": 2,
+          "scale_up_count": 3
+        }
+      ],
+      "summary": {
+        "final_cur_depth": 8,
+        "total_reads_completed": 5,
+        "total_wb_completed": 0,
+        "total_throttled_events": 0,
+        "scale_down_count": 2,
+        "scale_up_count": 3,
+        "remaining_pending_wb": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 6,
+    "input": {
+      "config": {
+        "target_lat_us": 2000,
+        "min_depth": 2,
+        "max_depth": 4,
+        "step_scale": 1
+      },
+      "trace": [
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "WB_1",
+          "type": "WB_WRITE",
+          "timestamp_us": 10
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "WB_2",
+          "type": "WB_WRITE",
+          "timestamp_us": 20
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "WB_3",
+          "type": "WB_WRITE",
+          "timestamp_us": 30
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "WB_4",
+          "type": "WB_WRITE",
+          "timestamp_us": 40
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "WB_5",
+          "type": "WB_WRITE",
+          "timestamp_us": 50
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "SYNC_JRNL_1",
+          "type": "SYNC_WRITE",
+          "timestamp_us": 55
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "SYNC_JRNL_2",
+          "type": "SYNC_WRITE",
+          "timestamp_us": 60
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "SYNC_JRNL_1",
+          "completion_us": 90
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "SYNC_JRNL_2",
+          "completion_us": 95
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "WB_1",
+          "completion_us": 110
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "WB_1",
+          "type": "WB_WRITE",
+          "status": "SUBMITTED_WB",
+          "inflight_wb_writes": 1,
+          "cur_depth": 4
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "WB_2",
+          "type": "WB_WRITE",
+          "status": "SUBMITTED_WB",
+          "inflight_wb_writes": 2,
+          "cur_depth": 4
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "WB_3",
+          "type": "WB_WRITE",
+          "status": "SUBMITTED_WB",
+          "inflight_wb_writes": 3,
+          "cur_depth": 4
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "WB_4",
+          "type": "WB_WRITE",
+          "status": "SUBMITTED_WB",
+          "inflight_wb_writes": 4,
+          "cur_depth": 4
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "WB_5",
+          "type": "WB_WRITE",
+          "status": "THROTTLED_WAITING",
+          "pending_position": 1,
+          "cur_depth": 4
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "SYNC_JRNL_1",
+          "type": "SYNC_WRITE",
+          "status": "SUBMITTED_SYNC",
+          "inflight_sync_writes": 1
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "SYNC_JRNL_2",
+          "type": "SYNC_WRITE",
+          "status": "SUBMITTED_SYNC",
+          "inflight_sync_writes": 2
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "SYNC_JRNL_1",
+          "type": "SYNC_WRITE",
+          "duration_us": 35,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 4,
+          "pending_wb_count": 1
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "SYNC_JRNL_2",
+          "type": "SYNC_WRITE",
+          "duration_us": 35,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 4,
+          "pending_wb_count": 1
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "WB_1",
+          "type": "WB_WRITE",
+          "duration_us": 100,
+          "dispatched_bio_id": "WB_5",
+          "inflight_wb_writes": 4,
+          "pending_wb_count": 0
+        },
+        {
+          "op": "GET_STATS",
+          "cur_depth": 4,
+          "inflight_reads": 0,
+          "inflight_sync_writes": 0,
+          "inflight_wb_writes": 4,
+          "pending_wb_count": 0,
+          "total_reads_completed": 0,
+          "total_wb_completed": 1,
+          "total_throttled_events": 1,
+          "scale_down_count": 0,
+          "scale_up_count": 0
+        }
+      ],
+      "summary": {
+        "final_cur_depth": 4,
+        "total_reads_completed": 0,
+        "total_wb_completed": 1,
+        "total_throttled_events": 1,
+        "scale_down_count": 0,
+        "scale_up_count": 0,
+        "remaining_pending_wb": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 7,
+    "input": {
+      "config": {
+        "target_lat_us": 2000,
+        "min_depth": 2,
+        "max_depth": 8,
+        "step_scale": 2
+      },
+      "trace": [
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "WB_IDLE_1",
+          "type": "WB_WRITE",
+          "timestamp_us": 10
+        },
+        {
+          "op": "STEP_WINDOW"
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "WB_IDLE_1",
+          "completion_us": 500
+        },
+        {
+          "op": "STEP_WINDOW"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "WB_IDLE_1",
+          "type": "WB_WRITE",
+          "status": "SUBMITTED_WB",
+          "inflight_wb_writes": 1,
+          "cur_depth": 8
+        },
+        {
+          "op": "STEP_WINDOW",
+          "window_id": 1,
+          "samples_count": 0,
+          "measured_lat_us": 0,
+          "target_lat_us": 2000,
+          "old_depth": 8,
+          "new_depth": 8,
+          "action": "WINDOW_IDLE",
+          "dispatched_bios": []
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "WB_IDLE_1",
+          "type": "WB_WRITE",
+          "duration_us": 490,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 0,
+          "pending_wb_count": 0
+        },
+        {
+          "op": "STEP_WINDOW",
+          "window_id": 2,
+          "samples_count": 0,
+          "measured_lat_us": 0,
+          "target_lat_us": 2000,
+          "old_depth": 8,
+          "new_depth": 8,
+          "action": "WINDOW_IDLE",
+          "dispatched_bios": []
+        },
+        {
+          "op": "GET_STATS",
+          "cur_depth": 8,
+          "inflight_reads": 0,
+          "inflight_sync_writes": 0,
+          "inflight_wb_writes": 0,
+          "pending_wb_count": 0,
+          "total_reads_completed": 0,
+          "total_wb_completed": 1,
+          "total_throttled_events": 0,
+          "scale_down_count": 0,
+          "scale_up_count": 0
+        }
+      ],
+      "summary": {
+        "final_cur_depth": 8,
+        "total_reads_completed": 0,
+        "total_wb_completed": 1,
+        "total_throttled_events": 0,
+        "scale_down_count": 0,
+        "scale_up_count": 0,
+        "remaining_pending_wb": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 8,
+    "input": {
+      "config": {
+        "target_lat_us": 1500,
+        "min_depth": 2,
+        "max_depth": 8,
+        "step_scale": 2
+      },
+      "trace": [
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "BURST_WB_0",
+          "type": "WB_WRITE",
+          "timestamp_us": 0
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "BURST_WB_1",
+          "type": "WB_WRITE",
+          "timestamp_us": 10
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "BURST_WB_2",
+          "type": "WB_WRITE",
+          "timestamp_us": 20
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "BURST_WB_3",
+          "type": "WB_WRITE",
+          "timestamp_us": 30
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "BURST_WB_4",
+          "type": "WB_WRITE",
+          "timestamp_us": 40
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "BURST_WB_5",
+          "type": "WB_WRITE",
+          "timestamp_us": 50
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "BURST_WB_6",
+          "type": "WB_WRITE",
+          "timestamp_us": 60
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "BURST_WB_7",
+          "type": "WB_WRITE",
+          "timestamp_us": 70
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "BURST_WB_8",
+          "type": "WB_WRITE",
+          "timestamp_us": 80
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "BURST_WB_9",
+          "type": "WB_WRITE",
+          "timestamp_us": 90
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "BURST_WB_10",
+          "type": "WB_WRITE",
+          "timestamp_us": 100
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "BURST_WB_11",
+          "type": "WB_WRITE",
+          "timestamp_us": 110
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "READ_SPIKE_0",
+          "type": "READ",
+          "timestamp_us": 200
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "READ_SPIKE_1",
+          "type": "READ",
+          "timestamp_us": 220
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "READ_SPIKE_2",
+          "type": "READ",
+          "timestamp_us": 240
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "READ_SPIKE_3",
+          "type": "READ",
+          "timestamp_us": 260
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "READ_SPIKE_0",
+          "completion_us": 2000
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "READ_SPIKE_1",
+          "completion_us": 3000
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "READ_SPIKE_2",
+          "completion_us": 4000
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "READ_SPIKE_3",
+          "completion_us": 5000
+        },
+        {
+          "op": "STEP_WINDOW"
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "BURST_WB_0",
+          "completion_us": 5500
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "BURST_WB_1",
+          "completion_us": 5600
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "BURST_WB_2",
+          "completion_us": 5700
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "BURST_WB_3",
+          "completion_us": 5800
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "READ_FAST_0",
+          "type": "READ",
+          "timestamp_us": 6000
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "READ_FAST_0",
+          "completion_us": 6500
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "READ_FAST_1",
+          "type": "READ",
+          "timestamp_us": 6020
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "READ_FAST_1",
+          "completion_us": 6520
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "READ_FAST_2",
+          "type": "READ",
+          "timestamp_us": 6040
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "READ_FAST_2",
+          "completion_us": 6540
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "READ_FAST_3",
+          "type": "READ",
+          "timestamp_us": 6060
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "READ_FAST_3",
+          "completion_us": 6560
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "READ_FAST_4",
+          "type": "READ",
+          "timestamp_us": 6080
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "READ_FAST_4",
+          "completion_us": 6580
+        },
+        {
+          "op": "STEP_WINDOW"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "BURST_WB_0",
+          "type": "WB_WRITE",
+          "status": "SUBMITTED_WB",
+          "inflight_wb_writes": 1,
+          "cur_depth": 8
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "BURST_WB_1",
+          "type": "WB_WRITE",
+          "status": "SUBMITTED_WB",
+          "inflight_wb_writes": 2,
+          "cur_depth": 8
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "BURST_WB_2",
+          "type": "WB_WRITE",
+          "status": "SUBMITTED_WB",
+          "inflight_wb_writes": 3,
+          "cur_depth": 8
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "BURST_WB_3",
+          "type": "WB_WRITE",
+          "status": "SUBMITTED_WB",
+          "inflight_wb_writes": 4,
+          "cur_depth": 8
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "BURST_WB_4",
+          "type": "WB_WRITE",
+          "status": "SUBMITTED_WB",
+          "inflight_wb_writes": 5,
+          "cur_depth": 8
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "BURST_WB_5",
+          "type": "WB_WRITE",
+          "status": "SUBMITTED_WB",
+          "inflight_wb_writes": 6,
+          "cur_depth": 8
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "BURST_WB_6",
+          "type": "WB_WRITE",
+          "status": "SUBMITTED_WB",
+          "inflight_wb_writes": 7,
+          "cur_depth": 8
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "BURST_WB_7",
+          "type": "WB_WRITE",
+          "status": "SUBMITTED_WB",
+          "inflight_wb_writes": 8,
+          "cur_depth": 8
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "BURST_WB_8",
+          "type": "WB_WRITE",
+          "status": "THROTTLED_WAITING",
+          "pending_position": 1,
+          "cur_depth": 8
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "BURST_WB_9",
+          "type": "WB_WRITE",
+          "status": "THROTTLED_WAITING",
+          "pending_position": 2,
+          "cur_depth": 8
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "BURST_WB_10",
+          "type": "WB_WRITE",
+          "status": "THROTTLED_WAITING",
+          "pending_position": 3,
+          "cur_depth": 8
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "BURST_WB_11",
+          "type": "WB_WRITE",
+          "status": "THROTTLED_WAITING",
+          "pending_position": 4,
+          "cur_depth": 8
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "READ_SPIKE_0",
+          "type": "READ",
+          "status": "SUBMITTED_IMMEDIATE",
+          "inflight_reads": 1
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "READ_SPIKE_1",
+          "type": "READ",
+          "status": "SUBMITTED_IMMEDIATE",
+          "inflight_reads": 2
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "READ_SPIKE_2",
+          "type": "READ",
+          "status": "SUBMITTED_IMMEDIATE",
+          "inflight_reads": 3
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "READ_SPIKE_3",
+          "type": "READ",
+          "status": "SUBMITTED_IMMEDIATE",
+          "inflight_reads": 4
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "READ_SPIKE_0",
+          "type": "READ",
+          "duration_us": 1800,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 8,
+          "pending_wb_count": 4
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "READ_SPIKE_1",
+          "type": "READ",
+          "duration_us": 2780,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 8,
+          "pending_wb_count": 4
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "READ_SPIKE_2",
+          "type": "READ",
+          "duration_us": 3760,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 8,
+          "pending_wb_count": 4
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "READ_SPIKE_3",
+          "type": "READ",
+          "duration_us": 4740,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 8,
+          "pending_wb_count": 4
+        },
+        {
+          "op": "STEP_WINDOW",
+          "window_id": 1,
+          "samples_count": 4,
+          "measured_lat_us": 4740,
+          "target_lat_us": 1500,
+          "old_depth": 8,
+          "new_depth": 4,
+          "action": "SCALED_DOWN",
+          "dispatched_bios": []
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "BURST_WB_0",
+          "type": "WB_WRITE",
+          "duration_us": 5500,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 7,
+          "pending_wb_count": 4
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "BURST_WB_1",
+          "type": "WB_WRITE",
+          "duration_us": 5590,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 6,
+          "pending_wb_count": 4
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "BURST_WB_2",
+          "type": "WB_WRITE",
+          "duration_us": 5680,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 5,
+          "pending_wb_count": 4
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "BURST_WB_3",
+          "type": "WB_WRITE",
+          "duration_us": 5770,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 4,
+          "pending_wb_count": 4
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "READ_FAST_0",
+          "type": "READ",
+          "status": "SUBMITTED_IMMEDIATE",
+          "inflight_reads": 1
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "READ_FAST_0",
+          "type": "READ",
+          "duration_us": 500,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 4,
+          "pending_wb_count": 4
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "READ_FAST_1",
+          "type": "READ",
+          "status": "SUBMITTED_IMMEDIATE",
+          "inflight_reads": 1
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "READ_FAST_1",
+          "type": "READ",
+          "duration_us": 500,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 4,
+          "pending_wb_count": 4
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "READ_FAST_2",
+          "type": "READ",
+          "status": "SUBMITTED_IMMEDIATE",
+          "inflight_reads": 1
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "READ_FAST_2",
+          "type": "READ",
+          "duration_us": 500,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 4,
+          "pending_wb_count": 4
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "READ_FAST_3",
+          "type": "READ",
+          "status": "SUBMITTED_IMMEDIATE",
+          "inflight_reads": 1
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "READ_FAST_3",
+          "type": "READ",
+          "duration_us": 500,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 4,
+          "pending_wb_count": 4
+        },
+        {
+          "op": "SUBMIT_BIO",
+          "bio_id": "READ_FAST_4",
+          "type": "READ",
+          "status": "SUBMITTED_IMMEDIATE",
+          "inflight_reads": 1
+        },
+        {
+          "op": "COMPLETE_BIO",
+          "bio_id": "READ_FAST_4",
+          "type": "READ",
+          "duration_us": 500,
+          "dispatched_bio_id": null,
+          "inflight_wb_writes": 4,
+          "pending_wb_count": 4
+        },
+        {
+          "op": "STEP_WINDOW",
+          "window_id": 2,
+          "samples_count": 5,
+          "measured_lat_us": 500,
+          "target_lat_us": 1500,
+          "old_depth": 4,
+          "new_depth": 6,
+          "action": "SCALED_UP",
+          "dispatched_bios": [
+            "BURST_WB_8",
+            "BURST_WB_9"
+          ]
+        },
+        {
+          "op": "GET_STATS",
+          "cur_depth": 6,
+          "inflight_reads": 0,
+          "inflight_sync_writes": 0,
+          "inflight_wb_writes": 6,
+          "pending_wb_count": 2,
+          "total_reads_completed": 9,
+          "total_wb_completed": 4,
+          "total_throttled_events": 4,
+          "scale_down_count": 1,
+          "scale_up_count": 1
+        }
+      ],
+      "summary": {
+        "final_cur_depth": 6,
+        "total_reads_completed": 9,
+        "total_wb_completed": 4,
+        "total_throttled_events": 4,
+        "scale_down_count": 1,
+        "scale_up_count": 1,
+        "remaining_pending_wb": 2
+      }
+    }
+  }
+]
