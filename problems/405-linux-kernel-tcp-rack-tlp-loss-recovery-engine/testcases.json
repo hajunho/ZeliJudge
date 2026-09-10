@@ -1,0 +1,486 @@
+[
+  {
+    "name": "손실 및 지연 없는 정상 네트워크 환경의 슬로우 스타트 및 혼잡 회피",
+    "input": {
+      "config": {
+        "initial_cwnd": 4,
+        "initial_ssthresh": 32,
+        "initial_srtt_ms": 50,
+        "min_rto_ms": 200,
+        "max_rto_ms": 3000,
+        "enable_rack": true,
+        "enable_tlp": true,
+        "one_way_delay_ms": 25,
+        "wdelay_ms": 5
+      },
+      "workload": {
+        "total_packets": 10,
+        "drops": [],
+        "delays": {}
+      }
+    },
+    "output": {
+      "summary": {
+        "total_simulation_time": 100.0,
+        "total_packets": 10,
+        "total_transmissions": 10,
+        "fast_retransmissions": 0,
+        "rto_retransmissions": 0,
+        "tlp_probes_sent": 0,
+        "final_cwnd": 14,
+        "final_ssthresh": 32,
+        "final_srtt_ms": 50.0,
+        "final_rto_ms": 200,
+        "final_reo_wnd_ms": 12.5
+      },
+      "retransmissions": [],
+      "state_transitions": []
+    }
+  },
+  {
+    "name": "중간 패킷 유실 발생 시 RACK 시간 기반 고속 손실 감지 및 Fast Retransmit",
+    "input": {
+      "config": {
+        "initial_cwnd": 6,
+        "initial_ssthresh": 32,
+        "initial_srtt_ms": 50,
+        "min_rto_ms": 200,
+        "max_rto_ms": 3000,
+        "enable_rack": true,
+        "enable_tlp": true,
+        "one_way_delay_ms": 25,
+        "wdelay_ms": 5
+      },
+      "workload": {
+        "total_packets": 12,
+        "drops": [
+          3
+        ],
+        "delays": {}
+      }
+    },
+    "output": {
+      "summary": {
+        "total_simulation_time": 150.0,
+        "total_packets": 12,
+        "total_transmissions": 13,
+        "fast_retransmissions": 1,
+        "rto_retransmissions": 0,
+        "tlp_probes_sent": 0,
+        "final_cwnd": 3,
+        "final_ssthresh": 3,
+        "final_srtt_ms": 50.0,
+        "final_rto_ms": 200,
+        "final_reo_wnd_ms": 50.0
+      },
+      "retransmissions": [
+        {
+          "time": 100.0,
+          "seq": 3,
+          "type": "FAST_RETRANS_RACK",
+          "cwnd": 3,
+          "ssthresh": 3
+        }
+      ],
+      "state_transitions": [
+        {
+          "time": 100.0,
+          "from": "TCP_CA_Open",
+          "to": "TCP_CA_Recovery",
+          "reason": "Loss detected: [3]",
+          "cwnd": 3,
+          "ssthresh": 3
+        },
+        {
+          "time": 150.0,
+          "from": "TCP_CA_Recovery",
+          "to": "TCP_CA_Open",
+          "reason": "Full ACK past recovery_high",
+          "cwnd": 3,
+          "ssthresh": 3
+        }
+      ]
+    }
+  },
+  {
+    "name": "전송 버스트 꼬리(Tail) 패킷 유실 시 TLP 프로브 발주를 통한 RTO 회피",
+    "input": {
+      "config": {
+        "initial_cwnd": 8,
+        "initial_ssthresh": 32,
+        "initial_srtt_ms": 50,
+        "min_rto_ms": 200,
+        "max_rto_ms": 3000,
+        "enable_rack": true,
+        "enable_tlp": true,
+        "one_way_delay_ms": 25,
+        "wdelay_ms": 5
+      },
+      "workload": {
+        "total_packets": 8,
+        "drops": [
+          8
+        ],
+        "delays": {}
+      }
+    },
+    "output": {
+      "summary": {
+        "total_simulation_time": 205.0,
+        "total_packets": 8,
+        "total_transmissions": 9,
+        "fast_retransmissions": 0,
+        "rto_retransmissions": 0,
+        "tlp_probes_sent": 1,
+        "final_cwnd": 16,
+        "final_ssthresh": 32,
+        "final_srtt_ms": 50.0,
+        "final_rto_ms": 200,
+        "final_reo_wnd_ms": 12.5
+      },
+      "retransmissions": [
+        {
+          "time": 155.0,
+          "seq": 8,
+          "type": "TLP_PROBE",
+          "cwnd": 15,
+          "ssthresh": 32
+        }
+      ],
+      "state_transitions": []
+    }
+  },
+  {
+    "name": "TLP 비활성화 상태에서 꼬리 패킷 유실 시 RTO 타임아웃 만료 및 cwnd 붕괴",
+    "input": {
+      "config": {
+        "initial_cwnd": 8,
+        "initial_ssthresh": 32,
+        "initial_srtt_ms": 50,
+        "min_rto_ms": 200,
+        "max_rto_ms": 3000,
+        "enable_rack": true,
+        "enable_tlp": false,
+        "one_way_delay_ms": 25,
+        "wdelay_ms": 5
+      },
+      "workload": {
+        "total_packets": 8,
+        "drops": [
+          8
+        ],
+        "delays": {}
+      }
+    },
+    "output": {
+      "summary": {
+        "total_simulation_time": 300.0,
+        "total_packets": 8,
+        "total_transmissions": 9,
+        "fast_retransmissions": 0,
+        "rto_retransmissions": 1,
+        "tlp_probes_sent": 0,
+        "final_cwnd": 1,
+        "final_ssthresh": 2,
+        "final_srtt_ms": 50.0,
+        "final_rto_ms": 200,
+        "final_reo_wnd_ms": 12.5
+      },
+      "retransmissions": [
+        {
+          "time": 250.0,
+          "seq": 8,
+          "type": "RTO_RETRANS",
+          "cwnd": 1,
+          "ssthresh": 2
+        }
+      ],
+      "state_transitions": [
+        {
+          "time": 250.0,
+          "from": "TCP_CA_Open",
+          "to": "TCP_CA_Loss",
+          "reason": "RTO timeout expired",
+          "cwnd": 1,
+          "ssthresh": 2
+        },
+        {
+          "time": 300.0,
+          "from": "TCP_CA_Loss",
+          "to": "TCP_CA_Open",
+          "reason": "RTO recovery complete",
+          "cwnd": 1,
+          "ssthresh": 2
+        }
+      ]
+    }
+  },
+  {
+    "name": "패킷 역전(Reordering) 발생 시 reo_wnd 적응 확장을 통한 오탐 및 불필요한 재전송 방어",
+    "input": {
+      "config": {
+        "initial_cwnd": 6,
+        "initial_ssthresh": 32,
+        "initial_srtt_ms": 50,
+        "min_rto_ms": 200,
+        "max_rto_ms": 3000,
+        "enable_rack": true,
+        "enable_tlp": true,
+        "one_way_delay_ms": 25,
+        "wdelay_ms": 5
+      },
+      "workload": {
+        "total_packets": 8,
+        "drops": [],
+        "delays": {
+          "2": 20
+        }
+      }
+    },
+    "output": {
+      "summary": {
+        "total_simulation_time": 100.0,
+        "total_packets": 8,
+        "total_transmissions": 8,
+        "fast_retransmissions": 0,
+        "rto_retransmissions": 0,
+        "tlp_probes_sent": 0,
+        "final_cwnd": 10,
+        "final_ssthresh": 32,
+        "final_srtt_ms": 51.91,
+        "final_rto_ms": 200,
+        "final_reo_wnd_ms": 50.0
+      },
+      "retransmissions": [],
+      "state_transitions": []
+    }
+  },
+  {
+    "name": "연속 다중 패킷 유실(4, 5번 유실)에 대한 RACK 병렬 손실 판정 및 일괄 복구",
+    "input": {
+      "config": {
+        "initial_cwnd": 8,
+        "initial_ssthresh": 32,
+        "initial_srtt_ms": 50,
+        "min_rto_ms": 200,
+        "max_rto_ms": 3000,
+        "enable_rack": true,
+        "enable_tlp": true,
+        "one_way_delay_ms": 25,
+        "wdelay_ms": 5
+      },
+      "workload": {
+        "total_packets": 12,
+        "drops": [
+          4,
+          5
+        ],
+        "delays": {}
+      }
+    },
+    "output": {
+      "summary": {
+        "total_simulation_time": 150.0,
+        "total_packets": 12,
+        "total_transmissions": 14,
+        "fast_retransmissions": 2,
+        "rto_retransmissions": 0,
+        "tlp_probes_sent": 0,
+        "final_cwnd": 2,
+        "final_ssthresh": 2,
+        "final_srtt_ms": 50.0,
+        "final_rto_ms": 200,
+        "final_reo_wnd_ms": 50.0
+      },
+      "retransmissions": [
+        {
+          "time": 100.0,
+          "seq": 4,
+          "type": "FAST_RETRANS_RACK",
+          "cwnd": 2,
+          "ssthresh": 2
+        },
+        {
+          "time": 100.0,
+          "seq": 5,
+          "type": "FAST_RETRANS_RACK",
+          "cwnd": 2,
+          "ssthresh": 2
+        }
+      ],
+      "state_transitions": [
+        {
+          "time": 100.0,
+          "from": "TCP_CA_Open",
+          "to": "TCP_CA_Recovery",
+          "reason": "Loss detected: [4, 5]",
+          "cwnd": 2,
+          "ssthresh": 2
+        },
+        {
+          "time": 150.0,
+          "from": "TCP_CA_Recovery",
+          "to": "TCP_CA_Open",
+          "reason": "Full ACK past recovery_high",
+          "cwnd": 2,
+          "ssthresh": 2
+        }
+      ]
+    }
+  },
+  {
+    "name": "꼬리 패킷 및 TLP 프로브 동시 유실 시 RTO 최후 방어선 작동 및 지수 백오프",
+    "input": {
+      "config": {
+        "initial_cwnd": 8,
+        "initial_ssthresh": 32,
+        "initial_srtt_ms": 50,
+        "min_rto_ms": 200,
+        "max_rto_ms": 3000,
+        "enable_rack": true,
+        "enable_tlp": true,
+        "one_way_delay_ms": 25,
+        "wdelay_ms": 5
+      },
+      "workload": {
+        "total_packets": 8,
+        "drops": [
+          {
+            "seq": 8,
+            "instance": 1
+          },
+          {
+            "seq": 8,
+            "instance": 2
+          }
+        ],
+        "delays": {}
+      }
+    },
+    "output": {
+      "summary": {
+        "total_simulation_time": 405.0,
+        "total_packets": 8,
+        "total_transmissions": 10,
+        "fast_retransmissions": 0,
+        "rto_retransmissions": 1,
+        "tlp_probes_sent": 1,
+        "final_cwnd": 1,
+        "final_ssthresh": 2,
+        "final_srtt_ms": 50.0,
+        "final_rto_ms": 200,
+        "final_reo_wnd_ms": 12.5
+      },
+      "retransmissions": [
+        {
+          "time": 155.0,
+          "seq": 8,
+          "type": "TLP_PROBE",
+          "cwnd": 15,
+          "ssthresh": 32
+        },
+        {
+          "time": 355.0,
+          "seq": 8,
+          "type": "RTO_RETRANS",
+          "cwnd": 1,
+          "ssthresh": 2
+        }
+      ],
+      "state_transitions": [
+        {
+          "time": 355.0,
+          "from": "TCP_CA_Open",
+          "to": "TCP_CA_Loss",
+          "reason": "RTO timeout expired",
+          "cwnd": 1,
+          "ssthresh": 2
+        },
+        {
+          "time": 405.0,
+          "from": "TCP_CA_Loss",
+          "to": "TCP_CA_Open",
+          "reason": "RTO recovery complete",
+          "cwnd": 1,
+          "ssthresh": 2
+        }
+      ]
+    }
+  },
+  {
+    "name": "무선/셀룰러 환경 복합 워크로드(패킷 역전 + 중간 유실 + 꼬리 유실)",
+    "input": {
+      "config": {
+        "initial_cwnd": 8,
+        "initial_ssthresh": 32,
+        "initial_srtt_ms": 40,
+        "min_rto_ms": 180,
+        "max_rto_ms": 3000,
+        "enable_rack": true,
+        "enable_tlp": true,
+        "one_way_delay_ms": 20,
+        "wdelay_ms": 4
+      },
+      "workload": {
+        "total_packets": 16,
+        "drops": [
+          6,
+          16
+        ],
+        "delays": {
+          "2": 15,
+          "10": 10
+        }
+      }
+    },
+    "output": {
+      "summary": {
+        "total_simulation_time": 253.97,
+        "total_packets": 16,
+        "total_transmissions": 18,
+        "fast_retransmissions": 1,
+        "rto_retransmissions": 0,
+        "tlp_probes_sent": 1,
+        "final_cwnd": 2,
+        "final_ssthresh": 2,
+        "final_srtt_ms": 41.52,
+        "final_rto_ms": 180,
+        "final_reo_wnd_ms": 41.74
+      },
+      "retransmissions": [
+        {
+          "time": 173.97,
+          "seq": 16,
+          "type": "TLP_PROBE",
+          "cwnd": 10,
+          "ssthresh": 32
+        },
+        {
+          "time": 213.97,
+          "seq": 6,
+          "type": "FAST_RETRANS_RACK",
+          "cwnd": 2,
+          "ssthresh": 2
+        }
+      ],
+      "state_transitions": [
+        {
+          "time": 213.97,
+          "from": "TCP_CA_Open",
+          "to": "TCP_CA_Recovery",
+          "reason": "Loss detected: [6]",
+          "cwnd": 2,
+          "ssthresh": 2
+        },
+        {
+          "time": 253.97,
+          "from": "TCP_CA_Recovery",
+          "to": "TCP_CA_Open",
+          "reason": "Full ACK past recovery_high",
+          "cwnd": 2,
+          "ssthresh": 2
+        }
+      ]
+    }
+  }
+]
