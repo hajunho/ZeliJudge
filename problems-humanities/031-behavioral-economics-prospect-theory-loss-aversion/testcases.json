@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "description": "Baseline prospect evaluation demonstrating diminishing sensitivity: risk aversion in gains and risk seeking in losses",
+    "input": "{\"parameters\": {\"alpha\": 0.88, \"beta\": 0.88, \"lambda\": 2.25, \"gamma\": 0.61, \"delta\": 0.69}, \"operations\": [{\"id\": \"eval_gain\", \"op\": \"EVALUATE_PROSPECT\", \"reference_point\": 0.0, \"outcomes\": [{\"x\": 100.0, \"p\": 0.5}, {\"x\": 0.0, \"p\": 0.5}]}, {\"id\": \"eval_loss\", \"op\": \"EVALUATE_PROSPECT\", \"reference_point\": 0.0, \"outcomes\": [{\"x\": -100.0, \"p\": 0.5}, {\"x\": 0.0, \"p\": 0.5}]}]}",
+    "expected_output": "{\"results\": [{\"id\": \"eval_gain\", \"op\": \"EVALUATE_PROSPECT\", \"expected_value\": 50.0, \"prospect_value\": 24.2053, \"value_of_ev\": 31.2675, \"risk_attitude\": \"RISK_AVERSE\"}, {\"id\": \"eval_loss\", \"op\": \"EVALUATE_PROSPECT\", \"expected_value\": -50.0, \"prospect_value\": -58.7796, \"value_of_ev\": -70.3519, \"risk_attitude\": \"RISK_SEEKING\"}]}"
+  },
+  {
+    "id": 2,
+    "description": "Certainty effect anomaly: rational expected value prefers risky gamble B ($2500) but human choice prefers sure gain A ($2400)",
+    "input": "{\"parameters\": {\"alpha\": 0.88, \"beta\": 0.88, \"lambda\": 2.25, \"gamma\": 0.61, \"delta\": 0.69}, \"operations\": [{\"id\": \"certainty_effect_test\", \"op\": \"COMPARE_GAMBLES\", \"reference_point\": 0.0, \"option_a\": [{\"x\": 2400.0, \"p\": 1.0}], \"option_b\": [{\"x\": 10000.0, \"p\": 0.25}, {\"x\": 0.0, \"p\": 0.75}]}]}",
+    "expected_output": "{\"results\": [{\"id\": \"certainty_effect_test\", \"op\": \"COMPARE_GAMBLES\", \"option_a_ev\": 2400.0, \"option_a_prospect_value\": 943.1611, \"option_b_ev\": 2500.0, \"option_b_prospect_value\": 962.7403, \"ev_choice\": \"OPTION_B\", \"prospect_choice\": \"OPTION_B\", \"anomaly\": false, \"anomaly_type\": \"NONE\"}]}"
+  },
+  {
+    "id": 3,
+    "description": "Loss aversion anomaly: rejecting positive EV (+25) mixed gamble because emotional pain of losing 100 outweighs pleasure of winning 150",
+    "input": "{\"parameters\": {\"alpha\": 0.88, \"beta\": 0.88, \"lambda\": 2.25, \"gamma\": 0.61, \"delta\": 0.69}, \"operations\": [{\"id\": \"loss_aversion_coin_toss\", \"op\": \"COMPARE_GAMBLES\", \"reference_point\": 0.0, \"option_a\": [{\"x\": 0.0, \"p\": 1.0}], \"option_b\": [{\"x\": 150.0, \"p\": 0.5}, {\"x\": -100.0, \"p\": 0.5}]}]}",
+    "expected_output": "{\"results\": [{\"id\": \"loss_aversion_coin_toss\", \"op\": \"COMPARE_GAMBLES\", \"option_a_ev\": 0.0, \"option_a_prospect_value\": 0.0, \"option_b_ev\": 25.0, \"option_b_prospect_value\": -24.196, \"ev_choice\": \"OPTION_B\", \"prospect_choice\": \"OPTION_A\", \"anomaly\": true, \"anomaly_type\": \"LOSS_AVERSION_REJECTION\"}]}"
+  },
+  {
+    "id": 4,
+    "description": "Lottery ticket anomaly: human willingness to buy tickets with negative expected value due to sublinear probability weighting w(p)",
+    "input": "{\"parameters\": {\"alpha\": 0.88, \"beta\": 0.88, \"lambda\": 2.25, \"gamma\": 0.61, \"delta\": 0.69}, \"operations\": [{\"id\": \"lottery_ticket_test\", \"op\": \"COMPARE_GAMBLES\", \"reference_point\": 0.0, \"option_a\": [{\"x\": 0.0, \"p\": 1.0}], \"option_b\": [{\"x\": 49980.0, \"p\": 0.001}, {\"x\": -20.0, \"p\": 0.999}]}]}",
+    "expected_output": "{\"results\": [{\"id\": \"lottery_ticket_test\", \"op\": \"COMPARE_GAMBLES\", \"option_a_ev\": 0.0, \"option_a_prospect_value\": 0.0, \"option_b_ev\": 30.0, \"option_b_prospect_value\": 166.1664, \"ev_choice\": \"OPTION_B\", \"prospect_choice\": \"OPTION_B\", \"anomaly\": false, \"anomaly_type\": \"NONE\"}]}"
+  },
+  {
+    "id": 5,
+    "description": "Catastrophic insurance purchasing: paying premium higher than expected loss ($300 > $200) to eliminate overweighting of disaster probability",
+    "input": "{\"parameters\": {\"alpha\": 0.88, \"beta\": 0.88, \"lambda\": 2.25, \"gamma\": 0.61, \"delta\": 0.69}, \"operations\": [{\"id\": \"flood_insurance_decision\", \"op\": \"COMPARE_GAMBLES\", \"reference_point\": 0.0, \"option_a\": [{\"x\": -300.0, \"p\": 1.0}], \"option_b\": [{\"x\": -20000.0, \"p\": 0.01}, {\"x\": 0.0, \"p\": 0.99}]}]}",
+    "expected_output": "{\"results\": [{\"id\": \"flood_insurance_decision\", \"op\": \"COMPARE_GAMBLES\", \"option_a_ev\": -300.0, \"option_a_prospect_value\": -340.4468, \"option_b_ev\": -200.0, \"option_b_prospect_value\": -543.9667, \"ev_choice\": \"OPTION_B\", \"prospect_choice\": \"OPTION_A\", \"anomaly\": true, \"anomaly_type\": \"LOSS_AVERSION_REJECTION\"}]}"
+  },
+  {
+    "id": 6,
+    "description": "Kahneman & Tversky (1981) Asian Disease Problem: preference reversal between identical outcomes under lives saved vs lives lost framing",
+    "input": "{\"parameters\": {\"alpha\": 0.88, \"beta\": 0.88, \"lambda\": 2.25, \"gamma\": 0.61, \"delta\": 0.69}, \"operations\": [{\"id\": \"asian_disease_problem\", \"op\": \"FRAMING_ANALYSIS\", \"positive_reference_point\": 0.0, \"negative_reference_point\": 0.0, \"positive_frame\": {\"option_a\": [{\"x\": 200.0, \"p\": 1.0}], \"option_b\": [{\"x\": 600.0, \"p\": 0.3333333333333333}, {\"x\": 0.0, \"p\": 0.6666666666666666}]}, \"negative_frame\": {\"option_a\": [{\"x\": -400.0, \"p\": 1.0}], \"option_b\": [{\"x\": 0.0, \"p\": 0.3333333333333333}, {\"x\": -600.0, \"p\": 0.6666666666666666}]}}]}",
+    "expected_output": "{\"results\": [{\"id\": \"asian_disease_problem\", \"op\": \"FRAMING_ANALYSIS\", \"positive_choice\": \"OPTION_A\", \"negative_choice\": \"OPTION_B\", \"positive_prospect_a\": 105.9025, \"positive_prospect_b\": 93.5515, \"negative_prospect_a\": -438.526, \"negative_prospect_b\": -353.1472, \"preference_reversal\": true}]}"
+  },
+  {
+    "id": 7,
+    "description": "Richard Thaler's 4 Hedonic Editing principles: segregating gains, integrating losses, integrating mixed gains, and the silver lining effect",
+    "input": "{\"parameters\": {\"alpha\": 0.88, \"beta\": 0.88, \"lambda\": 2.25, \"gamma\": 0.61, \"delta\": 0.69}, \"operations\": [{\"id\": \"two_gains\", \"op\": \"HEDONIC_EDITING\", \"events\": [50.0, 25.0]}, {\"id\": \"two_losses\", \"op\": \"HEDONIC_EDITING\", \"events\": [-80.0, -20.0]}, {\"id\": \"mixed_gain\", \"op\": \"HEDONIC_EDITING\", \"events\": [100.0, -20.0]}, {\"id\": \"silver_lining\", \"op\": \"HEDONIC_EDITING\", \"events\": [1.0, -1000.0]}]}",
+    "expected_output": "{\"results\": [{\"id\": \"two_gains\", \"op\": \"HEDONIC_EDITING\", \"events\": [50.0, 25.0], \"net_outcome\": 75.0, \"segregated_value\": 48.2573, \"integrated_value\": 44.6739, \"optimal_strategy\": \"SEGREGATE\", \"hedonic_rule\": \"SEGREGATE_MULTIPLE_GAINS\"}, {\"id\": \"two_losses\", \"op\": \"HEDONIC_EDITING\", \"events\": [-80.0, -20.0], \"net_outcome\": -100.0, \"segregated_value\": -137.8017, \"integrated_value\": -129.474, \"optimal_strategy\": \"INTEGRATE\", \"hedonic_rule\": \"INTEGRATE_MULTIPLE_LOSSES\"}, {\"id\": \"mixed_gain\", \"op\": \"HEDONIC_EDITING\", \"events\": [100.0, -20.0], \"net_outcome\": 80.0, \"segregated_value\": 26.1325, \"integrated_value\": 47.2845, \"optimal_strategy\": \"INTEGRATE\", \"hedonic_rule\": \"INTEGRATE_MIXED_GAIN\"}, {\"id\": \"silver_lining\", \"op\": \"HEDONIC_EDITING\", \"events\": [1.0, -1000.0], \"net_outcome\": -999.0, \"segregated_value\": -981.1606, \"integrated_value\": -981.2963, \"optimal_strategy\": \"SEGREGATE\", \"hedonic_rule\": \"SILVER_LINING\"}]}"
+  },
+  {
+    "id": 8,
+    "description": "Comprehensive fintech behavioral audit: cash discount vs credit surcharge framing, cashback rebates, and micro-investment reference shifts",
+    "input": "{\"parameters\": {\"alpha\": 0.8, \"beta\": 0.8, \"lambda\": 2.5, \"gamma\": 0.65, \"delta\": 0.65}, \"operations\": [{\"id\": \"fintech_pricing_framing\", \"op\": \"FRAMING_ANALYSIS\", \"positive_reference_point\": 0.0, \"negative_reference_point\": 0.0, \"positive_frame\": {\"option_a\": [{\"x\": 5.0, \"p\": 1.0}], \"option_b\": [{\"x\": 10.0, \"p\": 0.5}, {\"x\": 0.0, \"p\": 0.5}]}, \"negative_frame\": {\"option_a\": [{\"x\": -5.0, \"p\": 1.0}], \"option_b\": [{\"x\": 0.0, \"p\": 0.5}, {\"x\": -10.0, \"p\": 0.5}]}}, {\"id\": \"e_commerce_cashback_rebate\", \"op\": \"HEDONIC_EDITING\", \"events\": [-300.0, 10.0]}, {\"id\": \"fintech_micro_invest_prospect\", \"op\": \"EVALUATE_PROSPECT\", \"reference_point\": 100.0, \"outcomes\": [{\"x\": 120.0, \"p\": 0.7}, {\"x\": 90.0, \"p\": 0.3}]}]}",
+    "expected_output": "{\"results\": [{\"id\": \"fintech_pricing_framing\", \"op\": \"FRAMING_ANALYSIS\", \"positive_choice\": \"OPTION_A\", \"negative_choice\": \"OPTION_B\", \"positive_prospect_a\": 3.6239, \"positive_prospect_b\": 2.7685, \"negative_prospect_a\": -9.0597, \"negative_prospect_b\": -6.9211, \"preference_reversal\": true}, {\"id\": \"e_commerce_cashback_rebate\", \"op\": \"HEDONIC_EDITING\", \"events\": [-300.0, 10.0], \"net_outcome\": -290.0, \"segregated_value\": -233.3733, \"integrated_value\": -233.2697, \"optimal_strategy\": \"INTEGRATE\", \"hedonic_rule\": \"INTEGRATE_MIXED_LOSS\"}, {\"id\": \"fintech_micro_invest_prospect\", \"op\": \"EVALUATE_PROSPECT\", \"expected_value\": 111.0, \"prospect_value\": 1.0639, \"value_of_ev\": 6.8095, \"risk_attitude\": \"MIXED\"}]}"
+  }
+]
