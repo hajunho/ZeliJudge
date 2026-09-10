@@ -1,0 +1,1083 @@
+[
+  {
+    "testcase_id": 1,
+    "input": {
+      "config": {
+        "initial_halt_poll_ns": 0,
+        "max_halt_poll_ns": 100000,
+        "halt_poll_ns_grow": 2,
+        "halt_poll_ns_shrink": 2,
+        "halt_poll_ns_grow_start": 10000,
+        "context_switch_cost_ns": 15000,
+        "vcpus": [
+          0
+        ]
+      },
+      "trace": [
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "event_delay_ns": 5000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "event_delay_ns": 5000
+        },
+        {
+          "op": "GET_VCPU_STATS",
+          "vcpu_id": 0
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "status": "DIRECT_SLEEP_NO_POLL",
+          "sleep_time_ns": 5000,
+          "new_halt_poll_ns": 10000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "status": "HALT_POLL_HIT",
+          "poll_time_ns": 5000,
+          "new_halt_poll_ns": 20000,
+          "saved_latency_ns": 10000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "GET_VCPU_STATS",
+          "vcpu_id": 0,
+          "halt_poll_ns": 20000,
+          "poll_success_count": 1,
+          "poll_fail_count": 1,
+          "total_poll_time_ns": 5000,
+          "total_saved_latency_ns": 10000
+        }
+      ],
+      "summary": {
+        "total_poll_success": 1,
+        "total_poll_fails": 1,
+        "total_poll_time_ns": 5000,
+        "total_saved_latency_ns": 10000,
+        "final_vcpus_poll_ns": {
+          "0": 20000
+        }
+      }
+    }
+  },
+  {
+    "testcase_id": 2,
+    "input": {
+      "config": {
+        "initial_halt_poll_ns": 20000,
+        "max_halt_poll_ns": 80000,
+        "halt_poll_ns_grow": 2,
+        "halt_poll_ns_shrink": 2,
+        "halt_poll_ns_grow_start": 20000,
+        "context_switch_cost_ns": 20000,
+        "vcpus": [
+          0
+        ]
+      },
+      "trace": [
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "event_delay_ns": 10000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "event_delay_ns": 10000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "event_delay_ns": 10000
+        },
+        {
+          "op": "GET_VCPU_STATS",
+          "vcpu_id": 0
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "status": "HALT_POLL_HIT",
+          "poll_time_ns": 10000,
+          "new_halt_poll_ns": 40000,
+          "saved_latency_ns": 10000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "status": "HALT_POLL_HIT",
+          "poll_time_ns": 10000,
+          "new_halt_poll_ns": 80000,
+          "saved_latency_ns": 10000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "status": "HALT_POLL_HIT",
+          "poll_time_ns": 10000,
+          "new_halt_poll_ns": 80000,
+          "saved_latency_ns": 10000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "GET_VCPU_STATS",
+          "vcpu_id": 0,
+          "halt_poll_ns": 80000,
+          "poll_success_count": 3,
+          "poll_fail_count": 0,
+          "total_poll_time_ns": 30000,
+          "total_saved_latency_ns": 30000
+        }
+      ],
+      "summary": {
+        "total_poll_success": 3,
+        "total_poll_fails": 0,
+        "total_poll_time_ns": 30000,
+        "total_saved_latency_ns": 30000,
+        "final_vcpus_poll_ns": {
+          "0": 80000
+        }
+      }
+    }
+  },
+  {
+    "testcase_id": 3,
+    "input": {
+      "config": {
+        "initial_halt_poll_ns": 80000,
+        "max_halt_poll_ns": 100000,
+        "halt_poll_ns_grow": 2,
+        "halt_poll_ns_shrink": 2,
+        "halt_poll_ns_grow_start": 10000,
+        "context_switch_cost_ns": 15000,
+        "vcpus": [
+          0
+        ]
+      },
+      "trace": [
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "event_delay_ns": 1000000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "event_delay_ns": 1000000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "event_delay_ns": 1000000
+        },
+        {
+          "op": "GET_VCPU_STATS",
+          "vcpu_id": 0
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "status": "HALT_POLL_MISS_SLEEP",
+          "wasted_poll_time_ns": 80000,
+          "sleep_time_ns": 920000,
+          "new_halt_poll_ns": 40000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "status": "HALT_POLL_MISS_SLEEP",
+          "wasted_poll_time_ns": 40000,
+          "sleep_time_ns": 960000,
+          "new_halt_poll_ns": 20000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "status": "HALT_POLL_MISS_SLEEP",
+          "wasted_poll_time_ns": 20000,
+          "sleep_time_ns": 980000,
+          "new_halt_poll_ns": 10000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "GET_VCPU_STATS",
+          "vcpu_id": 0,
+          "halt_poll_ns": 10000,
+          "poll_success_count": 0,
+          "poll_fail_count": 3,
+          "total_poll_time_ns": 140000,
+          "total_saved_latency_ns": 0
+        }
+      ],
+      "summary": {
+        "total_poll_success": 0,
+        "total_poll_fails": 3,
+        "total_poll_time_ns": 140000,
+        "total_saved_latency_ns": 0,
+        "final_vcpus_poll_ns": {
+          "0": 10000
+        }
+      }
+    }
+  },
+  {
+    "testcase_id": 4,
+    "input": {
+      "config": {
+        "initial_halt_poll_ns": 50000,
+        "max_halt_poll_ns": 100000,
+        "halt_poll_ns_grow": 2,
+        "halt_poll_ns_shrink": 0,
+        "halt_poll_ns_grow_start": 10000,
+        "context_switch_cost_ns": 15000,
+        "vcpus": [
+          0
+        ]
+      },
+      "trace": [
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "event_delay_ns": 200000
+        },
+        {
+          "op": "GET_VCPU_STATS",
+          "vcpu_id": 0
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "status": "HALT_POLL_MISS_SLEEP",
+          "wasted_poll_time_ns": 50000,
+          "sleep_time_ns": 150000,
+          "new_halt_poll_ns": 0,
+          "state": "RUNNING"
+        },
+        {
+          "op": "GET_VCPU_STATS",
+          "vcpu_id": 0,
+          "halt_poll_ns": 0,
+          "poll_success_count": 0,
+          "poll_fail_count": 1,
+          "total_poll_time_ns": 50000,
+          "total_saved_latency_ns": 0
+        }
+      ],
+      "summary": {
+        "total_poll_success": 0,
+        "total_poll_fails": 1,
+        "total_poll_time_ns": 50000,
+        "total_saved_latency_ns": 0,
+        "final_vcpus_poll_ns": {
+          "0": 0
+        }
+      }
+    }
+  },
+  {
+    "testcase_id": 5,
+    "input": {
+      "config": {
+        "initial_halt_poll_ns": 10000,
+        "max_halt_poll_ns": 50000,
+        "halt_poll_ns_grow": 2,
+        "halt_poll_ns_shrink": 2,
+        "halt_poll_ns_grow_start": 10000,
+        "context_switch_cost_ns": 15000,
+        "vcpus": [
+          0
+        ]
+      },
+      "trace": [
+        {
+          "op": "SET_PARAMS",
+          "vcpu_id": 0,
+          "halt_poll_ns": 60000,
+          "max_halt_poll_ns": 120000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "event_delay_ns": 40000
+        },
+        {
+          "op": "GET_VCPU_STATS",
+          "vcpu_id": 0
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SET_PARAMS",
+          "vcpu_id": 0,
+          "status": "PARAMS_UPDATED",
+          "halt_poll_ns": 60000,
+          "max_halt_poll_ns": 120000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "status": "HALT_POLL_HIT",
+          "poll_time_ns": 40000,
+          "new_halt_poll_ns": 120000,
+          "saved_latency_ns": 0,
+          "state": "RUNNING"
+        },
+        {
+          "op": "GET_VCPU_STATS",
+          "vcpu_id": 0,
+          "halt_poll_ns": 120000,
+          "poll_success_count": 1,
+          "poll_fail_count": 0,
+          "total_poll_time_ns": 40000,
+          "total_saved_latency_ns": 0
+        }
+      ],
+      "summary": {
+        "total_poll_success": 1,
+        "total_poll_fails": 0,
+        "total_poll_time_ns": 40000,
+        "total_saved_latency_ns": 0,
+        "final_vcpus_poll_ns": {
+          "0": 120000
+        }
+      }
+    }
+  },
+  {
+    "testcase_id": 6,
+    "input": {
+      "config": {
+        "initial_halt_poll_ns": 20000,
+        "max_halt_poll_ns": 100000,
+        "halt_poll_ns_grow": 2,
+        "halt_poll_ns_shrink": 2,
+        "halt_poll_ns_grow_start": 10000,
+        "context_switch_cost_ns": 15000,
+        "vcpus": [
+          0,
+          1
+        ]
+      },
+      "trace": [
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "event_delay_ns": 10000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "event_delay_ns": 10000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 1,
+          "event_delay_ns": 500000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 1,
+          "event_delay_ns": 500000
+        },
+        {
+          "op": "GET_VCPU_STATS",
+          "vcpu_id": 0
+        },
+        {
+          "op": "GET_VCPU_STATS",
+          "vcpu_id": 1
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "status": "HALT_POLL_HIT",
+          "poll_time_ns": 10000,
+          "new_halt_poll_ns": 40000,
+          "saved_latency_ns": 5000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "status": "HALT_POLL_HIT",
+          "poll_time_ns": 10000,
+          "new_halt_poll_ns": 80000,
+          "saved_latency_ns": 5000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 1,
+          "status": "HALT_POLL_MISS_SLEEP",
+          "wasted_poll_time_ns": 20000,
+          "sleep_time_ns": 480000,
+          "new_halt_poll_ns": 10000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 1,
+          "status": "HALT_POLL_MISS_SLEEP",
+          "wasted_poll_time_ns": 10000,
+          "sleep_time_ns": 490000,
+          "new_halt_poll_ns": 5000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "GET_VCPU_STATS",
+          "vcpu_id": 0,
+          "halt_poll_ns": 80000,
+          "poll_success_count": 2,
+          "poll_fail_count": 0,
+          "total_poll_time_ns": 20000,
+          "total_saved_latency_ns": 10000
+        },
+        {
+          "op": "GET_VCPU_STATS",
+          "vcpu_id": 1,
+          "halt_poll_ns": 5000,
+          "poll_success_count": 0,
+          "poll_fail_count": 2,
+          "total_poll_time_ns": 30000,
+          "total_saved_latency_ns": 0
+        }
+      ],
+      "summary": {
+        "total_poll_success": 2,
+        "total_poll_fails": 2,
+        "total_poll_time_ns": 50000,
+        "total_saved_latency_ns": 10000,
+        "final_vcpus_poll_ns": {
+          "0": 80000,
+          "1": 5000
+        }
+      }
+    }
+  },
+  {
+    "testcase_id": 7,
+    "input": {
+      "config": {
+        "initial_halt_poll_ns": 0,
+        "max_halt_poll_ns": 50000,
+        "halt_poll_ns_grow": 2,
+        "halt_poll_ns_shrink": 2,
+        "halt_poll_ns_grow_start": 10000,
+        "context_switch_cost_ns": 15000,
+        "vcpus": [
+          0
+        ]
+      },
+      "trace": [
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "event_delay_ns": 100000000
+        },
+        {
+          "op": "GET_VCPU_STATS",
+          "vcpu_id": 0
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "status": "DIRECT_SLEEP_NO_POLL",
+          "sleep_time_ns": 100000000,
+          "new_halt_poll_ns": 0,
+          "state": "RUNNING"
+        },
+        {
+          "op": "GET_VCPU_STATS",
+          "vcpu_id": 0,
+          "halt_poll_ns": 0,
+          "poll_success_count": 0,
+          "poll_fail_count": 1,
+          "total_poll_time_ns": 0,
+          "total_saved_latency_ns": 0
+        }
+      ],
+      "summary": {
+        "total_poll_success": 0,
+        "total_poll_fails": 1,
+        "total_poll_time_ns": 0,
+        "total_saved_latency_ns": 0,
+        "final_vcpus_poll_ns": {
+          "0": 0
+        }
+      }
+    }
+  },
+  {
+    "testcase_id": 8,
+    "input": {
+      "config": {
+        "initial_halt_poll_ns": 10000,
+        "max_halt_poll_ns": 160000,
+        "halt_poll_ns_grow": 2,
+        "halt_poll_ns_shrink": 2,
+        "halt_poll_ns_grow_start": 10000,
+        "context_switch_cost_ns": 15000,
+        "vcpus": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "trace": [
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "event_delay_ns": 3000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 1,
+          "event_delay_ns": 7000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 2,
+          "event_delay_ns": 15000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 3,
+          "event_delay_ns": 500000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "event_delay_ns": 2000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 1,
+          "event_delay_ns": 8000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 2,
+          "event_delay_ns": 12000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 3,
+          "event_delay_ns": 600000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "event_delay_ns": 3000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 1,
+          "event_delay_ns": 7000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 2,
+          "event_delay_ns": 15000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 3,
+          "event_delay_ns": 500000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "event_delay_ns": 2000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 1,
+          "event_delay_ns": 8000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 2,
+          "event_delay_ns": 12000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 3,
+          "event_delay_ns": 600000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "event_delay_ns": 3000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 1,
+          "event_delay_ns": 7000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 2,
+          "event_delay_ns": 15000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 3,
+          "event_delay_ns": 500000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "event_delay_ns": 2000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 1,
+          "event_delay_ns": 8000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 2,
+          "event_delay_ns": 12000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 3,
+          "event_delay_ns": 600000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "event_delay_ns": 3000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 1,
+          "event_delay_ns": 7000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 2,
+          "event_delay_ns": 15000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 3,
+          "event_delay_ns": 500000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "event_delay_ns": 2000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 1,
+          "event_delay_ns": 8000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 2,
+          "event_delay_ns": 12000
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 3,
+          "event_delay_ns": 600000
+        },
+        {
+          "op": "GET_VCPU_STATS",
+          "vcpu_id": 0
+        },
+        {
+          "op": "GET_VCPU_STATS",
+          "vcpu_id": 1
+        },
+        {
+          "op": "GET_VCPU_STATS",
+          "vcpu_id": 2
+        },
+        {
+          "op": "GET_VCPU_STATS",
+          "vcpu_id": 3
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "status": "HALT_POLL_HIT",
+          "poll_time_ns": 3000,
+          "new_halt_poll_ns": 20000,
+          "saved_latency_ns": 12000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 1,
+          "status": "HALT_POLL_HIT",
+          "poll_time_ns": 7000,
+          "new_halt_poll_ns": 20000,
+          "saved_latency_ns": 8000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 2,
+          "status": "HALT_POLL_MISS_SLEEP",
+          "wasted_poll_time_ns": 10000,
+          "sleep_time_ns": 5000,
+          "new_halt_poll_ns": 5000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 3,
+          "status": "HALT_POLL_MISS_SLEEP",
+          "wasted_poll_time_ns": 10000,
+          "sleep_time_ns": 490000,
+          "new_halt_poll_ns": 5000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "status": "HALT_POLL_HIT",
+          "poll_time_ns": 2000,
+          "new_halt_poll_ns": 40000,
+          "saved_latency_ns": 13000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 1,
+          "status": "HALT_POLL_HIT",
+          "poll_time_ns": 8000,
+          "new_halt_poll_ns": 40000,
+          "saved_latency_ns": 7000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 2,
+          "status": "HALT_POLL_MISS_SLEEP",
+          "wasted_poll_time_ns": 5000,
+          "sleep_time_ns": 7000,
+          "new_halt_poll_ns": 2500,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 3,
+          "status": "HALT_POLL_MISS_SLEEP",
+          "wasted_poll_time_ns": 5000,
+          "sleep_time_ns": 595000,
+          "new_halt_poll_ns": 2500,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "status": "HALT_POLL_HIT",
+          "poll_time_ns": 3000,
+          "new_halt_poll_ns": 80000,
+          "saved_latency_ns": 12000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 1,
+          "status": "HALT_POLL_HIT",
+          "poll_time_ns": 7000,
+          "new_halt_poll_ns": 80000,
+          "saved_latency_ns": 8000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 2,
+          "status": "HALT_POLL_MISS_SLEEP",
+          "wasted_poll_time_ns": 2500,
+          "sleep_time_ns": 12500,
+          "new_halt_poll_ns": 1250,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 3,
+          "status": "HALT_POLL_MISS_SLEEP",
+          "wasted_poll_time_ns": 2500,
+          "sleep_time_ns": 497500,
+          "new_halt_poll_ns": 1250,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "status": "HALT_POLL_HIT",
+          "poll_time_ns": 2000,
+          "new_halt_poll_ns": 160000,
+          "saved_latency_ns": 13000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 1,
+          "status": "HALT_POLL_HIT",
+          "poll_time_ns": 8000,
+          "new_halt_poll_ns": 160000,
+          "saved_latency_ns": 7000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 2,
+          "status": "HALT_POLL_MISS_SLEEP",
+          "wasted_poll_time_ns": 1250,
+          "sleep_time_ns": 10750,
+          "new_halt_poll_ns": 625,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 3,
+          "status": "HALT_POLL_MISS_SLEEP",
+          "wasted_poll_time_ns": 1250,
+          "sleep_time_ns": 598750,
+          "new_halt_poll_ns": 625,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "status": "HALT_POLL_HIT",
+          "poll_time_ns": 3000,
+          "new_halt_poll_ns": 160000,
+          "saved_latency_ns": 12000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 1,
+          "status": "HALT_POLL_HIT",
+          "poll_time_ns": 7000,
+          "new_halt_poll_ns": 160000,
+          "saved_latency_ns": 8000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 2,
+          "status": "HALT_POLL_MISS_SLEEP",
+          "wasted_poll_time_ns": 625,
+          "sleep_time_ns": 14375,
+          "new_halt_poll_ns": 312,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 3,
+          "status": "HALT_POLL_MISS_SLEEP",
+          "wasted_poll_time_ns": 625,
+          "sleep_time_ns": 499375,
+          "new_halt_poll_ns": 312,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "status": "HALT_POLL_HIT",
+          "poll_time_ns": 2000,
+          "new_halt_poll_ns": 160000,
+          "saved_latency_ns": 13000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 1,
+          "status": "HALT_POLL_HIT",
+          "poll_time_ns": 8000,
+          "new_halt_poll_ns": 160000,
+          "saved_latency_ns": 7000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 2,
+          "status": "HALT_POLL_MISS_SLEEP",
+          "wasted_poll_time_ns": 312,
+          "sleep_time_ns": 11688,
+          "new_halt_poll_ns": 156,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 3,
+          "status": "HALT_POLL_MISS_SLEEP",
+          "wasted_poll_time_ns": 312,
+          "sleep_time_ns": 599688,
+          "new_halt_poll_ns": 156,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "status": "HALT_POLL_HIT",
+          "poll_time_ns": 3000,
+          "new_halt_poll_ns": 160000,
+          "saved_latency_ns": 12000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 1,
+          "status": "HALT_POLL_HIT",
+          "poll_time_ns": 7000,
+          "new_halt_poll_ns": 160000,
+          "saved_latency_ns": 8000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 2,
+          "status": "HALT_POLL_MISS_SLEEP",
+          "wasted_poll_time_ns": 156,
+          "sleep_time_ns": 14844,
+          "new_halt_poll_ns": 78,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 3,
+          "status": "HALT_POLL_MISS_SLEEP",
+          "wasted_poll_time_ns": 156,
+          "sleep_time_ns": 499844,
+          "new_halt_poll_ns": 78,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 0,
+          "status": "HALT_POLL_HIT",
+          "poll_time_ns": 2000,
+          "new_halt_poll_ns": 160000,
+          "saved_latency_ns": 13000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 1,
+          "status": "HALT_POLL_HIT",
+          "poll_time_ns": 8000,
+          "new_halt_poll_ns": 160000,
+          "saved_latency_ns": 7000,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 2,
+          "status": "HALT_POLL_MISS_SLEEP",
+          "wasted_poll_time_ns": 78,
+          "sleep_time_ns": 11922,
+          "new_halt_poll_ns": 39,
+          "state": "RUNNING"
+        },
+        {
+          "op": "VCPU_HALT",
+          "vcpu_id": 3,
+          "status": "HALT_POLL_MISS_SLEEP",
+          "wasted_poll_time_ns": 78,
+          "sleep_time_ns": 599922,
+          "new_halt_poll_ns": 39,
+          "state": "RUNNING"
+        },
+        {
+          "op": "GET_VCPU_STATS",
+          "vcpu_id": 0,
+          "halt_poll_ns": 160000,
+          "poll_success_count": 8,
+          "poll_fail_count": 0,
+          "total_poll_time_ns": 20000,
+          "total_saved_latency_ns": 100000
+        },
+        {
+          "op": "GET_VCPU_STATS",
+          "vcpu_id": 1,
+          "halt_poll_ns": 160000,
+          "poll_success_count": 8,
+          "poll_fail_count": 0,
+          "total_poll_time_ns": 60000,
+          "total_saved_latency_ns": 60000
+        },
+        {
+          "op": "GET_VCPU_STATS",
+          "vcpu_id": 2,
+          "halt_poll_ns": 39,
+          "poll_success_count": 0,
+          "poll_fail_count": 8,
+          "total_poll_time_ns": 19921,
+          "total_saved_latency_ns": 0
+        },
+        {
+          "op": "GET_VCPU_STATS",
+          "vcpu_id": 3,
+          "halt_poll_ns": 39,
+          "poll_success_count": 0,
+          "poll_fail_count": 8,
+          "total_poll_time_ns": 19921,
+          "total_saved_latency_ns": 0
+        }
+      ],
+      "summary": {
+        "total_poll_success": 16,
+        "total_poll_fails": 16,
+        "total_poll_time_ns": 119842,
+        "total_saved_latency_ns": 160000,
+        "final_vcpus_poll_ns": {
+          "0": 160000,
+          "1": 160000,
+          "2": 39,
+          "3": 39
+        }
+      }
+    }
+  }
+]
