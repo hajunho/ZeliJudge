@@ -1,0 +1,42 @@
+[
+  {
+    "name": "TC1_Basic_Generational_Aging",
+    "input": "{\"config\":{\"max_nr_gens\":4},\"operations\":[{\"action\":\"ADD_PAGE\",\"page_id\":\"P1\",\"tier\":0},{\"action\":\"ADD_PAGE\",\"page_id\":\"P2\",\"tier\":0},{\"action\":\"AGING_TICK\"},{\"action\":\"ADD_PAGE\",\"page_id\":\"P3\",\"tier\":0},{\"action\":\"AGING_TICK\"}]}",
+    "output": "{\"min_seq\":0,\"max_seq\":2,\"nr_active_gens\":3,\"total_reclaimed_bytes\":0,\"evicted_pages\":[],\"promoted_pages\":[],\"gen_distribution\":{\"0\":[\"P1\",\"P2\"],\"1\":[\"P3\"],\"2\":[]},\"pages\":{\"P1\":{\"page_id\":\"P1\",\"size_bytes\":4096,\"gen\":0,\"tier\":0,\"referenced\":false,\"evicted\":false},\"P2\":{\"page_id\":\"P2\",\"size_bytes\":4096,\"gen\":0,\"tier\":0,\"referenced\":false,\"evicted\":false},\"P3\":{\"page_id\":\"P3\",\"size_bytes\":4096,\"gen\":1,\"tier\":0,\"referenced\":false,\"evicted\":false}}}"
+  },
+  {
+    "name": "TC2_Access_Bit_Promotion_To_Youngest_Gen",
+    "input": "{\"config\":{\"max_nr_gens\":4},\"operations\":[{\"action\":\"ADD_PAGE\",\"page_id\":\"P1\",\"tier\":0},{\"action\":\"AGING_TICK\"},{\"action\":\"ACCESS\",\"page_id\":\"P1\"},{\"action\":\"AGING_TICK\"}]}",
+    "output": "{\"min_seq\":0,\"max_seq\":2,\"nr_active_gens\":3,\"total_reclaimed_bytes\":0,\"evicted_pages\":[],\"promoted_pages\":[\"P1\"],\"gen_distribution\":{\"0\":[],\"1\":[],\"2\":[\"P1\"]},\"pages\":{\"P1\":{\"page_id\":\"P1\",\"size_bytes\":4096,\"gen\":2,\"tier\":1,\"referenced\":false,\"evicted\":false}}}"
+  },
+  {
+    "name": "TC3_Multi_Tier_Protection_Demotion_Before_Eviction",
+    "input": "{\"config\":{\"max_nr_gens\":4},\"operations\":[{\"action\":\"ADD_PAGE\",\"page_id\":\"P_HOT\",\"tier\":2},{\"action\":\"AGING_TICK\"},{\"action\":\"EVICT\",\"bytes\":4096},{\"action\":\"EVICT\",\"bytes\":4096},{\"action\":\"EVICT\",\"bytes\":4096}]}",
+    "output": "{\"min_seq\":1,\"max_seq\":1,\"nr_active_gens\":1,\"total_reclaimed_bytes\":4096,\"evicted_pages\":[\"P_HOT\"],\"promoted_pages\":[],\"gen_distribution\":{\"1\":[]},\"pages\":{\"P_HOT\":{\"page_id\":\"P_HOT\",\"size_bytes\":4096,\"gen\":0,\"tier\":0,\"referenced\":false,\"evicted\":true}}}"
+  },
+  {
+    "name": "TC4_Second_Chance_Promotion_At_Eviction_Front",
+    "input": "{\"config\":{\"max_nr_gens\":4},\"operations\":[{\"action\":\"ADD_PAGE\",\"page_id\":\"P_REC\",\"tier\":0},{\"action\":\"AGING_TICK\"},{\"action\":\"ACCESS\",\"page_id\":\"P_REC\"},{\"action\":\"EVICT\",\"bytes\":4096}]}",
+    "output": "{\"min_seq\":1,\"max_seq\":1,\"nr_active_gens\":1,\"total_reclaimed_bytes\":0,\"evicted_pages\":[],\"promoted_pages\":[\"P_REC\"],\"gen_distribution\":{\"1\":[\"P_REC\"]},\"pages\":{\"P_REC\":{\"page_id\":\"P_REC\",\"size_bytes\":4096,\"gen\":1,\"tier\":1,\"referenced\":false,\"evicted\":false}}}"
+  },
+  {
+    "name": "TC5_Max_Generations_Cap_Enforcement",
+    "input": "{\"config\":{\"max_nr_gens\":3},\"operations\":[{\"action\":\"ADD_PAGE\",\"page_id\":\"G0_P\",\"tier\":0},{\"action\":\"AGING_TICK\"},{\"action\":\"ADD_PAGE\",\"page_id\":\"G1_P\",\"tier\":0},{\"action\":\"AGING_TICK\"},{\"action\":\"ADD_PAGE\",\"page_id\":\"G2_P\",\"tier\":0},{\"action\":\"AGING_TICK\"}]}",
+    "output": "{\"min_seq\":3,\"max_seq\":3,\"nr_active_gens\":1,\"total_reclaimed_bytes\":12288,\"evicted_pages\":[\"G0_P\",\"G1_P\",\"G2_P\"],\"promoted_pages\":[],\"gen_distribution\":{\"3\":[]},\"pages\":{\"G0_P\":{\"page_id\":\"G0_P\",\"size_bytes\":4096,\"gen\":0,\"tier\":0,\"referenced\":false,\"evicted\":true},\"G1_P\":{\"page_id\":\"G1_P\",\"size_bytes\":4096,\"gen\":1,\"tier\":0,\"referenced\":false,\"evicted\":true},\"G2_P\":{\"page_id\":\"G2_P\",\"size_bytes\":4096,\"gen\":2,\"tier\":0,\"referenced\":false,\"evicted\":true}}}"
+  },
+  {
+    "name": "TC6_Multi_Page_Batch_Reclaim_Budget",
+    "input": "{\"config\":{\"max_nr_gens\":4},\"operations\":[{\"action\":\"ADD_PAGE\",\"page_id\":\"P1\",\"size_bytes\":4096,\"tier\":0},{\"action\":\"ADD_PAGE\",\"page_id\":\"P2\",\"size_bytes\":4096,\"tier\":0},{\"action\":\"ADD_PAGE\",\"page_id\":\"P3\",\"size_bytes\":4096,\"tier\":0},{\"action\":\"AGING_TICK\"},{\"action\":\"EVICT\",\"bytes\":8192}]}",
+    "output": "{\"min_seq\":1,\"max_seq\":1,\"nr_active_gens\":1,\"total_reclaimed_bytes\":8192,\"evicted_pages\":[\"P1\",\"P2\"],\"promoted_pages\":[],\"gen_distribution\":{\"1\":[]},\"pages\":{\"P1\":{\"page_id\":\"P1\",\"size_bytes\":4096,\"gen\":0,\"tier\":0,\"referenced\":false,\"evicted\":true},\"P2\":{\"page_id\":\"P2\",\"size_bytes\":4096,\"gen\":0,\"tier\":0,\"referenced\":false,\"evicted\":true},\"P3\":{\"page_id\":\"P3\",\"size_bytes\":4096,\"gen\":0,\"tier\":0,\"referenced\":false,\"evicted\":false}}}"
+  },
+  {
+    "name": "TC7_Interleaved_Streaming_Vs_Hot_Working_Set",
+    "input": "{\"config\":{\"max_nr_gens\":4},\"operations\":[{\"action\":\"ADD_PAGE\",\"page_id\":\"Hot_DB\",\"tier\":3},{\"action\":\"ADD_PAGE\",\"page_id\":\"Stream_1\",\"tier\":0},{\"action\":\"ADD_PAGE\",\"page_id\":\"Stream_2\",\"tier\":0},{\"action\":\"AGING_TICK\"},{\"action\":\"ACCESS\",\"page_id\":\"Hot_DB\"},{\"action\":\"EVICT\",\"bytes\":8192}]}",
+    "output": "{\"min_seq\":1,\"max_seq\":1,\"nr_active_gens\":1,\"total_reclaimed_bytes\":8192,\"evicted_pages\":[\"Stream_1\",\"Stream_2\"],\"promoted_pages\":[\"Hot_DB\"],\"gen_distribution\":{\"1\":[\"Hot_DB\"]},\"pages\":{\"Hot_DB\":{\"page_id\":\"Hot_DB\",\"size_bytes\":4096,\"gen\":1,\"tier\":3,\"referenced\":false,\"evicted\":false},\"Stream_1\":{\"page_id\":\"Stream_1\",\"size_bytes\":4096,\"gen\":0,\"tier\":0,\"referenced\":false,\"evicted\":true},\"Stream_2\":{\"page_id\":\"Stream_2\",\"size_bytes\":4096,\"gen\":0,\"tier\":0,\"referenced\":false,\"evicted\":true}}}"
+  },
+  {
+    "name": "TC8_Cloud_Multi_Tenant_MGLRU_Stress_Audit",
+    "input": "{\"config\":{\"max_nr_gens\":4},\"operations\":[{\"action\":\"ADD_PAGE\",\"page_id\":\"T1_A\",\"tier\":1},{\"action\":\"ADD_PAGE\",\"page_id\":\"T1_B\",\"tier\":0},{\"action\":\"ADD_PAGE\",\"page_id\":\"T2_A\",\"tier\":2},{\"action\":\"AGING_TICK\"},{\"action\":\"ACCESS\",\"page_id\":\"T1_A\"},{\"action\":\"ADD_PAGE\",\"page_id\":\"T3_New\",\"tier\":0},{\"action\":\"AGING_TICK\"},{\"action\":\"EVICT\",\"bytes\":4096},{\"action\":\"AGING_TICK\"},{\"action\":\"ACCESS\",\"page_id\":\"T3_New\"},{\"action\":\"AGING_TICK\"}]}",
+    "output": "{\"min_seq\":1,\"max_seq\":4,\"nr_active_gens\":4,\"total_reclaimed_bytes\":4096,\"evicted_pages\":[\"T1_B\"],\"promoted_pages\":[\"T1_A\",\"T3_New\"],\"gen_distribution\":{\"1\":[],\"2\":[\"T1_A\"],\"3\":[],\"4\":[\"T3_New\"]},\"pages\":{\"T1_A\":{\"page_id\":\"T1_A\",\"size_bytes\":4096,\"gen\":2,\"tier\":2,\"referenced\":false,\"evicted\":false},\"T1_B\":{\"page_id\":\"T1_B\",\"size_bytes\":4096,\"gen\":0,\"tier\":0,\"referenced\":false,\"evicted\":true},\"T2_A\":{\"page_id\":\"T2_A\",\"size_bytes\":4096,\"gen\":0,\"tier\":2,\"referenced\":false,\"evicted\":false},\"T3_New\":{\"page_id\":\"T3_New\",\"size_bytes\":4096,\"gen\":4,\"tier\":1,\"referenced\":false,\"evicted\":false}}}"
+  }
+]
