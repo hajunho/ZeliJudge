@@ -1,0 +1,1389 @@
+[
+  {
+    "input": {
+      "config": {},
+      "trace": [
+        {
+          "time": 10,
+          "type": "READ_LOCK",
+          "lock_id": "rw1",
+          "task_id": "r1"
+        },
+        {
+          "time": 20,
+          "type": "READ_LOCK",
+          "lock_id": "rw1",
+          "task_id": "r2"
+        },
+        {
+          "time": 30,
+          "type": "WRITE_LOCK",
+          "lock_id": "rw1",
+          "task_id": "w1"
+        },
+        {
+          "time": 40,
+          "type": "READ_LOCK",
+          "lock_id": "rw1",
+          "task_id": "r3"
+        },
+        {
+          "time": 50,
+          "type": "READ_LOCK",
+          "lock_id": "rw1",
+          "task_id": "r4"
+        },
+        {
+          "time": 60,
+          "type": "READ_UNLOCK",
+          "lock_id": "rw1",
+          "task_id": "r1"
+        },
+        {
+          "time": 70,
+          "type": "READ_UNLOCK",
+          "lock_id": "rw1",
+          "task_id": "r2"
+        },
+        {
+          "time": 80,
+          "type": "WRITE_UNLOCK",
+          "lock_id": "rw1",
+          "task_id": "w1"
+        },
+        {
+          "time": 90,
+          "type": "READ_UNLOCK",
+          "lock_id": "rw1",
+          "task_id": "r3"
+        },
+        {
+          "time": 100,
+          "type": "READ_UNLOCK",
+          "lock_id": "rw1",
+          "task_id": "r4"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "read_fastpath_count": 2,
+        "read_blocked_count": 2,
+        "write_fastpath_count": 0,
+        "write_barriers_set": 1,
+        "writer_starvations_prevented": 1,
+        "total_locks": 1
+      },
+      "locks": {
+        "rw1": {
+          "writer_locked": false,
+          "writer_waiting": false,
+          "reader_count": 0,
+          "active_readers": [],
+          "active_writer": null,
+          "waiting_writer": null,
+          "queued_writers": [],
+          "queued_readers": []
+        }
+      },
+      "lock_logs": [
+        {
+          "time": 30,
+          "action": "WRITE_BARRIER_SET",
+          "lock_id": "rw1",
+          "waiting_writer": "w1",
+          "active_readers": 2
+        },
+        {
+          "time": 70,
+          "action": "WRITER_HANDOFF_FROM_READERS",
+          "lock_id": "rw1",
+          "writer_id": "w1"
+        },
+        {
+          "time": 80,
+          "action": "READERS_BATCH_UNBLOCKED",
+          "lock_id": "rw1",
+          "count": 2
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "READ_LOCK_FASTPATH",
+          "lock_id": "rw1",
+          "task_id": "r1",
+          "reader_count": 1
+        },
+        {
+          "time": 20,
+          "event": "READ_LOCK_FASTPATH",
+          "lock_id": "rw1",
+          "task_id": "r2",
+          "reader_count": 2
+        },
+        {
+          "time": 30,
+          "event": "WRITE_LOCK_WAITING_SET_BARRIER",
+          "lock_id": "rw1",
+          "task_id": "w1"
+        },
+        {
+          "time": 40,
+          "event": "READ_LOCK_BLOCKED",
+          "lock_id": "rw1",
+          "task_id": "r3",
+          "reason": "WRITER_PENDING_OR_LOCKED"
+        },
+        {
+          "time": 50,
+          "event": "READ_LOCK_BLOCKED",
+          "lock_id": "rw1",
+          "task_id": "r4",
+          "reason": "WRITER_PENDING_OR_LOCKED"
+        },
+        {
+          "time": 60,
+          "event": "READ_UNLOCK_SUCCESS",
+          "lock_id": "rw1",
+          "task_id": "r1",
+          "remaining_readers": 1
+        },
+        {
+          "time": 70,
+          "event": "READ_UNLOCK_SUCCESS",
+          "lock_id": "rw1",
+          "task_id": "r2",
+          "remaining_readers": 0
+        },
+        {
+          "time": 70,
+          "event": "WRITER_ACQUIRED_AFTER_READERS_DRAIN",
+          "lock_id": "rw1",
+          "writer_id": "w1"
+        },
+        {
+          "time": 80,
+          "event": "WRITE_UNLOCK_SUCCESS",
+          "lock_id": "rw1",
+          "task_id": "w1"
+        },
+        {
+          "time": 80,
+          "event": "READERS_WOKEN_UP",
+          "lock_id": "rw1",
+          "count": 2
+        },
+        {
+          "time": 90,
+          "event": "READ_UNLOCK_SUCCESS",
+          "lock_id": "rw1",
+          "task_id": "r3",
+          "remaining_readers": 1
+        },
+        {
+          "time": 100,
+          "event": "READ_UNLOCK_SUCCESS",
+          "lock_id": "rw1",
+          "task_id": "r4",
+          "remaining_readers": 0
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "trace": [
+        {
+          "time": 10,
+          "type": "WRITE_LOCK",
+          "lock_id": "lock_a",
+          "task_id": "w_fast"
+        },
+        {
+          "time": 20,
+          "type": "READ_LOCK",
+          "lock_id": "lock_a",
+          "task_id": "r_wait"
+        },
+        {
+          "time": 30,
+          "type": "WRITE_UNLOCK",
+          "lock_id": "lock_a",
+          "task_id": "w_fast"
+        },
+        {
+          "time": 40,
+          "type": "READ_UNLOCK",
+          "lock_id": "lock_a",
+          "task_id": "r_wait"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "read_fastpath_count": 0,
+        "read_blocked_count": 1,
+        "write_fastpath_count": 1,
+        "write_barriers_set": 0,
+        "writer_starvations_prevented": 0,
+        "total_locks": 1
+      },
+      "locks": {
+        "lock_a": {
+          "writer_locked": false,
+          "writer_waiting": false,
+          "reader_count": 0,
+          "active_readers": [],
+          "active_writer": null,
+          "waiting_writer": null,
+          "queued_writers": [],
+          "queued_readers": []
+        }
+      },
+      "lock_logs": [
+        {
+          "time": 30,
+          "action": "READERS_BATCH_UNBLOCKED",
+          "lock_id": "lock_a",
+          "count": 1
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "WRITE_LOCK_FASTPATH",
+          "lock_id": "lock_a",
+          "task_id": "w_fast"
+        },
+        {
+          "time": 20,
+          "event": "READ_LOCK_BLOCKED",
+          "lock_id": "lock_a",
+          "task_id": "r_wait",
+          "reason": "WRITER_PENDING_OR_LOCKED"
+        },
+        {
+          "time": 30,
+          "event": "WRITE_UNLOCK_SUCCESS",
+          "lock_id": "lock_a",
+          "task_id": "w_fast"
+        },
+        {
+          "time": 30,
+          "event": "READERS_WOKEN_UP",
+          "lock_id": "lock_a",
+          "count": 1
+        },
+        {
+          "time": 40,
+          "event": "READ_UNLOCK_SUCCESS",
+          "lock_id": "lock_a",
+          "task_id": "r_wait",
+          "remaining_readers": 0
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "trace": [
+        {
+          "time": 10,
+          "type": "READ_LOCK",
+          "lock_id": "lock_b",
+          "task_id": "r_init"
+        },
+        {
+          "time": 20,
+          "type": "WRITE_LOCK",
+          "lock_id": "lock_b",
+          "task_id": "w1"
+        },
+        {
+          "time": 30,
+          "type": "WRITE_LOCK",
+          "lock_id": "lock_b",
+          "task_id": "w2"
+        },
+        {
+          "time": 40,
+          "type": "WRITE_LOCK",
+          "lock_id": "lock_b",
+          "task_id": "w3"
+        },
+        {
+          "time": 50,
+          "type": "READ_UNLOCK",
+          "lock_id": "lock_b",
+          "task_id": "r_init"
+        },
+        {
+          "time": 60,
+          "type": "WRITE_UNLOCK",
+          "lock_id": "lock_b",
+          "task_id": "w1"
+        },
+        {
+          "time": 70,
+          "type": "WRITE_UNLOCK",
+          "lock_id": "lock_b",
+          "task_id": "w2"
+        },
+        {
+          "time": 80,
+          "type": "WRITE_UNLOCK",
+          "lock_id": "lock_b",
+          "task_id": "w3"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "read_fastpath_count": 1,
+        "read_blocked_count": 0,
+        "write_fastpath_count": 0,
+        "write_barriers_set": 1,
+        "writer_starvations_prevented": 1,
+        "total_locks": 1
+      },
+      "locks": {
+        "lock_b": {
+          "writer_locked": false,
+          "writer_waiting": false,
+          "reader_count": 0,
+          "active_readers": [],
+          "active_writer": null,
+          "waiting_writer": null,
+          "queued_writers": [],
+          "queued_readers": []
+        }
+      },
+      "lock_logs": [
+        {
+          "time": 20,
+          "action": "WRITE_BARRIER_SET",
+          "lock_id": "lock_b",
+          "waiting_writer": "w1",
+          "active_readers": 1
+        },
+        {
+          "time": 50,
+          "action": "WRITER_HANDOFF_FROM_READERS",
+          "lock_id": "lock_b",
+          "writer_id": "w1"
+        },
+        {
+          "time": 60,
+          "action": "WRITER_HANDOFF_MCS",
+          "lock_id": "lock_b",
+          "next_writer": "w2"
+        },
+        {
+          "time": 70,
+          "action": "WRITER_HANDOFF_MCS",
+          "lock_id": "lock_b",
+          "next_writer": "w3"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "READ_LOCK_FASTPATH",
+          "lock_id": "lock_b",
+          "task_id": "r_init",
+          "reader_count": 1
+        },
+        {
+          "time": 20,
+          "event": "WRITE_LOCK_WAITING_SET_BARRIER",
+          "lock_id": "lock_b",
+          "task_id": "w1"
+        },
+        {
+          "time": 30,
+          "event": "WRITE_LOCK_QUEUED_MCS",
+          "lock_id": "lock_b",
+          "task_id": "w2"
+        },
+        {
+          "time": 40,
+          "event": "WRITE_LOCK_QUEUED_MCS",
+          "lock_id": "lock_b",
+          "task_id": "w3"
+        },
+        {
+          "time": 50,
+          "event": "READ_UNLOCK_SUCCESS",
+          "lock_id": "lock_b",
+          "task_id": "r_init",
+          "remaining_readers": 0
+        },
+        {
+          "time": 50,
+          "event": "WRITER_ACQUIRED_AFTER_READERS_DRAIN",
+          "lock_id": "lock_b",
+          "writer_id": "w1"
+        },
+        {
+          "time": 60,
+          "event": "WRITE_UNLOCK_SUCCESS",
+          "lock_id": "lock_b",
+          "task_id": "w1"
+        },
+        {
+          "time": 60,
+          "event": "WRITER_ACQUIRED_FROM_MCS",
+          "lock_id": "lock_b",
+          "writer_id": "w2"
+        },
+        {
+          "time": 70,
+          "event": "WRITE_UNLOCK_SUCCESS",
+          "lock_id": "lock_b",
+          "task_id": "w2"
+        },
+        {
+          "time": 70,
+          "event": "WRITER_ACQUIRED_FROM_MCS",
+          "lock_id": "lock_b",
+          "writer_id": "w3"
+        },
+        {
+          "time": 80,
+          "event": "WRITE_UNLOCK_SUCCESS",
+          "lock_id": "lock_b",
+          "task_id": "w3"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "trace": [
+        {
+          "time": 10,
+          "type": "READ_LOCK",
+          "lock_id": "shared_res",
+          "task_id": "rd_1"
+        },
+        {
+          "time": 20,
+          "type": "READ_LOCK",
+          "lock_id": "shared_res",
+          "task_id": "rd_2"
+        },
+        {
+          "time": 30,
+          "type": "READ_LOCK",
+          "lock_id": "shared_res",
+          "task_id": "rd_3"
+        },
+        {
+          "time": 40,
+          "type": "READ_LOCK",
+          "lock_id": "shared_res",
+          "task_id": "rd_4"
+        },
+        {
+          "time": 50,
+          "type": "READ_LOCK",
+          "lock_id": "shared_res",
+          "task_id": "rd_5"
+        },
+        {
+          "time": 60,
+          "type": "READ_UNLOCK",
+          "lock_id": "shared_res",
+          "task_id": "rd_5"
+        },
+        {
+          "time": 70,
+          "type": "READ_UNLOCK",
+          "lock_id": "shared_res",
+          "task_id": "rd_4"
+        },
+        {
+          "time": 80,
+          "type": "READ_UNLOCK",
+          "lock_id": "shared_res",
+          "task_id": "rd_3"
+        },
+        {
+          "time": 90,
+          "type": "READ_UNLOCK",
+          "lock_id": "shared_res",
+          "task_id": "rd_2"
+        },
+        {
+          "time": 100,
+          "type": "READ_UNLOCK",
+          "lock_id": "shared_res",
+          "task_id": "rd_1"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "read_fastpath_count": 5,
+        "read_blocked_count": 0,
+        "write_fastpath_count": 0,
+        "write_barriers_set": 0,
+        "writer_starvations_prevented": 0,
+        "total_locks": 1
+      },
+      "locks": {
+        "shared_res": {
+          "writer_locked": false,
+          "writer_waiting": false,
+          "reader_count": 0,
+          "active_readers": [],
+          "active_writer": null,
+          "waiting_writer": null,
+          "queued_writers": [],
+          "queued_readers": []
+        }
+      },
+      "lock_logs": [],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "READ_LOCK_FASTPATH",
+          "lock_id": "shared_res",
+          "task_id": "rd_1",
+          "reader_count": 1
+        },
+        {
+          "time": 20,
+          "event": "READ_LOCK_FASTPATH",
+          "lock_id": "shared_res",
+          "task_id": "rd_2",
+          "reader_count": 2
+        },
+        {
+          "time": 30,
+          "event": "READ_LOCK_FASTPATH",
+          "lock_id": "shared_res",
+          "task_id": "rd_3",
+          "reader_count": 3
+        },
+        {
+          "time": 40,
+          "event": "READ_LOCK_FASTPATH",
+          "lock_id": "shared_res",
+          "task_id": "rd_4",
+          "reader_count": 4
+        },
+        {
+          "time": 50,
+          "event": "READ_LOCK_FASTPATH",
+          "lock_id": "shared_res",
+          "task_id": "rd_5",
+          "reader_count": 5
+        },
+        {
+          "time": 60,
+          "event": "READ_UNLOCK_SUCCESS",
+          "lock_id": "shared_res",
+          "task_id": "rd_5",
+          "remaining_readers": 4
+        },
+        {
+          "time": 70,
+          "event": "READ_UNLOCK_SUCCESS",
+          "lock_id": "shared_res",
+          "task_id": "rd_4",
+          "remaining_readers": 3
+        },
+        {
+          "time": 80,
+          "event": "READ_UNLOCK_SUCCESS",
+          "lock_id": "shared_res",
+          "task_id": "rd_3",
+          "remaining_readers": 2
+        },
+        {
+          "time": 90,
+          "event": "READ_UNLOCK_SUCCESS",
+          "lock_id": "shared_res",
+          "task_id": "rd_2",
+          "remaining_readers": 1
+        },
+        {
+          "time": 100,
+          "event": "READ_UNLOCK_SUCCESS",
+          "lock_id": "shared_res",
+          "task_id": "rd_1",
+          "remaining_readers": 0
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "trace": [
+        {
+          "time": 10,
+          "type": "READ_LOCK",
+          "lock_id": "lock_meta",
+          "task_id": "meta_r1"
+        },
+        {
+          "time": 20,
+          "type": "READ_LOCK",
+          "lock_id": "lock_data",
+          "task_id": "data_r1"
+        },
+        {
+          "time": 30,
+          "type": "WRITE_LOCK",
+          "lock_id": "lock_data",
+          "task_id": "data_w1"
+        },
+        {
+          "time": 40,
+          "type": "READ_LOCK",
+          "lock_id": "lock_meta",
+          "task_id": "meta_r2"
+        },
+        {
+          "time": 50,
+          "type": "READ_LOCK",
+          "lock_id": "lock_data",
+          "task_id": "data_r2"
+        },
+        {
+          "time": 60,
+          "type": "READ_UNLOCK",
+          "lock_id": "lock_data",
+          "task_id": "data_r1"
+        },
+        {
+          "time": 70,
+          "type": "READ_UNLOCK",
+          "lock_id": "lock_meta",
+          "task_id": "meta_r1"
+        },
+        {
+          "time": 80,
+          "type": "READ_UNLOCK",
+          "lock_id": "lock_meta",
+          "task_id": "meta_r2"
+        },
+        {
+          "time": 90,
+          "type": "WRITE_UNLOCK",
+          "lock_id": "lock_data",
+          "task_id": "data_w1"
+        },
+        {
+          "time": 100,
+          "type": "READ_UNLOCK",
+          "lock_id": "lock_data",
+          "task_id": "data_r2"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "read_fastpath_count": 3,
+        "read_blocked_count": 1,
+        "write_fastpath_count": 0,
+        "write_barriers_set": 1,
+        "writer_starvations_prevented": 1,
+        "total_locks": 2
+      },
+      "locks": {
+        "lock_data": {
+          "writer_locked": false,
+          "writer_waiting": false,
+          "reader_count": 0,
+          "active_readers": [],
+          "active_writer": null,
+          "waiting_writer": null,
+          "queued_writers": [],
+          "queued_readers": []
+        },
+        "lock_meta": {
+          "writer_locked": false,
+          "writer_waiting": false,
+          "reader_count": 0,
+          "active_readers": [],
+          "active_writer": null,
+          "waiting_writer": null,
+          "queued_writers": [],
+          "queued_readers": []
+        }
+      },
+      "lock_logs": [
+        {
+          "time": 30,
+          "action": "WRITE_BARRIER_SET",
+          "lock_id": "lock_data",
+          "waiting_writer": "data_w1",
+          "active_readers": 1
+        },
+        {
+          "time": 60,
+          "action": "WRITER_HANDOFF_FROM_READERS",
+          "lock_id": "lock_data",
+          "writer_id": "data_w1"
+        },
+        {
+          "time": 90,
+          "action": "READERS_BATCH_UNBLOCKED",
+          "lock_id": "lock_data",
+          "count": 1
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "READ_LOCK_FASTPATH",
+          "lock_id": "lock_meta",
+          "task_id": "meta_r1",
+          "reader_count": 1
+        },
+        {
+          "time": 20,
+          "event": "READ_LOCK_FASTPATH",
+          "lock_id": "lock_data",
+          "task_id": "data_r1",
+          "reader_count": 1
+        },
+        {
+          "time": 30,
+          "event": "WRITE_LOCK_WAITING_SET_BARRIER",
+          "lock_id": "lock_data",
+          "task_id": "data_w1"
+        },
+        {
+          "time": 40,
+          "event": "READ_LOCK_FASTPATH",
+          "lock_id": "lock_meta",
+          "task_id": "meta_r2",
+          "reader_count": 2
+        },
+        {
+          "time": 50,
+          "event": "READ_LOCK_BLOCKED",
+          "lock_id": "lock_data",
+          "task_id": "data_r2",
+          "reason": "WRITER_PENDING_OR_LOCKED"
+        },
+        {
+          "time": 60,
+          "event": "READ_UNLOCK_SUCCESS",
+          "lock_id": "lock_data",
+          "task_id": "data_r1",
+          "remaining_readers": 0
+        },
+        {
+          "time": 60,
+          "event": "WRITER_ACQUIRED_AFTER_READERS_DRAIN",
+          "lock_id": "lock_data",
+          "writer_id": "data_w1"
+        },
+        {
+          "time": 70,
+          "event": "READ_UNLOCK_SUCCESS",
+          "lock_id": "lock_meta",
+          "task_id": "meta_r1",
+          "remaining_readers": 1
+        },
+        {
+          "time": 80,
+          "event": "READ_UNLOCK_SUCCESS",
+          "lock_id": "lock_meta",
+          "task_id": "meta_r2",
+          "remaining_readers": 0
+        },
+        {
+          "time": 90,
+          "event": "WRITE_UNLOCK_SUCCESS",
+          "lock_id": "lock_data",
+          "task_id": "data_w1"
+        },
+        {
+          "time": 90,
+          "event": "READERS_WOKEN_UP",
+          "lock_id": "lock_data",
+          "count": 1
+        },
+        {
+          "time": 100,
+          "event": "READ_UNLOCK_SUCCESS",
+          "lock_id": "lock_data",
+          "task_id": "data_r2",
+          "remaining_readers": 0
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "trace": [
+        {
+          "time": 10,
+          "type": "READ_LOCK",
+          "lock_id": "lk_x",
+          "task_id": "rx1"
+        },
+        {
+          "time": 20,
+          "type": "WRITE_LOCK",
+          "lock_id": "lk_x",
+          "task_id": "wx1"
+        },
+        {
+          "time": 30,
+          "type": "WRITE_LOCK",
+          "lock_id": "lk_x",
+          "task_id": "wx2"
+        },
+        {
+          "time": 40,
+          "type": "READ_LOCK",
+          "lock_id": "lk_x",
+          "task_id": "rx2"
+        },
+        {
+          "time": 50,
+          "type": "READ_UNLOCK",
+          "lock_id": "lk_x",
+          "task_id": "rx1"
+        },
+        {
+          "time": 60,
+          "type": "WRITE_UNLOCK",
+          "lock_id": "lk_x",
+          "task_id": "wx1"
+        },
+        {
+          "time": 70,
+          "type": "WRITE_UNLOCK",
+          "lock_id": "lk_x",
+          "task_id": "wx2"
+        },
+        {
+          "time": 80,
+          "type": "READ_UNLOCK",
+          "lock_id": "lk_x",
+          "task_id": "rx2"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "read_fastpath_count": 1,
+        "read_blocked_count": 1,
+        "write_fastpath_count": 0,
+        "write_barriers_set": 1,
+        "writer_starvations_prevented": 1,
+        "total_locks": 1
+      },
+      "locks": {
+        "lk_x": {
+          "writer_locked": false,
+          "writer_waiting": false,
+          "reader_count": 0,
+          "active_readers": [],
+          "active_writer": null,
+          "waiting_writer": null,
+          "queued_writers": [],
+          "queued_readers": []
+        }
+      },
+      "lock_logs": [
+        {
+          "time": 20,
+          "action": "WRITE_BARRIER_SET",
+          "lock_id": "lk_x",
+          "waiting_writer": "wx1",
+          "active_readers": 1
+        },
+        {
+          "time": 50,
+          "action": "WRITER_HANDOFF_FROM_READERS",
+          "lock_id": "lk_x",
+          "writer_id": "wx1"
+        },
+        {
+          "time": 60,
+          "action": "WRITER_HANDOFF_MCS",
+          "lock_id": "lk_x",
+          "next_writer": "wx2"
+        },
+        {
+          "time": 70,
+          "action": "READERS_BATCH_UNBLOCKED",
+          "lock_id": "lk_x",
+          "count": 1
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "READ_LOCK_FASTPATH",
+          "lock_id": "lk_x",
+          "task_id": "rx1",
+          "reader_count": 1
+        },
+        {
+          "time": 20,
+          "event": "WRITE_LOCK_WAITING_SET_BARRIER",
+          "lock_id": "lk_x",
+          "task_id": "wx1"
+        },
+        {
+          "time": 30,
+          "event": "WRITE_LOCK_QUEUED_MCS",
+          "lock_id": "lk_x",
+          "task_id": "wx2"
+        },
+        {
+          "time": 40,
+          "event": "READ_LOCK_BLOCKED",
+          "lock_id": "lk_x",
+          "task_id": "rx2",
+          "reason": "WRITER_PENDING_OR_LOCKED"
+        },
+        {
+          "time": 50,
+          "event": "READ_UNLOCK_SUCCESS",
+          "lock_id": "lk_x",
+          "task_id": "rx1",
+          "remaining_readers": 0
+        },
+        {
+          "time": 50,
+          "event": "WRITER_ACQUIRED_AFTER_READERS_DRAIN",
+          "lock_id": "lk_x",
+          "writer_id": "wx1"
+        },
+        {
+          "time": 60,
+          "event": "WRITE_UNLOCK_SUCCESS",
+          "lock_id": "lk_x",
+          "task_id": "wx1"
+        },
+        {
+          "time": 60,
+          "event": "WRITER_ACQUIRED_FROM_MCS",
+          "lock_id": "lk_x",
+          "writer_id": "wx2"
+        },
+        {
+          "time": 70,
+          "event": "WRITE_UNLOCK_SUCCESS",
+          "lock_id": "lk_x",
+          "task_id": "wx2"
+        },
+        {
+          "time": 70,
+          "event": "READERS_WOKEN_UP",
+          "lock_id": "lk_x",
+          "count": 1
+        },
+        {
+          "time": 80,
+          "event": "READ_UNLOCK_SUCCESS",
+          "lock_id": "lk_x",
+          "task_id": "rx2",
+          "remaining_readers": 0
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "trace": [
+        {
+          "time": 10,
+          "type": "WRITE_LOCK",
+          "lock_id": "lk_fast",
+          "task_id": "w_burst"
+        },
+        {
+          "time": 20,
+          "type": "WRITE_UNLOCK",
+          "lock_id": "lk_fast",
+          "task_id": "w_burst"
+        },
+        {
+          "time": 30,
+          "type": "READ_LOCK",
+          "lock_id": "lk_fast",
+          "task_id": "r_burst1"
+        },
+        {
+          "time": 40,
+          "type": "READ_LOCK",
+          "lock_id": "lk_fast",
+          "task_id": "r_burst2"
+        },
+        {
+          "time": 50,
+          "type": "READ_UNLOCK",
+          "lock_id": "lk_fast",
+          "task_id": "r_burst1"
+        },
+        {
+          "time": 60,
+          "type": "READ_UNLOCK",
+          "lock_id": "lk_fast",
+          "task_id": "r_burst2"
+        },
+        {
+          "time": 70,
+          "type": "WRITE_LOCK",
+          "lock_id": "lk_fast",
+          "task_id": "w_burst2"
+        },
+        {
+          "time": 80,
+          "type": "WRITE_UNLOCK",
+          "lock_id": "lk_fast",
+          "task_id": "w_burst2"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "read_fastpath_count": 2,
+        "read_blocked_count": 0,
+        "write_fastpath_count": 2,
+        "write_barriers_set": 0,
+        "writer_starvations_prevented": 0,
+        "total_locks": 1
+      },
+      "locks": {
+        "lk_fast": {
+          "writer_locked": false,
+          "writer_waiting": false,
+          "reader_count": 0,
+          "active_readers": [],
+          "active_writer": null,
+          "waiting_writer": null,
+          "queued_writers": [],
+          "queued_readers": []
+        }
+      },
+      "lock_logs": [],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "WRITE_LOCK_FASTPATH",
+          "lock_id": "lk_fast",
+          "task_id": "w_burst"
+        },
+        {
+          "time": 20,
+          "event": "WRITE_UNLOCK_SUCCESS",
+          "lock_id": "lk_fast",
+          "task_id": "w_burst"
+        },
+        {
+          "time": 30,
+          "event": "READ_LOCK_FASTPATH",
+          "lock_id": "lk_fast",
+          "task_id": "r_burst1",
+          "reader_count": 1
+        },
+        {
+          "time": 40,
+          "event": "READ_LOCK_FASTPATH",
+          "lock_id": "lk_fast",
+          "task_id": "r_burst2",
+          "reader_count": 2
+        },
+        {
+          "time": 50,
+          "event": "READ_UNLOCK_SUCCESS",
+          "lock_id": "lk_fast",
+          "task_id": "r_burst1",
+          "remaining_readers": 1
+        },
+        {
+          "time": 60,
+          "event": "READ_UNLOCK_SUCCESS",
+          "lock_id": "lk_fast",
+          "task_id": "r_burst2",
+          "remaining_readers": 0
+        },
+        {
+          "time": 70,
+          "event": "WRITE_LOCK_FASTPATH",
+          "lock_id": "lk_fast",
+          "task_id": "w_burst2"
+        },
+        {
+          "time": 80,
+          "event": "WRITE_UNLOCK_SUCCESS",
+          "lock_id": "lk_fast",
+          "task_id": "w_burst2"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "trace": [
+        {
+          "time": 100,
+          "type": "READ_LOCK",
+          "lock_id": "vfs_dcache",
+          "task_id": "cpu0_lookup"
+        },
+        {
+          "time": 110,
+          "type": "READ_LOCK",
+          "lock_id": "vfs_dcache",
+          "task_id": "cpu1_lookup"
+        },
+        {
+          "time": 120,
+          "type": "READ_LOCK",
+          "lock_id": "vfs_dcache",
+          "task_id": "cpu2_lookup"
+        },
+        {
+          "time": 130,
+          "type": "WRITE_LOCK",
+          "lock_id": "vfs_dcache",
+          "task_id": "cpu3_mkdir"
+        },
+        {
+          "time": 140,
+          "type": "READ_LOCK",
+          "lock_id": "vfs_dcache",
+          "task_id": "cpu4_lookup"
+        },
+        {
+          "time": 150,
+          "type": "WRITE_LOCK",
+          "lock_id": "vfs_dcache",
+          "task_id": "cpu5_unlink"
+        },
+        {
+          "time": 160,
+          "type": "READ_LOCK",
+          "lock_id": "vfs_dcache",
+          "task_id": "cpu6_lookup"
+        },
+        {
+          "time": 170,
+          "type": "READ_UNLOCK",
+          "lock_id": "vfs_dcache",
+          "task_id": "cpu0_lookup"
+        },
+        {
+          "time": 180,
+          "type": "READ_UNLOCK",
+          "lock_id": "vfs_dcache",
+          "task_id": "cpu1_lookup"
+        },
+        {
+          "time": 190,
+          "type": "READ_UNLOCK",
+          "lock_id": "vfs_dcache",
+          "task_id": "cpu2_lookup"
+        },
+        {
+          "time": 200,
+          "type": "WRITE_UNLOCK",
+          "lock_id": "vfs_dcache",
+          "task_id": "cpu3_mkdir"
+        },
+        {
+          "time": 210,
+          "type": "WRITE_UNLOCK",
+          "lock_id": "vfs_dcache",
+          "task_id": "cpu5_unlink"
+        },
+        {
+          "time": 220,
+          "type": "READ_UNLOCK",
+          "lock_id": "vfs_dcache",
+          "task_id": "cpu4_lookup"
+        },
+        {
+          "time": 230,
+          "type": "READ_UNLOCK",
+          "lock_id": "vfs_dcache",
+          "task_id": "cpu6_lookup"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "read_fastpath_count": 3,
+        "read_blocked_count": 2,
+        "write_fastpath_count": 0,
+        "write_barriers_set": 1,
+        "writer_starvations_prevented": 1,
+        "total_locks": 1
+      },
+      "locks": {
+        "vfs_dcache": {
+          "writer_locked": false,
+          "writer_waiting": false,
+          "reader_count": 0,
+          "active_readers": [],
+          "active_writer": null,
+          "waiting_writer": null,
+          "queued_writers": [],
+          "queued_readers": []
+        }
+      },
+      "lock_logs": [
+        {
+          "time": 130,
+          "action": "WRITE_BARRIER_SET",
+          "lock_id": "vfs_dcache",
+          "waiting_writer": "cpu3_mkdir",
+          "active_readers": 3
+        },
+        {
+          "time": 190,
+          "action": "WRITER_HANDOFF_FROM_READERS",
+          "lock_id": "vfs_dcache",
+          "writer_id": "cpu3_mkdir"
+        },
+        {
+          "time": 200,
+          "action": "WRITER_HANDOFF_MCS",
+          "lock_id": "vfs_dcache",
+          "next_writer": "cpu5_unlink"
+        },
+        {
+          "time": 210,
+          "action": "READERS_BATCH_UNBLOCKED",
+          "lock_id": "vfs_dcache",
+          "count": 2
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 100,
+          "event": "READ_LOCK_FASTPATH",
+          "lock_id": "vfs_dcache",
+          "task_id": "cpu0_lookup",
+          "reader_count": 1
+        },
+        {
+          "time": 110,
+          "event": "READ_LOCK_FASTPATH",
+          "lock_id": "vfs_dcache",
+          "task_id": "cpu1_lookup",
+          "reader_count": 2
+        },
+        {
+          "time": 120,
+          "event": "READ_LOCK_FASTPATH",
+          "lock_id": "vfs_dcache",
+          "task_id": "cpu2_lookup",
+          "reader_count": 3
+        },
+        {
+          "time": 130,
+          "event": "WRITE_LOCK_WAITING_SET_BARRIER",
+          "lock_id": "vfs_dcache",
+          "task_id": "cpu3_mkdir"
+        },
+        {
+          "time": 140,
+          "event": "READ_LOCK_BLOCKED",
+          "lock_id": "vfs_dcache",
+          "task_id": "cpu4_lookup",
+          "reason": "WRITER_PENDING_OR_LOCKED"
+        },
+        {
+          "time": 150,
+          "event": "WRITE_LOCK_QUEUED_MCS",
+          "lock_id": "vfs_dcache",
+          "task_id": "cpu5_unlink"
+        },
+        {
+          "time": 160,
+          "event": "READ_LOCK_BLOCKED",
+          "lock_id": "vfs_dcache",
+          "task_id": "cpu6_lookup",
+          "reason": "WRITER_PENDING_OR_LOCKED"
+        },
+        {
+          "time": 170,
+          "event": "READ_UNLOCK_SUCCESS",
+          "lock_id": "vfs_dcache",
+          "task_id": "cpu0_lookup",
+          "remaining_readers": 2
+        },
+        {
+          "time": 180,
+          "event": "READ_UNLOCK_SUCCESS",
+          "lock_id": "vfs_dcache",
+          "task_id": "cpu1_lookup",
+          "remaining_readers": 1
+        },
+        {
+          "time": 190,
+          "event": "READ_UNLOCK_SUCCESS",
+          "lock_id": "vfs_dcache",
+          "task_id": "cpu2_lookup",
+          "remaining_readers": 0
+        },
+        {
+          "time": 190,
+          "event": "WRITER_ACQUIRED_AFTER_READERS_DRAIN",
+          "lock_id": "vfs_dcache",
+          "writer_id": "cpu3_mkdir"
+        },
+        {
+          "time": 200,
+          "event": "WRITE_UNLOCK_SUCCESS",
+          "lock_id": "vfs_dcache",
+          "task_id": "cpu3_mkdir"
+        },
+        {
+          "time": 200,
+          "event": "WRITER_ACQUIRED_FROM_MCS",
+          "lock_id": "vfs_dcache",
+          "writer_id": "cpu5_unlink"
+        },
+        {
+          "time": 210,
+          "event": "WRITE_UNLOCK_SUCCESS",
+          "lock_id": "vfs_dcache",
+          "task_id": "cpu5_unlink"
+        },
+        {
+          "time": 210,
+          "event": "READERS_WOKEN_UP",
+          "lock_id": "vfs_dcache",
+          "count": 2
+        },
+        {
+          "time": 220,
+          "event": "READ_UNLOCK_SUCCESS",
+          "lock_id": "vfs_dcache",
+          "task_id": "cpu4_lookup",
+          "remaining_readers": 1
+        },
+        {
+          "time": 230,
+          "event": "READ_UNLOCK_SUCCESS",
+          "lock_id": "vfs_dcache",
+          "task_id": "cpu6_lookup",
+          "remaining_readers": 0
+        }
+      ]
+    }
+  }
+]
