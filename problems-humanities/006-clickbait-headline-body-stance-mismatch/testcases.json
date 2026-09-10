@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "description": "Testcase #1 - Case 1: Credible Objective News",
+    "input": "{\"article_id\": \"NEWS-2026-001\", \"headline\": \"한국은행, 기준금리 0.25%p 인하 결정... 경기 회복세 견인\", \"body\": \"한국은행 금융통화위원회가 오늘 본회의를 열고 기준금리를 기존 연 3.50%에서 3.25%로 0.25%포인트 전격 인하하기로 결정했습니다. 금융통화위원회는 물가상승률이 안정적인 둔화 추세를 지속하는 가운데 내수 경기 회복을 지원하고 민간 소비 및 기업 투자를 촉진하기 위해 통화 정책 완화가 필요한 시점이라고 밝혔습니다. 이에 따라 시중 은행들의 주택담보대출 및 신용대출 금리도 순차적으로 인하될 전망이며 경제 전문가들은 이번 조치가 침체된 부동산 및 자본 시장에 긍정적인 신호로 작용할 것이라고 분석했습니다.\"}",
+    "expected_output": "{\"status\": \"CREDIBLE_REPORTING\", \"article_id\": \"NEWS-2026-001\", \"headline\": \"한국은행, 기준금리 0.25%p 인하 결정... 경기 회복세 견인\", \"word_count\": 63, \"clickbait_score\": 0.4213, \"metrics\": {\"cosine_similarity\": 0.1796, \"keyword_coverage\": 0.375, \"sensational_words_count\": 0, \"detected_sensational_words\": [], \"punctuation_spam_score\": 0.3, \"negation_flip_detected\": false}, \"diagnostics\": [\"헤드라인과 본문 간 내용 일치도 우수(유사도 0.1796, 커버리지 37.5%).\", \"저널리즘 윤리 준수 및 신뢰할 수 있는 정상 보도로 판정.\"], \"recommendation\": \"정상 송고 승인(Pass).\"}"
+  },
+  {
+    "id": 2,
+    "description": "Testcase #2 - Case 2: Malicious Negation Inversion",
+    "input": "{\"article_id\": \"NEWS-2026-002\", \"headline\": \"유명 바이오 기업 대표이사 횡령 배임 혐의 전격 구속!\", \"body\": \"검찰이 수천억 원대 회계 조작 및 회사 공금 횡령 혐의를 받는 코스닥 상장 바이오 기업 대표이사에 대해 청구한 사전 구속영장을 법원이 기각 결정했습니다. 서울중앙지방법원 영장전담재판부는 피의자의 방어권 보장이 필요하며 핵심 혐의 사실에 대한 다툼의 여지가 있어 현 단계에서 구속 사유를 인정하기 어렵다고 밝혔습니다. 해당 기업 관계자는 언론에 보도된 횡령 혐의는 악의적 제보에 따른 사실무근의 낭설이라며 강력한 민형사상 법적 조치에 착수할 것이라고 강조했습니다.\"}",
+    "expected_output": "{\"status\": \"MALICIOUS_FAKE_NEWS_MISMATCH\", \"article_id\": \"NEWS-2026-002\", \"headline\": \"유명 바이오 기업 대표이사 횡령 배임 혐의 전격 구속!\", \"word_count\": 62, \"clickbait_score\": 0.3382, \"metrics\": {\"cosine_similarity\": 0.2917, \"keyword_coverage\": 0.5556, \"sensational_words_count\": 0, \"detected_sensational_words\": [], \"punctuation_spam_score\": 0.25, \"negation_flip_detected\": true}, \"diagnostics\": [\"치명적 제목-본문 입장 불일치(Negation Flip) 감지: 헤드라인 핵심어 '구속'가 본문 부정 맥락('청구한 사전 구속영장을 법원이 기각 결정했습니다. 서울중앙지방법원 영장전담재판부는 피의자의')에서 발견됨.\", \"헤드라인은 긍정/기정사실로 유도했으나 본문은 이를 명시적으로 부인/기각하고 있습니다.\"], \"recommendation\": \"허위·과장 왜곡 기사 판정. 포털 제휴평가위원회에 벌점 부과 및 기사 수정 명령 권고.\"}"
+  },
+  {
+    "id": 3,
+    "description": "Testcase #3 - Case 3: Sensationalist Over-Hyped Clickbait",
+    "input": "{\"article_id\": \"NEWS-2026-003\", \"headline\": \"충격! 경악! 발칵 뒤집힌 연예계... 결국 눈물로 밝혀진 숨겨진 진실 폭탄 선언?!\", \"body\": \"연예계 소식을 전하는 주간 연예 코너입니다. 많은 스타들이 방송 활동을 이어가면서 건강 관리의 중요성을 강조하고 있습니다. 최근 한 예능 프로그램에 출연한 배우는 과거 신인 시절 겪었던 다이어트 스트레스와 체력 저하 경험을 진솔하게 털어놓았습니다. 팬들은 따뜻한 응원의 메시지를 보내고 있으며 소속사 역시 무리한 스케줄 대신 충분한 휴식을 제공하겠다고 약속하며 훈훈하게 마무리되었습니다.\"}",
+    "expected_output": "{\"status\": \"SUSPICIOUS_CLICKBAIT_EXAGGERATION\", \"article_id\": \"NEWS-2026-003\", \"headline\": \"충격! 경악! 발칵 뒤집힌 연예계... 결국 눈물로 밝혀진 숨겨진 진실 폭탄 선언?!\", \"word_count\": 50, \"clickbait_score\": 0.9689, \"metrics\": {\"cosine_similarity\": 0.0412, \"keyword_coverage\": 0.0833, \"sensational_words_count\": 7, \"detected_sensational_words\": [\"충격\", \"경악\", \"발칵\", \"숨겨진 진실\", \"결국\", \"눈물\", \"폭탄 선언\"], \"punctuation_spam_score\": 1.0, \"negation_flip_detected\": false}, \"diagnostics\": [\"선정적 클릭베이트 수식어 감지: 충격, 경악, 발칵, 숨겨진 진실, 결국, 눈물, 폭탄 선언.\", \"헤드라인 키워드 본문 커버리지 저조 (8.3%). 미끼용 제목 의심.\", \"종합 클릭베이트 지수 96.9점 (위험 수위 50점 이상).\"], \"recommendation\": \"선정적 낚시성 기사 주의보 발령. 헤드라인을 본문 사실에 기반하여 객관적으로 재작성하십시오.\"}"
+  },
+  {
+    "id": 4,
+    "description": "Testcase #4 - Case 4: Bait-and-Switch Entity Omission",
+    "input": "{\"article_id\": \"NEWS-2026-004\", \"headline\": \"손흥민 전격 이적 확정 발표?! 토트넘 떠나 사우디 클럽 합류 초비상\", \"body\": \"유럽 축구 여름 이적시장이 막바지로 향하면서 사우디아라비아 프로리그 구단들의 공격적인 선수 영입 전략이 주목받고 있습니다. 오일 머니를 앞세운 중동 클럽들은 유럽 빅리그의 베테랑 선수들에게 천문학적인 연봉을 제안하고 있습니다. 한편 손흥민 선수는 런던에서 다음 시즌 준비에 매진하고 있으며 토트넘 감독은 현지 기자회견에서 주장 손흥민을 중심으로 새 시즌 전술을 완성하겠다는 확고한 신뢰를 표명했습니다.\"}",
+    "expected_output": "{\"status\": \"SUSPICIOUS_CLICKBAIT_EXAGGERATION\", \"article_id\": \"NEWS-2026-004\", \"headline\": \"손흥민 전격 이적 확정 발표?! 토트넘 떠나 사우디 클럽 합류 초비상\", \"word_count\": 51, \"clickbait_score\": 0.6394, \"metrics\": {\"cosine_similarity\": 0.0806, \"keyword_coverage\": 0.1818, \"sensational_words_count\": 1, \"detected_sensational_words\": [\"초비상\"], \"punctuation_spam_score\": 0.5, \"negation_flip_detected\": false}, \"diagnostics\": [\"선정적 클릭베이트 수식어 감지: 초비상.\", \"헤드라인 키워드 본문 커버리지 저조 (18.2%). 미끼용 제목 의심.\", \"종합 클릭베이트 지수 63.9점 (위험 수위 50점 이상).\"], \"recommendation\": \"선정적 낚시성 기사 주의보 발령. 헤드라인을 본문 사실에 기반하여 객관적으로 재작성하십시오.\"}"
+  },
+  {
+    "id": 5,
+    "description": "Testcase #5 - Case 5: Insufficient Article Body",
+    "input": "{\"article_id\": \"NEWS-2026-005\", \"headline\": \"속보: 강남역 인근 상가 화재 발생\", \"body\": \"서울 강남역 인근 건물에서 원인 미상의 화재가 발생하여 소방 당국이 진화 중입니다.\"}",
+    "expected_output": "{\"status\": \"INSUFFICIENT_ARTICLE_BODY\", \"article_id\": \"NEWS-2026-005\", \"headline\": \"속보: 강남역 인근 상가 화재 발생\", \"word_count\": 12, \"clickbait_score\": 0.0, \"metrics\": {}, \"diagnostics\": [\"본문 단어 수(12개)가 신뢰성 분석을 위한 최소 기준(20단어)에 미달합니다.\"], \"recommendation\": \"충분한 본문 분량을 확보한 기사만 분석할 수 있습니다.\"}"
+  },
+  {
+    "id": 6,
+    "description": "Testcase #6 - Case 6: Extreme Punctuation Spam",
+    "input": "{\"article_id\": \"NEWS-2026-006\", \"headline\": \"이럴 수가?!?! 로또 1등 당첨 번호 사전 유출 대참사 충격 반전 폭로!!!\", \"body\": \"기획재정부 복권위원회는 매주 토요일 생방송으로 진행되는 동행복권 추첨 방송의 무결성을 철저하게 점검하고 있습니다. 복권 추첨기는 프랑스에서 수입된 공인 장비로 사전 리허설을 거쳐 경찰관과 방청객 입회 하에 공개 추첨됩니다. 일각에서 제기되는 번호 유출 의혹은 통계적 착시에 불과하며 시스템 보안 점검 결과 외부 침입이나 조작 흔적은 전무하다고 공식 발표했습니다.\"}",
+    "expected_output": "{\"status\": \"SUSPICIOUS_CLICKBAIT_EXAGGERATION\", \"article_id\": \"NEWS-2026-006\", \"headline\": \"이럴 수가?!?! 로또 1등 당첨 번호 사전 유출 대참사 충격 반전 폭로!!!\", \"word_count\": 47, \"clickbait_score\": 0.8159, \"metrics\": {\"cosine_similarity\": 0.1263, \"keyword_coverage\": 0.25, \"sensational_words_count\": 2, \"detected_sensational_words\": [\"충격\", \"이럴 수가\"], \"punctuation_spam_score\": 1.0, \"negation_flip_detected\": false}, \"diagnostics\": [\"선정적 클릭베이트 수식어 감지: 충격, 이럴 수가.\", \"헤드라인 키워드 본문 커버리지 저조 (25.0%). 미끼용 제목 의심.\", \"종합 클릭베이트 지수 81.6점 (위험 수위 50점 이상).\"], \"recommendation\": \"선정적 낚시성 기사 주의보 발령. 헤드라인을 본문 사실에 기반하여 객관적으로 재작성하십시오.\"}"
+  },
+  {
+    "id": 7,
+    "description": "Testcase #7 - Case 7: Scientific Report",
+    "input": "{\"article_id\": \"NEWS-2026-007\", \"headline\": \"국내 연구진, 페로브스카이트 차세대 태양전지 광전 변환 효율 26% 돌파 보고\", \"body\": \"한국과학기술원 연구팀이 기존 실리콘 태양전지의 이론적 한계를 극복할 수 있는 페로브스카이트 기반 차세대 고효율 탠덤 태양전지 셀을 성공적으로 제작했다고 국제 학술지에 게재했습니다. 연구팀은 유기 화합물 분자 결합 구조를 정밀하게 제어하여 광전 변환 효율을 세계 최고 수준인 26.2%까지 끌어올렸습니다. 이번 연구 성과는 태양광 패널 생산 단가를 대폭 절감하고 도심형 건물 일체형 발전 시스템 상용화를 크게 앞당길 것으로 학계의 기대를 모으고 있습니다.\"}",
+    "expected_output": "{\"status\": \"CREDIBLE_REPORTING\", \"article_id\": \"NEWS-2026-007\", \"headline\": \"국내 연구진, 페로브스카이트 차세대 태양전지 광전 변환 효율 26% 돌파 보고\", \"word_count\": 60, \"clickbait_score\": 0.3052, \"metrics\": {\"cosine_similarity\": 0.2335, \"keyword_coverage\": 0.5455, \"sensational_words_count\": 0, \"detected_sensational_words\": [], \"punctuation_spam_score\": 0.0, \"negation_flip_detected\": false}, \"diagnostics\": [\"헤드라인과 본문 간 내용 일치도 우수(유사도 0.2335, 커버리지 54.5%).\", \"저널리즘 윤리 준수 및 신뢰할 수 있는 정상 보도로 판정.\"], \"recommendation\": \"정상 송고 승인(Pass).\"}"
+  },
+  {
+    "id": 8,
+    "description": "Testcase #8 - Case 8: Refuted Rumor Deceptive",
+    "input": "{\"article_id\": \"NEWS-2026-008\", \"headline\": \"글로벌 빅테크 A사 한국 연구개발 센터 전격 폐쇄 철수 발표?!\", \"body\": \"글로벌 IT 기업 A사의 한국 연구개발 센터 철수설과 관련하여 회사 측이 공식 입장을 내놓았습니다. 본사 대변인은 한국 연구소 폐쇄 소문은 명백한 허위 오보이며 전혀 사실무근이라고 공식 부인했습니다. 오히려 인공지능 엔지니어링 및 클라우드 인프라 연구 인력을 연내 30% 추가 채용하는 등 한국 시장에 대한 장기적 투자를 확대할 계획이라고 밝혔습니다.\"}",
+    "expected_output": "{\"status\": \"MALICIOUS_FAKE_NEWS_MISMATCH\", \"article_id\": \"NEWS-2026-008\", \"headline\": \"글로벌 빅테크 A사 한국 연구개발 센터 전격 폐쇄 철수 발표?!\", \"word_count\": 48, \"clickbait_score\": 0.3997, \"metrics\": {\"cosine_similarity\": 0.3012, \"keyword_coverage\": 0.5, \"sensational_words_count\": 0, \"detected_sensational_words\": [], \"punctuation_spam_score\": 0.5, \"negation_flip_detected\": true}, \"diagnostics\": [\"치명적 제목-본문 입장 불일치(Negation Flip) 감지: 헤드라인 핵심어 '폐쇄'가 본문 부정 맥락('연구소 폐쇄 소문은 명백한 허위 오보이며 전혀 사실무근이라고 공식')에서 발견됨.\", \"헤드라인은 긍정/기정사실로 유도했으나 본문은 이를 명시적으로 부인/기각하고 있습니다.\"], \"recommendation\": \"허위·과장 왜곡 기사 판정. 포털 제휴평가위원회에 벌점 부과 및 기사 수정 명령 권고.\"}"
+  }
+]
