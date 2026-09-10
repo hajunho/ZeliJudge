@@ -1,0 +1,50 @@
+[
+  {
+    "id": "TC-01",
+    "description": "Standard Felicitous Commissive (Sincere Promise to complete report)",
+    "input": "{\"context\": {\"authorities\": {\"Alice\": [\"manager\"], \"Bob\": [\"engineer\"]}, \"capabilities\": {\"Bob\": [\"write_report\", \"fix_bug\"]}, \"hearer_prefers_action\": true, \"speaker_intentions\": {\"Bob\": {\"intends_to_perform\": true}}, \"institutional_state\": {\"report_status\": \"pending\"}}, \"utterances\": [{\"id\": \"u1\", \"speaker\": \"Bob\", \"hearer\": \"Alice\", \"syntactic_form\": \"Declarative\", \"performative_verb\": \"promise\", \"proposition\": {\"actor\": \"speaker\", \"time\": \"future\", \"action\": \"write_report\"}}]}",
+    "expected_output": "{\"evaluations\": [{\"utterance_id\": \"u1\", \"evaluation\": {\"direct_force\": \"COMMISSIVE\", \"effective_force\": \"COMMISSIVE\", \"is_indirect\": false, \"is_felicitous\": true, \"verdict\": \"FELICITOUS\", \"flaw_type\": null, \"violations\": [], \"updated_institutional_state\": {\"report_status\": \"pending\"}}}], \"final_institutional_state\": {\"report_status\": \"pending\"}}"
+  },
+  {
+    "id": "TC-02",
+    "description": "Austinian Abuse (Insincere Promise - Speaker has no intention to perform)",
+    "input": "{\"context\": {\"authorities\": {\"Charlie\": [\"debtor\"], \"David\": [\"creditor\"]}, \"hearer_prefers_action\": true, \"speaker_intentions\": {\"Charlie\": {\"intends_to_perform\": false}}, \"institutional_state\": {\"debt\": 5000}}, \"utterances\": [{\"id\": \"u2\", \"speaker\": \"Charlie\", \"hearer\": \"David\", \"syntactic_form\": \"Declarative\", \"performative_verb\": \"promise\", \"proposition\": {\"actor\": \"speaker\", \"time\": \"future\", \"action\": \"pay_back\"}}]}",
+    "expected_output": "{\"evaluations\": [{\"utterance_id\": \"u2\", \"evaluation\": {\"direct_force\": \"COMMISSIVE\", \"effective_force\": \"COMMISSIVE\", \"is_indirect\": false, \"is_felicitous\": false, \"verdict\": \"ABUSE\", \"flaw_type\": \"ABUSE\", \"violations\": [{\"condition\": \"Sincerity Condition\", \"reason\": \"Speaker has no intention of fulfilling commitment.\"}], \"updated_institutional_state\": {\"debt\": 5000}}}], \"final_institutional_state\": {\"debt\": 5000}}"
+  },
+  {
+    "id": "TC-03",
+    "description": "Austinian Misfire: Declaration without required institutional authority",
+    "input": "{\"context\": {\"authorities\": {\"Guest\": [\"attendee\"], \"Captain\": [\"ship_commander\"]}, \"institutional_state\": {\"ship_name\": \"Unnamed\", \"christened\": false}}, \"utterances\": [{\"id\": \"u3\", \"speaker\": \"Guest\", \"hearer\": \"Audience\", \"syntactic_form\": \"Declarative\", \"performative_verb\": \"baptize\", \"required_authority\": \"ship_commander\", \"proposition\": {\"actor\": \"speaker\", \"time\": \"present\", \"action\": \"name_ship\"}, \"state_transformation\": {\"ship_name\": \"Queen Elizabeth\", \"christened\": true}}]}",
+    "expected_output": "{\"evaluations\": [{\"utterance_id\": \"u3\", \"evaluation\": {\"direct_force\": \"DECLARATION\", \"effective_force\": \"DECLARATION\", \"is_indirect\": false, \"is_felicitous\": false, \"verdict\": \"MISFIRE\", \"flaw_type\": \"MISFIRE\", \"violations\": [{\"condition\": \"Preparatory Condition\", \"reason\": \"Speaker lacks authority 'ship_commander'.\"}], \"updated_institutional_state\": {\"ship_name\": \"Unnamed\", \"christened\": false}}}], \"final_institutional_state\": {\"ship_name\": \"Unnamed\", \"christened\": false}}"
+  },
+  {
+    "id": "TC-04",
+    "description": "Felicitous Declaration: Authorized Commander christening ship with state change",
+    "input": "{\"context\": {\"authorities\": {\"Captain\": [\"ship_commander\"]}, \"institutional_state\": {\"ship_name\": \"Unnamed\", \"christened\": false}}, \"utterances\": [{\"id\": \"u4\", \"speaker\": \"Captain\", \"hearer\": \"Audience\", \"syntactic_form\": \"Declarative\", \"performative_verb\": \"baptize\", \"required_authority\": \"ship_commander\", \"proposition\": {\"actor\": \"speaker\", \"time\": \"present\", \"action\": \"name_ship\"}, \"state_transformation\": {\"ship_name\": \"Queen Elizabeth\", \"christened\": true}}]}",
+    "expected_output": "{\"evaluations\": [{\"utterance_id\": \"u4\", \"evaluation\": {\"direct_force\": \"DECLARATION\", \"effective_force\": \"DECLARATION\", \"is_indirect\": false, \"is_felicitous\": true, \"verdict\": \"FELICITOUS\", \"flaw_type\": null, \"violations\": [], \"updated_institutional_state\": {\"ship_name\": \"Queen Elizabeth\", \"christened\": true}}}], \"final_institutional_state\": {\"ship_name\": \"Queen Elizabeth\", \"christened\": true}}"
+  },
+  {
+    "id": "TC-05",
+    "description": "Indirect Speech Act: Interrogative sentence with indirect Directive force",
+    "input": "{\"context\": {\"capabilities\": {\"Waiter\": [\"pass_salt\", \"bring_water\"]}}, \"utterances\": [{\"id\": \"u5\", \"speaker\": \"Customer\", \"hearer\": \"Waiter\", \"syntactic_form\": \"Interrogative\", \"indirect_cue\": \"ability_request\", \"proposition\": {\"actor\": \"hearer\", \"time\": \"future\", \"action\": \"pass_salt\"}}]}",
+    "expected_output": "{\"evaluations\": [{\"utterance_id\": \"u5\", \"evaluation\": {\"direct_force\": \"DIRECTIVE_QUESTION\", \"effective_force\": \"DIRECTIVE\", \"is_indirect\": true, \"is_felicitous\": true, \"verdict\": \"FELICITOUS\", \"flaw_type\": null, \"violations\": [], \"updated_institutional_state\": {}}}], \"final_institutional_state\": {}}"
+  },
+  {
+    "id": "TC-06",
+    "description": "Misfire Directive: Ordering an action that hearer lacks capability to perform",
+    "input": "{\"context\": {\"capabilities\": {\"John\": [\"swim\", \"run\"]}}, \"utterances\": [{\"id\": \"u6\", \"speaker\": \"Commander\", \"hearer\": \"John\", \"syntactic_form\": \"Imperative\", \"performative_verb\": \"order\", \"proposition\": {\"actor\": \"hearer\", \"time\": \"future\", \"action\": \"fly_to_moon\"}}]}",
+    "expected_output": "{\"evaluations\": [{\"utterance_id\": \"u6\", \"evaluation\": {\"direct_force\": \"DIRECTIVE\", \"effective_force\": \"DIRECTIVE\", \"is_indirect\": false, \"is_felicitous\": false, \"verdict\": \"MISFIRE\", \"flaw_type\": \"MISFIRE\", \"violations\": [{\"condition\": \"Preparatory Condition\", \"reason\": \"Hearer lacks capability to perform 'fly_to_moon'.\"}], \"updated_institutional_state\": {}}}], \"final_institutional_state\": {}}"
+  },
+  {
+    "id": "TC-07",
+    "description": "Assertive with Sincerity violation (Lying / Asserting proposition not believed)",
+    "input": "{\"context\": {\"speaker_beliefs\": {\"Suspect\": {\"was_at_home\": false}}}, \"utterances\": [{\"id\": \"u7\", \"speaker\": \"Suspect\", \"hearer\": \"Detective\", \"syntactic_form\": \"Declarative\", \"performative_verb\": \"claim\", \"proposition\": {\"actor\": \"speaker\", \"time\": \"past\", \"claim\": \"was_at_home\"}}]}",
+    "expected_output": "{\"evaluations\": [{\"utterance_id\": \"u7\", \"evaluation\": {\"direct_force\": \"ASSERTIVE\", \"effective_force\": \"ASSERTIVE\", \"is_indirect\": false, \"is_felicitous\": false, \"verdict\": \"ABUSE\", \"flaw_type\": \"ABUSE\", \"violations\": [{\"condition\": \"Sincerity Condition\", \"reason\": \"Speaker does not believe the asserted proposition.\"}], \"updated_institutional_state\": {}}}], \"final_institutional_state\": {}}"
+  },
+  {
+    "id": "TC-08",
+    "description": "Multi-turn Institutional Dialogue: Authorized Hiring followed by Felicitous Directives",
+    "input": "{\"context\": {\"authorities\": {\"CEO\": [\"hr_director\", \"board_chair\"]}, \"capabilities\": {\"Candidate\": [\"start_onboarding\", \"sign_nda\"]}, \"institutional_state\": {\"employee_count\": 50, \"candidate_hired\": false}}, \"utterances\": [{\"id\": \"u8_1\", \"speaker\": \"CEO\", \"hearer\": \"Candidate\", \"syntactic_form\": \"Declarative\", \"performative_verb\": \"declare\", \"required_authority\": \"hr_director\", \"proposition\": {\"actor\": \"speaker\", \"time\": \"present\", \"action\": \"hire\"}, \"state_transformation\": {\"employee_count\": 51, \"candidate_hired\": true}}, {\"id\": \"u8_2\", \"speaker\": \"CEO\", \"hearer\": \"Candidate\", \"syntactic_form\": \"Imperative\", \"performative_verb\": \"request\", \"proposition\": {\"actor\": \"hearer\", \"time\": \"future\", \"action\": \"sign_nda\"}}]}",
+    "expected_output": "{\"evaluations\": [{\"utterance_id\": \"u8_1\", \"evaluation\": {\"direct_force\": \"DECLARATION\", \"effective_force\": \"DECLARATION\", \"is_indirect\": false, \"is_felicitous\": true, \"verdict\": \"FELICITOUS\", \"flaw_type\": null, \"violations\": [], \"updated_institutional_state\": {\"employee_count\": 51, \"candidate_hired\": true}}}, {\"utterance_id\": \"u8_2\", \"evaluation\": {\"direct_force\": \"DIRECTIVE\", \"effective_force\": \"DIRECTIVE\", \"is_indirect\": false, \"is_felicitous\": true, \"verdict\": \"FELICITOUS\", \"flaw_type\": null, \"violations\": [], \"updated_institutional_state\": {\"employee_count\": 51, \"candidate_hired\": true}}}], \"final_institutional_state\": {\"employee_count\": 51, \"candidate_hired\": true}}"
+  }
+]
