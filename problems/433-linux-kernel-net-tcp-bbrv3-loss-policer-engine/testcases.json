@@ -1,0 +1,1395 @@
+[
+  {
+    "testcase_id": 1,
+    "input": {
+      "config": {
+        "mss": 1460,
+        "initial_rtt_ms": 30.0,
+        "initial_bw_bytes_per_ms": 1000.0,
+        "loss_headroom": 0.02,
+        "ecn_alpha_gain": 0.0625,
+        "policer_rtt_ratio_thresh": 1.15
+      },
+      "trace": [
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 30000,
+          "rtt_ms": 30.0,
+          "loss_bytes": 0,
+          "ecn_bytes": 0
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 35000,
+          "rtt_ms": 30.0,
+          "loss_bytes": 0,
+          "ecn_bytes": 0
+        },
+        {
+          "op": "GET_STATUS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 30.0,
+          "max_bw_kbps": 8000.0,
+          "pacing_rate": 1000.0,
+          "cwnd_bytes": 60000,
+          "loss_rate": 0.0,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.0,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 30.0,
+          "max_bw_kbps": 9333.33,
+          "pacing_rate": 1166.67,
+          "cwnd_bytes": 70000,
+          "loss_rate": 0.0,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.0,
+          "policer_detected": false
+        },
+        {
+          "op": "GET_STATUS",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt": 30.0,
+          "max_bw": 1166.67,
+          "pacing_gain": 1.0,
+          "cwnd_gain": 2.0,
+          "bdp": 35000.0,
+          "ecn_alpha": 0.0,
+          "policer_detected": false,
+          "policed_rate": null
+        }
+      ],
+      "summary": {
+        "final_state": "PROBE_BW",
+        "final_min_rtt": 30.0,
+        "final_max_bw": 1166.67,
+        "policer_detected": false,
+        "total_bytes_delivered": 65000,
+        "total_loss_bytes": 0,
+        "total_ecn_bytes": 0,
+        "bbr_state_transitions": 0,
+        "policer_events": 0,
+        "ecn_backoff_events": 0,
+        "loss_backoff_events": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 2,
+    "input": {
+      "config": {
+        "mss": 1460,
+        "initial_rtt_ms": 40.0,
+        "initial_bw_bytes_per_ms": 2000.0,
+        "loss_headroom": 0.02,
+        "ecn_alpha_gain": 0.0625,
+        "policer_rtt_ratio_thresh": 1.15
+      },
+      "trace": [
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 99000,
+          "rtt_ms": 40.0,
+          "loss_bytes": 1000,
+          "ecn_bytes": 0
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 98500,
+          "rtt_ms": 40.0,
+          "loss_bytes": 1500,
+          "ecn_bytes": 0
+        },
+        {
+          "op": "GET_STATUS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 40.0,
+          "max_bw_kbps": 19800.0,
+          "pacing_rate": 2475.0,
+          "cwnd_bytes": 198000,
+          "loss_rate": 0.01,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.0,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 40.0,
+          "max_bw_kbps": 19800.0,
+          "pacing_rate": 2475.0,
+          "cwnd_bytes": 198000,
+          "loss_rate": 0.015,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.0,
+          "policer_detected": false
+        },
+        {
+          "op": "GET_STATUS",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt": 40.0,
+          "max_bw": 2475.0,
+          "pacing_gain": 1.0,
+          "cwnd_gain": 2.0,
+          "bdp": 99000.0,
+          "ecn_alpha": 0.0,
+          "policer_detected": false,
+          "policed_rate": null
+        }
+      ],
+      "summary": {
+        "final_state": "PROBE_BW",
+        "final_min_rtt": 40.0,
+        "final_max_bw": 2475.0,
+        "policer_detected": false,
+        "total_bytes_delivered": 197500,
+        "total_loss_bytes": 2500,
+        "total_ecn_bytes": 0,
+        "bbr_state_transitions": 0,
+        "policer_events": 0,
+        "ecn_backoff_events": 0,
+        "loss_backoff_events": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 3,
+    "input": {
+      "config": {
+        "mss": 1460,
+        "initial_rtt_ms": 50.0,
+        "initial_bw_bytes_per_ms": 2000.0,
+        "loss_headroom": 0.02,
+        "ecn_alpha_gain": 0.0625,
+        "policer_rtt_ratio_thresh": 1.15
+      },
+      "trace": [
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 92000,
+          "rtt_ms": 50.0,
+          "loss_bytes": 8000,
+          "ecn_bytes": 0
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 90000,
+          "rtt_ms": 50.0,
+          "loss_bytes": 10000,
+          "ecn_bytes": 0
+        },
+        {
+          "op": "GET_STATUS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 50.0,
+          "max_bw_kbps": 15040.0,
+          "pacing_rate": 1880.0,
+          "cwnd_bytes": 188000,
+          "loss_rate": 0.08,
+          "loss_penalty": 0.12,
+          "ecn_alpha": 0.0,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 50.0,
+          "max_bw_kbps": 13836.8,
+          "pacing_rate": 1729.6,
+          "cwnd_bytes": 172960,
+          "loss_rate": 0.1,
+          "loss_penalty": 0.16,
+          "ecn_alpha": 0.0,
+          "policer_detected": false
+        },
+        {
+          "op": "GET_STATUS",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt": 50.0,
+          "max_bw": 1729.6,
+          "pacing_gain": 1.0,
+          "cwnd_gain": 2.0,
+          "bdp": 86480.0,
+          "ecn_alpha": 0.0,
+          "policer_detected": false,
+          "policed_rate": null
+        }
+      ],
+      "summary": {
+        "final_state": "PROBE_BW",
+        "final_min_rtt": 50.0,
+        "final_max_bw": 1729.6,
+        "policer_detected": false,
+        "total_bytes_delivered": 182000,
+        "total_loss_bytes": 18000,
+        "total_ecn_bytes": 0,
+        "bbr_state_transitions": 0,
+        "policer_events": 0,
+        "ecn_backoff_events": 0,
+        "loss_backoff_events": 2
+      }
+    }
+  },
+  {
+    "testcase_id": 4,
+    "input": {
+      "config": {
+        "mss": 1460,
+        "initial_rtt_ms": 20.0,
+        "initial_bw_bytes_per_ms": 5000.0,
+        "loss_headroom": 0.02,
+        "ecn_alpha_gain": 0.125,
+        "policer_rtt_ratio_thresh": 1.15
+      },
+      "trace": [
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 100000,
+          "rtt_ms": 20.0,
+          "loss_bytes": 0,
+          "ecn_bytes": 50000
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 100000,
+          "rtt_ms": 20.0,
+          "loss_bytes": 0,
+          "ecn_bytes": 60000
+        },
+        {
+          "op": "GET_STATUS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 20.0,
+          "max_bw_kbps": 40000.0,
+          "pacing_rate": 5000.0,
+          "cwnd_bytes": 193750,
+          "loss_rate": 0.0,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.0625,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 20.0,
+          "max_bw_kbps": 40000.0,
+          "pacing_rate": 5000.0,
+          "cwnd_bytes": 187031,
+          "loss_rate": 0.0,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.1297,
+          "policer_detected": false
+        },
+        {
+          "op": "GET_STATUS",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt": 20.0,
+          "max_bw": 5000.0,
+          "pacing_gain": 1.0,
+          "cwnd_gain": 2.0,
+          "bdp": 100000.0,
+          "ecn_alpha": 0.1297,
+          "policer_detected": false,
+          "policed_rate": null
+        }
+      ],
+      "summary": {
+        "final_state": "PROBE_BW",
+        "final_min_rtt": 20.0,
+        "final_max_bw": 5000.0,
+        "policer_detected": false,
+        "total_bytes_delivered": 200000,
+        "total_loss_bytes": 0,
+        "total_ecn_bytes": 110000,
+        "bbr_state_transitions": 0,
+        "policer_events": 0,
+        "ecn_backoff_events": 2,
+        "loss_backoff_events": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 5,
+    "input": {
+      "config": {
+        "mss": 1460,
+        "initial_rtt_ms": 25.0,
+        "initial_bw_bytes_per_ms": 4000.0,
+        "loss_headroom": 0.02,
+        "ecn_alpha_gain": 0.0625,
+        "policer_rtt_ratio_thresh": 1.1
+      },
+      "trace": [
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 80000,
+          "rtt_ms": 25.5,
+          "loss_bytes": 20000,
+          "ecn_bytes": 0
+        },
+        {
+          "op": "GET_STATUS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 25.0,
+          "max_bw_kbps": 20580.39,
+          "pacing_rate": 2572.55,
+          "cwnd_bytes": 128627,
+          "loss_rate": 0.2,
+          "loss_penalty": 0.36,
+          "ecn_alpha": 0.0,
+          "policer_detected": true
+        },
+        {
+          "op": "GET_STATUS",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt": 25.0,
+          "max_bw": 2572.55,
+          "pacing_gain": 1.0,
+          "cwnd_gain": 2.0,
+          "bdp": 64313.73,
+          "ecn_alpha": 0.0,
+          "policer_detected": true,
+          "policed_rate": 3137.25
+        }
+      ],
+      "summary": {
+        "final_state": "PROBE_BW",
+        "final_min_rtt": 25.0,
+        "final_max_bw": 2572.55,
+        "policer_detected": true,
+        "total_bytes_delivered": 80000,
+        "total_loss_bytes": 20000,
+        "total_ecn_bytes": 0,
+        "bbr_state_transitions": 0,
+        "policer_events": 1,
+        "ecn_backoff_events": 0,
+        "loss_backoff_events": 1
+      }
+    }
+  },
+  {
+    "testcase_id": 6,
+    "input": {
+      "config": {
+        "mss": 1460,
+        "initial_rtt_ms": 10.0,
+        "initial_bw_bytes_per_ms": 10000.0,
+        "loss_headroom": 0.02,
+        "ecn_alpha_gain": 0.0625,
+        "policer_rtt_ratio_thresh": 1.15
+      },
+      "trace": [
+        {
+          "op": "FORCE_STATE",
+          "state": "STARTUP"
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 100000,
+          "rtt_ms": 10.0,
+          "loss_bytes": 0,
+          "ecn_bytes": 0
+        },
+        {
+          "op": "FORCE_STATE",
+          "state": "DRAIN"
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 50000,
+          "rtt_ms": 10.0,
+          "loss_bytes": 0,
+          "ecn_bytes": 0
+        },
+        {
+          "op": "FORCE_STATE",
+          "state": "PROBE_BW",
+          "phase": "UP"
+        },
+        {
+          "op": "PHASE_STEP"
+        },
+        {
+          "op": "PHASE_STEP"
+        },
+        {
+          "op": "FORCE_STATE",
+          "state": "PROBE_RTT"
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 10000,
+          "rtt_ms": 8.0,
+          "loss_bytes": 0,
+          "ecn_bytes": 0
+        },
+        {
+          "op": "GET_STATUS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "FORCE_STATE",
+          "status": "STATE_FORCED",
+          "state": "STARTUP",
+          "phase": "N/A",
+          "pacing_gain": 2.885,
+          "cwnd_gain": 2.885
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "STARTUP",
+          "phase": "N/A",
+          "min_rtt_ms": 10.0,
+          "max_bw_kbps": 80000.0,
+          "pacing_rate": 28850.0,
+          "cwnd_bytes": 288500,
+          "loss_rate": 0.0,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.0,
+          "policer_detected": false
+        },
+        {
+          "op": "FORCE_STATE",
+          "status": "STATE_FORCED",
+          "state": "DRAIN",
+          "phase": "N/A",
+          "pacing_gain": 0.35,
+          "cwnd_gain": 2.0
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "DRAIN",
+          "phase": "N/A",
+          "min_rtt_ms": 10.0,
+          "max_bw_kbps": 80000.0,
+          "pacing_rate": 3500.0,
+          "cwnd_bytes": 200000,
+          "loss_rate": 0.0,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.0,
+          "policer_detected": false
+        },
+        {
+          "op": "FORCE_STATE",
+          "status": "STATE_FORCED",
+          "state": "PROBE_BW",
+          "phase": "UP",
+          "pacing_gain": 1.25,
+          "cwnd_gain": 2.0
+        },
+        {
+          "op": "PHASE_STEP",
+          "status": "PHASE_TRANSITIONED",
+          "state": "PROBE_BW",
+          "phase": "DOWN",
+          "pacing_gain": 0.75
+        },
+        {
+          "op": "PHASE_STEP",
+          "status": "PHASE_TRANSITIONED",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "pacing_gain": 1.0
+        },
+        {
+          "op": "FORCE_STATE",
+          "status": "STATE_FORCED",
+          "state": "PROBE_RTT",
+          "phase": "N/A",
+          "pacing_gain": 1.0,
+          "cwnd_gain": 0.5
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_RTT",
+          "phase": "N/A",
+          "min_rtt_ms": 8.0,
+          "max_bw_kbps": 80000.0,
+          "pacing_rate": 10000.0,
+          "cwnd_bytes": 40000,
+          "loss_rate": 0.0,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.0,
+          "policer_detected": false
+        },
+        {
+          "op": "GET_STATUS",
+          "state": "PROBE_RTT",
+          "phase": "N/A",
+          "min_rtt": 8.0,
+          "max_bw": 10000.0,
+          "pacing_gain": 1.0,
+          "cwnd_gain": 0.5,
+          "bdp": 80000.0,
+          "ecn_alpha": 0.0,
+          "policer_detected": false,
+          "policed_rate": null
+        }
+      ],
+      "summary": {
+        "final_state": "PROBE_RTT",
+        "final_min_rtt": 8.0,
+        "final_max_bw": 10000.0,
+        "policer_detected": false,
+        "total_bytes_delivered": 160000,
+        "total_loss_bytes": 0,
+        "total_ecn_bytes": 0,
+        "bbr_state_transitions": 6,
+        "policer_events": 0,
+        "ecn_backoff_events": 0,
+        "loss_backoff_events": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 7,
+    "input": {
+      "config": {
+        "mss": 1460,
+        "initial_rtt_ms": 35.0,
+        "initial_bw_bytes_per_ms": 3000.0,
+        "loss_headroom": 0.03,
+        "ecn_alpha_gain": 0.1,
+        "policer_rtt_ratio_thresh": 1.15
+      },
+      "trace": [
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 98000,
+          "rtt_ms": 35.0,
+          "loss_bytes": 2000,
+          "ecn_bytes": 10000
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 88000,
+          "rtt_ms": 36.0,
+          "loss_bytes": 12000,
+          "ecn_bytes": 15000
+        },
+        {
+          "op": "GET_STATUS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 35.0,
+          "max_bw_kbps": 24000.0,
+          "pacing_rate": 3000.0,
+          "cwnd_bytes": 208928,
+          "loss_rate": 0.02,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.0102,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 35.0,
+          "max_bw_kbps": 17795.56,
+          "pacing_rate": 2224.44,
+          "cwnd_bytes": 153669,
+          "loss_rate": 0.12,
+          "loss_penalty": 0.18,
+          "ecn_alpha": 0.0262,
+          "policer_detected": true
+        },
+        {
+          "op": "GET_STATUS",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt": 35.0,
+          "max_bw": 2224.44,
+          "pacing_gain": 1.0,
+          "cwnd_gain": 2.0,
+          "bdp": 77855.56,
+          "ecn_alpha": 0.0262,
+          "policer_detected": true,
+          "policed_rate": 2444.44
+        }
+      ],
+      "summary": {
+        "final_state": "PROBE_BW",
+        "final_min_rtt": 35.0,
+        "final_max_bw": 2224.44,
+        "policer_detected": true,
+        "total_bytes_delivered": 186000,
+        "total_loss_bytes": 14000,
+        "total_ecn_bytes": 25000,
+        "bbr_state_transitions": 0,
+        "policer_events": 1,
+        "ecn_backoff_events": 2,
+        "loss_backoff_events": 1
+      }
+    }
+  },
+  {
+    "testcase_id": 8,
+    "input": {
+      "config": {
+        "mss": 1460,
+        "initial_rtt_ms": 5.0,
+        "initial_bw_bytes_per_ms": 50000.0,
+        "loss_headroom": 0.02,
+        "ecn_alpha_gain": 0.0625,
+        "policer_rtt_ratio_thresh": 1.15
+      },
+      "trace": [
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 250000,
+          "rtt_ms": 5.0,
+          "loss_bytes": 500,
+          "ecn_bytes": 2000
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 250000,
+          "rtt_ms": 5.1,
+          "loss_bytes": 0,
+          "ecn_bytes": 0
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 250000,
+          "rtt_ms": 5.2,
+          "loss_bytes": 0,
+          "ecn_bytes": 0
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 250000,
+          "rtt_ms": 5.0,
+          "loss_bytes": 0,
+          "ecn_bytes": 0
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 250000,
+          "rtt_ms": 5.1,
+          "loss_bytes": 0,
+          "ecn_bytes": 2000
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 250000,
+          "rtt_ms": 5.2,
+          "loss_bytes": 500,
+          "ecn_bytes": 0
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 250000,
+          "rtt_ms": 5.0,
+          "loss_bytes": 0,
+          "ecn_bytes": 0
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 250000,
+          "rtt_ms": 5.1,
+          "loss_bytes": 0,
+          "ecn_bytes": 0
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 250000,
+          "rtt_ms": 5.2,
+          "loss_bytes": 0,
+          "ecn_bytes": 2000
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 250000,
+          "rtt_ms": 5.0,
+          "loss_bytes": 0,
+          "ecn_bytes": 0
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 250000,
+          "rtt_ms": 5.1,
+          "loss_bytes": 500,
+          "ecn_bytes": 0
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 250000,
+          "rtt_ms": 5.2,
+          "loss_bytes": 0,
+          "ecn_bytes": 0
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 250000,
+          "rtt_ms": 5.0,
+          "loss_bytes": 0,
+          "ecn_bytes": 2000
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 250000,
+          "rtt_ms": 5.1,
+          "loss_bytes": 0,
+          "ecn_bytes": 0
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 250000,
+          "rtt_ms": 5.2,
+          "loss_bytes": 0,
+          "ecn_bytes": 0
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 250000,
+          "rtt_ms": 5.0,
+          "loss_bytes": 500,
+          "ecn_bytes": 0
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 250000,
+          "rtt_ms": 5.1,
+          "loss_bytes": 0,
+          "ecn_bytes": 2000
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 250000,
+          "rtt_ms": 5.2,
+          "loss_bytes": 0,
+          "ecn_bytes": 0
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 250000,
+          "rtt_ms": 5.0,
+          "loss_bytes": 0,
+          "ecn_bytes": 0
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 250000,
+          "rtt_ms": 5.1,
+          "loss_bytes": 0,
+          "ecn_bytes": 0
+        },
+        {
+          "op": "PHASE_STEP"
+        },
+        {
+          "op": "PHASE_STEP"
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 200000,
+          "rtt_ms": 6.5,
+          "loss_bytes": 15000,
+          "ecn_bytes": 50000
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 200000,
+          "rtt_ms": 6.5,
+          "loss_bytes": 15000,
+          "ecn_bytes": 50000
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 200000,
+          "rtt_ms": 6.5,
+          "loss_bytes": 15000,
+          "ecn_bytes": 50000
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 200000,
+          "rtt_ms": 6.5,
+          "loss_bytes": 15000,
+          "ecn_bytes": 50000
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 200000,
+          "rtt_ms": 6.5,
+          "loss_bytes": 15000,
+          "ecn_bytes": 50000
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 200000,
+          "rtt_ms": 6.5,
+          "loss_bytes": 15000,
+          "ecn_bytes": 50000
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 200000,
+          "rtt_ms": 6.5,
+          "loss_bytes": 15000,
+          "ecn_bytes": 50000
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 200000,
+          "rtt_ms": 6.5,
+          "loss_bytes": 15000,
+          "ecn_bytes": 50000
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 200000,
+          "rtt_ms": 6.5,
+          "loss_bytes": 15000,
+          "ecn_bytes": 50000
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 200000,
+          "rtt_ms": 6.5,
+          "loss_bytes": 15000,
+          "ecn_bytes": 50000
+        },
+        {
+          "op": "PHASE_STEP"
+        },
+        {
+          "op": "PHASE_STEP"
+        },
+        {
+          "op": "ACK_EVENT",
+          "bytes_delivered": 150000,
+          "rtt_ms": 5.2,
+          "loss_bytes": 35000,
+          "ecn_bytes": 10000
+        },
+        {
+          "op": "GET_STATUS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 400000.0,
+          "pacing_rate": 50000.0,
+          "cwnd_bytes": 499875,
+          "loss_rate": 0.002,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.0005,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 400000.0,
+          "pacing_rate": 50000.0,
+          "cwnd_bytes": 499882,
+          "loss_rate": 0.0,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.0005,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 400000.0,
+          "pacing_rate": 50000.0,
+          "cwnd_bytes": 499890,
+          "loss_rate": 0.0,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.0004,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 400000.0,
+          "pacing_rate": 50000.0,
+          "cwnd_bytes": 499897,
+          "loss_rate": 0.0,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.0004,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 400000.0,
+          "pacing_rate": 50000.0,
+          "cwnd_bytes": 499778,
+          "loss_rate": 0.0,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.0009,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 400000.0,
+          "pacing_rate": 50000.0,
+          "cwnd_bytes": 499792,
+          "loss_rate": 0.002,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.0008,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 400000.0,
+          "pacing_rate": 50000.0,
+          "cwnd_bytes": 499805,
+          "loss_rate": 0.0,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.0008,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 400000.0,
+          "pacing_rate": 50000.0,
+          "cwnd_bytes": 499817,
+          "loss_rate": 0.0,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.0007,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 400000.0,
+          "pacing_rate": 50000.0,
+          "cwnd_bytes": 499703,
+          "loss_rate": 0.0,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.0012,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 400000.0,
+          "pacing_rate": 50000.0,
+          "cwnd_bytes": 499722,
+          "loss_rate": 0.0,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.0011,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 400000.0,
+          "pacing_rate": 50000.0,
+          "cwnd_bytes": 499739,
+          "loss_rate": 0.002,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.001,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 400000.0,
+          "pacing_rate": 50000.0,
+          "cwnd_bytes": 499755,
+          "loss_rate": 0.0,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.001,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 400000.0,
+          "pacing_rate": 50000.0,
+          "cwnd_bytes": 499646,
+          "loss_rate": 0.0,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.0014,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 400000.0,
+          "pacing_rate": 50000.0,
+          "cwnd_bytes": 499668,
+          "loss_rate": 0.0,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.0013,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 400000.0,
+          "pacing_rate": 50000.0,
+          "cwnd_bytes": 499689,
+          "loss_rate": 0.0,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.0012,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 400000.0,
+          "pacing_rate": 50000.0,
+          "cwnd_bytes": 499708,
+          "loss_rate": 0.002,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.0012,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 400000.0,
+          "pacing_rate": 50000.0,
+          "cwnd_bytes": 499601,
+          "loss_rate": 0.0,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.0016,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 400000.0,
+          "pacing_rate": 50000.0,
+          "cwnd_bytes": 499626,
+          "loss_rate": 0.0,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.0015,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 400000.0,
+          "pacing_rate": 50000.0,
+          "cwnd_bytes": 499649,
+          "loss_rate": 0.0,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.0014,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 400000.0,
+          "pacing_rate": 50000.0,
+          "cwnd_bytes": 499671,
+          "loss_rate": 0.0,
+          "loss_penalty": 0.0,
+          "ecn_alpha": 0.0013,
+          "policer_detected": false
+        },
+        {
+          "op": "PHASE_STEP",
+          "status": "PHASE_TRANSITIONED",
+          "state": "PROBE_BW",
+          "phase": "REFILL",
+          "pacing_gain": 1.0
+        },
+        {
+          "op": "PHASE_STEP",
+          "status": "PHASE_TRANSITIONED",
+          "state": "PROBE_BW",
+          "phase": "UP",
+          "pacing_gain": 1.25
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "UP",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 380093.02,
+          "pacing_rate": 59389.53,
+          "cwnd_bytes": 471112,
+          "loss_rate": 0.0698,
+          "loss_penalty": 0.0995,
+          "ecn_alpha": 0.0169,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "UP",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 361176.77,
+          "pacing_rate": 56433.87,
+          "cwnd_bytes": 444376,
+          "loss_rate": 0.0698,
+          "loss_penalty": 0.0995,
+          "ecn_alpha": 0.0314,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "UP",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 343201.92,
+          "pacing_rate": 53625.3,
+          "cwnd_bytes": 419330,
+          "loss_rate": 0.0698,
+          "loss_penalty": 0.0995,
+          "ecn_alpha": 0.0451,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "UP",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 326121.64,
+          "pacing_rate": 50956.51,
+          "cwnd_bytes": 395851,
+          "loss_rate": 0.0698,
+          "loss_penalty": 0.0995,
+          "ecn_alpha": 0.0579,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "UP",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 309891.4,
+          "pacing_rate": 48420.53,
+          "cwnd_bytes": 373825,
+          "loss_rate": 0.0698,
+          "loss_penalty": 0.0995,
+          "ecn_alpha": 0.0699,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "UP",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 294468.9,
+          "pacing_rate": 46010.77,
+          "cwnd_bytes": 353149,
+          "loss_rate": 0.0698,
+          "loss_penalty": 0.0995,
+          "ecn_alpha": 0.0812,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "UP",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 279813.93,
+          "pacing_rate": 43720.93,
+          "cwnd_bytes": 333728,
+          "loss_rate": 0.0698,
+          "loss_penalty": 0.0995,
+          "ecn_alpha": 0.0917,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "UP",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 265888.31,
+          "pacing_rate": 41545.05,
+          "cwnd_bytes": 315475,
+          "loss_rate": 0.0698,
+          "loss_penalty": 0.0995,
+          "ecn_alpha": 0.1016,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "UP",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 252655.73,
+          "pacing_rate": 39477.46,
+          "cwnd_bytes": 298310,
+          "loss_rate": 0.0698,
+          "loss_penalty": 0.0995,
+          "ecn_alpha": 0.1109,
+          "policer_detected": false
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "UP",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 240081.7,
+          "pacing_rate": 37512.77,
+          "cwnd_bytes": 282160,
+          "loss_rate": 0.0698,
+          "loss_penalty": 0.0995,
+          "ecn_alpha": 0.1196,
+          "policer_detected": false
+        },
+        {
+          "op": "PHASE_STEP",
+          "status": "PHASE_TRANSITIONED",
+          "state": "PROBE_BW",
+          "phase": "DOWN",
+          "pacing_gain": 0.75
+        },
+        {
+          "op": "PHASE_STEP",
+          "status": "PHASE_TRANSITIONED",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "pacing_gain": 1.0
+        },
+        {
+          "op": "ACK_EVENT",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt_ms": 5.0,
+          "max_bw_kbps": 191725.57,
+          "pacing_rate": 23965.7,
+          "cwnd_bytes": 225724,
+          "loss_rate": 0.1892,
+          "loss_penalty": 0.3384,
+          "ecn_alpha": 0.1163,
+          "policer_detected": true
+        },
+        {
+          "op": "GET_STATUS",
+          "state": "PROBE_BW",
+          "phase": "CRUISE",
+          "min_rtt": 5.0,
+          "max_bw": 23965.7,
+          "pacing_gain": 1.0,
+          "cwnd_gain": 2.0,
+          "bdp": 119828.48,
+          "ecn_alpha": 0.1163,
+          "policer_detected": true,
+          "policed_rate": 28846.15
+        }
+      ],
+      "summary": {
+        "final_state": "PROBE_BW",
+        "final_min_rtt": 5.0,
+        "final_max_bw": 23965.7,
+        "policer_detected": true,
+        "total_bytes_delivered": 7150000,
+        "total_loss_bytes": 187000,
+        "total_ecn_bytes": 520000,
+        "bbr_state_transitions": 4,
+        "policer_events": 1,
+        "ecn_backoff_events": 11,
+        "loss_backoff_events": 11
+      }
+    }
+  }
+]
