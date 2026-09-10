@@ -1,0 +1,1256 @@
+[
+  {
+    "input": {
+      "config": {
+        "cache_hot_timeout": 50,
+        "numa_imbalance_threshold": 50
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "INIT_TOPOLOGY",
+          "num_nodes": 1,
+          "cores_per_node": 2,
+          "smt_per_core": 2
+        },
+        {
+          "time": 20,
+          "type": "ENQUEUE_TASK",
+          "task_id": "t1",
+          "load": 100,
+          "target_cpu": 0
+        },
+        {
+          "time": 30,
+          "type": "ENQUEUE_TASK",
+          "task_id": "t2",
+          "load": 100,
+          "target_cpu": 0
+        },
+        {
+          "time": 40,
+          "type": "TRIGGER_LOAD_BALANCE",
+          "level": "SMT",
+          "idle_cpu": 1
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "tasks_migrated": 1,
+        "cache_hot_migrations_blocked": 0,
+        "balance_runs": 1,
+        "total_cpus": 4,
+        "active_tasks": 2
+      },
+      "cpus": {
+        "cpu_0": {
+          "node_id": 0,
+          "core_id": 0,
+          "total_load": 100,
+          "tasks": [
+            "t1"
+          ]
+        },
+        "cpu_1": {
+          "node_id": 0,
+          "core_id": 0,
+          "total_load": 100,
+          "tasks": [
+            "t2"
+          ]
+        },
+        "cpu_2": {
+          "node_id": 0,
+          "core_id": 1,
+          "total_load": 0,
+          "tasks": []
+        },
+        "cpu_3": {
+          "node_id": 0,
+          "core_id": 1,
+          "total_load": 0,
+          "tasks": []
+        }
+      },
+      "migration_logs": [
+        {
+          "time": 40,
+          "task_id": "t2",
+          "from_cpu": 0,
+          "to_cpu": 1,
+          "level": "SMT",
+          "imbalance_cleared": 100
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "TOPOLOGY_INITIALIZED",
+          "total_cpus": 4,
+          "num_nodes": 1
+        },
+        {
+          "time": 20,
+          "event": "TASK_ENQUEUED",
+          "task_id": "t1",
+          "load": 100,
+          "cpu_id": 0
+        },
+        {
+          "time": 30,
+          "event": "TASK_ENQUEUED",
+          "task_id": "t2",
+          "load": 100,
+          "cpu_id": 0
+        },
+        {
+          "time": 40,
+          "event": "TASK_MIGRATED",
+          "task_id": "t2",
+          "from_cpu": 0,
+          "to_cpu": 1,
+          "level": "SMT"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "cache_hot_timeout": 50,
+        "numa_imbalance_threshold": 50
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "INIT_TOPOLOGY",
+          "num_nodes": 1,
+          "cores_per_node": 2,
+          "smt_per_core": 2
+        },
+        {
+          "time": 20,
+          "type": "ENQUEUE_TASK",
+          "task_id": "c0_t1",
+          "load": 150,
+          "target_cpu": 0
+        },
+        {
+          "time": 30,
+          "type": "ENQUEUE_TASK",
+          "task_id": "c0_t2",
+          "load": 150,
+          "target_cpu": 1
+        },
+        {
+          "time": 40,
+          "type": "TRIGGER_LOAD_BALANCE",
+          "level": "MC",
+          "idle_cpu": 2
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "tasks_migrated": 1,
+        "cache_hot_migrations_blocked": 0,
+        "balance_runs": 1,
+        "total_cpus": 4,
+        "active_tasks": 2
+      },
+      "cpus": {
+        "cpu_0": {
+          "node_id": 0,
+          "core_id": 0,
+          "total_load": 0,
+          "tasks": []
+        },
+        "cpu_1": {
+          "node_id": 0,
+          "core_id": 0,
+          "total_load": 150,
+          "tasks": [
+            "c0_t2"
+          ]
+        },
+        "cpu_2": {
+          "node_id": 0,
+          "core_id": 1,
+          "total_load": 150,
+          "tasks": [
+            "c0_t1"
+          ]
+        },
+        "cpu_3": {
+          "node_id": 0,
+          "core_id": 1,
+          "total_load": 0,
+          "tasks": []
+        }
+      },
+      "migration_logs": [
+        {
+          "time": 40,
+          "task_id": "c0_t1",
+          "from_cpu": 0,
+          "to_cpu": 2,
+          "level": "MC",
+          "imbalance_cleared": 150
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "TOPOLOGY_INITIALIZED",
+          "total_cpus": 4,
+          "num_nodes": 1
+        },
+        {
+          "time": 20,
+          "event": "TASK_ENQUEUED",
+          "task_id": "c0_t1",
+          "load": 150,
+          "cpu_id": 0
+        },
+        {
+          "time": 30,
+          "event": "TASK_ENQUEUED",
+          "task_id": "c0_t2",
+          "load": 150,
+          "cpu_id": 1
+        },
+        {
+          "time": 40,
+          "event": "TASK_MIGRATED",
+          "task_id": "c0_t1",
+          "from_cpu": 0,
+          "to_cpu": 2,
+          "level": "MC"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "cache_hot_timeout": 50,
+        "numa_imbalance_threshold": 80
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "INIT_TOPOLOGY",
+          "num_nodes": 2,
+          "cores_per_node": 1,
+          "smt_per_core": 2
+        },
+        {
+          "time": 20,
+          "type": "ENQUEUE_TASK",
+          "task_id": "n0_small",
+          "load": 100,
+          "target_cpu": 0
+        },
+        {
+          "time": 30,
+          "type": "TRIGGER_LOAD_BALANCE",
+          "level": "NUMA",
+          "idle_cpu": 2
+        },
+        {
+          "time": 40,
+          "type": "ENQUEUE_TASK",
+          "task_id": "n0_large",
+          "load": 100,
+          "target_cpu": 0
+        },
+        {
+          "time": 50,
+          "type": "TRIGGER_LOAD_BALANCE",
+          "level": "NUMA",
+          "idle_cpu": 2
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "tasks_migrated": 1,
+        "cache_hot_migrations_blocked": 0,
+        "balance_runs": 2,
+        "total_cpus": 4,
+        "active_tasks": 2
+      },
+      "cpus": {
+        "cpu_0": {
+          "node_id": 0,
+          "core_id": 0,
+          "total_load": 100,
+          "tasks": [
+            "n0_small"
+          ]
+        },
+        "cpu_1": {
+          "node_id": 0,
+          "core_id": 0,
+          "total_load": 0,
+          "tasks": []
+        },
+        "cpu_2": {
+          "node_id": 1,
+          "core_id": 1,
+          "total_load": 100,
+          "tasks": [
+            "n0_large"
+          ]
+        },
+        "cpu_3": {
+          "node_id": 1,
+          "core_id": 1,
+          "total_load": 0,
+          "tasks": []
+        }
+      },
+      "migration_logs": [
+        {
+          "time": 50,
+          "task_id": "n0_large",
+          "from_cpu": 0,
+          "to_cpu": 2,
+          "level": "NUMA",
+          "imbalance_cleared": 100
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "TOPOLOGY_INITIALIZED",
+          "total_cpus": 4,
+          "num_nodes": 2
+        },
+        {
+          "time": 20,
+          "event": "TASK_ENQUEUED",
+          "task_id": "n0_small",
+          "load": 100,
+          "cpu_id": 0
+        },
+        {
+          "time": 40,
+          "event": "TASK_ENQUEUED",
+          "task_id": "n0_large",
+          "load": 100,
+          "cpu_id": 0
+        },
+        {
+          "time": 50,
+          "event": "TASK_MIGRATED",
+          "task_id": "n0_large",
+          "from_cpu": 0,
+          "to_cpu": 2,
+          "level": "NUMA"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "cache_hot_timeout": 50,
+        "numa_imbalance_threshold": 50
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "INIT_TOPOLOGY",
+          "num_nodes": 1,
+          "cores_per_node": 2,
+          "smt_per_core": 2
+        },
+        {
+          "time": 20,
+          "type": "ENQUEUE_TASK",
+          "task_id": "hot_1",
+          "load": 100,
+          "target_cpu": 0
+        },
+        {
+          "time": 25,
+          "type": "ENQUEUE_TASK",
+          "task_id": "dest_task",
+          "load": 20,
+          "target_cpu": 2
+        },
+        {
+          "time": 30,
+          "type": "EXECUTE_TASK",
+          "task_id": "hot_1",
+          "duration": 30
+        },
+        {
+          "time": 70,
+          "type": "TRIGGER_LOAD_BALANCE",
+          "level": "MC",
+          "idle_cpu": 2
+        },
+        {
+          "time": 120,
+          "type": "TRIGGER_LOAD_BALANCE",
+          "level": "MC",
+          "idle_cpu": 2
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "tasks_migrated": 1,
+        "cache_hot_migrations_blocked": 1,
+        "balance_runs": 2,
+        "total_cpus": 4,
+        "active_tasks": 2
+      },
+      "cpus": {
+        "cpu_0": {
+          "node_id": 0,
+          "core_id": 0,
+          "total_load": 0,
+          "tasks": []
+        },
+        "cpu_1": {
+          "node_id": 0,
+          "core_id": 0,
+          "total_load": 0,
+          "tasks": []
+        },
+        "cpu_2": {
+          "node_id": 0,
+          "core_id": 1,
+          "total_load": 120,
+          "tasks": [
+            "dest_task",
+            "hot_1"
+          ]
+        },
+        "cpu_3": {
+          "node_id": 0,
+          "core_id": 1,
+          "total_load": 0,
+          "tasks": []
+        }
+      },
+      "migration_logs": [
+        {
+          "time": 120,
+          "task_id": "hot_1",
+          "from_cpu": 0,
+          "to_cpu": 2,
+          "level": "MC",
+          "imbalance_cleared": 100
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "TOPOLOGY_INITIALIZED",
+          "total_cpus": 4,
+          "num_nodes": 1
+        },
+        {
+          "time": 20,
+          "event": "TASK_ENQUEUED",
+          "task_id": "hot_1",
+          "load": 100,
+          "cpu_id": 0
+        },
+        {
+          "time": 25,
+          "event": "TASK_ENQUEUED",
+          "task_id": "dest_task",
+          "load": 20,
+          "cpu_id": 2
+        },
+        {
+          "time": 30,
+          "event": "TASK_EXECUTED",
+          "task_id": "hot_1",
+          "duration": 30,
+          "finish_time": 60
+        },
+        {
+          "time": 70,
+          "event": "MIGRATION_BLOCKED_CACHE_HOT",
+          "busiest_cpu": 0,
+          "idle_cpu": 2
+        },
+        {
+          "time": 120,
+          "event": "TASK_MIGRATED",
+          "task_id": "hot_1",
+          "from_cpu": 0,
+          "to_cpu": 2,
+          "level": "MC"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "cache_hot_timeout": 100,
+        "numa_imbalance_threshold": 50
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "INIT_TOPOLOGY",
+          "num_nodes": 1,
+          "cores_per_node": 2,
+          "smt_per_core": 2
+        },
+        {
+          "time": 20,
+          "type": "ENQUEUE_TASK",
+          "task_id": "urgent_hot",
+          "load": 200,
+          "target_cpu": 0
+        },
+        {
+          "time": 30,
+          "type": "EXECUTE_TASK",
+          "task_id": "urgent_hot",
+          "duration": 20
+        },
+        {
+          "time": 60,
+          "type": "TRIGGER_LOAD_BALANCE",
+          "level": "MC",
+          "idle_cpu": 2
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "tasks_migrated": 1,
+        "cache_hot_migrations_blocked": 0,
+        "balance_runs": 1,
+        "total_cpus": 4,
+        "active_tasks": 1
+      },
+      "cpus": {
+        "cpu_0": {
+          "node_id": 0,
+          "core_id": 0,
+          "total_load": 0,
+          "tasks": []
+        },
+        "cpu_1": {
+          "node_id": 0,
+          "core_id": 0,
+          "total_load": 0,
+          "tasks": []
+        },
+        "cpu_2": {
+          "node_id": 0,
+          "core_id": 1,
+          "total_load": 200,
+          "tasks": [
+            "urgent_hot"
+          ]
+        },
+        "cpu_3": {
+          "node_id": 0,
+          "core_id": 1,
+          "total_load": 0,
+          "tasks": []
+        }
+      },
+      "migration_logs": [
+        {
+          "time": 60,
+          "task_id": "urgent_hot",
+          "from_cpu": 0,
+          "to_cpu": 2,
+          "level": "MC",
+          "imbalance_cleared": 200
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "TOPOLOGY_INITIALIZED",
+          "total_cpus": 4,
+          "num_nodes": 1
+        },
+        {
+          "time": 20,
+          "event": "TASK_ENQUEUED",
+          "task_id": "urgent_hot",
+          "load": 200,
+          "cpu_id": 0
+        },
+        {
+          "time": 30,
+          "event": "TASK_EXECUTED",
+          "task_id": "urgent_hot",
+          "duration": 20,
+          "finish_time": 50
+        },
+        {
+          "time": 60,
+          "event": "TASK_MIGRATED",
+          "task_id": "urgent_hot",
+          "from_cpu": 0,
+          "to_cpu": 2,
+          "level": "MC"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "cache_hot_timeout": 50,
+        "numa_imbalance_threshold": 50
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "INIT_TOPOLOGY",
+          "num_nodes": 1,
+          "cores_per_node": 2,
+          "smt_per_core": 2
+        },
+        {
+          "time": 20,
+          "type": "ENQUEUE_TASK",
+          "task_id": "short_lived",
+          "load": 100,
+          "target_cpu": 0
+        },
+        {
+          "time": 30,
+          "type": "ENQUEUE_TASK",
+          "task_id": "long_lived",
+          "load": 100,
+          "target_cpu": 0
+        },
+        {
+          "time": 40,
+          "type": "DEQUEUE_TASK",
+          "task_id": "short_lived"
+        },
+        {
+          "time": 50,
+          "type": "TRIGGER_LOAD_BALANCE",
+          "level": "SMT",
+          "idle_cpu": 1
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "tasks_migrated": 1,
+        "cache_hot_migrations_blocked": 0,
+        "balance_runs": 1,
+        "total_cpus": 4,
+        "active_tasks": 1
+      },
+      "cpus": {
+        "cpu_0": {
+          "node_id": 0,
+          "core_id": 0,
+          "total_load": 0,
+          "tasks": []
+        },
+        "cpu_1": {
+          "node_id": 0,
+          "core_id": 0,
+          "total_load": 100,
+          "tasks": [
+            "long_lived"
+          ]
+        },
+        "cpu_2": {
+          "node_id": 0,
+          "core_id": 1,
+          "total_load": 0,
+          "tasks": []
+        },
+        "cpu_3": {
+          "node_id": 0,
+          "core_id": 1,
+          "total_load": 0,
+          "tasks": []
+        }
+      },
+      "migration_logs": [
+        {
+          "time": 50,
+          "task_id": "long_lived",
+          "from_cpu": 0,
+          "to_cpu": 1,
+          "level": "SMT",
+          "imbalance_cleared": 100
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "TOPOLOGY_INITIALIZED",
+          "total_cpus": 4,
+          "num_nodes": 1
+        },
+        {
+          "time": 20,
+          "event": "TASK_ENQUEUED",
+          "task_id": "short_lived",
+          "load": 100,
+          "cpu_id": 0
+        },
+        {
+          "time": 30,
+          "event": "TASK_ENQUEUED",
+          "task_id": "long_lived",
+          "load": 100,
+          "cpu_id": 0
+        },
+        {
+          "time": 40,
+          "event": "TASK_DEQUEUED",
+          "task_id": "short_lived"
+        },
+        {
+          "time": 50,
+          "event": "TASK_MIGRATED",
+          "task_id": "long_lived",
+          "from_cpu": 0,
+          "to_cpu": 1,
+          "level": "SMT"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "cache_hot_timeout": 20,
+        "numa_imbalance_threshold": 50
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "INIT_TOPOLOGY",
+          "num_nodes": 2,
+          "cores_per_node": 2,
+          "smt_per_core": 2
+        },
+        {
+          "time": 20,
+          "type": "ENQUEUE_TASK",
+          "task_id": "task_a",
+          "load": 80,
+          "target_cpu": 0
+        },
+        {
+          "time": 30,
+          "type": "ENQUEUE_TASK",
+          "task_id": "task_b",
+          "load": 80,
+          "target_cpu": 0
+        },
+        {
+          "time": 40,
+          "type": "ENQUEUE_TASK",
+          "task_id": "task_c",
+          "load": 80,
+          "target_cpu": 0
+        },
+        {
+          "time": 50,
+          "type": "ENQUEUE_TASK",
+          "task_id": "task_d",
+          "load": 80,
+          "target_cpu": 0
+        },
+        {
+          "time": 100,
+          "type": "TRIGGER_LOAD_BALANCE",
+          "level": "SMT",
+          "idle_cpu": 1
+        },
+        {
+          "time": 150,
+          "type": "TRIGGER_LOAD_BALANCE",
+          "level": "MC",
+          "idle_cpu": 2
+        },
+        {
+          "time": 200,
+          "type": "TRIGGER_LOAD_BALANCE",
+          "level": "NUMA",
+          "idle_cpu": 4
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "tasks_migrated": 3,
+        "cache_hot_migrations_blocked": 0,
+        "balance_runs": 3,
+        "total_cpus": 8,
+        "active_tasks": 4
+      },
+      "cpus": {
+        "cpu_0": {
+          "node_id": 0,
+          "core_id": 0,
+          "total_load": 80,
+          "tasks": [
+            "task_a"
+          ]
+        },
+        "cpu_1": {
+          "node_id": 0,
+          "core_id": 0,
+          "total_load": 80,
+          "tasks": [
+            "task_d"
+          ]
+        },
+        "cpu_2": {
+          "node_id": 0,
+          "core_id": 1,
+          "total_load": 80,
+          "tasks": [
+            "task_c"
+          ]
+        },
+        "cpu_3": {
+          "node_id": 0,
+          "core_id": 1,
+          "total_load": 0,
+          "tasks": []
+        },
+        "cpu_4": {
+          "node_id": 1,
+          "core_id": 2,
+          "total_load": 80,
+          "tasks": [
+            "task_b"
+          ]
+        },
+        "cpu_5": {
+          "node_id": 1,
+          "core_id": 2,
+          "total_load": 0,
+          "tasks": []
+        },
+        "cpu_6": {
+          "node_id": 1,
+          "core_id": 3,
+          "total_load": 0,
+          "tasks": []
+        },
+        "cpu_7": {
+          "node_id": 1,
+          "core_id": 3,
+          "total_load": 0,
+          "tasks": []
+        }
+      },
+      "migration_logs": [
+        {
+          "time": 100,
+          "task_id": "task_d",
+          "from_cpu": 0,
+          "to_cpu": 1,
+          "level": "SMT",
+          "imbalance_cleared": 80
+        },
+        {
+          "time": 150,
+          "task_id": "task_c",
+          "from_cpu": 0,
+          "to_cpu": 2,
+          "level": "MC",
+          "imbalance_cleared": 80
+        },
+        {
+          "time": 200,
+          "task_id": "task_b",
+          "from_cpu": 0,
+          "to_cpu": 4,
+          "level": "NUMA",
+          "imbalance_cleared": 80
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "TOPOLOGY_INITIALIZED",
+          "total_cpus": 8,
+          "num_nodes": 2
+        },
+        {
+          "time": 20,
+          "event": "TASK_ENQUEUED",
+          "task_id": "task_a",
+          "load": 80,
+          "cpu_id": 0
+        },
+        {
+          "time": 30,
+          "event": "TASK_ENQUEUED",
+          "task_id": "task_b",
+          "load": 80,
+          "cpu_id": 0
+        },
+        {
+          "time": 40,
+          "event": "TASK_ENQUEUED",
+          "task_id": "task_c",
+          "load": 80,
+          "cpu_id": 0
+        },
+        {
+          "time": 50,
+          "event": "TASK_ENQUEUED",
+          "task_id": "task_d",
+          "load": 80,
+          "cpu_id": 0
+        },
+        {
+          "time": 100,
+          "event": "TASK_MIGRATED",
+          "task_id": "task_d",
+          "from_cpu": 0,
+          "to_cpu": 1,
+          "level": "SMT"
+        },
+        {
+          "time": 150,
+          "event": "TASK_MIGRATED",
+          "task_id": "task_c",
+          "from_cpu": 0,
+          "to_cpu": 2,
+          "level": "MC"
+        },
+        {
+          "time": 200,
+          "event": "TASK_MIGRATED",
+          "task_id": "task_b",
+          "from_cpu": 0,
+          "to_cpu": 4,
+          "level": "NUMA"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "cache_hot_timeout": 30,
+        "numa_imbalance_threshold": 60
+      },
+      "trace": [
+        {
+          "time": 100,
+          "type": "INIT_TOPOLOGY",
+          "num_nodes": 2,
+          "cores_per_node": 4,
+          "smt_per_core": 2
+        },
+        {
+          "time": 110,
+          "type": "ENQUEUE_TASK",
+          "task_id": "srv_1",
+          "load": 120,
+          "target_cpu": 0
+        },
+        {
+          "time": 120,
+          "type": "ENQUEUE_TASK",
+          "task_id": "srv_2",
+          "load": 120,
+          "target_cpu": 0
+        },
+        {
+          "time": 130,
+          "type": "ENQUEUE_TASK",
+          "task_id": "srv_3",
+          "load": 120,
+          "target_cpu": 0
+        },
+        {
+          "time": 140,
+          "type": "ENQUEUE_TASK",
+          "task_id": "srv_4",
+          "load": 120,
+          "target_cpu": 1
+        },
+        {
+          "time": 150,
+          "type": "EXECUTE_TASK",
+          "task_id": "srv_1",
+          "duration": 20
+        },
+        {
+          "time": 160,
+          "type": "TRIGGER_LOAD_BALANCE",
+          "level": "MC",
+          "idle_cpu": 2
+        },
+        {
+          "time": 170,
+          "type": "TRIGGER_LOAD_BALANCE",
+          "level": "MC",
+          "idle_cpu": 4
+        },
+        {
+          "time": 180,
+          "type": "TRIGGER_LOAD_BALANCE",
+          "level": "NUMA",
+          "idle_cpu": 8
+        },
+        {
+          "time": 190,
+          "type": "DEQUEUE_TASK",
+          "task_id": "srv_4"
+        },
+        {
+          "time": 200,
+          "type": "TRIGGER_LOAD_BALANCE",
+          "level": "NUMA",
+          "idle_cpu": 10
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "tasks_migrated": 4,
+        "cache_hot_migrations_blocked": 0,
+        "balance_runs": 4,
+        "total_cpus": 16,
+        "active_tasks": 3
+      },
+      "cpus": {
+        "cpu_0": {
+          "node_id": 0,
+          "core_id": 0,
+          "total_load": 0,
+          "tasks": []
+        },
+        "cpu_1": {
+          "node_id": 0,
+          "core_id": 0,
+          "total_load": 0,
+          "tasks": []
+        },
+        "cpu_2": {
+          "node_id": 0,
+          "core_id": 1,
+          "total_load": 0,
+          "tasks": []
+        },
+        "cpu_3": {
+          "node_id": 0,
+          "core_id": 1,
+          "total_load": 0,
+          "tasks": []
+        },
+        "cpu_4": {
+          "node_id": 0,
+          "core_id": 2,
+          "total_load": 120,
+          "tasks": [
+            "srv_2"
+          ]
+        },
+        "cpu_5": {
+          "node_id": 0,
+          "core_id": 2,
+          "total_load": 0,
+          "tasks": []
+        },
+        "cpu_6": {
+          "node_id": 0,
+          "core_id": 3,
+          "total_load": 0,
+          "tasks": []
+        },
+        "cpu_7": {
+          "node_id": 0,
+          "core_id": 3,
+          "total_load": 0,
+          "tasks": []
+        },
+        "cpu_8": {
+          "node_id": 1,
+          "core_id": 4,
+          "total_load": 120,
+          "tasks": [
+            "srv_1"
+          ]
+        },
+        "cpu_9": {
+          "node_id": 1,
+          "core_id": 4,
+          "total_load": 0,
+          "tasks": []
+        },
+        "cpu_10": {
+          "node_id": 1,
+          "core_id": 5,
+          "total_load": 120,
+          "tasks": [
+            "srv_3"
+          ]
+        },
+        "cpu_11": {
+          "node_id": 1,
+          "core_id": 5,
+          "total_load": 0,
+          "tasks": []
+        },
+        "cpu_12": {
+          "node_id": 1,
+          "core_id": 6,
+          "total_load": 0,
+          "tasks": []
+        },
+        "cpu_13": {
+          "node_id": 1,
+          "core_id": 6,
+          "total_load": 0,
+          "tasks": []
+        },
+        "cpu_14": {
+          "node_id": 1,
+          "core_id": 7,
+          "total_load": 0,
+          "tasks": []
+        },
+        "cpu_15": {
+          "node_id": 1,
+          "core_id": 7,
+          "total_load": 0,
+          "tasks": []
+        }
+      },
+      "migration_logs": [
+        {
+          "time": 160,
+          "task_id": "srv_3",
+          "from_cpu": 0,
+          "to_cpu": 2,
+          "level": "MC",
+          "imbalance_cleared": 120
+        },
+        {
+          "time": 170,
+          "task_id": "srv_2",
+          "from_cpu": 0,
+          "to_cpu": 4,
+          "level": "MC",
+          "imbalance_cleared": 120
+        },
+        {
+          "time": 180,
+          "task_id": "srv_1",
+          "from_cpu": 0,
+          "to_cpu": 8,
+          "level": "NUMA",
+          "imbalance_cleared": 120
+        },
+        {
+          "time": 200,
+          "task_id": "srv_3",
+          "from_cpu": 2,
+          "to_cpu": 10,
+          "level": "NUMA",
+          "imbalance_cleared": 120
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 100,
+          "event": "TOPOLOGY_INITIALIZED",
+          "total_cpus": 16,
+          "num_nodes": 2
+        },
+        {
+          "time": 110,
+          "event": "TASK_ENQUEUED",
+          "task_id": "srv_1",
+          "load": 120,
+          "cpu_id": 0
+        },
+        {
+          "time": 120,
+          "event": "TASK_ENQUEUED",
+          "task_id": "srv_2",
+          "load": 120,
+          "cpu_id": 0
+        },
+        {
+          "time": 130,
+          "event": "TASK_ENQUEUED",
+          "task_id": "srv_3",
+          "load": 120,
+          "cpu_id": 0
+        },
+        {
+          "time": 140,
+          "event": "TASK_ENQUEUED",
+          "task_id": "srv_4",
+          "load": 120,
+          "cpu_id": 1
+        },
+        {
+          "time": 150,
+          "event": "TASK_EXECUTED",
+          "task_id": "srv_1",
+          "duration": 20,
+          "finish_time": 170
+        },
+        {
+          "time": 160,
+          "event": "TASK_MIGRATED",
+          "task_id": "srv_3",
+          "from_cpu": 0,
+          "to_cpu": 2,
+          "level": "MC"
+        },
+        {
+          "time": 170,
+          "event": "TASK_MIGRATED",
+          "task_id": "srv_2",
+          "from_cpu": 0,
+          "to_cpu": 4,
+          "level": "MC"
+        },
+        {
+          "time": 180,
+          "event": "TASK_MIGRATED",
+          "task_id": "srv_1",
+          "from_cpu": 0,
+          "to_cpu": 8,
+          "level": "NUMA"
+        },
+        {
+          "time": 190,
+          "event": "TASK_DEQUEUED",
+          "task_id": "srv_4"
+        },
+        {
+          "time": 200,
+          "event": "TASK_MIGRATED",
+          "task_id": "srv_3",
+          "from_cpu": 2,
+          "to_cpu": 10,
+          "level": "NUMA"
+        }
+      ]
+    }
+  }
+]
