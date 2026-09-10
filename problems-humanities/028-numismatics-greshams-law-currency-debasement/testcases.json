@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "description": "Coin evaluation under Gresham's Law: Sterling groat vs Henry VIII debased groat vs Venetian gold ducat",
+    "input": "{\"mode\": \"evaluate_coins\", \"market_prices\": {\"price_per_gram_silver\": 1.5, \"price_per_gram_gold\": 22.5}, \"coins\": [{\"coin_id\": \"EDWARD_III_STERLING_GROAT\", \"nominal_face_value\": 4, \"metal\": \"silver\", \"gross_weight_grams\": 3.0, \"fineness\": 0.925}, {\"coin_id\": \"HENRY_VIII_OLD_COPPERNOSE\", \"nominal_face_value\": 4, \"metal\": \"silver\", \"gross_weight_grams\": 2.6, \"fineness\": 0.3333}, {\"coin_id\": \"VENETIAN_GOLD_DUCAT\", \"nominal_face_value\": 78, \"metal\": \"gold\", \"gross_weight_grams\": 3.5, \"fineness\": 0.995}]}",
+    "expected_output": "{\"mode\": \"evaluate_coins\", \"evaluated_coins\": [{\"coin_id\": \"EDWARD_III_STERLING_GROAT\", \"fine_weight_grams\": 2.775, \"intrinsic_bullion_value\": 4.1625, \"disparity_ratio\": 1.0406, \"classification\": \"UNDERVALUED_GOOD_MONEY\", \"action_recommendation\": \"HOARD_OR_MELT\"}, {\"coin_id\": \"HENRY_VIII_OLD_COPPERNOSE\", \"fine_weight_grams\": 0.8666, \"intrinsic_bullion_value\": 1.2999, \"disparity_ratio\": 0.325, \"classification\": \"OVERVALUED_BAD_MONEY\", \"action_recommendation\": \"SPEND_IN_TRANSACTION\"}, {\"coin_id\": \"VENETIAN_GOLD_DUCAT\", \"fine_weight_grams\": 3.4825, \"intrinsic_bullion_value\": 78.3563, \"disparity_ratio\": 1.0046, \"classification\": \"UNDERVALUED_GOOD_MONEY\", \"action_recommendation\": \"HOARD_OR_MELT\"}]}"
+  },
+  {
+    "id": 2,
+    "description": "Ancient Roman imperial denarius debasement analysis: Augustan vs Neronian vs Caracallan coins",
+    "input": "{\"mode\": \"evaluate_coins\", \"market_prices\": {\"price_per_gram_silver\": 2.0, \"price_per_gram_gold\": 28.0}, \"coins\": [{\"coin_id\": \"AUGUSTAN_DENARIUS\", \"nominal_face_value\": 8, \"metal\": \"silver\", \"gross_weight_grams\": 3.8, \"fineness\": 0.98}, {\"coin_id\": \"NERONIAN_DENARIUS\", \"nominal_face_value\": 8, \"metal\": \"silver\", \"gross_weight_grams\": 3.4, \"fineness\": 0.93}, {\"coin_id\": \"CARACALLA_ANTONINIANUS\", \"nominal_face_value\": 16, \"metal\": \"silver\", \"gross_weight_grams\": 5.0, \"fineness\": 0.5}]}",
+    "expected_output": "{\"mode\": \"evaluate_coins\", \"evaluated_coins\": [{\"coin_id\": \"AUGUSTAN_DENARIUS\", \"fine_weight_grams\": 3.724, \"intrinsic_bullion_value\": 7.448, \"disparity_ratio\": 0.931, \"classification\": \"OVERVALUED_BAD_MONEY\", \"action_recommendation\": \"SPEND_IN_TRANSACTION\"}, {\"coin_id\": \"NERONIAN_DENARIUS\", \"fine_weight_grams\": 3.162, \"intrinsic_bullion_value\": 6.324, \"disparity_ratio\": 0.7905, \"classification\": \"OVERVALUED_BAD_MONEY\", \"action_recommendation\": \"SPEND_IN_TRANSACTION\"}, {\"coin_id\": \"CARACALLA_ANTONINIANUS\", \"fine_weight_grams\": 2.5, \"intrinsic_bullion_value\": 5.0, \"disparity_ratio\": 0.3125, \"classification\": \"OVERVALUED_BAD_MONEY\", \"action_recommendation\": \"SPEND_IN_TRANSACTION\"}]}"
+  },
+  {
+    "id": 3,
+    "description": "Bimetallic triangular arbitrage: converting undervalued silver at mint into gold for export",
+    "input": "{\"mode\": \"bimetallic_arbitrage\", \"mint_legal_ratio\": 12.0, \"market_commercial_ratio\": 14.5, \"capital\": {\"metal\": \"silver\", \"amount\": 2400.0}, \"transaction_cost_pct\": 0.015}",
+    "expected_output": "{\"mode\": \"bimetallic_arbitrage\", \"is_arbitrage_profitable\": true, \"arbitrage_strategy\": \"BRING_SILVER_TO_MINT_EXPORT_GOLD_TO_MARKET\", \"net_profit_amount\": 456.5, \"profit_percentage\": 19.0208}"
+  },
+  {
+    "id": 4,
+    "description": "Bimetallic arbitrage blocked by seigniorage and shipping cost friction",
+    "input": "{\"mode\": \"bimetallic_arbitrage\", \"mint_legal_ratio\": 15.0, \"market_commercial_ratio\": 15.2, \"capital\": {\"metal\": \"silver\", \"amount\": 5000.0}, \"transaction_cost_pct\": 0.025}",
+    "expected_output": "{\"mode\": \"bimetallic_arbitrage\", \"is_arbitrage_profitable\": false, \"arbitrage_strategy\": \"UNPROFITABLE_DUE_TO_FRICTION\", \"net_profit_amount\": 0.0, \"profit_percentage\": 0.0}"
+  },
+  {
+    "id": 5,
+    "description": "Bimetallic arbitrage converting overvalued gold at mint into silver for continental export",
+    "input": "{\"mode\": \"bimetallic_arbitrage\", \"mint_legal_ratio\": 16.0, \"market_commercial_ratio\": 13.5, \"capital\": {\"metal\": \"gold\", \"amount\": 100.0}, \"transaction_cost_pct\": 0.02}",
+    "expected_output": "{\"mode\": \"bimetallic_arbitrage\", \"is_arbitrage_profitable\": true, \"arbitrage_strategy\": \"BRING_GOLD_TO_MINT_EXPORT_SILVER_TO_MARKET\", \"net_profit_amount\": 16.1481, \"profit_percentage\": 16.1481}"
+  },
+  {
+    "id": 6,
+    "description": "Single payment optimization: picking debased shilling and sweated groat to minimize intrinsic outlay",
+    "input": "{\"mode\": \"simulate_greshams_circulation\", \"initial_wallet\": [{\"coin_id\": \"SHILLING_STERLING_01\", \"face_value\": 12, \"intrinsic_value\": 13.2}, {\"coin_id\": \"SHILLING_CLIPPED_02\", \"face_value\": 12, \"intrinsic_value\": 10.5}, {\"coin_id\": \"SHILLING_DEBASED_03\", \"face_value\": 12, \"intrinsic_value\": 6.8}, {\"coin_id\": \"GROAT_STERLING_04\", \"face_value\": 4, \"intrinsic_value\": 4.4}, {\"coin_id\": \"GROAT_SWEATED_05\", \"face_value\": 4, \"intrinsic_value\": 3.1}], \"transactions\": [{\"transaction_id\": \"TX1_PAY_TAX\", \"amount_due\": 16}]}",
+    "expected_output": "{\"mode\": \"simulate_greshams_circulation\", \"transactions_executed\": [{\"transaction_id\": \"TX1_PAY_TAX\", \"status\": \"COMPLETED\", \"coins_spent\": [\"SHILLING_DEBASED_03\", \"GROAT_SWEATED_05\"], \"total_face_value\": 16, \"total_intrinsic_value_spent\": 9.9}], \"retained_hoard\": {\"coins\": [\"SHILLING_STERLING_01\", \"SHILLING_CLIPPED_02\", \"GROAT_STERLING_04\"], \"total_face_value\": 28, \"total_intrinsic_value\": 28.1, \"hoard_quality_ratio\": 1.0036}}"
+  },
+  {
+    "id": 7,
+    "description": "Sequential 3-round circulation simulation demonstrating gradual concentration of high-purity coins in hoard",
+    "input": "{\"mode\": \"simulate_greshams_circulation\", \"initial_wallet\": [{\"coin_id\": \"COIN_01_PURE_A\", \"face_value\": 6, \"intrinsic_value\": 7.0}, {\"coin_id\": \"COIN_02_PURE_B\", \"face_value\": 6, \"intrinsic_value\": 6.9}, {\"coin_id\": \"COIN_03_MED_A\", \"face_value\": 6, \"intrinsic_value\": 5.5}, {\"coin_id\": \"COIN_04_MED_B\", \"face_value\": 6, \"intrinsic_value\": 5.4}, {\"coin_id\": \"COIN_05_BAD_A\", \"face_value\": 6, \"intrinsic_value\": 3.0}, {\"coin_id\": \"COIN_06_BAD_B\", \"face_value\": 6, \"intrinsic_value\": 2.8}], \"transactions\": [{\"transaction_id\": \"TX_ROUND_1\", \"amount_due\": 6}, {\"transaction_id\": \"TX_ROUND_2\", \"amount_due\": 6}, {\"transaction_id\": \"TX_ROUND_3\", \"amount_due\": 6}]}",
+    "expected_output": "{\"mode\": \"simulate_greshams_circulation\", \"transactions_executed\": [{\"transaction_id\": \"TX_ROUND_1\", \"status\": \"COMPLETED\", \"coins_spent\": [\"COIN_06_BAD_B\"], \"total_face_value\": 6, \"total_intrinsic_value_spent\": 2.8}, {\"transaction_id\": \"TX_ROUND_2\", \"status\": \"COMPLETED\", \"coins_spent\": [\"COIN_05_BAD_A\"], \"total_face_value\": 6, \"total_intrinsic_value_spent\": 3.0}, {\"transaction_id\": \"TX_ROUND_3\", \"status\": \"COMPLETED\", \"coins_spent\": [\"COIN_04_MED_B\"], \"total_face_value\": 6, \"total_intrinsic_value_spent\": 5.4}], \"retained_hoard\": {\"coins\": [\"COIN_01_PURE_A\", \"COIN_02_PURE_B\", \"COIN_03_MED_A\"], \"total_face_value\": 18, \"total_intrinsic_value\": 19.4, \"hoard_quality_ratio\": 1.0778}}"
+  },
+  {
+    "id": 8,
+    "description": "Transaction failure when wallet coins cannot satisfy required face value",
+    "input": "{\"mode\": \"simulate_greshams_circulation\", \"initial_wallet\": [{\"coin_id\": \"PENNY_01\", \"face_value\": 1, \"intrinsic_value\": 1.1}, {\"coin_id\": \"PENNY_02\", \"face_value\": 1, \"intrinsic_value\": 0.8}], \"transactions\": [{\"transaction_id\": \"TX_TAVERN_EXCESSIVE\", \"amount_due\": 5}]}",
+    "expected_output": "{\"mode\": \"simulate_greshams_circulation\", \"transactions_executed\": [{\"transaction_id\": \"TX_TAVERN_EXCESSIVE\", \"status\": \"FAILED_INSUFFICIENT_FUNDS\", \"coins_spent\": []}], \"retained_hoard\": {\"coins\": [\"PENNY_01\", \"PENNY_02\"], \"total_face_value\": 2, \"total_intrinsic_value\": 1.9, \"hoard_quality_ratio\": 0.95}}"
+  }
+]
