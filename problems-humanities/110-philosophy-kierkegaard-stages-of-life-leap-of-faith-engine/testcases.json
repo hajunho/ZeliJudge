@@ -1,0 +1,42 @@
+[
+  {
+    "name": "미적 실존과 쾌락의 권태 및 절망 (Aesthetic Stage - Don Juan Hedonism & Boredom)",
+    "input": "{\"agent_id\":\"Don_Juan_Aesthete\",\"initial_stage\":\"AESTHETIC\",\"actions\":[{\"type\":\"SEEK_PLEASURE\",\"params\":{\"hedonic_value\":30.0}},{\"type\":\"SEEK_PLEASURE\",\"params\":{\"hedonic_value\":40.0}}]}",
+    "output": "{\"agent_id\":\"Don_Juan_Aesthete\",\"metrics\":{\"current_stage\":\"AESTHETIC\",\"stage_history\":[\"AESTHETIC\"],\"hedonic_level\":70.0,\"boredom_level\":42.0,\"despair_level\":17.6,\"ethical_duty_score\":0.0,\"guilt_accumulated\":0.0,\"faith_depth_fathoms\":0.0,\"is_single_individual\":false,\"existential_authenticity_score\":26.2},\"verdict\":\"DESPAIRING_AESTHETE\",\"action_log\":[{\"type\":\"SEEK_PLEASURE\",\"stage\":\"AESTHETIC\",\"status\":\"PLEASURE_SOUGHT_BOREDOM_ACCUMULATED\",\"hedonic\":30.0,\"boredom\":18.0,\"despair\":0.0},{\"type\":\"SEEK_PLEASURE\",\"stage\":\"AESTHETIC\",\"status\":\"PLEASURE_SOUGHT_BOREDOM_ACCUMULATED\",\"hedonic\":70.0,\"boredom\":42.0,\"despair\":17.6}]}"
+  },
+  {
+    "name": "이것이냐 저것이냐: 윤리적 결단으로의 도약 (Either/Or - Choice of Ethical Self)",
+    "input": "{\"agent_id\":\"Judge_Wilhelm_Convert\",\"initial_stage\":\"AESTHETIC\",\"actions\":[{\"type\":\"SEEK_PLEASURE\",\"params\":{\"hedonic_value\":20.0}},{\"type\":\"MAKE_ETHICAL_CHOICE\",\"params\":{\"duty_fulfillment\":20.0,\"social_fidelity\":20.0}}]}",
+    "output": "{\"agent_id\":\"Judge_Wilhelm_Convert\",\"metrics\":{\"current_stage\":\"ETHICAL\",\"stage_history\":[\"AESTHETIC\",\"ETHICAL\"],\"hedonic_level\":20.0,\"boredom_level\":12.0,\"despair_level\":0.0,\"ethical_duty_score\":40.0,\"guilt_accumulated\":8.0,\"faith_depth_fathoms\":0.0,\"is_single_individual\":false,\"existential_authenticity_score\":60.0},\"verdict\":\"TRAGIC_HERO_OR_ETHICAL_CITIZEN\",\"action_log\":[{\"type\":\"SEEK_PLEASURE\",\"stage\":\"AESTHETIC\",\"status\":\"PLEASURE_SOUGHT_BOREDOM_ACCUMULATED\",\"hedonic\":20.0,\"boredom\":12.0,\"despair\":0.0},{\"type\":\"MAKE_ETHICAL_CHOICE\",\"stage\":\"ETHICAL\",\"status\":\"UNIVERSAL_ETHICAL_DUTY_ADOPTED\",\"ethical_duty\":40.0,\"guilt\":8.0}]}"
+  },
+  {
+    "name": "윤리적 실존의 한계: 유한성과 죄책감의 자각 (Limit of Ethical Stage - Guilt & Repentance)",
+    "input": "{\"agent_id\":\"Conscientious_Ethicist\",\"initial_stage\":\"ETHICAL\",\"actions\":[{\"type\":\"MAKE_ETHICAL_CHOICE\",\"params\":{\"duty_fulfillment\":30.0,\"social_fidelity\":30.0}},{\"type\":\"CONFESS_GUILT\",\"params\":{\"sincerity\":1.0}}]}",
+    "output": "{\"agent_id\":\"Conscientious_Ethicist\",\"metrics\":{\"current_stage\":\"ETHICAL\",\"stage_history\":[\"ETHICAL\"],\"hedonic_level\":0.0,\"boredom_level\":0.0,\"despair_level\":0.0,\"ethical_duty_score\":60.0,\"guilt_accumulated\":12.0,\"faith_depth_fathoms\":0.0,\"is_single_individual\":false,\"existential_authenticity_score\":70.0},\"verdict\":\"TRAGIC_HERO_OR_ETHICAL_CITIZEN\",\"action_log\":[{\"type\":\"MAKE_ETHICAL_CHOICE\",\"stage\":\"ETHICAL\",\"status\":\"UNIVERSAL_ETHICAL_DUTY_ADOPTED\",\"ethical_duty\":60.0,\"guilt\":12.0},{\"type\":\"CONFESS_GUILT\",\"stage\":\"ETHICAL\",\"status\":\"REPENTANCE_AND_FINITUDE_ACKNOWLEDGED\",\"guilt_recognized\":12.0}]}"
+  },
+  {
+    "name": "믿음의 도약: 7만 파톰의 심연 위에서 (The Leap of Faith - 70,000 Fathoms across the Absurd)",
+    "input": "{\"agent_id\":\"Knight_Candidate\",\"initial_stage\":\"ETHICAL\",\"actions\":[{\"type\":\"LEAP_OF_FAITH\",\"params\":{\"depth_fathoms\":70000.0,\"accept_paradox\":true}}]}",
+    "output": "{\"agent_id\":\"Knight_Candidate\",\"metrics\":{\"current_stage\":\"RELIGIOUS\",\"stage_history\":[\"ETHICAL\",\"RELIGIOUS\"],\"hedonic_level\":0.0,\"boredom_level\":0.0,\"despair_level\":0.0,\"ethical_duty_score\":0.0,\"guilt_accumulated\":0.0,\"faith_depth_fathoms\":70000.0,\"is_single_individual\":true,\"existential_authenticity_score\":90.0},\"verdict\":\"DESPAIRING_AESTHETE\",\"action_log\":[{\"type\":\"LEAP_OF_FAITH\",\"stage\":\"RELIGIOUS\",\"status\":\"LEAP_ACROSS_ABSURD_COMPLETED\",\"faith_depth_fathoms\":70000.0}]}"
+  },
+  {
+    "name": "윤리의 목적론적 정지: 아브라함과 신앙의 기사 (Teleological Suspension - Abraham Knight of Faith)",
+    "input": "{\"agent_id\":\"Father_Abraham\",\"initial_stage\":\"RELIGIOUS\",\"actions\":[{\"type\":\"SUSPEND_ETHICAL\",\"params\":{\"faith_commitment\":1.0,\"divine_command\":true}}]}",
+    "output": "{\"agent_id\":\"Father_Abraham\",\"metrics\":{\"current_stage\":\"RELIGIOUS\",\"stage_history\":[\"RELIGIOUS\"],\"hedonic_level\":0.0,\"boredom_level\":0.0,\"despair_level\":0.0,\"ethical_duty_score\":0.0,\"guilt_accumulated\":0.0,\"faith_depth_fathoms\":0.0,\"is_single_individual\":true,\"existential_authenticity_score\":100.0},\"verdict\":\"KNIGHT_OF_FAITH\",\"action_log\":[{\"type\":\"SUSPEND_ETHICAL\",\"stage\":\"RELIGIOUS\",\"status\":\"TELEOLOGICAL_SUSPENSION_VALIDATED\",\"divine_command\":true}]}"
+  },
+  {
+    "name": "비극적 영웅 대 신앙의 기사 (Tragic Hero vs Knight of Faith - Agamemnon Sacrifice)",
+    "input": "{\"agent_id\":\"Agamemnon_Leader\",\"initial_stage\":\"ETHICAL\",\"actions\":[{\"type\":\"MAKE_ETHICAL_CHOICE\",\"params\":{\"duty_fulfillment\":40.0,\"social_fidelity\":40.0}},{\"type\":\"SUSPEND_ETHICAL\",\"params\":{\"faith_commitment\":0.9,\"divine_command\":false}}]}",
+    "output": "{\"agent_id\":\"Agamemnon_Leader\",\"metrics\":{\"current_stage\":\"ETHICAL\",\"stage_history\":[\"ETHICAL\"],\"hedonic_level\":0.0,\"boredom_level\":0.0,\"despair_level\":0.0,\"ethical_duty_score\":80.0,\"guilt_accumulated\":16.0,\"faith_depth_fathoms\":0.0,\"is_single_individual\":false,\"existential_authenticity_score\":75.0},\"verdict\":\"TRAGIC_HERO_OR_ETHICAL_CITIZEN\",\"action_log\":[{\"type\":\"MAKE_ETHICAL_CHOICE\",\"stage\":\"ETHICAL\",\"status\":\"UNIVERSAL_ETHICAL_DUTY_ADOPTED\",\"ethical_duty\":80.0,\"guilt\":16.0},{\"type\":\"SUSPEND_ETHICAL\",\"stage\":\"ETHICAL\",\"status\":\"TRAGIC_HERO_MORAL_SACRIFICE\",\"divine_command\":false}]}"
+  },
+  {
+    "name": "합리적 회의로 인한 신앙의 도약 좌초 (Aborted Leap of Faith - Rational Hesitation)",
+    "input": "{\"agent_id\":\"Hesitating_Intellectual\",\"initial_stage\":\"ETHICAL\",\"actions\":[{\"type\":\"LEAP_OF_FAITH\",\"params\":{\"depth_fathoms\":70000.0,\"accept_paradox\":false}}]}",
+    "output": "{\"agent_id\":\"Hesitating_Intellectual\",\"metrics\":{\"current_stage\":\"ETHICAL\",\"stage_history\":[\"ETHICAL\"],\"hedonic_level\":0.0,\"boredom_level\":0.0,\"despair_level\":0.0,\"ethical_duty_score\":0.0,\"guilt_accumulated\":0.0,\"faith_depth_fathoms\":0.0,\"is_single_individual\":false,\"existential_authenticity_score\":40.0},\"verdict\":\"TRAGIC_HERO_OR_ETHICAL_CITIZEN\",\"action_log\":[{\"type\":\"LEAP_OF_FAITH\",\"stage\":\"ETHICAL\",\"status\":\"LEAP_ABORTED_RATIONAL_DOUBT\",\"faith_depth_fathoms\":0}]}"
+  },
+  {
+    "name": "실존의 3단계 전 전개 생애주기: 미적·윤리적·종교적 완성 (Full 3-Stage Existential Journey of the Single Individual)",
+    "input": "{\"agent_id\":\"Soren_Kierkegaard_Pilgrim\",\"initial_stage\":\"AESTHETIC\",\"actions\":[{\"type\":\"SEEK_PLEASURE\",\"params\":{\"hedonic_value\":35.0}},{\"type\":\"MAKE_ETHICAL_CHOICE\",\"params\":{\"duty_fulfillment\":25.0,\"social_fidelity\":25.0}},{\"type\":\"CONFESS_GUILT\",\"params\":{\"sincerity\":1.0}},{\"type\":\"LEAP_OF_FAITH\",\"params\":{\"depth_fathoms\":70000.0,\"accept_paradox\":true}},{\"type\":\"SUSPEND_ETHICAL\",\"params\":{\"faith_commitment\":1.0,\"divine_command\":true}}]}",
+    "output": "{\"agent_id\":\"Soren_Kierkegaard_Pilgrim\",\"metrics\":{\"current_stage\":\"RELIGIOUS\",\"stage_history\":[\"AESTHETIC\",\"ETHICAL\",\"RELIGIOUS\"],\"hedonic_level\":35.0,\"boredom_level\":21.0,\"despair_level\":0.8,\"ethical_duty_score\":50.0,\"guilt_accumulated\":10.0,\"faith_depth_fathoms\":70000.0,\"is_single_individual\":true,\"existential_authenticity_score\":100.0},\"verdict\":\"KNIGHT_OF_FAITH\",\"action_log\":[{\"type\":\"SEEK_PLEASURE\",\"stage\":\"AESTHETIC\",\"status\":\"PLEASURE_SOUGHT_BOREDOM_ACCUMULATED\",\"hedonic\":35.0,\"boredom\":21.0,\"despair\":0.8},{\"type\":\"MAKE_ETHICAL_CHOICE\",\"stage\":\"ETHICAL\",\"status\":\"UNIVERSAL_ETHICAL_DUTY_ADOPTED\",\"ethical_duty\":50.0,\"guilt\":10.0},{\"type\":\"CONFESS_GUILT\",\"stage\":\"ETHICAL\",\"status\":\"REPENTANCE_AND_FINITUDE_ACKNOWLEDGED\",\"guilt_recognized\":10.0},{\"type\":\"LEAP_OF_FAITH\",\"stage\":\"RELIGIOUS\",\"status\":\"LEAP_ACROSS_ABSURD_COMPLETED\",\"faith_depth_fathoms\":70000.0},{\"type\":\"SUSPEND_ETHICAL\",\"stage\":\"RELIGIOUS\",\"status\":\"TELEOLOGICAL_SUSPENSION_VALIDATED\",\"divine_command\":true}]}"
+  }
+]
