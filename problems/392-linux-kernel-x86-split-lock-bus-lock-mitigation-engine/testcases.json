@@ -1,0 +1,42 @@
+[
+  {
+    "name": "TC1_Aligned_Atomic_Locks_Normal_MESI",
+    "input": "{\"config\":{\"split_lock_policy\":\"RATELIMIT\",\"bus_lock_ratelimit\":5,\"num_cores\":4},\"commands\":[{\"op\":\"EXECUTE_INSN\",\"core_id\":0,\"task_id\":\"t1\",\"addr\":0,\"size\":8,\"is_locked\":true,\"timestamp_ms\":10},{\"op\":\"EXECUTE_INSN\",\"core_id\":1,\"task_id\":\"t2\",\"addr\":16,\"size\":8,\"is_locked\":true,\"timestamp_ms\":20},{\"op\":\"EXECUTE_INSN\",\"core_id\":2,\"task_id\":\"t3\",\"addr\":56,\"size\":8,\"is_locked\":true,\"timestamp_ms\":30}]}",
+    "output": "{\"policy\":\"RATELIMIT\",\"total_insns\":3,\"split_locks_detected\":0,\"bus_locks_asserted\":0,\"tasks_killed\":0,\"throttles_injected\":0,\"bus_stall_cycles\":0,\"bus_stall_saved\":0,\"events\":[{\"op\":\"EXECUTE\",\"core_id\":0,\"task_id\":\"t1\",\"status\":\"SUCCESS_NORMAL\",\"is_locked\":true,\"cacheline_span\":1},{\"op\":\"EXECUTE\",\"core_id\":1,\"task_id\":\"t2\",\"status\":\"SUCCESS_NORMAL\",\"is_locked\":true,\"cacheline_span\":1},{\"op\":\"EXECUTE\",\"core_id\":2,\"task_id\":\"t3\",\"status\":\"SUCCESS_NORMAL\",\"is_locked\":true,\"cacheline_span\":1}]}"
+  },
+  {
+    "name": "TC2_Unaligned_Non_Atomic_Accesses",
+    "input": "{\"config\":{\"split_lock_policy\":\"FATAL\",\"num_cores\":4},\"commands\":[{\"op\":\"EXECUTE_INSN\",\"core_id\":0,\"task_id\":\"t1\",\"addr\":62,\"size\":4,\"is_locked\":false,\"timestamp_ms\":10},{\"op\":\"EXECUTE_INSN\",\"core_id\":1,\"task_id\":\"t2\",\"addr\":126,\"size\":8,\"is_locked\":false,\"timestamp_ms\":20}]}",
+    "output": "{\"policy\":\"FATAL\",\"total_insns\":2,\"split_locks_detected\":0,\"bus_locks_asserted\":0,\"tasks_killed\":0,\"throttles_injected\":0,\"bus_stall_cycles\":0,\"bus_stall_saved\":0,\"events\":[{\"op\":\"EXECUTE\",\"core_id\":0,\"task_id\":\"t1\",\"status\":\"SUCCESS_NORMAL\",\"is_locked\":false,\"cacheline_span\":1},{\"op\":\"EXECUTE\",\"core_id\":1,\"task_id\":\"t2\",\"status\":\"SUCCESS_NORMAL\",\"is_locked\":false,\"cacheline_span\":1}]}"
+  },
+  {
+    "name": "TC3_Split_Lock_Policy_OFF_Bus_Lock",
+    "input": "{\"config\":{\"split_lock_policy\":\"OFF\",\"num_cores\":8},\"commands\":[{\"op\":\"EXECUTE_INSN\",\"core_id\":0,\"task_id\":\"t1\",\"addr\":62,\"size\":4,\"is_locked\":true,\"timestamp_ms\":10}]}",
+    "output": "{\"policy\":\"OFF\",\"total_insns\":1,\"split_locks_detected\":1,\"bus_locks_asserted\":1,\"tasks_killed\":0,\"throttles_injected\":0,\"bus_stall_cycles\":7000,\"bus_stall_saved\":0,\"events\":[{\"op\":\"EXECUTE\",\"core_id\":0,\"task_id\":\"t1\",\"status\":\"BUS_LOCK_ASSERTED\",\"stall_cycles\":7000}]}"
+  },
+  {
+    "name": "TC4_Split_Lock_Policy_WARN",
+    "input": "{\"config\":{\"split_lock_policy\":\"WARN\",\"num_cores\":8},\"commands\":[{\"op\":\"EXECUTE_INSN\",\"core_id\":0,\"task_id\":\"t1\",\"addr\":62,\"size\":4,\"is_locked\":true,\"timestamp_ms\":10},{\"op\":\"EXECUTE_INSN\",\"core_id\":0,\"task_id\":\"t1\",\"addr\":62,\"size\":4,\"is_locked\":true,\"timestamp_ms\":20}]}",
+    "output": "{\"policy\":\"WARN\",\"total_insns\":2,\"split_locks_detected\":2,\"bus_locks_asserted\":2,\"tasks_killed\":0,\"throttles_injected\":0,\"bus_stall_cycles\":14000,\"bus_stall_saved\":0,\"events\":[{\"op\":\"EXECUTE\",\"core_id\":0,\"task_id\":\"t1\",\"status\":\"AC_SPLIT_LOCK_WARN\",\"stall_cycles\":7000},{\"op\":\"EXECUTE\",\"core_id\":0,\"task_id\":\"t1\",\"status\":\"BUS_LOCK_ASSERTED\",\"stall_cycles\":7000}]}"
+  },
+  {
+    "name": "TC5_Split_Lock_Policy_FATAL_SIGBUS",
+    "input": "{\"config\":{\"split_lock_policy\":\"FATAL\",\"num_cores\":8},\"commands\":[{\"op\":\"EXECUTE_INSN\",\"core_id\":0,\"task_id\":\"bad_actor\",\"addr\":62,\"size\":4,\"is_locked\":true,\"timestamp_ms\":10},{\"op\":\"EXECUTE_INSN\",\"core_id\":0,\"task_id\":\"bad_actor\",\"addr\":0,\"size\":4,\"is_locked\":false,\"timestamp_ms\":15}]}",
+    "output": "{\"policy\":\"FATAL\",\"total_insns\":2,\"split_locks_detected\":1,\"bus_locks_asserted\":0,\"tasks_killed\":1,\"throttles_injected\":0,\"bus_stall_cycles\":0,\"bus_stall_saved\":7000,\"events\":[{\"op\":\"EXECUTE\",\"core_id\":0,\"task_id\":\"bad_actor\",\"status\":\"SIGBUS_TERMINATED\",\"reason\":\"Split lock in FATAL mode\",\"stall_cycles_saved\":7000},{\"op\":\"EXECUTE\",\"task_id\":\"bad_actor\",\"status\":\"FAIL_TASK_DEAD\"}]}"
+  },
+  {
+    "name": "TC6_Policy_RATELIMIT_Sliding_Window_Allowance",
+    "input": "{\"config\":{\"split_lock_policy\":\"RATELIMIT\",\"bus_lock_ratelimit\":2,\"num_cores\":4},\"commands\":[{\"op\":\"EXECUTE_INSN\",\"core_id\":0,\"task_id\":\"t1\",\"addr\":62,\"size\":4,\"is_locked\":true,\"timestamp_ms\":10},{\"op\":\"EXECUTE_INSN\",\"core_id\":1,\"task_id\":\"t2\",\"addr\":126,\"size\":4,\"is_locked\":true,\"timestamp_ms\":50}]}",
+    "output": "{\"policy\":\"RATELIMIT\",\"total_insns\":2,\"split_locks_detected\":2,\"bus_locks_asserted\":2,\"tasks_killed\":0,\"throttles_injected\":0,\"bus_stall_cycles\":6000,\"bus_stall_saved\":0,\"events\":[{\"op\":\"EXECUTE\",\"core_id\":0,\"task_id\":\"t1\",\"status\":\"BUS_LOCK_ALLOWED_WITHIN_LIMIT\",\"window_count\":1,\"stall_cycles\":3000},{\"op\":\"EXECUTE\",\"core_id\":1,\"task_id\":\"t2\",\"status\":\"BUS_LOCK_ALLOWED_WITHIN_LIMIT\",\"window_count\":2,\"stall_cycles\":3000}]}"
+  },
+  {
+    "name": "TC7_Policy_RATELIMIT_Throttle_Penalty",
+    "input": "{\"config\":{\"split_lock_policy\":\"RATELIMIT\",\"bus_lock_ratelimit\":2,\"throttle_delay_ms\":20,\"num_cores\":4},\"commands\":[{\"op\":\"EXECUTE_INSN\",\"core_id\":0,\"task_id\":\"t1\",\"addr\":62,\"size\":4,\"is_locked\":true,\"timestamp_ms\":10},{\"op\":\"EXECUTE_INSN\",\"core_id\":1,\"task_id\":\"t2\",\"addr\":126,\"size\":4,\"is_locked\":true,\"timestamp_ms\":50},{\"op\":\"EXECUTE_INSN\",\"core_id\":2,\"task_id\":\"t3\",\"addr\":190,\"size\":4,\"is_locked\":true,\"timestamp_ms\":80}]}",
+    "output": "{\"policy\":\"RATELIMIT\",\"total_insns\":3,\"split_locks_detected\":3,\"bus_locks_asserted\":2,\"tasks_killed\":0,\"throttles_injected\":1,\"bus_stall_cycles\":6000,\"bus_stall_saved\":3000,\"events\":[{\"op\":\"EXECUTE\",\"core_id\":0,\"task_id\":\"t1\",\"status\":\"BUS_LOCK_ALLOWED_WITHIN_LIMIT\",\"window_count\":1,\"stall_cycles\":3000},{\"op\":\"EXECUTE\",\"core_id\":1,\"task_id\":\"t2\",\"status\":\"BUS_LOCK_ALLOWED_WITHIN_LIMIT\",\"window_count\":2,\"stall_cycles\":3000},{\"op\":\"EXECUTE\",\"core_id\":2,\"task_id\":\"t3\",\"status\":\"BUS_LOCK_THROTTLED\",\"penalty_delay_ms\":20,\"stall_cycles_saved\":3000}]}"
+  },
+  {
+    "name": "TC8_Multi_Core_Cloud_Security_Stress",
+    "input": "{\"config\":{\"split_lock_policy\":\"RATELIMIT\",\"bus_lock_ratelimit\":2,\"throttle_delay_ms\":50,\"num_cores\":8},\"commands\":[{\"op\":\"EXECUTE_INSN\",\"core_id\":0,\"task_id\":\"benign_web\",\"addr\":0,\"size\":8,\"is_locked\":true,\"timestamp_ms\":10},{\"op\":\"EXECUTE_INSN\",\"core_id\":1,\"task_id\":\"rogue_vm\",\"addr\":62,\"size\":4,\"is_locked\":true,\"timestamp_ms\":20},{\"op\":\"EXECUTE_INSN\",\"core_id\":2,\"task_id\":\"rogue_vm\",\"addr\":62,\"size\":4,\"is_locked\":true,\"timestamp_ms\":30},{\"op\":\"EXECUTE_INSN\",\"core_id\":3,\"task_id\":\"rogue_vm\",\"addr\":62,\"size\":4,\"is_locked\":true,\"timestamp_ms\":40},{\"op\":\"EXECUTE_INSN\",\"core_id\":0,\"task_id\":\"benign_web\",\"addr\":32,\"size\":8,\"is_locked\":true,\"timestamp_ms\":50}]}",
+    "output": "{\"policy\":\"RATELIMIT\",\"total_insns\":5,\"split_locks_detected\":3,\"bus_locks_asserted\":2,\"tasks_killed\":0,\"throttles_injected\":1,\"bus_stall_cycles\":14000,\"bus_stall_saved\":7000,\"events\":[{\"op\":\"EXECUTE\",\"core_id\":0,\"task_id\":\"benign_web\",\"status\":\"SUCCESS_NORMAL\",\"is_locked\":true,\"cacheline_span\":1},{\"op\":\"EXECUTE\",\"core_id\":1,\"task_id\":\"rogue_vm\",\"status\":\"BUS_LOCK_ALLOWED_WITHIN_LIMIT\",\"window_count\":1,\"stall_cycles\":7000},{\"op\":\"EXECUTE\",\"core_id\":2,\"task_id\":\"rogue_vm\",\"status\":\"BUS_LOCK_ALLOWED_WITHIN_LIMIT\",\"window_count\":2,\"stall_cycles\":7000},{\"op\":\"EXECUTE\",\"core_id\":3,\"task_id\":\"rogue_vm\",\"status\":\"BUS_LOCK_THROTTLED\",\"penalty_delay_ms\":50,\"stall_cycles_saved\":7000},{\"op\":\"EXECUTE\",\"core_id\":0,\"task_id\":\"benign_web\",\"status\":\"SUCCESS_NORMAL\",\"is_locked\":true,\"cacheline_span\":1}]}"
+  }
+]
