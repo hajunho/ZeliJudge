@@ -1,0 +1,42 @@
+[
+  {
+    "name": "투명한 손안에 있음(Zuhandenheit): 목수의 온전한 도구 연관망과 몰입된 작업",
+    "input": "{\"equipment_nexus\":[{\"name\":\"Hammer\",\"status\":\"FUNCTIONAL\",\"dependencies\":[\"Nail\"]},{\"name\":\"Nail\",\"status\":\"FUNCTIONAL\",\"dependencies\":[]},{\"name\":\"OakPlank\",\"status\":\"FUNCTIONAL\",\"dependencies\":[]},{\"name\":\"Worktable\",\"status\":\"FUNCTIONAL\",\"dependencies\":[]}],\"das_man\":{\"gerede_idle_talk\":0.2,\"neugier_curiosity\":0.15,\"zweideutigkeit_ambiguity\":0.1},\"affective_state\":{\"threat_type\":\"NONE\",\"intensity\":0.0},\"mortality_awareness\":0.2}",
+    "output": "{\"equipment_analysis\":{\"total_tools\":4,\"functional_count\":4,\"transparency_index\":1.0,\"world_revealed_index\":0.0,\"breakdown_modes\":{\"conspicuous_damaged\":[],\"obtrusive_missing\":[],\"obstinate_obstructing\":[]},\"ontological_mode\":\"ZUHANDENHEIT\"},\"existential_metrics\":{\"das_man_falling_index\":0.15,\"effective_falling_index\":0.15,\"angst_score\":0.0,\"fear_score\":0.0,\"death_anticipation\":0.0,\"authenticity_index\":0.0},\"existential_regime\":\"FALLEN_EVERYDAYNESS\"}"
+  },
+  {
+    "name": "도구의 눈에 띔(Auffälligkeit): 망치 파손으로 인한 투명성 파열과 손안에 있음의 붕괴",
+    "input": "{\"equipment_nexus\":[{\"name\":\"Hammer\",\"status\":\"DAMAGED\",\"dependencies\":[\"Nail\"]},{\"name\":\"Nail\",\"status\":\"FUNCTIONAL\",\"dependencies\":[]},{\"name\":\"OakPlank\",\"status\":\"FUNCTIONAL\",\"dependencies\":[]}],\"das_man\":{\"gerede_idle_talk\":0.3,\"neugier_curiosity\":0.25,\"zweideutigkeit_ambiguity\":0.2},\"affective_state\":{\"threat_type\":\"NONE\",\"intensity\":0.0},\"mortality_awareness\":0.25}",
+    "output": "{\"equipment_analysis\":{\"total_tools\":3,\"functional_count\":2,\"transparency_index\":0.6667,\"world_revealed_index\":0.3333,\"breakdown_modes\":{\"conspicuous_damaged\":[\"Hammer\"],\"obtrusive_missing\":[],\"obstinate_obstructing\":[]},\"ontological_mode\":\"ZUHANDENHEIT\"},\"existential_metrics\":{\"das_man_falling_index\":0.25,\"effective_falling_index\":0.25,\"angst_score\":0.0,\"fear_score\":0.0,\"death_anticipation\":0.0,\"authenticity_index\":0.1667},\"existential_regime\":\"FALLEN_EVERYDAYNESS\"}"
+  },
+  {
+    "name": "도구의 불가결함(Aufdringlichkeit): 못 누락에 의한 연쇄 작업 중단 및 결여의 현현",
+    "input": "{\"equipment_nexus\":[{\"name\":\"Hammer\",\"status\":\"FUNCTIONAL\",\"dependencies\":[\"Nail\"]},{\"name\":\"Nail\",\"status\":\"MISSING\",\"dependencies\":[]},{\"name\":\"WallBracket\",\"status\":\"FUNCTIONAL\",\"dependencies\":[\"Hammer\",\"Nail\"]}],\"das_man\":{\"gerede_idle_talk\":0.35,\"neugier_curiosity\":0.3,\"zweideutigkeit_ambiguity\":0.25},\"affective_state\":{\"threat_type\":\"NONE\",\"intensity\":0.0},\"mortality_awareness\":0.15}",
+    "output": "{\"equipment_analysis\":{\"total_tools\":3,\"functional_count\":0,\"transparency_index\":0.0,\"world_revealed_index\":1.0,\"breakdown_modes\":{\"conspicuous_damaged\":[],\"obtrusive_missing\":[\"Hammer\",\"Nail\",\"WallBracket\"],\"obstinate_obstructing\":[]},\"ontological_mode\":\"VORHANDENHEIT\"},\"existential_metrics\":{\"das_man_falling_index\":0.3,\"effective_falling_index\":0.3,\"angst_score\":0.0,\"fear_score\":0.0,\"death_anticipation\":0.0,\"authenticity_index\":0.5},\"existential_regime\":\"THEMATIC_BREAKDOWN\"}"
+  },
+  {
+    "name": "도구의 거치적거림(Aufsässigkeit): 작업대 통로를 막는 불필요한 폐기물과 저항성",
+    "input": "{\"equipment_nexus\":[{\"name\":\"Workbench\",\"status\":\"FUNCTIONAL\",\"dependencies\":[]},{\"name\":\"DiscardedScrap\",\"status\":\"OBSTRUCTING\",\"dependencies\":[]},{\"name\":\"Saw\",\"status\":\"FUNCTIONAL\",\"dependencies\":[\"Workbench\"]},{\"name\":\"Timber\",\"status\":\"FUNCTIONAL\",\"dependencies\":[\"Saw\"]}],\"das_man\":{\"gerede_idle_talk\":0.4,\"neugier_curiosity\":0.35,\"zweideutigkeit_ambiguity\":0.3},\"affective_state\":{\"threat_type\":\"NONE\",\"intensity\":0.0},\"mortality_awareness\":0.2}",
+    "output": "{\"equipment_analysis\":{\"total_tools\":4,\"functional_count\":3,\"transparency_index\":0.75,\"world_revealed_index\":0.25,\"breakdown_modes\":{\"conspicuous_damaged\":[],\"obtrusive_missing\":[],\"obstinate_obstructing\":[\"DiscardedScrap\"]},\"ontological_mode\":\"ZUHANDENHEIT\"},\"existential_metrics\":{\"das_man_falling_index\":0.35,\"effective_falling_index\":0.35,\"angst_score\":0.0,\"fear_score\":0.0,\"death_anticipation\":0.0,\"authenticity_index\":0.125},\"existential_regime\":\"FALLEN_EVERYDAYNESS\"}"
+  },
+  {
+    "name": "세인(Das Man)의 지배와 퇴락(Verfallen): 잡담, 호기심, 모호성에 매몰된 비본래적 일상성",
+    "input": "{\"equipment_nexus\":[{\"name\":\"Smartphone\",\"status\":\"FUNCTIONAL\",\"dependencies\":[]},{\"name\":\"ViralVideoFeed\",\"status\":\"FUNCTIONAL\",\"dependencies\":[\"Smartphone\"]},{\"name\":\"GroupChatApp\",\"status\":\"FUNCTIONAL\",\"dependencies\":[\"Smartphone\"]}],\"das_man\":{\"gerede_idle_talk\":0.9,\"neugier_curiosity\":0.95,\"zweideutigkeit_ambiguity\":0.85},\"affective_state\":{\"threat_type\":\"NONE\",\"intensity\":0.1},\"mortality_awareness\":0.05}",
+    "output": "{\"equipment_analysis\":{\"total_tools\":3,\"functional_count\":3,\"transparency_index\":1.0,\"world_revealed_index\":0.0,\"breakdown_modes\":{\"conspicuous_damaged\":[],\"obtrusive_missing\":[],\"obstinate_obstructing\":[]},\"ontological_mode\":\"ZUHANDENHEIT\"},\"existential_metrics\":{\"das_man_falling_index\":0.9,\"effective_falling_index\":0.9,\"angst_score\":0.0,\"fear_score\":0.0,\"death_anticipation\":0.0,\"authenticity_index\":0.0},\"existential_regime\":\"FALLEN_EVERYDAYNESS\"}"
+  },
+  {
+    "name": "세속적 공포(Furcht)와 도피: 특정 위험 대상에 대한 두려움과 도구적 은신",
+    "input": "{\"equipment_nexus\":[{\"name\":\"Shelter\",\"status\":\"FUNCTIONAL\",\"dependencies\":[]},{\"name\":\"FireExtinguisher\",\"status\":\"FUNCTIONAL\",\"dependencies\":[]}],\"das_man\":{\"gerede_idle_talk\":0.6,\"neugier_curiosity\":0.5,\"zweideutigkeit_ambiguity\":0.5},\"affective_state\":{\"threat_type\":\"SPECIFIC_OBJECT\",\"intensity\":0.85},\"mortality_awareness\":0.3}",
+    "output": "{\"equipment_analysis\":{\"total_tools\":2,\"functional_count\":2,\"transparency_index\":1.0,\"world_revealed_index\":0.0,\"breakdown_modes\":{\"conspicuous_damaged\":[],\"obtrusive_missing\":[],\"obstinate_obstructing\":[]},\"ontological_mode\":\"ZUHANDENHEIT\"},\"existential_metrics\":{\"das_man_falling_index\":0.5333,\"effective_falling_index\":0.5333,\"angst_score\":0.0,\"fear_score\":0.85,\"death_anticipation\":0.0,\"authenticity_index\":0.0},\"existential_regime\":\"FALLEN_EVERYDAYNESS\"}"
+  },
+  {
+    "name": "근원적 실존적 불안(Angst)과 기이함(Unheimlichkeit): 세계 의미의 침묵과 세인 연대의 붕괴",
+    "input": "{\"equipment_nexus\":[{\"name\":\"OfficeDesk\",\"status\":\"FUNCTIONAL\",\"dependencies\":[]},{\"name\":\"CorporateID\",\"status\":\"FUNCTIONAL\",\"dependencies\":[]}],\"das_man\":{\"gerede_idle_talk\":0.7,\"neugier_curiosity\":0.6,\"zweideutigkeit_ambiguity\":0.6},\"affective_state\":{\"threat_type\":\"NOTHINGNESS_IN_THE_WORLD\",\"intensity\":0.9},\"mortality_awareness\":0.4}",
+    "output": "{\"equipment_analysis\":{\"total_tools\":2,\"functional_count\":2,\"transparency_index\":1.0,\"world_revealed_index\":0.0,\"breakdown_modes\":{\"conspicuous_damaged\":[],\"obtrusive_missing\":[],\"obstinate_obstructing\":[]},\"ontological_mode\":\"ZUHANDENHEIT\"},\"existential_metrics\":{\"das_man_falling_index\":0.6333,\"effective_falling_index\":0.0633,\"angst_score\":0.9,\"fear_score\":0.0,\"death_anticipation\":0.36,\"authenticity_index\":0.3372},\"existential_regime\":\"FALLEN_EVERYDAYNESS\"}"
+  },
+  {
+    "name": "죽음에 이르는 존재(Sein-zum-Tode)와 결단성(Entschlossenheit): 죽음의 선구를 통한 본래적 실존 회복",
+    "input": "{\"equipment_nexus\":[{\"name\":\"WritingQuill\",\"status\":\"FUNCTIONAL\",\"dependencies\":[\"Parchment\"]},{\"name\":\"Parchment\",\"status\":\"FUNCTIONAL\",\"dependencies\":[]},{\"name\":\"Hourglass\",\"status\":\"FUNCTIONAL\",\"dependencies\":[]}],\"das_man\":{\"gerede_idle_talk\":0.15,\"neugier_curiosity\":0.1,\"zweideutigkeit_ambiguity\":0.1},\"affective_state\":{\"threat_type\":\"NOTHINGNESS_IN_THE_WORLD\",\"intensity\":0.95},\"mortality_awareness\":0.95}",
+    "output": "{\"equipment_analysis\":{\"total_tools\":3,\"functional_count\":3,\"transparency_index\":1.0,\"world_revealed_index\":0.0,\"breakdown_modes\":{\"conspicuous_damaged\":[],\"obtrusive_missing\":[],\"obstinate_obstructing\":[]},\"ontological_mode\":\"ZUHANDENHEIT\"},\"existential_metrics\":{\"das_man_falling_index\":0.1167,\"effective_falling_index\":0.0058,\"angst_score\":0.95,\"fear_score\":0.0,\"death_anticipation\":0.9025,\"authenticity_index\":0.8972},\"existential_regime\":\"AUTHENTIC_RESOLVE\"}"
+  }
+]
