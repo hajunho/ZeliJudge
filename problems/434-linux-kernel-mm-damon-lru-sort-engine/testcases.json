@@ -1,0 +1,914 @@
+[
+  {
+    "testcase_id": 1,
+    "input": {
+      "config": {
+        "hot_thres": 8,
+        "cold_min_age": 4,
+        "size_quota_pages": 100,
+        "initial_regions": [
+          {
+            "region_id": "R1",
+            "start_addr": 4096,
+            "end_addr": 8192,
+            "nr_pages": 25,
+            "initial_lru": "INACTIVE"
+          },
+          {
+            "region_id": "R2",
+            "start_addr": 8192,
+            "end_addr": 12288,
+            "nr_pages": 25,
+            "initial_lru": "INACTIVE"
+          }
+        ]
+      },
+      "trace": [
+        {
+          "op": "SAMPLE_ACCESS",
+          "samples": {
+            "R1": 10,
+            "R2": 3
+          }
+        },
+        {
+          "op": "APPLY_LRU_SORT"
+        },
+        {
+          "op": "GET_STATISTICS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SAMPLE_ACCESS",
+          "status": "SAMPLES_RECORDED",
+          "sampled_regions": 2
+        },
+        {
+          "op": "APPLY_LRU_SORT",
+          "status": "SORTED",
+          "actions": [
+            {
+              "region_id": "R1",
+              "action": "PROACTIVELY_ACTIVATED",
+              "pages": 25
+            }
+          ],
+          "quota_remaining": 75
+        },
+        {
+          "op": "GET_STATISTICS",
+          "active_pages": 25,
+          "inactive_pages": 25,
+          "hot_promotions": 1,
+          "cold_demotions": 0,
+          "quota_throttled_events": 0,
+          "fastpath_reclaim_hits": 0,
+          "total_reclaimed_pages": 0
+        }
+      ],
+      "summary": {
+        "hot_promotions": 1,
+        "cold_demotions": 0,
+        "quota_throttled_events": 0,
+        "fastpath_reclaim_hits": 0,
+        "total_reclaims": 0,
+        "reclaimed_pages": 0,
+        "final_active_pages": 25,
+        "final_inactive_pages": 25
+      }
+    }
+  },
+  {
+    "testcase_id": 2,
+    "input": {
+      "config": {
+        "hot_thres": 5,
+        "cold_min_age": 3,
+        "size_quota_pages": 100,
+        "initial_regions": [
+          {
+            "region_id": "A1",
+            "start_addr": 16384,
+            "end_addr": 20480,
+            "nr_pages": 30,
+            "initial_lru": "ACTIVE"
+          },
+          {
+            "region_id": "A2",
+            "start_addr": 20480,
+            "end_addr": 24576,
+            "nr_pages": 30,
+            "initial_lru": "ACTIVE"
+          }
+        ]
+      },
+      "trace": [
+        {
+          "op": "SAMPLE_ACCESS",
+          "samples": {
+            "A1": 6
+          }
+        },
+        {
+          "op": "AGGREGATE_INTERVAL"
+        },
+        {
+          "op": "AGGREGATE_INTERVAL"
+        },
+        {
+          "op": "AGGREGATE_INTERVAL"
+        },
+        {
+          "op": "APPLY_LRU_SORT"
+        },
+        {
+          "op": "GET_STATISTICS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SAMPLE_ACCESS",
+          "status": "SAMPLES_RECORDED",
+          "sampled_regions": 1
+        },
+        {
+          "op": "AGGREGATE_INTERVAL",
+          "status": "AGGREGATED",
+          "region_count": 2
+        },
+        {
+          "op": "AGGREGATE_INTERVAL",
+          "status": "AGGREGATED",
+          "region_count": 2
+        },
+        {
+          "op": "AGGREGATE_INTERVAL",
+          "status": "AGGREGATED",
+          "region_count": 2
+        },
+        {
+          "op": "APPLY_LRU_SORT",
+          "status": "SORTED",
+          "actions": [
+            {
+              "region_id": "A2",
+              "action": "PROACTIVELY_DEACTIVATED",
+              "pages": 30
+            }
+          ],
+          "quota_remaining": 70
+        },
+        {
+          "op": "GET_STATISTICS",
+          "active_pages": 30,
+          "inactive_pages": 30,
+          "hot_promotions": 0,
+          "cold_demotions": 1,
+          "quota_throttled_events": 0,
+          "fastpath_reclaim_hits": 0,
+          "total_reclaimed_pages": 0
+        }
+      ],
+      "summary": {
+        "hot_promotions": 0,
+        "cold_demotions": 1,
+        "quota_throttled_events": 0,
+        "fastpath_reclaim_hits": 0,
+        "total_reclaims": 0,
+        "reclaimed_pages": 0,
+        "final_active_pages": 30,
+        "final_inactive_pages": 30
+      }
+    }
+  },
+  {
+    "testcase_id": 3,
+    "input": {
+      "config": {
+        "hot_thres": 5,
+        "cold_min_age": 2,
+        "size_quota_pages": 40,
+        "initial_regions": [
+          {
+            "region_id": "Q1",
+            "start_addr": 4096,
+            "end_addr": 8192,
+            "nr_pages": 30,
+            "initial_lru": "INACTIVE"
+          },
+          {
+            "region_id": "Q2",
+            "start_addr": 8192,
+            "end_addr": 12288,
+            "nr_pages": 30,
+            "initial_lru": "INACTIVE"
+          }
+        ]
+      },
+      "trace": [
+        {
+          "op": "SAMPLE_ACCESS",
+          "samples": {
+            "Q1": 10,
+            "Q2": 10
+          }
+        },
+        {
+          "op": "APPLY_LRU_SORT"
+        },
+        {
+          "op": "GET_STATISTICS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SAMPLE_ACCESS",
+          "status": "SAMPLES_RECORDED",
+          "sampled_regions": 2
+        },
+        {
+          "op": "APPLY_LRU_SORT",
+          "status": "SORTED",
+          "actions": [
+            {
+              "region_id": "Q1",
+              "action": "PROACTIVELY_ACTIVATED",
+              "pages": 30
+            },
+            {
+              "region_id": "Q2",
+              "action": "HOT_THROTTLED_BY_QUOTA"
+            }
+          ],
+          "quota_remaining": 10
+        },
+        {
+          "op": "GET_STATISTICS",
+          "active_pages": 30,
+          "inactive_pages": 30,
+          "hot_promotions": 1,
+          "cold_demotions": 0,
+          "quota_throttled_events": 1,
+          "fastpath_reclaim_hits": 0,
+          "total_reclaimed_pages": 0
+        }
+      ],
+      "summary": {
+        "hot_promotions": 1,
+        "cold_demotions": 0,
+        "quota_throttled_events": 1,
+        "fastpath_reclaim_hits": 0,
+        "total_reclaims": 0,
+        "reclaimed_pages": 0,
+        "final_active_pages": 30,
+        "final_inactive_pages": 30
+      }
+    }
+  },
+  {
+    "testcase_id": 4,
+    "input": {
+      "config": {
+        "hot_thres": 5,
+        "cold_min_age": 3,
+        "size_quota_pages": 100,
+        "initial_regions": [
+          {
+            "region_id": "G1",
+            "start_addr": 4096,
+            "end_addr": 8192,
+            "nr_pages": 20,
+            "initial_lru": "ACTIVE"
+          }
+        ]
+      },
+      "trace": [
+        {
+          "op": "AGGREGATE_INTERVAL"
+        },
+        {
+          "op": "AGGREGATE_INTERVAL"
+        },
+        {
+          "op": "SAMPLE_ACCESS",
+          "samples": {
+            "G1": 1
+          }
+        },
+        {
+          "op": "AGGREGATE_INTERVAL"
+        },
+        {
+          "op": "APPLY_LRU_SORT"
+        },
+        {
+          "op": "GET_STATISTICS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "AGGREGATE_INTERVAL",
+          "status": "AGGREGATED",
+          "region_count": 1
+        },
+        {
+          "op": "AGGREGATE_INTERVAL",
+          "status": "AGGREGATED",
+          "region_count": 1
+        },
+        {
+          "op": "SAMPLE_ACCESS",
+          "status": "SAMPLES_RECORDED",
+          "sampled_regions": 1
+        },
+        {
+          "op": "AGGREGATE_INTERVAL",
+          "status": "AGGREGATED",
+          "region_count": 1
+        },
+        {
+          "op": "APPLY_LRU_SORT",
+          "status": "SORTED",
+          "actions": [],
+          "quota_remaining": 100
+        },
+        {
+          "op": "GET_STATISTICS",
+          "active_pages": 20,
+          "inactive_pages": 0,
+          "hot_promotions": 0,
+          "cold_demotions": 0,
+          "quota_throttled_events": 0,
+          "fastpath_reclaim_hits": 0,
+          "total_reclaimed_pages": 0
+        }
+      ],
+      "summary": {
+        "hot_promotions": 0,
+        "cold_demotions": 0,
+        "quota_throttled_events": 0,
+        "fastpath_reclaim_hits": 0,
+        "total_reclaims": 0,
+        "reclaimed_pages": 0,
+        "final_active_pages": 20,
+        "final_inactive_pages": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 5,
+    "input": {
+      "config": {
+        "hot_thres": 5,
+        "cold_min_age": 2,
+        "size_quota_pages": 100,
+        "initial_regions": [
+          {
+            "region_id": "I1",
+            "start_addr": 4096,
+            "end_addr": 8192,
+            "nr_pages": 20,
+            "initial_lru": "INACTIVE"
+          },
+          {
+            "region_id": "A1",
+            "start_addr": 8192,
+            "end_addr": 12288,
+            "nr_pages": 50,
+            "initial_lru": "ACTIVE"
+          }
+        ]
+      },
+      "trace": [
+        {
+          "op": "RECLAIM_PAGES",
+          "nr_to_reclaim": 15
+        },
+        {
+          "op": "RECLAIM_PAGES",
+          "nr_to_reclaim": 20
+        },
+        {
+          "op": "GET_STATISTICS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "RECLAIM_PAGES",
+          "status": "RECLAIM_COMPLETED",
+          "target_pages": 15,
+          "reclaimed_pages": 15,
+          "details": [
+            {
+              "region_id": "I1",
+              "reclaimed": 15,
+              "from_lru": "INACTIVE"
+            }
+          ]
+        },
+        {
+          "op": "RECLAIM_PAGES",
+          "status": "RECLAIM_COMPLETED",
+          "target_pages": 20,
+          "reclaimed_pages": 20,
+          "details": [
+            {
+              "region_id": "I1",
+              "reclaimed": 5,
+              "from_lru": "INACTIVE"
+            },
+            {
+              "region_id": "A1",
+              "reclaimed": 15,
+              "from_lru": "ACTIVE"
+            }
+          ]
+        },
+        {
+          "op": "GET_STATISTICS",
+          "active_pages": 35,
+          "inactive_pages": 0,
+          "hot_promotions": 0,
+          "cold_demotions": 0,
+          "quota_throttled_events": 0,
+          "fastpath_reclaim_hits": 2,
+          "total_reclaimed_pages": 35
+        }
+      ],
+      "summary": {
+        "hot_promotions": 0,
+        "cold_demotions": 0,
+        "quota_throttled_events": 0,
+        "fastpath_reclaim_hits": 2,
+        "total_reclaims": 2,
+        "reclaimed_pages": 35,
+        "final_active_pages": 35,
+        "final_inactive_pages": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 6,
+    "input": {
+      "config": {
+        "hot_thres": 6,
+        "cold_min_age": 2,
+        "size_quota_pages": 80,
+        "initial_regions": [
+          {
+            "region_id": "M1",
+            "start_addr": 4096,
+            "end_addr": 8192,
+            "nr_pages": 20,
+            "initial_lru": "INACTIVE"
+          },
+          {
+            "region_id": "M2",
+            "start_addr": 8192,
+            "end_addr": 12288,
+            "nr_pages": 20,
+            "initial_lru": "ACTIVE"
+          },
+          {
+            "region_id": "M3",
+            "start_addr": 12288,
+            "end_addr": 16384,
+            "nr_pages": 20,
+            "initial_lru": "INACTIVE"
+          },
+          {
+            "region_id": "M4",
+            "start_addr": 16384,
+            "end_addr": 20480,
+            "nr_pages": 20,
+            "initial_lru": "ACTIVE"
+          }
+        ]
+      },
+      "trace": [
+        {
+          "op": "SAMPLE_ACCESS",
+          "samples": {
+            "M1": 12,
+            "M3": 1
+          }
+        },
+        {
+          "op": "AGGREGATE_INTERVAL"
+        },
+        {
+          "op": "AGGREGATE_INTERVAL"
+        },
+        {
+          "op": "APPLY_LRU_SORT"
+        },
+        {
+          "op": "GET_STATISTICS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SAMPLE_ACCESS",
+          "status": "SAMPLES_RECORDED",
+          "sampled_regions": 2
+        },
+        {
+          "op": "AGGREGATE_INTERVAL",
+          "status": "AGGREGATED",
+          "region_count": 4
+        },
+        {
+          "op": "AGGREGATE_INTERVAL",
+          "status": "AGGREGATED",
+          "region_count": 4
+        },
+        {
+          "op": "APPLY_LRU_SORT",
+          "status": "SORTED",
+          "actions": [
+            {
+              "region_id": "M1",
+              "action": "PROACTIVELY_ACTIVATED",
+              "pages": 20
+            },
+            {
+              "region_id": "M2",
+              "action": "PROACTIVELY_DEACTIVATED",
+              "pages": 20
+            },
+            {
+              "region_id": "M4",
+              "action": "PROACTIVELY_DEACTIVATED",
+              "pages": 20
+            }
+          ],
+          "quota_remaining": 20
+        },
+        {
+          "op": "GET_STATISTICS",
+          "active_pages": 20,
+          "inactive_pages": 60,
+          "hot_promotions": 1,
+          "cold_demotions": 2,
+          "quota_throttled_events": 0,
+          "fastpath_reclaim_hits": 0,
+          "total_reclaimed_pages": 0
+        }
+      ],
+      "summary": {
+        "hot_promotions": 1,
+        "cold_demotions": 2,
+        "quota_throttled_events": 0,
+        "fastpath_reclaim_hits": 0,
+        "total_reclaims": 0,
+        "reclaimed_pages": 0,
+        "final_active_pages": 20,
+        "final_inactive_pages": 60
+      }
+    }
+  },
+  {
+    "testcase_id": 7,
+    "input": {
+      "config": {
+        "hot_thres": 2,
+        "cold_min_age": 1,
+        "size_quota_pages": 0,
+        "initial_regions": [
+          {
+            "region_id": "Z1",
+            "start_addr": 4096,
+            "end_addr": 8192,
+            "nr_pages": 10,
+            "initial_lru": "INACTIVE"
+          }
+        ]
+      },
+      "trace": [
+        {
+          "op": "SAMPLE_ACCESS",
+          "samples": {
+            "Z1": 5
+          }
+        },
+        {
+          "op": "APPLY_LRU_SORT"
+        },
+        {
+          "op": "GET_STATISTICS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SAMPLE_ACCESS",
+          "status": "SAMPLES_RECORDED",
+          "sampled_regions": 1
+        },
+        {
+          "op": "APPLY_LRU_SORT",
+          "status": "SORTED",
+          "actions": [
+            {
+              "region_id": "Z1",
+              "action": "HOT_THROTTLED_BY_QUOTA"
+            }
+          ],
+          "quota_remaining": 0
+        },
+        {
+          "op": "GET_STATISTICS",
+          "active_pages": 0,
+          "inactive_pages": 10,
+          "hot_promotions": 0,
+          "cold_demotions": 0,
+          "quota_throttled_events": 1,
+          "fastpath_reclaim_hits": 0,
+          "total_reclaimed_pages": 0
+        }
+      ],
+      "summary": {
+        "hot_promotions": 0,
+        "cold_demotions": 0,
+        "quota_throttled_events": 1,
+        "fastpath_reclaim_hits": 0,
+        "total_reclaims": 0,
+        "reclaimed_pages": 0,
+        "final_active_pages": 0,
+        "final_inactive_pages": 10
+      }
+    }
+  },
+  {
+    "testcase_id": 8,
+    "input": {
+      "config": {
+        "hot_thres": 10,
+        "cold_min_age": 4,
+        "size_quota_pages": 150,
+        "initial_regions": [
+          {
+            "region_id": "DB_0",
+            "start_addr": 0,
+            "end_addr": 4096,
+            "nr_pages": 25,
+            "initial_lru": "ACTIVE"
+          },
+          {
+            "region_id": "DB_1",
+            "start_addr": 4096,
+            "end_addr": 8192,
+            "nr_pages": 25,
+            "initial_lru": "INACTIVE"
+          },
+          {
+            "region_id": "DB_2",
+            "start_addr": 8192,
+            "end_addr": 12288,
+            "nr_pages": 25,
+            "initial_lru": "ACTIVE"
+          },
+          {
+            "region_id": "DB_3",
+            "start_addr": 12288,
+            "end_addr": 16384,
+            "nr_pages": 25,
+            "initial_lru": "INACTIVE"
+          },
+          {
+            "region_id": "DB_4",
+            "start_addr": 16384,
+            "end_addr": 20480,
+            "nr_pages": 25,
+            "initial_lru": "ACTIVE"
+          },
+          {
+            "region_id": "DB_5",
+            "start_addr": 20480,
+            "end_addr": 24576,
+            "nr_pages": 25,
+            "initial_lru": "INACTIVE"
+          },
+          {
+            "region_id": "DB_6",
+            "start_addr": 24576,
+            "end_addr": 28672,
+            "nr_pages": 25,
+            "initial_lru": "ACTIVE"
+          },
+          {
+            "region_id": "DB_7",
+            "start_addr": 28672,
+            "end_addr": 32768,
+            "nr_pages": 25,
+            "initial_lru": "INACTIVE"
+          }
+        ]
+      },
+      "trace": [
+        {
+          "op": "SAMPLE_ACCESS",
+          "samples": {
+            "DB_1": 15,
+            "DB_3": 20
+          }
+        },
+        {
+          "op": "AGGREGATE_INTERVAL"
+        },
+        {
+          "op": "SAMPLE_ACCESS",
+          "samples": {}
+        },
+        {
+          "op": "AGGREGATE_INTERVAL"
+        },
+        {
+          "op": "SAMPLE_ACCESS",
+          "samples": {
+            "DB_1": 15,
+            "DB_3": 20
+          }
+        },
+        {
+          "op": "AGGREGATE_INTERVAL"
+        },
+        {
+          "op": "SAMPLE_ACCESS",
+          "samples": {}
+        },
+        {
+          "op": "AGGREGATE_INTERVAL"
+        },
+        {
+          "op": "SAMPLE_ACCESS",
+          "samples": {
+            "DB_1": 15,
+            "DB_3": 20
+          }
+        },
+        {
+          "op": "AGGREGATE_INTERVAL"
+        },
+        {
+          "op": "APPLY_LRU_SORT"
+        },
+        {
+          "op": "RECLAIM_PAGES",
+          "nr_to_reclaim": 60
+        },
+        {
+          "op": "GET_STATISTICS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SAMPLE_ACCESS",
+          "status": "SAMPLES_RECORDED",
+          "sampled_regions": 2
+        },
+        {
+          "op": "AGGREGATE_INTERVAL",
+          "status": "AGGREGATED",
+          "region_count": 8
+        },
+        {
+          "op": "SAMPLE_ACCESS",
+          "status": "SAMPLES_RECORDED",
+          "sampled_regions": 0
+        },
+        {
+          "op": "AGGREGATE_INTERVAL",
+          "status": "AGGREGATED",
+          "region_count": 8
+        },
+        {
+          "op": "SAMPLE_ACCESS",
+          "status": "SAMPLES_RECORDED",
+          "sampled_regions": 2
+        },
+        {
+          "op": "AGGREGATE_INTERVAL",
+          "status": "AGGREGATED",
+          "region_count": 8
+        },
+        {
+          "op": "SAMPLE_ACCESS",
+          "status": "SAMPLES_RECORDED",
+          "sampled_regions": 0
+        },
+        {
+          "op": "AGGREGATE_INTERVAL",
+          "status": "AGGREGATED",
+          "region_count": 8
+        },
+        {
+          "op": "SAMPLE_ACCESS",
+          "status": "SAMPLES_RECORDED",
+          "sampled_regions": 2
+        },
+        {
+          "op": "AGGREGATE_INTERVAL",
+          "status": "AGGREGATED",
+          "region_count": 8
+        },
+        {
+          "op": "APPLY_LRU_SORT",
+          "status": "SORTED",
+          "actions": [
+            {
+              "region_id": "DB_1",
+              "action": "PROACTIVELY_ACTIVATED",
+              "pages": 25
+            },
+            {
+              "region_id": "DB_3",
+              "action": "PROACTIVELY_ACTIVATED",
+              "pages": 25
+            },
+            {
+              "region_id": "DB_0",
+              "action": "PROACTIVELY_DEACTIVATED",
+              "pages": 25
+            },
+            {
+              "region_id": "DB_2",
+              "action": "PROACTIVELY_DEACTIVATED",
+              "pages": 25
+            },
+            {
+              "region_id": "DB_4",
+              "action": "PROACTIVELY_DEACTIVATED",
+              "pages": 25
+            },
+            {
+              "region_id": "DB_6",
+              "action": "PROACTIVELY_DEACTIVATED",
+              "pages": 25
+            }
+          ],
+          "quota_remaining": 0
+        },
+        {
+          "op": "RECLAIM_PAGES",
+          "status": "RECLAIM_COMPLETED",
+          "target_pages": 60,
+          "reclaimed_pages": 60,
+          "details": [
+            {
+              "region_id": "DB_0",
+              "reclaimed": 25,
+              "from_lru": "INACTIVE"
+            },
+            {
+              "region_id": "DB_2",
+              "reclaimed": 25,
+              "from_lru": "INACTIVE"
+            },
+            {
+              "region_id": "DB_4",
+              "reclaimed": 10,
+              "from_lru": "INACTIVE"
+            }
+          ]
+        },
+        {
+          "op": "GET_STATISTICS",
+          "active_pages": 50,
+          "inactive_pages": 90,
+          "hot_promotions": 2,
+          "cold_demotions": 4,
+          "quota_throttled_events": 0,
+          "fastpath_reclaim_hits": 3,
+          "total_reclaimed_pages": 60
+        }
+      ],
+      "summary": {
+        "hot_promotions": 2,
+        "cold_demotions": 4,
+        "quota_throttled_events": 0,
+        "fastpath_reclaim_hits": 3,
+        "total_reclaims": 1,
+        "reclaimed_pages": 60,
+        "final_active_pages": 50,
+        "final_inactive_pages": 90
+      }
+    }
+  }
+]
