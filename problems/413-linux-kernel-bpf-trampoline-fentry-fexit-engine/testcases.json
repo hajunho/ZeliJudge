@@ -1,0 +1,1570 @@
+[
+  {
+    "name": "단일 fentry 및 fexit 트램펄린 연결 시 1자형 직접 호출 및 반환값 관측",
+    "input": {
+      "config": {
+        "num_cpus": 4,
+        "kprobe_cost_ns": 150,
+        "trampoline_base_ns": 2,
+        "bpf_prog_cost_ns": 3,
+        "funcs": {
+          "vfs_read": {
+            "name": "vfs_read",
+            "orig_ret": 4096,
+            "latency_ns": 50
+          },
+          "vfs_write": {
+            "name": "vfs_write",
+            "orig_ret": 4096,
+            "latency_ns": 60
+          },
+          "tcp_connect": {
+            "name": "tcp_connect",
+            "orig_ret": 0,
+            "latency_ns": 100
+          },
+          "do_unlinkat": {
+            "name": "do_unlinkat",
+            "orig_ret": 0,
+            "latency_ns": 70
+          },
+          "sys_execve": {
+            "name": "sys_execve",
+            "orig_ret": 0,
+            "latency_ns": 200
+          }
+        }
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "ATTACH_PROG",
+          "func_id": "vfs_read",
+          "prog_id": "p_entry_1",
+          "prog_type": "FENTRY"
+        },
+        {
+          "time": 1,
+          "type": "ATTACH_PROG",
+          "func_id": "vfs_read",
+          "prog_id": "p_exit_1",
+          "prog_type": "FEXIT"
+        },
+        {
+          "time": 2,
+          "type": "INVOKE_FUNC",
+          "func_id": "vfs_read",
+          "cpu_id": 0,
+          "args": [
+            3,
+            "0x7fff1000",
+            4096
+          ]
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_invocations": 1,
+        "fentry_invocations": 1,
+        "fexit_invocations": 1,
+        "fmod_ret_overrides": 0,
+        "bypassed_orig_funcs": 0,
+        "recursion_suppressed_count": 0,
+        "total_trampoline_overhead_ns": 8,
+        "legacy_kprobe_equivalent_overhead_ns": 300,
+        "saved_overhead_ns": 292
+      },
+      "trampolines": {
+        "vfs_read": {
+          "fentry": [
+            {
+              "prog_id": "p_entry_1",
+              "type": "FENTRY",
+              "override_ret_val": null,
+              "causes_recursion_func": null
+            }
+          ],
+          "fmod_ret": [],
+          "fexit": [
+            {
+              "prog_id": "p_exit_1",
+              "type": "FEXIT",
+              "override_ret_val": null,
+              "causes_recursion_func": null
+            }
+          ]
+        },
+        "vfs_write": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "tcp_connect": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "do_unlinkat": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "sys_execve": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        }
+      },
+      "invocation_logs": [
+        {
+          "time": 2,
+          "func_id": "vfs_read",
+          "cpu_id": 0,
+          "args": [
+            3,
+            "0x7fff1000",
+            4096
+          ],
+          "orig_func_executed": true,
+          "ret_val": 4096,
+          "trampoline_overhead_ns": 8,
+          "executed_fentry": [
+            {
+              "prog_id": "p_entry_1",
+              "status": "EXECUTED"
+            }
+          ],
+          "executed_fexit": [
+            {
+              "prog_id": "p_exit_1",
+              "status": "EXECUTED",
+              "observed_ret": 4096
+            }
+          ],
+          "fmod_ret_applied": null
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "ATTACH_PROG",
+          "func_id": "vfs_read",
+          "prog_id": "p_entry_1",
+          "type": "FENTRY"
+        },
+        {
+          "time": 1,
+          "event": "ATTACH_PROG",
+          "func_id": "vfs_read",
+          "prog_id": "p_exit_1",
+          "type": "FEXIT"
+        }
+      ]
+    }
+  },
+  {
+    "name": "트램펄린 미등록 함수의 네이티브 커널 직통 실행 및 오버헤드 제로(0ns) 검증",
+    "input": {
+      "config": {
+        "num_cpus": 4,
+        "kprobe_cost_ns": 150,
+        "trampoline_base_ns": 2,
+        "bpf_prog_cost_ns": 3,
+        "funcs": {
+          "vfs_read": {
+            "name": "vfs_read",
+            "orig_ret": 4096,
+            "latency_ns": 50
+          },
+          "vfs_write": {
+            "name": "vfs_write",
+            "orig_ret": 4096,
+            "latency_ns": 60
+          },
+          "tcp_connect": {
+            "name": "tcp_connect",
+            "orig_ret": 0,
+            "latency_ns": 100
+          },
+          "do_unlinkat": {
+            "name": "do_unlinkat",
+            "orig_ret": 0,
+            "latency_ns": 70
+          },
+          "sys_execve": {
+            "name": "sys_execve",
+            "orig_ret": 0,
+            "latency_ns": 200
+          }
+        }
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "INVOKE_FUNC",
+          "func_id": "tcp_connect",
+          "cpu_id": 0,
+          "args": [
+            12,
+            "192.168.1.1",
+            443
+          ]
+        },
+        {
+          "time": 1,
+          "type": "INVOKE_FUNC",
+          "func_id": "vfs_write",
+          "cpu_id": 1,
+          "args": [
+            5,
+            "0x7fff2000",
+            1024
+          ]
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_invocations": 2,
+        "fentry_invocations": 0,
+        "fexit_invocations": 0,
+        "fmod_ret_overrides": 0,
+        "bypassed_orig_funcs": 0,
+        "recursion_suppressed_count": 0,
+        "total_trampoline_overhead_ns": 0,
+        "legacy_kprobe_equivalent_overhead_ns": 0,
+        "saved_overhead_ns": 0
+      },
+      "trampolines": {
+        "vfs_read": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "vfs_write": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "tcp_connect": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "do_unlinkat": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "sys_execve": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        }
+      },
+      "invocation_logs": [
+        {
+          "time": 0,
+          "func_id": "tcp_connect",
+          "cpu_id": 0,
+          "args": [
+            12,
+            "192.168.1.1",
+            443
+          ],
+          "orig_func_executed": true,
+          "ret_val": 0,
+          "trampoline_overhead_ns": 0,
+          "executed_fentry": [],
+          "executed_fexit": [],
+          "fmod_ret_applied": null
+        },
+        {
+          "time": 1,
+          "func_id": "vfs_write",
+          "cpu_id": 1,
+          "args": [
+            5,
+            "0x7fff2000",
+            1024
+          ],
+          "orig_func_executed": true,
+          "ret_val": 4096,
+          "trampoline_overhead_ns": 0,
+          "executed_fentry": [],
+          "executed_fexit": [],
+          "fmod_ret_applied": null
+        }
+      ],
+      "event_logs": []
+    }
+  },
+  {
+    "name": "동적 연결(Attach) 및 해제(Detach) 생명주기에 따른 트램펄린 활성화/비활성화 전환",
+    "input": {
+      "config": {
+        "num_cpus": 4,
+        "kprobe_cost_ns": 150,
+        "trampoline_base_ns": 2,
+        "bpf_prog_cost_ns": 3,
+        "funcs": {
+          "vfs_read": {
+            "name": "vfs_read",
+            "orig_ret": 4096,
+            "latency_ns": 50
+          },
+          "vfs_write": {
+            "name": "vfs_write",
+            "orig_ret": 4096,
+            "latency_ns": 60
+          },
+          "tcp_connect": {
+            "name": "tcp_connect",
+            "orig_ret": 0,
+            "latency_ns": 100
+          },
+          "do_unlinkat": {
+            "name": "do_unlinkat",
+            "orig_ret": 0,
+            "latency_ns": 70
+          },
+          "sys_execve": {
+            "name": "sys_execve",
+            "orig_ret": 0,
+            "latency_ns": 200
+          }
+        }
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "ATTACH_PROG",
+          "func_id": "vfs_read",
+          "prog_id": "mon_read",
+          "prog_type": "FENTRY"
+        },
+        {
+          "time": 1,
+          "type": "INVOKE_FUNC",
+          "func_id": "vfs_read",
+          "cpu_id": 0,
+          "args": [
+            1,
+            "0x1000",
+            512
+          ]
+        },
+        {
+          "time": 2,
+          "type": "DETACH_PROG",
+          "func_id": "vfs_read",
+          "prog_id": "mon_read"
+        },
+        {
+          "time": 3,
+          "type": "INVOKE_FUNC",
+          "func_id": "vfs_read",
+          "cpu_id": 0,
+          "args": [
+            1,
+            "0x1000",
+            512
+          ]
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_invocations": 2,
+        "fentry_invocations": 1,
+        "fexit_invocations": 0,
+        "fmod_ret_overrides": 0,
+        "bypassed_orig_funcs": 0,
+        "recursion_suppressed_count": 0,
+        "total_trampoline_overhead_ns": 5,
+        "legacy_kprobe_equivalent_overhead_ns": 150,
+        "saved_overhead_ns": 145
+      },
+      "trampolines": {
+        "vfs_read": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "vfs_write": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "tcp_connect": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "do_unlinkat": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "sys_execve": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        }
+      },
+      "invocation_logs": [
+        {
+          "time": 1,
+          "func_id": "vfs_read",
+          "cpu_id": 0,
+          "args": [
+            1,
+            "0x1000",
+            512
+          ],
+          "orig_func_executed": true,
+          "ret_val": 4096,
+          "trampoline_overhead_ns": 5,
+          "executed_fentry": [
+            {
+              "prog_id": "mon_read",
+              "status": "EXECUTED"
+            }
+          ],
+          "executed_fexit": [],
+          "fmod_ret_applied": null
+        },
+        {
+          "time": 3,
+          "func_id": "vfs_read",
+          "cpu_id": 0,
+          "args": [
+            1,
+            "0x1000",
+            512
+          ],
+          "orig_func_executed": true,
+          "ret_val": 4096,
+          "trampoline_overhead_ns": 0,
+          "executed_fentry": [],
+          "executed_fexit": [],
+          "fmod_ret_applied": null
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "ATTACH_PROG",
+          "func_id": "vfs_read",
+          "prog_id": "mon_read",
+          "type": "FENTRY"
+        },
+        {
+          "time": 2,
+          "event": "DETACH_PROG",
+          "func_id": "vfs_read",
+          "prog_id": "mon_read"
+        }
+      ]
+    }
+  },
+  {
+    "name": "fmod_ret 보안 정책 기반 에러 코드(-EACCES) 주입 및 원래 함수 실행 바이패스",
+    "input": {
+      "config": {
+        "num_cpus": 4,
+        "kprobe_cost_ns": 150,
+        "trampoline_base_ns": 2,
+        "bpf_prog_cost_ns": 3,
+        "funcs": {
+          "vfs_read": {
+            "name": "vfs_read",
+            "orig_ret": 4096,
+            "latency_ns": 50
+          },
+          "vfs_write": {
+            "name": "vfs_write",
+            "orig_ret": 4096,
+            "latency_ns": 60
+          },
+          "tcp_connect": {
+            "name": "tcp_connect",
+            "orig_ret": 0,
+            "latency_ns": 100
+          },
+          "do_unlinkat": {
+            "name": "do_unlinkat",
+            "orig_ret": 0,
+            "latency_ns": 70
+          },
+          "sys_execve": {
+            "name": "sys_execve",
+            "orig_ret": 0,
+            "latency_ns": 200
+          }
+        }
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "ATTACH_PROG",
+          "func_id": "do_unlinkat",
+          "prog_id": "lsm_defense",
+          "prog_type": "FMOD_RET",
+          "override_ret_val": -13
+        },
+        {
+          "time": 1,
+          "type": "ATTACH_PROG",
+          "func_id": "do_unlinkat",
+          "prog_id": "audit_exit",
+          "prog_type": "FEXIT"
+        },
+        {
+          "time": 2,
+          "type": "INVOKE_FUNC",
+          "func_id": "do_unlinkat",
+          "cpu_id": 0,
+          "args": [
+            "/etc/passwd"
+          ]
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_invocations": 1,
+        "fentry_invocations": 0,
+        "fexit_invocations": 1,
+        "fmod_ret_overrides": 1,
+        "bypassed_orig_funcs": 1,
+        "recursion_suppressed_count": 0,
+        "total_trampoline_overhead_ns": 8,
+        "legacy_kprobe_equivalent_overhead_ns": 300,
+        "saved_overhead_ns": 292
+      },
+      "trampolines": {
+        "vfs_read": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "vfs_write": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "tcp_connect": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "do_unlinkat": {
+          "fentry": [],
+          "fmod_ret": [
+            {
+              "prog_id": "lsm_defense",
+              "type": "FMOD_RET",
+              "override_ret_val": -13,
+              "causes_recursion_func": null
+            }
+          ],
+          "fexit": [
+            {
+              "prog_id": "audit_exit",
+              "type": "FEXIT",
+              "override_ret_val": null,
+              "causes_recursion_func": null
+            }
+          ]
+        },
+        "sys_execve": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        }
+      },
+      "invocation_logs": [
+        {
+          "time": 2,
+          "func_id": "do_unlinkat",
+          "cpu_id": 0,
+          "args": [
+            "/etc/passwd"
+          ],
+          "orig_func_executed": false,
+          "ret_val": -13,
+          "trampoline_overhead_ns": 8,
+          "executed_fentry": [],
+          "executed_fexit": [
+            {
+              "prog_id": "audit_exit",
+              "status": "EXECUTED",
+              "observed_ret": -13
+            }
+          ],
+          "fmod_ret_applied": {
+            "prog_id": "lsm_defense",
+            "override_val": -13
+          }
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "ATTACH_PROG",
+          "func_id": "do_unlinkat",
+          "prog_id": "lsm_defense",
+          "type": "FMOD_RET"
+        },
+        {
+          "time": 1,
+          "event": "ATTACH_PROG",
+          "func_id": "do_unlinkat",
+          "prog_id": "audit_exit",
+          "type": "FEXIT"
+        }
+      ]
+    }
+  },
+  {
+    "name": "fentry 내부 중첩 재귀 호출 발생 시 bpf_prog_active 방어 및 스택 오버플로우 방지",
+    "input": {
+      "config": {
+        "num_cpus": 4,
+        "kprobe_cost_ns": 150,
+        "trampoline_base_ns": 2,
+        "bpf_prog_cost_ns": 3,
+        "funcs": {
+          "vfs_read": {
+            "name": "vfs_read",
+            "orig_ret": 4096,
+            "latency_ns": 50
+          },
+          "vfs_write": {
+            "name": "vfs_write",
+            "orig_ret": 4096,
+            "latency_ns": 60
+          },
+          "tcp_connect": {
+            "name": "tcp_connect",
+            "orig_ret": 0,
+            "latency_ns": 100
+          },
+          "do_unlinkat": {
+            "name": "do_unlinkat",
+            "orig_ret": 0,
+            "latency_ns": 70
+          },
+          "sys_execve": {
+            "name": "sys_execve",
+            "orig_ret": 0,
+            "latency_ns": 200
+          }
+        }
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "ATTACH_PROG",
+          "func_id": "vfs_read",
+          "prog_id": "recursive_spy",
+          "prog_type": "FENTRY",
+          "causes_recursion_func": "vfs_read"
+        },
+        {
+          "time": 1,
+          "type": "INVOKE_FUNC",
+          "func_id": "vfs_read",
+          "cpu_id": 0,
+          "args": [
+            4,
+            "0x2000",
+            128
+          ]
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_invocations": 2,
+        "fentry_invocations": 1,
+        "fexit_invocations": 0,
+        "fmod_ret_overrides": 0,
+        "bypassed_orig_funcs": 0,
+        "recursion_suppressed_count": 1,
+        "total_trampoline_overhead_ns": 10,
+        "legacy_kprobe_equivalent_overhead_ns": 300,
+        "saved_overhead_ns": 290
+      },
+      "trampolines": {
+        "vfs_read": {
+          "fentry": [
+            {
+              "prog_id": "recursive_spy",
+              "type": "FENTRY",
+              "override_ret_val": null,
+              "causes_recursion_func": "vfs_read"
+            }
+          ],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "vfs_write": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "tcp_connect": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "do_unlinkat": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "sys_execve": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        }
+      },
+      "invocation_logs": [
+        {
+          "time": 1,
+          "func_id": "vfs_read",
+          "cpu_id": 0,
+          "args": [
+            0
+          ],
+          "orig_func_executed": true,
+          "ret_val": 4096,
+          "trampoline_overhead_ns": 5,
+          "executed_fentry": [
+            {
+              "prog_id": "recursive_spy",
+              "status": "RECURSION_SUPPRESSED"
+            }
+          ],
+          "executed_fexit": [],
+          "fmod_ret_applied": null
+        },
+        {
+          "time": 1,
+          "func_id": "vfs_read",
+          "cpu_id": 0,
+          "args": [
+            4,
+            "0x2000",
+            128
+          ],
+          "orig_func_executed": true,
+          "ret_val": 4096,
+          "trampoline_overhead_ns": 5,
+          "executed_fentry": [
+            {
+              "prog_id": "recursive_spy",
+              "status": "EXECUTED"
+            }
+          ],
+          "executed_fexit": [],
+          "fmod_ret_applied": null
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "ATTACH_PROG",
+          "func_id": "vfs_read",
+          "prog_id": "recursive_spy",
+          "type": "FENTRY"
+        }
+      ]
+    }
+  },
+  {
+    "name": "다중 CPU 코어(0~3) 동시 호출 환경에서의 독립적 실행 및 Per-CPU 상태 격리",
+    "input": {
+      "config": {
+        "num_cpus": 4,
+        "kprobe_cost_ns": 150,
+        "trampoline_base_ns": 2,
+        "bpf_prog_cost_ns": 3,
+        "funcs": {
+          "vfs_read": {
+            "name": "vfs_read",
+            "orig_ret": 4096,
+            "latency_ns": 50
+          },
+          "vfs_write": {
+            "name": "vfs_write",
+            "orig_ret": 4096,
+            "latency_ns": 60
+          },
+          "tcp_connect": {
+            "name": "tcp_connect",
+            "orig_ret": 0,
+            "latency_ns": 100
+          },
+          "do_unlinkat": {
+            "name": "do_unlinkat",
+            "orig_ret": 0,
+            "latency_ns": 70
+          },
+          "sys_execve": {
+            "name": "sys_execve",
+            "orig_ret": 0,
+            "latency_ns": 200
+          }
+        }
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "ATTACH_PROG",
+          "func_id": "tcp_connect",
+          "prog_id": "net_mon",
+          "prog_type": "FENTRY"
+        },
+        {
+          "time": 1,
+          "type": "INVOKE_FUNC",
+          "func_id": "tcp_connect",
+          "cpu_id": 0,
+          "args": [
+            1,
+            "10.0.0.1",
+            80
+          ]
+        },
+        {
+          "time": 2,
+          "type": "INVOKE_FUNC",
+          "func_id": "tcp_connect",
+          "cpu_id": 1,
+          "args": [
+            2,
+            "10.0.0.2",
+            80
+          ]
+        },
+        {
+          "time": 3,
+          "type": "INVOKE_FUNC",
+          "func_id": "tcp_connect",
+          "cpu_id": 2,
+          "args": [
+            3,
+            "10.0.0.3",
+            80
+          ]
+        },
+        {
+          "time": 4,
+          "type": "INVOKE_FUNC",
+          "func_id": "tcp_connect",
+          "cpu_id": 3,
+          "args": [
+            4,
+            "10.0.0.4",
+            80
+          ]
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_invocations": 4,
+        "fentry_invocations": 4,
+        "fexit_invocations": 0,
+        "fmod_ret_overrides": 0,
+        "bypassed_orig_funcs": 0,
+        "recursion_suppressed_count": 0,
+        "total_trampoline_overhead_ns": 20,
+        "legacy_kprobe_equivalent_overhead_ns": 600,
+        "saved_overhead_ns": 580
+      },
+      "trampolines": {
+        "vfs_read": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "vfs_write": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "tcp_connect": {
+          "fentry": [
+            {
+              "prog_id": "net_mon",
+              "type": "FENTRY",
+              "override_ret_val": null,
+              "causes_recursion_func": null
+            }
+          ],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "do_unlinkat": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "sys_execve": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        }
+      },
+      "invocation_logs": [
+        {
+          "time": 1,
+          "func_id": "tcp_connect",
+          "cpu_id": 0,
+          "args": [
+            1,
+            "10.0.0.1",
+            80
+          ],
+          "orig_func_executed": true,
+          "ret_val": 0,
+          "trampoline_overhead_ns": 5,
+          "executed_fentry": [
+            {
+              "prog_id": "net_mon",
+              "status": "EXECUTED"
+            }
+          ],
+          "executed_fexit": [],
+          "fmod_ret_applied": null
+        },
+        {
+          "time": 2,
+          "func_id": "tcp_connect",
+          "cpu_id": 1,
+          "args": [
+            2,
+            "10.0.0.2",
+            80
+          ],
+          "orig_func_executed": true,
+          "ret_val": 0,
+          "trampoline_overhead_ns": 5,
+          "executed_fentry": [
+            {
+              "prog_id": "net_mon",
+              "status": "EXECUTED"
+            }
+          ],
+          "executed_fexit": [],
+          "fmod_ret_applied": null
+        },
+        {
+          "time": 3,
+          "func_id": "tcp_connect",
+          "cpu_id": 2,
+          "args": [
+            3,
+            "10.0.0.3",
+            80
+          ],
+          "orig_func_executed": true,
+          "ret_val": 0,
+          "trampoline_overhead_ns": 5,
+          "executed_fentry": [
+            {
+              "prog_id": "net_mon",
+              "status": "EXECUTED"
+            }
+          ],
+          "executed_fexit": [],
+          "fmod_ret_applied": null
+        },
+        {
+          "time": 4,
+          "func_id": "tcp_connect",
+          "cpu_id": 3,
+          "args": [
+            4,
+            "10.0.0.4",
+            80
+          ],
+          "orig_func_executed": true,
+          "ret_val": 0,
+          "trampoline_overhead_ns": 5,
+          "executed_fentry": [
+            {
+              "prog_id": "net_mon",
+              "status": "EXECUTED"
+            }
+          ],
+          "executed_fexit": [],
+          "fmod_ret_applied": null
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "ATTACH_PROG",
+          "func_id": "tcp_connect",
+          "prog_id": "net_mon",
+          "type": "FENTRY"
+        }
+      ]
+    }
+  },
+  {
+    "name": "단일 함수 다중 체인 파이프라인(2 fentry + fmod_ret + 2 fexit) 순차 실행 및 오버헤드 측정",
+    "input": {
+      "config": {
+        "num_cpus": 4,
+        "kprobe_cost_ns": 150,
+        "trampoline_base_ns": 2,
+        "bpf_prog_cost_ns": 3,
+        "funcs": {
+          "vfs_read": {
+            "name": "vfs_read",
+            "orig_ret": 4096,
+            "latency_ns": 50
+          },
+          "vfs_write": {
+            "name": "vfs_write",
+            "orig_ret": 4096,
+            "latency_ns": 60
+          },
+          "tcp_connect": {
+            "name": "tcp_connect",
+            "orig_ret": 0,
+            "latency_ns": 100
+          },
+          "do_unlinkat": {
+            "name": "do_unlinkat",
+            "orig_ret": 0,
+            "latency_ns": 70
+          },
+          "sys_execve": {
+            "name": "sys_execve",
+            "orig_ret": 0,
+            "latency_ns": 200
+          }
+        }
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "ATTACH_PROG",
+          "func_id": "vfs_write",
+          "prog_id": "trace_in_1",
+          "prog_type": "FENTRY"
+        },
+        {
+          "time": 1,
+          "type": "ATTACH_PROG",
+          "func_id": "vfs_write",
+          "prog_id": "trace_in_2",
+          "prog_type": "FENTRY"
+        },
+        {
+          "time": 2,
+          "type": "ATTACH_PROG",
+          "func_id": "vfs_write",
+          "prog_id": "pass_thru",
+          "prog_type": "FMOD_RET",
+          "override_ret_val": 0
+        },
+        {
+          "time": 3,
+          "type": "ATTACH_PROG",
+          "func_id": "vfs_write",
+          "prog_id": "trace_out_1",
+          "prog_type": "FEXIT"
+        },
+        {
+          "time": 4,
+          "type": "ATTACH_PROG",
+          "func_id": "vfs_write",
+          "prog_id": "trace_out_2",
+          "prog_type": "FEXIT"
+        },
+        {
+          "time": 5,
+          "type": "INVOKE_FUNC",
+          "func_id": "vfs_write",
+          "cpu_id": 0,
+          "args": [
+            9,
+            "0x5000",
+            2048
+          ]
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_invocations": 1,
+        "fentry_invocations": 2,
+        "fexit_invocations": 2,
+        "fmod_ret_overrides": 0,
+        "bypassed_orig_funcs": 0,
+        "recursion_suppressed_count": 0,
+        "total_trampoline_overhead_ns": 17,
+        "legacy_kprobe_equivalent_overhead_ns": 750,
+        "saved_overhead_ns": 733
+      },
+      "trampolines": {
+        "vfs_read": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "vfs_write": {
+          "fentry": [
+            {
+              "prog_id": "trace_in_1",
+              "type": "FENTRY",
+              "override_ret_val": null,
+              "causes_recursion_func": null
+            },
+            {
+              "prog_id": "trace_in_2",
+              "type": "FENTRY",
+              "override_ret_val": null,
+              "causes_recursion_func": null
+            }
+          ],
+          "fmod_ret": [
+            {
+              "prog_id": "pass_thru",
+              "type": "FMOD_RET",
+              "override_ret_val": 0,
+              "causes_recursion_func": null
+            }
+          ],
+          "fexit": [
+            {
+              "prog_id": "trace_out_1",
+              "type": "FEXIT",
+              "override_ret_val": null,
+              "causes_recursion_func": null
+            },
+            {
+              "prog_id": "trace_out_2",
+              "type": "FEXIT",
+              "override_ret_val": null,
+              "causes_recursion_func": null
+            }
+          ]
+        },
+        "tcp_connect": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "do_unlinkat": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "sys_execve": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        }
+      },
+      "invocation_logs": [
+        {
+          "time": 5,
+          "func_id": "vfs_write",
+          "cpu_id": 0,
+          "args": [
+            9,
+            "0x5000",
+            2048
+          ],
+          "orig_func_executed": true,
+          "ret_val": 4096,
+          "trampoline_overhead_ns": 17,
+          "executed_fentry": [
+            {
+              "prog_id": "trace_in_1",
+              "status": "EXECUTED"
+            },
+            {
+              "prog_id": "trace_in_2",
+              "status": "EXECUTED"
+            }
+          ],
+          "executed_fexit": [
+            {
+              "prog_id": "trace_out_1",
+              "status": "EXECUTED",
+              "observed_ret": 4096
+            },
+            {
+              "prog_id": "trace_out_2",
+              "status": "EXECUTED",
+              "observed_ret": 4096
+            }
+          ],
+          "fmod_ret_applied": null
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "ATTACH_PROG",
+          "func_id": "vfs_write",
+          "prog_id": "trace_in_1",
+          "type": "FENTRY"
+        },
+        {
+          "time": 1,
+          "event": "ATTACH_PROG",
+          "func_id": "vfs_write",
+          "prog_id": "trace_in_2",
+          "type": "FENTRY"
+        },
+        {
+          "time": 2,
+          "event": "ATTACH_PROG",
+          "func_id": "vfs_write",
+          "prog_id": "pass_thru",
+          "type": "FMOD_RET"
+        },
+        {
+          "time": 3,
+          "event": "ATTACH_PROG",
+          "func_id": "vfs_write",
+          "prog_id": "trace_out_1",
+          "type": "FEXIT"
+        },
+        {
+          "time": 4,
+          "event": "ATTACH_PROG",
+          "func_id": "vfs_write",
+          "prog_id": "trace_out_2",
+          "type": "FEXIT"
+        }
+      ]
+    }
+  },
+  {
+    "name": "엔터프라이즈 실무 관측성·보안 감사 및 레거시 kprobe 대비 98% 지연시간 절감 종합 검증",
+    "input": {
+      "config": {
+        "num_cpus": 4,
+        "kprobe_cost_ns": 150,
+        "trampoline_base_ns": 2,
+        "bpf_prog_cost_ns": 3,
+        "funcs": {
+          "vfs_read": {
+            "name": "vfs_read",
+            "orig_ret": 4096,
+            "latency_ns": 50
+          },
+          "vfs_write": {
+            "name": "vfs_write",
+            "orig_ret": 4096,
+            "latency_ns": 60
+          },
+          "tcp_connect": {
+            "name": "tcp_connect",
+            "orig_ret": 0,
+            "latency_ns": 100
+          },
+          "do_unlinkat": {
+            "name": "do_unlinkat",
+            "orig_ret": 0,
+            "latency_ns": 70
+          },
+          "sys_execve": {
+            "name": "sys_execve",
+            "orig_ret": 0,
+            "latency_ns": 200
+          }
+        }
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "ATTACH_PROG",
+          "func_id": "sys_execve",
+          "prog_id": "sec_audit",
+          "prog_type": "FENTRY"
+        },
+        {
+          "time": 1,
+          "type": "ATTACH_PROG",
+          "func_id": "sys_execve",
+          "prog_id": "sec_exit",
+          "prog_type": "FEXIT"
+        },
+        {
+          "time": 2,
+          "type": "ATTACH_PROG",
+          "func_id": "do_unlinkat",
+          "prog_id": "block_rm",
+          "prog_type": "FMOD_RET",
+          "override_ret_val": -1
+        },
+        {
+          "time": 3,
+          "type": "ATTACH_PROG",
+          "func_id": "vfs_read",
+          "prog_id": "io_prof",
+          "prog_type": "FENTRY",
+          "causes_recursion_func": "sys_execve"
+        },
+        {
+          "time": 4,
+          "type": "INVOKE_FUNC",
+          "func_id": "sys_execve",
+          "cpu_id": 0,
+          "args": [
+            "/bin/bash"
+          ]
+        },
+        {
+          "time": 5,
+          "type": "INVOKE_FUNC",
+          "func_id": "do_unlinkat",
+          "cpu_id": 1,
+          "args": [
+            "/var/log/secure"
+          ]
+        },
+        {
+          "time": 6,
+          "type": "INVOKE_FUNC",
+          "func_id": "vfs_read",
+          "cpu_id": 2,
+          "args": [
+            3,
+            "0x1000",
+            4096
+          ]
+        },
+        {
+          "time": 7,
+          "type": "DETACH_PROG",
+          "func_id": "do_unlinkat",
+          "prog_id": "block_rm"
+        },
+        {
+          "time": 8,
+          "type": "INVOKE_FUNC",
+          "func_id": "do_unlinkat",
+          "cpu_id": 1,
+          "args": [
+            "/tmp/test.tmp"
+          ]
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_invocations": 5,
+        "fentry_invocations": 2,
+        "fexit_invocations": 1,
+        "fmod_ret_overrides": 1,
+        "bypassed_orig_funcs": 1,
+        "recursion_suppressed_count": 2,
+        "total_trampoline_overhead_ns": 26,
+        "legacy_kprobe_equivalent_overhead_ns": 900,
+        "saved_overhead_ns": 874
+      },
+      "trampolines": {
+        "vfs_read": {
+          "fentry": [
+            {
+              "prog_id": "io_prof",
+              "type": "FENTRY",
+              "override_ret_val": null,
+              "causes_recursion_func": "sys_execve"
+            }
+          ],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "vfs_write": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "tcp_connect": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "do_unlinkat": {
+          "fentry": [],
+          "fmod_ret": [],
+          "fexit": []
+        },
+        "sys_execve": {
+          "fentry": [
+            {
+              "prog_id": "sec_audit",
+              "type": "FENTRY",
+              "override_ret_val": null,
+              "causes_recursion_func": null
+            }
+          ],
+          "fmod_ret": [],
+          "fexit": [
+            {
+              "prog_id": "sec_exit",
+              "type": "FEXIT",
+              "override_ret_val": null,
+              "causes_recursion_func": null
+            }
+          ]
+        }
+      },
+      "invocation_logs": [
+        {
+          "time": 4,
+          "func_id": "sys_execve",
+          "cpu_id": 0,
+          "args": [
+            "/bin/bash"
+          ],
+          "orig_func_executed": true,
+          "ret_val": 0,
+          "trampoline_overhead_ns": 8,
+          "executed_fentry": [
+            {
+              "prog_id": "sec_audit",
+              "status": "EXECUTED"
+            }
+          ],
+          "executed_fexit": [
+            {
+              "prog_id": "sec_exit",
+              "status": "EXECUTED",
+              "observed_ret": 0
+            }
+          ],
+          "fmod_ret_applied": null
+        },
+        {
+          "time": 5,
+          "func_id": "do_unlinkat",
+          "cpu_id": 1,
+          "args": [
+            "/var/log/secure"
+          ],
+          "orig_func_executed": false,
+          "ret_val": -1,
+          "trampoline_overhead_ns": 5,
+          "executed_fentry": [],
+          "executed_fexit": [],
+          "fmod_ret_applied": {
+            "prog_id": "block_rm",
+            "override_val": -1
+          }
+        },
+        {
+          "time": 6,
+          "func_id": "sys_execve",
+          "cpu_id": 2,
+          "args": [
+            0
+          ],
+          "orig_func_executed": true,
+          "ret_val": 0,
+          "trampoline_overhead_ns": 8,
+          "executed_fentry": [
+            {
+              "prog_id": "sec_audit",
+              "status": "RECURSION_SUPPRESSED"
+            }
+          ],
+          "executed_fexit": [
+            {
+              "prog_id": "sec_exit",
+              "status": "RECURSION_SUPPRESSED"
+            }
+          ],
+          "fmod_ret_applied": null
+        },
+        {
+          "time": 6,
+          "func_id": "vfs_read",
+          "cpu_id": 2,
+          "args": [
+            3,
+            "0x1000",
+            4096
+          ],
+          "orig_func_executed": true,
+          "ret_val": 4096,
+          "trampoline_overhead_ns": 5,
+          "executed_fentry": [
+            {
+              "prog_id": "io_prof",
+              "status": "EXECUTED"
+            }
+          ],
+          "executed_fexit": [],
+          "fmod_ret_applied": null
+        },
+        {
+          "time": 8,
+          "func_id": "do_unlinkat",
+          "cpu_id": 1,
+          "args": [
+            "/tmp/test.tmp"
+          ],
+          "orig_func_executed": true,
+          "ret_val": 0,
+          "trampoline_overhead_ns": 0,
+          "executed_fentry": [],
+          "executed_fexit": [],
+          "fmod_ret_applied": null
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "ATTACH_PROG",
+          "func_id": "sys_execve",
+          "prog_id": "sec_audit",
+          "type": "FENTRY"
+        },
+        {
+          "time": 1,
+          "event": "ATTACH_PROG",
+          "func_id": "sys_execve",
+          "prog_id": "sec_exit",
+          "type": "FEXIT"
+        },
+        {
+          "time": 2,
+          "event": "ATTACH_PROG",
+          "func_id": "do_unlinkat",
+          "prog_id": "block_rm",
+          "type": "FMOD_RET"
+        },
+        {
+          "time": 3,
+          "event": "ATTACH_PROG",
+          "func_id": "vfs_read",
+          "prog_id": "io_prof",
+          "type": "FENTRY"
+        },
+        {
+          "time": 7,
+          "event": "DETACH_PROG",
+          "func_id": "do_unlinkat",
+          "prog_id": "block_rm"
+        }
+      ]
+    }
+  }
+]
