@@ -1,0 +1,1354 @@
+[
+  {
+    "input": {
+      "operations": [
+        {
+          "op": "FSOPEN",
+          "fs_name": "ext4",
+          "fs_fd": 3
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 3,
+          "key": "source",
+          "val": "/dev/nvme0n1p1"
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 3,
+          "key": "errors",
+          "val": "remount-ro"
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 3,
+          "key": "data",
+          "val": "ordered"
+        },
+        {
+          "op": "FSCONFIG_CREATE_TREE",
+          "fs_fd": 3
+        },
+        {
+          "op": "FSMOUNT",
+          "fs_fd": 3,
+          "mnt_fd": 4,
+          "attrs": {
+            "ro": false,
+            "nodev": true,
+            "nosuid": false
+          }
+        },
+        {
+          "op": "MOVE_MOUNT",
+          "mnt_fd": 4,
+          "target_path": "/var/lib/docker"
+        },
+        {
+          "op": "QUERY_VFS_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "FS_CONTEXT_CREATED",
+          "fs_fd": 3,
+          "fs_name": "ext4"
+        },
+        {
+          "status": "PARAM_SET",
+          "fs_fd": 3,
+          "key": "source",
+          "val": "/dev/nvme0n1p1"
+        },
+        {
+          "status": "PARAM_SET",
+          "fs_fd": 3,
+          "key": "errors",
+          "val": "remount-ro"
+        },
+        {
+          "status": "PARAM_SET",
+          "fs_fd": 3,
+          "key": "data",
+          "val": "ordered"
+        },
+        {
+          "status": "SUPERBLOCK_CREATED",
+          "fs_fd": 3,
+          "sb_id": 1,
+          "fs_name": "ext4"
+        },
+        {
+          "status": "MOUNT_DETACHED_CREATED",
+          "mnt_fd": 4,
+          "sb_id": 1
+        },
+        {
+          "status": "MOUNT_ATTACHED",
+          "target_path": "/var/lib/docker",
+          "sb_id": 1,
+          "fs_name": "ext4",
+          "is_over_existing": false
+        },
+        {
+          "active_contexts": 0,
+          "detached_mounts_count": 0,
+          "attached_mounts": {
+            "/var/lib/docker": {
+              "fs_name": "ext4",
+              "sb_id": 1,
+              "params": {
+                "source": "/dev/nvme0n1p1",
+                "errors": "remount-ro",
+                "data": "ordered"
+              },
+              "attrs": {
+                "ro": false,
+                "nodev": true,
+                "nosuid": false
+              }
+            }
+          },
+          "stats": {
+            "contexts_created": 1,
+            "superblocks_created": 1,
+            "mounts_attached": 1,
+            "param_errors": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "op": "FSOPEN",
+          "fs_name": "tmpfs",
+          "fs_fd": 5
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 5,
+          "key": "size",
+          "val": "4G"
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 5,
+          "key": "nr_inodes",
+          "val": 1048576
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 5,
+          "key": "mode",
+          "val": 1777
+        },
+        {
+          "op": "FSCONFIG_CREATE_TREE",
+          "fs_fd": 5
+        },
+        {
+          "op": "FSMOUNT",
+          "fs_fd": 5,
+          "mnt_fd": 6,
+          "attrs": {
+            "ro": false,
+            "nodev": true,
+            "nosuid": true
+          }
+        },
+        {
+          "op": "MOVE_MOUNT",
+          "mnt_fd": 6,
+          "target_path": "/tmp"
+        },
+        {
+          "op": "QUERY_VFS_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "FS_CONTEXT_CREATED",
+          "fs_fd": 5,
+          "fs_name": "tmpfs"
+        },
+        {
+          "status": "PARAM_SET",
+          "fs_fd": 5,
+          "key": "size",
+          "val": "4G"
+        },
+        {
+          "status": "PARAM_SET",
+          "fs_fd": 5,
+          "key": "nr_inodes",
+          "val": 1048576
+        },
+        {
+          "status": "PARAM_SET",
+          "fs_fd": 5,
+          "key": "mode",
+          "val": 1777
+        },
+        {
+          "status": "SUPERBLOCK_CREATED",
+          "fs_fd": 5,
+          "sb_id": 1,
+          "fs_name": "tmpfs"
+        },
+        {
+          "status": "MOUNT_DETACHED_CREATED",
+          "mnt_fd": 6,
+          "sb_id": 1
+        },
+        {
+          "status": "MOUNT_ATTACHED",
+          "target_path": "/tmp",
+          "sb_id": 1,
+          "fs_name": "tmpfs",
+          "is_over_existing": false
+        },
+        {
+          "active_contexts": 0,
+          "detached_mounts_count": 0,
+          "attached_mounts": {
+            "/tmp": {
+              "fs_name": "tmpfs",
+              "sb_id": 1,
+              "params": {
+                "size": "4G",
+                "nr_inodes": 1048576,
+                "mode": 1777
+              },
+              "attrs": {
+                "ro": false,
+                "nodev": true,
+                "nosuid": true
+              }
+            }
+          },
+          "stats": {
+            "contexts_created": 1,
+            "superblocks_created": 1,
+            "mounts_attached": 1,
+            "param_errors": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "op": "FSOPEN",
+          "fs_name": "btrfs",
+          "fs_fd": 3
+        },
+        {
+          "op": "FSOPEN",
+          "fs_name": "ext4",
+          "fs_fd": 7
+        },
+        {
+          "op": "FSOPEN",
+          "fs_name": "xfs",
+          "fs_fd": 7
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 7,
+          "key": "nonexistent_opt",
+          "val": "val"
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 7,
+          "key": "errors",
+          "val": "ignore_all_crashes"
+        },
+        {
+          "op": "FSCONFIG_CREATE_TREE",
+          "fs_fd": 7
+        },
+        {
+          "op": "QUERY_VFS_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ENODEV_UNKNOWN_FS",
+          "fs_name": "btrfs"
+        },
+        {
+          "status": "FS_CONTEXT_CREATED",
+          "fs_fd": 7,
+          "fs_name": "ext4"
+        },
+        {
+          "status": "EBADF_DUPLICATE_FD",
+          "fs_fd": 7
+        },
+        {
+          "status": "EINVAL_PARAM_KEY",
+          "fs_name": "ext4",
+          "key": "nonexistent_opt"
+        },
+        {
+          "status": "EINVAL_PARAM_VALUE",
+          "key": "errors",
+          "val": "ignore_all_crashes",
+          "allowed": [
+            "continue",
+            "remount-ro",
+            "panic"
+          ]
+        },
+        {
+          "status": "EINVAL_MISSING_SOURCE",
+          "fs_name": "ext4"
+        },
+        {
+          "active_contexts": 1,
+          "detached_mounts_count": 0,
+          "attached_mounts": {},
+          "stats": {
+            "contexts_created": 1,
+            "superblocks_created": 0,
+            "mounts_attached": 0,
+            "param_errors": 2
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "op": "FSOPEN",
+          "fs_name": "xfs",
+          "fs_fd": 10
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 10,
+          "key": "source",
+          "val": "/dev/sdb1"
+        },
+        {
+          "op": "FSCONFIG_CREATE_TREE",
+          "fs_fd": 10
+        },
+        {
+          "op": "FSCONFIG_CREATE_TREE",
+          "fs_fd": 10
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 10,
+          "key": "logbufs",
+          "val": 8
+        },
+        {
+          "op": "FSMOUNT",
+          "fs_fd": 10,
+          "mnt_fd": 20
+        },
+        {
+          "op": "FSMOUNT",
+          "fs_fd": 10,
+          "mnt_fd": 21
+        },
+        {
+          "op": "MOVE_MOUNT",
+          "mnt_fd": 999,
+          "target_path": "/mnt/data"
+        },
+        {
+          "op": "MOVE_MOUNT",
+          "mnt_fd": 20,
+          "target_path": "/mnt/data"
+        },
+        {
+          "op": "QUERY_VFS_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "FS_CONTEXT_CREATED",
+          "fs_fd": 10,
+          "fs_name": "xfs"
+        },
+        {
+          "status": "PARAM_SET",
+          "fs_fd": 10,
+          "key": "source",
+          "val": "/dev/sdb1"
+        },
+        {
+          "status": "SUPERBLOCK_CREATED",
+          "fs_fd": 10,
+          "sb_id": 1,
+          "fs_name": "xfs"
+        },
+        {
+          "status": "EBUSY_INVALID_STATE",
+          "state": "FS_CONTEXT_AWAITING_MOUNT"
+        },
+        {
+          "status": "EBUSY_INVALID_STATE",
+          "state": "FS_CONTEXT_AWAITING_MOUNT"
+        },
+        {
+          "status": "MOUNT_DETACHED_CREATED",
+          "mnt_fd": 20,
+          "sb_id": 1
+        },
+        {
+          "status": "EBADF_UNKNOWN_FD",
+          "fs_fd": 10
+        },
+        {
+          "status": "EBADF_UNKNOWN_MNT_FD",
+          "mnt_fd": 999
+        },
+        {
+          "status": "MOUNT_ATTACHED",
+          "target_path": "/mnt/data",
+          "sb_id": 1,
+          "fs_name": "xfs",
+          "is_over_existing": false
+        },
+        {
+          "active_contexts": 0,
+          "detached_mounts_count": 0,
+          "attached_mounts": {
+            "/mnt/data": {
+              "fs_name": "xfs",
+              "sb_id": 1,
+              "params": {
+                "source": "/dev/sdb1"
+              },
+              "attrs": {
+                "ro": false,
+                "nodev": false,
+                "nosuid": false
+              }
+            }
+          },
+          "stats": {
+            "contexts_created": 1,
+            "superblocks_created": 1,
+            "mounts_attached": 1,
+            "param_errors": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "op": "FSOPEN",
+          "fs_name": "ext4",
+          "fs_fd": 11
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 11,
+          "key": "source",
+          "val": "/dev/sda1"
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 11,
+          "key": "commit",
+          "val": 5
+        },
+        {
+          "op": "FSCONFIG_CREATE_TREE",
+          "fs_fd": 11
+        },
+        {
+          "op": "FSMOUNT",
+          "fs_fd": 11,
+          "mnt_fd": 12
+        },
+        {
+          "op": "MOVE_MOUNT",
+          "mnt_fd": 12,
+          "target_path": "/mnt/storage"
+        },
+        {
+          "op": "FSPICK_RECONFIGURE",
+          "target_path": "/nonexistent",
+          "reconfig_fs_fd": 15
+        },
+        {
+          "op": "FSPICK_RECONFIGURE",
+          "target_path": "/mnt/storage",
+          "reconfig_fs_fd": 15
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 15,
+          "key": "commit",
+          "val": 30
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 15,
+          "key": "errors",
+          "val": "panic"
+        },
+        {
+          "op": "FSCONFIG_APPLY_RECONFIGURE",
+          "reconfig_fs_fd": 15
+        },
+        {
+          "op": "FSCONFIG_APPLY_RECONFIGURE",
+          "reconfig_fs_fd": 15
+        },
+        {
+          "op": "QUERY_VFS_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "FS_CONTEXT_CREATED",
+          "fs_fd": 11,
+          "fs_name": "ext4"
+        },
+        {
+          "status": "PARAM_SET",
+          "fs_fd": 11,
+          "key": "source",
+          "val": "/dev/sda1"
+        },
+        {
+          "status": "PARAM_SET",
+          "fs_fd": 11,
+          "key": "commit",
+          "val": 5
+        },
+        {
+          "status": "SUPERBLOCK_CREATED",
+          "fs_fd": 11,
+          "sb_id": 1,
+          "fs_name": "ext4"
+        },
+        {
+          "status": "MOUNT_DETACHED_CREATED",
+          "mnt_fd": 12,
+          "sb_id": 1
+        },
+        {
+          "status": "MOUNT_ATTACHED",
+          "target_path": "/mnt/storage",
+          "sb_id": 1,
+          "fs_name": "ext4",
+          "is_over_existing": false
+        },
+        {
+          "status": "ENOENT_TARGET_NOT_MOUNTED",
+          "target_path": "/nonexistent"
+        },
+        {
+          "status": "RECONFIG_CONTEXT_CREATED",
+          "fs_fd": 15,
+          "target_path": "/mnt/storage",
+          "sb_id": 1
+        },
+        {
+          "status": "PARAM_SET",
+          "fs_fd": 15,
+          "key": "commit",
+          "val": 30
+        },
+        {
+          "status": "PARAM_SET",
+          "fs_fd": 15,
+          "key": "errors",
+          "val": "panic"
+        },
+        {
+          "status": "RECONFIG_APPLIED",
+          "target_path": "/mnt/storage"
+        },
+        {
+          "status": "EBADF_UNKNOWN_FD",
+          "fs_fd": 15
+        },
+        {
+          "active_contexts": 0,
+          "detached_mounts_count": 0,
+          "attached_mounts": {
+            "/mnt/storage": {
+              "fs_name": "ext4",
+              "sb_id": 1,
+              "params": {
+                "source": "/dev/sda1",
+                "commit": 30,
+                "errors": "panic"
+              },
+              "attrs": {
+                "ro": false,
+                "nodev": false,
+                "nosuid": false
+              }
+            }
+          },
+          "stats": {
+            "contexts_created": 1,
+            "superblocks_created": 1,
+            "mounts_attached": 1,
+            "param_errors": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "op": "FSOPEN",
+          "fs_name": "tmpfs",
+          "fs_fd": 30
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 30,
+          "key": "size",
+          "val": "1G"
+        },
+        {
+          "op": "FSCONFIG_CREATE_TREE",
+          "fs_fd": 30
+        },
+        {
+          "op": "FSMOUNT",
+          "fs_fd": 30,
+          "mnt_fd": 31
+        },
+        {
+          "op": "MOVE_MOUNT",
+          "mnt_fd": 31,
+          "target_path": "/mnt/overlay_target"
+        },
+        {
+          "op": "FSOPEN",
+          "fs_name": "xfs",
+          "fs_fd": 40
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 40,
+          "key": "source",
+          "val": "/dev/nvme1n1"
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 40,
+          "key": "allocsize",
+          "val": 65536
+        },
+        {
+          "op": "FSCONFIG_CREATE_TREE",
+          "fs_fd": 40
+        },
+        {
+          "op": "FSMOUNT",
+          "fs_fd": 40,
+          "mnt_fd": 41
+        },
+        {
+          "op": "MOVE_MOUNT",
+          "mnt_fd": 41,
+          "target_path": "/mnt/overlay_target"
+        },
+        {
+          "op": "QUERY_VFS_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "FS_CONTEXT_CREATED",
+          "fs_fd": 30,
+          "fs_name": "tmpfs"
+        },
+        {
+          "status": "PARAM_SET",
+          "fs_fd": 30,
+          "key": "size",
+          "val": "1G"
+        },
+        {
+          "status": "SUPERBLOCK_CREATED",
+          "fs_fd": 30,
+          "sb_id": 1,
+          "fs_name": "tmpfs"
+        },
+        {
+          "status": "MOUNT_DETACHED_CREATED",
+          "mnt_fd": 31,
+          "sb_id": 1
+        },
+        {
+          "status": "MOUNT_ATTACHED",
+          "target_path": "/mnt/overlay_target",
+          "sb_id": 1,
+          "fs_name": "tmpfs",
+          "is_over_existing": false
+        },
+        {
+          "status": "FS_CONTEXT_CREATED",
+          "fs_fd": 40,
+          "fs_name": "xfs"
+        },
+        {
+          "status": "PARAM_SET",
+          "fs_fd": 40,
+          "key": "source",
+          "val": "/dev/nvme1n1"
+        },
+        {
+          "status": "PARAM_SET",
+          "fs_fd": 40,
+          "key": "allocsize",
+          "val": 65536
+        },
+        {
+          "status": "SUPERBLOCK_CREATED",
+          "fs_fd": 40,
+          "sb_id": 2,
+          "fs_name": "xfs"
+        },
+        {
+          "status": "MOUNT_DETACHED_CREATED",
+          "mnt_fd": 41,
+          "sb_id": 2
+        },
+        {
+          "status": "MOUNT_ATTACHED",
+          "target_path": "/mnt/overlay_target",
+          "sb_id": 2,
+          "fs_name": "xfs",
+          "is_over_existing": true
+        },
+        {
+          "active_contexts": 0,
+          "detached_mounts_count": 0,
+          "attached_mounts": {
+            "/mnt/overlay_target": {
+              "fs_name": "xfs",
+              "sb_id": 2,
+              "params": {
+                "source": "/dev/nvme1n1",
+                "allocsize": 65536
+              },
+              "attrs": {
+                "ro": false,
+                "nodev": false,
+                "nosuid": false
+              }
+            }
+          },
+          "stats": {
+            "contexts_created": 2,
+            "superblocks_created": 2,
+            "mounts_attached": 2,
+            "param_errors": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "op": "FSOPEN",
+          "fs_name": "ext4",
+          "fs_fd": 50
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 50,
+          "key": "source",
+          "val": "/dev/mapper/vg0-root"
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 50,
+          "key": "errors",
+          "val": "remount-ro"
+        },
+        {
+          "op": "FSCONFIG_CREATE_TREE",
+          "fs_fd": 50
+        },
+        {
+          "op": "FSMOUNT",
+          "fs_fd": 50,
+          "mnt_fd": 51,
+          "attrs": {
+            "ro": false,
+            "nodev": false,
+            "nosuid": false
+          }
+        },
+        {
+          "op": "MOVE_MOUNT",
+          "mnt_fd": 51,
+          "target_path": "/"
+        },
+        {
+          "op": "FSOPEN",
+          "fs_name": "tmpfs",
+          "fs_fd": 60
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 60,
+          "key": "size",
+          "val": "16G"
+        },
+        {
+          "op": "FSCONFIG_CREATE_TREE",
+          "fs_fd": 60
+        },
+        {
+          "op": "FSMOUNT",
+          "fs_fd": 60,
+          "mnt_fd": 61,
+          "attrs": {
+            "ro": false,
+            "nodev": true,
+            "nosuid": true
+          }
+        },
+        {
+          "op": "MOVE_MOUNT",
+          "mnt_fd": 61,
+          "target_path": "/dev/shm"
+        },
+        {
+          "op": "FSOPEN",
+          "fs_name": "xfs",
+          "fs_fd": 70
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 70,
+          "key": "source",
+          "val": "/dev/mapper/vg0-data"
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 70,
+          "key": "logbufs",
+          "val": 4
+        },
+        {
+          "op": "FSCONFIG_CREATE_TREE",
+          "fs_fd": 70
+        },
+        {
+          "op": "FSMOUNT",
+          "fs_fd": 70,
+          "mnt_fd": 71
+        },
+        {
+          "op": "MOVE_MOUNT",
+          "mnt_fd": 71,
+          "target_path": "/data"
+        },
+        {
+          "op": "FSPICK_RECONFIGURE",
+          "target_path": "/",
+          "reconfig_fs_fd": 80
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 80,
+          "key": "ro",
+          "val": true
+        },
+        {
+          "op": "FSCONFIG_APPLY_RECONFIGURE",
+          "reconfig_fs_fd": 80
+        },
+        {
+          "op": "QUERY_VFS_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "FS_CONTEXT_CREATED",
+          "fs_fd": 50,
+          "fs_name": "ext4"
+        },
+        {
+          "status": "PARAM_SET",
+          "fs_fd": 50,
+          "key": "source",
+          "val": "/dev/mapper/vg0-root"
+        },
+        {
+          "status": "PARAM_SET",
+          "fs_fd": 50,
+          "key": "errors",
+          "val": "remount-ro"
+        },
+        {
+          "status": "SUPERBLOCK_CREATED",
+          "fs_fd": 50,
+          "sb_id": 1,
+          "fs_name": "ext4"
+        },
+        {
+          "status": "MOUNT_DETACHED_CREATED",
+          "mnt_fd": 51,
+          "sb_id": 1
+        },
+        {
+          "status": "MOUNT_ATTACHED",
+          "target_path": "/",
+          "sb_id": 1,
+          "fs_name": "ext4",
+          "is_over_existing": false
+        },
+        {
+          "status": "FS_CONTEXT_CREATED",
+          "fs_fd": 60,
+          "fs_name": "tmpfs"
+        },
+        {
+          "status": "PARAM_SET",
+          "fs_fd": 60,
+          "key": "size",
+          "val": "16G"
+        },
+        {
+          "status": "SUPERBLOCK_CREATED",
+          "fs_fd": 60,
+          "sb_id": 2,
+          "fs_name": "tmpfs"
+        },
+        {
+          "status": "MOUNT_DETACHED_CREATED",
+          "mnt_fd": 61,
+          "sb_id": 2
+        },
+        {
+          "status": "MOUNT_ATTACHED",
+          "target_path": "/dev/shm",
+          "sb_id": 2,
+          "fs_name": "tmpfs",
+          "is_over_existing": false
+        },
+        {
+          "status": "FS_CONTEXT_CREATED",
+          "fs_fd": 70,
+          "fs_name": "xfs"
+        },
+        {
+          "status": "PARAM_SET",
+          "fs_fd": 70,
+          "key": "source",
+          "val": "/dev/mapper/vg0-data"
+        },
+        {
+          "status": "PARAM_SET",
+          "fs_fd": 70,
+          "key": "logbufs",
+          "val": 4
+        },
+        {
+          "status": "SUPERBLOCK_CREATED",
+          "fs_fd": 70,
+          "sb_id": 3,
+          "fs_name": "xfs"
+        },
+        {
+          "status": "MOUNT_DETACHED_CREATED",
+          "mnt_fd": 71,
+          "sb_id": 3
+        },
+        {
+          "status": "MOUNT_ATTACHED",
+          "target_path": "/data",
+          "sb_id": 3,
+          "fs_name": "xfs",
+          "is_over_existing": false
+        },
+        {
+          "status": "RECONFIG_CONTEXT_CREATED",
+          "fs_fd": 80,
+          "target_path": "/",
+          "sb_id": 1
+        },
+        {
+          "status": "PARAM_SET",
+          "fs_fd": 80,
+          "key": "ro",
+          "val": true
+        },
+        {
+          "status": "RECONFIG_APPLIED",
+          "target_path": "/"
+        },
+        {
+          "active_contexts": 0,
+          "detached_mounts_count": 0,
+          "attached_mounts": {
+            "/": {
+              "fs_name": "ext4",
+              "sb_id": 1,
+              "params": {
+                "source": "/dev/mapper/vg0-root",
+                "errors": "remount-ro",
+                "ro": true
+              },
+              "attrs": {
+                "ro": false,
+                "nodev": false,
+                "nosuid": false
+              }
+            },
+            "/data": {
+              "fs_name": "xfs",
+              "sb_id": 3,
+              "params": {
+                "source": "/dev/mapper/vg0-data",
+                "logbufs": 4
+              },
+              "attrs": {
+                "ro": false,
+                "nodev": false,
+                "nosuid": false
+              }
+            },
+            "/dev/shm": {
+              "fs_name": "tmpfs",
+              "sb_id": 2,
+              "params": {
+                "size": "16G"
+              },
+              "attrs": {
+                "ro": false,
+                "nodev": true,
+                "nosuid": true
+              }
+            }
+          },
+          "stats": {
+            "contexts_created": 3,
+            "superblocks_created": 3,
+            "mounts_attached": 3,
+            "param_errors": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "op": "FSOPEN",
+          "fs_name": "unknown_fs",
+          "fs_fd": 100
+        },
+        {
+          "op": "FSOPEN",
+          "fs_name": "ext4",
+          "fs_fd": 101
+        },
+        {
+          "op": "FSOPEN",
+          "fs_name": "ext4",
+          "fs_fd": 101
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 999,
+          "key": "source",
+          "val": "/dev/null"
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 101,
+          "key": "bad_key",
+          "val": 123
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 101,
+          "key": "data",
+          "val": "invalid_data_mode"
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 101,
+          "key": "source",
+          "val": "/dev/sdd1"
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 101,
+          "key": "data",
+          "val": "writeback"
+        },
+        {
+          "op": "FSCONFIG_CREATE_TREE",
+          "fs_fd": 101
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 101,
+          "key": "commit",
+          "val": 10
+        },
+        {
+          "op": "FSMOUNT",
+          "fs_fd": 101,
+          "mnt_fd": 200
+        },
+        {
+          "op": "FSMOUNT",
+          "fs_fd": 101,
+          "mnt_fd": 201
+        },
+        {
+          "op": "FSOPEN",
+          "fs_name": "tmpfs",
+          "fs_fd": 102
+        },
+        {
+          "op": "FSCONFIG_CREATE_TREE",
+          "fs_fd": 102
+        },
+        {
+          "op": "FSMOUNT",
+          "fs_fd": 102,
+          "mnt_fd": 200
+        },
+        {
+          "op": "FSMOUNT",
+          "fs_fd": 102,
+          "mnt_fd": 202
+        },
+        {
+          "op": "MOVE_MOUNT",
+          "mnt_fd": 200,
+          "target_path": "/var/log"
+        },
+        {
+          "op": "MOVE_MOUNT",
+          "mnt_fd": 202,
+          "target_path": "/run"
+        },
+        {
+          "op": "FSPICK_RECONFIGURE",
+          "target_path": "/not_found",
+          "reconfig_fs_fd": 300
+        },
+        {
+          "op": "FSPICK_RECONFIGURE",
+          "target_path": "/var/log",
+          "reconfig_fs_fd": 300
+        },
+        {
+          "op": "FSCONFIG_SET",
+          "fs_fd": 300,
+          "key": "commit",
+          "val": 60
+        },
+        {
+          "op": "FSCONFIG_APPLY_RECONFIGURE",
+          "reconfig_fs_fd": 300
+        },
+        {
+          "op": "QUERY_VFS_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ENODEV_UNKNOWN_FS",
+          "fs_name": "unknown_fs"
+        },
+        {
+          "status": "FS_CONTEXT_CREATED",
+          "fs_fd": 101,
+          "fs_name": "ext4"
+        },
+        {
+          "status": "EBADF_DUPLICATE_FD",
+          "fs_fd": 101
+        },
+        {
+          "status": "EBADF_UNKNOWN_FD",
+          "fs_fd": 999
+        },
+        {
+          "status": "EINVAL_PARAM_KEY",
+          "fs_name": "ext4",
+          "key": "bad_key"
+        },
+        {
+          "status": "EINVAL_PARAM_VALUE",
+          "key": "data",
+          "val": "invalid_data_mode",
+          "allowed": [
+            "journal",
+            "ordered",
+            "writeback"
+          ]
+        },
+        {
+          "status": "PARAM_SET",
+          "fs_fd": 101,
+          "key": "source",
+          "val": "/dev/sdd1"
+        },
+        {
+          "status": "PARAM_SET",
+          "fs_fd": 101,
+          "key": "data",
+          "val": "writeback"
+        },
+        {
+          "status": "SUPERBLOCK_CREATED",
+          "fs_fd": 101,
+          "sb_id": 1,
+          "fs_name": "ext4"
+        },
+        {
+          "status": "EBUSY_INVALID_STATE",
+          "state": "FS_CONTEXT_AWAITING_MOUNT"
+        },
+        {
+          "status": "MOUNT_DETACHED_CREATED",
+          "mnt_fd": 200,
+          "sb_id": 1
+        },
+        {
+          "status": "EBADF_UNKNOWN_FD",
+          "fs_fd": 101
+        },
+        {
+          "status": "FS_CONTEXT_CREATED",
+          "fs_fd": 102,
+          "fs_name": "tmpfs"
+        },
+        {
+          "status": "SUPERBLOCK_CREATED",
+          "fs_fd": 102,
+          "sb_id": 2,
+          "fs_name": "tmpfs"
+        },
+        {
+          "status": "EBADF_DUPLICATE_MNT_FD",
+          "mnt_fd": 200
+        },
+        {
+          "status": "MOUNT_DETACHED_CREATED",
+          "mnt_fd": 202,
+          "sb_id": 2
+        },
+        {
+          "status": "MOUNT_ATTACHED",
+          "target_path": "/var/log",
+          "sb_id": 1,
+          "fs_name": "ext4",
+          "is_over_existing": false
+        },
+        {
+          "status": "MOUNT_ATTACHED",
+          "target_path": "/run",
+          "sb_id": 2,
+          "fs_name": "tmpfs",
+          "is_over_existing": false
+        },
+        {
+          "status": "ENOENT_TARGET_NOT_MOUNTED",
+          "target_path": "/not_found"
+        },
+        {
+          "status": "RECONFIG_CONTEXT_CREATED",
+          "fs_fd": 300,
+          "target_path": "/var/log",
+          "sb_id": 1
+        },
+        {
+          "status": "PARAM_SET",
+          "fs_fd": 300,
+          "key": "commit",
+          "val": 60
+        },
+        {
+          "status": "RECONFIG_APPLIED",
+          "target_path": "/var/log"
+        },
+        {
+          "active_contexts": 0,
+          "detached_mounts_count": 0,
+          "attached_mounts": {
+            "/run": {
+              "fs_name": "tmpfs",
+              "sb_id": 2,
+              "params": {},
+              "attrs": {
+                "ro": false,
+                "nodev": false,
+                "nosuid": false
+              }
+            },
+            "/var/log": {
+              "fs_name": "ext4",
+              "sb_id": 1,
+              "params": {
+                "source": "/dev/sdd1",
+                "data": "writeback",
+                "commit": 60
+              },
+              "attrs": {
+                "ro": false,
+                "nodev": false,
+                "nosuid": false
+              }
+            }
+          },
+          "stats": {
+            "contexts_created": 2,
+            "superblocks_created": 2,
+            "mounts_attached": 2,
+            "param_errors": 2
+          }
+        }
+      ]
+    }
+  }
+]
