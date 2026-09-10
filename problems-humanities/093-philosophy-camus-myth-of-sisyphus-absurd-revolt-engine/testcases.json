@@ -1,0 +1,42 @@
+[
+  {
+    "name": "카뮈의 전형적 부조리 영웅(시시포스) 명료한 의식 및 반항 판정 검증",
+    "input": "{\"config\":{\"boulder_mass\":100.0,\"gravity\":9.8,\"peak_height\":50.0},\"operations\":[{\"op\":\"EVALUATE_SUBJECT\",\"params\":{\"desire_for_meaning\":0.85,\"world_silence\":0.9,\"lucidity\":0.95,\"hope_escapism\":0.05,\"vitality\":0.85,\"experiences_count\":20}}]}",
+    "output": "[{\"absurd_index\":0.8101,\"stance\":\"ABSURD_REVOLT\",\"revolt\":1.0,\"freedom\":0.7244,\"passion\":1.0,\"verdict\":\"부조리를 직시하며 희망 없이 삶의 조건을 긍정하는 항거(La Revolte)\",\"sisyphus_happy\":true}]"
+  },
+  {
+    "name": "키르케고르적 신앙의 도약과 형이상학적 철학적 자살 판정 검증",
+    "input": "{\"config\":{\"boulder_mass\":100.0,\"gravity\":9.8,\"peak_height\":50.0},\"operations\":[{\"op\":\"EVALUATE_SUBJECT\",\"params\":{\"desire_for_meaning\":0.95,\"world_silence\":0.8,\"lucidity\":0.5,\"hope_escapism\":0.8,\"vitality\":0.7,\"experiences_count\":5}}]}",
+    "output": "[{\"absurd_index\":0.2615,\"stance\":\"PHILOSOPHICAL_SUICIDE\",\"revolt\":0.0,\"freedom\":0.105,\"passion\":0.07,\"verdict\":\"도약(Leap of Faith)에 의한 지성의 희생 및 형이상학적 현실 도피\",\"sisyphus_happy\":false}]"
+  },
+  {
+    "name": "생명력 고갈 및 부조리 무게로 인한 육체적 자살 판정 검증",
+    "input": "{\"config\":{\"boulder_mass\":100.0,\"gravity\":9.8,\"peak_height\":50.0},\"operations\":[{\"op\":\"EVALUATE_SUBJECT\",\"params\":{\"desire_for_meaning\":0.9,\"world_silence\":0.9,\"lucidity\":0.8,\"hope_escapism\":0.1,\"vitality\":0.15,\"experiences_count\":2}}]}",
+    "output": "[{\"absurd_index\":0.684,\"stance\":\"PHYSICAL_SUICIDE\",\"revolt\":0.0,\"freedom\":0.0,\"passion\":0.0,\"verdict\":\"부조리의 무게를 견디지 못하고 의식을 소멸시키는 육체적 자살 (패배 및 굴복)\",\"sisyphus_happy\":false}]"
+  },
+  {
+    "name": "일상적 기계적 반복의 균열과 '왜?'의 부조리 의식 각성 전이 검증",
+    "input": "{\"config\":{\"boulder_mass\":80.0,\"gravity\":9.8,\"peak_height\":40.0},\"operations\":[{\"op\":\"EVALUATE_SUBJECT\",\"params\":{\"desire_for_meaning\":0.4,\"world_silence\":0.7,\"lucidity\":0.2,\"hope_escapism\":0.3,\"vitality\":0.6,\"experiences_count\":1}},{\"op\":\"EVALUATE_SUBJECT\",\"params\":{\"desire_for_meaning\":0.85,\"world_silence\":0.85,\"lucidity\":0.75,\"hope_escapism\":0.1,\"vitality\":0.65,\"experiences_count\":3}}]}",
+    "output": "[{\"absurd_index\":0.09,\"stance\":\"ABSURD_REVOLT\",\"revolt\":0.1463,\"freedom\":0.35,\"passion\":0.0205,\"verdict\":\"부조리를 직시하며 희망 없이 삶의 조건을 긍정하는 항거(La Revolte)\",\"sisyphus_happy\":false},{\"absurd_index\":0.6056,\"stance\":\"ABSURD_REVOLT\",\"revolt\":0.8794,\"freedom\":0.5962,\"passion\":0.5801,\"verdict\":\"부조리를 직시하며 희망 없이 삶의 조건을 긍정하는 항거(La Revolte)\",\"sisyphus_happy\":true}]"
+  },
+  {
+    "name": "부조리의 3대 귀결(반항·자유·열정) 정량 지표 분석 검증",
+    "input": "{\"config\":{\"boulder_mass\":100.0,\"gravity\":9.8,\"peak_height\":50.0},\"operations\":[{\"op\":\"EVALUATE_SUBJECT\",\"params\":{\"desire_for_meaning\":0.8,\"world_silence\":0.8,\"lucidity\":0.7,\"hope_escapism\":0.15,\"vitality\":0.8,\"experiences_count\":8}}]}",
+    "output": "[{\"absurd_index\":0.518,\"stance\":\"ABSURD_REVOLT\",\"revolt\":0.7491,\"freedom\":0.5525,\"passion\":0.5219,\"verdict\":\"부조리를 직시하며 희망 없이 삶의 조건을 긍정하는 항거(La Revolte)\",\"sisyphus_happy\":true}]"
+  },
+  {
+    "name": "바위 굴리기 반복 주기 및 하강 시 의식의 승리 지표 검증",
+    "input": "{\"config\":{\"boulder_mass\":120.0,\"gravity\":9.8,\"peak_height\":60.0},\"operations\":[{\"op\":\"SIMULATE_BOULDER_CYCLE\",\"params\":{\"cycles\":5,\"lucidity\":0.9,\"desire_for_meaning\":0.85,\"hope_escapism\":0.05}},{\"op\":\"GET_ENGINE_STATS\"}]}",
+    "output": "[{\"completed_cycles\":5,\"total_cycles_so_far\":5,\"total_work_joules\":352800.0,\"lucid_moments_count\":5,\"recent_cycle\":{\"cycle\":5,\"work_joules\":70560.0,\"peak_reached\":true,\"descent_consciousness\":{\"lucidity\":0.9,\"defiance\":0.855,\"triumph_index\":1.0,\"fate_mastered\":true}}},{\"total_cycles\":5,\"total_work_joules\":352800.0,\"lucid_moments_count\":5}]"
+  },
+  {
+    "name": "돈 후안적 부조리 인간 모델: 경험의 질보다 양의 극대화 검증",
+    "input": "{\"config\":{\"boulder_mass\":100.0,\"gravity\":9.8,\"peak_height\":50.0},\"operations\":[{\"op\":\"EVALUATE_SUBJECT\",\"params\":{\"desire_for_meaning\":0.7,\"world_silence\":0.85,\"lucidity\":0.85,\"hope_escapism\":0.0,\"vitality\":0.95,\"experiences_count\":100}}]}",
+    "output": "[{\"absurd_index\":0.6557,\"stance\":\"ABSURD_REVOLT\",\"revolt\":1.0,\"freedom\":0.75,\"passion\":1.0,\"verdict\":\"부조리를 직시하며 희망 없이 삶의 조건을 긍정하는 항거(La Revolte)\",\"sisyphus_happy\":true}]"
+  },
+  {
+    "name": "부조리 철학 복합 실존 양식 감사 및 바위 굴리기 종합 시뮬레이션",
+    "input": "{\"config\":{\"boulder_mass\":150.0,\"gravity\":9.8,\"peak_height\":100.0},\"operations\":[{\"op\":\"EVALUATE_SUBJECT\",\"params\":{\"desire_for_meaning\":0.9,\"world_silence\":0.9,\"lucidity\":0.95,\"hope_escapism\":0.0,\"vitality\":0.9,\"experiences_count\":50}},{\"op\":\"EVALUATE_SUBJECT\",\"params\":{\"desire_for_meaning\":0.9,\"world_silence\":0.9,\"lucidity\":0.3,\"hope_escapism\":0.9,\"vitality\":0.7,\"experiences_count\":10}},{\"op\":\"EVALUATE_SUBJECT\",\"params\":{\"desire_for_meaning\":0.95,\"world_silence\":0.95,\"lucidity\":0.85,\"hope_escapism\":0.05,\"vitality\":0.1,\"experiences_count\":5}},{\"op\":\"SIMULATE_BOULDER_CYCLE\",\"params\":{\"cycles\":10,\"lucidity\":0.92,\"desire_for_meaning\":0.9,\"hope_escapism\":0.02}},{\"op\":\"GET_ENGINE_STATS\"}]}",
+    "output": "[{\"absurd_index\":0.855,\"stance\":\"ABSURD_REVOLT\",\"revolt\":1.0,\"freedom\":0.75,\"passion\":1.0,\"verdict\":\"부조리를 직시하며 희망 없이 삶의 조건을 긍정하는 항거(La Revolte)\",\"sisyphus_happy\":true},{\"absurd_index\":0.1485,\"stance\":\"PHILOSOPHICAL_SUICIDE\",\"revolt\":0.0,\"freedom\":0.055,\"passion\":0.07,\"verdict\":\"도약(Leap of Faith)에 의한 지성의 희생 및 형이상학적 현실 도피\",\"sisyphus_happy\":false},{\"absurd_index\":0.7873,\"stance\":\"PHYSICAL_SUICIDE\",\"revolt\":0.0,\"freedom\":0.0,\"passion\":0.0,\"verdict\":\"부조리의 무게를 견디지 못하고 의식을 소멸시키는 육체적 자살 (패배 및 굴복)\",\"sisyphus_happy\":false},{\"completed_cycles\":10,\"total_cycles_so_far\":10,\"total_work_joules\":1470000.0,\"lucid_moments_count\":10,\"recent_cycle\":{\"cycle\":10,\"work_joules\":147000.0,\"peak_reached\":true,\"descent_consciousness\":{\"lucidity\":0.92,\"defiance\":0.9016,\"triumph_index\":1.0,\"fate_mastered\":true}}},{\"total_cycles\":10,\"total_work_joules\":1470000.0,\"lucid_moments_count\":10}]"
+  }
+]
