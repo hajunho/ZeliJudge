@@ -1,0 +1,42 @@
+[
+  {
+    "name": "TC1_Promotion_Into_Empty_Fast_Tier",
+    "input": "{\"config\":{\"fast_capacity_pages\":5,\"slow_capacity_pages\":10,\"hot_threshold_faults\":2,\"max_migrations_per_tick\":2},\"operations\":[{\"action\":\"ALLOC\",\"page_id\":\"P_SLOW1\",\"preferred_tier\":1},{\"action\":\"ACCESS\",\"page_id\":\"P_SLOW1\",\"is_hinting_fault\":true},{\"action\":\"ACCESS\",\"page_id\":\"P_SLOW1\",\"is_hinting_fault\":true},{\"action\":\"BALANCE\"}]}",
+    "output": "{\"fast_tier_occupancy\":\"1/5\",\"slow_tier_occupancy\":\"0/10\",\"stats\":{\"numa_hinting_faults\":2,\"promotions_to_fast\":1,\"demotions_to_slow\":0,\"throttled_migrations\":0,\"total_accesses\":2},\"fast_tier_pages\":[\"P_SLOW1\"],\"slow_tier_pages\":[],\"migration_log\":[{\"tick\":3,\"action\":\"PROMOTE\",\"page_id\":\"P_SLOW1\",\"from_tier\":1,\"to_tier\":0}]}"
+  },
+  {
+    "name": "TC2_Sub_Threshold_Fault_Rejection",
+    "input": "{\"config\":{\"fast_capacity_pages\":5,\"slow_capacity_pages\":10,\"hot_threshold_faults\":3,\"max_migrations_per_tick\":2},\"operations\":[{\"action\":\"ALLOC\",\"page_id\":\"P_SLOW2\",\"preferred_tier\":1},{\"action\":\"ACCESS\",\"page_id\":\"P_SLOW2\",\"is_hinting_fault\":true},{\"action\":\"ACCESS\",\"page_id\":\"P_SLOW2\",\"is_hinting_fault\":true},{\"action\":\"BALANCE\"}]}",
+    "output": "{\"fast_tier_occupancy\":\"0/5\",\"slow_tier_occupancy\":\"1/10\",\"stats\":{\"numa_hinting_faults\":2,\"promotions_to_fast\":0,\"demotions_to_slow\":0,\"throttled_migrations\":0,\"total_accesses\":2},\"fast_tier_pages\":[],\"slow_tier_pages\":[\"P_SLOW2\"],\"migration_log\":[]}"
+  },
+  {
+    "name": "TC3_Mutually_Beneficial_Demote_Promote_Swap",
+    "input": "{\"config\":{\"fast_capacity_pages\":2,\"slow_capacity_pages\":10,\"hot_threshold_faults\":2,\"max_migrations_per_tick\":1},\"operations\":[{\"action\":\"ALLOC\",\"page_id\":\"P_FAST1\",\"preferred_tier\":0},{\"action\":\"ALLOC\",\"page_id\":\"P_FAST2\",\"preferred_tier\":0},{\"action\":\"ACCESS\",\"page_id\":\"P_FAST2\",\"is_hinting_fault\":false},{\"action\":\"ALLOC\",\"page_id\":\"P_HOT_SLOW\",\"preferred_tier\":1},{\"action\":\"ACCESS\",\"page_id\":\"P_HOT_SLOW\",\"is_hinting_fault\":true},{\"action\":\"ACCESS\",\"page_id\":\"P_HOT_SLOW\",\"is_hinting_fault\":true},{\"action\":\"BALANCE\"}]}",
+    "output": "{\"fast_tier_occupancy\":\"2/2\",\"slow_tier_occupancy\":\"1/10\",\"stats\":{\"numa_hinting_faults\":2,\"promotions_to_fast\":1,\"demotions_to_slow\":1,\"throttled_migrations\":0,\"total_accesses\":3},\"fast_tier_pages\":[\"P_FAST2\",\"P_HOT_SLOW\"],\"slow_tier_pages\":[\"P_FAST1\"],\"migration_log\":[{\"tick\":4,\"action\":\"DEMOTE\",\"page_id\":\"P_FAST1\",\"from_tier\":0,\"to_tier\":1},{\"tick\":4,\"action\":\"PROMOTE\",\"page_id\":\"P_HOT_SLOW\",\"from_tier\":1,\"to_tier\":0}]}"
+  },
+  {
+    "name": "TC4_Bandwidth_Throttled_Migrations",
+    "input": "{\"config\":{\"fast_capacity_pages\":10,\"slow_capacity_pages\":10,\"hot_threshold_faults\":1,\"max_migrations_per_tick\":2},\"operations\":[{\"action\":\"ALLOC\",\"page_id\":\"P1\",\"preferred_tier\":1},{\"action\":\"ALLOC\",\"page_id\":\"P2\",\"preferred_tier\":1},{\"action\":\"ALLOC\",\"page_id\":\"P3\",\"preferred_tier\":1},{\"action\":\"ACCESS\",\"page_id\":\"P1\",\"is_hinting_fault\":true},{\"action\":\"ACCESS\",\"page_id\":\"P2\",\"is_hinting_fault\":true},{\"action\":\"ACCESS\",\"page_id\":\"P3\",\"is_hinting_fault\":true},{\"action\":\"BALANCE\"}]}",
+    "output": "{\"fast_tier_occupancy\":\"2/10\",\"slow_tier_occupancy\":\"1/10\",\"stats\":{\"numa_hinting_faults\":3,\"promotions_to_fast\":2,\"demotions_to_slow\":0,\"throttled_migrations\":1,\"total_accesses\":3},\"fast_tier_pages\":[\"P1\",\"P2\"],\"slow_tier_pages\":[\"P3\"],\"migration_log\":[{\"tick\":4,\"action\":\"PROMOTE\",\"page_id\":\"P1\",\"from_tier\":1,\"to_tier\":0},{\"tick\":4,\"action\":\"PROMOTE\",\"page_id\":\"P2\",\"from_tier\":1,\"to_tier\":0}]}"
+  },
+  {
+    "name": "TC5_Fast_Tier_Overflow_Allocation_Fallback",
+    "input": "{\"config\":{\"fast_capacity_pages\":1,\"slow_capacity_pages\":10,\"hot_threshold_faults\":2,\"max_migrations_per_tick\":1},\"operations\":[{\"action\":\"ALLOC\",\"page_id\":\"P_FIRST\",\"preferred_tier\":0},{\"action\":\"ALLOC\",\"page_id\":\"P_OVERFLOW\",\"preferred_tier\":0}]}",
+    "output": "{\"fast_tier_occupancy\":\"1/1\",\"slow_tier_occupancy\":\"1/10\",\"stats\":{\"numa_hinting_faults\":0,\"promotions_to_fast\":0,\"demotions_to_slow\":0,\"throttled_migrations\":0,\"total_accesses\":0},\"fast_tier_pages\":[\"P_FIRST\"],\"slow_tier_pages\":[\"P_OVERFLOW\"],\"migration_log\":[]}"
+  },
+  {
+    "name": "TC6_Tie_Breaking_Candidate_Selection",
+    "input": "{\"config\":{\"fast_capacity_pages\":10,\"slow_capacity_pages\":10,\"hot_threshold_faults\":2,\"max_migrations_per_tick\":1},\"operations\":[{\"action\":\"ALLOC\",\"page_id\":\"P1\",\"preferred_tier\":1},{\"action\":\"ALLOC\",\"page_id\":\"P2\",\"preferred_tier\":1},{\"action\":\"ACCESS\",\"page_id\":\"P1\",\"is_hinting_fault\":true},{\"action\":\"ACCESS\",\"page_id\":\"P1\",\"is_hinting_fault\":true},{\"action\":\"ACCESS\",\"page_id\":\"P2\",\"is_hinting_fault\":true},{\"action\":\"ACCESS\",\"page_id\":\"P2\",\"is_hinting_fault\":true},{\"action\":\"ACCESS\",\"page_id\":\"P2\",\"is_hinting_fault\":false},{\"action\":\"BALANCE\"}]}",
+    "output": "{\"fast_tier_occupancy\":\"1/10\",\"slow_tier_occupancy\":\"1/10\",\"stats\":{\"numa_hinting_faults\":4,\"promotions_to_fast\":1,\"demotions_to_slow\":0,\"throttled_migrations\":1,\"total_accesses\":5},\"fast_tier_pages\":[\"P2\"],\"slow_tier_pages\":[\"P1\"],\"migration_log\":[{\"tick\":6,\"action\":\"PROMOTE\",\"page_id\":\"P2\",\"from_tier\":1,\"to_tier\":0}]}"
+  },
+  {
+    "name": "TC7_Normal_Access_Vs_Hinting_Fault_Distinction",
+    "input": "{\"config\":{\"fast_capacity_pages\":5,\"slow_capacity_pages\":10,\"hot_threshold_faults\":2,\"max_migrations_per_tick\":2},\"operations\":[{\"action\":\"ALLOC\",\"page_id\":\"P_NORM\",\"preferred_tier\":1},{\"action\":\"ACCESS\",\"page_id\":\"P_NORM\",\"is_hinting_fault\":false},{\"action\":\"ACCESS\",\"page_id\":\"P_NORM\",\"is_hinting_fault\":false},{\"action\":\"ACCESS\",\"page_id\":\"P_NORM\",\"is_hinting_fault\":false},{\"action\":\"BALANCE\"}]}",
+    "output": "{\"fast_tier_occupancy\":\"0/5\",\"slow_tier_occupancy\":\"1/10\",\"stats\":{\"numa_hinting_faults\":0,\"promotions_to_fast\":0,\"demotions_to_slow\":0,\"throttled_migrations\":0,\"total_accesses\":3},\"fast_tier_pages\":[],\"slow_tier_pages\":[\"P_NORM\"],\"migration_log\":[]}"
+  },
+  {
+    "name": "TC8_Enterprise_Accelerator_Tiering_Stress_Audit",
+    "input": "{\"config\":{\"fast_capacity_pages\":3,\"slow_capacity_pages\":20,\"hot_threshold_faults\":2,\"max_migrations_per_tick\":2},\"operations\":[{\"action\":\"ALLOC\",\"page_id\":\"F1\",\"preferred_tier\":0},{\"action\":\"ALLOC\",\"page_id\":\"F2\",\"preferred_tier\":0},{\"action\":\"ALLOC\",\"page_id\":\"F3\",\"preferred_tier\":0},{\"action\":\"ALLOC\",\"page_id\":\"S1\",\"preferred_tier\":1},{\"action\":\"ALLOC\",\"page_id\":\"S2\",\"preferred_tier\":1},{\"action\":\"ACCESS\",\"page_id\":\"F1\",\"is_hinting_fault\":false},{\"action\":\"ACCESS\",\"page_id\":\"S1\",\"is_hinting_fault\":true},{\"action\":\"ACCESS\",\"page_id\":\"S1\",\"is_hinting_fault\":true},{\"action\":\"ACCESS\",\"page_id\":\"S2\",\"is_hinting_fault\":true},{\"action\":\"ACCESS\",\"page_id\":\"S2\",\"is_hinting_fault\":true},{\"action\":\"BALANCE\"},{\"action\":\"ACCESS\",\"page_id\":\"F2\",\"is_hinting_fault\":true},{\"action\":\"ACCESS\",\"page_id\":\"F2\",\"is_hinting_fault\":true},{\"action\":\"BALANCE\"}]}",
+    "output": "{\"fast_tier_occupancy\":\"3/3\",\"slow_tier_occupancy\":\"2/20\",\"stats\":{\"numa_hinting_faults\":6,\"promotions_to_fast\":3,\"demotions_to_slow\":3,\"throttled_migrations\":0,\"total_accesses\":7},\"fast_tier_pages\":[\"F2\",\"S1\",\"S2\"],\"slow_tier_pages\":[\"F1\",\"F3\"],\"migration_log\":[{\"tick\":6,\"action\":\"DEMOTE\",\"page_id\":\"F2\",\"from_tier\":0,\"to_tier\":1},{\"tick\":6,\"action\":\"PROMOTE\",\"page_id\":\"S1\",\"from_tier\":1,\"to_tier\":0},{\"tick\":6,\"action\":\"DEMOTE\",\"page_id\":\"F3\",\"from_tier\":0,\"to_tier\":1},{\"tick\":6,\"action\":\"PROMOTE\",\"page_id\":\"S2\",\"from_tier\":1,\"to_tier\":0},{\"tick\":9,\"action\":\"DEMOTE\",\"page_id\":\"F1\",\"from_tier\":0,\"to_tier\":1},{\"tick\":9,\"action\":\"PROMOTE\",\"page_id\":\"F2\",\"from_tier\":1,\"to_tier\":0}]}"
+  }
+]
