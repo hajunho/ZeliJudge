@@ -1,0 +1,895 @@
+[
+  {
+    "input": {
+      "config": {
+        "headroom": 64
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "NIC_RX_PACKET",
+          "pkt_id": "p1",
+          "data_len": 1500,
+          "hw_csum_valid": true,
+          "hw_rx_hash": "0x12345678",
+          "hw_timestamp_ns": 1000000,
+          "vlan_tag": 100
+        },
+        {
+          "time": 20,
+          "type": "BPF_XDP_ADJUST_META",
+          "pkt_id": "p1",
+          "delta": -32
+        },
+        {
+          "time": 30,
+          "type": "POPULATE_METADATA_HINTS",
+          "pkt_id": "p1",
+          "fields": [
+            "RX_CSUM",
+            "RX_HASH",
+            "TIMESTAMP",
+            "VLAN"
+          ]
+        },
+        {
+          "time": 40,
+          "type": "XDP_RETURN",
+          "pkt_id": "p1",
+          "action": "XDP_PASS"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "packets_received": 1,
+        "meta_adjusted_count": 1,
+        "xdp_pass_count": 1,
+        "xdp_drop_count": 0,
+        "xdp_redirect_count": 0,
+        "hardware_csum_offloaded": 1,
+        "software_csum_fallbacks": 0,
+        "headroom_exhaustions": 0
+      },
+      "forwarded_skbs": [
+        {
+          "pkt_id": "p1",
+          "len": 1500,
+          "ip_summed": "CHECKSUM_UNNECESSARY",
+          "hash": "0x12345678",
+          "timestamp_ns": 1000000,
+          "vlan_tag": 100
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "NIC_RX_PACKET",
+          "pkt_id": "p1",
+          "len": 1500,
+          "hw_csum_valid": true
+        },
+        {
+          "time": 20,
+          "event": "BPF_XDP_ADJUST_META_SUCCESS",
+          "pkt_id": "p1",
+          "meta_len": 32,
+          "remaining_headroom": 32
+        },
+        {
+          "time": 30,
+          "event": "METADATA_HINTS_POPULATED",
+          "pkt_id": "p1",
+          "populated_fields": [
+            "csum_valid",
+            "rx_hash",
+            "timestamp_ns",
+            "vlan_tag"
+          ]
+        },
+        {
+          "time": 40,
+          "event": "XDP_PASS_SKB_ALLOCATED",
+          "pkt_id": "p1",
+          "ip_summed": "CHECKSUM_UNNECESSARY",
+          "csum_offloaded": true
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "headroom": 64
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "NIC_RX_PACKET",
+          "pkt_id": "p_legacy",
+          "data_len": 1400,
+          "hw_csum_valid": true,
+          "hw_rx_hash": "0xdeadbeef",
+          "hw_timestamp_ns": 2000000
+        },
+        {
+          "time": 20,
+          "type": "XDP_RETURN",
+          "pkt_id": "p_legacy",
+          "action": "XDP_PASS"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "packets_received": 1,
+        "meta_adjusted_count": 0,
+        "xdp_pass_count": 1,
+        "xdp_drop_count": 0,
+        "xdp_redirect_count": 0,
+        "hardware_csum_offloaded": 0,
+        "software_csum_fallbacks": 1,
+        "headroom_exhaustions": 0
+      },
+      "forwarded_skbs": [
+        {
+          "pkt_id": "p_legacy",
+          "len": 1400,
+          "ip_summed": "CHECKSUM_NONE",
+          "hash": null,
+          "timestamp_ns": null,
+          "vlan_tag": null
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "NIC_RX_PACKET",
+          "pkt_id": "p_legacy",
+          "len": 1400,
+          "hw_csum_valid": true
+        },
+        {
+          "time": 20,
+          "event": "XDP_PASS_SKB_ALLOCATED",
+          "pkt_id": "p_legacy",
+          "ip_summed": "CHECKSUM_NONE",
+          "csum_offloaded": false
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "headroom": 32
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "NIC_RX_PACKET",
+          "pkt_id": "p_tight",
+          "data_len": 1500,
+          "hw_csum_valid": true,
+          "hw_rx_hash": "0x33333333",
+          "hw_timestamp_ns": 3000000
+        },
+        {
+          "time": 20,
+          "type": "BPF_XDP_ADJUST_META",
+          "pkt_id": "p_tight",
+          "delta": -64
+        },
+        {
+          "time": 30,
+          "type": "BPF_XDP_ADJUST_META",
+          "pkt_id": "p_tight",
+          "delta": -32
+        },
+        {
+          "time": 40,
+          "type": "POPULATE_METADATA_HINTS",
+          "pkt_id": "p_tight",
+          "fields": [
+            "RX_CSUM",
+            "RX_HASH"
+          ]
+        },
+        {
+          "time": 50,
+          "type": "XDP_RETURN",
+          "pkt_id": "p_tight",
+          "action": "XDP_PASS"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "packets_received": 1,
+        "meta_adjusted_count": 1,
+        "xdp_pass_count": 1,
+        "xdp_drop_count": 0,
+        "xdp_redirect_count": 0,
+        "hardware_csum_offloaded": 1,
+        "software_csum_fallbacks": 0,
+        "headroom_exhaustions": 1
+      },
+      "forwarded_skbs": [
+        {
+          "pkt_id": "p_tight",
+          "len": 1500,
+          "ip_summed": "CHECKSUM_UNNECESSARY",
+          "hash": "0x33333333",
+          "timestamp_ns": null,
+          "vlan_tag": null
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "NIC_RX_PACKET",
+          "pkt_id": "p_tight",
+          "len": 1500,
+          "hw_csum_valid": true
+        },
+        {
+          "time": 20,
+          "event": "XDP_META_ERROR",
+          "pkt_id": "p_tight",
+          "error": "ENOSPC_HEADROOM_EXHAUSTED",
+          "needed": 64,
+          "available": 32
+        },
+        {
+          "time": 30,
+          "event": "BPF_XDP_ADJUST_META_SUCCESS",
+          "pkt_id": "p_tight",
+          "meta_len": 32,
+          "remaining_headroom": 0
+        },
+        {
+          "time": 40,
+          "event": "METADATA_HINTS_POPULATED",
+          "pkt_id": "p_tight",
+          "populated_fields": [
+            "csum_valid",
+            "rx_hash"
+          ]
+        },
+        {
+          "time": 50,
+          "event": "XDP_PASS_SKB_ALLOCATED",
+          "pkt_id": "p_tight",
+          "ip_summed": "CHECKSUM_UNNECESSARY",
+          "csum_offloaded": true
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "headroom": 64
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "NIC_RX_PACKET",
+          "pkt_id": "ddos_pkt_1",
+          "data_len": 64,
+          "hw_csum_valid": true,
+          "hw_rx_hash": "0x00000001",
+          "hw_timestamp_ns": 4000000
+        },
+        {
+          "time": 20,
+          "type": "NIC_RX_PACKET",
+          "pkt_id": "ddos_pkt_2",
+          "data_len": 64,
+          "hw_csum_valid": true,
+          "hw_rx_hash": "0x00000002",
+          "hw_timestamp_ns": 4000100
+        },
+        {
+          "time": 30,
+          "type": "XDP_RETURN",
+          "pkt_id": "ddos_pkt_1",
+          "action": "XDP_DROP"
+        },
+        {
+          "time": 40,
+          "type": "XDP_RETURN",
+          "pkt_id": "ddos_pkt_2",
+          "action": "XDP_DROP"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "packets_received": 2,
+        "meta_adjusted_count": 0,
+        "xdp_pass_count": 0,
+        "xdp_drop_count": 2,
+        "xdp_redirect_count": 0,
+        "hardware_csum_offloaded": 0,
+        "software_csum_fallbacks": 0,
+        "headroom_exhaustions": 0
+      },
+      "forwarded_skbs": [],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "NIC_RX_PACKET",
+          "pkt_id": "ddos_pkt_1",
+          "len": 64,
+          "hw_csum_valid": true
+        },
+        {
+          "time": 20,
+          "event": "NIC_RX_PACKET",
+          "pkt_id": "ddos_pkt_2",
+          "len": 64,
+          "hw_csum_valid": true
+        },
+        {
+          "time": 30,
+          "event": "XDP_ACTION_DROP",
+          "pkt_id": "ddos_pkt_1"
+        },
+        {
+          "time": 40,
+          "event": "XDP_ACTION_DROP",
+          "pkt_id": "ddos_pkt_2"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "headroom": 64
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "NIC_RX_PACKET",
+          "pkt_id": "redir_1",
+          "data_len": 1500,
+          "hw_csum_valid": true,
+          "hw_rx_hash": "0x55555555",
+          "hw_timestamp_ns": 5000000,
+          "vlan_tag": 200
+        },
+        {
+          "time": 20,
+          "type": "BPF_XDP_ADJUST_META",
+          "pkt_id": "redir_1",
+          "delta": -32
+        },
+        {
+          "time": 30,
+          "type": "POPULATE_METADATA_HINTS",
+          "pkt_id": "redir_1",
+          "fields": [
+            "RX_HASH",
+            "VLAN"
+          ]
+        },
+        {
+          "time": 40,
+          "type": "XDP_RETURN",
+          "pkt_id": "redir_1",
+          "action": "XDP_REDIRECT"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "packets_received": 1,
+        "meta_adjusted_count": 1,
+        "xdp_pass_count": 0,
+        "xdp_drop_count": 0,
+        "xdp_redirect_count": 1,
+        "hardware_csum_offloaded": 0,
+        "software_csum_fallbacks": 0,
+        "headroom_exhaustions": 0
+      },
+      "forwarded_skbs": [],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "NIC_RX_PACKET",
+          "pkt_id": "redir_1",
+          "len": 1500,
+          "hw_csum_valid": true
+        },
+        {
+          "time": 20,
+          "event": "BPF_XDP_ADJUST_META_SUCCESS",
+          "pkt_id": "redir_1",
+          "meta_len": 32,
+          "remaining_headroom": 32
+        },
+        {
+          "time": 30,
+          "event": "METADATA_HINTS_POPULATED",
+          "pkt_id": "redir_1",
+          "populated_fields": [
+            "rx_hash",
+            "vlan_tag"
+          ]
+        },
+        {
+          "time": 40,
+          "event": "XDP_ACTION_REDIRECT",
+          "pkt_id": "redir_1",
+          "meta_forwarded": true
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "headroom": 64
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "NIC_RX_PACKET",
+          "pkt_id": "bad_csum_pkt",
+          "data_len": 1000,
+          "hw_csum_valid": false,
+          "hw_rx_hash": "0x66666666",
+          "hw_timestamp_ns": 6000000
+        },
+        {
+          "time": 20,
+          "type": "BPF_XDP_ADJUST_META",
+          "pkt_id": "bad_csum_pkt",
+          "delta": -32
+        },
+        {
+          "time": 30,
+          "type": "POPULATE_METADATA_HINTS",
+          "pkt_id": "bad_csum_pkt",
+          "fields": [
+            "RX_CSUM"
+          ]
+        },
+        {
+          "time": 40,
+          "type": "XDP_RETURN",
+          "pkt_id": "bad_csum_pkt",
+          "action": "XDP_PASS"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "packets_received": 1,
+        "meta_adjusted_count": 1,
+        "xdp_pass_count": 1,
+        "xdp_drop_count": 0,
+        "xdp_redirect_count": 0,
+        "hardware_csum_offloaded": 0,
+        "software_csum_fallbacks": 1,
+        "headroom_exhaustions": 0
+      },
+      "forwarded_skbs": [
+        {
+          "pkt_id": "bad_csum_pkt",
+          "len": 1000,
+          "ip_summed": "CHECKSUM_NONE",
+          "hash": null,
+          "timestamp_ns": null,
+          "vlan_tag": null
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "NIC_RX_PACKET",
+          "pkt_id": "bad_csum_pkt",
+          "len": 1000,
+          "hw_csum_valid": false
+        },
+        {
+          "time": 20,
+          "event": "BPF_XDP_ADJUST_META_SUCCESS",
+          "pkt_id": "bad_csum_pkt",
+          "meta_len": 32,
+          "remaining_headroom": 32
+        },
+        {
+          "time": 30,
+          "event": "METADATA_HINTS_POPULATED",
+          "pkt_id": "bad_csum_pkt",
+          "populated_fields": [
+            "csum_valid"
+          ]
+        },
+        {
+          "time": 40,
+          "event": "XDP_PASS_SKB_ALLOCATED",
+          "pkt_id": "bad_csum_pkt",
+          "ip_summed": "CHECKSUM_NONE",
+          "csum_offloaded": false
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "headroom": 64
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "NIC_RX_PACKET",
+          "pkt_id": "m1",
+          "data_len": 500,
+          "hw_csum_valid": true,
+          "hw_rx_hash": "0x77770001",
+          "hw_timestamp_ns": 7000000
+        },
+        {
+          "time": 20,
+          "type": "NIC_RX_PACKET",
+          "pkt_id": "m2",
+          "data_len": 600,
+          "hw_csum_valid": true,
+          "hw_rx_hash": "0x77770002",
+          "hw_timestamp_ns": 7000100
+        },
+        {
+          "time": 30,
+          "type": "BPF_XDP_ADJUST_META",
+          "pkt_id": "m1",
+          "delta": -32
+        },
+        {
+          "time": 40,
+          "type": "POPULATE_METADATA_HINTS",
+          "pkt_id": "m1",
+          "fields": [
+            "RX_CSUM",
+            "RX_HASH"
+          ]
+        },
+        {
+          "time": 50,
+          "type": "XDP_RETURN",
+          "pkt_id": "m1",
+          "action": "XDP_PASS"
+        },
+        {
+          "time": 60,
+          "type": "XDP_RETURN",
+          "pkt_id": "m2",
+          "action": "XDP_DROP"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "packets_received": 2,
+        "meta_adjusted_count": 1,
+        "xdp_pass_count": 1,
+        "xdp_drop_count": 1,
+        "xdp_redirect_count": 0,
+        "hardware_csum_offloaded": 1,
+        "software_csum_fallbacks": 0,
+        "headroom_exhaustions": 0
+      },
+      "forwarded_skbs": [
+        {
+          "pkt_id": "m1",
+          "len": 500,
+          "ip_summed": "CHECKSUM_UNNECESSARY",
+          "hash": "0x77770001",
+          "timestamp_ns": null,
+          "vlan_tag": null
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "NIC_RX_PACKET",
+          "pkt_id": "m1",
+          "len": 500,
+          "hw_csum_valid": true
+        },
+        {
+          "time": 20,
+          "event": "NIC_RX_PACKET",
+          "pkt_id": "m2",
+          "len": 600,
+          "hw_csum_valid": true
+        },
+        {
+          "time": 30,
+          "event": "BPF_XDP_ADJUST_META_SUCCESS",
+          "pkt_id": "m1",
+          "meta_len": 32,
+          "remaining_headroom": 32
+        },
+        {
+          "time": 40,
+          "event": "METADATA_HINTS_POPULATED",
+          "pkt_id": "m1",
+          "populated_fields": [
+            "csum_valid",
+            "rx_hash"
+          ]
+        },
+        {
+          "time": 50,
+          "event": "XDP_PASS_SKB_ALLOCATED",
+          "pkt_id": "m1",
+          "ip_summed": "CHECKSUM_UNNECESSARY",
+          "csum_offloaded": true
+        },
+        {
+          "time": 60,
+          "event": "XDP_ACTION_DROP",
+          "pkt_id": "m2"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "headroom": 64
+      },
+      "trace": [
+        {
+          "time": 100,
+          "type": "NIC_RX_PACKET",
+          "pkt_id": "burst_1",
+          "data_len": 1500,
+          "hw_csum_valid": true,
+          "hw_rx_hash": "0x88880001",
+          "hw_timestamp_ns": 8000000,
+          "vlan_tag": 10
+        },
+        {
+          "time": 110,
+          "type": "NIC_RX_PACKET",
+          "pkt_id": "burst_2",
+          "data_len": 1500,
+          "hw_csum_valid": true,
+          "hw_rx_hash": "0x88880002",
+          "hw_timestamp_ns": 8000100,
+          "vlan_tag": 20
+        },
+        {
+          "time": 120,
+          "type": "NIC_RX_PACKET",
+          "pkt_id": "burst_3",
+          "data_len": 1500,
+          "hw_csum_valid": false,
+          "hw_rx_hash": "0x88880003",
+          "hw_timestamp_ns": 8000200,
+          "vlan_tag": 30
+        },
+        {
+          "time": 130,
+          "type": "NIC_RX_PACKET",
+          "pkt_id": "burst_4",
+          "data_len": 1500,
+          "hw_csum_valid": true,
+          "hw_rx_hash": "0x88880004",
+          "hw_timestamp_ns": 8000300,
+          "vlan_tag": 40
+        },
+        {
+          "time": 140,
+          "type": "BPF_XDP_ADJUST_META",
+          "pkt_id": "burst_1",
+          "delta": -32
+        },
+        {
+          "time": 150,
+          "type": "BPF_XDP_ADJUST_META",
+          "pkt_id": "burst_2",
+          "delta": -32
+        },
+        {
+          "time": 160,
+          "type": "BPF_XDP_ADJUST_META",
+          "pkt_id": "burst_3",
+          "delta": -32
+        },
+        {
+          "time": 170,
+          "type": "POPULATE_METADATA_HINTS",
+          "pkt_id": "burst_1",
+          "fields": [
+            "RX_CSUM",
+            "RX_HASH",
+            "TIMESTAMP",
+            "VLAN"
+          ]
+        },
+        {
+          "time": 180,
+          "type": "POPULATE_METADATA_HINTS",
+          "pkt_id": "burst_2",
+          "fields": [
+            "RX_HASH",
+            "VLAN"
+          ]
+        },
+        {
+          "time": 190,
+          "type": "POPULATE_METADATA_HINTS",
+          "pkt_id": "burst_3",
+          "fields": [
+            "RX_CSUM"
+          ]
+        },
+        {
+          "time": 200,
+          "type": "XDP_RETURN",
+          "pkt_id": "burst_1",
+          "action": "XDP_PASS"
+        },
+        {
+          "time": 210,
+          "type": "XDP_RETURN",
+          "pkt_id": "burst_2",
+          "action": "XDP_REDIRECT"
+        },
+        {
+          "time": 220,
+          "type": "XDP_RETURN",
+          "pkt_id": "burst_3",
+          "action": "XDP_PASS"
+        },
+        {
+          "time": 230,
+          "type": "XDP_RETURN",
+          "pkt_id": "burst_4",
+          "action": "XDP_DROP"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "packets_received": 4,
+        "meta_adjusted_count": 3,
+        "xdp_pass_count": 2,
+        "xdp_drop_count": 1,
+        "xdp_redirect_count": 1,
+        "hardware_csum_offloaded": 1,
+        "software_csum_fallbacks": 1,
+        "headroom_exhaustions": 0
+      },
+      "forwarded_skbs": [
+        {
+          "pkt_id": "burst_1",
+          "len": 1500,
+          "ip_summed": "CHECKSUM_UNNECESSARY",
+          "hash": "0x88880001",
+          "timestamp_ns": 8000000,
+          "vlan_tag": 10
+        },
+        {
+          "pkt_id": "burst_3",
+          "len": 1500,
+          "ip_summed": "CHECKSUM_NONE",
+          "hash": null,
+          "timestamp_ns": null,
+          "vlan_tag": null
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 100,
+          "event": "NIC_RX_PACKET",
+          "pkt_id": "burst_1",
+          "len": 1500,
+          "hw_csum_valid": true
+        },
+        {
+          "time": 110,
+          "event": "NIC_RX_PACKET",
+          "pkt_id": "burst_2",
+          "len": 1500,
+          "hw_csum_valid": true
+        },
+        {
+          "time": 120,
+          "event": "NIC_RX_PACKET",
+          "pkt_id": "burst_3",
+          "len": 1500,
+          "hw_csum_valid": false
+        },
+        {
+          "time": 130,
+          "event": "NIC_RX_PACKET",
+          "pkt_id": "burst_4",
+          "len": 1500,
+          "hw_csum_valid": true
+        },
+        {
+          "time": 140,
+          "event": "BPF_XDP_ADJUST_META_SUCCESS",
+          "pkt_id": "burst_1",
+          "meta_len": 32,
+          "remaining_headroom": 32
+        },
+        {
+          "time": 150,
+          "event": "BPF_XDP_ADJUST_META_SUCCESS",
+          "pkt_id": "burst_2",
+          "meta_len": 32,
+          "remaining_headroom": 32
+        },
+        {
+          "time": 160,
+          "event": "BPF_XDP_ADJUST_META_SUCCESS",
+          "pkt_id": "burst_3",
+          "meta_len": 32,
+          "remaining_headroom": 32
+        },
+        {
+          "time": 170,
+          "event": "METADATA_HINTS_POPULATED",
+          "pkt_id": "burst_1",
+          "populated_fields": [
+            "csum_valid",
+            "rx_hash",
+            "timestamp_ns",
+            "vlan_tag"
+          ]
+        },
+        {
+          "time": 180,
+          "event": "METADATA_HINTS_POPULATED",
+          "pkt_id": "burst_2",
+          "populated_fields": [
+            "rx_hash",
+            "vlan_tag"
+          ]
+        },
+        {
+          "time": 190,
+          "event": "METADATA_HINTS_POPULATED",
+          "pkt_id": "burst_3",
+          "populated_fields": [
+            "csum_valid"
+          ]
+        },
+        {
+          "time": 200,
+          "event": "XDP_PASS_SKB_ALLOCATED",
+          "pkt_id": "burst_1",
+          "ip_summed": "CHECKSUM_UNNECESSARY",
+          "csum_offloaded": true
+        },
+        {
+          "time": 210,
+          "event": "XDP_ACTION_REDIRECT",
+          "pkt_id": "burst_2",
+          "meta_forwarded": true
+        },
+        {
+          "time": 220,
+          "event": "XDP_PASS_SKB_ALLOCATED",
+          "pkt_id": "burst_3",
+          "ip_summed": "CHECKSUM_NONE",
+          "csum_offloaded": false
+        },
+        {
+          "time": 230,
+          "event": "XDP_ACTION_DROP",
+          "pkt_id": "burst_4"
+        }
+      ]
+    }
+  }
+]
