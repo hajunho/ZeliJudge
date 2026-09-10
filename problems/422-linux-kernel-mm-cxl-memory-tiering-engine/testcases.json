@@ -1,0 +1,1103 @@
+[
+  {
+    "input": {
+      "config": {
+        "top_tier_capacity": 4,
+        "slow_tier_capacity": 8,
+        "high_watermark": 0.75,
+        "low_watermark": 0.5,
+        "promotion_threshold": 3
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "ALLOC_PAGE",
+          "page_id": "pg_01"
+        },
+        {
+          "time": 20,
+          "type": "ALLOC_PAGE",
+          "page_id": "pg_02"
+        },
+        {
+          "time": 30,
+          "type": "ALLOC_PAGE",
+          "page_id": "pg_03"
+        },
+        {
+          "time": 40,
+          "type": "ALLOC_PAGE",
+          "page_id": "pg_04"
+        },
+        {
+          "time": 50,
+          "type": "ACCESS_PAGE",
+          "page_id": "pg_01"
+        },
+        {
+          "time": 60,
+          "type": "ACCESS_PAGE",
+          "page_id": "pg_02"
+        },
+        {
+          "time": 70,
+          "type": "ALLOC_PAGE",
+          "page_id": "pg_05"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "total_allocations": 5,
+        "total_accesses": 2,
+        "pages_demoted": 1,
+        "pages_promoted": 0,
+        "swap_to_disk_avoided": 1,
+        "tier0_usage": 4,
+        "tier1_usage": 1
+      },
+      "tier_logs": [
+        {
+          "time": 70,
+          "action": "DEMOTE",
+          "page_id": "pg_03",
+          "from_tier": 0,
+          "to_tier": 1,
+          "reason": "TOP_TIER_PRESSURE"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "ALLOC_PAGE",
+          "page_id": "pg_01",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 20,
+          "event": "ALLOC_PAGE",
+          "page_id": "pg_02",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 30,
+          "event": "ALLOC_PAGE",
+          "page_id": "pg_03",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 40,
+          "event": "ALLOC_PAGE",
+          "page_id": "pg_04",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 70,
+          "event": "ALLOC_PAGE",
+          "page_id": "pg_05",
+          "tier": 0,
+          "is_pinned": false
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "top_tier_capacity": 3,
+        "slow_tier_capacity": 5,
+        "high_watermark": 0.8,
+        "low_watermark": 0.5,
+        "promotion_threshold": 2
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "ALLOC_PAGE",
+          "page_id": "pA"
+        },
+        {
+          "time": 20,
+          "type": "ALLOC_PAGE",
+          "page_id": "pB"
+        },
+        {
+          "time": 30,
+          "type": "ALLOC_PAGE",
+          "page_id": "pC"
+        },
+        {
+          "time": 40,
+          "type": "ALLOC_PAGE",
+          "page_id": "pD"
+        },
+        {
+          "time": 50,
+          "type": "ACCESS_PAGE",
+          "page_id": "pD"
+        },
+        {
+          "time": 60,
+          "type": "ACCESS_PAGE",
+          "page_id": "pD"
+        },
+        {
+          "time": 70,
+          "type": "ACCESS_PAGE",
+          "page_id": "pA"
+        },
+        {
+          "time": 80,
+          "type": "ACCESS_PAGE",
+          "page_id": "pA"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "total_allocations": 4,
+        "total_accesses": 4,
+        "pages_demoted": 2,
+        "pages_promoted": 1,
+        "swap_to_disk_avoided": 2,
+        "tier0_usage": 3,
+        "tier1_usage": 1
+      },
+      "tier_logs": [
+        {
+          "time": 40,
+          "action": "DEMOTE",
+          "page_id": "pA",
+          "from_tier": 0,
+          "to_tier": 1,
+          "reason": "TOP_TIER_PRESSURE"
+        },
+        {
+          "time": 80,
+          "action": "DEMOTE",
+          "page_id": "pB",
+          "from_tier": 0,
+          "to_tier": 1,
+          "reason": "TOP_TIER_PRESSURE"
+        },
+        {
+          "time": 80,
+          "action": "PROMOTE",
+          "page_id": "pA",
+          "from_tier": 1,
+          "to_tier": 0,
+          "reason": "HOT_PAGE_THRESHOLD_REACHED"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "ALLOC_PAGE",
+          "page_id": "pA",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 20,
+          "event": "ALLOC_PAGE",
+          "page_id": "pB",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 30,
+          "event": "ALLOC_PAGE",
+          "page_id": "pC",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 40,
+          "event": "ALLOC_PAGE",
+          "page_id": "pD",
+          "tier": 0,
+          "is_pinned": false
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "top_tier_capacity": 3,
+        "slow_tier_capacity": 4,
+        "high_watermark": 0.8,
+        "low_watermark": 0.5,
+        "promotion_threshold": 2
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "ALLOC_PAGE",
+          "page_id": "pin1",
+          "is_pinned": true
+        },
+        {
+          "time": 20,
+          "type": "ALLOC_PAGE",
+          "page_id": "pin2",
+          "is_pinned": true
+        },
+        {
+          "time": 30,
+          "type": "ALLOC_PAGE",
+          "page_id": "unpin1",
+          "is_pinned": false
+        },
+        {
+          "time": 40,
+          "type": "ALLOC_PAGE",
+          "page_id": "unpin2",
+          "is_pinned": false
+        },
+        {
+          "time": 50,
+          "type": "ALLOC_PAGE",
+          "page_id": "unpin3",
+          "is_pinned": false
+        },
+        {
+          "time": 60,
+          "type": "ALLOC_PAGE",
+          "page_id": "unpin4",
+          "is_pinned": false
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "total_allocations": 6,
+        "total_accesses": 0,
+        "pages_demoted": 3,
+        "pages_promoted": 0,
+        "swap_to_disk_avoided": 3,
+        "tier0_usage": 3,
+        "tier1_usage": 3
+      },
+      "tier_logs": [
+        {
+          "time": 40,
+          "action": "DEMOTE",
+          "page_id": "unpin1",
+          "from_tier": 0,
+          "to_tier": 1,
+          "reason": "TOP_TIER_PRESSURE"
+        },
+        {
+          "time": 50,
+          "action": "DEMOTE",
+          "page_id": "unpin2",
+          "from_tier": 0,
+          "to_tier": 1,
+          "reason": "TOP_TIER_PRESSURE"
+        },
+        {
+          "time": 60,
+          "action": "DEMOTE",
+          "page_id": "unpin3",
+          "from_tier": 0,
+          "to_tier": 1,
+          "reason": "TOP_TIER_PRESSURE"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "ALLOC_PAGE",
+          "page_id": "pin1",
+          "tier": 0,
+          "is_pinned": true
+        },
+        {
+          "time": 20,
+          "event": "ALLOC_PAGE",
+          "page_id": "pin2",
+          "tier": 0,
+          "is_pinned": true
+        },
+        {
+          "time": 30,
+          "event": "ALLOC_PAGE",
+          "page_id": "unpin1",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 40,
+          "event": "ALLOC_PAGE",
+          "page_id": "unpin2",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 50,
+          "event": "ALLOC_PAGE",
+          "page_id": "unpin3",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 60,
+          "event": "ALLOC_PAGE",
+          "page_id": "unpin4",
+          "tier": 0,
+          "is_pinned": false
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "top_tier_capacity": 6,
+        "slow_tier_capacity": 10,
+        "high_watermark": 0.8,
+        "low_watermark": 0.5,
+        "promotion_threshold": 3
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "ALLOC_PAGE",
+          "page_id": "m1"
+        },
+        {
+          "time": 20,
+          "type": "ALLOC_PAGE",
+          "page_id": "m2"
+        },
+        {
+          "time": 30,
+          "type": "ALLOC_PAGE",
+          "page_id": "m3"
+        },
+        {
+          "time": 40,
+          "type": "ALLOC_PAGE",
+          "page_id": "m4"
+        },
+        {
+          "time": 50,
+          "type": "ALLOC_PAGE",
+          "page_id": "m5"
+        },
+        {
+          "time": 60,
+          "type": "ALLOC_PAGE",
+          "page_id": "m6"
+        },
+        {
+          "time": 70,
+          "type": "ACCESS_PAGE",
+          "page_id": "m1"
+        },
+        {
+          "time": 75,
+          "type": "ACCESS_PAGE",
+          "page_id": "m1"
+        },
+        {
+          "time": 80,
+          "type": "ACCESS_PAGE",
+          "page_id": "m2"
+        },
+        {
+          "time": 90,
+          "type": "MEMORY_PRESSURE_RECLAIM"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "total_allocations": 6,
+        "total_accesses": 3,
+        "pages_demoted": 3,
+        "pages_promoted": 0,
+        "swap_to_disk_avoided": 3,
+        "tier0_usage": 3,
+        "tier1_usage": 3
+      },
+      "tier_logs": [
+        {
+          "time": 90,
+          "action": "DEMOTE",
+          "page_id": "m3",
+          "from_tier": 0,
+          "to_tier": 1,
+          "reason": "TOP_TIER_PRESSURE"
+        },
+        {
+          "time": 90,
+          "action": "DEMOTE",
+          "page_id": "m4",
+          "from_tier": 0,
+          "to_tier": 1,
+          "reason": "TOP_TIER_PRESSURE"
+        },
+        {
+          "time": 90,
+          "action": "DEMOTE",
+          "page_id": "m5",
+          "from_tier": 0,
+          "to_tier": 1,
+          "reason": "TOP_TIER_PRESSURE"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "ALLOC_PAGE",
+          "page_id": "m1",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 20,
+          "event": "ALLOC_PAGE",
+          "page_id": "m2",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 30,
+          "event": "ALLOC_PAGE",
+          "page_id": "m3",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 40,
+          "event": "ALLOC_PAGE",
+          "page_id": "m4",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 50,
+          "event": "ALLOC_PAGE",
+          "page_id": "m5",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 60,
+          "event": "ALLOC_PAGE",
+          "page_id": "m6",
+          "tier": 0,
+          "is_pinned": false
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "top_tier_capacity": 2,
+        "slow_tier_capacity": 2,
+        "high_watermark": 0.8,
+        "low_watermark": 0.5,
+        "promotion_threshold": 2
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "ALLOC_PAGE",
+          "page_id": "f1"
+        },
+        {
+          "time": 20,
+          "type": "ALLOC_PAGE",
+          "page_id": "f2"
+        },
+        {
+          "time": 30,
+          "type": "ALLOC_PAGE",
+          "page_id": "f3"
+        },
+        {
+          "time": 40,
+          "type": "ALLOC_PAGE",
+          "page_id": "f4"
+        },
+        {
+          "time": 50,
+          "type": "ALLOC_PAGE",
+          "page_id": "f5"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "total_allocations": 4,
+        "total_accesses": 0,
+        "pages_demoted": 2,
+        "pages_promoted": 0,
+        "swap_to_disk_avoided": 2,
+        "tier0_usage": 2,
+        "tier1_usage": 2
+      },
+      "tier_logs": [
+        {
+          "time": 30,
+          "action": "DEMOTE",
+          "page_id": "f1",
+          "from_tier": 0,
+          "to_tier": 1,
+          "reason": "TOP_TIER_PRESSURE"
+        },
+        {
+          "time": 40,
+          "action": "DEMOTE",
+          "page_id": "f2",
+          "from_tier": 0,
+          "to_tier": 1,
+          "reason": "TOP_TIER_PRESSURE"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "ALLOC_PAGE",
+          "page_id": "f1",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 20,
+          "event": "ALLOC_PAGE",
+          "page_id": "f2",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 30,
+          "event": "ALLOC_PAGE",
+          "page_id": "f3",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 40,
+          "event": "ALLOC_PAGE",
+          "page_id": "f4",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 50,
+          "event": "ALLOC_FAILED_ENOMEM",
+          "page_id": "f5"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "top_tier_capacity": 3,
+        "slow_tier_capacity": 3,
+        "high_watermark": 0.8,
+        "low_watermark": 0.5,
+        "promotion_threshold": 2
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "ALLOC_PAGE",
+          "page_id": "x1"
+        },
+        {
+          "time": 20,
+          "type": "ALLOC_PAGE",
+          "page_id": "x2"
+        },
+        {
+          "time": 30,
+          "type": "ALLOC_PAGE",
+          "page_id": "x3"
+        },
+        {
+          "time": 40,
+          "type": "ALLOC_PAGE",
+          "page_id": "x4"
+        },
+        {
+          "time": 50,
+          "type": "FREE_PAGE",
+          "page_id": "x2"
+        },
+        {
+          "time": 60,
+          "type": "ALLOC_PAGE",
+          "page_id": "x5"
+        },
+        {
+          "time": 70,
+          "type": "FREE_PAGE",
+          "page_id": "x1"
+        },
+        {
+          "time": 80,
+          "type": "ALLOC_PAGE",
+          "page_id": "x6"
+        },
+        {
+          "time": 90,
+          "type": "ALLOC_PAGE",
+          "page_id": "x7"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "total_allocations": 7,
+        "total_accesses": 0,
+        "pages_demoted": 3,
+        "pages_promoted": 0,
+        "swap_to_disk_avoided": 3,
+        "tier0_usage": 3,
+        "tier1_usage": 2
+      },
+      "tier_logs": [
+        {
+          "time": 40,
+          "action": "DEMOTE",
+          "page_id": "x1",
+          "from_tier": 0,
+          "to_tier": 1,
+          "reason": "TOP_TIER_PRESSURE"
+        },
+        {
+          "time": 80,
+          "action": "DEMOTE",
+          "page_id": "x3",
+          "from_tier": 0,
+          "to_tier": 1,
+          "reason": "TOP_TIER_PRESSURE"
+        },
+        {
+          "time": 90,
+          "action": "DEMOTE",
+          "page_id": "x4",
+          "from_tier": 0,
+          "to_tier": 1,
+          "reason": "TOP_TIER_PRESSURE"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "ALLOC_PAGE",
+          "page_id": "x1",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 20,
+          "event": "ALLOC_PAGE",
+          "page_id": "x2",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 30,
+          "event": "ALLOC_PAGE",
+          "page_id": "x3",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 40,
+          "event": "ALLOC_PAGE",
+          "page_id": "x4",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 50,
+          "event": "FREE_PAGE",
+          "page_id": "x2"
+        },
+        {
+          "time": 60,
+          "event": "ALLOC_PAGE",
+          "page_id": "x5",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 70,
+          "event": "FREE_PAGE",
+          "page_id": "x1"
+        },
+        {
+          "time": 80,
+          "event": "ALLOC_PAGE",
+          "page_id": "x6",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 90,
+          "event": "ALLOC_PAGE",
+          "page_id": "x7",
+          "tier": 0,
+          "is_pinned": false
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "top_tier_capacity": 3,
+        "slow_tier_capacity": 5,
+        "high_watermark": 0.8,
+        "low_watermark": 0.5,
+        "promotion_threshold": 3
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "ALLOC_PAGE",
+          "page_id": "t1"
+        },
+        {
+          "time": 20,
+          "type": "ALLOC_PAGE",
+          "page_id": "t2"
+        },
+        {
+          "time": 30,
+          "type": "ALLOC_PAGE",
+          "page_id": "t3"
+        },
+        {
+          "time": 40,
+          "type": "ACCESS_PAGE",
+          "page_id": "t1"
+        },
+        {
+          "time": 50,
+          "type": "ACCESS_PAGE",
+          "page_id": "t2"
+        },
+        {
+          "time": 60,
+          "type": "ACCESS_PAGE",
+          "page_id": "t3"
+        },
+        {
+          "time": 70,
+          "type": "ALLOC_PAGE",
+          "page_id": "t4"
+        },
+        {
+          "time": 80,
+          "type": "ACCESS_PAGE",
+          "page_id": "t2"
+        },
+        {
+          "time": 90,
+          "type": "ALLOC_PAGE",
+          "page_id": "t5"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "total_allocations": 5,
+        "total_accesses": 4,
+        "pages_demoted": 2,
+        "pages_promoted": 0,
+        "swap_to_disk_avoided": 2,
+        "tier0_usage": 3,
+        "tier1_usage": 2
+      },
+      "tier_logs": [
+        {
+          "time": 70,
+          "action": "DEMOTE",
+          "page_id": "t1",
+          "from_tier": 0,
+          "to_tier": 1,
+          "reason": "TOP_TIER_PRESSURE"
+        },
+        {
+          "time": 90,
+          "action": "DEMOTE",
+          "page_id": "t4",
+          "from_tier": 0,
+          "to_tier": 1,
+          "reason": "TOP_TIER_PRESSURE"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "ALLOC_PAGE",
+          "page_id": "t1",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 20,
+          "event": "ALLOC_PAGE",
+          "page_id": "t2",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 30,
+          "event": "ALLOC_PAGE",
+          "page_id": "t3",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 70,
+          "event": "ALLOC_PAGE",
+          "page_id": "t4",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 90,
+          "event": "ALLOC_PAGE",
+          "page_id": "t5",
+          "tier": 0,
+          "is_pinned": false
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "top_tier_capacity": 5,
+        "slow_tier_capacity": 8,
+        "high_watermark": 0.8,
+        "low_watermark": 0.4,
+        "promotion_threshold": 3
+      },
+      "trace": [
+        {
+          "time": 100,
+          "type": "ALLOC_PAGE",
+          "page_id": "srv_k1",
+          "is_pinned": true
+        },
+        {
+          "time": 110,
+          "type": "ALLOC_PAGE",
+          "page_id": "usr_a1"
+        },
+        {
+          "time": 120,
+          "type": "ALLOC_PAGE",
+          "page_id": "usr_a2"
+        },
+        {
+          "time": 130,
+          "type": "ALLOC_PAGE",
+          "page_id": "usr_a3"
+        },
+        {
+          "time": 140,
+          "type": "ALLOC_PAGE",
+          "page_id": "usr_a4"
+        },
+        {
+          "time": 150,
+          "type": "ACCESS_PAGE",
+          "page_id": "usr_a4"
+        },
+        {
+          "time": 155,
+          "type": "ACCESS_PAGE",
+          "page_id": "usr_a4"
+        },
+        {
+          "time": 160,
+          "type": "ALLOC_PAGE",
+          "page_id": "usr_b1"
+        },
+        {
+          "time": 170,
+          "type": "ALLOC_PAGE",
+          "page_id": "usr_b2"
+        },
+        {
+          "time": 180,
+          "type": "ACCESS_PAGE",
+          "page_id": "usr_a1"
+        },
+        {
+          "time": 190,
+          "type": "ACCESS_PAGE",
+          "page_id": "usr_a1"
+        },
+        {
+          "time": 200,
+          "type": "ACCESS_PAGE",
+          "page_id": "usr_a1"
+        },
+        {
+          "time": 210,
+          "type": "MEMORY_PRESSURE_RECLAIM"
+        },
+        {
+          "time": 220,
+          "type": "FREE_PAGE",
+          "page_id": "usr_a2"
+        },
+        {
+          "time": 230,
+          "type": "ALLOC_PAGE",
+          "page_id": "usr_c1"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "total_allocations": 8,
+        "total_accesses": 5,
+        "pages_demoted": 6,
+        "pages_promoted": 1,
+        "swap_to_disk_avoided": 6,
+        "tier0_usage": 3,
+        "tier1_usage": 4
+      },
+      "tier_logs": [
+        {
+          "time": 160,
+          "action": "DEMOTE",
+          "page_id": "usr_a1",
+          "from_tier": 0,
+          "to_tier": 1,
+          "reason": "TOP_TIER_PRESSURE"
+        },
+        {
+          "time": 170,
+          "action": "DEMOTE",
+          "page_id": "usr_a2",
+          "from_tier": 0,
+          "to_tier": 1,
+          "reason": "TOP_TIER_PRESSURE"
+        },
+        {
+          "time": 200,
+          "action": "DEMOTE",
+          "page_id": "usr_a3",
+          "from_tier": 0,
+          "to_tier": 1,
+          "reason": "TOP_TIER_PRESSURE"
+        },
+        {
+          "time": 200,
+          "action": "PROMOTE",
+          "page_id": "usr_a1",
+          "from_tier": 1,
+          "to_tier": 0,
+          "reason": "HOT_PAGE_THRESHOLD_REACHED"
+        },
+        {
+          "time": 210,
+          "action": "DEMOTE",
+          "page_id": "usr_b1",
+          "from_tier": 0,
+          "to_tier": 1,
+          "reason": "TOP_TIER_PRESSURE"
+        },
+        {
+          "time": 210,
+          "action": "DEMOTE",
+          "page_id": "usr_b2",
+          "from_tier": 0,
+          "to_tier": 1,
+          "reason": "TOP_TIER_PRESSURE"
+        },
+        {
+          "time": 210,
+          "action": "DEMOTE",
+          "page_id": "usr_a4",
+          "from_tier": 0,
+          "to_tier": 1,
+          "reason": "TOP_TIER_PRESSURE"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 100,
+          "event": "ALLOC_PAGE",
+          "page_id": "srv_k1",
+          "tier": 0,
+          "is_pinned": true
+        },
+        {
+          "time": 110,
+          "event": "ALLOC_PAGE",
+          "page_id": "usr_a1",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 120,
+          "event": "ALLOC_PAGE",
+          "page_id": "usr_a2",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 130,
+          "event": "ALLOC_PAGE",
+          "page_id": "usr_a3",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 140,
+          "event": "ALLOC_PAGE",
+          "page_id": "usr_a4",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 160,
+          "event": "ALLOC_PAGE",
+          "page_id": "usr_b1",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 170,
+          "event": "ALLOC_PAGE",
+          "page_id": "usr_b2",
+          "tier": 0,
+          "is_pinned": false
+        },
+        {
+          "time": 220,
+          "event": "FREE_PAGE",
+          "page_id": "usr_a2"
+        },
+        {
+          "time": 230,
+          "event": "ALLOC_PAGE",
+          "page_id": "usr_c1",
+          "tier": 0,
+          "is_pinned": false
+        }
+      ]
+    }
+  }
+]
