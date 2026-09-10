@@ -1,0 +1,42 @@
+[
+  {
+    "name": "카페 웨이터의 자기기만(Mauvaise Foi Mode A): 역할극과 과장된 제스처 속에 자유를 유폐한 사물화",
+    "input": "{\"facticity\":[{\"name\":\"WaiterApron\",\"weight\":0.9},{\"name\":\"EmploymentContract\",\"weight\":0.85},{\"name\":\"CustomerExpectation\",\"weight\":0.95}],\"transcendence\":{\"freedom_projection\":0.2,\"nihilation_capacity\":0.1},\"role_rigidity\":0.9,\"commitment_denial\":0.0,\"the_look\":{\"other_present\":true,\"gaze_intensity\":0.35,\"defensiveness\":0.4}}",
+    "output": "{\"ontological_structure\":{\"facticity_score\":0.9,\"transcendence_score\":0.21,\"bad_faith_index\":0.621,\"bad_faith_components\":{\"role_thingification\":0.621,\"facticity_disavowal\":0.0}},\"intersubjective_gaze_metrics\":{\"other_present\":true,\"gaze_intensity\":0.35,\"world_hemorrhage\":0.21,\"objectification_index\":0.315,\"shame_index\":0.2172},\"existential_freedom\":{\"anguish_score\":0.0796,\"authentic_choice_capacity\":0.379},\"existential_regime\":\"MAUVAISE_FOI\"}"
+  },
+  {
+    "name": "사실성 부인의 자기기만(Mauvaise Foi Mode B): 과거의 약속과 행적을 부정하는 순수 초월성의 거짓 허구",
+    "input": "{\"facticity\":[{\"name\":\"PastBrokenVows\",\"weight\":0.25}],\"transcendence\":{\"freedom_projection\":0.95,\"nihilation_capacity\":0.8},\"role_rigidity\":0.0,\"commitment_denial\":0.85,\"the_look\":{\"other_present\":false}}",
+    "output": "{\"ontological_structure\":{\"facticity_score\":0.25,\"transcendence_score\":1.0,\"bad_faith_index\":0.6375,\"bad_faith_components\":{\"role_thingification\":0.0,\"facticity_disavowal\":0.6375}},\"intersubjective_gaze_metrics\":{\"other_present\":false,\"gaze_intensity\":0.0,\"world_hemorrhage\":0.0,\"objectification_index\":0.0,\"shame_index\":0.0},\"existential_freedom\":{\"anguish_score\":0.3625,\"authentic_choice_capacity\":0.3625},\"existential_regime\":\"MAUVAISE_FOI\"}"
+  },
+  {
+    "name": "열쇠 구멍의 관음증자와 타자의 시선(Le Regard): 복도의 발자국 소리와 대타존재로의 응고 및 부끄러움",
+    "input": "{\"facticity\":[{\"name\":\"CrouchingPose\",\"weight\":0.9},{\"name\":\"KeyholeVision\",\"weight\":0.8}],\"transcendence\":{\"freedom_projection\":0.45,\"nihilation_capacity\":0.3},\"role_rigidity\":0.1,\"commitment_denial\":0.1,\"the_look\":{\"other_present\":true,\"gaze_intensity\":0.95,\"defensiveness\":0.15}}",
+    "output": "{\"ontological_structure\":{\"facticity_score\":0.85,\"transcendence_score\":0.5175,\"bad_faith_index\":0.0333,\"bad_faith_components\":{\"role_thingification\":0.0333,\"facticity_disavowal\":0.0}},\"intersubjective_gaze_metrics\":{\"other_present\":true,\"gaze_intensity\":0.95,\"world_hemorrhage\":0.8075,\"objectification_index\":0.8075,\"shame_index\":0.7941},\"existential_freedom\":{\"anguish_score\":0.5003,\"authentic_choice_capacity\":0.9667},\"existential_regime\":\"LE_REGARD_OBJECTIFIED\"}"
+  },
+  {
+    "name": "자유의 형벌(Condemned to be Free): 핑계와 변명을 거부하고 불안(Angoisse)을 인수한 본래적 실존",
+    "input": "{\"facticity\":[{\"name\":\"HistoricalContext\",\"weight\":0.5},{\"name\":\"PhysicalLimit\",\"weight\":0.4}],\"transcendence\":{\"freedom_projection\":0.9,\"nihilation_capacity\":0.85},\"role_rigidity\":0.1,\"commitment_denial\":0.1,\"the_look\":{\"other_present\":false}}",
+    "output": "{\"ontological_structure\":{\"facticity_score\":0.45,\"transcendence_score\":1.0,\"bad_faith_index\":0.055,\"bad_faith_components\":{\"role_thingification\":0.0,\"facticity_disavowal\":0.055}},\"intersubjective_gaze_metrics\":{\"other_present\":false,\"gaze_intensity\":0.0,\"world_hemorrhage\":0.0,\"objectification_index\":0.0,\"shame_index\":0.0},\"existential_freedom\":{\"anguish_score\":0.945,\"authentic_choice_capacity\":0.945},\"existential_regime\":\"AUTHENTIC_FREEDOM\"}"
+  },
+  {
+    "name": "즉자(En-soi)와 대자(Pour-soi)의 미해결된 긴장: 일상적 주체의 사실성과 초월성 균형",
+    "input": "{\"facticity\":[{\"name\":\"DailyRoutine\",\"weight\":0.6},{\"name\":\"PhysicalHealth\",\"weight\":0.5}],\"transcendence\":{\"freedom_projection\":0.5,\"nihilation_capacity\":0.3},\"role_rigidity\":0.3,\"commitment_denial\":0.2,\"the_look\":{\"other_present\":true,\"gaze_intensity\":0.3,\"defensiveness\":0.5}}",
+    "output": "{\"ontological_structure\":{\"facticity_score\":0.55,\"transcendence_score\":0.575,\"bad_faith_index\":0.005,\"bad_faith_components\":{\"role_thingification\":0.0,\"facticity_disavowal\":0.005}},\"intersubjective_gaze_metrics\":{\"other_present\":true,\"gaze_intensity\":0.3,\"world_hemorrhage\":0.15,\"objectification_index\":0.165,\"shame_index\":0.1646},\"existential_freedom\":{\"anguish_score\":0.5721,\"authentic_choice_capacity\":0.995},\"existential_regime\":\"AUTHENTIC_FREEDOM\"}"
+  },
+  {
+    "name": "타자의 시선에 대한 방어적 저항: 높은 주체적 방어력으로 시선에 의한 세계 유출 차단",
+    "input": "{\"facticity\":[{\"name\":\"PublicOffice\",\"weight\":0.8}],\"transcendence\":{\"freedom_projection\":0.6,\"nihilation_capacity\":0.4},\"role_rigidity\":0.2,\"commitment_denial\":0.1,\"the_look\":{\"other_present\":true,\"gaze_intensity\":0.65,\"defensiveness\":0.8}}",
+    "output": "{\"ontological_structure\":{\"facticity_score\":0.8,\"transcendence_score\":0.72,\"bad_faith_index\":0.016,\"bad_faith_components\":{\"role_thingification\":0.016,\"facticity_disavowal\":0.0}},\"intersubjective_gaze_metrics\":{\"other_present\":true,\"gaze_intensity\":0.65,\"world_hemorrhage\":0.13,\"objectification_index\":0.52,\"shame_index\":0.5158},\"existential_freedom\":{\"anguish_score\":0.7085,\"authentic_choice_capacity\":0.984},\"existential_regime\":\"LE_REGARD_OBJECTIFIED\"}"
+  },
+  {
+    "name": "급진적 무화(Nihilation)와 상황의 초월: 구속적 사실성을 뚫고 미래로 기투하는 레지스탕스 실존",
+    "input": "{\"facticity\":[{\"name\":\"OppressiveRegime\",\"weight\":0.7},{\"name\":\"Imprisonment\",\"weight\":0.8}],\"transcendence\":{\"freedom_projection\":0.95,\"nihilation_capacity\":0.95},\"role_rigidity\":0.05,\"commitment_denial\":0.05,\"the_look\":{\"other_present\":false}}",
+    "output": "{\"ontological_structure\":{\"facticity_score\":0.75,\"transcendence_score\":1.0,\"bad_faith_index\":0.0125,\"bad_faith_components\":{\"role_thingification\":0.0,\"facticity_disavowal\":0.0125}},\"intersubjective_gaze_metrics\":{\"other_present\":false,\"gaze_intensity\":0.0,\"world_hemorrhage\":0.0,\"objectification_index\":0.0,\"shame_index\":0.0},\"existential_freedom\":{\"anguish_score\":0.9875,\"authentic_choice_capacity\":0.9875},\"existential_regime\":\"AUTHENTIC_FREEDOM\"}"
+  },
+  {
+    "name": "복합 다층 사실성과 강한 사회적 역할극이 결합된 극한의 자기기만 상태 검증",
+    "input": "{\"facticity\":[{\"name\":\"BiologicalAge\",\"weight\":0.75},{\"name\":\"EconomicDebt\",\"weight\":0.8},{\"name\":\"SocialClass\",\"weight\":0.7},{\"name\":\"NationalIdentity\",\"weight\":0.65}],\"transcendence\":{\"freedom_projection\":0.3,\"nihilation_capacity\":0.2},\"role_rigidity\":0.8,\"commitment_denial\":0.1,\"the_look\":{\"other_present\":true,\"gaze_intensity\":0.7,\"defensiveness\":0.3}}",
+    "output": "{\"ontological_structure\":{\"facticity_score\":0.725,\"transcendence_score\":0.33,\"bad_faith_index\":0.316,\"bad_faith_components\":{\"role_thingification\":0.316,\"facticity_disavowal\":0.0}},\"intersubjective_gaze_metrics\":{\"other_present\":true,\"gaze_intensity\":0.7,\"world_hemorrhage\":0.49,\"objectification_index\":0.5075,\"shame_index\":0.4273},\"existential_freedom\":{\"anguish_score\":0.2257,\"authentic_choice_capacity\":0.684},\"existential_regime\":\"LE_REGARD_OBJECTIFIED\"}"
+  }
+]
