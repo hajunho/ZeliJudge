@@ -1,0 +1,687 @@
+[
+  {
+    "input": {
+      "config": {
+        "local_sids": {
+          "2001:db8:cafe:1::": {
+            "action": "End"
+          }
+        },
+        "fib": {
+          "2001:db8:cafe:2::": {
+            "next_hop": "fe80::router2",
+            "out_if": "eth0"
+          }
+        }
+      },
+      "operations": [
+        {
+          "type": "ROUTE_PACKET",
+          "packet": {
+            "outer_ipv6": {
+              "src": "2001:db8:src::1",
+              "dst": "2001:db8:cafe:1::",
+              "hop_limit": 64
+            },
+            "srh": {
+              "segments": [
+                "2001:db8:cafe:dx4::",
+                "2001:db8:cafe:2::",
+                "2001:db8:cafe:1::"
+              ],
+              "segments_left": 2,
+              "last_entry": 2
+            },
+            "inner_payload": {
+              "type": "IPV4",
+              "src": "10.0.0.1",
+              "dst": "192.168.1.100"
+            }
+          }
+        },
+        {
+          "type": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "ROUTE_PACKET",
+          "status": "TRANSIT_END",
+          "new_dst": "2001:db8:cafe:2::",
+          "segments_left": 1,
+          "next_hop": "fe80::router2",
+          "out_if": "eth0"
+        },
+        {
+          "op_index": 1,
+          "type": "QUERY_STATS",
+          "stats": {
+            "transit_end": 1,
+            "decap_dx4": 0,
+            "decap_dt6": 0,
+            "ip_forward": 0,
+            "dropped": 0
+          }
+        }
+      ],
+      "summary": {
+        "total_operations": 2,
+        "stats": {
+          "transit_end": 1,
+          "decap_dx4": 0,
+          "decap_dt6": 0,
+          "ip_forward": 0,
+          "dropped": 0
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "local_sids": {
+          "2001:db8:cafe:dx4::": {
+            "action": "End.DX4",
+            "nh4": "192.168.10.1",
+            "out_if": "eth1"
+          }
+        },
+        "fib": {}
+      },
+      "operations": [
+        {
+          "type": "ROUTE_PACKET",
+          "packet": {
+            "outer_ipv6": {
+              "src": "2001:db8:src::1",
+              "dst": "2001:db8:cafe:dx4::",
+              "hop_limit": 64
+            },
+            "srh": {
+              "segments": [
+                "2001:db8:cafe:dx4::"
+              ],
+              "segments_left": 0,
+              "last_entry": 0
+            },
+            "inner_payload": {
+              "type": "IPV4",
+              "src": "10.0.0.1",
+              "dst": "192.168.10.50"
+            }
+          }
+        },
+        {
+          "type": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "ROUTE_PACKET",
+          "status": "DECAP_DX4",
+          "inner_dst": "192.168.10.50",
+          "nh4": "192.168.10.1",
+          "out_if": "eth1"
+        },
+        {
+          "op_index": 1,
+          "type": "QUERY_STATS",
+          "stats": {
+            "transit_end": 0,
+            "decap_dx4": 1,
+            "decap_dt6": 0,
+            "ip_forward": 0,
+            "dropped": 0
+          }
+        }
+      ],
+      "summary": {
+        "total_operations": 2,
+        "stats": {
+          "transit_end": 0,
+          "decap_dx4": 1,
+          "decap_dt6": 0,
+          "ip_forward": 0,
+          "dropped": 0
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "local_sids": {
+          "2001:db8:cafe:dt6::": {
+            "action": "End.DT6",
+            "vrf_table": 100
+          }
+        },
+        "fib": {},
+        "vrf_tables": {
+          "100": {
+            "2001:db8:user:1::10": {
+              "next_hop": "fe80::client10",
+              "out_if": "vrf100-veth"
+            }
+          }
+        }
+      },
+      "operations": [
+        {
+          "type": "ROUTE_PACKET",
+          "packet": {
+            "outer_ipv6": {
+              "src": "2001:db8:src::1",
+              "dst": "2001:db8:cafe:dt6::",
+              "hop_limit": 64
+            },
+            "srh": {
+              "segments": [
+                "2001:db8:cafe:dt6::"
+              ],
+              "segments_left": 0,
+              "last_entry": 0
+            },
+            "inner_payload": {
+              "type": "IPV6",
+              "src": "2001:db8:user:2::1",
+              "dst": "2001:db8:user:1::10"
+            }
+          }
+        },
+        {
+          "type": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "ROUTE_PACKET",
+          "status": "DECAP_DT6",
+          "vrf_id": 100,
+          "inner_dst": "2001:db8:user:1::10",
+          "next_hop": "fe80::client10",
+          "out_if": "vrf100-veth"
+        },
+        {
+          "op_index": 1,
+          "type": "QUERY_STATS",
+          "stats": {
+            "transit_end": 0,
+            "decap_dx4": 0,
+            "decap_dt6": 1,
+            "ip_forward": 0,
+            "dropped": 0
+          }
+        }
+      ],
+      "summary": {
+        "total_operations": 2,
+        "stats": {
+          "transit_end": 0,
+          "decap_dx4": 0,
+          "decap_dt6": 1,
+          "ip_forward": 0,
+          "dropped": 0
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "local_sids": {
+          "2001:db8:cafe:1::": {
+            "action": "End"
+          }
+        },
+        "fib": {}
+      },
+      "operations": [
+        {
+          "type": "ROUTE_PACKET",
+          "packet": {
+            "outer_ipv6": {
+              "src": "2001:db8:src::1",
+              "dst": "2001:db8:cafe:1::",
+              "hop_limit": 64
+            },
+            "srh": {
+              "segments": [
+                "2001:db8:cafe:1::"
+              ],
+              "segments_left": 0,
+              "last_entry": 0
+            }
+          }
+        },
+        {
+          "type": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "ROUTE_PACKET",
+          "status": "DROP",
+          "error": "INVALID_SRH_SEGMENTS_LEFT"
+        },
+        {
+          "op_index": 1,
+          "type": "QUERY_STATS",
+          "stats": {
+            "transit_end": 0,
+            "decap_dx4": 0,
+            "decap_dt6": 0,
+            "ip_forward": 0,
+            "dropped": 1
+          }
+        }
+      ],
+      "summary": {
+        "total_operations": 2,
+        "stats": {
+          "transit_end": 0,
+          "decap_dx4": 0,
+          "decap_dt6": 0,
+          "ip_forward": 0,
+          "dropped": 1
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "local_sids": {
+          "2001:db8:cafe:dx4::": {
+            "action": "End.DX4",
+            "nh4": "192.168.1.1",
+            "out_if": "eth1"
+          }
+        },
+        "fib": {}
+      },
+      "operations": [
+        {
+          "type": "ROUTE_PACKET",
+          "packet": {
+            "outer_ipv6": {
+              "src": "2001:db8:src::1",
+              "dst": "2001:db8:cafe:dx4::",
+              "hop_limit": 64
+            },
+            "srh": {
+              "segments": [
+                "2001:db8:cafe:dx4::",
+                "2001:db8:cafe:next::"
+              ],
+              "segments_left": 1,
+              "last_entry": 1
+            },
+            "inner_payload": {
+              "type": "IPV4",
+              "src": "10.0.0.1",
+              "dst": "192.168.1.5"
+            }
+          }
+        },
+        {
+          "type": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "ROUTE_PACKET",
+          "status": "DROP",
+          "error": "DX4_SEGMENTS_LEFT_NOT_ZERO"
+        },
+        {
+          "op_index": 1,
+          "type": "QUERY_STATS",
+          "stats": {
+            "transit_end": 0,
+            "decap_dx4": 0,
+            "decap_dt6": 0,
+            "ip_forward": 0,
+            "dropped": 1
+          }
+        }
+      ],
+      "summary": {
+        "total_operations": 2,
+        "stats": {
+          "transit_end": 0,
+          "decap_dx4": 0,
+          "decap_dt6": 0,
+          "ip_forward": 0,
+          "dropped": 1
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "local_sids": {
+          "2001:db8:cafe:dx4::": {
+            "action": "End.DX4",
+            "nh4": "192.168.1.1",
+            "out_if": "eth1"
+          },
+          "2001:db8:cafe:dt6::": {
+            "action": "End.DT6",
+            "vrf_table": 100
+          }
+        },
+        "vrf_tables": {
+          "100": {}
+        }
+      },
+      "operations": [
+        {
+          "type": "ROUTE_PACKET",
+          "packet": {
+            "outer_ipv6": {
+              "src": "2001:db8:src::1",
+              "dst": "2001:db8:cafe:dx4::",
+              "hop_limit": 64
+            },
+            "srh": {
+              "segments": [
+                "2001:db8:cafe:dx4::"
+              ],
+              "segments_left": 0,
+              "last_entry": 0
+            },
+            "inner_payload": {
+              "type": "IPV6",
+              "src": "::1",
+              "dst": "::2"
+            }
+          }
+        },
+        {
+          "type": "ROUTE_PACKET",
+          "packet": {
+            "outer_ipv6": {
+              "src": "2001:db8:src::1",
+              "dst": "2001:db8:cafe:dt6::",
+              "hop_limit": 64
+            },
+            "srh": {
+              "segments": [
+                "2001:db8:cafe:dt6::"
+              ],
+              "segments_left": 0,
+              "last_entry": 0
+            },
+            "inner_payload": {
+              "type": "IPV4",
+              "src": "10.0.0.1",
+              "dst": "10.0.0.2"
+            }
+          }
+        },
+        {
+          "type": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "ROUTE_PACKET",
+          "status": "DROP",
+          "error": "DX4_PAYLOAD_NOT_IPV4"
+        },
+        {
+          "op_index": 1,
+          "type": "ROUTE_PACKET",
+          "status": "DROP",
+          "error": "DT6_PAYLOAD_NOT_IPV6"
+        },
+        {
+          "op_index": 2,
+          "type": "QUERY_STATS",
+          "stats": {
+            "transit_end": 0,
+            "decap_dx4": 0,
+            "decap_dt6": 0,
+            "ip_forward": 0,
+            "dropped": 2
+          }
+        }
+      ],
+      "summary": {
+        "total_operations": 3,
+        "stats": {
+          "transit_end": 0,
+          "decap_dx4": 0,
+          "decap_dt6": 0,
+          "ip_forward": 0,
+          "dropped": 2
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "local_sids": {},
+        "fib": {
+          "2001:db8:standard::1": {
+            "next_hop": "fe80::hop1",
+            "out_if": "eth0"
+          }
+        }
+      },
+      "operations": [
+        {
+          "type": "ROUTE_PACKET",
+          "packet": {
+            "outer_ipv6": {
+              "src": "2001:db8:src::1",
+              "dst": "2001:db8:standard::1",
+              "hop_limit": 1
+            }
+          }
+        },
+        {
+          "type": "ROUTE_PACKET",
+          "packet": {
+            "outer_ipv6": {
+              "src": "2001:db8:src::1",
+              "dst": "2001:db8:standard::1",
+              "hop_limit": 32
+            }
+          }
+        },
+        {
+          "type": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "ROUTE_PACKET",
+          "status": "DROP",
+          "error": "TIME_EXCEEDED_HOP_LIMIT"
+        },
+        {
+          "op_index": 1,
+          "type": "ROUTE_PACKET",
+          "status": "IP_FORWARD",
+          "dst": "2001:db8:standard::1",
+          "next_hop": "fe80::hop1",
+          "out_if": "eth0"
+        },
+        {
+          "op_index": 2,
+          "type": "QUERY_STATS",
+          "stats": {
+            "transit_end": 0,
+            "decap_dx4": 0,
+            "decap_dt6": 0,
+            "ip_forward": 1,
+            "dropped": 1
+          }
+        }
+      ],
+      "summary": {
+        "total_operations": 3,
+        "stats": {
+          "transit_end": 0,
+          "decap_dx4": 0,
+          "decap_dt6": 0,
+          "ip_forward": 1,
+          "dropped": 1
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "local_sids": {
+          "2001:db8:node1::": {
+            "action": "End"
+          }
+        },
+        "fib": {
+          "2001:db8:node2::": {
+            "next_hop": "fe80::node2",
+            "out_if": "eth0"
+          }
+        },
+        "vrf_tables": {
+          "200": {
+            "2001:db8:cloud::55": {
+              "next_hop": "fe80::pod55",
+              "out_if": "cilium_net"
+            }
+          }
+        }
+      },
+      "operations": [
+        {
+          "type": "ROUTE_PACKET",
+          "packet": {
+            "outer_ipv6": {
+              "src": "2001:db8:ingress::1",
+              "dst": "2001:db8:node1::",
+              "hop_limit": 64
+            },
+            "srh": {
+              "segments": [
+                "2001:db8:node3::",
+                "2001:db8:node2::",
+                "2001:db8:node1::"
+              ],
+              "segments_left": 2,
+              "last_entry": 2
+            }
+          }
+        },
+        {
+          "type": "ADD_LOCAL_SID",
+          "sid": "2001:db8:vpn::dt6",
+          "entry": {
+            "action": "End.DT6",
+            "vrf_table": 200
+          }
+        },
+        {
+          "type": "ROUTE_PACKET",
+          "packet": {
+            "outer_ipv6": {
+              "src": "2001:db8:ingress::1",
+              "dst": "2001:db8:vpn::dt6",
+              "hop_limit": 64
+            },
+            "srh": {
+              "segments": [
+                "2001:db8:vpn::dt6"
+              ],
+              "segments_left": 0,
+              "last_entry": 0
+            },
+            "inner_payload": {
+              "type": "IPV6",
+              "src": "2001:db8:client::1",
+              "dst": "2001:db8:cloud::55"
+            }
+          }
+        },
+        {
+          "type": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "ROUTE_PACKET",
+          "status": "TRANSIT_END",
+          "new_dst": "2001:db8:node2::",
+          "segments_left": 1,
+          "next_hop": "fe80::node2",
+          "out_if": "eth0"
+        },
+        {
+          "op_index": 1,
+          "type": "ADD_LOCAL_SID",
+          "status": "SUCCESS",
+          "sid": "2001:db8:vpn::dt6"
+        },
+        {
+          "op_index": 2,
+          "type": "ROUTE_PACKET",
+          "status": "DECAP_DT6",
+          "vrf_id": 200,
+          "inner_dst": "2001:db8:cloud::55",
+          "next_hop": "fe80::pod55",
+          "out_if": "cilium_net"
+        },
+        {
+          "op_index": 3,
+          "type": "QUERY_STATS",
+          "stats": {
+            "transit_end": 1,
+            "decap_dx4": 0,
+            "decap_dt6": 1,
+            "ip_forward": 0,
+            "dropped": 0
+          }
+        }
+      ],
+      "summary": {
+        "total_operations": 4,
+        "stats": {
+          "transit_end": 1,
+          "decap_dx4": 0,
+          "decap_dt6": 1,
+          "ip_forward": 0,
+          "dropped": 0
+        }
+      }
+    }
+  }
+]
