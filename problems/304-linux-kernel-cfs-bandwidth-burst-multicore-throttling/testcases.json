@@ -1,0 +1,50 @@
+[
+  {
+    "id": "TC-01",
+    "description": "Standard Single Core Execution within Quota Limit",
+    "input": "{\"period_us\": 100000, \"quota_us\": 100000, \"max_burst_us\": 50000, \"slice_us\": 5000, \"num_cpus\": 2, \"commands\": [{\"op\": \"RUN\", \"cpu\": 0, \"execution_time_us\": 20000}, {\"op\": \"RUN\", \"cpu\": 0, \"execution_time_us\": 30000}]}",
+    "expected_output": "{\"command_results\": [{\"op\": \"RUN\", \"result\": {\"cpu_id\": 0, \"executed_us\": 20000, \"throttled\": false, \"reason\": \"OK\"}}, {\"op\": \"RUN\", \"result\": {\"cpu_id\": 0, \"executed_us\": 30000, \"throttled\": false, \"reason\": \"OK\"}}], \"final_stats\": {\"time_us\": 0, \"period_count\": 0, \"global_runtime_remaining_us\": 50000, \"nr_throttled\": 0, \"throttled_time_us\": 0, \"throttled_rq_cpus\": []}}"
+  },
+  {
+    "id": "TC-02",
+    "description": "Multicore Global Quota Exhaustion and Throttling",
+    "input": "{\"period_us\": 100000, \"quota_us\": 50000, \"max_burst_us\": 25000, \"slice_us\": 5000, \"num_cpus\": 2, \"commands\": [{\"op\": \"RUN\", \"cpu\": 0, \"execution_time_us\": 30000}, {\"op\": \"RUN\", \"cpu\": 1, \"execution_time_us\": 30000}, {\"op\": \"RUN\", \"cpu\": 0, \"execution_time_us\": 10000}]}",
+    "expected_output": "{\"command_results\": [{\"op\": \"RUN\", \"result\": {\"cpu_id\": 0, \"executed_us\": 30000, \"throttled\": false, \"reason\": \"OK\"}}, {\"op\": \"RUN\", \"result\": {\"cpu_id\": 1, \"executed_us\": 20000, \"throttled\": true, \"reason\": \"GLOBAL_QUOTA_EXHAUSTED\"}}, {\"op\": \"RUN\", \"result\": {\"cpu_id\": 0, \"executed_us\": 0, \"throttled\": true, \"reason\": \"GLOBAL_QUOTA_EXHAUSTED\"}}], \"final_stats\": {\"time_us\": 0, \"period_count\": 0, \"global_runtime_remaining_us\": 0, \"nr_throttled\": 2, \"throttled_time_us\": 20000, \"throttled_rq_cpus\": [0, 1]}}"
+  },
+  {
+    "id": "TC-03",
+    "description": "CFS Burst Accumulation: Unused quota in Period 1 powers burst in Period 2",
+    "input": "{\"period_us\": 100000, \"quota_us\": 100000, \"max_burst_us\": 50000, \"slice_us\": 5000, \"num_cpus\": 2, \"commands\": [{\"op\": \"RUN\", \"cpu\": 0, \"execution_time_us\": 40000}, {\"op\": \"PERIOD_TICK\"}, {\"op\": \"RUN\", \"cpu\": 0, \"execution_time_us\": 80000}, {\"op\": \"RUN\", \"cpu\": 1, \"execution_time_us\": 70000}]}",
+    "expected_output": "{\"command_results\": [{\"op\": \"RUN\", \"result\": {\"cpu_id\": 0, \"executed_us\": 40000, \"throttled\": false, \"reason\": \"OK\"}}, {\"op\": \"PERIOD_TICK\", \"result\": {\"period_count\": 1, \"replenished_runtime_us\": 150000, \"assigned_burst_us\": 50000, \"all_unthrottled\": true}}, {\"op\": \"RUN\", \"result\": {\"cpu_id\": 0, \"executed_us\": 80000, \"throttled\": false, \"reason\": \"OK\"}}, {\"op\": \"RUN\", \"result\": {\"cpu_id\": 1, \"executed_us\": 70000, \"throttled\": false, \"reason\": \"OK\"}}], \"final_stats\": {\"time_us\": 100000, \"period_count\": 1, \"global_runtime_remaining_us\": 0, \"nr_throttled\": 0, \"throttled_time_us\": 0, \"throttled_rq_cpus\": []}}"
+  },
+  {
+    "id": "TC-04",
+    "description": "Burst buffer ceiling clamp when unused quota exceeds max_burst_us",
+    "input": "{\"period_us\": 100000, \"quota_us\": 100000, \"max_burst_us\": 30000, \"slice_us\": 5000, \"num_cpus\": 2, \"commands\": [{\"op\": \"RUN\", \"cpu\": 0, \"execution_time_us\": 10000}, {\"op\": \"PERIOD_TICK\"}, {\"op\": \"RUN\", \"cpu\": 0, \"execution_time_us\": 140000}]}",
+    "expected_output": "{\"command_results\": [{\"op\": \"RUN\", \"result\": {\"cpu_id\": 0, \"executed_us\": 10000, \"throttled\": false, \"reason\": \"OK\"}}, {\"op\": \"PERIOD_TICK\", \"result\": {\"period_count\": 1, \"replenished_runtime_us\": 130000, \"assigned_burst_us\": 30000, \"all_unthrottled\": true}}, {\"op\": \"RUN\", \"result\": {\"cpu_id\": 0, \"executed_us\": 130000, \"throttled\": true, \"reason\": \"GLOBAL_QUOTA_EXHAUSTED\"}}], \"final_stats\": {\"time_us\": 100000, \"period_count\": 1, \"global_runtime_remaining_us\": 0, \"nr_throttled\": 1, \"throttled_time_us\": 10000, \"throttled_rq_cpus\": [0]}}"
+  },
+  {
+    "id": "TC-05",
+    "description": "Period Tick Unthrottling: Throttled cores restored at start of new period",
+    "input": "{\"period_us\": 100000, \"quota_us\": 40000, \"max_burst_us\": 20000, \"slice_us\": 5000, \"num_cpus\": 4, \"commands\": [{\"op\": \"RUN\", \"cpu\": 0, \"execution_time_us\": 25000}, {\"op\": \"RUN\", \"cpu\": 1, \"execution_time_us\": 25000}, {\"op\": \"PERIOD_TICK\"}, {\"op\": \"RUN\", \"cpu\": 1, \"execution_time_us\": 20000}]}",
+    "expected_output": "{\"command_results\": [{\"op\": \"RUN\", \"result\": {\"cpu_id\": 0, \"executed_us\": 25000, \"throttled\": false, \"reason\": \"OK\"}}, {\"op\": \"RUN\", \"result\": {\"cpu_id\": 1, \"executed_us\": 15000, \"throttled\": true, \"reason\": \"GLOBAL_QUOTA_EXHAUSTED\"}}, {\"op\": \"PERIOD_TICK\", \"result\": {\"period_count\": 1, \"replenished_runtime_us\": 40000, \"assigned_burst_us\": 0, \"all_unthrottled\": true}}, {\"op\": \"RUN\", \"result\": {\"cpu_id\": 1, \"executed_us\": 20000, \"throttled\": false, \"reason\": \"OK\"}}], \"final_stats\": {\"time_us\": 100000, \"period_count\": 1, \"global_runtime_remaining_us\": 20000, \"nr_throttled\": 1, \"throttled_time_us\": 10000, \"throttled_rq_cpus\": []}}"
+  },
+  {
+    "id": "TC-06",
+    "description": "High Concurrency 4-Core Slice Borrowing Contest",
+    "input": "{\"period_us\": 100000, \"quota_us\": 80000, \"max_burst_us\": 40000, \"slice_us\": 5000, \"num_cpus\": 4, \"commands\": [{\"op\": \"RUN\", \"cpu\": 0, \"execution_time_us\": 20000}, {\"op\": \"RUN\", \"cpu\": 1, \"execution_time_us\": 20000}, {\"op\": \"RUN\", \"cpu\": 2, \"execution_time_us\": 20000}, {\"op\": \"RUN\", \"cpu\": 3, \"execution_time_us\": 20000}, {\"op\": \"RUN\", \"cpu\": 0, \"execution_time_us\": 5000}, {\"op\": \"RUN\", \"cpu\": 2, \"execution_time_us\": 5000}]}",
+    "expected_output": "{\"command_results\": [{\"op\": \"RUN\", \"result\": {\"cpu_id\": 0, \"executed_us\": 20000, \"throttled\": false, \"reason\": \"OK\"}}, {\"op\": \"RUN\", \"result\": {\"cpu_id\": 1, \"executed_us\": 20000, \"throttled\": false, \"reason\": \"OK\"}}, {\"op\": \"RUN\", \"result\": {\"cpu_id\": 2, \"executed_us\": 20000, \"throttled\": false, \"reason\": \"OK\"}}, {\"op\": \"RUN\", \"result\": {\"cpu_id\": 3, \"executed_us\": 20000, \"throttled\": false, \"reason\": \"OK\"}}, {\"op\": \"RUN\", \"result\": {\"cpu_id\": 0, \"executed_us\": 0, \"throttled\": true, \"reason\": \"GLOBAL_QUOTA_EXHAUSTED\"}}, {\"op\": \"RUN\", \"result\": {\"cpu_id\": 2, \"executed_us\": 0, \"throttled\": true, \"reason\": \"GLOBAL_QUOTA_EXHAUSTED\"}}], \"final_stats\": {\"time_us\": 0, \"period_count\": 0, \"global_runtime_remaining_us\": 0, \"nr_throttled\": 2, \"throttled_time_us\": 10000, \"throttled_rq_cpus\": [0, 2]}}"
+  },
+  {
+    "id": "TC-07",
+    "description": "Multi-period Cyclical Workload (Idle -> Burst -> Exhaustion -> Replenish)",
+    "input": "{\"period_us\": 100000, \"quota_us\": 100000, \"max_burst_us\": 50000, \"slice_us\": 10000, \"num_cpus\": 2, \"commands\": [{\"op\": \"RUN\", \"cpu\": 0, \"execution_time_us\": 20000}, {\"op\": \"PERIOD_TICK\"}, {\"op\": \"RUN\", \"cpu\": 1, \"execution_time_us\": 140000}, {\"op\": \"PERIOD_TICK\"}, {\"op\": \"RUN\", \"cpu\": 0, \"execution_time_us\": 110000}]}",
+    "expected_output": "{\"command_results\": [{\"op\": \"RUN\", \"result\": {\"cpu_id\": 0, \"executed_us\": 20000, \"throttled\": false, \"reason\": \"OK\"}}, {\"op\": \"PERIOD_TICK\", \"result\": {\"period_count\": 1, \"replenished_runtime_us\": 150000, \"assigned_burst_us\": 50000, \"all_unthrottled\": true}}, {\"op\": \"RUN\", \"result\": {\"cpu_id\": 1, \"executed_us\": 140000, \"throttled\": false, \"reason\": \"OK\"}}, {\"op\": \"PERIOD_TICK\", \"result\": {\"period_count\": 2, \"replenished_runtime_us\": 110000, \"assigned_burst_us\": 10000, \"all_unthrottled\": true}}, {\"op\": \"RUN\", \"result\": {\"cpu_id\": 0, \"executed_us\": 110000, \"throttled\": false, \"reason\": \"OK\"}}], \"final_stats\": {\"time_us\": 200000, \"period_count\": 2, \"global_runtime_remaining_us\": 0, \"nr_throttled\": 0, \"throttled_time_us\": 0, \"throttled_rq_cpus\": []}}"
+  },
+  {
+    "id": "TC-08",
+    "description": "Microsecond Granularity Small Slice Borrowing (1ms slices on 2 cores)",
+    "input": "{\"period_us\": 50000, \"quota_us\": 30000, \"max_burst_us\": 15000, \"slice_us\": 1000, \"num_cpus\": 2, \"commands\": [{\"op\": \"RUN\", \"cpu\": 0, \"execution_time_us\": 15000}, {\"op\": \"RUN\", \"cpu\": 1, \"execution_time_us\": 15000}, {\"op\": \"RUN\", \"cpu\": 0, \"execution_time_us\": 2000}, {\"op\": \"PERIOD_TICK\"}, {\"op\": \"RUN\", \"cpu\": 0, \"execution_time_us\": 10000}]}",
+    "expected_output": "{\"command_results\": [{\"op\": \"RUN\", \"result\": {\"cpu_id\": 0, \"executed_us\": 15000, \"throttled\": false, \"reason\": \"OK\"}}, {\"op\": \"RUN\", \"result\": {\"cpu_id\": 1, \"executed_us\": 15000, \"throttled\": false, \"reason\": \"OK\"}}, {\"op\": \"RUN\", \"result\": {\"cpu_id\": 0, \"executed_us\": 0, \"throttled\": true, \"reason\": \"GLOBAL_QUOTA_EXHAUSTED\"}}, {\"op\": \"PERIOD_TICK\", \"result\": {\"period_count\": 1, \"replenished_runtime_us\": 30000, \"assigned_burst_us\": 0, \"all_unthrottled\": true}}, {\"op\": \"RUN\", \"result\": {\"cpu_id\": 0, \"executed_us\": 10000, \"throttled\": false, \"reason\": \"OK\"}}], \"final_stats\": {\"time_us\": 50000, \"period_count\": 1, \"global_runtime_remaining_us\": 20000, \"nr_throttled\": 1, \"throttled_time_us\": 2000, \"throttled_rq_cpus\": []}}"
+  }
+]
