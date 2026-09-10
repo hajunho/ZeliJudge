@@ -1,0 +1,1612 @@
+[
+  {
+    "name": "단일 파일 생성·데이터 추가 및 패스트 커밋 512B 섹터 정렬 검증",
+    "input": {
+      "config": {
+        "fc_journal_capacity_bytes": 65536,
+        "block_size": 4096,
+        "jbd2_full_commit_block_overhead": 4,
+        "fast_commit_sector_size": 512
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_FILE",
+          "parent_ino": 2,
+          "ino": 100,
+          "name": "app.log"
+        },
+        {
+          "time": 1,
+          "type": "APPEND_DATA",
+          "ino": 100,
+          "lblk": 0,
+          "pblk": 5000,
+          "len": 2
+        },
+        {
+          "time": 2,
+          "type": "FSYNC",
+          "ino": 100
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "fc_commit_count": 1,
+        "jbd2_full_commit_count": 0,
+        "total_journal_written_bytes": 512,
+        "fc_journal_used_bytes": 512,
+        "fc_seq": 1,
+        "current_fc_eligible": true
+      },
+      "inodes": {
+        "2": {
+          "ino": 2,
+          "parent_ino": 2,
+          "name": "/",
+          "size": 4096,
+          "extents": [],
+          "is_dir": true
+        },
+        "100": {
+          "ino": 100,
+          "parent_ino": 2,
+          "name": "app.log",
+          "size": 8192,
+          "extents": [
+            {
+              "lblk": 0,
+              "pblk": 5000,
+              "len": 2
+            }
+          ],
+          "is_dir": false
+        }
+      },
+      "commit_history": [
+        {
+          "time": 2,
+          "commit_type": "FAST_COMMIT",
+          "fc_seq": 1,
+          "written_bytes": 512,
+          "journal_used_bytes": 512,
+          "deltas_committed": 3
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_FILE",
+          "ino": 100,
+          "name": "app.log",
+          "delta_bytes": 23
+        },
+        {
+          "time": 1,
+          "event": "APPEND_DATA",
+          "ino": 100,
+          "lblk": 0,
+          "pblk": 5000,
+          "len": 2,
+          "new_size": 8192
+        },
+        {
+          "time": 2,
+          "event": "COMMIT_SUCCESS",
+          "commit_type": "FAST_COMMIT",
+          "written_bytes": 512,
+          "fc_seq": 1
+        }
+      ]
+    }
+  },
+  {
+    "name": "다중 파일 연속 추가 및 연쇄 패스트 커밋 시퀀스(fc_seq) 누적",
+    "input": {
+      "config": {
+        "fc_journal_capacity_bytes": 65536,
+        "block_size": 4096,
+        "jbd2_full_commit_block_overhead": 4,
+        "fast_commit_sector_size": 512
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_FILE",
+          "parent_ino": 2,
+          "ino": 10,
+          "name": "f1.bin"
+        },
+        {
+          "time": 1,
+          "type": "CREATE_FILE",
+          "parent_ino": 2,
+          "ino": 20,
+          "name": "f2.bin"
+        },
+        {
+          "time": 2,
+          "type": "APPEND_DATA",
+          "ino": 10,
+          "lblk": 0,
+          "pblk": 1000,
+          "len": 1
+        },
+        {
+          "time": 3,
+          "type": "FSYNC",
+          "ino": 10
+        },
+        {
+          "time": 4,
+          "type": "APPEND_DATA",
+          "ino": 20,
+          "lblk": 0,
+          "pblk": 2000,
+          "len": 4
+        },
+        {
+          "time": 5,
+          "type": "FSYNC",
+          "ino": 20
+        },
+        {
+          "time": 6,
+          "type": "APPEND_DATA",
+          "ino": 10,
+          "lblk": 1,
+          "pblk": 1001,
+          "len": 2
+        },
+        {
+          "time": 7,
+          "type": "FSYNC",
+          "ino": 10
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "fc_commit_count": 3,
+        "jbd2_full_commit_count": 0,
+        "total_journal_written_bytes": 1536,
+        "fc_journal_used_bytes": 1536,
+        "fc_seq": 3,
+        "current_fc_eligible": true
+      },
+      "inodes": {
+        "2": {
+          "ino": 2,
+          "parent_ino": 2,
+          "name": "/",
+          "size": 4096,
+          "extents": [],
+          "is_dir": true
+        },
+        "10": {
+          "ino": 10,
+          "parent_ino": 2,
+          "name": "f1.bin",
+          "size": 12288,
+          "extents": [
+            {
+              "lblk": 0,
+              "pblk": 1000,
+              "len": 1
+            },
+            {
+              "lblk": 1,
+              "pblk": 1001,
+              "len": 2
+            }
+          ],
+          "is_dir": false
+        },
+        "20": {
+          "ino": 20,
+          "parent_ino": 2,
+          "name": "f2.bin",
+          "size": 16384,
+          "extents": [
+            {
+              "lblk": 0,
+              "pblk": 2000,
+              "len": 4
+            }
+          ],
+          "is_dir": false
+        }
+      },
+      "commit_history": [
+        {
+          "time": 3,
+          "commit_type": "FAST_COMMIT",
+          "fc_seq": 1,
+          "written_bytes": 512,
+          "journal_used_bytes": 512,
+          "deltas_committed": 4
+        },
+        {
+          "time": 5,
+          "commit_type": "FAST_COMMIT",
+          "fc_seq": 2,
+          "written_bytes": 512,
+          "journal_used_bytes": 1024,
+          "deltas_committed": 2
+        },
+        {
+          "time": 7,
+          "commit_type": "FAST_COMMIT",
+          "fc_seq": 3,
+          "written_bytes": 512,
+          "journal_used_bytes": 1536,
+          "deltas_committed": 2
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_FILE",
+          "ino": 10,
+          "name": "f1.bin",
+          "delta_bytes": 22
+        },
+        {
+          "time": 1,
+          "event": "CREATE_FILE",
+          "ino": 20,
+          "name": "f2.bin",
+          "delta_bytes": 22
+        },
+        {
+          "time": 2,
+          "event": "APPEND_DATA",
+          "ino": 10,
+          "lblk": 0,
+          "pblk": 1000,
+          "len": 1,
+          "new_size": 4096
+        },
+        {
+          "time": 3,
+          "event": "COMMIT_SUCCESS",
+          "commit_type": "FAST_COMMIT",
+          "written_bytes": 512,
+          "fc_seq": 1
+        },
+        {
+          "time": 4,
+          "event": "APPEND_DATA",
+          "ino": 20,
+          "lblk": 0,
+          "pblk": 2000,
+          "len": 4,
+          "new_size": 16384
+        },
+        {
+          "time": 5,
+          "event": "COMMIT_SUCCESS",
+          "commit_type": "FAST_COMMIT",
+          "written_bytes": 512,
+          "fc_seq": 2
+        },
+        {
+          "time": 6,
+          "event": "APPEND_DATA",
+          "ino": 10,
+          "lblk": 1,
+          "pblk": 1001,
+          "len": 2,
+          "new_size": 12288
+        },
+        {
+          "time": 7,
+          "event": "COMMIT_SUCCESS",
+          "commit_type": "FAST_COMMIT",
+          "written_bytes": 512,
+          "fc_seq": 3
+        }
+      ]
+    }
+  },
+  {
+    "name": "디렉터리 간 이동(CROSS_DIR_RENAME) 감지 시 JBD2 풀 커밋 폴백",
+    "input": {
+      "config": {
+        "fc_journal_capacity_bytes": 65536,
+        "block_size": 4096,
+        "jbd2_full_commit_block_overhead": 4,
+        "fast_commit_sector_size": 512
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_FILE",
+          "parent_ino": 2,
+          "ino": 50,
+          "name": "dir_a",
+          "is_dir": true
+        },
+        {
+          "time": 1,
+          "type": "CREATE_FILE",
+          "parent_ino": 2,
+          "ino": 60,
+          "name": "dir_b",
+          "is_dir": true
+        },
+        {
+          "time": 2,
+          "type": "CREATE_FILE",
+          "parent_ino": 50,
+          "ino": 100,
+          "name": "target.txt"
+        },
+        {
+          "time": 3,
+          "type": "APPEND_DATA",
+          "ino": 100,
+          "lblk": 0,
+          "pblk": 3000,
+          "len": 1
+        },
+        {
+          "time": 4,
+          "type": "CROSS_DIR_RENAME",
+          "old_parent_ino": 50,
+          "new_parent_ino": 60,
+          "ino": 100,
+          "old_name": "target.txt",
+          "new_name": "moved.txt"
+        },
+        {
+          "time": 5,
+          "type": "FSYNC",
+          "ino": 100
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "fc_commit_count": 0,
+        "jbd2_full_commit_count": 1,
+        "total_journal_written_bytes": 16384,
+        "fc_journal_used_bytes": 0,
+        "fc_seq": 0,
+        "current_fc_eligible": true
+      },
+      "inodes": {
+        "2": {
+          "ino": 2,
+          "parent_ino": 2,
+          "name": "/",
+          "size": 4096,
+          "extents": [],
+          "is_dir": true
+        },
+        "50": {
+          "ino": 50,
+          "parent_ino": 2,
+          "name": "dir_a",
+          "size": 4096,
+          "extents": [],
+          "is_dir": true
+        },
+        "60": {
+          "ino": 60,
+          "parent_ino": 2,
+          "name": "dir_b",
+          "size": 4096,
+          "extents": [],
+          "is_dir": true
+        },
+        "100": {
+          "ino": 100,
+          "parent_ino": 60,
+          "name": "moved.txt",
+          "size": 4096,
+          "extents": [
+            {
+              "lblk": 0,
+              "pblk": 3000,
+              "len": 1
+            }
+          ],
+          "is_dir": false
+        }
+      },
+      "commit_history": [
+        {
+          "time": 5,
+          "commit_type": "JBD2_FULL_COMMIT",
+          "fallback_reason": "CROSS_DIR_RENAME",
+          "written_bytes": 16384,
+          "journal_used_bytes": 0,
+          "deltas_committed": 5
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_FILE",
+          "ino": 50,
+          "name": "dir_a",
+          "delta_bytes": 21
+        },
+        {
+          "time": 1,
+          "event": "CREATE_FILE",
+          "ino": 60,
+          "name": "dir_b",
+          "delta_bytes": 21
+        },
+        {
+          "time": 2,
+          "event": "CREATE_FILE",
+          "ino": 100,
+          "name": "target.txt",
+          "delta_bytes": 26
+        },
+        {
+          "time": 3,
+          "event": "APPEND_DATA",
+          "ino": 100,
+          "lblk": 0,
+          "pblk": 3000,
+          "len": 1,
+          "new_size": 4096
+        },
+        {
+          "time": 4,
+          "event": "FC_MARK_INELIGIBLE",
+          "reason": "CROSS_DIR_RENAME"
+        },
+        {
+          "time": 4,
+          "event": "CROSS_DIR_RENAME",
+          "old_parent": 50,
+          "new_parent": 60,
+          "ino": 100,
+          "old_name": "target.txt",
+          "new_name": "moved.txt"
+        },
+        {
+          "time": 5,
+          "event": "COMMIT_SUCCESS",
+          "commit_type": "JBD2_FULL_COMMIT",
+          "fallback_reason": "CROSS_DIR_RENAME",
+          "written_bytes": 16384
+        }
+      ]
+    }
+  },
+  {
+    "name": "확장 속성(XATTR) 변경에 따른 미지원 판정 및 풀 커밋 강제 전이",
+    "input": {
+      "config": {
+        "fc_journal_capacity_bytes": 65536,
+        "block_size": 4096,
+        "jbd2_full_commit_block_overhead": 4,
+        "fast_commit_sector_size": 512
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_FILE",
+          "parent_ino": 2,
+          "ino": 200,
+          "name": "secure.dat"
+        },
+        {
+          "time": 1,
+          "type": "APPEND_DATA",
+          "ino": 200,
+          "lblk": 0,
+          "pblk": 4000,
+          "len": 2
+        },
+        {
+          "time": 2,
+          "type": "SET_XATTR",
+          "ino": 200,
+          "name": "user.checksum",
+          "value": "sha256abc"
+        },
+        {
+          "time": 3,
+          "type": "FSYNC",
+          "ino": 200
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "fc_commit_count": 0,
+        "jbd2_full_commit_count": 1,
+        "total_journal_written_bytes": 16384,
+        "fc_journal_used_bytes": 0,
+        "fc_seq": 0,
+        "current_fc_eligible": true
+      },
+      "inodes": {
+        "2": {
+          "ino": 2,
+          "parent_ino": 2,
+          "name": "/",
+          "size": 4096,
+          "extents": [],
+          "is_dir": true
+        },
+        "200": {
+          "ino": 200,
+          "parent_ino": 2,
+          "name": "secure.dat",
+          "size": 8192,
+          "extents": [
+            {
+              "lblk": 0,
+              "pblk": 4000,
+              "len": 2
+            }
+          ],
+          "is_dir": false
+        }
+      },
+      "commit_history": [
+        {
+          "time": 3,
+          "commit_type": "JBD2_FULL_COMMIT",
+          "fallback_reason": "XATTR_MODIFIED",
+          "written_bytes": 16384,
+          "journal_used_bytes": 0,
+          "deltas_committed": 3
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_FILE",
+          "ino": 200,
+          "name": "secure.dat",
+          "delta_bytes": 26
+        },
+        {
+          "time": 1,
+          "event": "APPEND_DATA",
+          "ino": 200,
+          "lblk": 0,
+          "pblk": 4000,
+          "len": 2,
+          "new_size": 8192
+        },
+        {
+          "time": 2,
+          "event": "FC_MARK_INELIGIBLE",
+          "reason": "XATTR_MODIFIED"
+        },
+        {
+          "time": 2,
+          "event": "SET_XATTR",
+          "ino": 200,
+          "name": "user.checksum"
+        },
+        {
+          "time": 3,
+          "event": "COMMIT_SUCCESS",
+          "commit_type": "JBD2_FULL_COMMIT",
+          "fallback_reason": "XATTR_MODIFIED",
+          "written_bytes": 16384
+        }
+      ]
+    }
+  },
+  {
+    "name": "저널 링버퍼 공간 포화(FC_AREA_EXHAUSTED) 시 풀 커밋 환원 및 공간 리셋",
+    "input": {
+      "config": {
+        "fc_journal_capacity_bytes": 1024,
+        "block_size": 4096,
+        "jbd2_full_commit_block_overhead": 4,
+        "fast_commit_sector_size": 512
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_FILE",
+          "parent_ino": 2,
+          "ino": 10,
+          "name": "f1"
+        },
+        {
+          "time": 1,
+          "type": "APPEND_DATA",
+          "ino": 10,
+          "lblk": 0,
+          "pblk": 100,
+          "len": 1
+        },
+        {
+          "time": 2,
+          "type": "FSYNC",
+          "ino": 10
+        },
+        {
+          "time": 3,
+          "type": "CREATE_FILE",
+          "parent_ino": 2,
+          "ino": 20,
+          "name": "f2"
+        },
+        {
+          "time": 4,
+          "type": "APPEND_DATA",
+          "ino": 20,
+          "lblk": 0,
+          "pblk": 200,
+          "len": 1
+        },
+        {
+          "time": 5,
+          "type": "FSYNC",
+          "ino": 20
+        },
+        {
+          "time": 6,
+          "type": "CREATE_FILE",
+          "parent_ino": 2,
+          "ino": 30,
+          "name": "f3"
+        },
+        {
+          "time": 7,
+          "type": "APPEND_DATA",
+          "ino": 30,
+          "lblk": 0,
+          "pblk": 300,
+          "len": 1
+        },
+        {
+          "time": 8,
+          "type": "FSYNC",
+          "ino": 30
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "fc_commit_count": 2,
+        "jbd2_full_commit_count": 1,
+        "total_journal_written_bytes": 17408,
+        "fc_journal_used_bytes": 0,
+        "fc_seq": 2,
+        "current_fc_eligible": true
+      },
+      "inodes": {
+        "2": {
+          "ino": 2,
+          "parent_ino": 2,
+          "name": "/",
+          "size": 4096,
+          "extents": [],
+          "is_dir": true
+        },
+        "10": {
+          "ino": 10,
+          "parent_ino": 2,
+          "name": "f1",
+          "size": 4096,
+          "extents": [
+            {
+              "lblk": 0,
+              "pblk": 100,
+              "len": 1
+            }
+          ],
+          "is_dir": false
+        },
+        "20": {
+          "ino": 20,
+          "parent_ino": 2,
+          "name": "f2",
+          "size": 4096,
+          "extents": [
+            {
+              "lblk": 0,
+              "pblk": 200,
+              "len": 1
+            }
+          ],
+          "is_dir": false
+        },
+        "30": {
+          "ino": 30,
+          "parent_ino": 2,
+          "name": "f3",
+          "size": 4096,
+          "extents": [
+            {
+              "lblk": 0,
+              "pblk": 300,
+              "len": 1
+            }
+          ],
+          "is_dir": false
+        }
+      },
+      "commit_history": [
+        {
+          "time": 2,
+          "commit_type": "FAST_COMMIT",
+          "fc_seq": 1,
+          "written_bytes": 512,
+          "journal_used_bytes": 512,
+          "deltas_committed": 3
+        },
+        {
+          "time": 5,
+          "commit_type": "FAST_COMMIT",
+          "fc_seq": 2,
+          "written_bytes": 512,
+          "journal_used_bytes": 1024,
+          "deltas_committed": 3
+        },
+        {
+          "time": 8,
+          "commit_type": "JBD2_FULL_COMMIT",
+          "fallback_reason": "FC_AREA_EXHAUSTED",
+          "written_bytes": 16384,
+          "journal_used_bytes": 0,
+          "deltas_committed": 3
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_FILE",
+          "ino": 10,
+          "name": "f1",
+          "delta_bytes": 18
+        },
+        {
+          "time": 1,
+          "event": "APPEND_DATA",
+          "ino": 10,
+          "lblk": 0,
+          "pblk": 100,
+          "len": 1,
+          "new_size": 4096
+        },
+        {
+          "time": 2,
+          "event": "COMMIT_SUCCESS",
+          "commit_type": "FAST_COMMIT",
+          "written_bytes": 512,
+          "fc_seq": 1
+        },
+        {
+          "time": 3,
+          "event": "CREATE_FILE",
+          "ino": 20,
+          "name": "f2",
+          "delta_bytes": 18
+        },
+        {
+          "time": 4,
+          "event": "APPEND_DATA",
+          "ino": 20,
+          "lblk": 0,
+          "pblk": 200,
+          "len": 1,
+          "new_size": 4096
+        },
+        {
+          "time": 5,
+          "event": "COMMIT_SUCCESS",
+          "commit_type": "FAST_COMMIT",
+          "written_bytes": 512,
+          "fc_seq": 2
+        },
+        {
+          "time": 6,
+          "event": "CREATE_FILE",
+          "ino": 30,
+          "name": "f3",
+          "delta_bytes": 18
+        },
+        {
+          "time": 7,
+          "event": "APPEND_DATA",
+          "ino": 30,
+          "lblk": 0,
+          "pblk": 300,
+          "len": 1,
+          "new_size": 4096
+        },
+        {
+          "time": 8,
+          "event": "COMMIT_SUCCESS",
+          "commit_type": "JBD2_FULL_COMMIT",
+          "fallback_reason": "FC_AREA_EXHAUSTED",
+          "written_bytes": 16384
+        }
+      ]
+    }
+  },
+  {
+    "name": "익스텐트 절단(DEL_RANGE) 및 파일 삭제(UNLINK) 델타의 패스트 커밋 처리",
+    "input": {
+      "config": {
+        "fc_journal_capacity_bytes": 65536,
+        "block_size": 4096,
+        "jbd2_full_commit_block_overhead": 4,
+        "fast_commit_sector_size": 512
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_FILE",
+          "parent_ino": 2,
+          "ino": 10,
+          "name": "data.dat"
+        },
+        {
+          "time": 1,
+          "type": "APPEND_DATA",
+          "ino": 10,
+          "lblk": 0,
+          "pblk": 1000,
+          "len": 10
+        },
+        {
+          "time": 2,
+          "type": "FSYNC",
+          "ino": 10
+        },
+        {
+          "time": 3,
+          "type": "TRUNCATE_DATA",
+          "ino": 10,
+          "lblk": 4,
+          "len": 6
+        },
+        {
+          "time": 4,
+          "type": "FSYNC",
+          "ino": 10
+        },
+        {
+          "time": 5,
+          "type": "UNLINK_FILE",
+          "parent_ino": 2,
+          "ino": 10,
+          "name": "data.dat"
+        },
+        {
+          "time": 6,
+          "type": "FSYNC",
+          "ino": 2
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "fc_commit_count": 3,
+        "jbd2_full_commit_count": 0,
+        "total_journal_written_bytes": 1536,
+        "fc_journal_used_bytes": 1536,
+        "fc_seq": 3,
+        "current_fc_eligible": true
+      },
+      "inodes": {
+        "2": {
+          "ino": 2,
+          "parent_ino": 2,
+          "name": "/",
+          "size": 4096,
+          "extents": [],
+          "is_dir": true
+        }
+      },
+      "commit_history": [
+        {
+          "time": 2,
+          "commit_type": "FAST_COMMIT",
+          "fc_seq": 1,
+          "written_bytes": 512,
+          "journal_used_bytes": 512,
+          "deltas_committed": 3
+        },
+        {
+          "time": 4,
+          "commit_type": "FAST_COMMIT",
+          "fc_seq": 2,
+          "written_bytes": 512,
+          "journal_used_bytes": 1024,
+          "deltas_committed": 2
+        },
+        {
+          "time": 6,
+          "commit_type": "FAST_COMMIT",
+          "fc_seq": 3,
+          "written_bytes": 512,
+          "journal_used_bytes": 1536,
+          "deltas_committed": 1
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_FILE",
+          "ino": 10,
+          "name": "data.dat",
+          "delta_bytes": 24
+        },
+        {
+          "time": 1,
+          "event": "APPEND_DATA",
+          "ino": 10,
+          "lblk": 0,
+          "pblk": 1000,
+          "len": 10,
+          "new_size": 40960
+        },
+        {
+          "time": 2,
+          "event": "COMMIT_SUCCESS",
+          "commit_type": "FAST_COMMIT",
+          "written_bytes": 512,
+          "fc_seq": 1
+        },
+        {
+          "time": 3,
+          "event": "TRUNCATE_DATA",
+          "ino": 10,
+          "lblk": 4,
+          "len": 6,
+          "new_size": 16384
+        },
+        {
+          "time": 4,
+          "event": "COMMIT_SUCCESS",
+          "commit_type": "FAST_COMMIT",
+          "written_bytes": 512,
+          "fc_seq": 2
+        },
+        {
+          "time": 5,
+          "event": "UNLINK_FILE",
+          "parent_ino": 2,
+          "ino": 10,
+          "name": "data.dat"
+        },
+        {
+          "time": 6,
+          "event": "COMMIT_SUCCESS",
+          "commit_type": "FAST_COMMIT",
+          "written_bytes": 512,
+          "fc_seq": 3
+        }
+      ]
+    }
+  },
+  {
+    "name": "트랜잭션 간 독립성 검증: 패스트 커밋 -> 풀 커밋 회복 -> 정상 패스트 커밋 복귀",
+    "input": {
+      "config": {
+        "fc_journal_capacity_bytes": 65536,
+        "block_size": 4096,
+        "jbd2_full_commit_block_overhead": 4,
+        "fast_commit_sector_size": 512
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_FILE",
+          "parent_ino": 2,
+          "ino": 10,
+          "name": "file1"
+        },
+        {
+          "time": 1,
+          "type": "APPEND_DATA",
+          "ino": 10,
+          "lblk": 0,
+          "pblk": 100,
+          "len": 1
+        },
+        {
+          "time": 2,
+          "type": "FSYNC",
+          "ino": 10
+        },
+        {
+          "time": 3,
+          "type": "CREATE_FILE",
+          "parent_ino": 2,
+          "ino": 20,
+          "name": "file2"
+        },
+        {
+          "time": 4,
+          "type": "SET_XATTR",
+          "ino": 20,
+          "name": "user.tag",
+          "value": "val"
+        },
+        {
+          "time": 5,
+          "type": "FSYNC",
+          "ino": 20
+        },
+        {
+          "time": 6,
+          "type": "CREATE_FILE",
+          "parent_ino": 2,
+          "ino": 30,
+          "name": "file3"
+        },
+        {
+          "time": 7,
+          "type": "APPEND_DATA",
+          "ino": 30,
+          "lblk": 0,
+          "pblk": 300,
+          "len": 2
+        },
+        {
+          "time": 8,
+          "type": "FSYNC",
+          "ino": 30
+        },
+        {
+          "time": 9,
+          "type": "APPEND_DATA",
+          "ino": 30,
+          "lblk": 2,
+          "pblk": 302,
+          "len": 1
+        },
+        {
+          "time": 10,
+          "type": "FSYNC",
+          "ino": 30
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "fc_commit_count": 3,
+        "jbd2_full_commit_count": 1,
+        "total_journal_written_bytes": 17920,
+        "fc_journal_used_bytes": 1024,
+        "fc_seq": 3,
+        "current_fc_eligible": true
+      },
+      "inodes": {
+        "2": {
+          "ino": 2,
+          "parent_ino": 2,
+          "name": "/",
+          "size": 4096,
+          "extents": [],
+          "is_dir": true
+        },
+        "10": {
+          "ino": 10,
+          "parent_ino": 2,
+          "name": "file1",
+          "size": 4096,
+          "extents": [
+            {
+              "lblk": 0,
+              "pblk": 100,
+              "len": 1
+            }
+          ],
+          "is_dir": false
+        },
+        "20": {
+          "ino": 20,
+          "parent_ino": 2,
+          "name": "file2",
+          "size": 0,
+          "extents": [],
+          "is_dir": false
+        },
+        "30": {
+          "ino": 30,
+          "parent_ino": 2,
+          "name": "file3",
+          "size": 12288,
+          "extents": [
+            {
+              "lblk": 0,
+              "pblk": 300,
+              "len": 2
+            },
+            {
+              "lblk": 2,
+              "pblk": 302,
+              "len": 1
+            }
+          ],
+          "is_dir": false
+        }
+      },
+      "commit_history": [
+        {
+          "time": 2,
+          "commit_type": "FAST_COMMIT",
+          "fc_seq": 1,
+          "written_bytes": 512,
+          "journal_used_bytes": 512,
+          "deltas_committed": 3
+        },
+        {
+          "time": 5,
+          "commit_type": "JBD2_FULL_COMMIT",
+          "fallback_reason": "XATTR_MODIFIED",
+          "written_bytes": 16384,
+          "journal_used_bytes": 0,
+          "deltas_committed": 1
+        },
+        {
+          "time": 8,
+          "commit_type": "FAST_COMMIT",
+          "fc_seq": 2,
+          "written_bytes": 512,
+          "journal_used_bytes": 512,
+          "deltas_committed": 3
+        },
+        {
+          "time": 10,
+          "commit_type": "FAST_COMMIT",
+          "fc_seq": 3,
+          "written_bytes": 512,
+          "journal_used_bytes": 1024,
+          "deltas_committed": 2
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_FILE",
+          "ino": 10,
+          "name": "file1",
+          "delta_bytes": 21
+        },
+        {
+          "time": 1,
+          "event": "APPEND_DATA",
+          "ino": 10,
+          "lblk": 0,
+          "pblk": 100,
+          "len": 1,
+          "new_size": 4096
+        },
+        {
+          "time": 2,
+          "event": "COMMIT_SUCCESS",
+          "commit_type": "FAST_COMMIT",
+          "written_bytes": 512,
+          "fc_seq": 1
+        },
+        {
+          "time": 3,
+          "event": "CREATE_FILE",
+          "ino": 20,
+          "name": "file2",
+          "delta_bytes": 21
+        },
+        {
+          "time": 4,
+          "event": "FC_MARK_INELIGIBLE",
+          "reason": "XATTR_MODIFIED"
+        },
+        {
+          "time": 4,
+          "event": "SET_XATTR",
+          "ino": 20,
+          "name": "user.tag"
+        },
+        {
+          "time": 5,
+          "event": "COMMIT_SUCCESS",
+          "commit_type": "JBD2_FULL_COMMIT",
+          "fallback_reason": "XATTR_MODIFIED",
+          "written_bytes": 16384
+        },
+        {
+          "time": 6,
+          "event": "CREATE_FILE",
+          "ino": 30,
+          "name": "file3",
+          "delta_bytes": 21
+        },
+        {
+          "time": 7,
+          "event": "APPEND_DATA",
+          "ino": 30,
+          "lblk": 0,
+          "pblk": 300,
+          "len": 2,
+          "new_size": 8192
+        },
+        {
+          "time": 8,
+          "event": "COMMIT_SUCCESS",
+          "commit_type": "FAST_COMMIT",
+          "written_bytes": 512,
+          "fc_seq": 2
+        },
+        {
+          "time": 9,
+          "event": "APPEND_DATA",
+          "ino": 30,
+          "lblk": 2,
+          "pblk": 302,
+          "len": 1,
+          "new_size": 12288
+        },
+        {
+          "time": 10,
+          "event": "COMMIT_SUCCESS",
+          "commit_type": "FAST_COMMIT",
+          "written_bytes": 512,
+          "fc_seq": 3
+        }
+      ]
+    }
+  },
+  {
+    "name": "엔터프라이즈 데이터베이스 WAL 쓰기 및 주기적 체크포인트 혼합 워크로드 종합 검증",
+    "input": {
+      "config": {
+        "fc_journal_capacity_bytes": 2048,
+        "block_size": 4096,
+        "jbd2_full_commit_block_overhead": 8,
+        "fast_commit_sector_size": 512
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_FILE",
+          "parent_ino": 2,
+          "ino": 100,
+          "name": "wal.log"
+        },
+        {
+          "time": 1,
+          "type": "APPEND_DATA",
+          "ino": 100,
+          "lblk": 0,
+          "pblk": 10000,
+          "len": 1
+        },
+        {
+          "time": 2,
+          "type": "FSYNC",
+          "ino": 100
+        },
+        {
+          "time": 3,
+          "type": "APPEND_DATA",
+          "ino": 100,
+          "lblk": 1,
+          "pblk": 10001,
+          "len": 1
+        },
+        {
+          "time": 4,
+          "type": "FSYNC",
+          "ino": 100
+        },
+        {
+          "time": 5,
+          "type": "APPEND_DATA",
+          "ino": 100,
+          "lblk": 2,
+          "pblk": 10002,
+          "len": 1
+        },
+        {
+          "time": 6,
+          "type": "FSYNC",
+          "ino": 100
+        },
+        {
+          "time": 7,
+          "type": "CREATE_FILE",
+          "parent_ino": 2,
+          "ino": 101,
+          "name": "conf.json"
+        },
+        {
+          "time": 8,
+          "type": "SET_XATTR",
+          "ino": 101,
+          "name": "user.version",
+          "value": "1.0"
+        },
+        {
+          "time": 9,
+          "type": "FSYNC",
+          "ino": 101
+        },
+        {
+          "time": 10,
+          "type": "APPEND_DATA",
+          "ino": 100,
+          "lblk": 3,
+          "pblk": 10003,
+          "len": 2
+        },
+        {
+          "time": 11,
+          "type": "FSYNC",
+          "ino": 100
+        },
+        {
+          "time": 12,
+          "type": "APPEND_DATA",
+          "ino": 100,
+          "lblk": 5,
+          "pblk": 10005,
+          "len": 2
+        },
+        {
+          "time": 13,
+          "type": "FSYNC",
+          "ino": 100
+        },
+        {
+          "time": 14,
+          "type": "TRUNCATE_DATA",
+          "ino": 100,
+          "lblk": 0,
+          "len": 3
+        },
+        {
+          "time": 15,
+          "type": "FSYNC",
+          "ino": 100
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "fc_commit_count": 6,
+        "jbd2_full_commit_count": 1,
+        "total_journal_written_bytes": 35840,
+        "fc_journal_used_bytes": 1536,
+        "fc_seq": 6,
+        "current_fc_eligible": true
+      },
+      "inodes": {
+        "2": {
+          "ino": 2,
+          "parent_ino": 2,
+          "name": "/",
+          "size": 4096,
+          "extents": [],
+          "is_dir": true
+        },
+        "100": {
+          "ino": 100,
+          "parent_ino": 2,
+          "name": "wal.log",
+          "size": 0,
+          "extents": [
+            {
+              "lblk": 3,
+              "pblk": 10003,
+              "len": 2
+            },
+            {
+              "lblk": 5,
+              "pblk": 10005,
+              "len": 2
+            }
+          ],
+          "is_dir": false
+        },
+        "101": {
+          "ino": 101,
+          "parent_ino": 2,
+          "name": "conf.json",
+          "size": 0,
+          "extents": [],
+          "is_dir": false
+        }
+      },
+      "commit_history": [
+        {
+          "time": 2,
+          "commit_type": "FAST_COMMIT",
+          "fc_seq": 1,
+          "written_bytes": 512,
+          "journal_used_bytes": 512,
+          "deltas_committed": 3
+        },
+        {
+          "time": 4,
+          "commit_type": "FAST_COMMIT",
+          "fc_seq": 2,
+          "written_bytes": 512,
+          "journal_used_bytes": 1024,
+          "deltas_committed": 2
+        },
+        {
+          "time": 6,
+          "commit_type": "FAST_COMMIT",
+          "fc_seq": 3,
+          "written_bytes": 512,
+          "journal_used_bytes": 1536,
+          "deltas_committed": 2
+        },
+        {
+          "time": 9,
+          "commit_type": "JBD2_FULL_COMMIT",
+          "fallback_reason": "XATTR_MODIFIED",
+          "written_bytes": 32768,
+          "journal_used_bytes": 0,
+          "deltas_committed": 1
+        },
+        {
+          "time": 11,
+          "commit_type": "FAST_COMMIT",
+          "fc_seq": 4,
+          "written_bytes": 512,
+          "journal_used_bytes": 512,
+          "deltas_committed": 2
+        },
+        {
+          "time": 13,
+          "commit_type": "FAST_COMMIT",
+          "fc_seq": 5,
+          "written_bytes": 512,
+          "journal_used_bytes": 1024,
+          "deltas_committed": 2
+        },
+        {
+          "time": 15,
+          "commit_type": "FAST_COMMIT",
+          "fc_seq": 6,
+          "written_bytes": 512,
+          "journal_used_bytes": 1536,
+          "deltas_committed": 2
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_FILE",
+          "ino": 100,
+          "name": "wal.log",
+          "delta_bytes": 23
+        },
+        {
+          "time": 1,
+          "event": "APPEND_DATA",
+          "ino": 100,
+          "lblk": 0,
+          "pblk": 10000,
+          "len": 1,
+          "new_size": 4096
+        },
+        {
+          "time": 2,
+          "event": "COMMIT_SUCCESS",
+          "commit_type": "FAST_COMMIT",
+          "written_bytes": 512,
+          "fc_seq": 1
+        },
+        {
+          "time": 3,
+          "event": "APPEND_DATA",
+          "ino": 100,
+          "lblk": 1,
+          "pblk": 10001,
+          "len": 1,
+          "new_size": 8192
+        },
+        {
+          "time": 4,
+          "event": "COMMIT_SUCCESS",
+          "commit_type": "FAST_COMMIT",
+          "written_bytes": 512,
+          "fc_seq": 2
+        },
+        {
+          "time": 5,
+          "event": "APPEND_DATA",
+          "ino": 100,
+          "lblk": 2,
+          "pblk": 10002,
+          "len": 1,
+          "new_size": 12288
+        },
+        {
+          "time": 6,
+          "event": "COMMIT_SUCCESS",
+          "commit_type": "FAST_COMMIT",
+          "written_bytes": 512,
+          "fc_seq": 3
+        },
+        {
+          "time": 7,
+          "event": "CREATE_FILE",
+          "ino": 101,
+          "name": "conf.json",
+          "delta_bytes": 25
+        },
+        {
+          "time": 8,
+          "event": "FC_MARK_INELIGIBLE",
+          "reason": "XATTR_MODIFIED"
+        },
+        {
+          "time": 8,
+          "event": "SET_XATTR",
+          "ino": 101,
+          "name": "user.version"
+        },
+        {
+          "time": 9,
+          "event": "COMMIT_SUCCESS",
+          "commit_type": "JBD2_FULL_COMMIT",
+          "fallback_reason": "XATTR_MODIFIED",
+          "written_bytes": 32768
+        },
+        {
+          "time": 10,
+          "event": "APPEND_DATA",
+          "ino": 100,
+          "lblk": 3,
+          "pblk": 10003,
+          "len": 2,
+          "new_size": 20480
+        },
+        {
+          "time": 11,
+          "event": "COMMIT_SUCCESS",
+          "commit_type": "FAST_COMMIT",
+          "written_bytes": 512,
+          "fc_seq": 4
+        },
+        {
+          "time": 12,
+          "event": "APPEND_DATA",
+          "ino": 100,
+          "lblk": 5,
+          "pblk": 10005,
+          "len": 2,
+          "new_size": 28672
+        },
+        {
+          "time": 13,
+          "event": "COMMIT_SUCCESS",
+          "commit_type": "FAST_COMMIT",
+          "written_bytes": 512,
+          "fc_seq": 5
+        },
+        {
+          "time": 14,
+          "event": "TRUNCATE_DATA",
+          "ino": 100,
+          "lblk": 0,
+          "len": 3,
+          "new_size": 0
+        },
+        {
+          "time": 15,
+          "event": "COMMIT_SUCCESS",
+          "commit_type": "FAST_COMMIT",
+          "written_bytes": 512,
+          "fc_seq": 6
+        }
+      ]
+    }
+  }
+]
