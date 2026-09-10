@@ -1,0 +1,854 @@
+[
+  {
+    "input": {
+      "config": {
+        "sndbuf_limit": 65536,
+        "default_notsent_lowat": 16384,
+        "mss": 1460,
+        "initial_cwnd": 10
+      },
+      "operations": [
+        {
+          "op": "APP_WRITE",
+          "stream_id": 1,
+          "prio": 1,
+          "data_len": 10240
+        },
+        {
+          "op": "APP_WRITE",
+          "stream_id": 1,
+          "prio": 1,
+          "data_len": 10240
+        },
+        {
+          "op": "TCP_PACE_TRANSMIT"
+        },
+        {
+          "op": "TCP_RECEIVE_ACK",
+          "ack_bytes": 10240
+        },
+        {
+          "op": "QUERY_SOCKET_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "WRITE_QUEUED",
+          "stream_id": 1,
+          "data_len": 10240,
+          "unsent_bytes": 10240,
+          "total_queued": 10240,
+          "pollout_ready": true
+        },
+        {
+          "status": "WRITE_QUEUED",
+          "stream_id": 1,
+          "data_len": 10240,
+          "unsent_bytes": 20480,
+          "total_queued": 20480,
+          "pollout_ready": false
+        },
+        {
+          "status": "TRANSMITTED",
+          "bytes_sent": 14600,
+          "packets_sent": 11,
+          "unsent_bytes": 5880,
+          "in_flight_bytes": 14600,
+          "pollout_ready": true,
+          "woken": true
+        },
+        {
+          "status": "ACK_PROCESSED",
+          "bytes_acked": 10240,
+          "in_flight_bytes": 4360,
+          "total_queued": 10240,
+          "pollout_ready": true,
+          "woken": false
+        },
+        {
+          "total_queued_bytes": 10240,
+          "unsent_bytes": 5880,
+          "in_flight_bytes": 4360,
+          "pollout_ready": true,
+          "queue_chunks_count": 2,
+          "tcp_notsent_lowat": 16384,
+          "stats": {
+            "app_writes": 2,
+            "packets_transmitted": 11,
+            "bytes_transmitted": 14600,
+            "bytes_acked": 10240,
+            "epollout_wakeups": 1,
+            "write_blocks": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "sndbuf_limit": 20480,
+        "default_notsent_lowat": 16384,
+        "mss": 1460,
+        "initial_cwnd": 10
+      },
+      "operations": [
+        {
+          "op": "APP_WRITE",
+          "stream_id": 1,
+          "prio": 0,
+          "data_len": 15000
+        },
+        {
+          "op": "APP_WRITE",
+          "stream_id": 2,
+          "prio": 0,
+          "data_len": 10000
+        },
+        {
+          "op": "TCP_PACE_TRANSMIT"
+        },
+        {
+          "op": "TCP_RECEIVE_ACK",
+          "ack_bytes": 14600
+        },
+        {
+          "op": "APP_WRITE",
+          "stream_id": 2,
+          "prio": 0,
+          "data_len": 10000
+        },
+        {
+          "op": "QUERY_SOCKET_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "WRITE_QUEUED",
+          "stream_id": 1,
+          "data_len": 15000,
+          "unsent_bytes": 15000,
+          "total_queued": 15000,
+          "pollout_ready": true
+        },
+        {
+          "status": "EAGAIN_SNDBUF_EXCEEDED",
+          "stream_id": 2,
+          "data_len": 10000,
+          "current_queued": 15000,
+          "limit": 20480
+        },
+        {
+          "status": "TRANSMITTED",
+          "bytes_sent": 14600,
+          "packets_sent": 10,
+          "unsent_bytes": 400,
+          "in_flight_bytes": 14600,
+          "pollout_ready": true,
+          "woken": false
+        },
+        {
+          "status": "ACK_PROCESSED",
+          "bytes_acked": 14600,
+          "in_flight_bytes": 0,
+          "total_queued": 400,
+          "pollout_ready": true,
+          "woken": false
+        },
+        {
+          "status": "WRITE_QUEUED",
+          "stream_id": 2,
+          "data_len": 10000,
+          "unsent_bytes": 10400,
+          "total_queued": 10400,
+          "pollout_ready": true
+        },
+        {
+          "total_queued_bytes": 10400,
+          "unsent_bytes": 10400,
+          "in_flight_bytes": 0,
+          "pollout_ready": true,
+          "queue_chunks_count": 2,
+          "tcp_notsent_lowat": 16384,
+          "stats": {
+            "app_writes": 2,
+            "packets_transmitted": 10,
+            "bytes_transmitted": 14600,
+            "bytes_acked": 14600,
+            "epollout_wakeups": 0,
+            "write_blocks": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "sndbuf_limit": 65536,
+        "default_notsent_lowat": 16384,
+        "mss": 1460,
+        "initial_cwnd": 10
+      },
+      "operations": [
+        {
+          "op": "APP_WRITE",
+          "stream_id": 1,
+          "prio": 1,
+          "data_len": 10000
+        },
+        {
+          "op": "SETSOCKOPT_NOTSENT_LOWAT",
+          "val": 8000
+        },
+        {
+          "op": "SETSOCKOPT_NOTSENT_LOWAT",
+          "val": 32768
+        },
+        {
+          "op": "QUERY_SOCKET_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "WRITE_QUEUED",
+          "stream_id": 1,
+          "data_len": 10000,
+          "unsent_bytes": 10000,
+          "total_queued": 10000,
+          "pollout_ready": true
+        },
+        {
+          "status": "OPT_UPDATED",
+          "tcp_notsent_lowat": 8000,
+          "pollout_ready": false,
+          "woken": false
+        },
+        {
+          "status": "OPT_UPDATED",
+          "tcp_notsent_lowat": 32768,
+          "pollout_ready": true,
+          "woken": true
+        },
+        {
+          "total_queued_bytes": 10000,
+          "unsent_bytes": 10000,
+          "in_flight_bytes": 0,
+          "pollout_ready": true,
+          "queue_chunks_count": 1,
+          "tcp_notsent_lowat": 32768,
+          "stats": {
+            "app_writes": 1,
+            "packets_transmitted": 0,
+            "bytes_transmitted": 0,
+            "bytes_acked": 0,
+            "epollout_wakeups": 1,
+            "write_blocks": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "sndbuf_limit": 131072,
+        "default_notsent_lowat": 16384,
+        "mss": 1460,
+        "initial_cwnd": 20
+      },
+      "operations": [
+        {
+          "op": "APP_WRITE",
+          "stream_id": 100,
+          "prio": 10,
+          "data_len": 16384
+        },
+        {
+          "op": "TCP_PACE_TRANSMIT"
+        },
+        {
+          "op": "APP_WRITE",
+          "stream_id": 200,
+          "prio": 1,
+          "data_len": 2048
+        },
+        {
+          "op": "TCP_PACE_TRANSMIT"
+        },
+        {
+          "op": "TCP_RECEIVE_ACK",
+          "ack_bytes": 18432
+        },
+        {
+          "op": "QUERY_SOCKET_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "WRITE_QUEUED",
+          "stream_id": 100,
+          "data_len": 16384,
+          "unsent_bytes": 16384,
+          "total_queued": 16384,
+          "pollout_ready": false
+        },
+        {
+          "status": "TRANSMITTED",
+          "bytes_sent": 16384,
+          "packets_sent": 12,
+          "unsent_bytes": 0,
+          "in_flight_bytes": 16384,
+          "pollout_ready": true,
+          "woken": true
+        },
+        {
+          "status": "WRITE_QUEUED",
+          "stream_id": 200,
+          "data_len": 2048,
+          "unsent_bytes": 2048,
+          "total_queued": 18432,
+          "pollout_ready": true
+        },
+        {
+          "status": "TRANSMITTED",
+          "bytes_sent": 2048,
+          "packets_sent": 2,
+          "unsent_bytes": 0,
+          "in_flight_bytes": 18432,
+          "pollout_ready": true,
+          "woken": false
+        },
+        {
+          "status": "ACK_PROCESSED",
+          "bytes_acked": 18432,
+          "in_flight_bytes": 0,
+          "total_queued": 0,
+          "pollout_ready": true,
+          "woken": false
+        },
+        {
+          "total_queued_bytes": 0,
+          "unsent_bytes": 0,
+          "in_flight_bytes": 0,
+          "pollout_ready": true,
+          "queue_chunks_count": 0,
+          "tcp_notsent_lowat": 16384,
+          "stats": {
+            "app_writes": 2,
+            "packets_transmitted": 14,
+            "bytes_transmitted": 18432,
+            "bytes_acked": 18432,
+            "epollout_wakeups": 1,
+            "write_blocks": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "sndbuf_limit": 65536,
+        "default_notsent_lowat": 32768,
+        "mss": 1460,
+        "initial_cwnd": 5
+      },
+      "operations": [
+        {
+          "op": "APP_WRITE",
+          "stream_id": 1,
+          "prio": 1,
+          "data_len": 10000
+        },
+        {
+          "op": "TCP_PACE_TRANSMIT"
+        },
+        {
+          "op": "QUERY_SOCKET_STATE"
+        },
+        {
+          "op": "TCP_RECEIVE_ACK",
+          "ack_bytes": 7300
+        },
+        {
+          "op": "TCP_PACE_TRANSMIT"
+        },
+        {
+          "op": "QUERY_SOCKET_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "WRITE_QUEUED",
+          "stream_id": 1,
+          "data_len": 10000,
+          "unsent_bytes": 10000,
+          "total_queued": 10000,
+          "pollout_ready": true
+        },
+        {
+          "status": "TRANSMITTED",
+          "bytes_sent": 7300,
+          "packets_sent": 5,
+          "unsent_bytes": 2700,
+          "in_flight_bytes": 7300,
+          "pollout_ready": true,
+          "woken": false
+        },
+        {
+          "total_queued_bytes": 10000,
+          "unsent_bytes": 2700,
+          "in_flight_bytes": 7300,
+          "pollout_ready": true,
+          "queue_chunks_count": 2,
+          "tcp_notsent_lowat": 32768,
+          "stats": {
+            "app_writes": 1,
+            "packets_transmitted": 7,
+            "bytes_transmitted": 10000,
+            "bytes_acked": 7300,
+            "epollout_wakeups": 0,
+            "write_blocks": 0
+          }
+        },
+        {
+          "status": "ACK_PROCESSED",
+          "bytes_acked": 7300,
+          "in_flight_bytes": 0,
+          "total_queued": 2700,
+          "pollout_ready": true,
+          "woken": false
+        },
+        {
+          "status": "TRANSMITTED",
+          "bytes_sent": 2700,
+          "packets_sent": 2,
+          "unsent_bytes": 0,
+          "in_flight_bytes": 2700,
+          "pollout_ready": true,
+          "woken": false
+        },
+        {
+          "total_queued_bytes": 2700,
+          "unsent_bytes": 0,
+          "in_flight_bytes": 2700,
+          "pollout_ready": true,
+          "queue_chunks_count": 1,
+          "tcp_notsent_lowat": 32768,
+          "stats": {
+            "app_writes": 1,
+            "packets_transmitted": 7,
+            "bytes_transmitted": 10000,
+            "bytes_acked": 7300,
+            "epollout_wakeups": 0,
+            "write_blocks": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "sndbuf_limit": 65536,
+        "default_notsent_lowat": 32768,
+        "mss": 1460,
+        "initial_cwnd": 10
+      },
+      "operations": [
+        {
+          "op": "APP_WRITE",
+          "stream_id": 1,
+          "prio": 0,
+          "data_len": 1000
+        },
+        {
+          "op": "APP_WRITE",
+          "stream_id": 2,
+          "prio": 0,
+          "data_len": 2000
+        },
+        {
+          "op": "APP_WRITE",
+          "stream_id": 3,
+          "prio": 0,
+          "data_len": 3000
+        },
+        {
+          "op": "TCP_PACE_TRANSMIT"
+        },
+        {
+          "op": "TCP_RECEIVE_ACK",
+          "ack_bytes": 4500
+        },
+        {
+          "op": "QUERY_SOCKET_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "WRITE_QUEUED",
+          "stream_id": 1,
+          "data_len": 1000,
+          "unsent_bytes": 1000,
+          "total_queued": 1000,
+          "pollout_ready": true
+        },
+        {
+          "status": "WRITE_QUEUED",
+          "stream_id": 2,
+          "data_len": 2000,
+          "unsent_bytes": 3000,
+          "total_queued": 3000,
+          "pollout_ready": true
+        },
+        {
+          "status": "WRITE_QUEUED",
+          "stream_id": 3,
+          "data_len": 3000,
+          "unsent_bytes": 6000,
+          "total_queued": 6000,
+          "pollout_ready": true
+        },
+        {
+          "status": "TRANSMITTED",
+          "bytes_sent": 6000,
+          "packets_sent": 6,
+          "unsent_bytes": 0,
+          "in_flight_bytes": 6000,
+          "pollout_ready": true,
+          "woken": false
+        },
+        {
+          "status": "ACK_PROCESSED",
+          "bytes_acked": 4500,
+          "in_flight_bytes": 1500,
+          "total_queued": 1500,
+          "pollout_ready": true,
+          "woken": false
+        },
+        {
+          "total_queued_bytes": 1500,
+          "unsent_bytes": 0,
+          "in_flight_bytes": 1500,
+          "pollout_ready": true,
+          "queue_chunks_count": 1,
+          "tcp_notsent_lowat": 32768,
+          "stats": {
+            "app_writes": 3,
+            "packets_transmitted": 6,
+            "bytes_transmitted": 6000,
+            "bytes_acked": 4500,
+            "epollout_wakeups": 0,
+            "write_blocks": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "sndbuf_limit": 65536,
+        "default_notsent_lowat": 16384,
+        "mss": 1000,
+        "initial_cwnd": 2
+      },
+      "operations": [
+        {
+          "op": "APP_WRITE",
+          "stream_id": 1,
+          "prio": 0,
+          "data_len": 5000
+        },
+        {
+          "op": "TCP_PACE_TRANSMIT"
+        },
+        {
+          "op": "TCP_PACE_TRANSMIT"
+        },
+        {
+          "op": "SET_CWND",
+          "cwnd": 5
+        },
+        {
+          "op": "TCP_PACE_TRANSMIT"
+        },
+        {
+          "op": "TCP_RECEIVE_ACK",
+          "ack_bytes": 5000
+        },
+        {
+          "op": "QUERY_SOCKET_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "WRITE_QUEUED",
+          "stream_id": 1,
+          "data_len": 5000,
+          "unsent_bytes": 5000,
+          "total_queued": 5000,
+          "pollout_ready": true
+        },
+        {
+          "status": "TRANSMITTED",
+          "bytes_sent": 2000,
+          "packets_sent": 2,
+          "unsent_bytes": 3000,
+          "in_flight_bytes": 2000,
+          "pollout_ready": true,
+          "woken": false
+        },
+        {
+          "status": "NOTHING_TO_SEND",
+          "reason": "CWND_LIMITED",
+          "in_flight": 2000,
+          "unsent": 3000
+        },
+        {
+          "status": "CWND_UPDATED",
+          "cwnd": 5
+        },
+        {
+          "status": "TRANSMITTED",
+          "bytes_sent": 3000,
+          "packets_sent": 3,
+          "unsent_bytes": 0,
+          "in_flight_bytes": 5000,
+          "pollout_ready": true,
+          "woken": false
+        },
+        {
+          "status": "ACK_PROCESSED",
+          "bytes_acked": 5000,
+          "in_flight_bytes": 0,
+          "total_queued": 0,
+          "pollout_ready": true,
+          "woken": false
+        },
+        {
+          "total_queued_bytes": 0,
+          "unsent_bytes": 0,
+          "in_flight_bytes": 0,
+          "pollout_ready": true,
+          "queue_chunks_count": 0,
+          "tcp_notsent_lowat": 16384,
+          "stats": {
+            "app_writes": 1,
+            "packets_transmitted": 5,
+            "bytes_transmitted": 5000,
+            "bytes_acked": 5000,
+            "epollout_wakeups": 0,
+            "write_blocks": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "sndbuf_limit": 100000,
+        "default_notsent_lowat": 10000,
+        "mss": 1000,
+        "initial_cwnd": 10
+      },
+      "operations": [
+        {
+          "op": "APP_WRITE",
+          "stream_id": 1,
+          "prio": 1,
+          "data_len": 8000
+        },
+        {
+          "op": "APP_WRITE",
+          "stream_id": 2,
+          "prio": 2,
+          "data_len": 8000
+        },
+        {
+          "op": "TCP_PACE_TRANSMIT"
+        },
+        {
+          "op": "APP_WRITE",
+          "stream_id": 3,
+          "prio": 3,
+          "data_len": 12000
+        },
+        {
+          "op": "SETSOCKOPT_NOTSENT_LOWAT",
+          "val": 5000
+        },
+        {
+          "op": "TCP_PACE_TRANSMIT"
+        },
+        {
+          "op": "TCP_RECEIVE_ACK",
+          "ack_bytes": 10000
+        },
+        {
+          "op": "TCP_PACE_TRANSMIT"
+        },
+        {
+          "op": "APP_WRITE",
+          "stream_id": 4,
+          "prio": 1,
+          "data_len": 50000
+        },
+        {
+          "op": "APP_WRITE",
+          "stream_id": 5,
+          "prio": 1,
+          "data_len": 50000
+        },
+        {
+          "op": "SETSOCKOPT_NOTSENT_LOWAT",
+          "val": 20000
+        },
+        {
+          "op": "TCP_PACE_TRANSMIT"
+        },
+        {
+          "op": "TCP_RECEIVE_ACK",
+          "ack_bytes": 20000
+        },
+        {
+          "op": "QUERY_SOCKET_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "WRITE_QUEUED",
+          "stream_id": 1,
+          "data_len": 8000,
+          "unsent_bytes": 8000,
+          "total_queued": 8000,
+          "pollout_ready": true
+        },
+        {
+          "status": "WRITE_QUEUED",
+          "stream_id": 2,
+          "data_len": 8000,
+          "unsent_bytes": 16000,
+          "total_queued": 16000,
+          "pollout_ready": false
+        },
+        {
+          "status": "TRANSMITTED",
+          "bytes_sent": 10000,
+          "packets_sent": 10,
+          "unsent_bytes": 6000,
+          "in_flight_bytes": 10000,
+          "pollout_ready": true,
+          "woken": true
+        },
+        {
+          "status": "WRITE_QUEUED",
+          "stream_id": 3,
+          "data_len": 12000,
+          "unsent_bytes": 18000,
+          "total_queued": 28000,
+          "pollout_ready": false
+        },
+        {
+          "status": "OPT_UPDATED",
+          "tcp_notsent_lowat": 5000,
+          "pollout_ready": false,
+          "woken": false
+        },
+        {
+          "status": "NOTHING_TO_SEND",
+          "reason": "CWND_LIMITED",
+          "in_flight": 10000,
+          "unsent": 18000
+        },
+        {
+          "status": "ACK_PROCESSED",
+          "bytes_acked": 10000,
+          "in_flight_bytes": 0,
+          "total_queued": 18000,
+          "pollout_ready": false,
+          "woken": false
+        },
+        {
+          "status": "TRANSMITTED",
+          "bytes_sent": 10000,
+          "packets_sent": 10,
+          "unsent_bytes": 8000,
+          "in_flight_bytes": 10000,
+          "pollout_ready": false,
+          "woken": false
+        },
+        {
+          "status": "WRITE_QUEUED",
+          "stream_id": 4,
+          "data_len": 50000,
+          "unsent_bytes": 58000,
+          "total_queued": 68000,
+          "pollout_ready": false
+        },
+        {
+          "status": "EAGAIN_SNDBUF_EXCEEDED",
+          "stream_id": 5,
+          "data_len": 50000,
+          "current_queued": 68000,
+          "limit": 100000
+        },
+        {
+          "status": "OPT_UPDATED",
+          "tcp_notsent_lowat": 20000,
+          "pollout_ready": false,
+          "woken": false
+        },
+        {
+          "status": "NOTHING_TO_SEND",
+          "reason": "CWND_LIMITED",
+          "in_flight": 10000,
+          "unsent": 58000
+        },
+        {
+          "status": "ACK_PROCESSED",
+          "bytes_acked": 10000,
+          "in_flight_bytes": 0,
+          "total_queued": 58000,
+          "pollout_ready": false,
+          "woken": false
+        },
+        {
+          "total_queued_bytes": 58000,
+          "unsent_bytes": 58000,
+          "in_flight_bytes": 0,
+          "pollout_ready": false,
+          "queue_chunks_count": 2,
+          "tcp_notsent_lowat": 20000,
+          "stats": {
+            "app_writes": 4,
+            "packets_transmitted": 20,
+            "bytes_transmitted": 20000,
+            "bytes_acked": 20000,
+            "epollout_wakeups": 1,
+            "write_blocks": 1
+          }
+        }
+      ]
+    }
+  }
+]
