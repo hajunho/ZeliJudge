@@ -1,0 +1,42 @@
+[
+  {
+    "name": "고대 귀족 도덕(Herrenmoral): 건강한 신체, 고귀함, 자기 긍정에 기초한 '좋음과 나쁨'의 가치 창조",
+    "input": "{\"nobles\":{\"vital_potency\":0.95,\"self_affirmation\":0.9,\"action_primacy\":0.95},\"slaves\":{\"powerlessness\":0.2,\"suffering\":0.15,\"reactive_hostility\":0.15,\"action_primacy\":0.1},\"guilt_mechanics\":{\"contractual_debt\":0.15,\"internalized_cruelty\":0.1,\"ascetic_priest_influence\":0.05}}",
+    "output": "{\"ressentiment_metrics\":{\"ressentiment_score\":0.029,\"slave_revolt_triggered\":false,\"reactive_hostility\":0.15,\"powerlessness\":0.2},\"valuation_systems\":{\"master_morality\":{\"mode\":\"GOOD_VS_BAD\",\"primary_good_affirmation\":0.855,\"derivative_bad\":0.025},\"slave_morality\":{\"mode\":\"EVIL_VS_GOOD\",\"primary_evil_imputation\":0.0276,\"derivative_good_sanctification\":0.185}},\"guilt_and_conscience\":{\"contractual_debt\":0.15,\"bad_conscience_index\":0.0158,\"ascetic_priest_influence\":0.05},\"genealogical_regime\":\"MASTER_NOBLE_AFFIRMATION\"}"
+  },
+  {
+    "name": "도덕에서의 노예 반란(Sklavenmoral): 르상티망의 폭발과 강자를 '악'으로 낙인찍는 반동적 가치 전도",
+    "input": "{\"nobles\":{\"vital_potency\":0.85,\"self_affirmation\":0.8,\"action_primacy\":0.85},\"slaves\":{\"powerlessness\":0.95,\"suffering\":0.9,\"reactive_hostility\":0.95,\"action_primacy\":0.05},\"guilt_mechanics\":{\"contractual_debt\":0.85,\"internalized_cruelty\":0.8,\"ascetic_priest_influence\":0.9}}",
+    "output": "{\"ressentiment_metrics\":{\"ressentiment_score\":1.0,\"slave_revolt_triggered\":true,\"reactive_hostility\":0.95,\"powerlessness\":0.95},\"valuation_systems\":{\"master_morality\":{\"mode\":\"GOOD_VS_BAD\",\"primary_good_affirmation\":0.68,\"derivative_bad\":0.075},\"slave_morality\":{\"mode\":\"EVIL_VS_GOOD\",\"primary_evil_imputation\":0.85,\"derivative_good_sanctification\":0.4987}},\"guilt_and_conscience\":{\"contractual_debt\":0.85,\"bad_conscience_index\":1.0,\"ascetic_priest_influence\":0.9},\"genealogical_regime\":\"SLAVE_MORALITY_TRIUMPH\"}"
+  },
+  {
+    "name": "부채(Schulden)에서 죄(Schuld)로의 기원: 계약 관계와 채권자-채무자 사이의 물질적 등가성",
+    "input": "{\"nobles\":{\"vital_potency\":0.7,\"self_affirmation\":0.65,\"action_primacy\":0.7},\"slaves\":{\"powerlessness\":0.5,\"suffering\":0.4,\"reactive_hostility\":0.3,\"action_primacy\":0.2},\"guilt_mechanics\":{\"contractual_debt\":0.9,\"internalized_cruelty\":0.35,\"ascetic_priest_influence\":0.2}}",
+    "output": "{\"ressentiment_metrics\":{\"ressentiment_score\":0.144,\"slave_revolt_triggered\":false,\"reactive_hostility\":0.3,\"powerlessness\":0.5},\"valuation_systems\":{\"master_morality\":{\"mode\":\"GOOD_VS_BAD\",\"primary_good_affirmation\":0.455,\"derivative_bad\":0.15},\"slave_morality\":{\"mode\":\"EVIL_VS_GOOD\",\"primary_evil_imputation\":0.1008,\"derivative_good_sanctification\":0.425}},\"guilt_and_conscience\":{\"contractual_debt\":0.9,\"bad_conscience_index\":0.378,\"ascetic_priest_influence\":0.2},\"genealogical_regime\":\"MASTER_NOBLE_AFFIRMATION\"}"
+  },
+  {
+    "name": "내면화된 잔혹성과 양심의 가책(Schlechtes Gewissen): 국가 성립과 본능 억압에 의한 자기 처벌",
+    "input": "{\"nobles\":{\"vital_potency\":0.6,\"self_affirmation\":0.55,\"action_primacy\":0.6},\"slaves\":{\"powerlessness\":0.65,\"suffering\":0.6,\"reactive_hostility\":0.5,\"action_primacy\":0.15},\"guilt_mechanics\":{\"contractual_debt\":0.8,\"internalized_cruelty\":0.85,\"ascetic_priest_influence\":0.3}}",
+    "output": "{\"ressentiment_metrics\":{\"ressentiment_score\":0.3591,\"slave_revolt_triggered\":false,\"reactive_hostility\":0.5,\"powerlessness\":0.65},\"valuation_systems\":{\"master_morality\":{\"mode\":\"GOOD_VS_BAD\",\"primary_good_affirmation\":0.33,\"derivative_bad\":0.2},\"slave_morality\":{\"mode\":\"EVIL_VS_GOOD\",\"primary_evil_imputation\":0.2155,\"derivative_good_sanctification\":0.4875}},\"guilt_and_conscience\":{\"contractual_debt\":0.8,\"bad_conscience_index\":0.884,\"ascetic_priest_influence\":0.3},\"genealogical_regime\":\"NIHILISTIC_TRANSITION\"}"
+  },
+  {
+    "name": "금욕주의적 사제(The Ascetic Priest): 원한의 방향을 자기 내면으로 돌려 죄의식을 조직하는 사제적 통치",
+    "input": "{\"nobles\":{\"vital_potency\":0.8,\"self_affirmation\":0.75,\"action_primacy\":0.8},\"slaves\":{\"powerlessness\":0.9,\"suffering\":0.85,\"reactive_hostility\":0.9,\"action_primacy\":0.05},\"guilt_mechanics\":{\"contractual_debt\":0.75,\"internalized_cruelty\":0.7,\"ascetic_priest_influence\":0.95}}",
+    "output": "{\"ressentiment_metrics\":{\"ressentiment_score\":1.0,\"slave_revolt_triggered\":true,\"reactive_hostility\":0.9,\"powerlessness\":0.9},\"valuation_systems\":{\"master_morality\":{\"mode\":\"GOOD_VS_BAD\",\"primary_good_affirmation\":0.6,\"derivative_bad\":0.1},\"slave_morality\":{\"mode\":\"EVIL_VS_GOOD\",\"primary_evil_imputation\":0.8,\"derivative_good_sanctification\":0.495}},\"guilt_and_conscience\":{\"contractual_debt\":0.75,\"bad_conscience_index\":1.0,\"ascetic_priest_influence\":0.95},\"genealogical_regime\":\"SLAVE_MORALITY_TRIUMPH\"}"
+  },
+  {
+    "name": "르상티망의 잠복과 발효(Ressentiment Fermentation): 행동 불능 상태에서 독버섯처럼 자라나는 무력한 자들의 원한",
+    "input": "{\"nobles\":{\"vital_potency\":0.75,\"self_affirmation\":0.65,\"action_primacy\":0.7},\"slaves\":{\"powerlessness\":0.85,\"suffering\":0.7,\"reactive_hostility\":0.9,\"action_primacy\":0.08},\"guilt_mechanics\":{\"contractual_debt\":0.3,\"internalized_cruelty\":0.25,\"ascetic_priest_influence\":0.15}}",
+    "output": "{\"ressentiment_metrics\":{\"ressentiment_score\":0.9501,\"slave_revolt_triggered\":true,\"reactive_hostility\":0.9,\"powerlessness\":0.85},\"valuation_systems\":{\"master_morality\":{\"mode\":\"GOOD_VS_BAD\",\"primary_good_affirmation\":0.4875,\"derivative_bad\":0.125},\"slave_morality\":{\"mode\":\"EVIL_VS_GOOD\",\"primary_evil_imputation\":0.7126,\"derivative_good_sanctification\":0.4675}},\"guilt_and_conscience\":{\"contractual_debt\":0.3,\"bad_conscience_index\":0.0862,\"ascetic_priest_influence\":0.15},\"genealogical_regime\":\"RESSENTIMENT_FERMENTATION\"}"
+  },
+  {
+    "name": "허무주의적 과도기(Nihilistic Transition): 신의 죽음 이후 구속력을 상실한 도덕적 혼란과 방향 상실",
+    "input": "{\"nobles\":{\"vital_potency\":0.4,\"self_affirmation\":0.4,\"action_primacy\":0.4},\"slaves\":{\"powerlessness\":0.5,\"suffering\":0.5,\"reactive_hostility\":0.4,\"action_primacy\":0.3},\"guilt_mechanics\":{\"contractual_debt\":0.35,\"internalized_cruelty\":0.3,\"ascetic_priest_influence\":0.2}}",
+    "output": "{\"ressentiment_metrics\":{\"ressentiment_score\":0.175,\"slave_revolt_triggered\":false,\"reactive_hostility\":0.4,\"powerlessness\":0.5},\"valuation_systems\":{\"master_morality\":{\"mode\":\"GOOD_VS_BAD\",\"primary_good_affirmation\":0.16,\"derivative_bad\":0.3},\"slave_morality\":{\"mode\":\"EVIL_VS_GOOD\",\"primary_evil_imputation\":0.07,\"derivative_good_sanctification\":0.4}},\"guilt_and_conscience\":{\"contractual_debt\":0.35,\"bad_conscience_index\":0.126,\"ascetic_priest_influence\":0.2},\"genealogical_regime\":\"NIHILISTIC_TRANSITION\"}"
+  },
+  {
+    "name": "극단적 계급 적대와 최대 사제적 죄의식이 결합된 복합 도덕 계통학 스트레스 검증",
+    "input": "{\"nobles\":{\"vital_potency\":0.9,\"self_affirmation\":0.85,\"action_primacy\":0.9},\"slaves\":{\"powerlessness\":0.92,\"suffering\":0.95,\"reactive_hostility\":0.98,\"action_primacy\":0.02},\"guilt_mechanics\":{\"contractual_debt\":0.85,\"internalized_cruelty\":0.88,\"ascetic_priest_influence\":0.85}}",
+    "output": "{\"ressentiment_metrics\":{\"ressentiment_score\":1.0,\"slave_revolt_triggered\":true,\"reactive_hostility\":0.98,\"powerlessness\":0.92},\"valuation_systems\":{\"master_morality\":{\"mode\":\"GOOD_VS_BAD\",\"primary_good_affirmation\":0.765,\"derivative_bad\":0.05},\"slave_morality\":{\"mode\":\"EVIL_VS_GOOD\",\"primary_evil_imputation\":0.9,\"derivative_good_sanctification\":0.4692}},\"guilt_and_conscience\":{\"contractual_debt\":0.85,\"bad_conscience_index\":1.0,\"ascetic_priest_influence\":0.85},\"genealogical_regime\":\"SLAVE_MORALITY_TRIUMPH\"}"
+  }
+]
