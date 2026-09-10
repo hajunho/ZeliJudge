@@ -1,0 +1,623 @@
+[
+  {
+    "input": {
+      "config": {
+        "page_size": 4096,
+        "struct_page_size": 64,
+        "hvo_enabled": true,
+        "buddy_free_pages": 100
+      },
+      "operations": [
+        {
+          "op": "ALLOC_HUGEPAGE",
+          "hugepage_id": "hp1",
+          "page_type": "2MB"
+        },
+        {
+          "op": "ACCESS_STRUCT_PAGE",
+          "hugepage_id": "hp1",
+          "subpage_index": 0,
+          "access_type": "WRITE"
+        },
+        {
+          "op": "ACCESS_STRUCT_PAGE",
+          "hugepage_id": "hp1",
+          "subpage_index": 64,
+          "access_type": "READ"
+        },
+        {
+          "op": "ACCESS_STRUCT_PAGE",
+          "hugepage_id": "hp1",
+          "subpage_index": 64,
+          "access_type": "WRITE"
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ALLOCATED",
+          "hugepage_id": "hp1",
+          "page_type": "2MB",
+          "hvo_applied": true,
+          "freed_vmemmap_pages": 7,
+          "net_saved_bytes": 28672
+        },
+        {
+          "status": "ACCESS_SUCCESS",
+          "hugepage_id": "hp1",
+          "is_head_page": true,
+          "access_type": "WRITE"
+        },
+        {
+          "status": "READ_SUCCESS",
+          "hugepage_id": "hp1",
+          "is_shared_tail": true,
+          "vmemmap_page_idx": 1
+        },
+        {
+          "status": "PAGE_FAULT_RO",
+          "hugepage_id": "hp1",
+          "vmemmap_page_idx": 1,
+          "subpage_index": 64
+        },
+        {
+          "total_hugepages": 1,
+          "total_saved_vmemmap_pages": 7,
+          "total_saved_bytes": 28672,
+          "buddy_free_pages": 107,
+          "dissolve_failures": 0
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "page_size": 4096,
+        "struct_page_size": 64,
+        "hvo_enabled": true,
+        "buddy_free_pages": 500
+      },
+      "operations": [
+        {
+          "op": "ALLOC_HUGEPAGE",
+          "hugepage_id": "hp_1g",
+          "page_type": "1GB"
+        },
+        {
+          "op": "ACCESS_STRUCT_PAGE",
+          "hugepage_id": "hp_1g",
+          "subpage_index": 0,
+          "access_type": "READ"
+        },
+        {
+          "op": "ACCESS_STRUCT_PAGE",
+          "hugepage_id": "hp_1g",
+          "subpage_index": 1000,
+          "access_type": "READ"
+        },
+        {
+          "op": "ACCESS_STRUCT_PAGE",
+          "hugepage_id": "hp_1g",
+          "subpage_index": 1000,
+          "access_type": "WRITE"
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ALLOCATED",
+          "hugepage_id": "hp_1g",
+          "page_type": "1GB",
+          "hvo_applied": true,
+          "freed_vmemmap_pages": 4095,
+          "net_saved_bytes": 16773120
+        },
+        {
+          "status": "ACCESS_SUCCESS",
+          "hugepage_id": "hp_1g",
+          "is_head_page": true,
+          "access_type": "READ"
+        },
+        {
+          "status": "READ_SUCCESS",
+          "hugepage_id": "hp_1g",
+          "is_shared_tail": true,
+          "vmemmap_page_idx": 15
+        },
+        {
+          "status": "PAGE_FAULT_RO",
+          "hugepage_id": "hp_1g",
+          "vmemmap_page_idx": 15,
+          "subpage_index": 1000
+        },
+        {
+          "total_hugepages": 1,
+          "total_saved_vmemmap_pages": 4095,
+          "total_saved_bytes": 16773120,
+          "buddy_free_pages": 4595,
+          "dissolve_failures": 0
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "page_size": 4096,
+        "struct_page_size": 64,
+        "hvo_enabled": true,
+        "buddy_free_pages": 50
+      },
+      "operations": [
+        {
+          "op": "ALLOC_HUGEPAGE",
+          "hugepage_id": "hp_dis",
+          "page_type": "2MB"
+        },
+        {
+          "op": "DISSOLVE_HUGEPAGE",
+          "hugepage_id": "hp_dis"
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ALLOCATED",
+          "hugepage_id": "hp_dis",
+          "page_type": "2MB",
+          "hvo_applied": true,
+          "freed_vmemmap_pages": 7,
+          "net_saved_bytes": 28672
+        },
+        {
+          "status": "DISSOLVED",
+          "hugepage_id": "hp_dis",
+          "restored_vmemmap_pages": 7
+        },
+        {
+          "total_hugepages": 0,
+          "total_saved_vmemmap_pages": 0,
+          "total_saved_bytes": 0,
+          "buddy_free_pages": 50,
+          "dissolve_failures": 0
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "page_size": 4096,
+        "struct_page_size": 64,
+        "hvo_enabled": true,
+        "buddy_free_pages": 0
+      },
+      "operations": [
+        {
+          "op": "ALLOC_HUGEPAGE",
+          "hugepage_id": "hp_starve",
+          "page_type": "2MB"
+        },
+        {
+          "op": "ALLOC_HUGEPAGE",
+          "hugepage_id": "hp_big",
+          "page_type": "1GB"
+        },
+        {
+          "op": "DISSOLVE_HUGEPAGE",
+          "hugepage_id": "hp_big"
+        },
+        {
+          "op": "DISSOLVE_HUGEPAGE",
+          "hugepage_id": "hp_starve"
+        },
+        {
+          "op": "ALLOC_HUGEPAGE",
+          "hugepage_id": "hp_huge2",
+          "page_type": "1GB"
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ALLOCATED",
+          "hugepage_id": "hp_starve",
+          "page_type": "2MB",
+          "hvo_applied": true,
+          "freed_vmemmap_pages": 7,
+          "net_saved_bytes": 28672
+        },
+        {
+          "status": "ALLOCATED",
+          "hugepage_id": "hp_big",
+          "page_type": "1GB",
+          "hvo_applied": true,
+          "freed_vmemmap_pages": 4095,
+          "net_saved_bytes": 16773120
+        },
+        {
+          "status": "DISSOLVED",
+          "hugepage_id": "hp_big",
+          "restored_vmemmap_pages": 4095
+        },
+        {
+          "status": "DISSOLVED",
+          "hugepage_id": "hp_starve",
+          "restored_vmemmap_pages": 7
+        },
+        {
+          "status": "ALLOCATED",
+          "hugepage_id": "hp_huge2",
+          "page_type": "1GB",
+          "hvo_applied": true,
+          "freed_vmemmap_pages": 4095,
+          "net_saved_bytes": 16773120
+        },
+        {
+          "total_hugepages": 1,
+          "total_saved_vmemmap_pages": 4095,
+          "total_saved_bytes": 16773120,
+          "buddy_free_pages": 4095,
+          "dissolve_failures": 0
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "page_size": 4096,
+        "struct_page_size": 64,
+        "hvo_enabled": false,
+        "buddy_free_pages": 1000
+      },
+      "operations": [
+        {
+          "op": "ALLOC_HUGEPAGE",
+          "hugepage_id": "hp_legacy",
+          "page_type": "2MB"
+        },
+        {
+          "op": "ACCESS_STRUCT_PAGE",
+          "hugepage_id": "hp_legacy",
+          "subpage_index": 0,
+          "access_type": "WRITE"
+        },
+        {
+          "op": "ACCESS_STRUCT_PAGE",
+          "hugepage_id": "hp_legacy",
+          "subpage_index": 100,
+          "access_type": "WRITE"
+        },
+        {
+          "op": "DISSOLVE_HUGEPAGE",
+          "hugepage_id": "hp_legacy"
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ALLOCATED",
+          "hugepage_id": "hp_legacy",
+          "page_type": "2MB",
+          "hvo_applied": false,
+          "freed_vmemmap_pages": 0,
+          "net_saved_bytes": 0
+        },
+        {
+          "status": "ACCESS_SUCCESS",
+          "hugepage_id": "hp_legacy",
+          "is_head_page": true,
+          "access_type": "WRITE"
+        },
+        {
+          "status": "ACCESS_SUCCESS",
+          "hugepage_id": "hp_legacy",
+          "is_head_page": false,
+          "access_type": "WRITE"
+        },
+        {
+          "status": "DISSOLVED",
+          "hugepage_id": "hp_legacy",
+          "restored_vmemmap_pages": 0
+        },
+        {
+          "total_hugepages": 0,
+          "total_saved_vmemmap_pages": 0,
+          "total_saved_bytes": 0,
+          "buddy_free_pages": 1000,
+          "dissolve_failures": 0
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "page_size": 4096,
+        "struct_page_size": 64,
+        "hvo_enabled": true,
+        "buddy_free_pages": 100
+      },
+      "operations": [
+        {
+          "op": "ALLOC_HUGEPAGE",
+          "hugepage_id": "hp_dup",
+          "page_type": "2MB"
+        },
+        {
+          "op": "ALLOC_HUGEPAGE",
+          "hugepage_id": "hp_dup",
+          "page_type": "2MB"
+        },
+        {
+          "op": "ACCESS_STRUCT_PAGE",
+          "hugepage_id": "hp_dup",
+          "subpage_index": 512,
+          "access_type": "READ"
+        },
+        {
+          "op": "ACCESS_STRUCT_PAGE",
+          "hugepage_id": "hp_nonexist",
+          "subpage_index": 0,
+          "access_type": "READ"
+        },
+        {
+          "op": "DISSOLVE_HUGEPAGE",
+          "hugepage_id": "hp_nonexist"
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ALLOCATED",
+          "hugepage_id": "hp_dup",
+          "page_type": "2MB",
+          "hvo_applied": true,
+          "freed_vmemmap_pages": 7,
+          "net_saved_bytes": 28672
+        },
+        {
+          "status": "ERROR_ALREADY_EXISTS",
+          "hugepage_id": "hp_dup"
+        },
+        {
+          "status": "ERROR_INDEX_OUT_OF_BOUNDS",
+          "subpage_index": 512
+        },
+        {
+          "status": "ERROR_NOT_FOUND",
+          "hugepage_id": "hp_nonexist"
+        },
+        {
+          "status": "ERROR_NOT_FOUND",
+          "hugepage_id": "hp_nonexist"
+        },
+        {
+          "total_hugepages": 1,
+          "total_saved_vmemmap_pages": 7,
+          "total_saved_bytes": 28672,
+          "buddy_free_pages": 107,
+          "dissolve_failures": 0
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "page_size": 4096,
+        "struct_page_size": 64,
+        "hvo_enabled": true,
+        "buddy_free_pages": 10000
+      },
+      "operations": [
+        {
+          "op": "ALLOC_HUGEPAGE",
+          "hugepage_id": "hp2m_1",
+          "page_type": "2MB"
+        },
+        {
+          "op": "ALLOC_HUGEPAGE",
+          "hugepage_id": "hp2m_2",
+          "page_type": "2MB"
+        },
+        {
+          "op": "ALLOC_HUGEPAGE",
+          "hugepage_id": "hp2m_3",
+          "page_type": "2MB"
+        },
+        {
+          "op": "ALLOC_HUGEPAGE",
+          "hugepage_id": "hp1g_1",
+          "page_type": "1GB"
+        },
+        {
+          "op": "DISSOLVE_HUGEPAGE",
+          "hugepage_id": "hp2m_2"
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ALLOCATED",
+          "hugepage_id": "hp2m_1",
+          "page_type": "2MB",
+          "hvo_applied": true,
+          "freed_vmemmap_pages": 7,
+          "net_saved_bytes": 28672
+        },
+        {
+          "status": "ALLOCATED",
+          "hugepage_id": "hp2m_2",
+          "page_type": "2MB",
+          "hvo_applied": true,
+          "freed_vmemmap_pages": 7,
+          "net_saved_bytes": 28672
+        },
+        {
+          "status": "ALLOCATED",
+          "hugepage_id": "hp2m_3",
+          "page_type": "2MB",
+          "hvo_applied": true,
+          "freed_vmemmap_pages": 7,
+          "net_saved_bytes": 28672
+        },
+        {
+          "status": "ALLOCATED",
+          "hugepage_id": "hp1g_1",
+          "page_type": "1GB",
+          "hvo_applied": true,
+          "freed_vmemmap_pages": 4095,
+          "net_saved_bytes": 16773120
+        },
+        {
+          "status": "DISSOLVED",
+          "hugepage_id": "hp2m_2",
+          "restored_vmemmap_pages": 7
+        },
+        {
+          "total_hugepages": 3,
+          "total_saved_vmemmap_pages": 4109,
+          "total_saved_bytes": 16830464,
+          "buddy_free_pages": 14109,
+          "dissolve_failures": 0
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "page_size": 4096,
+        "struct_page_size": 64,
+        "hvo_enabled": true,
+        "buddy_free_pages": 0
+      },
+      "operations": [
+        {
+          "op": "ALLOC_HUGEPAGE",
+          "hugepage_id": "hp_dc_2m",
+          "page_type": "2MB"
+        },
+        {
+          "op": "ALLOC_HUGEPAGE",
+          "hugepage_id": "hp_dc_1g",
+          "page_type": "1GB"
+        },
+        {
+          "op": "DISSOLVE_HUGEPAGE",
+          "hugepage_id": "hp_dc_1g"
+        },
+        {
+          "op": "ALLOC_HUGEPAGE",
+          "hugepage_id": "hp_dc_1g_2",
+          "page_type": "1GB"
+        },
+        {
+          "op": "DISSOLVE_HUGEPAGE",
+          "hugepage_id": "hp_dc_2m"
+        },
+        {
+          "op": "DISSOLVE_HUGEPAGE",
+          "hugepage_id": "hp_dc_1g_2"
+        },
+        {
+          "op": "ALLOC_HUGEPAGE",
+          "hugepage_id": "hp_final_1g",
+          "page_type": "1GB"
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ALLOCATED",
+          "hugepage_id": "hp_dc_2m",
+          "page_type": "2MB",
+          "hvo_applied": true,
+          "freed_vmemmap_pages": 7,
+          "net_saved_bytes": 28672
+        },
+        {
+          "status": "ALLOCATED",
+          "hugepage_id": "hp_dc_1g",
+          "page_type": "1GB",
+          "hvo_applied": true,
+          "freed_vmemmap_pages": 4095,
+          "net_saved_bytes": 16773120
+        },
+        {
+          "status": "DISSOLVED",
+          "hugepage_id": "hp_dc_1g",
+          "restored_vmemmap_pages": 4095
+        },
+        {
+          "status": "ALLOCATED",
+          "hugepage_id": "hp_dc_1g_2",
+          "page_type": "1GB",
+          "hvo_applied": true,
+          "freed_vmemmap_pages": 4095,
+          "net_saved_bytes": 16773120
+        },
+        {
+          "status": "DISSOLVED",
+          "hugepage_id": "hp_dc_2m",
+          "restored_vmemmap_pages": 7
+        },
+        {
+          "status": "DISSOLVED",
+          "hugepage_id": "hp_dc_1g_2",
+          "restored_vmemmap_pages": 4095
+        },
+        {
+          "status": "ALLOCATED",
+          "hugepage_id": "hp_final_1g",
+          "page_type": "1GB",
+          "hvo_applied": true,
+          "freed_vmemmap_pages": 4095,
+          "net_saved_bytes": 16773120
+        },
+        {
+          "total_hugepages": 1,
+          "total_saved_vmemmap_pages": 4095,
+          "total_saved_bytes": 16773120,
+          "buddy_free_pages": 4095,
+          "dissolve_failures": 0
+        }
+      ]
+    }
+  }
+]
