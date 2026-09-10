@@ -1,0 +1,1775 @@
+[
+  {
+    "name": "기본 키 할당 및 pkey_mprotect 쓰기 보호(PKEY_DISABLE_WRITE) 검증",
+    "input": {
+      "config": {
+        "num_cpus": 4,
+        "page_size": 4096
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_THREAD",
+          "thread_id": 1,
+          "cpu_id": 0
+        },
+        {
+          "time": 1,
+          "type": "MMAP",
+          "start": 268435456,
+          "size": 8192,
+          "prot": "rw",
+          "pkey": 0
+        },
+        {
+          "time": 2,
+          "type": "PKEY_ALLOC",
+          "thread_id": 1,
+          "init_val": 0
+        },
+        {
+          "time": 3,
+          "type": "PKEY_MPROTECT",
+          "thread_id": 1,
+          "addr": 268435456,
+          "size": 8192,
+          "prot": "rw",
+          "pkey": 1
+        },
+        {
+          "time": 4,
+          "type": "MEM_ACCESS",
+          "thread_id": 1,
+          "addr": 268435456,
+          "access_type": "READ"
+        },
+        {
+          "time": 5,
+          "type": "MEM_ACCESS",
+          "thread_id": 1,
+          "addr": 268435456,
+          "access_type": "WRITE"
+        },
+        {
+          "time": 6,
+          "type": "SET_RIGHTS",
+          "thread_id": 1,
+          "pkey": 1,
+          "disable_access": false,
+          "disable_write": true
+        },
+        {
+          "time": 7,
+          "type": "MEM_ACCESS",
+          "thread_id": 1,
+          "addr": 268435456,
+          "access_type": "READ"
+        },
+        {
+          "time": 8,
+          "type": "MEM_ACCESS",
+          "thread_id": 1,
+          "addr": 268435456,
+          "access_type": "WRITE"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_accesses": 4,
+        "successful_accesses": 3,
+        "pkru_violations": 1,
+        "vma_permission_faults": 0,
+        "wrpkru_count": 1,
+        "tlb_shootdowns_avoided": 1,
+        "pkeys_allocated_count": 1
+      },
+      "allocated_pkeys": [
+        0,
+        1
+      ],
+      "thread_states": {
+        "1": {
+          "thread_id": 1,
+          "cpu_id": 0,
+          "pkru": "0x00000008"
+        }
+      },
+      "access_logs": [
+        {
+          "time": 4,
+          "thread_id": 1,
+          "addr": 268435456,
+          "access_type": "READ",
+          "status": "SUCCESS",
+          "fault_reason": null,
+          "pkey": 1
+        },
+        {
+          "time": 5,
+          "thread_id": 1,
+          "addr": 268435456,
+          "access_type": "WRITE",
+          "status": "SUCCESS",
+          "fault_reason": null,
+          "pkey": 1
+        },
+        {
+          "time": 7,
+          "thread_id": 1,
+          "addr": 268435456,
+          "access_type": "READ",
+          "status": "SUCCESS",
+          "fault_reason": null,
+          "pkey": 1
+        },
+        {
+          "time": 8,
+          "thread_id": 1,
+          "addr": 268435456,
+          "access_type": "WRITE",
+          "status": "SEGV_PKUERR",
+          "fault_reason": "PKRU_WRITE_DISABLE",
+          "pkey": 1,
+          "si_code": "SEGV_PKUERR",
+          "si_pkey": 1
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_THREAD",
+          "thread_id": 1,
+          "cpu_id": 0,
+          "pkru": "0x00000000"
+        },
+        {
+          "time": 1,
+          "event": "MMAP",
+          "start": 268435456,
+          "end": 268443648,
+          "prot": "rw",
+          "pkey": 0
+        },
+        {
+          "time": 2,
+          "event": "PKEY_ALLOC",
+          "thread_id": 1,
+          "flags": 0,
+          "init_val": 0,
+          "ret_pkey": 1
+        },
+        {
+          "time": 3,
+          "event": "PKEY_MPROTECT",
+          "thread_id": 1,
+          "addr": 268435456,
+          "size": 8192,
+          "prot": "rw",
+          "pkey": 1,
+          "affected_vmas": 1,
+          "ret": 0
+        },
+        {
+          "time": 6,
+          "event": "WRPKRU",
+          "thread_id": 1,
+          "old_pkru": "0x00000000",
+          "new_pkru": "0x00000008"
+        }
+      ]
+    }
+  },
+  {
+    "name": "접근 불가(PKEY_DISABLE_ACCESS) 설정 시 읽기 및 쓰기 양방향 하드웨어 폴트 차단",
+    "input": {
+      "config": {
+        "num_cpus": 4,
+        "page_size": 4096
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_THREAD",
+          "thread_id": 1,
+          "cpu_id": 1
+        },
+        {
+          "time": 1,
+          "type": "MMAP",
+          "start": 536870912,
+          "size": 16384,
+          "prot": "rw",
+          "pkey": 0
+        },
+        {
+          "time": 2,
+          "type": "PKEY_ALLOC",
+          "thread_id": 1,
+          "init_val": 1
+        },
+        {
+          "time": 3,
+          "type": "PKEY_MPROTECT",
+          "thread_id": 1,
+          "addr": 536870912,
+          "size": 16384,
+          "prot": "rw",
+          "pkey": 1
+        },
+        {
+          "time": 4,
+          "type": "MEM_ACCESS",
+          "thread_id": 1,
+          "addr": 536870912,
+          "access_type": "READ"
+        },
+        {
+          "time": 5,
+          "type": "MEM_ACCESS",
+          "thread_id": 1,
+          "addr": 536875008,
+          "access_type": "WRITE"
+        },
+        {
+          "time": 6,
+          "type": "SET_RIGHTS",
+          "thread_id": 1,
+          "pkey": 1,
+          "disable_access": false,
+          "disable_write": false
+        },
+        {
+          "time": 7,
+          "type": "MEM_ACCESS",
+          "thread_id": 1,
+          "addr": 536870912,
+          "access_type": "READ"
+        },
+        {
+          "time": 8,
+          "type": "MEM_ACCESS",
+          "thread_id": 1,
+          "addr": 536875008,
+          "access_type": "WRITE"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_accesses": 4,
+        "successful_accesses": 2,
+        "pkru_violations": 2,
+        "vma_permission_faults": 0,
+        "wrpkru_count": 1,
+        "tlb_shootdowns_avoided": 1,
+        "pkeys_allocated_count": 1
+      },
+      "allocated_pkeys": [
+        0,
+        1
+      ],
+      "thread_states": {
+        "1": {
+          "thread_id": 1,
+          "cpu_id": 1,
+          "pkru": "0x00000000"
+        }
+      },
+      "access_logs": [
+        {
+          "time": 4,
+          "thread_id": 1,
+          "addr": 536870912,
+          "access_type": "READ",
+          "status": "SEGV_PKUERR",
+          "fault_reason": "PKRU_ACCESS_DISABLE",
+          "pkey": 1,
+          "si_code": "SEGV_PKUERR",
+          "si_pkey": 1
+        },
+        {
+          "time": 5,
+          "thread_id": 1,
+          "addr": 536875008,
+          "access_type": "WRITE",
+          "status": "SEGV_PKUERR",
+          "fault_reason": "PKRU_ACCESS_DISABLE",
+          "pkey": 1,
+          "si_code": "SEGV_PKUERR",
+          "si_pkey": 1
+        },
+        {
+          "time": 7,
+          "thread_id": 1,
+          "addr": 536870912,
+          "access_type": "READ",
+          "status": "SUCCESS",
+          "fault_reason": null,
+          "pkey": 1
+        },
+        {
+          "time": 8,
+          "thread_id": 1,
+          "addr": 536875008,
+          "access_type": "WRITE",
+          "status": "SUCCESS",
+          "fault_reason": null,
+          "pkey": 1
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_THREAD",
+          "thread_id": 1,
+          "cpu_id": 1,
+          "pkru": "0x00000000"
+        },
+        {
+          "time": 1,
+          "event": "MMAP",
+          "start": 536870912,
+          "end": 536887296,
+          "prot": "rw",
+          "pkey": 0
+        },
+        {
+          "time": 2,
+          "event": "PKEY_ALLOC",
+          "thread_id": 1,
+          "flags": 0,
+          "init_val": 1,
+          "ret_pkey": 1
+        },
+        {
+          "time": 3,
+          "event": "PKEY_MPROTECT",
+          "thread_id": 1,
+          "addr": 536870912,
+          "size": 16384,
+          "prot": "rw",
+          "pkey": 1,
+          "affected_vmas": 1,
+          "ret": 0
+        },
+        {
+          "time": 6,
+          "event": "WRPKRU",
+          "thread_id": 1,
+          "old_pkru": "0x00000004",
+          "new_pkru": "0x00000000"
+        }
+      ]
+    }
+  },
+  {
+    "name": "동일 주소 공간(mm) 내 멀티스레드 간 스레드 로컬 PKRU 도메인 독립 격리",
+    "input": {
+      "config": {
+        "num_cpus": 4,
+        "page_size": 4096
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_THREAD",
+          "thread_id": 10,
+          "cpu_id": 0
+        },
+        {
+          "time": 1,
+          "type": "CREATE_THREAD",
+          "thread_id": 20,
+          "cpu_id": 1
+        },
+        {
+          "time": 2,
+          "type": "MMAP",
+          "start": 805306368,
+          "size": 4096,
+          "prot": "rw",
+          "pkey": 0
+        },
+        {
+          "time": 3,
+          "type": "PKEY_ALLOC",
+          "thread_id": 10,
+          "init_val": 0
+        },
+        {
+          "time": 4,
+          "type": "PKEY_MPROTECT",
+          "thread_id": 10,
+          "addr": 805306368,
+          "size": 4096,
+          "prot": "rw",
+          "pkey": 1
+        },
+        {
+          "time": 5,
+          "type": "SET_RIGHTS",
+          "thread_id": 20,
+          "pkey": 1,
+          "disable_access": true,
+          "disable_write": false
+        },
+        {
+          "time": 6,
+          "type": "MEM_ACCESS",
+          "thread_id": 10,
+          "addr": 805306368,
+          "access_type": "READ"
+        },
+        {
+          "time": 7,
+          "type": "MEM_ACCESS",
+          "thread_id": 10,
+          "addr": 805306368,
+          "access_type": "WRITE"
+        },
+        {
+          "time": 8,
+          "type": "MEM_ACCESS",
+          "thread_id": 20,
+          "addr": 805306368,
+          "access_type": "READ"
+        },
+        {
+          "time": 9,
+          "type": "MEM_ACCESS",
+          "thread_id": 20,
+          "addr": 805306368,
+          "access_type": "WRITE"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_accesses": 4,
+        "successful_accesses": 2,
+        "pkru_violations": 2,
+        "vma_permission_faults": 0,
+        "wrpkru_count": 1,
+        "tlb_shootdowns_avoided": 1,
+        "pkeys_allocated_count": 1
+      },
+      "allocated_pkeys": [
+        0,
+        1
+      ],
+      "thread_states": {
+        "10": {
+          "thread_id": 10,
+          "cpu_id": 0,
+          "pkru": "0x00000000"
+        },
+        "20": {
+          "thread_id": 20,
+          "cpu_id": 1,
+          "pkru": "0x00000004"
+        }
+      },
+      "access_logs": [
+        {
+          "time": 6,
+          "thread_id": 10,
+          "addr": 805306368,
+          "access_type": "READ",
+          "status": "SUCCESS",
+          "fault_reason": null,
+          "pkey": 1
+        },
+        {
+          "time": 7,
+          "thread_id": 10,
+          "addr": 805306368,
+          "access_type": "WRITE",
+          "status": "SUCCESS",
+          "fault_reason": null,
+          "pkey": 1
+        },
+        {
+          "time": 8,
+          "thread_id": 20,
+          "addr": 805306368,
+          "access_type": "READ",
+          "status": "SEGV_PKUERR",
+          "fault_reason": "PKRU_ACCESS_DISABLE",
+          "pkey": 1,
+          "si_code": "SEGV_PKUERR",
+          "si_pkey": 1
+        },
+        {
+          "time": 9,
+          "thread_id": 20,
+          "addr": 805306368,
+          "access_type": "WRITE",
+          "status": "SEGV_PKUERR",
+          "fault_reason": "PKRU_ACCESS_DISABLE",
+          "pkey": 1,
+          "si_code": "SEGV_PKUERR",
+          "si_pkey": 1
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_THREAD",
+          "thread_id": 10,
+          "cpu_id": 0,
+          "pkru": "0x00000000"
+        },
+        {
+          "time": 1,
+          "event": "CREATE_THREAD",
+          "thread_id": 20,
+          "cpu_id": 1,
+          "pkru": "0x00000000"
+        },
+        {
+          "time": 2,
+          "event": "MMAP",
+          "start": 805306368,
+          "end": 805310464,
+          "prot": "rw",
+          "pkey": 0
+        },
+        {
+          "time": 3,
+          "event": "PKEY_ALLOC",
+          "thread_id": 10,
+          "flags": 0,
+          "init_val": 0,
+          "ret_pkey": 1
+        },
+        {
+          "time": 4,
+          "event": "PKEY_MPROTECT",
+          "thread_id": 10,
+          "addr": 805306368,
+          "size": 4096,
+          "prot": "rw",
+          "pkey": 1,
+          "affected_vmas": 1,
+          "ret": 0
+        },
+        {
+          "time": 5,
+          "event": "WRPKRU",
+          "thread_id": 20,
+          "old_pkru": "0x00000000",
+          "new_pkru": "0x00000004"
+        }
+      ]
+    }
+  },
+  {
+    "name": "유저스페이스 WRPKRU 1사이클 고속 도메인 전환 및 TLB 슛다운 회피 검증",
+    "input": {
+      "config": {
+        "num_cpus": 4,
+        "page_size": 4096
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_THREAD",
+          "thread_id": 1,
+          "cpu_id": 0
+        },
+        {
+          "time": 1,
+          "type": "MMAP",
+          "start": 1073741824,
+          "size": 8192,
+          "prot": "rw",
+          "pkey": 0
+        },
+        {
+          "time": 2,
+          "type": "MMAP",
+          "start": 1342177280,
+          "size": 8192,
+          "prot": "rw",
+          "pkey": 0
+        },
+        {
+          "time": 3,
+          "type": "PKEY_ALLOC",
+          "thread_id": 1,
+          "init_val": 0
+        },
+        {
+          "time": 4,
+          "type": "PKEY_ALLOC",
+          "thread_id": 1,
+          "init_val": 0
+        },
+        {
+          "time": 5,
+          "type": "PKEY_MPROTECT",
+          "thread_id": 1,
+          "addr": 1073741824,
+          "size": 8192,
+          "prot": "rw",
+          "pkey": 1
+        },
+        {
+          "time": 6,
+          "type": "PKEY_MPROTECT",
+          "thread_id": 1,
+          "addr": 1342177280,
+          "size": 8192,
+          "prot": "rw",
+          "pkey": 2
+        },
+        {
+          "time": 7,
+          "type": "SET_RIGHTS",
+          "thread_id": 1,
+          "pkey": 1,
+          "disable_access": false
+        },
+        {
+          "time": 8,
+          "type": "SET_RIGHTS",
+          "thread_id": 1,
+          "pkey": 2,
+          "disable_access": true
+        },
+        {
+          "time": 9,
+          "type": "MEM_ACCESS",
+          "thread_id": 1,
+          "addr": 1073741824,
+          "access_type": "WRITE"
+        },
+        {
+          "time": 10,
+          "type": "MEM_ACCESS",
+          "thread_id": 1,
+          "addr": 1342177280,
+          "access_type": "READ"
+        },
+        {
+          "time": 11,
+          "type": "SET_RIGHTS",
+          "thread_id": 1,
+          "pkey": 1,
+          "disable_access": true
+        },
+        {
+          "time": 12,
+          "type": "SET_RIGHTS",
+          "thread_id": 1,
+          "pkey": 2,
+          "disable_access": false
+        },
+        {
+          "time": 13,
+          "type": "MEM_ACCESS",
+          "thread_id": 1,
+          "addr": 1073741824,
+          "access_type": "READ"
+        },
+        {
+          "time": 14,
+          "type": "MEM_ACCESS",
+          "thread_id": 1,
+          "addr": 1342177280,
+          "access_type": "WRITE"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_accesses": 4,
+        "successful_accesses": 2,
+        "pkru_violations": 2,
+        "vma_permission_faults": 0,
+        "wrpkru_count": 4,
+        "tlb_shootdowns_avoided": 4,
+        "pkeys_allocated_count": 2
+      },
+      "allocated_pkeys": [
+        0,
+        1,
+        2
+      ],
+      "thread_states": {
+        "1": {
+          "thread_id": 1,
+          "cpu_id": 0,
+          "pkru": "0x00000004"
+        }
+      },
+      "access_logs": [
+        {
+          "time": 9,
+          "thread_id": 1,
+          "addr": 1073741824,
+          "access_type": "WRITE",
+          "status": "SUCCESS",
+          "fault_reason": null,
+          "pkey": 1
+        },
+        {
+          "time": 10,
+          "thread_id": 1,
+          "addr": 1342177280,
+          "access_type": "READ",
+          "status": "SEGV_PKUERR",
+          "fault_reason": "PKRU_ACCESS_DISABLE",
+          "pkey": 2,
+          "si_code": "SEGV_PKUERR",
+          "si_pkey": 2
+        },
+        {
+          "time": 13,
+          "thread_id": 1,
+          "addr": 1073741824,
+          "access_type": "READ",
+          "status": "SEGV_PKUERR",
+          "fault_reason": "PKRU_ACCESS_DISABLE",
+          "pkey": 1,
+          "si_code": "SEGV_PKUERR",
+          "si_pkey": 1
+        },
+        {
+          "time": 14,
+          "thread_id": 1,
+          "addr": 1342177280,
+          "access_type": "WRITE",
+          "status": "SUCCESS",
+          "fault_reason": null,
+          "pkey": 2
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_THREAD",
+          "thread_id": 1,
+          "cpu_id": 0,
+          "pkru": "0x00000000"
+        },
+        {
+          "time": 1,
+          "event": "MMAP",
+          "start": 1073741824,
+          "end": 1073750016,
+          "prot": "rw",
+          "pkey": 0
+        },
+        {
+          "time": 2,
+          "event": "MMAP",
+          "start": 1342177280,
+          "end": 1342185472,
+          "prot": "rw",
+          "pkey": 0
+        },
+        {
+          "time": 3,
+          "event": "PKEY_ALLOC",
+          "thread_id": 1,
+          "flags": 0,
+          "init_val": 0,
+          "ret_pkey": 1
+        },
+        {
+          "time": 4,
+          "event": "PKEY_ALLOC",
+          "thread_id": 1,
+          "flags": 0,
+          "init_val": 0,
+          "ret_pkey": 2
+        },
+        {
+          "time": 5,
+          "event": "PKEY_MPROTECT",
+          "thread_id": 1,
+          "addr": 1073741824,
+          "size": 8192,
+          "prot": "rw",
+          "pkey": 1,
+          "affected_vmas": 1,
+          "ret": 0
+        },
+        {
+          "time": 6,
+          "event": "PKEY_MPROTECT",
+          "thread_id": 1,
+          "addr": 1342177280,
+          "size": 8192,
+          "prot": "rw",
+          "pkey": 2,
+          "affected_vmas": 1,
+          "ret": 0
+        },
+        {
+          "time": 7,
+          "event": "WRPKRU",
+          "thread_id": 1,
+          "old_pkru": "0x00000000",
+          "new_pkru": "0x00000000"
+        },
+        {
+          "time": 8,
+          "event": "WRPKRU",
+          "thread_id": 1,
+          "old_pkru": "0x00000000",
+          "new_pkru": "0x00000010"
+        },
+        {
+          "time": 11,
+          "event": "WRPKRU",
+          "thread_id": 1,
+          "old_pkru": "0x00000010",
+          "new_pkru": "0x00000014"
+        },
+        {
+          "time": 12,
+          "event": "WRPKRU",
+          "thread_id": 1,
+          "old_pkru": "0x00000014",
+          "new_pkru": "0x00000004"
+        }
+      ]
+    }
+  },
+  {
+    "name": "15개 유저 보호 키 고갈(-ENOSPC) 및 pkey_free 자원 재활용 검증",
+    "input": {
+      "config": {
+        "num_cpus": 4,
+        "page_size": 4096
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_THREAD",
+          "thread_id": 1,
+          "cpu_id": 0
+        },
+        {
+          "time": 1,
+          "type": "PKEY_ALLOC",
+          "thread_id": 1,
+          "init_val": 0
+        },
+        {
+          "time": 2,
+          "type": "PKEY_ALLOC",
+          "thread_id": 1,
+          "init_val": 0
+        },
+        {
+          "time": 3,
+          "type": "PKEY_ALLOC",
+          "thread_id": 1,
+          "init_val": 0
+        },
+        {
+          "time": 4,
+          "type": "PKEY_ALLOC",
+          "thread_id": 1,
+          "init_val": 0
+        },
+        {
+          "time": 5,
+          "type": "PKEY_ALLOC",
+          "thread_id": 1,
+          "init_val": 0
+        },
+        {
+          "time": 6,
+          "type": "PKEY_ALLOC",
+          "thread_id": 1,
+          "init_val": 0
+        },
+        {
+          "time": 7,
+          "type": "PKEY_ALLOC",
+          "thread_id": 1,
+          "init_val": 0
+        },
+        {
+          "time": 8,
+          "type": "PKEY_ALLOC",
+          "thread_id": 1,
+          "init_val": 0
+        },
+        {
+          "time": 9,
+          "type": "PKEY_ALLOC",
+          "thread_id": 1,
+          "init_val": 0
+        },
+        {
+          "time": 10,
+          "type": "PKEY_ALLOC",
+          "thread_id": 1,
+          "init_val": 0
+        },
+        {
+          "time": 11,
+          "type": "PKEY_ALLOC",
+          "thread_id": 1,
+          "init_val": 0
+        },
+        {
+          "time": 12,
+          "type": "PKEY_ALLOC",
+          "thread_id": 1,
+          "init_val": 0
+        },
+        {
+          "time": 13,
+          "type": "PKEY_ALLOC",
+          "thread_id": 1,
+          "init_val": 0
+        },
+        {
+          "time": 14,
+          "type": "PKEY_ALLOC",
+          "thread_id": 1,
+          "init_val": 0
+        },
+        {
+          "time": 15,
+          "type": "PKEY_ALLOC",
+          "thread_id": 1,
+          "init_val": 0
+        },
+        {
+          "time": 16,
+          "type": "PKEY_ALLOC",
+          "thread_id": 1,
+          "init_val": 0
+        },
+        {
+          "time": 17,
+          "type": "PKEY_FREE",
+          "thread_id": 1,
+          "pkey": 7
+        },
+        {
+          "time": 18,
+          "type": "PKEY_ALLOC",
+          "thread_id": 1,
+          "init_val": 0
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_accesses": 0,
+        "successful_accesses": 0,
+        "pkru_violations": 0,
+        "vma_permission_faults": 0,
+        "wrpkru_count": 0,
+        "tlb_shootdowns_avoided": 0,
+        "pkeys_allocated_count": 15
+      },
+      "allocated_pkeys": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "thread_states": {
+        "1": {
+          "thread_id": 1,
+          "cpu_id": 0,
+          "pkru": "0x00000000"
+        }
+      },
+      "access_logs": [],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_THREAD",
+          "thread_id": 1,
+          "cpu_id": 0,
+          "pkru": "0x00000000"
+        },
+        {
+          "time": 1,
+          "event": "PKEY_ALLOC",
+          "thread_id": 1,
+          "flags": 0,
+          "init_val": 0,
+          "ret_pkey": 1
+        },
+        {
+          "time": 2,
+          "event": "PKEY_ALLOC",
+          "thread_id": 1,
+          "flags": 0,
+          "init_val": 0,
+          "ret_pkey": 2
+        },
+        {
+          "time": 3,
+          "event": "PKEY_ALLOC",
+          "thread_id": 1,
+          "flags": 0,
+          "init_val": 0,
+          "ret_pkey": 3
+        },
+        {
+          "time": 4,
+          "event": "PKEY_ALLOC",
+          "thread_id": 1,
+          "flags": 0,
+          "init_val": 0,
+          "ret_pkey": 4
+        },
+        {
+          "time": 5,
+          "event": "PKEY_ALLOC",
+          "thread_id": 1,
+          "flags": 0,
+          "init_val": 0,
+          "ret_pkey": 5
+        },
+        {
+          "time": 6,
+          "event": "PKEY_ALLOC",
+          "thread_id": 1,
+          "flags": 0,
+          "init_val": 0,
+          "ret_pkey": 6
+        },
+        {
+          "time": 7,
+          "event": "PKEY_ALLOC",
+          "thread_id": 1,
+          "flags": 0,
+          "init_val": 0,
+          "ret_pkey": 7
+        },
+        {
+          "time": 8,
+          "event": "PKEY_ALLOC",
+          "thread_id": 1,
+          "flags": 0,
+          "init_val": 0,
+          "ret_pkey": 8
+        },
+        {
+          "time": 9,
+          "event": "PKEY_ALLOC",
+          "thread_id": 1,
+          "flags": 0,
+          "init_val": 0,
+          "ret_pkey": 9
+        },
+        {
+          "time": 10,
+          "event": "PKEY_ALLOC",
+          "thread_id": 1,
+          "flags": 0,
+          "init_val": 0,
+          "ret_pkey": 10
+        },
+        {
+          "time": 11,
+          "event": "PKEY_ALLOC",
+          "thread_id": 1,
+          "flags": 0,
+          "init_val": 0,
+          "ret_pkey": 11
+        },
+        {
+          "time": 12,
+          "event": "PKEY_ALLOC",
+          "thread_id": 1,
+          "flags": 0,
+          "init_val": 0,
+          "ret_pkey": 12
+        },
+        {
+          "time": 13,
+          "event": "PKEY_ALLOC",
+          "thread_id": 1,
+          "flags": 0,
+          "init_val": 0,
+          "ret_pkey": 13
+        },
+        {
+          "time": 14,
+          "event": "PKEY_ALLOC",
+          "thread_id": 1,
+          "flags": 0,
+          "init_val": 0,
+          "ret_pkey": 14
+        },
+        {
+          "time": 15,
+          "event": "PKEY_ALLOC",
+          "thread_id": 1,
+          "flags": 0,
+          "init_val": 0,
+          "ret_pkey": 15
+        },
+        {
+          "time": 16,
+          "event": "PKEY_ALLOC",
+          "thread_id": 1,
+          "flags": 0,
+          "init_val": 0,
+          "ret_pkey": -28
+        },
+        {
+          "time": 17,
+          "event": "PKEY_FREE",
+          "thread_id": 1,
+          "pkey": 7,
+          "ret": 0
+        },
+        {
+          "time": 18,
+          "event": "PKEY_ALLOC",
+          "thread_id": 1,
+          "flags": 0,
+          "init_val": 0,
+          "ret_pkey": 7
+        }
+      ]
+    }
+  },
+  {
+    "name": "VMA 읽기 전용 속성(SEGV_ACCERR)과 하드웨어 PKRU의 2계층 권한 평가 검증",
+    "input": {
+      "config": {
+        "num_cpus": 4,
+        "page_size": 4096
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_THREAD",
+          "thread_id": 1,
+          "cpu_id": 0
+        },
+        {
+          "time": 1,
+          "type": "MMAP",
+          "start": 1610612736,
+          "size": 4096,
+          "prot": "r",
+          "pkey": 0
+        },
+        {
+          "time": 2,
+          "type": "PKEY_ALLOC",
+          "thread_id": 1,
+          "init_val": 0
+        },
+        {
+          "time": 3,
+          "type": "PKEY_MPROTECT",
+          "thread_id": 1,
+          "addr": 1610612736,
+          "size": 4096,
+          "prot": "r",
+          "pkey": 1
+        },
+        {
+          "time": 4,
+          "type": "MEM_ACCESS",
+          "thread_id": 1,
+          "addr": 1610612736,
+          "access_type": "READ"
+        },
+        {
+          "time": 5,
+          "type": "MEM_ACCESS",
+          "thread_id": 1,
+          "addr": 1610612736,
+          "access_type": "WRITE"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_accesses": 2,
+        "successful_accesses": 1,
+        "pkru_violations": 0,
+        "vma_permission_faults": 1,
+        "wrpkru_count": 0,
+        "tlb_shootdowns_avoided": 0,
+        "pkeys_allocated_count": 1
+      },
+      "allocated_pkeys": [
+        0,
+        1
+      ],
+      "thread_states": {
+        "1": {
+          "thread_id": 1,
+          "cpu_id": 0,
+          "pkru": "0x00000000"
+        }
+      },
+      "access_logs": [
+        {
+          "time": 4,
+          "thread_id": 1,
+          "addr": 1610612736,
+          "access_type": "READ",
+          "status": "SUCCESS",
+          "fault_reason": null,
+          "pkey": 1
+        },
+        {
+          "time": 5,
+          "thread_id": 1,
+          "addr": 1610612736,
+          "access_type": "WRITE",
+          "status": "SEGV_ACCERR",
+          "fault_reason": "VMA_READ_ONLY",
+          "pkey": 1
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_THREAD",
+          "thread_id": 1,
+          "cpu_id": 0,
+          "pkru": "0x00000000"
+        },
+        {
+          "time": 1,
+          "event": "MMAP",
+          "start": 1610612736,
+          "end": 1610616832,
+          "prot": "r",
+          "pkey": 0
+        },
+        {
+          "time": 2,
+          "event": "PKEY_ALLOC",
+          "thread_id": 1,
+          "flags": 0,
+          "init_val": 0,
+          "ret_pkey": 1
+        },
+        {
+          "time": 3,
+          "event": "PKEY_MPROTECT",
+          "thread_id": 1,
+          "addr": 1610612736,
+          "size": 4096,
+          "prot": "r",
+          "pkey": 1,
+          "affected_vmas": 1,
+          "ret": 0
+        }
+      ]
+    }
+  },
+  {
+    "name": "미할당 키 지정 시 -EINVAL 거절 및 미매핑 주소 접근 시 SEGV_MAPERR 검증",
+    "input": {
+      "config": {
+        "num_cpus": 4,
+        "page_size": 4096
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_THREAD",
+          "thread_id": 1,
+          "cpu_id": 0
+        },
+        {
+          "time": 1,
+          "type": "MMAP",
+          "start": 1879048192,
+          "size": 8192,
+          "prot": "rw",
+          "pkey": 0
+        },
+        {
+          "time": 2,
+          "type": "PKEY_MPROTECT",
+          "thread_id": 1,
+          "addr": 1879048192,
+          "size": 8192,
+          "prot": "rw",
+          "pkey": 5
+        },
+        {
+          "time": 3,
+          "type": "PKEY_FREE",
+          "thread_id": 1,
+          "pkey": 0
+        },
+        {
+          "time": 4,
+          "type": "PKEY_FREE",
+          "thread_id": 1,
+          "pkey": 10
+        },
+        {
+          "time": 5,
+          "type": "MEM_ACCESS",
+          "thread_id": 1,
+          "addr": 2576941056,
+          "access_type": "READ"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_accesses": 1,
+        "successful_accesses": 0,
+        "pkru_violations": 0,
+        "vma_permission_faults": 0,
+        "wrpkru_count": 0,
+        "tlb_shootdowns_avoided": 0,
+        "pkeys_allocated_count": 0
+      },
+      "allocated_pkeys": [
+        0
+      ],
+      "thread_states": {
+        "1": {
+          "thread_id": 1,
+          "cpu_id": 0,
+          "pkru": "0x00000000"
+        }
+      },
+      "access_logs": [
+        {
+          "time": 5,
+          "thread_id": 1,
+          "addr": 2576941056,
+          "access_type": "READ",
+          "status": "SEGV_MAPERR",
+          "fault_reason": "ADDRESS_UNMAPPED",
+          "pkey": null
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_THREAD",
+          "thread_id": 1,
+          "cpu_id": 0,
+          "pkru": "0x00000000"
+        },
+        {
+          "time": 1,
+          "event": "MMAP",
+          "start": 1879048192,
+          "end": 1879056384,
+          "prot": "rw",
+          "pkey": 0
+        },
+        {
+          "time": 2,
+          "event": "PKEY_MPROTECT",
+          "thread_id": 1,
+          "addr": 1879048192,
+          "size": 8192,
+          "prot": "rw",
+          "pkey": 5,
+          "ret": -22
+        },
+        {
+          "time": 3,
+          "event": "PKEY_FREE",
+          "thread_id": 1,
+          "pkey": 0,
+          "ret": -22
+        },
+        {
+          "time": 4,
+          "event": "PKEY_FREE",
+          "thread_id": 1,
+          "pkey": 10,
+          "ret": -22
+        }
+      ]
+    }
+  },
+  {
+    "name": "엔터프라이즈 보안 엔클레이브 및 OpenSSL 비밀키 볼트 실시간 보호 종합 검증",
+    "input": {
+      "config": {
+        "num_cpus": 8,
+        "page_size": 4096
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_THREAD",
+          "thread_id": 101,
+          "cpu_id": 0
+        },
+        {
+          "time": 1,
+          "type": "CREATE_THREAD",
+          "thread_id": 102,
+          "cpu_id": 1
+        },
+        {
+          "time": 2,
+          "type": "CREATE_THREAD",
+          "thread_id": 103,
+          "cpu_id": 2
+        },
+        {
+          "time": 3,
+          "type": "MMAP",
+          "start": 268435456,
+          "size": 65536,
+          "prot": "rw",
+          "pkey": 0
+        },
+        {
+          "time": 4,
+          "type": "MMAP",
+          "start": 536870912,
+          "size": 16384,
+          "prot": "rw",
+          "pkey": 0
+        },
+        {
+          "time": 5,
+          "type": "MMAP",
+          "start": 805306368,
+          "size": 16384,
+          "prot": "rw",
+          "pkey": 0
+        },
+        {
+          "time": 6,
+          "type": "PKEY_ALLOC",
+          "thread_id": 101,
+          "init_val": 0
+        },
+        {
+          "time": 7,
+          "type": "PKEY_ALLOC",
+          "thread_id": 101,
+          "init_val": 0
+        },
+        {
+          "time": 8,
+          "type": "PKEY_MPROTECT",
+          "thread_id": 101,
+          "addr": 536870912,
+          "size": 16384,
+          "prot": "rw",
+          "pkey": 1
+        },
+        {
+          "time": 9,
+          "type": "PKEY_MPROTECT",
+          "thread_id": 101,
+          "addr": 805306368,
+          "size": 16384,
+          "prot": "rw",
+          "pkey": 2
+        },
+        {
+          "time": 10,
+          "type": "SET_RIGHTS",
+          "thread_id": 103,
+          "pkey": 1,
+          "disable_access": true
+        },
+        {
+          "time": 11,
+          "type": "SET_RIGHTS",
+          "thread_id": 103,
+          "pkey": 2,
+          "disable_write": true
+        },
+        {
+          "time": 12,
+          "type": "MEM_ACCESS",
+          "thread_id": 103,
+          "addr": 536870912,
+          "access_type": "READ"
+        },
+        {
+          "time": 13,
+          "type": "MEM_ACCESS",
+          "thread_id": 103,
+          "addr": 805306368,
+          "access_type": "WRITE"
+        },
+        {
+          "time": 14,
+          "type": "MEM_ACCESS",
+          "thread_id": 103,
+          "addr": 268435456,
+          "access_type": "WRITE"
+        },
+        {
+          "time": 15,
+          "type": "SET_RIGHTS",
+          "thread_id": 102,
+          "pkey": 1,
+          "disable_access": false
+        },
+        {
+          "time": 16,
+          "type": "MEM_ACCESS",
+          "thread_id": 102,
+          "addr": 536870912,
+          "access_type": "READ"
+        },
+        {
+          "time": 17,
+          "type": "MEM_ACCESS",
+          "thread_id": 102,
+          "addr": 536870912,
+          "access_type": "WRITE"
+        },
+        {
+          "time": 18,
+          "type": "SET_RIGHTS",
+          "thread_id": 102,
+          "pkey": 1,
+          "disable_access": true
+        },
+        {
+          "time": 19,
+          "type": "MEM_ACCESS",
+          "thread_id": 102,
+          "addr": 536870912,
+          "access_type": "READ"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_accesses": 6,
+        "successful_accesses": 3,
+        "pkru_violations": 3,
+        "vma_permission_faults": 0,
+        "wrpkru_count": 4,
+        "tlb_shootdowns_avoided": 4,
+        "pkeys_allocated_count": 2
+      },
+      "allocated_pkeys": [
+        0,
+        1,
+        2
+      ],
+      "thread_states": {
+        "101": {
+          "thread_id": 101,
+          "cpu_id": 0,
+          "pkru": "0x00000000"
+        },
+        "102": {
+          "thread_id": 102,
+          "cpu_id": 1,
+          "pkru": "0x00000004"
+        },
+        "103": {
+          "thread_id": 103,
+          "cpu_id": 2,
+          "pkru": "0x00000024"
+        }
+      },
+      "access_logs": [
+        {
+          "time": 12,
+          "thread_id": 103,
+          "addr": 536870912,
+          "access_type": "READ",
+          "status": "SEGV_PKUERR",
+          "fault_reason": "PKRU_ACCESS_DISABLE",
+          "pkey": 1,
+          "si_code": "SEGV_PKUERR",
+          "si_pkey": 1
+        },
+        {
+          "time": 13,
+          "thread_id": 103,
+          "addr": 805306368,
+          "access_type": "WRITE",
+          "status": "SEGV_PKUERR",
+          "fault_reason": "PKRU_WRITE_DISABLE",
+          "pkey": 2,
+          "si_code": "SEGV_PKUERR",
+          "si_pkey": 2
+        },
+        {
+          "time": 14,
+          "thread_id": 103,
+          "addr": 268435456,
+          "access_type": "WRITE",
+          "status": "SUCCESS",
+          "fault_reason": null,
+          "pkey": 0
+        },
+        {
+          "time": 16,
+          "thread_id": 102,
+          "addr": 536870912,
+          "access_type": "READ",
+          "status": "SUCCESS",
+          "fault_reason": null,
+          "pkey": 1
+        },
+        {
+          "time": 17,
+          "thread_id": 102,
+          "addr": 536870912,
+          "access_type": "WRITE",
+          "status": "SUCCESS",
+          "fault_reason": null,
+          "pkey": 1
+        },
+        {
+          "time": 19,
+          "thread_id": 102,
+          "addr": 536870912,
+          "access_type": "READ",
+          "status": "SEGV_PKUERR",
+          "fault_reason": "PKRU_ACCESS_DISABLE",
+          "pkey": 1,
+          "si_code": "SEGV_PKUERR",
+          "si_pkey": 1
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_THREAD",
+          "thread_id": 101,
+          "cpu_id": 0,
+          "pkru": "0x00000000"
+        },
+        {
+          "time": 1,
+          "event": "CREATE_THREAD",
+          "thread_id": 102,
+          "cpu_id": 1,
+          "pkru": "0x00000000"
+        },
+        {
+          "time": 2,
+          "event": "CREATE_THREAD",
+          "thread_id": 103,
+          "cpu_id": 2,
+          "pkru": "0x00000000"
+        },
+        {
+          "time": 3,
+          "event": "MMAP",
+          "start": 268435456,
+          "end": 268500992,
+          "prot": "rw",
+          "pkey": 0
+        },
+        {
+          "time": 4,
+          "event": "MMAP",
+          "start": 536870912,
+          "end": 536887296,
+          "prot": "rw",
+          "pkey": 0
+        },
+        {
+          "time": 5,
+          "event": "MMAP",
+          "start": 805306368,
+          "end": 805322752,
+          "prot": "rw",
+          "pkey": 0
+        },
+        {
+          "time": 6,
+          "event": "PKEY_ALLOC",
+          "thread_id": 101,
+          "flags": 0,
+          "init_val": 0,
+          "ret_pkey": 1
+        },
+        {
+          "time": 7,
+          "event": "PKEY_ALLOC",
+          "thread_id": 101,
+          "flags": 0,
+          "init_val": 0,
+          "ret_pkey": 2
+        },
+        {
+          "time": 8,
+          "event": "PKEY_MPROTECT",
+          "thread_id": 101,
+          "addr": 536870912,
+          "size": 16384,
+          "prot": "rw",
+          "pkey": 1,
+          "affected_vmas": 1,
+          "ret": 0
+        },
+        {
+          "time": 9,
+          "event": "PKEY_MPROTECT",
+          "thread_id": 101,
+          "addr": 805306368,
+          "size": 16384,
+          "prot": "rw",
+          "pkey": 2,
+          "affected_vmas": 1,
+          "ret": 0
+        },
+        {
+          "time": 10,
+          "event": "WRPKRU",
+          "thread_id": 103,
+          "old_pkru": "0x00000000",
+          "new_pkru": "0x00000004"
+        },
+        {
+          "time": 11,
+          "event": "WRPKRU",
+          "thread_id": 103,
+          "old_pkru": "0x00000004",
+          "new_pkru": "0x00000024"
+        },
+        {
+          "time": 15,
+          "event": "WRPKRU",
+          "thread_id": 102,
+          "old_pkru": "0x00000000",
+          "new_pkru": "0x00000000"
+        },
+        {
+          "time": 18,
+          "event": "WRPKRU",
+          "thread_id": 102,
+          "old_pkru": "0x00000000",
+          "new_pkru": "0x00000004"
+        }
+      ]
+    }
+  }
+]
