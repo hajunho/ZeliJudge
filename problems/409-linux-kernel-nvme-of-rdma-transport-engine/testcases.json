@@ -1,0 +1,1606 @@
+[
+  {
+    "name": "인-캡슐(In-Capsule) 데이터 패스트패스 및 순차 Read/Write 지연 시간 검증",
+    "input": {
+      "config": {
+        "queue_depth": 16,
+        "in_capsule_data_size": 4096,
+        "mr_pool_size": 8,
+        "cq_poll_budget": 8,
+        "fabric_rtt_ms": 1,
+        "target_proc_time_ms": 3,
+        "transfer_rate_kb_per_ms": 64
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "SUBMIT_CMD",
+          "req_id": "r1",
+          "opcode": "NVME_CMD_READ",
+          "lba": 0,
+          "size_bytes": 512
+        },
+        {
+          "time": 1,
+          "type": "SUBMIT_CMD",
+          "req_id": "r2",
+          "opcode": "NVME_CMD_WRITE",
+          "lba": 8,
+          "size_bytes": 4096
+        },
+        {
+          "time": 2,
+          "type": "SUBMIT_CMD",
+          "req_id": "r3",
+          "opcode": "NVME_CMD_READ",
+          "lba": 16,
+          "size_bytes": 1024
+        },
+        {
+          "time": 5,
+          "type": "POLL_CQ",
+          "budget": 8
+        },
+        {
+          "time": 6,
+          "type": "SUBMIT_CMD",
+          "req_id": "r4",
+          "opcode": "NVME_CMD_WRITE",
+          "lba": 24,
+          "size_bytes": 2048
+        },
+        {
+          "time": 12,
+          "type": "POLL_CQ",
+          "budget": 8
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_submitted": 4,
+        "completed_count": 4,
+        "in_capsule_count": 4,
+        "rdma_sgl_count": 0,
+        "credit_starvations": 0,
+        "mr_starvations": 0,
+        "active_credits": 0,
+        "free_mr_count": 8,
+        "qp_state": "IB_QPS_RTS"
+      },
+      "completed_requests": [
+        {
+          "req_id": "r1",
+          "opcode": "NVME_CMD_READ",
+          "size_bytes": 512,
+          "mode": "IN_CAPSULE",
+          "completion_time": 5,
+          "latency_ms": 5,
+          "status": "SUCCESS"
+        },
+        {
+          "req_id": "r2",
+          "opcode": "NVME_CMD_WRITE",
+          "size_bytes": 4096,
+          "mode": "IN_CAPSULE",
+          "completion_time": 5,
+          "latency_ms": 4,
+          "status": "SUCCESS"
+        },
+        {
+          "req_id": "r3",
+          "opcode": "NVME_CMD_READ",
+          "size_bytes": 1024,
+          "mode": "IN_CAPSULE",
+          "completion_time": 12,
+          "latency_ms": 10,
+          "status": "SUCCESS"
+        },
+        {
+          "req_id": "r4",
+          "opcode": "NVME_CMD_WRITE",
+          "size_bytes": 2048,
+          "mode": "IN_CAPSULE",
+          "completion_time": 12,
+          "latency_ms": 6,
+          "status": "SUCCESS"
+        }
+      ],
+      "mr_pool_status": [
+        {
+          "mr_id": 0,
+          "rkey": "0x1000",
+          "is_busy": false,
+          "assigned_req": null
+        },
+        {
+          "mr_id": 1,
+          "rkey": "0x1100",
+          "is_busy": false,
+          "assigned_req": null
+        },
+        {
+          "mr_id": 2,
+          "rkey": "0x1200",
+          "is_busy": false,
+          "assigned_req": null
+        },
+        {
+          "mr_id": 3,
+          "rkey": "0x1300",
+          "is_busy": false,
+          "assigned_req": null
+        },
+        {
+          "mr_id": 4,
+          "rkey": "0x1400",
+          "is_busy": false,
+          "assigned_req": null
+        },
+        {
+          "mr_id": 5,
+          "rkey": "0x1500",
+          "is_busy": false,
+          "assigned_req": null
+        },
+        {
+          "mr_id": 6,
+          "rkey": "0x1600",
+          "is_busy": false,
+          "assigned_req": null
+        },
+        {
+          "mr_id": 7,
+          "rkey": "0x1700",
+          "is_busy": false,
+          "assigned_req": null
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "POST_SEND_IN_CAPSULE",
+          "req_id": "r1",
+          "sq_tail": 1,
+          "size_bytes": 512
+        },
+        {
+          "time": 1,
+          "event": "POST_SEND_IN_CAPSULE",
+          "req_id": "r2",
+          "sq_tail": 2,
+          "size_bytes": 4096
+        },
+        {
+          "time": 2,
+          "event": "POST_SEND_IN_CAPSULE",
+          "req_id": "r3",
+          "sq_tail": 3,
+          "size_bytes": 1024
+        },
+        {
+          "time": 5,
+          "event": "CQ_COMPLETION",
+          "req_id": "r1",
+          "status": "SUCCESS",
+          "sq_head": 1,
+          "sqhd": 1
+        },
+        {
+          "time": 5,
+          "event": "CQ_COMPLETION",
+          "req_id": "r2",
+          "status": "SUCCESS",
+          "sq_head": 2,
+          "sqhd": 2
+        },
+        {
+          "time": 6,
+          "event": "POST_SEND_IN_CAPSULE",
+          "req_id": "r4",
+          "sq_tail": 4,
+          "size_bytes": 2048
+        },
+        {
+          "time": 12,
+          "event": "CQ_COMPLETION",
+          "req_id": "r3",
+          "status": "SUCCESS",
+          "sq_head": 3,
+          "sqhd": 3
+        },
+        {
+          "time": 12,
+          "event": "CQ_COMPLETION",
+          "req_id": "r4",
+          "status": "SUCCESS",
+          "sq_head": 4,
+          "sqhd": 4
+        }
+      ]
+    }
+  },
+  {
+    "name": "대용량 블록 I/O의 고속 메모리 등록(FRWR MR) 및 Keyed SGL 전송",
+    "input": {
+      "config": {
+        "queue_depth": 16,
+        "in_capsule_data_size": 4096,
+        "mr_pool_size": 4,
+        "cq_poll_budget": 8,
+        "fabric_rtt_ms": 2,
+        "target_proc_time_ms": 4,
+        "transfer_rate_kb_per_ms": 64
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "SUBMIT_CMD",
+          "req_id": "r1",
+          "opcode": "NVME_CMD_WRITE",
+          "lba": 100,
+          "size_bytes": 65536
+        },
+        {
+          "time": 1,
+          "type": "SUBMIT_CMD",
+          "req_id": "r2",
+          "opcode": "NVME_CMD_READ",
+          "lba": 200,
+          "size_bytes": 131072
+        },
+        {
+          "time": 10,
+          "type": "POLL_CQ",
+          "budget": 4
+        },
+        {
+          "time": 15,
+          "type": "POLL_CQ",
+          "budget": 4
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_submitted": 2,
+        "completed_count": 2,
+        "in_capsule_count": 0,
+        "rdma_sgl_count": 2,
+        "credit_starvations": 0,
+        "mr_starvations": 0,
+        "active_credits": 0,
+        "free_mr_count": 4,
+        "qp_state": "IB_QPS_RTS"
+      },
+      "completed_requests": [
+        {
+          "req_id": "r1",
+          "opcode": "NVME_CMD_WRITE",
+          "size_bytes": 65536,
+          "mode": "RDMA_SGL",
+          "completion_time": 10,
+          "latency_ms": 10,
+          "status": "SUCCESS"
+        },
+        {
+          "req_id": "r2",
+          "opcode": "NVME_CMD_READ",
+          "size_bytes": 131072,
+          "mode": "RDMA_SGL",
+          "completion_time": 10,
+          "latency_ms": 9,
+          "status": "SUCCESS"
+        }
+      ],
+      "mr_pool_status": [
+        {
+          "mr_id": 0,
+          "rkey": "0x1000",
+          "is_busy": false,
+          "assigned_req": null
+        },
+        {
+          "mr_id": 1,
+          "rkey": "0x1100",
+          "is_busy": false,
+          "assigned_req": null
+        },
+        {
+          "mr_id": 2,
+          "rkey": "0x1200",
+          "is_busy": false,
+          "assigned_req": null
+        },
+        {
+          "mr_id": 3,
+          "rkey": "0x1300",
+          "is_busy": false,
+          "assigned_req": null
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "POST_SEND_RDMA_SGL",
+          "req_id": "r1",
+          "sq_tail": 1,
+          "mr_id": 0,
+          "rkey": "0x1000",
+          "size_bytes": 65536
+        },
+        {
+          "time": 1,
+          "event": "POST_SEND_RDMA_SGL",
+          "req_id": "r2",
+          "sq_tail": 2,
+          "mr_id": 1,
+          "rkey": "0x1100",
+          "size_bytes": 131072
+        },
+        {
+          "time": 10,
+          "event": "CQ_COMPLETION",
+          "req_id": "r1",
+          "status": "SUCCESS",
+          "sq_head": 1,
+          "sqhd": 1
+        },
+        {
+          "time": 10,
+          "event": "CQ_COMPLETION",
+          "req_id": "r2",
+          "status": "SUCCESS",
+          "sq_head": 2,
+          "sqhd": 2
+        }
+      ]
+    }
+  },
+  {
+    "name": "QP 크레딧 고갈(Credit Exhaustion)에 따른 백프레셔 및 지연 제출",
+    "input": {
+      "config": {
+        "queue_depth": 3,
+        "in_capsule_data_size": 4096,
+        "mr_pool_size": 4,
+        "cq_poll_budget": 4,
+        "fabric_rtt_ms": 2,
+        "target_proc_time_ms": 6,
+        "transfer_rate_kb_per_ms": 64
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "SUBMIT_CMD",
+          "req_id": "r1",
+          "opcode": "NVME_CMD_WRITE",
+          "lba": 0,
+          "size_bytes": 1024
+        },
+        {
+          "time": 1,
+          "type": "SUBMIT_CMD",
+          "req_id": "r2",
+          "opcode": "NVME_CMD_WRITE",
+          "lba": 2,
+          "size_bytes": 2048
+        },
+        {
+          "time": 2,
+          "type": "SUBMIT_CMD",
+          "req_id": "r3",
+          "opcode": "NVME_CMD_WRITE",
+          "lba": 4,
+          "size_bytes": 4096
+        },
+        {
+          "time": 3,
+          "type": "SUBMIT_CMD",
+          "req_id": "r4",
+          "opcode": "NVME_CMD_WRITE",
+          "lba": 6,
+          "size_bytes": 1024
+        },
+        {
+          "time": 4,
+          "type": "SUBMIT_CMD",
+          "req_id": "r5",
+          "opcode": "NVME_CMD_WRITE",
+          "lba": 8,
+          "size_bytes": 2048
+        },
+        {
+          "time": 10,
+          "type": "POLL_CQ",
+          "budget": 2
+        },
+        {
+          "time": 25,
+          "type": "POLL_CQ",
+          "budget": 4
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_submitted": 5,
+        "completed_count": 5,
+        "in_capsule_count": 5,
+        "rdma_sgl_count": 0,
+        "credit_starvations": 2,
+        "mr_starvations": 0,
+        "active_credits": 0,
+        "free_mr_count": 4,
+        "qp_state": "IB_QPS_RTS"
+      },
+      "completed_requests": [
+        {
+          "req_id": "r1",
+          "opcode": "NVME_CMD_WRITE",
+          "size_bytes": 1024,
+          "mode": "IN_CAPSULE",
+          "completion_time": 10,
+          "latency_ms": 10,
+          "status": "SUCCESS"
+        },
+        {
+          "req_id": "r2",
+          "opcode": "NVME_CMD_WRITE",
+          "size_bytes": 2048,
+          "mode": "IN_CAPSULE",
+          "completion_time": 10,
+          "latency_ms": 9,
+          "status": "SUCCESS"
+        },
+        {
+          "req_id": "r3",
+          "opcode": "NVME_CMD_WRITE",
+          "size_bytes": 4096,
+          "mode": "IN_CAPSULE",
+          "completion_time": 25,
+          "latency_ms": 23,
+          "status": "SUCCESS"
+        },
+        {
+          "req_id": "r4",
+          "opcode": "NVME_CMD_WRITE",
+          "size_bytes": 1024,
+          "mode": "IN_CAPSULE",
+          "completion_time": 25,
+          "latency_ms": 22,
+          "status": "SUCCESS"
+        },
+        {
+          "req_id": "r5",
+          "opcode": "NVME_CMD_WRITE",
+          "size_bytes": 2048,
+          "mode": "IN_CAPSULE",
+          "completion_time": 25,
+          "latency_ms": 21,
+          "status": "SUCCESS"
+        }
+      ],
+      "mr_pool_status": [
+        {
+          "mr_id": 0,
+          "rkey": "0x1000",
+          "is_busy": false,
+          "assigned_req": null
+        },
+        {
+          "mr_id": 1,
+          "rkey": "0x1100",
+          "is_busy": false,
+          "assigned_req": null
+        },
+        {
+          "mr_id": 2,
+          "rkey": "0x1200",
+          "is_busy": false,
+          "assigned_req": null
+        },
+        {
+          "mr_id": 3,
+          "rkey": "0x1300",
+          "is_busy": false,
+          "assigned_req": null
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "POST_SEND_IN_CAPSULE",
+          "req_id": "r1",
+          "sq_tail": 1,
+          "size_bytes": 1024
+        },
+        {
+          "time": 1,
+          "event": "POST_SEND_IN_CAPSULE",
+          "req_id": "r2",
+          "sq_tail": 2,
+          "size_bytes": 2048
+        },
+        {
+          "time": 2,
+          "event": "POST_SEND_IN_CAPSULE",
+          "req_id": "r3",
+          "sq_tail": 3,
+          "size_bytes": 4096
+        },
+        {
+          "time": 3,
+          "event": "CREDIT_EXHAUSTED",
+          "req_id": "r4",
+          "active_credits": 3,
+          "queue_depth": 3
+        },
+        {
+          "time": 4,
+          "event": "CREDIT_EXHAUSTED",
+          "req_id": "r5",
+          "active_credits": 3,
+          "queue_depth": 3
+        },
+        {
+          "time": 10,
+          "event": "CQ_COMPLETION",
+          "req_id": "r1",
+          "status": "SUCCESS",
+          "sq_head": 1,
+          "sqhd": 1
+        },
+        {
+          "time": 10,
+          "event": "CQ_COMPLETION",
+          "req_id": "r2",
+          "status": "SUCCESS",
+          "sq_head": 2,
+          "sqhd": 2
+        },
+        {
+          "time": 10,
+          "event": "POST_SEND_IN_CAPSULE",
+          "req_id": "r4",
+          "sq_tail": 4,
+          "size_bytes": 1024
+        },
+        {
+          "time": 10,
+          "event": "POST_SEND_IN_CAPSULE",
+          "req_id": "r5",
+          "sq_tail": 5,
+          "size_bytes": 2048
+        },
+        {
+          "time": 25,
+          "event": "CQ_COMPLETION",
+          "req_id": "r3",
+          "status": "SUCCESS",
+          "sq_head": 3,
+          "sqhd": 3
+        },
+        {
+          "time": 25,
+          "event": "CQ_COMPLETION",
+          "req_id": "r4",
+          "status": "SUCCESS",
+          "sq_head": 4,
+          "sqhd": 4
+        },
+        {
+          "time": 25,
+          "event": "CQ_COMPLETION",
+          "req_id": "r5",
+          "status": "SUCCESS",
+          "sq_head": 5,
+          "sqhd": 5
+        }
+      ]
+    }
+  },
+  {
+    "name": "MR 풀 고갈(MR Pool Starvation) 시 대기열 큐잉 및 인-캡슐 I/O 우회 처리",
+    "input": {
+      "config": {
+        "queue_depth": 8,
+        "in_capsule_data_size": 4096,
+        "mr_pool_size": 2,
+        "cq_poll_budget": 4,
+        "fabric_rtt_ms": 1,
+        "target_proc_time_ms": 4,
+        "transfer_rate_kb_per_ms": 64
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "SUBMIT_CMD",
+          "req_id": "r1",
+          "opcode": "NVME_CMD_WRITE",
+          "lba": 0,
+          "size_bytes": 65536
+        },
+        {
+          "time": 1,
+          "type": "SUBMIT_CMD",
+          "req_id": "r2",
+          "opcode": "NVME_CMD_READ",
+          "lba": 128,
+          "size_bytes": 65536
+        },
+        {
+          "time": 2,
+          "type": "SUBMIT_CMD",
+          "req_id": "r3",
+          "opcode": "NVME_CMD_WRITE",
+          "lba": 256,
+          "size_bytes": 65536
+        },
+        {
+          "time": 3,
+          "type": "SUBMIT_CMD",
+          "req_id": "r4",
+          "opcode": "NVME_CMD_READ",
+          "lba": 512,
+          "size_bytes": 2048
+        },
+        {
+          "time": 8,
+          "type": "POLL_CQ",
+          "budget": 2
+        },
+        {
+          "time": 20,
+          "type": "POLL_CQ",
+          "budget": 4
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_submitted": 4,
+        "completed_count": 4,
+        "in_capsule_count": 1,
+        "rdma_sgl_count": 3,
+        "credit_starvations": 0,
+        "mr_starvations": 1,
+        "active_credits": 0,
+        "free_mr_count": 2,
+        "qp_state": "IB_QPS_RTS"
+      },
+      "completed_requests": [
+        {
+          "req_id": "r1",
+          "opcode": "NVME_CMD_WRITE",
+          "size_bytes": 65536,
+          "mode": "RDMA_SGL",
+          "completion_time": 8,
+          "latency_ms": 8,
+          "status": "SUCCESS"
+        },
+        {
+          "req_id": "r2",
+          "opcode": "NVME_CMD_READ",
+          "size_bytes": 65536,
+          "mode": "RDMA_SGL",
+          "completion_time": 8,
+          "latency_ms": 7,
+          "status": "SUCCESS"
+        },
+        {
+          "req_id": "r4",
+          "opcode": "NVME_CMD_READ",
+          "size_bytes": 2048,
+          "mode": "IN_CAPSULE",
+          "completion_time": 20,
+          "latency_ms": 17,
+          "status": "SUCCESS"
+        },
+        {
+          "req_id": "r3",
+          "opcode": "NVME_CMD_WRITE",
+          "size_bytes": 65536,
+          "mode": "RDMA_SGL",
+          "completion_time": 20,
+          "latency_ms": 18,
+          "status": "SUCCESS"
+        }
+      ],
+      "mr_pool_status": [
+        {
+          "mr_id": 0,
+          "rkey": "0x1000",
+          "is_busy": false,
+          "assigned_req": null
+        },
+        {
+          "mr_id": 1,
+          "rkey": "0x1100",
+          "is_busy": false,
+          "assigned_req": null
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "POST_SEND_RDMA_SGL",
+          "req_id": "r1",
+          "sq_tail": 1,
+          "mr_id": 0,
+          "rkey": "0x1000",
+          "size_bytes": 65536
+        },
+        {
+          "time": 1,
+          "event": "POST_SEND_RDMA_SGL",
+          "req_id": "r2",
+          "sq_tail": 2,
+          "mr_id": 1,
+          "rkey": "0x1100",
+          "size_bytes": 65536
+        },
+        {
+          "time": 2,
+          "event": "MR_EXHAUSTED",
+          "req_id": "r3",
+          "free_mrs": 0
+        },
+        {
+          "time": 3,
+          "event": "POST_SEND_IN_CAPSULE",
+          "req_id": "r4",
+          "sq_tail": 3,
+          "size_bytes": 2048
+        },
+        {
+          "time": 8,
+          "event": "CQ_COMPLETION",
+          "req_id": "r1",
+          "status": "SUCCESS",
+          "sq_head": 1,
+          "sqhd": 1
+        },
+        {
+          "time": 8,
+          "event": "CQ_COMPLETION",
+          "req_id": "r2",
+          "status": "SUCCESS",
+          "sq_head": 2,
+          "sqhd": 2
+        },
+        {
+          "time": 8,
+          "event": "POST_SEND_RDMA_SGL",
+          "req_id": "r3",
+          "sq_tail": 4,
+          "mr_id": 0,
+          "rkey": "0x1000",
+          "size_bytes": 65536
+        },
+        {
+          "time": 20,
+          "event": "CQ_COMPLETION",
+          "req_id": "r4",
+          "status": "SUCCESS",
+          "sq_head": 3,
+          "sqhd": 3
+        },
+        {
+          "time": 20,
+          "event": "CQ_COMPLETION",
+          "req_id": "r3",
+          "status": "SUCCESS",
+          "sq_head": 4,
+          "sqhd": 4
+        }
+      ]
+    }
+  },
+  {
+    "name": "패브릭 링크 장애(QP Fatal Error) 발생 시 전체 요청 플러시 및 에러 반환",
+    "input": {
+      "config": {
+        "queue_depth": 8,
+        "in_capsule_data_size": 4096,
+        "mr_pool_size": 2,
+        "cq_poll_budget": 4,
+        "fabric_rtt_ms": 2,
+        "target_proc_time_ms": 10,
+        "transfer_rate_kb_per_ms": 64
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "SUBMIT_CMD",
+          "req_id": "r1",
+          "opcode": "NVME_CMD_WRITE",
+          "lba": 0,
+          "size_bytes": 65536
+        },
+        {
+          "time": 1,
+          "type": "SUBMIT_CMD",
+          "req_id": "r2",
+          "opcode": "NVME_CMD_WRITE",
+          "lba": 128,
+          "size_bytes": 65536
+        },
+        {
+          "time": 2,
+          "type": "SUBMIT_CMD",
+          "req_id": "r3",
+          "opcode": "NVME_CMD_WRITE",
+          "lba": 256,
+          "size_bytes": 65536
+        },
+        {
+          "time": 4,
+          "type": "TRIGGER_QP_ERROR",
+          "reason": "IB_EVENT_QP_FATAL"
+        },
+        {
+          "time": 5,
+          "type": "SUBMIT_CMD",
+          "req_id": "r4",
+          "opcode": "NVME_CMD_READ",
+          "lba": 512,
+          "size_bytes": 1024
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_submitted": 3,
+        "completed_count": 3,
+        "in_capsule_count": 0,
+        "rdma_sgl_count": 2,
+        "credit_starvations": 0,
+        "mr_starvations": 1,
+        "active_credits": 0,
+        "free_mr_count": 2,
+        "qp_state": "IB_QPS_ERR"
+      },
+      "completed_requests": [
+        {
+          "req_id": "r1",
+          "opcode": "NVME_CMD_WRITE",
+          "size_bytes": 65536,
+          "mode": "RDMA_SGL",
+          "completion_time": 4,
+          "latency_ms": 4,
+          "status": "NVME_SC_TRANSPORT_ERROR"
+        },
+        {
+          "req_id": "r2",
+          "opcode": "NVME_CMD_WRITE",
+          "size_bytes": 65536,
+          "mode": "RDMA_SGL",
+          "completion_time": 4,
+          "latency_ms": 3,
+          "status": "NVME_SC_TRANSPORT_ERROR"
+        },
+        {
+          "req_id": "r3",
+          "opcode": "NVME_CMD_WRITE",
+          "size_bytes": 65536,
+          "mode": "FLUSHED",
+          "completion_time": 4,
+          "latency_ms": 2,
+          "status": "NVME_SC_TRANSPORT_ERROR"
+        }
+      ],
+      "mr_pool_status": [
+        {
+          "mr_id": 0,
+          "rkey": "0x1000",
+          "is_busy": false,
+          "assigned_req": null
+        },
+        {
+          "mr_id": 1,
+          "rkey": "0x1100",
+          "is_busy": false,
+          "assigned_req": null
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "POST_SEND_RDMA_SGL",
+          "req_id": "r1",
+          "sq_tail": 1,
+          "mr_id": 0,
+          "rkey": "0x1000",
+          "size_bytes": 65536
+        },
+        {
+          "time": 1,
+          "event": "POST_SEND_RDMA_SGL",
+          "req_id": "r2",
+          "sq_tail": 2,
+          "mr_id": 1,
+          "rkey": "0x1100",
+          "size_bytes": 65536
+        },
+        {
+          "time": 2,
+          "event": "MR_EXHAUSTED",
+          "req_id": "r3",
+          "free_mrs": 0
+        },
+        {
+          "time": 4,
+          "event": "QP_ERROR_FLUSH",
+          "reason": "IB_EVENT_QP_FATAL",
+          "flushed_count": 3
+        },
+        {
+          "time": 5,
+          "event": "SUBMIT_REJECTED_QP_ERR",
+          "req_id": "r4"
+        }
+      ]
+    }
+  },
+  {
+    "name": "QP 재연결(Reconnect)에 따른 전송 상태 머신 초기화 및 정상 트래픽 재개",
+    "input": {
+      "config": {
+        "queue_depth": 8,
+        "in_capsule_data_size": 4096,
+        "mr_pool_size": 4,
+        "cq_poll_budget": 4,
+        "fabric_rtt_ms": 1,
+        "target_proc_time_ms": 4,
+        "transfer_rate_kb_per_ms": 64
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "SUBMIT_CMD",
+          "req_id": "r1",
+          "opcode": "NVME_CMD_WRITE",
+          "lba": 0,
+          "size_bytes": 2048
+        },
+        {
+          "time": 2,
+          "type": "TRIGGER_QP_ERROR",
+          "reason": "ROCE_PORT_DOWN"
+        },
+        {
+          "time": 5,
+          "type": "RECONNECT_QP"
+        },
+        {
+          "time": 6,
+          "type": "SUBMIT_CMD",
+          "req_id": "r2",
+          "opcode": "NVME_CMD_READ",
+          "lba": 100,
+          "size_bytes": 4096
+        },
+        {
+          "time": 7,
+          "type": "SUBMIT_CMD",
+          "req_id": "r3",
+          "opcode": "NVME_CMD_WRITE",
+          "lba": 200,
+          "size_bytes": 8192
+        },
+        {
+          "time": 15,
+          "type": "POLL_CQ",
+          "budget": 4
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_submitted": 3,
+        "completed_count": 3,
+        "in_capsule_count": 2,
+        "rdma_sgl_count": 1,
+        "credit_starvations": 0,
+        "mr_starvations": 0,
+        "active_credits": 0,
+        "free_mr_count": 4,
+        "qp_state": "IB_QPS_RTS"
+      },
+      "completed_requests": [
+        {
+          "req_id": "r1",
+          "opcode": "NVME_CMD_WRITE",
+          "size_bytes": 2048,
+          "mode": "IN_CAPSULE",
+          "completion_time": 2,
+          "latency_ms": 2,
+          "status": "NVME_SC_TRANSPORT_ERROR"
+        },
+        {
+          "req_id": "r2",
+          "opcode": "NVME_CMD_READ",
+          "size_bytes": 4096,
+          "mode": "IN_CAPSULE",
+          "completion_time": 15,
+          "latency_ms": 9,
+          "status": "SUCCESS"
+        },
+        {
+          "req_id": "r3",
+          "opcode": "NVME_CMD_WRITE",
+          "size_bytes": 8192,
+          "mode": "RDMA_SGL",
+          "completion_time": 15,
+          "latency_ms": 8,
+          "status": "SUCCESS"
+        }
+      ],
+      "mr_pool_status": [
+        {
+          "mr_id": 0,
+          "rkey": "0x1000",
+          "is_busy": false,
+          "assigned_req": null
+        },
+        {
+          "mr_id": 1,
+          "rkey": "0x1100",
+          "is_busy": false,
+          "assigned_req": null
+        },
+        {
+          "mr_id": 2,
+          "rkey": "0x1200",
+          "is_busy": false,
+          "assigned_req": null
+        },
+        {
+          "mr_id": 3,
+          "rkey": "0x1300",
+          "is_busy": false,
+          "assigned_req": null
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "POST_SEND_IN_CAPSULE",
+          "req_id": "r1",
+          "sq_tail": 1,
+          "size_bytes": 2048
+        },
+        {
+          "time": 2,
+          "event": "QP_ERROR_FLUSH",
+          "reason": "ROCE_PORT_DOWN",
+          "flushed_count": 1
+        },
+        {
+          "time": 5,
+          "event": "QP_RECONNECTED"
+        },
+        {
+          "time": 6,
+          "event": "POST_SEND_IN_CAPSULE",
+          "req_id": "r2",
+          "sq_tail": 1,
+          "size_bytes": 4096
+        },
+        {
+          "time": 7,
+          "event": "POST_SEND_RDMA_SGL",
+          "req_id": "r3",
+          "sq_tail": 2,
+          "mr_id": 0,
+          "rkey": "0x1000",
+          "size_bytes": 8192
+        },
+        {
+          "time": 15,
+          "event": "CQ_COMPLETION",
+          "req_id": "r2",
+          "status": "SUCCESS",
+          "sq_head": 1,
+          "sqhd": 1
+        },
+        {
+          "time": 15,
+          "event": "CQ_COMPLETION",
+          "req_id": "r3",
+          "status": "SUCCESS",
+          "sq_head": 2,
+          "sqhd": 2
+        }
+      ]
+    }
+  },
+  {
+    "name": "CQ 폴링 버짓(Poll Budget) 제한에 따른 단계적 완료 회수 검증",
+    "input": {
+      "config": {
+        "queue_depth": 8,
+        "in_capsule_data_size": 4096,
+        "mr_pool_size": 4,
+        "cq_poll_budget": 2,
+        "fabric_rtt_ms": 1,
+        "target_proc_time_ms": 2,
+        "transfer_rate_kb_per_ms": 64
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "SUBMIT_CMD",
+          "req_id": "r1",
+          "opcode": "NVME_CMD_READ",
+          "lba": 0,
+          "size_bytes": 1024
+        },
+        {
+          "time": 0,
+          "type": "SUBMIT_CMD",
+          "req_id": "r2",
+          "opcode": "NVME_CMD_READ",
+          "lba": 2,
+          "size_bytes": 1024
+        },
+        {
+          "time": 0,
+          "type": "SUBMIT_CMD",
+          "req_id": "r3",
+          "opcode": "NVME_CMD_READ",
+          "lba": 4,
+          "size_bytes": 1024
+        },
+        {
+          "time": 0,
+          "type": "SUBMIT_CMD",
+          "req_id": "r4",
+          "opcode": "NVME_CMD_READ",
+          "lba": 6,
+          "size_bytes": 1024
+        },
+        {
+          "time": 5,
+          "type": "POLL_CQ",
+          "budget": 2
+        },
+        {
+          "time": 6,
+          "type": "POLL_CQ",
+          "budget": 1
+        },
+        {
+          "time": 7,
+          "type": "POLL_CQ",
+          "budget": 2
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_submitted": 4,
+        "completed_count": 4,
+        "in_capsule_count": 4,
+        "rdma_sgl_count": 0,
+        "credit_starvations": 0,
+        "mr_starvations": 0,
+        "active_credits": 0,
+        "free_mr_count": 4,
+        "qp_state": "IB_QPS_RTS"
+      },
+      "completed_requests": [
+        {
+          "req_id": "r1",
+          "opcode": "NVME_CMD_READ",
+          "size_bytes": 1024,
+          "mode": "IN_CAPSULE",
+          "completion_time": 5,
+          "latency_ms": 5,
+          "status": "SUCCESS"
+        },
+        {
+          "req_id": "r2",
+          "opcode": "NVME_CMD_READ",
+          "size_bytes": 1024,
+          "mode": "IN_CAPSULE",
+          "completion_time": 5,
+          "latency_ms": 5,
+          "status": "SUCCESS"
+        },
+        {
+          "req_id": "r3",
+          "opcode": "NVME_CMD_READ",
+          "size_bytes": 1024,
+          "mode": "IN_CAPSULE",
+          "completion_time": 6,
+          "latency_ms": 6,
+          "status": "SUCCESS"
+        },
+        {
+          "req_id": "r4",
+          "opcode": "NVME_CMD_READ",
+          "size_bytes": 1024,
+          "mode": "IN_CAPSULE",
+          "completion_time": 7,
+          "latency_ms": 7,
+          "status": "SUCCESS"
+        }
+      ],
+      "mr_pool_status": [
+        {
+          "mr_id": 0,
+          "rkey": "0x1000",
+          "is_busy": false,
+          "assigned_req": null
+        },
+        {
+          "mr_id": 1,
+          "rkey": "0x1100",
+          "is_busy": false,
+          "assigned_req": null
+        },
+        {
+          "mr_id": 2,
+          "rkey": "0x1200",
+          "is_busy": false,
+          "assigned_req": null
+        },
+        {
+          "mr_id": 3,
+          "rkey": "0x1300",
+          "is_busy": false,
+          "assigned_req": null
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "POST_SEND_IN_CAPSULE",
+          "req_id": "r1",
+          "sq_tail": 1,
+          "size_bytes": 1024
+        },
+        {
+          "time": 0,
+          "event": "POST_SEND_IN_CAPSULE",
+          "req_id": "r2",
+          "sq_tail": 2,
+          "size_bytes": 1024
+        },
+        {
+          "time": 0,
+          "event": "POST_SEND_IN_CAPSULE",
+          "req_id": "r3",
+          "sq_tail": 3,
+          "size_bytes": 1024
+        },
+        {
+          "time": 0,
+          "event": "POST_SEND_IN_CAPSULE",
+          "req_id": "r4",
+          "sq_tail": 4,
+          "size_bytes": 1024
+        },
+        {
+          "time": 5,
+          "event": "CQ_COMPLETION",
+          "req_id": "r1",
+          "status": "SUCCESS",
+          "sq_head": 1,
+          "sqhd": 1
+        },
+        {
+          "time": 5,
+          "event": "CQ_COMPLETION",
+          "req_id": "r2",
+          "status": "SUCCESS",
+          "sq_head": 2,
+          "sqhd": 2
+        },
+        {
+          "time": 6,
+          "event": "CQ_COMPLETION",
+          "req_id": "r3",
+          "status": "SUCCESS",
+          "sq_head": 3,
+          "sqhd": 3
+        },
+        {
+          "time": 7,
+          "event": "CQ_COMPLETION",
+          "req_id": "r4",
+          "status": "SUCCESS",
+          "sq_head": 4,
+          "sqhd": 4
+        }
+      ]
+    }
+  },
+  {
+    "name": "초대규모 AI 클러스터 스토리지 혼합 워크로드(메타데이터 인-캡슐 및 텐서 체크포인트 RDMA SGL) 종합 검증",
+    "input": {
+      "config": {
+        "queue_depth": 4,
+        "in_capsule_data_size": 4096,
+        "mr_pool_size": 2,
+        "cq_poll_budget": 2,
+        "fabric_rtt_ms": 2,
+        "target_proc_time_ms": 5,
+        "transfer_rate_kb_per_ms": 64
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "SUBMIT_CMD",
+          "req_id": "ai_meta_1",
+          "opcode": "NVME_CMD_READ",
+          "lba": 0,
+          "size_bytes": 4096
+        },
+        {
+          "time": 1,
+          "type": "SUBMIT_CMD",
+          "req_id": "ai_chkpt_1",
+          "opcode": "NVME_CMD_WRITE",
+          "lba": 1000,
+          "size_bytes": 131072
+        },
+        {
+          "time": 2,
+          "type": "SUBMIT_CMD",
+          "req_id": "ai_chkpt_2",
+          "opcode": "NVME_CMD_WRITE",
+          "lba": 2000,
+          "size_bytes": 65536
+        },
+        {
+          "time": 3,
+          "type": "SUBMIT_CMD",
+          "req_id": "ai_meta_2",
+          "opcode": "NVME_CMD_WRITE",
+          "lba": 10,
+          "size_bytes": 1024
+        },
+        {
+          "time": 4,
+          "type": "SUBMIT_CMD",
+          "req_id": "ai_chkpt_3",
+          "opcode": "NVME_CMD_READ",
+          "lba": 3000,
+          "size_bytes": 65536
+        },
+        {
+          "time": 5,
+          "type": "SUBMIT_CMD",
+          "req_id": "ai_meta_3",
+          "opcode": "NVME_CMD_READ",
+          "lba": 20,
+          "size_bytes": 2048
+        },
+        {
+          "time": 8,
+          "type": "POLL_CQ",
+          "budget": 2
+        },
+        {
+          "time": 12,
+          "type": "POLL_CQ",
+          "budget": 2
+        },
+        {
+          "time": 18,
+          "type": "POLL_CQ",
+          "budget": 4
+        },
+        {
+          "time": 25,
+          "type": "POLL_CQ",
+          "budget": 4
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_submitted": 6,
+        "completed_count": 6,
+        "in_capsule_count": 3,
+        "rdma_sgl_count": 3,
+        "credit_starvations": 2,
+        "mr_starvations": 1,
+        "active_credits": 0,
+        "free_mr_count": 2,
+        "qp_state": "IB_QPS_RTS"
+      },
+      "completed_requests": [
+        {
+          "req_id": "ai_meta_1",
+          "opcode": "NVME_CMD_READ",
+          "size_bytes": 4096,
+          "mode": "IN_CAPSULE",
+          "completion_time": 8,
+          "latency_ms": 8,
+          "status": "SUCCESS"
+        },
+        {
+          "req_id": "ai_chkpt_1",
+          "opcode": "NVME_CMD_WRITE",
+          "size_bytes": 131072,
+          "mode": "RDMA_SGL",
+          "completion_time": 12,
+          "latency_ms": 11,
+          "status": "SUCCESS"
+        },
+        {
+          "req_id": "ai_chkpt_2",
+          "opcode": "NVME_CMD_WRITE",
+          "size_bytes": 65536,
+          "mode": "RDMA_SGL",
+          "completion_time": 12,
+          "latency_ms": 10,
+          "status": "SUCCESS"
+        },
+        {
+          "req_id": "ai_meta_2",
+          "opcode": "NVME_CMD_WRITE",
+          "size_bytes": 1024,
+          "mode": "IN_CAPSULE",
+          "completion_time": 18,
+          "latency_ms": 15,
+          "status": "SUCCESS"
+        },
+        {
+          "req_id": "ai_meta_3",
+          "opcode": "NVME_CMD_READ",
+          "size_bytes": 2048,
+          "mode": "IN_CAPSULE",
+          "completion_time": 25,
+          "latency_ms": 20,
+          "status": "SUCCESS"
+        },
+        {
+          "req_id": "ai_chkpt_3",
+          "opcode": "NVME_CMD_READ",
+          "size_bytes": 65536,
+          "mode": "RDMA_SGL",
+          "completion_time": 25,
+          "latency_ms": 21,
+          "status": "SUCCESS"
+        }
+      ],
+      "mr_pool_status": [
+        {
+          "mr_id": 0,
+          "rkey": "0x1000",
+          "is_busy": false,
+          "assigned_req": null
+        },
+        {
+          "mr_id": 1,
+          "rkey": "0x1100",
+          "is_busy": false,
+          "assigned_req": null
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "POST_SEND_IN_CAPSULE",
+          "req_id": "ai_meta_1",
+          "sq_tail": 1,
+          "size_bytes": 4096
+        },
+        {
+          "time": 1,
+          "event": "POST_SEND_RDMA_SGL",
+          "req_id": "ai_chkpt_1",
+          "sq_tail": 2,
+          "mr_id": 0,
+          "rkey": "0x1000",
+          "size_bytes": 131072
+        },
+        {
+          "time": 2,
+          "event": "POST_SEND_RDMA_SGL",
+          "req_id": "ai_chkpt_2",
+          "sq_tail": 3,
+          "mr_id": 1,
+          "rkey": "0x1100",
+          "size_bytes": 65536
+        },
+        {
+          "time": 3,
+          "event": "POST_SEND_IN_CAPSULE",
+          "req_id": "ai_meta_2",
+          "sq_tail": 4,
+          "size_bytes": 1024
+        },
+        {
+          "time": 4,
+          "event": "CREDIT_EXHAUSTED",
+          "req_id": "ai_chkpt_3",
+          "active_credits": 4,
+          "queue_depth": 4
+        },
+        {
+          "time": 5,
+          "event": "CREDIT_EXHAUSTED",
+          "req_id": "ai_meta_3",
+          "active_credits": 4,
+          "queue_depth": 4
+        },
+        {
+          "time": 8,
+          "event": "CQ_COMPLETION",
+          "req_id": "ai_meta_1",
+          "status": "SUCCESS",
+          "sq_head": 1,
+          "sqhd": 1
+        },
+        {
+          "time": 8,
+          "event": "MR_EXHAUSTED",
+          "req_id": "ai_chkpt_3",
+          "free_mrs": 0
+        },
+        {
+          "time": 12,
+          "event": "CQ_COMPLETION",
+          "req_id": "ai_chkpt_1",
+          "status": "SUCCESS",
+          "sq_head": 2,
+          "sqhd": 2
+        },
+        {
+          "time": 12,
+          "event": "CQ_COMPLETION",
+          "req_id": "ai_chkpt_2",
+          "status": "SUCCESS",
+          "sq_head": 3,
+          "sqhd": 3
+        },
+        {
+          "time": 12,
+          "event": "POST_SEND_RDMA_SGL",
+          "req_id": "ai_chkpt_3",
+          "sq_tail": 5,
+          "mr_id": 0,
+          "rkey": "0x1000",
+          "size_bytes": 65536
+        },
+        {
+          "time": 12,
+          "event": "POST_SEND_IN_CAPSULE",
+          "req_id": "ai_meta_3",
+          "sq_tail": 6,
+          "size_bytes": 2048
+        },
+        {
+          "time": 18,
+          "event": "CQ_COMPLETION",
+          "req_id": "ai_meta_2",
+          "status": "SUCCESS",
+          "sq_head": 4,
+          "sqhd": 4
+        },
+        {
+          "time": 25,
+          "event": "CQ_COMPLETION",
+          "req_id": "ai_meta_3",
+          "status": "SUCCESS",
+          "sq_head": 5,
+          "sqhd": 5
+        },
+        {
+          "time": 25,
+          "event": "CQ_COMPLETION",
+          "req_id": "ai_chkpt_3",
+          "status": "SUCCESS",
+          "sq_head": 6,
+          "sqhd": 6
+        }
+      ]
+    }
+  }
+]
