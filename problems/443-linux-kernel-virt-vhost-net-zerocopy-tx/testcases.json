@@ -1,0 +1,1287 @@
+[
+  {
+    "testcase_id": 1,
+    "input": {
+      "config": {
+        "max_zcopy_inflight": 4,
+        "zcopy_min_threshold": 512,
+        "copy_cost_cycles": 0.5
+      },
+      "trace": [
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "SMALL_1",
+          "desc_idx": 0,
+          "len": 128
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "SMALL_2",
+          "desc_idx": 1,
+          "len": 256
+        },
+        {
+          "op": "FLUSH_USED_RING"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "SMALL_1",
+          "desc_idx": 0,
+          "mode": "COPY_THRESHOLD",
+          "len": 128,
+          "status": "TX_COPIED_IMMEDIATE_RETURN",
+          "inflight_zcopy": 0,
+          "used_ring_pending": 1
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "SMALL_2",
+          "desc_idx": 1,
+          "mode": "COPY_THRESHOLD",
+          "len": 256,
+          "status": "TX_COPIED_IMMEDIATE_RETURN",
+          "inflight_zcopy": 0,
+          "used_ring_pending": 2
+        },
+        {
+          "op": "FLUSH_USED_RING",
+          "descriptors_returned": 2,
+          "descriptors": [
+            0,
+            1
+          ],
+          "virtqueue_kicks": 1,
+          "status": "USED_RING_KICKED"
+        },
+        {
+          "op": "GET_STATS",
+          "total_tx_packets": 2,
+          "zcopy_packets": 0,
+          "copied_packets": 2,
+          "zcopy_fallback_count": 0,
+          "total_bytes_transmitted": 384,
+          "bytes_copied": 384,
+          "bytes_zerocopy": 0,
+          "host_cpu_cycles_saved": 0,
+          "inflight_zcopy_count": 0,
+          "pending_used_ring": 0,
+          "virtqueue_kicks": 1
+        }
+      ],
+      "summary": {
+        "total_tx_packets": 2,
+        "zcopy_packets": 0,
+        "copied_packets": 2,
+        "zcopy_fallback_count": 0,
+        "total_bytes_transmitted": 384,
+        "bytes_copied": 384,
+        "bytes_zerocopy": 0,
+        "host_cpu_cycles_saved": 0,
+        "virtqueue_kicks": 1
+      }
+    }
+  },
+  {
+    "testcase_id": 2,
+    "input": {
+      "config": {
+        "max_zcopy_inflight": 4,
+        "zcopy_min_threshold": 512,
+        "copy_cost_cycles": 0.5
+      },
+      "trace": [
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "Z1",
+          "desc_idx": 10,
+          "len": 1500
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "Z2",
+          "desc_idx": 11,
+          "len": 1500
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "Z1"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "Z2"
+        },
+        {
+          "op": "FLUSH_USED_RING"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "Z1",
+          "desc_idx": 10,
+          "mode": "ZERO_COPY",
+          "len": 1500,
+          "status": "TX_ZERO_COPY_IN_FLIGHT",
+          "inflight_zcopy": 1,
+          "used_ring_pending": 0
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "Z2",
+          "desc_idx": 11,
+          "mode": "ZERO_COPY",
+          "len": 1500,
+          "status": "TX_ZERO_COPY_IN_FLIGHT",
+          "inflight_zcopy": 2,
+          "used_ring_pending": 0
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "Z1",
+          "desc_idx": 10,
+          "cycles_saved": 750,
+          "inflight_zcopy": 1,
+          "status": "ZERO_COPY_CALLBACK_COMPLETED"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "Z2",
+          "desc_idx": 11,
+          "cycles_saved": 750,
+          "inflight_zcopy": 0,
+          "status": "ZERO_COPY_CALLBACK_COMPLETED"
+        },
+        {
+          "op": "FLUSH_USED_RING",
+          "descriptors_returned": 2,
+          "descriptors": [
+            10,
+            11
+          ],
+          "virtqueue_kicks": 1,
+          "status": "USED_RING_KICKED"
+        },
+        {
+          "op": "GET_STATS",
+          "total_tx_packets": 2,
+          "zcopy_packets": 2,
+          "copied_packets": 0,
+          "zcopy_fallback_count": 0,
+          "total_bytes_transmitted": 3000,
+          "bytes_copied": 0,
+          "bytes_zerocopy": 3000,
+          "host_cpu_cycles_saved": 1500,
+          "inflight_zcopy_count": 0,
+          "pending_used_ring": 0,
+          "virtqueue_kicks": 1
+        }
+      ],
+      "summary": {
+        "total_tx_packets": 2,
+        "zcopy_packets": 2,
+        "copied_packets": 0,
+        "zcopy_fallback_count": 0,
+        "total_bytes_transmitted": 3000,
+        "bytes_copied": 0,
+        "bytes_zerocopy": 3000,
+        "host_cpu_cycles_saved": 1500,
+        "virtqueue_kicks": 1
+      }
+    }
+  },
+  {
+    "testcase_id": 3,
+    "input": {
+      "config": {
+        "max_zcopy_inflight": 2,
+        "zcopy_min_threshold": 512,
+        "copy_cost_cycles": 0.5
+      },
+      "trace": [
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "CAP_1",
+          "desc_idx": 0,
+          "len": 1400
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "CAP_2",
+          "desc_idx": 1,
+          "len": 1400
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "CAP_3",
+          "desc_idx": 2,
+          "len": 1400
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "CAP_1"
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "CAP_4",
+          "desc_idx": 3,
+          "len": 1400
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "CAP_2"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "CAP_4"
+        },
+        {
+          "op": "FLUSH_USED_RING"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "CAP_1",
+          "desc_idx": 0,
+          "mode": "ZERO_COPY",
+          "len": 1400,
+          "status": "TX_ZERO_COPY_IN_FLIGHT",
+          "inflight_zcopy": 1,
+          "used_ring_pending": 0
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "CAP_2",
+          "desc_idx": 1,
+          "mode": "ZERO_COPY",
+          "len": 1400,
+          "status": "TX_ZERO_COPY_IN_FLIGHT",
+          "inflight_zcopy": 2,
+          "used_ring_pending": 0
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "CAP_3",
+          "desc_idx": 2,
+          "mode": "COPY_FALLBACK",
+          "len": 1400,
+          "status": "TX_COPIED_FALLBACK",
+          "inflight_zcopy": 2,
+          "used_ring_pending": 1
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "CAP_1",
+          "desc_idx": 0,
+          "cycles_saved": 700,
+          "inflight_zcopy": 1,
+          "status": "ZERO_COPY_CALLBACK_COMPLETED"
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "CAP_4",
+          "desc_idx": 3,
+          "mode": "ZERO_COPY",
+          "len": 1400,
+          "status": "TX_ZERO_COPY_IN_FLIGHT",
+          "inflight_zcopy": 2,
+          "used_ring_pending": 2
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "CAP_2",
+          "desc_idx": 1,
+          "cycles_saved": 700,
+          "inflight_zcopy": 1,
+          "status": "ZERO_COPY_CALLBACK_COMPLETED"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "CAP_4",
+          "desc_idx": 3,
+          "cycles_saved": 700,
+          "inflight_zcopy": 0,
+          "status": "ZERO_COPY_CALLBACK_COMPLETED"
+        },
+        {
+          "op": "FLUSH_USED_RING",
+          "descriptors_returned": 4,
+          "descriptors": [
+            2,
+            0,
+            1,
+            3
+          ],
+          "virtqueue_kicks": 1,
+          "status": "USED_RING_KICKED"
+        },
+        {
+          "op": "GET_STATS",
+          "total_tx_packets": 4,
+          "zcopy_packets": 3,
+          "copied_packets": 1,
+          "zcopy_fallback_count": 1,
+          "total_bytes_transmitted": 5600,
+          "bytes_copied": 1400,
+          "bytes_zerocopy": 4200,
+          "host_cpu_cycles_saved": 2100,
+          "inflight_zcopy_count": 0,
+          "pending_used_ring": 0,
+          "virtqueue_kicks": 1
+        }
+      ],
+      "summary": {
+        "total_tx_packets": 4,
+        "zcopy_packets": 3,
+        "copied_packets": 1,
+        "zcopy_fallback_count": 1,
+        "total_bytes_transmitted": 5600,
+        "bytes_copied": 1400,
+        "bytes_zerocopy": 4200,
+        "host_cpu_cycles_saved": 2100,
+        "virtqueue_kicks": 1
+      }
+    }
+  },
+  {
+    "testcase_id": 4,
+    "input": {
+      "config": {
+        "max_zcopy_inflight": 3,
+        "zcopy_min_threshold": 512,
+        "copy_cost_cycles": 0.5
+      },
+      "trace": [
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "MIX_S1",
+          "desc_idx": 0,
+          "len": 64
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "MIX_L1",
+          "desc_idx": 1,
+          "len": 1500
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "MIX_S2",
+          "desc_idx": 2,
+          "len": 128
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "MIX_L1"
+        },
+        {
+          "op": "FLUSH_USED_RING"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "MIX_S1",
+          "desc_idx": 0,
+          "mode": "COPY_THRESHOLD",
+          "len": 64,
+          "status": "TX_COPIED_IMMEDIATE_RETURN",
+          "inflight_zcopy": 0,
+          "used_ring_pending": 1
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "MIX_L1",
+          "desc_idx": 1,
+          "mode": "ZERO_COPY",
+          "len": 1500,
+          "status": "TX_ZERO_COPY_IN_FLIGHT",
+          "inflight_zcopy": 1,
+          "used_ring_pending": 1
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "MIX_S2",
+          "desc_idx": 2,
+          "mode": "COPY_THRESHOLD",
+          "len": 128,
+          "status": "TX_COPIED_IMMEDIATE_RETURN",
+          "inflight_zcopy": 1,
+          "used_ring_pending": 2
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "MIX_L1",
+          "desc_idx": 1,
+          "cycles_saved": 750,
+          "inflight_zcopy": 0,
+          "status": "ZERO_COPY_CALLBACK_COMPLETED"
+        },
+        {
+          "op": "FLUSH_USED_RING",
+          "descriptors_returned": 3,
+          "descriptors": [
+            0,
+            2,
+            1
+          ],
+          "virtqueue_kicks": 1,
+          "status": "USED_RING_KICKED"
+        },
+        {
+          "op": "GET_STATS",
+          "total_tx_packets": 3,
+          "zcopy_packets": 1,
+          "copied_packets": 2,
+          "zcopy_fallback_count": 0,
+          "total_bytes_transmitted": 1692,
+          "bytes_copied": 192,
+          "bytes_zerocopy": 1500,
+          "host_cpu_cycles_saved": 750,
+          "inflight_zcopy_count": 0,
+          "pending_used_ring": 0,
+          "virtqueue_kicks": 1
+        }
+      ],
+      "summary": {
+        "total_tx_packets": 3,
+        "zcopy_packets": 1,
+        "copied_packets": 2,
+        "zcopy_fallback_count": 0,
+        "total_bytes_transmitted": 1692,
+        "bytes_copied": 192,
+        "bytes_zerocopy": 1500,
+        "host_cpu_cycles_saved": 750,
+        "virtqueue_kicks": 1
+      }
+    }
+  },
+  {
+    "testcase_id": 5,
+    "input": {
+      "config": {
+        "max_zcopy_inflight": 4,
+        "zcopy_min_threshold": 1024,
+        "copy_cost_cycles": 1.0
+      },
+      "trace": [
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BELOW",
+          "desc_idx": 0,
+          "len": 1023
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "EXACT",
+          "desc_idx": 1,
+          "len": 1024
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "EXACT"
+        },
+        {
+          "op": "FLUSH_USED_RING"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BELOW",
+          "desc_idx": 0,
+          "mode": "COPY_THRESHOLD",
+          "len": 1023,
+          "status": "TX_COPIED_IMMEDIATE_RETURN",
+          "inflight_zcopy": 0,
+          "used_ring_pending": 1
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "EXACT",
+          "desc_idx": 1,
+          "mode": "ZERO_COPY",
+          "len": 1024,
+          "status": "TX_ZERO_COPY_IN_FLIGHT",
+          "inflight_zcopy": 1,
+          "used_ring_pending": 1
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "EXACT",
+          "desc_idx": 1,
+          "cycles_saved": 1024,
+          "inflight_zcopy": 0,
+          "status": "ZERO_COPY_CALLBACK_COMPLETED"
+        },
+        {
+          "op": "FLUSH_USED_RING",
+          "descriptors_returned": 2,
+          "descriptors": [
+            0,
+            1
+          ],
+          "virtqueue_kicks": 1,
+          "status": "USED_RING_KICKED"
+        },
+        {
+          "op": "GET_STATS",
+          "total_tx_packets": 2,
+          "zcopy_packets": 1,
+          "copied_packets": 1,
+          "zcopy_fallback_count": 0,
+          "total_bytes_transmitted": 2047,
+          "bytes_copied": 1023,
+          "bytes_zerocopy": 1024,
+          "host_cpu_cycles_saved": 1024,
+          "inflight_zcopy_count": 0,
+          "pending_used_ring": 0,
+          "virtqueue_kicks": 1
+        }
+      ],
+      "summary": {
+        "total_tx_packets": 2,
+        "zcopy_packets": 1,
+        "copied_packets": 1,
+        "zcopy_fallback_count": 0,
+        "total_bytes_transmitted": 2047,
+        "bytes_copied": 1023,
+        "bytes_zerocopy": 1024,
+        "host_cpu_cycles_saved": 1024,
+        "virtqueue_kicks": 1
+      }
+    }
+  },
+  {
+    "testcase_id": 6,
+    "input": {
+      "config": {
+        "max_zcopy_inflight": 4,
+        "zcopy_min_threshold": 512,
+        "copy_cost_cycles": 0.5
+      },
+      "trace": [
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "OOO_1",
+          "desc_idx": 100,
+          "len": 2000
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "OOO_2",
+          "desc_idx": 101,
+          "len": 3000
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "OOO_3",
+          "desc_idx": 102,
+          "len": 4000
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "OOO_2"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "OOO_1"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "OOO_3"
+        },
+        {
+          "op": "FLUSH_USED_RING"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "OOO_1",
+          "desc_idx": 100,
+          "mode": "ZERO_COPY",
+          "len": 2000,
+          "status": "TX_ZERO_COPY_IN_FLIGHT",
+          "inflight_zcopy": 1,
+          "used_ring_pending": 0
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "OOO_2",
+          "desc_idx": 101,
+          "mode": "ZERO_COPY",
+          "len": 3000,
+          "status": "TX_ZERO_COPY_IN_FLIGHT",
+          "inflight_zcopy": 2,
+          "used_ring_pending": 0
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "OOO_3",
+          "desc_idx": 102,
+          "mode": "ZERO_COPY",
+          "len": 4000,
+          "status": "TX_ZERO_COPY_IN_FLIGHT",
+          "inflight_zcopy": 3,
+          "used_ring_pending": 0
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "OOO_2",
+          "desc_idx": 101,
+          "cycles_saved": 1500,
+          "inflight_zcopy": 2,
+          "status": "ZERO_COPY_CALLBACK_COMPLETED"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "OOO_1",
+          "desc_idx": 100,
+          "cycles_saved": 1000,
+          "inflight_zcopy": 1,
+          "status": "ZERO_COPY_CALLBACK_COMPLETED"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "OOO_3",
+          "desc_idx": 102,
+          "cycles_saved": 2000,
+          "inflight_zcopy": 0,
+          "status": "ZERO_COPY_CALLBACK_COMPLETED"
+        },
+        {
+          "op": "FLUSH_USED_RING",
+          "descriptors_returned": 3,
+          "descriptors": [
+            101,
+            100,
+            102
+          ],
+          "virtqueue_kicks": 1,
+          "status": "USED_RING_KICKED"
+        },
+        {
+          "op": "GET_STATS",
+          "total_tx_packets": 3,
+          "zcopy_packets": 3,
+          "copied_packets": 0,
+          "zcopy_fallback_count": 0,
+          "total_bytes_transmitted": 9000,
+          "bytes_copied": 0,
+          "bytes_zerocopy": 9000,
+          "host_cpu_cycles_saved": 4500,
+          "inflight_zcopy_count": 0,
+          "pending_used_ring": 0,
+          "virtqueue_kicks": 1
+        }
+      ],
+      "summary": {
+        "total_tx_packets": 3,
+        "zcopy_packets": 3,
+        "copied_packets": 0,
+        "zcopy_fallback_count": 0,
+        "total_bytes_transmitted": 9000,
+        "bytes_copied": 0,
+        "bytes_zerocopy": 9000,
+        "host_cpu_cycles_saved": 4500,
+        "virtqueue_kicks": 1
+      }
+    }
+  },
+  {
+    "testcase_id": 7,
+    "input": {
+      "config": {
+        "max_zcopy_inflight": 4,
+        "zcopy_min_threshold": 512,
+        "copy_cost_cycles": 0.5
+      },
+      "trace": [
+        {
+          "op": "FLUSH_USED_RING"
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "P1",
+          "desc_idx": 0,
+          "len": 256
+        },
+        {
+          "op": "FLUSH_USED_RING"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "FLUSH_USED_RING",
+          "descriptors_returned": 0,
+          "descriptors": [],
+          "virtqueue_kicks": 0,
+          "status": "USED_RING_EMPTY"
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "P1",
+          "desc_idx": 0,
+          "mode": "COPY_THRESHOLD",
+          "len": 256,
+          "status": "TX_COPIED_IMMEDIATE_RETURN",
+          "inflight_zcopy": 0,
+          "used_ring_pending": 1
+        },
+        {
+          "op": "FLUSH_USED_RING",
+          "descriptors_returned": 1,
+          "descriptors": [
+            0
+          ],
+          "virtqueue_kicks": 1,
+          "status": "USED_RING_KICKED"
+        },
+        {
+          "op": "GET_STATS",
+          "total_tx_packets": 1,
+          "zcopy_packets": 0,
+          "copied_packets": 1,
+          "zcopy_fallback_count": 0,
+          "total_bytes_transmitted": 256,
+          "bytes_copied": 256,
+          "bytes_zerocopy": 0,
+          "host_cpu_cycles_saved": 0,
+          "inflight_zcopy_count": 0,
+          "pending_used_ring": 0,
+          "virtqueue_kicks": 1
+        }
+      ],
+      "summary": {
+        "total_tx_packets": 1,
+        "zcopy_packets": 0,
+        "copied_packets": 1,
+        "zcopy_fallback_count": 0,
+        "total_bytes_transmitted": 256,
+        "bytes_copied": 256,
+        "bytes_zerocopy": 0,
+        "host_cpu_cycles_saved": 0,
+        "virtqueue_kicks": 1
+      }
+    }
+  },
+  {
+    "testcase_id": 8,
+    "input": {
+      "config": {
+        "max_zcopy_inflight": 4,
+        "zcopy_min_threshold": 512,
+        "copy_cost_cycles": 0.5
+      },
+      "trace": [
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_0",
+          "desc_idx": 0,
+          "len": 256
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_1",
+          "desc_idx": 1,
+          "len": 1500
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_2",
+          "desc_idx": 2,
+          "len": 9000
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_3",
+          "desc_idx": 3,
+          "len": 256
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_4",
+          "desc_idx": 4,
+          "len": 1500
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_5",
+          "desc_idx": 5,
+          "len": 9000
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_6",
+          "desc_idx": 6,
+          "len": 256
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_7",
+          "desc_idx": 7,
+          "len": 1500
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_8",
+          "desc_idx": 8,
+          "len": 9000
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_9",
+          "desc_idx": 9,
+          "len": 256
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_1"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_2"
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_10",
+          "desc_idx": 10,
+          "len": 1500
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_11",
+          "desc_idx": 11,
+          "len": 1500
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_12",
+          "desc_idx": 12,
+          "len": 1500
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_13",
+          "desc_idx": 13,
+          "len": 1500
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_14",
+          "desc_idx": 14,
+          "len": 1500
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_0"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_1"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_2"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_3"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_4"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_5"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_6"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_7"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_8"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_9"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_10"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_11"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_12"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_13"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_14"
+        },
+        {
+          "op": "FLUSH_USED_RING"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_0",
+          "desc_idx": 0,
+          "mode": "COPY_THRESHOLD",
+          "len": 256,
+          "status": "TX_COPIED_IMMEDIATE_RETURN",
+          "inflight_zcopy": 0,
+          "used_ring_pending": 1
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_1",
+          "desc_idx": 1,
+          "mode": "ZERO_COPY",
+          "len": 1500,
+          "status": "TX_ZERO_COPY_IN_FLIGHT",
+          "inflight_zcopy": 1,
+          "used_ring_pending": 1
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_2",
+          "desc_idx": 2,
+          "mode": "ZERO_COPY",
+          "len": 9000,
+          "status": "TX_ZERO_COPY_IN_FLIGHT",
+          "inflight_zcopy": 2,
+          "used_ring_pending": 1
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_3",
+          "desc_idx": 3,
+          "mode": "COPY_THRESHOLD",
+          "len": 256,
+          "status": "TX_COPIED_IMMEDIATE_RETURN",
+          "inflight_zcopy": 2,
+          "used_ring_pending": 2
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_4",
+          "desc_idx": 4,
+          "mode": "ZERO_COPY",
+          "len": 1500,
+          "status": "TX_ZERO_COPY_IN_FLIGHT",
+          "inflight_zcopy": 3,
+          "used_ring_pending": 2
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_5",
+          "desc_idx": 5,
+          "mode": "ZERO_COPY",
+          "len": 9000,
+          "status": "TX_ZERO_COPY_IN_FLIGHT",
+          "inflight_zcopy": 4,
+          "used_ring_pending": 2
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_6",
+          "desc_idx": 6,
+          "mode": "COPY_THRESHOLD",
+          "len": 256,
+          "status": "TX_COPIED_IMMEDIATE_RETURN",
+          "inflight_zcopy": 4,
+          "used_ring_pending": 3
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_7",
+          "desc_idx": 7,
+          "mode": "COPY_FALLBACK",
+          "len": 1500,
+          "status": "TX_COPIED_FALLBACK",
+          "inflight_zcopy": 4,
+          "used_ring_pending": 4
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_8",
+          "desc_idx": 8,
+          "mode": "COPY_FALLBACK",
+          "len": 9000,
+          "status": "TX_COPIED_FALLBACK",
+          "inflight_zcopy": 4,
+          "used_ring_pending": 5
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_9",
+          "desc_idx": 9,
+          "mode": "COPY_THRESHOLD",
+          "len": 256,
+          "status": "TX_COPIED_IMMEDIATE_RETURN",
+          "inflight_zcopy": 4,
+          "used_ring_pending": 6
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_1",
+          "desc_idx": 1,
+          "cycles_saved": 750,
+          "inflight_zcopy": 3,
+          "status": "ZERO_COPY_CALLBACK_COMPLETED"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_2",
+          "desc_idx": 2,
+          "cycles_saved": 4500,
+          "inflight_zcopy": 2,
+          "status": "ZERO_COPY_CALLBACK_COMPLETED"
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_10",
+          "desc_idx": 10,
+          "mode": "ZERO_COPY",
+          "len": 1500,
+          "status": "TX_ZERO_COPY_IN_FLIGHT",
+          "inflight_zcopy": 3,
+          "used_ring_pending": 8
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_11",
+          "desc_idx": 11,
+          "mode": "ZERO_COPY",
+          "len": 1500,
+          "status": "TX_ZERO_COPY_IN_FLIGHT",
+          "inflight_zcopy": 4,
+          "used_ring_pending": 8
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_12",
+          "desc_idx": 12,
+          "mode": "COPY_FALLBACK",
+          "len": 1500,
+          "status": "TX_COPIED_FALLBACK",
+          "inflight_zcopy": 4,
+          "used_ring_pending": 9
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_13",
+          "desc_idx": 13,
+          "mode": "COPY_FALLBACK",
+          "len": 1500,
+          "status": "TX_COPIED_FALLBACK",
+          "inflight_zcopy": 4,
+          "used_ring_pending": 10
+        },
+        {
+          "op": "SUBMIT_GUEST_TX",
+          "tx_id": "BULK_14",
+          "desc_idx": 14,
+          "mode": "COPY_FALLBACK",
+          "len": 1500,
+          "status": "TX_COPIED_FALLBACK",
+          "inflight_zcopy": 4,
+          "used_ring_pending": 11
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_0",
+          "status": "ALREADY_COMPLETED_OR_NOT_FOUND"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_1",
+          "status": "ALREADY_COMPLETED_OR_NOT_FOUND"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_2",
+          "status": "ALREADY_COMPLETED_OR_NOT_FOUND"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_3",
+          "status": "ALREADY_COMPLETED_OR_NOT_FOUND"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_4",
+          "desc_idx": 4,
+          "cycles_saved": 750,
+          "inflight_zcopy": 3,
+          "status": "ZERO_COPY_CALLBACK_COMPLETED"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_5",
+          "desc_idx": 5,
+          "cycles_saved": 4500,
+          "inflight_zcopy": 2,
+          "status": "ZERO_COPY_CALLBACK_COMPLETED"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_6",
+          "status": "ALREADY_COMPLETED_OR_NOT_FOUND"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_7",
+          "status": "ALREADY_COMPLETED_OR_NOT_FOUND"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_8",
+          "status": "ALREADY_COMPLETED_OR_NOT_FOUND"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_9",
+          "status": "ALREADY_COMPLETED_OR_NOT_FOUND"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_10",
+          "desc_idx": 10,
+          "cycles_saved": 750,
+          "inflight_zcopy": 1,
+          "status": "ZERO_COPY_CALLBACK_COMPLETED"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_11",
+          "desc_idx": 11,
+          "cycles_saved": 750,
+          "inflight_zcopy": 0,
+          "status": "ZERO_COPY_CALLBACK_COMPLETED"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_12",
+          "status": "ALREADY_COMPLETED_OR_NOT_FOUND"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_13",
+          "status": "ALREADY_COMPLETED_OR_NOT_FOUND"
+        },
+        {
+          "op": "NIC_DMA_COMPLETE",
+          "tx_id": "BULK_14",
+          "status": "ALREADY_COMPLETED_OR_NOT_FOUND"
+        },
+        {
+          "op": "FLUSH_USED_RING",
+          "descriptors_returned": 15,
+          "descriptors": [
+            0,
+            3,
+            6,
+            7,
+            8,
+            9,
+            1,
+            2,
+            12,
+            13,
+            14,
+            4,
+            5,
+            10,
+            11
+          ],
+          "virtqueue_kicks": 1,
+          "status": "USED_RING_KICKED"
+        },
+        {
+          "op": "GET_STATS",
+          "total_tx_packets": 15,
+          "zcopy_packets": 6,
+          "copied_packets": 9,
+          "zcopy_fallback_count": 5,
+          "total_bytes_transmitted": 40024,
+          "bytes_copied": 16024,
+          "bytes_zerocopy": 24000,
+          "host_cpu_cycles_saved": 12000,
+          "inflight_zcopy_count": 0,
+          "pending_used_ring": 0,
+          "virtqueue_kicks": 1
+        }
+      ],
+      "summary": {
+        "total_tx_packets": 15,
+        "zcopy_packets": 6,
+        "copied_packets": 9,
+        "zcopy_fallback_count": 5,
+        "total_bytes_transmitted": 40024,
+        "bytes_copied": 16024,
+        "bytes_zerocopy": 24000,
+        "host_cpu_cycles_saved": 12000,
+        "virtqueue_kicks": 1
+      }
+    }
+  }
+]
