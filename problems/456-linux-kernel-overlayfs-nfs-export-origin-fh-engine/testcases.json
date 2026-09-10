@@ -1,0 +1,804 @@
+[
+  {
+    "input": {
+      "config": {
+        "index_enabled": true,
+        "nfs_export_enabled": true
+      },
+      "operations": [
+        {
+          "op": "INIT_OVERLAY",
+          "lower_files": [
+            {
+              "path": "/etc/hosts",
+              "ino": 1001,
+              "gen": 1
+            },
+            {
+              "path": "/etc/resolv.conf",
+              "ino": 1002,
+              "gen": 1
+            }
+          ]
+        },
+        {
+          "op": "ENCODE_FH",
+          "path": "/etc/hosts"
+        },
+        {
+          "op": "DECODE_FH",
+          "fh": "OVL:LOWER:1001:1"
+        },
+        {
+          "op": "COPY_UP",
+          "path": "/etc/hosts",
+          "new_size": 2048
+        },
+        {
+          "op": "DECODE_FH",
+          "fh": "OVL:LOWER:1001:1"
+        },
+        {
+          "op": "QUERY_EXPORT_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "OVERLAY_INITIALIZED",
+          "lower_count": 2,
+          "upper_count": 0,
+          "index_enabled": true
+        },
+        {
+          "status": "FH_ENCODED",
+          "path": "/etc/hosts",
+          "fh": "OVL:LOWER:1001:1",
+          "layer": "LOWER",
+          "ino": 1001
+        },
+        {
+          "status": "FH_DECODED",
+          "path": "/etc/hosts",
+          "layer": "LOWER",
+          "ino": 1001,
+          "gen": 1,
+          "is_copied_up": false
+        },
+        {
+          "status": "COPY_UP_SUCCESS",
+          "path": "/etc/hosts",
+          "lower_ino": 1001,
+          "upper_ino": 50000,
+          "origin_fh": "OVL:LOWER:1001:1",
+          "indexed": true
+        },
+        {
+          "status": "FH_DECODED_VIA_INDEX",
+          "path": "/etc/hosts",
+          "layer": "UPPER",
+          "ino": 50000,
+          "gen": 1,
+          "origin_fh": "OVL:LOWER:1001:1",
+          "is_copied_up": true
+        },
+        {
+          "index_enabled": true,
+          "nfs_export_enabled": true,
+          "index_entries_count": 1,
+          "upper_files_count": 1,
+          "stats": {
+            "encoded_fh": 1,
+            "decoded_fh": 2,
+            "index_hits": 1,
+            "copy_ups": 1,
+            "stale_errors": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "index_enabled": true,
+        "nfs_export_enabled": true
+      },
+      "operations": [
+        {
+          "op": "INIT_OVERLAY",
+          "lower_files": [
+            {
+              "path": "/var/log/syslog",
+              "ino": 2001,
+              "gen": 1
+            }
+          ]
+        },
+        {
+          "op": "CREATE_UPPER",
+          "path": "/var/log/app.log",
+          "size": 512
+        },
+        {
+          "op": "ENCODE_FH",
+          "path": "/var/log/app.log"
+        },
+        {
+          "op": "DECODE_FH",
+          "fh": "OVL:UPPER:50000:1"
+        },
+        {
+          "op": "QUERY_EXPORT_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "OVERLAY_INITIALIZED",
+          "lower_count": 1,
+          "upper_count": 0,
+          "index_enabled": true
+        },
+        {
+          "status": "UPPER_FILE_CREATED",
+          "path": "/var/log/app.log",
+          "ino": 50000
+        },
+        {
+          "status": "FH_ENCODED",
+          "path": "/var/log/app.log",
+          "fh": "OVL:UPPER:50000:1",
+          "layer": "UPPER",
+          "ino": 50000
+        },
+        {
+          "status": "FH_DECODED",
+          "path": "/var/log/app.log",
+          "layer": "UPPER",
+          "ino": 50000,
+          "gen": 1,
+          "is_copied_up": false
+        },
+        {
+          "index_enabled": true,
+          "nfs_export_enabled": true,
+          "index_entries_count": 0,
+          "upper_files_count": 1,
+          "stats": {
+            "encoded_fh": 1,
+            "decoded_fh": 1,
+            "index_hits": 0,
+            "copy_ups": 0,
+            "stale_errors": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "index_enabled": true,
+        "nfs_export_enabled": true
+      },
+      "operations": [
+        {
+          "op": "INIT_OVERLAY",
+          "lower_files": [
+            {
+              "path": "/usr/bin/tool",
+              "ino": 3001,
+              "gen": 1
+            }
+          ]
+        },
+        {
+          "op": "CREATE_UPPER",
+          "path": "/tmp/temp.txt",
+          "size": 100
+        },
+        {
+          "op": "DELETE_FILE",
+          "path": "/usr/bin/tool"
+        },
+        {
+          "op": "DECODE_FH",
+          "fh": "OVL:LOWER:3001:1"
+        },
+        {
+          "op": "ENCODE_FH",
+          "path": "/usr/bin/tool"
+        },
+        {
+          "op": "DELETE_FILE",
+          "path": "/tmp/temp.txt"
+        },
+        {
+          "op": "DECODE_FH",
+          "fh": "OVL:UPPER:50000:1"
+        },
+        {
+          "op": "QUERY_EXPORT_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "OVERLAY_INITIALIZED",
+          "lower_count": 1,
+          "upper_count": 0,
+          "index_enabled": true
+        },
+        {
+          "status": "UPPER_FILE_CREATED",
+          "path": "/tmp/temp.txt",
+          "ino": 50000
+        },
+        {
+          "status": "FILE_DELETED",
+          "path": "/usr/bin/tool",
+          "whiteout_created": true
+        },
+        {
+          "status": "ESTALE_WHITEOUT_DELETED",
+          "fh": "OVL:LOWER:3001:1"
+        },
+        {
+          "status": "ENOENT_FILE_NOT_FOUND",
+          "path": "/usr/bin/tool"
+        },
+        {
+          "status": "FILE_DELETED",
+          "path": "/tmp/temp.txt",
+          "whiteout_created": false
+        },
+        {
+          "status": "ESTALE_FILE_REMOVED",
+          "fh": "OVL:UPPER:50000:1"
+        },
+        {
+          "index_enabled": true,
+          "nfs_export_enabled": true,
+          "index_entries_count": 0,
+          "upper_files_count": 1,
+          "stats": {
+            "encoded_fh": 0,
+            "decoded_fh": 2,
+            "index_hits": 0,
+            "copy_ups": 0,
+            "stale_errors": 2
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "index_enabled": false,
+        "nfs_export_enabled": true
+      },
+      "operations": [
+        {
+          "op": "INIT_OVERLAY",
+          "lower_files": [
+            {
+              "path": "/opt/app/config.json",
+              "ino": 4001,
+              "gen": 1
+            }
+          ]
+        },
+        {
+          "op": "ENCODE_FH",
+          "path": "/opt/app/config.json"
+        },
+        {
+          "op": "COPY_UP",
+          "path": "/opt/app/config.json"
+        },
+        {
+          "op": "DECODE_FH",
+          "fh": "OVL:LOWER:4001:1"
+        },
+        {
+          "op": "QUERY_EXPORT_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "OVERLAY_INITIALIZED",
+          "lower_count": 1,
+          "upper_count": 0,
+          "index_enabled": false
+        },
+        {
+          "status": "FH_ENCODED",
+          "path": "/opt/app/config.json",
+          "fh": "OVL:LOWER:4001:1",
+          "layer": "LOWER",
+          "ino": 4001
+        },
+        {
+          "status": "COPY_UP_SUCCESS",
+          "path": "/opt/app/config.json",
+          "lower_ino": 4001,
+          "upper_ino": 50000,
+          "origin_fh": "OVL:LOWER:4001:1",
+          "indexed": false
+        },
+        {
+          "status": "ESTALE_UNINDEXED_COPYUP",
+          "fh": "OVL:LOWER:4001:1"
+        },
+        {
+          "index_enabled": false,
+          "nfs_export_enabled": true,
+          "index_entries_count": 0,
+          "upper_files_count": 1,
+          "stats": {
+            "encoded_fh": 1,
+            "decoded_fh": 1,
+            "index_hits": 0,
+            "copy_ups": 1,
+            "stale_errors": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "index_enabled": true,
+        "nfs_export_enabled": false
+      },
+      "operations": [
+        {
+          "op": "INIT_OVERLAY",
+          "lower_files": [
+            {
+              "path": "/etc/passwd",
+              "ino": 5001,
+              "gen": 1
+            }
+          ]
+        },
+        {
+          "op": "ENCODE_FH",
+          "path": "/etc/passwd"
+        },
+        {
+          "op": "DECODE_FH",
+          "fh": "OVL:LOWER:5001:1"
+        },
+        {
+          "op": "QUERY_EXPORT_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "OVERLAY_INITIALIZED",
+          "lower_count": 1,
+          "upper_count": 0,
+          "index_enabled": true
+        },
+        {
+          "status": "EOPNOTSUPP_NFS_EXPORT_DISABLED"
+        },
+        {
+          "status": "EOPNOTSUPP_NFS_EXPORT_DISABLED"
+        },
+        {
+          "index_enabled": true,
+          "nfs_export_enabled": false,
+          "index_entries_count": 0,
+          "upper_files_count": 0,
+          "stats": {
+            "encoded_fh": 0,
+            "decoded_fh": 0,
+            "index_hits": 0,
+            "copy_ups": 0,
+            "stale_errors": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "index_enabled": true,
+        "nfs_export_enabled": true
+      },
+      "operations": [
+        {
+          "op": "DECODE_FH",
+          "fh": "EXT4:100:1"
+        },
+        {
+          "op": "DECODE_FH",
+          "fh": "OVL:LOWER:abc:1"
+        },
+        {
+          "op": "DECODE_FH",
+          "fh": "OVL:UNKNOWN:100:1"
+        },
+        {
+          "op": "DECODE_FH",
+          "fh": "OVL:LOWER:99999:1"
+        },
+        {
+          "op": "QUERY_EXPORT_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "EINVAL_CORRUPT_FH",
+          "fh": "EXT4:100:1"
+        },
+        {
+          "status": "EINVAL_CORRUPT_FH",
+          "fh": "OVL:LOWER:abc:1"
+        },
+        {
+          "status": "EINVAL_UNKNOWN_LAYER",
+          "layer": "UNKNOWN"
+        },
+        {
+          "status": "ESTALE_FILE_REMOVED",
+          "fh": "OVL:LOWER:99999:1"
+        },
+        {
+          "index_enabled": true,
+          "nfs_export_enabled": true,
+          "index_entries_count": 0,
+          "upper_files_count": 0,
+          "stats": {
+            "encoded_fh": 0,
+            "decoded_fh": 2,
+            "index_hits": 0,
+            "copy_ups": 0,
+            "stale_errors": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "index_enabled": true,
+        "nfs_export_enabled": true
+      },
+      "operations": [
+        {
+          "op": "INIT_OVERLAY",
+          "lower_files": [
+            {
+              "path": "/f1",
+              "ino": 101,
+              "gen": 1
+            },
+            {
+              "path": "/f2",
+              "ino": 102,
+              "gen": 1
+            },
+            {
+              "path": "/f3",
+              "ino": 103,
+              "gen": 1
+            }
+          ]
+        },
+        {
+          "op": "COPY_UP",
+          "path": "/f1"
+        },
+        {
+          "op": "DELETE_FILE",
+          "path": "/f2"
+        },
+        {
+          "op": "CREATE_UPPER",
+          "path": "/f4",
+          "size": 10
+        },
+        {
+          "op": "DECODE_FH",
+          "fh": "OVL:LOWER:101:1"
+        },
+        {
+          "op": "DECODE_FH",
+          "fh": "OVL:LOWER:102:1"
+        },
+        {
+          "op": "DECODE_FH",
+          "fh": "OVL:LOWER:103:1"
+        },
+        {
+          "op": "DECODE_FH",
+          "fh": "OVL:UPPER:50002:1"
+        },
+        {
+          "op": "QUERY_EXPORT_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "OVERLAY_INITIALIZED",
+          "lower_count": 3,
+          "upper_count": 0,
+          "index_enabled": true
+        },
+        {
+          "status": "COPY_UP_SUCCESS",
+          "path": "/f1",
+          "lower_ino": 101,
+          "upper_ino": 50000,
+          "origin_fh": "OVL:LOWER:101:1",
+          "indexed": true
+        },
+        {
+          "status": "FILE_DELETED",
+          "path": "/f2",
+          "whiteout_created": true
+        },
+        {
+          "status": "UPPER_FILE_CREATED",
+          "path": "/f4",
+          "ino": 50002
+        },
+        {
+          "status": "FH_DECODED_VIA_INDEX",
+          "path": "/f1",
+          "layer": "UPPER",
+          "ino": 50000,
+          "gen": 1,
+          "origin_fh": "OVL:LOWER:101:1",
+          "is_copied_up": true
+        },
+        {
+          "status": "ESTALE_WHITEOUT_DELETED",
+          "fh": "OVL:LOWER:102:1"
+        },
+        {
+          "status": "FH_DECODED",
+          "path": "/f3",
+          "layer": "LOWER",
+          "ino": 103,
+          "gen": 1,
+          "is_copied_up": false
+        },
+        {
+          "status": "FH_DECODED",
+          "path": "/f4",
+          "layer": "UPPER",
+          "ino": 50002,
+          "gen": 1,
+          "is_copied_up": false
+        },
+        {
+          "index_enabled": true,
+          "nfs_export_enabled": true,
+          "index_entries_count": 1,
+          "upper_files_count": 3,
+          "stats": {
+            "encoded_fh": 0,
+            "decoded_fh": 4,
+            "index_hits": 1,
+            "copy_ups": 1,
+            "stale_errors": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "index_enabled": true,
+        "nfs_export_enabled": true
+      },
+      "operations": [
+        {
+          "op": "INIT_OVERLAY",
+          "lower_files": [
+            {
+              "path": "/db/primary.db",
+              "ino": 7001,
+              "gen": 1
+            },
+            {
+              "path": "/db/secondary.db",
+              "ino": 7002,
+              "gen": 1
+            },
+            {
+              "path": "/db/config.yaml",
+              "ino": 7003,
+              "gen": 1
+            }
+          ]
+        },
+        {
+          "op": "ENCODE_FH",
+          "path": "/db/primary.db"
+        },
+        {
+          "op": "ENCODE_FH",
+          "path": "/db/secondary.db"
+        },
+        {
+          "op": "COPY_UP",
+          "path": "/db/primary.db"
+        },
+        {
+          "op": "COPY_UP",
+          "path": "/db/config.yaml"
+        },
+        {
+          "op": "COPY_UP",
+          "path": "/db/primary.db"
+        },
+        {
+          "op": "DELETE_FILE",
+          "path": "/db/secondary.db"
+        },
+        {
+          "op": "DECODE_FH",
+          "fh": "OVL:LOWER:7001:1"
+        },
+        {
+          "op": "DECODE_FH",
+          "fh": "OVL:LOWER:7002:1"
+        },
+        {
+          "op": "DECODE_FH",
+          "fh": "OVL:LOWER:7003:1"
+        },
+        {
+          "op": "DECODE_FH",
+          "fh": "OVL:CORRUPT:FH"
+        },
+        {
+          "op": "CREATE_UPPER",
+          "path": "/db/audit.log",
+          "size": 4096
+        },
+        {
+          "op": "ENCODE_FH",
+          "path": "/db/audit.log"
+        },
+        {
+          "op": "DECODE_FH",
+          "fh": "OVL:UPPER:50003:1"
+        },
+        {
+          "op": "QUERY_EXPORT_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "OVERLAY_INITIALIZED",
+          "lower_count": 3,
+          "upper_count": 0,
+          "index_enabled": true
+        },
+        {
+          "status": "FH_ENCODED",
+          "path": "/db/primary.db",
+          "fh": "OVL:LOWER:7001:1",
+          "layer": "LOWER",
+          "ino": 7001
+        },
+        {
+          "status": "FH_ENCODED",
+          "path": "/db/secondary.db",
+          "fh": "OVL:LOWER:7002:1",
+          "layer": "LOWER",
+          "ino": 7002
+        },
+        {
+          "status": "COPY_UP_SUCCESS",
+          "path": "/db/primary.db",
+          "lower_ino": 7001,
+          "upper_ino": 50000,
+          "origin_fh": "OVL:LOWER:7001:1",
+          "indexed": true
+        },
+        {
+          "status": "COPY_UP_SUCCESS",
+          "path": "/db/config.yaml",
+          "lower_ino": 7003,
+          "upper_ino": 50001,
+          "origin_fh": "OVL:LOWER:7003:1",
+          "indexed": true
+        },
+        {
+          "status": "EEXIST_ALREADY_IN_UPPER",
+          "path": "/db/primary.db"
+        },
+        {
+          "status": "FILE_DELETED",
+          "path": "/db/secondary.db",
+          "whiteout_created": true
+        },
+        {
+          "status": "FH_DECODED_VIA_INDEX",
+          "path": "/db/primary.db",
+          "layer": "UPPER",
+          "ino": 50000,
+          "gen": 1,
+          "origin_fh": "OVL:LOWER:7001:1",
+          "is_copied_up": true
+        },
+        {
+          "status": "ESTALE_WHITEOUT_DELETED",
+          "fh": "OVL:LOWER:7002:1"
+        },
+        {
+          "status": "FH_DECODED_VIA_INDEX",
+          "path": "/db/config.yaml",
+          "layer": "UPPER",
+          "ino": 50001,
+          "gen": 1,
+          "origin_fh": "OVL:LOWER:7003:1",
+          "is_copied_up": true
+        },
+        {
+          "status": "EINVAL_CORRUPT_FH",
+          "fh": "OVL:CORRUPT:FH"
+        },
+        {
+          "status": "UPPER_FILE_CREATED",
+          "path": "/db/audit.log",
+          "ino": 50003
+        },
+        {
+          "status": "FH_ENCODED",
+          "path": "/db/audit.log",
+          "fh": "OVL:UPPER:50003:1",
+          "layer": "UPPER",
+          "ino": 50003
+        },
+        {
+          "status": "FH_DECODED",
+          "path": "/db/audit.log",
+          "layer": "UPPER",
+          "ino": 50003,
+          "gen": 1,
+          "is_copied_up": false
+        },
+        {
+          "index_enabled": true,
+          "nfs_export_enabled": true,
+          "index_entries_count": 2,
+          "upper_files_count": 4,
+          "stats": {
+            "encoded_fh": 3,
+            "decoded_fh": 4,
+            "index_hits": 2,
+            "copy_ups": 2,
+            "stale_errors": 1
+          }
+        }
+      ]
+    }
+  }
+]
