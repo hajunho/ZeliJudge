@@ -1,0 +1,42 @@
+[
+  {
+    "name": "전체주의적 동일화 사고(Identitätsdenken): 단일 교환가치 개념에 의한 예술품의 폭력적 환원",
+    "input": "{\"object\":{\"attributes\":{\"market_price\":0.9,\"exchange_value\":0.85,\"artistic_singularity\":0.95,\"creator_suffering\":0.8,\"historical_memory\":0.75}},\"concepts\":[{\"name\":\"CommercialAsset\",\"expected_attributes\":[\"market_price\",\"exchange_value\"]}],\"hegelian_synthesis_bias\":0.5}",
+    "output": "{\"identitarian_critique\":{\"subsumed_attributes\":[\"exchange_value\",\"market_price\"],\"non_identical_residue\":[\"artistic_singularity\",\"creator_suffering\",\"historical_memory\"],\"subsumption_degree\":1.0,\"identitarian_violence\":0.6,\"non_identical_suffering\":2.5},\"constellation_metrics\":{\"active_concepts_count\":1,\"constellation_illumination\":0.0,\"hegelian_reconciliation\":0.5,\"non_reconciliation_index\":0.5,\"truth_content\":0.0},\"critical_regime\":\"TOTALITARIAN_IDENTITY\"}"
+  },
+  {
+    "name": "거짓된 헤겔주의적 긍정 종합(Versöhnung): 절대정신과 목적론적 진보를 통한 개별 희생의 강제 봉합",
+    "input": "{\"object\":{\"attributes\":{\"system_order\":0.9,\"teleological_progress\":0.85,\"individual_sacrifice\":0.15}},\"concepts\":[{\"name\":\"AbsoluteSpirit\",\"expected_attributes\":[\"system_order\",\"teleological_progress\"]}],\"hegelian_synthesis_bias\":0.85}",
+    "output": "{\"identitarian_critique\":{\"subsumed_attributes\":[\"system_order\",\"teleological_progress\"],\"non_identical_residue\":[\"individual_sacrifice\"],\"subsumption_degree\":1.0,\"identitarian_violence\":0.3333,\"non_identical_suffering\":0.15},\"constellation_metrics\":{\"active_concepts_count\":1,\"constellation_illumination\":0.0,\"hegelian_reconciliation\":0.85,\"non_reconciliation_index\":0.15,\"truth_content\":0.0},\"critical_regime\":\"FALSE_HEGELIAN_SYNTHESIS\"}"
+  },
+  {
+    "name": "부정변증법적 성좌(Konstellation): 파울 첼란 시의 역사적 상처와 침묵을 다면 조명하는 비판적 성좌",
+    "input": "{\"object\":{\"attributes\":{\"poetic_meter\":0.6,\"historical_wound\":0.9,\"silence_of_trauma\":0.85,\"linguistic_fragmentation\":0.7}},\"concepts\":[{\"name\":\"PoeticForm\",\"expected_attributes\":[\"poetic_meter\"]},{\"name\":\"CatastropheTrauma\",\"expected_attributes\":[\"historical_wound\",\"silence_of_trauma\"]},{\"name\":\"LinguisticRupture\",\"expected_attributes\":[\"linguistic_fragmentation\"]}],\"hegelian_synthesis_bias\":0.15}",
+    "output": "{\"identitarian_critique\":{\"subsumed_attributes\":[\"poetic_meter\"],\"non_identical_residue\":[\"historical_wound\",\"linguistic_fragmentation\",\"silence_of_trauma\"],\"subsumption_degree\":1.0,\"identitarian_violence\":0.75,\"non_identical_suffering\":2.45},\"constellation_metrics\":{\"active_concepts_count\":3,\"constellation_illumination\":1.0,\"hegelian_reconciliation\":0.15,\"non_reconciliation_index\":0.85,\"truth_content\":1.0},\"critical_regime\":\"NEGATIVE_CONSTELLATION\"}"
+  },
+  {
+    "name": "도구적 이성의 폭력과 자연 지배: 살아있는 생태계를 원자재로 축소하는 동일화 폭력 판정",
+    "input": "{\"object\":{\"attributes\":{\"raw_resource\":0.9,\"caloric_yield\":0.8,\"living_ecosystem\":0.95,\"creaturely_pain\":0.85}},\"concepts\":[{\"name\":\"IndustrialFeedstock\",\"expected_attributes\":[\"raw_resource\",\"caloric_yield\"]}],\"hegelian_synthesis_bias\":0.4}",
+    "output": "{\"identitarian_critique\":{\"subsumed_attributes\":[\"caloric_yield\",\"raw_resource\"],\"non_identical_residue\":[\"creaturely_pain\",\"living_ecosystem\"],\"subsumption_degree\":1.0,\"identitarian_violence\":0.5,\"non_identical_suffering\":1.8},\"constellation_metrics\":{\"active_concepts_count\":1,\"constellation_illumination\":0.0,\"hegelian_reconciliation\":0.4,\"non_reconciliation_index\":0.6,\"truth_content\":0.0},\"critical_regime\":\"TOTALITARIAN_IDENTITY\"}"
+  },
+  {
+    "name": "미해결된 변증법적 긴장(Dialectical Tension): 개념과 사물 사이의 해소되지 않는 길항과 진동",
+    "input": "{\"object\":{\"attributes\":{\"abstract_logic\":0.5,\"sensory_matter\":0.5,\"historical_contingency\":0.5}},\"concepts\":[{\"name\":\"FormalRationality\",\"expected_attributes\":[\"abstract_logic\"]}],\"hegelian_synthesis_bias\":0.5}",
+    "output": "{\"identitarian_critique\":{\"subsumed_attributes\":[\"abstract_logic\"],\"non_identical_residue\":[\"historical_contingency\",\"sensory_matter\"],\"subsumption_degree\":1.0,\"identitarian_violence\":0.6667,\"non_identical_suffering\":1.0},\"constellation_metrics\":{\"active_concepts_count\":1,\"constellation_illumination\":0.0,\"hegelian_reconciliation\":0.5,\"non_reconciliation_index\":0.5,\"truth_content\":0.0},\"critical_regime\":\"TOTALITARIAN_IDENTITY\"}"
+  },
+  {
+    "name": "아우슈비츠 이후의 사유: 비동일적 신체 고통의 우위와 긍정 종합의 철저한 거부",
+    "input": "{\"object\":{\"attributes\":{\"bureaucratic_category\":0.3,\"irreducible_agony\":0.95,\"unmourned_death\":0.9,\"somatic_remembrance\":0.8}},\"concepts\":[{\"name\":\"AdministrativeRecord\",\"expected_attributes\":[\"bureaucratic_category\"]},{\"name\":\"BodilySuffering\",\"expected_attributes\":[\"irreducible_agony\",\"somatic_remembrance\"]},{\"name\":\"HistoricalMemorial\",\"expected_attributes\":[\"unmourned_death\"]}],\"hegelian_synthesis_bias\":0.1}",
+    "output": "{\"identitarian_critique\":{\"subsumed_attributes\":[\"bureaucratic_category\"],\"non_identical_residue\":[\"irreducible_agony\",\"somatic_remembrance\",\"unmourned_death\"],\"subsumption_degree\":1.0,\"identitarian_violence\":0.75,\"non_identical_suffering\":2.65},\"constellation_metrics\":{\"active_concepts_count\":3,\"constellation_illumination\":1.0,\"hegelian_reconciliation\":0.1,\"non_reconciliation_index\":0.9,\"truth_content\":1.0},\"critical_regime\":\"NEGATIVE_CONSTELLATION\"}"
+  },
+  {
+    "name": "자율적 예술과 비판적 진리 내용(Wahrheitsgehalt): 불협화음을 통한 상품 세계 거부",
+    "input": "{\"object\":{\"attributes\":{\"aesthetic_harmony\":0.7,\"dissonance\":0.8,\"social_refusal\":0.85,\"commodity_negation\":0.9}},\"concepts\":[{\"name\":\"ClassicalHarmony\",\"expected_attributes\":[\"aesthetic_harmony\"]},{\"name\":\"ModernDissonance\",\"expected_attributes\":[\"dissonance\",\"social_refusal\"]},{\"name\":\"AntiCommodity\",\"expected_attributes\":[\"commodity_negation\"]}],\"hegelian_synthesis_bias\":0.2}",
+    "output": "{\"identitarian_critique\":{\"subsumed_attributes\":[\"aesthetic_harmony\"],\"non_identical_residue\":[\"commodity_negation\",\"dissonance\",\"social_refusal\"],\"subsumption_degree\":1.0,\"identitarian_violence\":0.75,\"non_identical_suffering\":2.55},\"constellation_metrics\":{\"active_concepts_count\":3,\"constellation_illumination\":1.0,\"hegelian_reconciliation\":0.2,\"non_reconciliation_index\":0.8,\"truth_content\":1.0},\"critical_regime\":\"NEGATIVE_CONSTELLATION\"}"
+  },
+  {
+    "name": "고차원 다중 개념 성좌 스트레스 테스트: 복합 이데올로기 비판과 진리 계기 총체성 분석",
+    "input": "{\"object\":{\"attributes\":{\"structural_function\":0.8,\"historical_origin\":0.85,\"economic_basis\":0.75,\"alienated_labor\":0.9,\"utopian_glimmer\":0.7,\"ephemeral_moment\":0.65}},\"concepts\":[{\"name\":\"Functionalism\",\"expected_attributes\":[\"structural_function\"]},{\"name\":\"Historicism\",\"expected_attributes\":[\"historical_origin\"]},{\"name\":\"PoliticalEconomy\",\"expected_attributes\":[\"economic_basis\",\"alienated_labor\"]},{\"name\":\"NegativeUtopia\",\"expected_attributes\":[\"utopian_glimmer\",\"ephemeral_moment\"]}],\"hegelian_synthesis_bias\":0.15}",
+    "output": "{\"identitarian_critique\":{\"subsumed_attributes\":[\"structural_function\"],\"non_identical_residue\":[\"alienated_labor\",\"economic_basis\",\"ephemeral_moment\",\"historical_origin\",\"utopian_glimmer\"],\"subsumption_degree\":1.0,\"identitarian_violence\":0.8333,\"non_identical_suffering\":3.85},\"constellation_metrics\":{\"active_concepts_count\":4,\"constellation_illumination\":1.0,\"hegelian_reconciliation\":0.15,\"non_reconciliation_index\":0.85,\"truth_content\":1.0},\"critical_regime\":\"NEGATIVE_CONSTELLATION\"}"
+  }
+]
