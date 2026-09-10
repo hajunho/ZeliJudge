@@ -1,0 +1,866 @@
+[
+  {
+    "name": "L2 모드 단일 MAC 기반 유니캐스트 디멀티플렉싱 및 브로드캐스트 슬레이브 복제",
+    "input": {
+      "config": {
+        "mode": "L2",
+        "master_mac": "02:42:ac:11:00:01",
+        "host_ip": "10.0.0.1"
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "REGISTER_SLAVE",
+          "slave_id": "pod_1",
+          "netns_id": "ns_1",
+          "ip_addr": "10.0.0.10"
+        },
+        {
+          "time": 1,
+          "type": "REGISTER_SLAVE",
+          "slave_id": "pod_2",
+          "netns_id": "ns_2",
+          "ip_addr": "10.0.0.20"
+        },
+        {
+          "time": 2,
+          "type": "INGRESS_PACKET",
+          "src_mac": "52:54:00:12:34:56",
+          "dst_mac": "02:42:ac:11:00:01",
+          "src_ip": "192.168.1.50",
+          "dst_ip": "10.0.0.10"
+        },
+        {
+          "time": 3,
+          "type": "INGRESS_PACKET",
+          "src_mac": "52:54:00:12:34:56",
+          "dst_mac": "FF:FF:FF:FF:FF:FF",
+          "src_ip": "192.168.1.50",
+          "dst_ip": "10.0.0.255"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "mode": "L2",
+        "forwarded_ingress_packets": 3,
+        "forwarded_egress_packets": 0,
+        "hairpin_local_switched_packets": 0,
+        "dropped_packets": 0,
+        "netfilter_inspected_packets": 0,
+        "active_slaves_count": 2
+      },
+      "active_slaves": {
+        "pod_1": {
+          "slave_id": "pod_1",
+          "netns": "ns_1",
+          "ip": "10.0.0.10"
+        },
+        "pod_2": {
+          "slave_id": "pod_2",
+          "netns": "ns_2",
+          "ip": "10.0.0.20"
+        }
+      },
+      "packet_history": [
+        {
+          "time": 2,
+          "direction": "INGRESS",
+          "status": "DELIVERED_SLAVE",
+          "slave_id": "pod_1",
+          "netns": "ns_1",
+          "mode": "L2",
+          "src_ip": "192.168.1.50",
+          "dst_ip": "10.0.0.10"
+        },
+        {
+          "time": 3,
+          "direction": "INGRESS",
+          "status": "DELIVERED_BROADCAST",
+          "mode": "L2",
+          "delivered_slaves": [
+            "pod_1",
+            "pod_2"
+          ]
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "REGISTER_SLAVE",
+          "slave_id": "pod_1",
+          "netns": "ns_1",
+          "ip": "10.0.0.10"
+        },
+        {
+          "time": 1,
+          "event": "REGISTER_SLAVE",
+          "slave_id": "pod_2",
+          "netns": "ns_2",
+          "ip": "10.0.0.20"
+        }
+      ]
+    }
+  },
+  {
+    "name": "L2 모드 비정상 목적지 MAC 및 미등록 IP 패킷 드롭 검증",
+    "input": {
+      "config": {
+        "mode": "L2",
+        "master_mac": "02:42:ac:11:00:01",
+        "host_ip": "10.0.0.1"
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "REGISTER_SLAVE",
+          "slave_id": "pod_1",
+          "netns_id": "ns_1",
+          "ip_addr": "10.0.0.10"
+        },
+        {
+          "time": 1,
+          "type": "INGRESS_PACKET",
+          "src_mac": "aa:bb:cc:dd:ee:ff",
+          "dst_mac": "00:11:22:33:44:55",
+          "src_ip": "1.2.3.4",
+          "dst_ip": "10.0.0.10"
+        },
+        {
+          "time": 2,
+          "type": "INGRESS_PACKET",
+          "src_mac": "aa:bb:cc:dd:ee:ff",
+          "dst_mac": "02:42:ac:11:00:01",
+          "src_ip": "1.2.3.4",
+          "dst_ip": "10.0.0.99"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "mode": "L2",
+        "forwarded_ingress_packets": 0,
+        "forwarded_egress_packets": 0,
+        "hairpin_local_switched_packets": 0,
+        "dropped_packets": 2,
+        "netfilter_inspected_packets": 0,
+        "active_slaves_count": 1
+      },
+      "active_slaves": {
+        "pod_1": {
+          "slave_id": "pod_1",
+          "netns": "ns_1",
+          "ip": "10.0.0.10"
+        }
+      },
+      "packet_history": [
+        {
+          "time": 1,
+          "direction": "INGRESS",
+          "status": "DROPPED",
+          "reason": "DROP_INVALID_MAC",
+          "src_ip": "1.2.3.4",
+          "dst_ip": "10.0.0.10"
+        },
+        {
+          "time": 2,
+          "direction": "INGRESS",
+          "status": "DROPPED",
+          "reason": "DROP_NO_ROUTE",
+          "dst_ip": "10.0.0.99"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "REGISTER_SLAVE",
+          "slave_id": "pod_1",
+          "netns": "ns_1",
+          "ip": "10.0.0.10"
+        }
+      ]
+    }
+  },
+  {
+    "name": "L3 모드 순수 IP 기반 라우팅 및 브로드캐스트 패킷 원천 차단(L3_NO_BROADCAST)",
+    "input": {
+      "config": {
+        "mode": "L3",
+        "master_mac": "02:42:ac:11:00:01",
+        "host_ip": "10.0.0.1"
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "REGISTER_SLAVE",
+          "slave_id": "app_a",
+          "netns_id": "ns_a",
+          "ip_addr": "10.1.0.5"
+        },
+        {
+          "time": 1,
+          "type": "INGRESS_PACKET",
+          "src_mac": "52:54:00:12:34:56",
+          "dst_mac": "02:42:ac:11:00:01",
+          "src_ip": "172.16.0.100",
+          "dst_ip": "10.1.0.5"
+        },
+        {
+          "time": 2,
+          "type": "INGRESS_PACKET",
+          "src_mac": "52:54:00:12:34:56",
+          "dst_mac": "FF:FF:FF:FF:FF:FF",
+          "src_ip": "172.16.0.100",
+          "dst_ip": "10.1.0.255"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "mode": "L3",
+        "forwarded_ingress_packets": 1,
+        "forwarded_egress_packets": 0,
+        "hairpin_local_switched_packets": 0,
+        "dropped_packets": 1,
+        "netfilter_inspected_packets": 0,
+        "active_slaves_count": 1
+      },
+      "active_slaves": {
+        "app_a": {
+          "slave_id": "app_a",
+          "netns": "ns_a",
+          "ip": "10.1.0.5"
+        }
+      },
+      "packet_history": [
+        {
+          "time": 1,
+          "direction": "INGRESS",
+          "status": "DELIVERED_SLAVE",
+          "slave_id": "app_a",
+          "netns": "ns_a",
+          "mode": "L3",
+          "src_ip": "172.16.0.100",
+          "dst_ip": "10.1.0.5"
+        },
+        {
+          "time": 2,
+          "direction": "INGRESS",
+          "status": "DROPPED",
+          "reason": "L3_NO_BROADCAST",
+          "mode": "L3"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "REGISTER_SLAVE",
+          "slave_id": "app_a",
+          "netns": "ns_a",
+          "ip": "10.1.0.5"
+        }
+      ]
+    }
+  },
+  {
+    "name": "L3 모드 동일 호스트 내 컨테이너 간 헤어핀(Hairpin) 로컬 스위칭 및 외부 송신",
+    "input": {
+      "config": {
+        "mode": "L3",
+        "master_mac": "02:42:ac:11:00:01",
+        "host_ip": "10.0.0.1"
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "REGISTER_SLAVE",
+          "slave_id": "c1",
+          "netns_id": "ns_1",
+          "ip_addr": "10.0.1.10"
+        },
+        {
+          "time": 1,
+          "type": "REGISTER_SLAVE",
+          "slave_id": "c2",
+          "netns_id": "ns_2",
+          "ip_addr": "10.0.1.20"
+        },
+        {
+          "time": 2,
+          "type": "EGRESS_PACKET",
+          "slave_id": "c1",
+          "dst_ip": "10.0.1.20"
+        },
+        {
+          "time": 3,
+          "type": "EGRESS_PACKET",
+          "slave_id": "c1",
+          "dst_ip": "8.8.8.8"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "mode": "L3",
+        "forwarded_ingress_packets": 0,
+        "forwarded_egress_packets": 1,
+        "hairpin_local_switched_packets": 1,
+        "dropped_packets": 0,
+        "netfilter_inspected_packets": 0,
+        "active_slaves_count": 2
+      },
+      "active_slaves": {
+        "c1": {
+          "slave_id": "c1",
+          "netns": "ns_1",
+          "ip": "10.0.1.10"
+        },
+        "c2": {
+          "slave_id": "c2",
+          "netns": "ns_2",
+          "ip": "10.0.1.20"
+        }
+      },
+      "packet_history": [
+        {
+          "time": 2,
+          "direction": "HAIRPIN",
+          "status": "DELIVERED_SLAVE",
+          "src_slave_id": "c1",
+          "dst_slave_id": "c2",
+          "mode": "L3",
+          "src_ip": "10.0.1.10",
+          "dst_ip": "10.0.1.20"
+        },
+        {
+          "time": 3,
+          "direction": "EGRESS",
+          "status": "TRANSMITTED_WIRE",
+          "src_slave_id": "c1",
+          "master_mac": "02:42:ac:11:00:01",
+          "src_ip": "10.0.1.10",
+          "dst_ip": "8.8.8.8"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "REGISTER_SLAVE",
+          "slave_id": "c1",
+          "netns": "ns_1",
+          "ip": "10.0.1.10"
+        },
+        {
+          "time": 1,
+          "event": "REGISTER_SLAVE",
+          "slave_id": "c2",
+          "netns": "ns_2",
+          "ip": "10.0.1.20"
+        }
+      ]
+    }
+  },
+  {
+    "name": "L3S 대칭 모드 인그레스 시 슬레이브 네트워크 네임스페이스 Netfilter 체인 통과 및 방화벽 차단",
+    "input": {
+      "config": {
+        "mode": "L3S",
+        "master_mac": "02:42:ac:11:00:01",
+        "host_ip": "10.0.0.1"
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "REGISTER_SLAVE",
+          "slave_id": "web",
+          "netns_id": "ns_web",
+          "ip_addr": "10.2.0.10"
+        },
+        {
+          "time": 1,
+          "type": "REGISTER_SLAVE",
+          "slave_id": "db",
+          "netns_id": "ns_db",
+          "ip_addr": "10.2.0.20"
+        },
+        {
+          "time": 2,
+          "type": "SET_NETFILTER_RULE",
+          "netns_id": "ns_db",
+          "chain": "PRE_ROUTING",
+          "action": "DROP",
+          "match_ip": "10.2.0.20"
+        },
+        {
+          "time": 3,
+          "type": "INGRESS_PACKET",
+          "src_mac": "52:54:00:12:34:56",
+          "dst_mac": "02:42:ac:11:00:01",
+          "src_ip": "203.0.113.1",
+          "dst_ip": "10.2.0.10"
+        },
+        {
+          "time": 4,
+          "type": "INGRESS_PACKET",
+          "src_mac": "52:54:00:12:34:56",
+          "dst_mac": "02:42:ac:11:00:01",
+          "src_ip": "203.0.113.1",
+          "dst_ip": "10.2.0.20"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "mode": "L3S",
+        "forwarded_ingress_packets": 1,
+        "forwarded_egress_packets": 0,
+        "hairpin_local_switched_packets": 0,
+        "dropped_packets": 1,
+        "netfilter_inspected_packets": 2,
+        "active_slaves_count": 2
+      },
+      "active_slaves": {
+        "web": {
+          "slave_id": "web",
+          "netns": "ns_web",
+          "ip": "10.2.0.10"
+        },
+        "db": {
+          "slave_id": "db",
+          "netns": "ns_db",
+          "ip": "10.2.0.20"
+        }
+      },
+      "packet_history": [
+        {
+          "time": 3,
+          "direction": "INGRESS",
+          "status": "DELIVERED_SLAVE",
+          "slave_id": "web",
+          "netns": "ns_web",
+          "mode": "L3S",
+          "src_ip": "203.0.113.1",
+          "dst_ip": "10.2.0.10"
+        },
+        {
+          "time": 4,
+          "direction": "INGRESS",
+          "status": "DROPPED",
+          "reason": "NETFILTER_DROP",
+          "slave_id": "db",
+          "netns": "ns_db"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "REGISTER_SLAVE",
+          "slave_id": "web",
+          "netns": "ns_web",
+          "ip": "10.2.0.10"
+        },
+        {
+          "time": 1,
+          "event": "REGISTER_SLAVE",
+          "slave_id": "db",
+          "netns": "ns_db",
+          "ip": "10.2.0.20"
+        },
+        {
+          "time": 2,
+          "event": "SET_NETFILTER_RULE",
+          "netns": "ns_db",
+          "chain": "PRE_ROUTING",
+          "action": "DROP"
+        }
+      ]
+    }
+  },
+  {
+    "name": "L3S 모드 슬레이브 이그레스 Netfilter DNAT 변환 및 내부 헤어핀 연계",
+    "input": {
+      "config": {
+        "mode": "L3S",
+        "master_mac": "02:42:ac:11:00:01",
+        "host_ip": "10.0.0.1"
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "REGISTER_SLAVE",
+          "slave_id": "proxy",
+          "netns_id": "ns_proxy",
+          "ip_addr": "10.3.0.10"
+        },
+        {
+          "time": 1,
+          "type": "REGISTER_SLAVE",
+          "slave_id": "backend",
+          "netns_id": "ns_backend",
+          "ip_addr": "10.3.0.20"
+        },
+        {
+          "time": 2,
+          "type": "SET_NETFILTER_RULE",
+          "netns_id": "ns_proxy",
+          "chain": "POST_ROUTING",
+          "action": "DNAT",
+          "match_ip": "10.3.0.99",
+          "target_ip": "10.3.0.20"
+        },
+        {
+          "time": 3,
+          "type": "EGRESS_PACKET",
+          "slave_id": "proxy",
+          "dst_ip": "10.3.0.99"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "mode": "L3S",
+        "forwarded_ingress_packets": 0,
+        "forwarded_egress_packets": 0,
+        "hairpin_local_switched_packets": 1,
+        "dropped_packets": 0,
+        "netfilter_inspected_packets": 2,
+        "active_slaves_count": 2
+      },
+      "active_slaves": {
+        "proxy": {
+          "slave_id": "proxy",
+          "netns": "ns_proxy",
+          "ip": "10.3.0.10"
+        },
+        "backend": {
+          "slave_id": "backend",
+          "netns": "ns_backend",
+          "ip": "10.3.0.20"
+        }
+      },
+      "packet_history": [
+        {
+          "time": 3,
+          "direction": "HAIRPIN",
+          "status": "DELIVERED_SLAVE",
+          "src_slave_id": "proxy",
+          "dst_slave_id": "backend",
+          "mode": "L3S",
+          "src_ip": "10.3.0.10",
+          "dst_ip": "10.3.0.20"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "REGISTER_SLAVE",
+          "slave_id": "proxy",
+          "netns": "ns_proxy",
+          "ip": "10.3.0.10"
+        },
+        {
+          "time": 1,
+          "event": "REGISTER_SLAVE",
+          "slave_id": "backend",
+          "netns": "ns_backend",
+          "ip": "10.3.0.20"
+        },
+        {
+          "time": 2,
+          "event": "SET_NETFILTER_RULE",
+          "netns": "ns_proxy",
+          "chain": "POST_ROUTING",
+          "action": "DNAT"
+        }
+      ]
+    }
+  },
+  {
+    "name": "L3S 모드 로컬 통신 시 송신자(이그레스) 및 수신자(인그레스) 양방향 Netfilter 이중 검증",
+    "input": {
+      "config": {
+        "mode": "L3S",
+        "master_mac": "02:42:ac:11:00:01",
+        "host_ip": "10.0.0.1"
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "REGISTER_SLAVE",
+          "slave_id": "sender",
+          "netns_id": "ns_snd",
+          "ip_addr": "10.4.0.1"
+        },
+        {
+          "time": 1,
+          "type": "REGISTER_SLAVE",
+          "slave_id": "receiver",
+          "netns_id": "ns_rcv",
+          "ip_addr": "10.4.0.2"
+        },
+        {
+          "time": 2,
+          "type": "SET_NETFILTER_RULE",
+          "netns_id": "ns_rcv",
+          "chain": "PRE_ROUTING",
+          "action": "DROP",
+          "match_ip": "10.4.0.2"
+        },
+        {
+          "time": 3,
+          "type": "EGRESS_PACKET",
+          "slave_id": "sender",
+          "dst_ip": "10.4.0.2"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "mode": "L3S",
+        "forwarded_ingress_packets": 0,
+        "forwarded_egress_packets": 0,
+        "hairpin_local_switched_packets": 0,
+        "dropped_packets": 1,
+        "netfilter_inspected_packets": 2,
+        "active_slaves_count": 2
+      },
+      "active_slaves": {
+        "sender": {
+          "slave_id": "sender",
+          "netns": "ns_snd",
+          "ip": "10.4.0.1"
+        },
+        "receiver": {
+          "slave_id": "receiver",
+          "netns": "ns_rcv",
+          "ip": "10.4.0.2"
+        }
+      },
+      "packet_history": [
+        {
+          "time": 3,
+          "direction": "HAIRPIN",
+          "status": "DROPPED",
+          "reason": "NETFILTER_DROP",
+          "src_slave_id": "sender",
+          "dst_slave_id": "receiver"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "REGISTER_SLAVE",
+          "slave_id": "sender",
+          "netns": "ns_snd",
+          "ip": "10.4.0.1"
+        },
+        {
+          "time": 1,
+          "event": "REGISTER_SLAVE",
+          "slave_id": "receiver",
+          "netns": "ns_rcv",
+          "ip": "10.4.0.2"
+        },
+        {
+          "time": 2,
+          "event": "SET_NETFILTER_RULE",
+          "netns": "ns_rcv",
+          "chain": "PRE_ROUTING",
+          "action": "DROP"
+        }
+      ]
+    }
+  },
+  {
+    "name": "초대규모 쿠버네티스(K8s) CNI 파드 생명주기 및 다중 테넌트 트래픽 복합 시뮬레이션",
+    "input": {
+      "config": {
+        "mode": "L3S",
+        "master_mac": "02:42:ac:11:00:01",
+        "host_ip": "10.0.0.1"
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "REGISTER_SLAVE",
+          "slave_id": "k8s_api",
+          "netns_id": "ns_system",
+          "ip_addr": "10.244.0.2"
+        },
+        {
+          "time": 1,
+          "type": "REGISTER_SLAVE",
+          "slave_id": "k8s_app_1",
+          "netns_id": "ns_app1",
+          "ip_addr": "10.244.0.3"
+        },
+        {
+          "time": 2,
+          "type": "REGISTER_SLAVE",
+          "slave_id": "k8s_app_2",
+          "netns_id": "ns_app2",
+          "ip_addr": "10.244.0.4"
+        },
+        {
+          "time": 3,
+          "type": "EGRESS_PACKET",
+          "slave_id": "k8s_app_1",
+          "dst_ip": "10.244.0.2"
+        },
+        {
+          "time": 4,
+          "type": "EGRESS_PACKET",
+          "slave_id": "k8s_app_2",
+          "dst_ip": "54.239.28.85"
+        },
+        {
+          "time": 5,
+          "type": "INGRESS_PACKET",
+          "src_mac": "52:54:00:12:34:56",
+          "dst_mac": "02:42:ac:11:00:01",
+          "src_ip": "198.51.100.10",
+          "dst_ip": "10.244.0.3"
+        },
+        {
+          "time": 6,
+          "type": "UNREGISTER_SLAVE",
+          "slave_id": "k8s_app_1"
+        },
+        {
+          "time": 7,
+          "type": "INGRESS_PACKET",
+          "src_mac": "52:54:00:12:34:56",
+          "dst_mac": "02:42:ac:11:00:01",
+          "src_ip": "198.51.100.10",
+          "dst_ip": "10.244.0.3"
+        },
+        {
+          "time": 8,
+          "type": "REGISTER_SLAVE",
+          "slave_id": "k8s_app_3",
+          "netns_id": "ns_app3",
+          "ip_addr": "10.244.0.3"
+        },
+        {
+          "time": 9,
+          "type": "INGRESS_PACKET",
+          "src_mac": "52:54:00:12:34:56",
+          "dst_mac": "02:42:ac:11:00:01",
+          "src_ip": "198.51.100.10",
+          "dst_ip": "10.244.0.3"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "mode": "L3S",
+        "forwarded_ingress_packets": 2,
+        "forwarded_egress_packets": 1,
+        "hairpin_local_switched_packets": 1,
+        "dropped_packets": 1,
+        "netfilter_inspected_packets": 5,
+        "active_slaves_count": 3
+      },
+      "active_slaves": {
+        "k8s_api": {
+          "slave_id": "k8s_api",
+          "netns": "ns_system",
+          "ip": "10.244.0.2"
+        },
+        "k8s_app_2": {
+          "slave_id": "k8s_app_2",
+          "netns": "ns_app2",
+          "ip": "10.244.0.4"
+        },
+        "k8s_app_3": {
+          "slave_id": "k8s_app_3",
+          "netns": "ns_app3",
+          "ip": "10.244.0.3"
+        }
+      },
+      "packet_history": [
+        {
+          "time": 3,
+          "direction": "HAIRPIN",
+          "status": "DELIVERED_SLAVE",
+          "src_slave_id": "k8s_app_1",
+          "dst_slave_id": "k8s_api",
+          "mode": "L3S",
+          "src_ip": "10.244.0.3",
+          "dst_ip": "10.244.0.2"
+        },
+        {
+          "time": 4,
+          "direction": "EGRESS",
+          "status": "TRANSMITTED_WIRE",
+          "src_slave_id": "k8s_app_2",
+          "master_mac": "02:42:ac:11:00:01",
+          "src_ip": "10.244.0.4",
+          "dst_ip": "54.239.28.85"
+        },
+        {
+          "time": 5,
+          "direction": "INGRESS",
+          "status": "DELIVERED_SLAVE",
+          "slave_id": "k8s_app_1",
+          "netns": "ns_app1",
+          "mode": "L3S",
+          "src_ip": "198.51.100.10",
+          "dst_ip": "10.244.0.3"
+        },
+        {
+          "time": 7,
+          "direction": "INGRESS",
+          "status": "DROPPED",
+          "reason": "DROP_NO_ROUTE",
+          "dst_ip": "10.244.0.3"
+        },
+        {
+          "time": 9,
+          "direction": "INGRESS",
+          "status": "DELIVERED_SLAVE",
+          "slave_id": "k8s_app_3",
+          "netns": "ns_app3",
+          "mode": "L3S",
+          "src_ip": "198.51.100.10",
+          "dst_ip": "10.244.0.3"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "REGISTER_SLAVE",
+          "slave_id": "k8s_api",
+          "netns": "ns_system",
+          "ip": "10.244.0.2"
+        },
+        {
+          "time": 1,
+          "event": "REGISTER_SLAVE",
+          "slave_id": "k8s_app_1",
+          "netns": "ns_app1",
+          "ip": "10.244.0.3"
+        },
+        {
+          "time": 2,
+          "event": "REGISTER_SLAVE",
+          "slave_id": "k8s_app_2",
+          "netns": "ns_app2",
+          "ip": "10.244.0.4"
+        },
+        {
+          "time": 6,
+          "event": "UNREGISTER_SLAVE",
+          "slave_id": "k8s_app_1"
+        },
+        {
+          "time": 8,
+          "event": "REGISTER_SLAVE",
+          "slave_id": "k8s_app_3",
+          "netns": "ns_app3",
+          "ip": "10.244.0.3"
+        }
+      ]
+    }
+  }
+]
