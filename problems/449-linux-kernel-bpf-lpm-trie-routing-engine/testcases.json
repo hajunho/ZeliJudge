@@ -1,0 +1,919 @@
+[
+  {
+    "input": {
+      "config": {
+        "max_entries": 1024
+      },
+      "operations": [
+        {
+          "op": "INSERT",
+          "ip": "0.0.0.0",
+          "prefixlen": 0,
+          "value": {
+            "action": "DEFAULT_GW"
+          }
+        },
+        {
+          "op": "INSERT",
+          "ip": "192.168.0.0",
+          "prefixlen": 16,
+          "value": {
+            "action": "LOCAL_NET"
+          }
+        },
+        {
+          "op": "INSERT",
+          "ip": "192.168.1.0",
+          "prefixlen": 24,
+          "value": {
+            "action": "POD_SUBNET"
+          }
+        },
+        {
+          "op": "INSERT",
+          "ip": "192.168.1.100",
+          "prefixlen": 32,
+          "value": {
+            "action": "POD_HOST"
+          }
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "192.168.1.100"
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "192.168.1.50"
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "192.168.2.1"
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "8.8.8.8"
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "INSERTED",
+          "prefixlen": 0,
+          "key": "0.0.0.0"
+        },
+        {
+          "status": "INSERTED",
+          "prefixlen": 16,
+          "key": "192.168.0.0"
+        },
+        {
+          "status": "INSERTED",
+          "prefixlen": 24,
+          "key": "192.168.1.0"
+        },
+        {
+          "status": "INSERTED",
+          "prefixlen": 32,
+          "key": "192.168.1.100"
+        },
+        {
+          "status": "MATCH",
+          "matched_prefixlen": 32,
+          "matched_key": "192.168.1.100",
+          "value": {
+            "action": "POD_HOST"
+          }
+        },
+        {
+          "status": "MATCH",
+          "matched_prefixlen": 24,
+          "matched_key": "192.168.1.0",
+          "value": {
+            "action": "POD_SUBNET"
+          }
+        },
+        {
+          "status": "MATCH",
+          "matched_prefixlen": 16,
+          "matched_key": "192.168.0.0",
+          "value": {
+            "action": "LOCAL_NET"
+          }
+        },
+        {
+          "status": "MATCH",
+          "matched_prefixlen": 0,
+          "matched_key": "0.0.0.0",
+          "value": {
+            "action": "DEFAULT_GW"
+          }
+        },
+        {
+          "total_nodes": 4,
+          "intermediate_nodes": 0,
+          "tree_depth": 4,
+          "lookup_hits": 4,
+          "lookup_misses": 0
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "max_entries": 1024
+      },
+      "operations": [
+        {
+          "op": "INSERT",
+          "ip": "0.0.0.0",
+          "prefixlen": 0,
+          "value": {
+            "action": "DEFAULT_GW"
+          }
+        },
+        {
+          "op": "INSERT",
+          "ip": "10.0.0.0",
+          "prefixlen": 8,
+          "value": {
+            "action": "CORP_NET"
+          }
+        },
+        {
+          "op": "INSERT",
+          "ip": "10.10.0.0",
+          "prefixlen": 16,
+          "value": {
+            "action": "PROD_VPC"
+          }
+        },
+        {
+          "op": "INSERT",
+          "ip": "10.10.1.0",
+          "prefixlen": 24,
+          "value": {
+            "action": "K8S_NODE"
+          }
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "10.10.1.5"
+        },
+        {
+          "op": "DELETE",
+          "ip": "10.10.1.0",
+          "prefixlen": 24
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "10.10.1.5"
+        },
+        {
+          "op": "DELETE",
+          "ip": "10.10.0.0",
+          "prefixlen": 16
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "10.10.1.5"
+        },
+        {
+          "op": "DELETE",
+          "ip": "10.0.0.0",
+          "prefixlen": 8
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "10.10.1.5"
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "INSERTED",
+          "prefixlen": 0,
+          "key": "0.0.0.0"
+        },
+        {
+          "status": "INSERTED",
+          "prefixlen": 8,
+          "key": "10.0.0.0"
+        },
+        {
+          "status": "INSERTED",
+          "prefixlen": 16,
+          "key": "10.10.0.0"
+        },
+        {
+          "status": "INSERTED",
+          "prefixlen": 24,
+          "key": "10.10.1.0"
+        },
+        {
+          "status": "MATCH",
+          "matched_prefixlen": 24,
+          "matched_key": "10.10.1.0",
+          "value": {
+            "action": "K8S_NODE"
+          }
+        },
+        {
+          "status": "DELETED",
+          "prefixlen": 24,
+          "key": "10.10.1.0"
+        },
+        {
+          "status": "MATCH",
+          "matched_prefixlen": 16,
+          "matched_key": "10.10.0.0",
+          "value": {
+            "action": "PROD_VPC"
+          }
+        },
+        {
+          "status": "DELETED",
+          "prefixlen": 16,
+          "key": "10.10.0.0"
+        },
+        {
+          "status": "MATCH",
+          "matched_prefixlen": 8,
+          "matched_key": "10.0.0.0",
+          "value": {
+            "action": "CORP_NET"
+          }
+        },
+        {
+          "status": "DELETED",
+          "prefixlen": 8,
+          "key": "10.0.0.0"
+        },
+        {
+          "status": "MATCH",
+          "matched_prefixlen": 0,
+          "matched_key": "0.0.0.0",
+          "value": {
+            "action": "DEFAULT_GW"
+          }
+        },
+        {
+          "total_nodes": 1,
+          "intermediate_nodes": 0,
+          "tree_depth": 1,
+          "lookup_hits": 4,
+          "lookup_misses": 0
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "max_entries": 1024
+      },
+      "operations": [
+        {
+          "op": "INSERT",
+          "ip": "172.16.1.0",
+          "prefixlen": 24,
+          "value": {
+            "zone": "US_EAST"
+          }
+        },
+        {
+          "op": "INSERT",
+          "ip": "172.16.2.0",
+          "prefixlen": 24,
+          "value": {
+            "zone": "US_WEST"
+          }
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "172.16.1.10"
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "172.16.2.20"
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "172.16.3.30"
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "INSERTED",
+          "prefixlen": 24,
+          "key": "172.16.1.0"
+        },
+        {
+          "status": "INSERTED",
+          "prefixlen": 24,
+          "key": "172.16.2.0"
+        },
+        {
+          "status": "MATCH",
+          "matched_prefixlen": 24,
+          "matched_key": "172.16.1.0",
+          "value": {
+            "zone": "US_EAST"
+          }
+        },
+        {
+          "status": "MATCH",
+          "matched_prefixlen": 24,
+          "matched_key": "172.16.2.0",
+          "value": {
+            "zone": "US_WEST"
+          }
+        },
+        {
+          "status": "NO_MATCH",
+          "query_ip": "172.16.3.30"
+        },
+        {
+          "total_nodes": 2,
+          "intermediate_nodes": 1,
+          "tree_depth": 2,
+          "lookup_hits": 2,
+          "lookup_misses": 1
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "max_entries": 512
+      },
+      "operations": [
+        {
+          "op": "INSERT",
+          "ip": "192.0.2.0",
+          "prefixlen": 24,
+          "value": {
+            "gw": "192.0.2.1",
+            "metric": 10
+          }
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "192.0.2.55"
+        },
+        {
+          "op": "INSERT",
+          "ip": "192.0.2.0",
+          "prefixlen": 24,
+          "value": {
+            "gw": "192.0.2.254",
+            "metric": 5
+          }
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "192.0.2.55"
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "INSERTED",
+          "prefixlen": 24,
+          "key": "192.0.2.0"
+        },
+        {
+          "status": "MATCH",
+          "matched_prefixlen": 24,
+          "matched_key": "192.0.2.0",
+          "value": {
+            "gw": "192.0.2.1",
+            "metric": 10
+          }
+        },
+        {
+          "status": "INSERTED",
+          "prefixlen": 24,
+          "key": "192.0.2.0"
+        },
+        {
+          "status": "MATCH",
+          "matched_prefixlen": 24,
+          "matched_key": "192.0.2.0",
+          "value": {
+            "gw": "192.0.2.254",
+            "metric": 5
+          }
+        },
+        {
+          "total_nodes": 1,
+          "intermediate_nodes": 0,
+          "tree_depth": 1,
+          "lookup_hits": 2,
+          "lookup_misses": 0
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "max_entries": 512
+      },
+      "operations": [
+        {
+          "op": "INSERT",
+          "ip": "10.0.0.0",
+          "prefixlen": 16,
+          "value": {
+            "action": "ALLOW"
+          }
+        },
+        {
+          "op": "DELETE",
+          "ip": "10.1.0.0",
+          "prefixlen": 16
+        },
+        {
+          "op": "DELETE",
+          "ip": "10.0.0.0",
+          "prefixlen": 24
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "11.0.0.1"
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "10.0.5.5"
+        },
+        {
+          "op": "DELETE",
+          "ip": "10.0.0.0",
+          "prefixlen": 16
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "10.0.5.5"
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "INSERTED",
+          "prefixlen": 16,
+          "key": "10.0.0.0"
+        },
+        {
+          "status": "NOT_FOUND",
+          "prefixlen": 16,
+          "key": "10.1.0.0"
+        },
+        {
+          "status": "NOT_FOUND",
+          "prefixlen": 24,
+          "key": "10.0.0.0"
+        },
+        {
+          "status": "NO_MATCH",
+          "query_ip": "11.0.0.1"
+        },
+        {
+          "status": "MATCH",
+          "matched_prefixlen": 16,
+          "matched_key": "10.0.0.0",
+          "value": {
+            "action": "ALLOW"
+          }
+        },
+        {
+          "status": "DELETED",
+          "prefixlen": 16,
+          "key": "10.0.0.0"
+        },
+        {
+          "status": "NO_MATCH",
+          "query_ip": "10.0.5.5"
+        },
+        {
+          "total_nodes": 0,
+          "intermediate_nodes": 0,
+          "tree_depth": 0,
+          "lookup_hits": 1,
+          "lookup_misses": 2
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "max_entries": 1024
+      },
+      "operations": [
+        {
+          "op": "INSERT",
+          "ip": "192.168.1.123",
+          "prefixlen": 24,
+          "value": {
+            "subnet": "office"
+          }
+        },
+        {
+          "op": "INSERT",
+          "ip": "10.255.45.67",
+          "prefixlen": 8,
+          "value": {
+            "net": "ten"
+          }
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "192.168.1.200"
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "10.1.2.3"
+        },
+        {
+          "op": "DELETE",
+          "ip": "192.168.1.99",
+          "prefixlen": 24
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "192.168.1.200"
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "INSERTED",
+          "prefixlen": 24,
+          "key": "192.168.1.0"
+        },
+        {
+          "status": "INSERTED",
+          "prefixlen": 8,
+          "key": "10.0.0.0"
+        },
+        {
+          "status": "MATCH",
+          "matched_prefixlen": 24,
+          "matched_key": "192.168.1.0",
+          "value": {
+            "subnet": "office"
+          }
+        },
+        {
+          "status": "MATCH",
+          "matched_prefixlen": 8,
+          "matched_key": "10.0.0.0",
+          "value": {
+            "net": "ten"
+          }
+        },
+        {
+          "status": "DELETED",
+          "prefixlen": 24,
+          "key": "192.168.1.0"
+        },
+        {
+          "status": "NO_MATCH",
+          "query_ip": "192.168.1.200"
+        },
+        {
+          "total_nodes": 1,
+          "intermediate_nodes": 0,
+          "tree_depth": 1,
+          "lookup_hits": 2,
+          "lookup_misses": 1
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "max_entries": 2048
+      },
+      "operations": [
+        {
+          "op": "INSERT",
+          "ip": "0.0.0.0",
+          "prefixlen": 0,
+          "value": {
+            "policy": "DENY"
+          }
+        },
+        {
+          "op": "INSERT",
+          "ip": "10.0.0.0",
+          "prefixlen": 8,
+          "value": {
+            "policy": "ALLOW_INTERNAL"
+          }
+        },
+        {
+          "op": "INSERT",
+          "ip": "10.244.0.0",
+          "prefixlen": 16,
+          "value": {
+            "policy": "ALLOW_CLUSTER"
+          }
+        },
+        {
+          "op": "INSERT",
+          "ip": "10.244.15.0",
+          "prefixlen": 24,
+          "value": {
+            "policy": "ALLOW_PAYMENT_PODS"
+          }
+        },
+        {
+          "op": "INSERT",
+          "ip": "10.244.15.42",
+          "prefixlen": 32,
+          "value": {
+            "policy": "DENY_QUARANTINE"
+          }
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "10.244.15.42"
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "10.244.15.43"
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "10.244.99.1"
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "10.1.1.1"
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "1.1.1.1"
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "INSERTED",
+          "prefixlen": 0,
+          "key": "0.0.0.0"
+        },
+        {
+          "status": "INSERTED",
+          "prefixlen": 8,
+          "key": "10.0.0.0"
+        },
+        {
+          "status": "INSERTED",
+          "prefixlen": 16,
+          "key": "10.244.0.0"
+        },
+        {
+          "status": "INSERTED",
+          "prefixlen": 24,
+          "key": "10.244.15.0"
+        },
+        {
+          "status": "INSERTED",
+          "prefixlen": 32,
+          "key": "10.244.15.42"
+        },
+        {
+          "status": "MATCH",
+          "matched_prefixlen": 32,
+          "matched_key": "10.244.15.42",
+          "value": {
+            "policy": "DENY_QUARANTINE"
+          }
+        },
+        {
+          "status": "MATCH",
+          "matched_prefixlen": 24,
+          "matched_key": "10.244.15.0",
+          "value": {
+            "policy": "ALLOW_PAYMENT_PODS"
+          }
+        },
+        {
+          "status": "MATCH",
+          "matched_prefixlen": 16,
+          "matched_key": "10.244.0.0",
+          "value": {
+            "policy": "ALLOW_CLUSTER"
+          }
+        },
+        {
+          "status": "MATCH",
+          "matched_prefixlen": 8,
+          "matched_key": "10.0.0.0",
+          "value": {
+            "policy": "ALLOW_INTERNAL"
+          }
+        },
+        {
+          "status": "MATCH",
+          "matched_prefixlen": 0,
+          "matched_key": "0.0.0.0",
+          "value": {
+            "policy": "DENY"
+          }
+        },
+        {
+          "total_nodes": 5,
+          "intermediate_nodes": 0,
+          "tree_depth": 5,
+          "lookup_hits": 5,
+          "lookup_misses": 0
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "max_entries": 4096
+      },
+      "operations": [
+        {
+          "op": "INSERT",
+          "ip": "198.51.100.0",
+          "prefixlen": 24,
+          "value": {
+            "vip": "VIP_ANYCAST",
+            "backends": 10
+          }
+        },
+        {
+          "op": "INSERT",
+          "ip": "198.51.100.128",
+          "prefixlen": 25,
+          "value": {
+            "vip": "VIP_B_POOL",
+            "backends": 5
+          }
+        },
+        {
+          "op": "INSERT",
+          "ip": "198.51.100.192",
+          "prefixlen": 26,
+          "value": {
+            "vip": "VIP_C_CANARY",
+            "backends": 2
+          }
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "198.51.100.200"
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "198.51.100.150"
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "198.51.100.50"
+        },
+        {
+          "op": "DELETE",
+          "ip": "198.51.100.192",
+          "prefixlen": 26
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "198.51.100.200"
+        },
+        {
+          "op": "DELETE",
+          "ip": "198.51.100.128",
+          "prefixlen": 25
+        },
+        {
+          "op": "LOOKUP",
+          "ip": "198.51.100.200"
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "INSERTED",
+          "prefixlen": 24,
+          "key": "198.51.100.0"
+        },
+        {
+          "status": "INSERTED",
+          "prefixlen": 25,
+          "key": "198.51.100.128"
+        },
+        {
+          "status": "INSERTED",
+          "prefixlen": 26,
+          "key": "198.51.100.192"
+        },
+        {
+          "status": "MATCH",
+          "matched_prefixlen": 26,
+          "matched_key": "198.51.100.192",
+          "value": {
+            "vip": "VIP_C_CANARY",
+            "backends": 2
+          }
+        },
+        {
+          "status": "MATCH",
+          "matched_prefixlen": 25,
+          "matched_key": "198.51.100.128",
+          "value": {
+            "vip": "VIP_B_POOL",
+            "backends": 5
+          }
+        },
+        {
+          "status": "MATCH",
+          "matched_prefixlen": 24,
+          "matched_key": "198.51.100.0",
+          "value": {
+            "vip": "VIP_ANYCAST",
+            "backends": 10
+          }
+        },
+        {
+          "status": "DELETED",
+          "prefixlen": 26,
+          "key": "198.51.100.192"
+        },
+        {
+          "status": "MATCH",
+          "matched_prefixlen": 25,
+          "matched_key": "198.51.100.128",
+          "value": {
+            "vip": "VIP_B_POOL",
+            "backends": 5
+          }
+        },
+        {
+          "status": "DELETED",
+          "prefixlen": 25,
+          "key": "198.51.100.128"
+        },
+        {
+          "status": "MATCH",
+          "matched_prefixlen": 24,
+          "matched_key": "198.51.100.0",
+          "value": {
+            "vip": "VIP_ANYCAST",
+            "backends": 10
+          }
+        },
+        {
+          "total_nodes": 1,
+          "intermediate_nodes": 0,
+          "tree_depth": 1,
+          "lookup_hits": 5,
+          "lookup_misses": 0
+        }
+      ]
+    }
+  }
+]
