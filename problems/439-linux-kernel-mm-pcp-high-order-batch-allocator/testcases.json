@@ -1,0 +1,1436 @@
+[
+  {
+    "testcase_id": 1,
+    "input": {
+      "config": {
+        "num_cpus": 2,
+        "max_pcp_order": 3,
+        "batch": 4,
+        "high_watermark": 10
+      },
+      "trace": [
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "order": 0,
+          "handle_id": "P0_1"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "order": 0,
+          "handle_id": "P0_2"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "order": 0,
+          "handle_id": "P0_3"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "order": 2,
+          "handle_id": "P2_1"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "order": 2,
+          "handle_id": "P2_2"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "handle_id": "P0_1",
+          "order": 0,
+          "pfn": 65536,
+          "status": "ALLOC_PCP_REFILL",
+          "lock_acquired": true,
+          "cpu_pcp_count": 3
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "handle_id": "P0_2",
+          "order": 0,
+          "pfn": 65539,
+          "status": "ALLOC_PCP_HIT",
+          "lock_acquired": false,
+          "cpu_pcp_count": 2
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "handle_id": "P0_3",
+          "order": 0,
+          "pfn": 65538,
+          "status": "ALLOC_PCP_HIT",
+          "lock_acquired": false,
+          "cpu_pcp_count": 1
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "handle_id": "P2_1",
+          "order": 2,
+          "pfn": 65560,
+          "status": "ALLOC_PCP_REFILL",
+          "lock_acquired": true,
+          "cpu_pcp_count": 4
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "handle_id": "P2_2",
+          "order": 2,
+          "pfn": 65572,
+          "status": "ALLOC_PCP_HIT",
+          "lock_acquired": false,
+          "cpu_pcp_count": 3
+        },
+        {
+          "op": "GET_STATS",
+          "zone_lock_count": 2,
+          "active_allocations": 5,
+          "cpus": {
+            "0": {
+              "count": 3,
+              "local_hits": 3,
+              "bulk_refills": 2,
+              "bulk_drains": 0,
+              "zone_lock_acquisitions": 2
+            },
+            "1": {
+              "count": 0,
+              "local_hits": 0,
+              "bulk_refills": 0,
+              "bulk_drains": 0,
+              "zone_lock_acquisitions": 0
+            }
+          }
+        }
+      ],
+      "summary": {
+        "zone_lock_count": 2,
+        "total_local_hits": 3,
+        "total_bulk_refills": 2,
+        "total_bulk_drains": 0,
+        "active_allocations": 5,
+        "total_pcp_blocks_cached": 3
+      }
+    }
+  },
+  {
+    "testcase_id": 2,
+    "input": {
+      "config": {
+        "num_cpus": 2,
+        "max_pcp_order": 3,
+        "batch": 4,
+        "high_watermark": 10
+      },
+      "trace": [
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "order": 1,
+          "handle_id": "P1_A"
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 0,
+          "handle_id": "P1_A"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "order": 1,
+          "handle_id": "P1_B"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "handle_id": "P1_A",
+          "order": 1,
+          "pfn": 65544,
+          "status": "ALLOC_PCP_REFILL",
+          "lock_acquired": true,
+          "cpu_pcp_count": 3
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 0,
+          "handle_id": "P1_A",
+          "order": 1,
+          "pfn": 65544,
+          "status": "FREE_PCP_CACHED",
+          "lock_acquired": false,
+          "cpu_pcp_count": 4
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "handle_id": "P1_B",
+          "order": 1,
+          "pfn": 65544,
+          "status": "ALLOC_PCP_HIT",
+          "lock_acquired": false,
+          "cpu_pcp_count": 3
+        },
+        {
+          "op": "GET_STATS",
+          "zone_lock_count": 1,
+          "active_allocations": 1,
+          "cpus": {
+            "0": {
+              "count": 3,
+              "local_hits": 1,
+              "bulk_refills": 1,
+              "bulk_drains": 0,
+              "zone_lock_acquisitions": 1
+            },
+            "1": {
+              "count": 0,
+              "local_hits": 0,
+              "bulk_refills": 0,
+              "bulk_drains": 0,
+              "zone_lock_acquisitions": 0
+            }
+          }
+        }
+      ],
+      "summary": {
+        "zone_lock_count": 1,
+        "total_local_hits": 1,
+        "total_bulk_refills": 1,
+        "total_bulk_drains": 0,
+        "active_allocations": 1,
+        "total_pcp_blocks_cached": 3
+      }
+    }
+  },
+  {
+    "testcase_id": 3,
+    "input": {
+      "config": {
+        "num_cpus": 2,
+        "max_pcp_order": 3,
+        "batch": 3,
+        "high_watermark": 5
+      },
+      "trace": [
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "order": 0,
+          "handle_id": "T3_1"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "order": 0,
+          "handle_id": "T3_2"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "order": 0,
+          "handle_id": "T3_3"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "order": 0,
+          "handle_id": "T3_4"
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 0,
+          "handle_id": "T3_1"
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 0,
+          "handle_id": "T3_2"
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 0,
+          "handle_id": "T3_3"
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 0,
+          "handle_id": "T3_4"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "handle_id": "T3_1",
+          "order": 0,
+          "pfn": 65536,
+          "status": "ALLOC_PCP_REFILL",
+          "lock_acquired": true,
+          "cpu_pcp_count": 2
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "handle_id": "T3_2",
+          "order": 0,
+          "pfn": 65538,
+          "status": "ALLOC_PCP_HIT",
+          "lock_acquired": false,
+          "cpu_pcp_count": 1
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "handle_id": "T3_3",
+          "order": 0,
+          "pfn": 65537,
+          "status": "ALLOC_PCP_HIT",
+          "lock_acquired": false,
+          "cpu_pcp_count": 0
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "handle_id": "T3_4",
+          "order": 0,
+          "pfn": 65539,
+          "status": "ALLOC_PCP_REFILL",
+          "lock_acquired": true,
+          "cpu_pcp_count": 2
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 0,
+          "handle_id": "T3_1",
+          "order": 0,
+          "pfn": 65536,
+          "status": "FREE_PCP_CACHED",
+          "lock_acquired": false,
+          "cpu_pcp_count": 3
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 0,
+          "handle_id": "T3_2",
+          "order": 0,
+          "pfn": 65538,
+          "status": "FREE_PCP_CACHED",
+          "lock_acquired": false,
+          "cpu_pcp_count": 4
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 0,
+          "handle_id": "T3_3",
+          "order": 0,
+          "pfn": 65537,
+          "status": "FREE_PCP_DRAINED",
+          "lock_acquired": true,
+          "cpu_pcp_count": 2
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 0,
+          "handle_id": "T3_4",
+          "order": 0,
+          "pfn": 65539,
+          "status": "FREE_PCP_CACHED",
+          "lock_acquired": false,
+          "cpu_pcp_count": 3
+        },
+        {
+          "op": "GET_STATS",
+          "zone_lock_count": 3,
+          "active_allocations": 0,
+          "cpus": {
+            "0": {
+              "count": 3,
+              "local_hits": 2,
+              "bulk_refills": 2,
+              "bulk_drains": 1,
+              "zone_lock_acquisitions": 3
+            },
+            "1": {
+              "count": 0,
+              "local_hits": 0,
+              "bulk_refills": 0,
+              "bulk_drains": 0,
+              "zone_lock_acquisitions": 0
+            }
+          }
+        }
+      ],
+      "summary": {
+        "zone_lock_count": 3,
+        "total_local_hits": 2,
+        "total_bulk_refills": 2,
+        "total_bulk_drains": 1,
+        "active_allocations": 0,
+        "total_pcp_blocks_cached": 3
+      }
+    }
+  },
+  {
+    "testcase_id": 4,
+    "input": {
+      "config": {
+        "num_cpus": 2,
+        "max_pcp_order": 3,
+        "batch": 4,
+        "high_watermark": 12
+      },
+      "trace": [
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "order": 1,
+          "handle_id": "C0_1"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 1,
+          "order": 1,
+          "handle_id": "C1_1"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "order": 1,
+          "handle_id": "C0_2"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 1,
+          "order": 1,
+          "handle_id": "C1_2"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "handle_id": "C0_1",
+          "order": 1,
+          "pfn": 65544,
+          "status": "ALLOC_PCP_REFILL",
+          "lock_acquired": true,
+          "cpu_pcp_count": 3
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 1,
+          "handle_id": "C1_1",
+          "order": 1,
+          "pfn": 65552,
+          "status": "ALLOC_PCP_REFILL",
+          "lock_acquired": true,
+          "cpu_pcp_count": 3
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "handle_id": "C0_2",
+          "order": 1,
+          "pfn": 65550,
+          "status": "ALLOC_PCP_HIT",
+          "lock_acquired": false,
+          "cpu_pcp_count": 2
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 1,
+          "handle_id": "C1_2",
+          "order": 1,
+          "pfn": 65558,
+          "status": "ALLOC_PCP_HIT",
+          "lock_acquired": false,
+          "cpu_pcp_count": 2
+        },
+        {
+          "op": "GET_STATS",
+          "zone_lock_count": 2,
+          "active_allocations": 4,
+          "cpus": {
+            "0": {
+              "count": 2,
+              "local_hits": 1,
+              "bulk_refills": 1,
+              "bulk_drains": 0,
+              "zone_lock_acquisitions": 1
+            },
+            "1": {
+              "count": 2,
+              "local_hits": 1,
+              "bulk_refills": 1,
+              "bulk_drains": 0,
+              "zone_lock_acquisitions": 1
+            }
+          }
+        }
+      ],
+      "summary": {
+        "zone_lock_count": 2,
+        "total_local_hits": 2,
+        "total_bulk_refills": 2,
+        "total_bulk_drains": 0,
+        "active_allocations": 4,
+        "total_pcp_blocks_cached": 4
+      }
+    }
+  },
+  {
+    "testcase_id": 5,
+    "input": {
+      "config": {
+        "num_cpus": 2,
+        "max_pcp_order": 3,
+        "batch": 4,
+        "high_watermark": 10
+      },
+      "trace": [
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "order": 2,
+          "handle_id": "CROSS_1"
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 1,
+          "handle_id": "CROSS_1"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 1,
+          "order": 2,
+          "handle_id": "CROSS_2"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "handle_id": "CROSS_1",
+          "order": 2,
+          "pfn": 65560,
+          "status": "ALLOC_PCP_REFILL",
+          "lock_acquired": true,
+          "cpu_pcp_count": 3
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 1,
+          "handle_id": "CROSS_1",
+          "order": 2,
+          "pfn": 65560,
+          "status": "FREE_PCP_CACHED",
+          "lock_acquired": false,
+          "cpu_pcp_count": 1
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 1,
+          "handle_id": "CROSS_2",
+          "order": 2,
+          "pfn": 65560,
+          "status": "ALLOC_PCP_HIT",
+          "lock_acquired": false,
+          "cpu_pcp_count": 0
+        },
+        {
+          "op": "GET_STATS",
+          "zone_lock_count": 1,
+          "active_allocations": 1,
+          "cpus": {
+            "0": {
+              "count": 3,
+              "local_hits": 0,
+              "bulk_refills": 1,
+              "bulk_drains": 0,
+              "zone_lock_acquisitions": 1
+            },
+            "1": {
+              "count": 0,
+              "local_hits": 1,
+              "bulk_refills": 0,
+              "bulk_drains": 0,
+              "zone_lock_acquisitions": 0
+            }
+          }
+        }
+      ],
+      "summary": {
+        "zone_lock_count": 1,
+        "total_local_hits": 1,
+        "total_bulk_refills": 1,
+        "total_bulk_drains": 0,
+        "active_allocations": 1,
+        "total_pcp_blocks_cached": 3
+      }
+    }
+  },
+  {
+    "testcase_id": 6,
+    "input": {
+      "config": {
+        "num_cpus": 2,
+        "max_pcp_order": 3,
+        "batch": 2,
+        "high_watermark": 8
+      },
+      "trace": [
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "order": 0,
+          "handle_id": "O0"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "order": 1,
+          "handle_id": "O1"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "order": 2,
+          "handle_id": "O2"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "order": 3,
+          "handle_id": "O3"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "handle_id": "O0",
+          "order": 0,
+          "pfn": 65536,
+          "status": "ALLOC_PCP_REFILL",
+          "lock_acquired": true,
+          "cpu_pcp_count": 1
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "handle_id": "O1",
+          "order": 1,
+          "pfn": 65544,
+          "status": "ALLOC_PCP_REFILL",
+          "lock_acquired": true,
+          "cpu_pcp_count": 2
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "handle_id": "O2",
+          "order": 2,
+          "pfn": 65560,
+          "status": "ALLOC_PCP_REFILL",
+          "lock_acquired": true,
+          "cpu_pcp_count": 3
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "handle_id": "O3",
+          "order": 3,
+          "pfn": 65592,
+          "status": "ALLOC_PCP_REFILL",
+          "lock_acquired": true,
+          "cpu_pcp_count": 4
+        },
+        {
+          "op": "GET_STATS",
+          "zone_lock_count": 4,
+          "active_allocations": 4,
+          "cpus": {
+            "0": {
+              "count": 4,
+              "local_hits": 0,
+              "bulk_refills": 4,
+              "bulk_drains": 0,
+              "zone_lock_acquisitions": 4
+            },
+            "1": {
+              "count": 0,
+              "local_hits": 0,
+              "bulk_refills": 0,
+              "bulk_drains": 0,
+              "zone_lock_acquisitions": 0
+            }
+          }
+        }
+      ],
+      "summary": {
+        "zone_lock_count": 4,
+        "total_local_hits": 0,
+        "total_bulk_refills": 4,
+        "total_bulk_drains": 0,
+        "active_allocations": 4,
+        "total_pcp_blocks_cached": 4
+      }
+    }
+  },
+  {
+    "testcase_id": 7,
+    "input": {
+      "config": {
+        "num_cpus": 2,
+        "max_pcp_order": 3,
+        "batch": 4,
+        "high_watermark": 10
+      },
+      "trace": [
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "order": 1,
+          "handle_id": "D_1"
+        },
+        {
+          "op": "DRAIN_CPU",
+          "cpu_id": 0
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "order": 1,
+          "handle_id": "D_2"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "handle_id": "D_1",
+          "order": 1,
+          "pfn": 65544,
+          "status": "ALLOC_PCP_REFILL",
+          "lock_acquired": true,
+          "cpu_pcp_count": 3
+        },
+        {
+          "op": "DRAIN_CPU",
+          "cpu_id": 0,
+          "drained_blocks": 3,
+          "status": "CPU_PCP_DRAINED_ALL"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "handle_id": "D_2",
+          "order": 1,
+          "pfn": 65552,
+          "status": "ALLOC_PCP_REFILL",
+          "lock_acquired": true,
+          "cpu_pcp_count": 3
+        },
+        {
+          "op": "GET_STATS",
+          "zone_lock_count": 3,
+          "active_allocations": 2,
+          "cpus": {
+            "0": {
+              "count": 3,
+              "local_hits": 0,
+              "bulk_refills": 2,
+              "bulk_drains": 0,
+              "zone_lock_acquisitions": 3
+            },
+            "1": {
+              "count": 0,
+              "local_hits": 0,
+              "bulk_refills": 0,
+              "bulk_drains": 0,
+              "zone_lock_acquisitions": 0
+            }
+          }
+        }
+      ],
+      "summary": {
+        "zone_lock_count": 3,
+        "total_local_hits": 0,
+        "total_bulk_refills": 2,
+        "total_bulk_drains": 0,
+        "active_allocations": 2,
+        "total_pcp_blocks_cached": 3
+      }
+    }
+  },
+  {
+    "testcase_id": 8,
+    "input": {
+      "config": {
+        "num_cpus": 4,
+        "max_pcp_order": 3,
+        "batch": 3,
+        "high_watermark": 6
+      },
+      "trace": [
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "order": 0,
+          "handle_id": "BULK_0"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 1,
+          "order": 1,
+          "handle_id": "BULK_1"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 2,
+          "order": 2,
+          "handle_id": "BULK_2"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 3,
+          "order": 3,
+          "handle_id": "BULK_3"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "order": 0,
+          "handle_id": "BULK_4"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 1,
+          "order": 1,
+          "handle_id": "BULK_5"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 2,
+          "order": 2,
+          "handle_id": "BULK_6"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 3,
+          "order": 3,
+          "handle_id": "BULK_7"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "order": 0,
+          "handle_id": "BULK_8"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 1,
+          "order": 1,
+          "handle_id": "BULK_9"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 2,
+          "order": 2,
+          "handle_id": "BULK_10"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 3,
+          "order": 3,
+          "handle_id": "BULK_11"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "order": 0,
+          "handle_id": "BULK_12"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 1,
+          "order": 1,
+          "handle_id": "BULK_13"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 2,
+          "order": 2,
+          "handle_id": "BULK_14"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 3,
+          "order": 3,
+          "handle_id": "BULK_15"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "order": 0,
+          "handle_id": "BULK_16"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 1,
+          "order": 1,
+          "handle_id": "BULK_17"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 2,
+          "order": 2,
+          "handle_id": "BULK_18"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 3,
+          "order": 3,
+          "handle_id": "BULK_19"
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 1,
+          "handle_id": "BULK_0"
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 2,
+          "handle_id": "BULK_1"
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 3,
+          "handle_id": "BULK_2"
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 0,
+          "handle_id": "BULK_3"
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 1,
+          "handle_id": "BULK_4"
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 2,
+          "handle_id": "BULK_5"
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 3,
+          "handle_id": "BULK_6"
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 0,
+          "handle_id": "BULK_7"
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 1,
+          "handle_id": "BULK_8"
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 2,
+          "handle_id": "BULK_9"
+        },
+        {
+          "op": "DRAIN_CPU",
+          "cpu_id": 2
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 2,
+          "order": 0,
+          "handle_id": "RE_0"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 2,
+          "order": 0,
+          "handle_id": "RE_1"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 2,
+          "order": 0,
+          "handle_id": "RE_2"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 2,
+          "order": 0,
+          "handle_id": "RE_3"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 2,
+          "order": 0,
+          "handle_id": "RE_4"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "handle_id": "BULK_0",
+          "order": 0,
+          "pfn": 65536,
+          "status": "ALLOC_PCP_REFILL",
+          "lock_acquired": true,
+          "cpu_pcp_count": 2
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 1,
+          "handle_id": "BULK_1",
+          "order": 1,
+          "pfn": 65544,
+          "status": "ALLOC_PCP_REFILL",
+          "lock_acquired": true,
+          "cpu_pcp_count": 2
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 2,
+          "handle_id": "BULK_2",
+          "order": 2,
+          "pfn": 65560,
+          "status": "ALLOC_PCP_REFILL",
+          "lock_acquired": true,
+          "cpu_pcp_count": 2
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 3,
+          "handle_id": "BULK_3",
+          "order": 3,
+          "pfn": 65592,
+          "status": "ALLOC_PCP_REFILL",
+          "lock_acquired": true,
+          "cpu_pcp_count": 2
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "handle_id": "BULK_4",
+          "order": 0,
+          "pfn": 65538,
+          "status": "ALLOC_PCP_HIT",
+          "lock_acquired": false,
+          "cpu_pcp_count": 1
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 1,
+          "handle_id": "BULK_5",
+          "order": 1,
+          "pfn": 65548,
+          "status": "ALLOC_PCP_HIT",
+          "lock_acquired": false,
+          "cpu_pcp_count": 1
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 2,
+          "handle_id": "BULK_6",
+          "order": 2,
+          "pfn": 65568,
+          "status": "ALLOC_PCP_HIT",
+          "lock_acquired": false,
+          "cpu_pcp_count": 1
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 3,
+          "handle_id": "BULK_7",
+          "order": 3,
+          "pfn": 65608,
+          "status": "ALLOC_PCP_HIT",
+          "lock_acquired": false,
+          "cpu_pcp_count": 1
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "handle_id": "BULK_8",
+          "order": 0,
+          "pfn": 65537,
+          "status": "ALLOC_PCP_HIT",
+          "lock_acquired": false,
+          "cpu_pcp_count": 0
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 1,
+          "handle_id": "BULK_9",
+          "order": 1,
+          "pfn": 65546,
+          "status": "ALLOC_PCP_HIT",
+          "lock_acquired": false,
+          "cpu_pcp_count": 0
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 2,
+          "handle_id": "BULK_10",
+          "order": 2,
+          "pfn": 65564,
+          "status": "ALLOC_PCP_HIT",
+          "lock_acquired": false,
+          "cpu_pcp_count": 0
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 3,
+          "handle_id": "BULK_11",
+          "order": 3,
+          "pfn": 65600,
+          "status": "ALLOC_PCP_HIT",
+          "lock_acquired": false,
+          "cpu_pcp_count": 0
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "handle_id": "BULK_12",
+          "order": 0,
+          "pfn": 65539,
+          "status": "ALLOC_PCP_REFILL",
+          "lock_acquired": true,
+          "cpu_pcp_count": 2
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 1,
+          "handle_id": "BULK_13",
+          "order": 1,
+          "pfn": 65550,
+          "status": "ALLOC_PCP_REFILL",
+          "lock_acquired": true,
+          "cpu_pcp_count": 2
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 2,
+          "handle_id": "BULK_14",
+          "order": 2,
+          "pfn": 65572,
+          "status": "ALLOC_PCP_REFILL",
+          "lock_acquired": true,
+          "cpu_pcp_count": 2
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 3,
+          "handle_id": "BULK_15",
+          "order": 3,
+          "pfn": 65616,
+          "status": "ALLOC_PCP_REFILL",
+          "lock_acquired": true,
+          "cpu_pcp_count": 2
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 0,
+          "handle_id": "BULK_16",
+          "order": 0,
+          "pfn": 65541,
+          "status": "ALLOC_PCP_HIT",
+          "lock_acquired": false,
+          "cpu_pcp_count": 1
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 1,
+          "handle_id": "BULK_17",
+          "order": 1,
+          "pfn": 65554,
+          "status": "ALLOC_PCP_HIT",
+          "lock_acquired": false,
+          "cpu_pcp_count": 1
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 2,
+          "handle_id": "BULK_18",
+          "order": 2,
+          "pfn": 65580,
+          "status": "ALLOC_PCP_HIT",
+          "lock_acquired": false,
+          "cpu_pcp_count": 1
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 3,
+          "handle_id": "BULK_19",
+          "order": 3,
+          "pfn": 65632,
+          "status": "ALLOC_PCP_HIT",
+          "lock_acquired": false,
+          "cpu_pcp_count": 1
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 1,
+          "handle_id": "BULK_0",
+          "order": 0,
+          "pfn": 65536,
+          "status": "FREE_PCP_CACHED",
+          "lock_acquired": false,
+          "cpu_pcp_count": 2
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 2,
+          "handle_id": "BULK_1",
+          "order": 1,
+          "pfn": 65544,
+          "status": "FREE_PCP_CACHED",
+          "lock_acquired": false,
+          "cpu_pcp_count": 2
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 3,
+          "handle_id": "BULK_2",
+          "order": 2,
+          "pfn": 65560,
+          "status": "FREE_PCP_CACHED",
+          "lock_acquired": false,
+          "cpu_pcp_count": 2
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 0,
+          "handle_id": "BULK_3",
+          "order": 3,
+          "pfn": 65592,
+          "status": "FREE_PCP_CACHED",
+          "lock_acquired": false,
+          "cpu_pcp_count": 2
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 1,
+          "handle_id": "BULK_4",
+          "order": 0,
+          "pfn": 65538,
+          "status": "FREE_PCP_CACHED",
+          "lock_acquired": false,
+          "cpu_pcp_count": 3
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 2,
+          "handle_id": "BULK_5",
+          "order": 1,
+          "pfn": 65548,
+          "status": "FREE_PCP_CACHED",
+          "lock_acquired": false,
+          "cpu_pcp_count": 3
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 3,
+          "handle_id": "BULK_6",
+          "order": 2,
+          "pfn": 65568,
+          "status": "FREE_PCP_CACHED",
+          "lock_acquired": false,
+          "cpu_pcp_count": 3
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 0,
+          "handle_id": "BULK_7",
+          "order": 3,
+          "pfn": 65608,
+          "status": "FREE_PCP_CACHED",
+          "lock_acquired": false,
+          "cpu_pcp_count": 3
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 1,
+          "handle_id": "BULK_8",
+          "order": 0,
+          "pfn": 65537,
+          "status": "FREE_PCP_CACHED",
+          "lock_acquired": false,
+          "cpu_pcp_count": 4
+        },
+        {
+          "op": "PCP_FREE",
+          "cpu_id": 2,
+          "handle_id": "BULK_9",
+          "order": 1,
+          "pfn": 65546,
+          "status": "FREE_PCP_CACHED",
+          "lock_acquired": false,
+          "cpu_pcp_count": 4
+        },
+        {
+          "op": "DRAIN_CPU",
+          "cpu_id": 2,
+          "drained_blocks": 4,
+          "status": "CPU_PCP_DRAINED_ALL"
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 2,
+          "handle_id": "RE_0",
+          "order": 0,
+          "pfn": 65542,
+          "status": "ALLOC_PCP_REFILL",
+          "lock_acquired": true,
+          "cpu_pcp_count": 2
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 2,
+          "handle_id": "RE_1",
+          "order": 0,
+          "pfn": 65656,
+          "status": "ALLOC_PCP_HIT",
+          "lock_acquired": false,
+          "cpu_pcp_count": 1
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 2,
+          "handle_id": "RE_2",
+          "order": 0,
+          "pfn": 65543,
+          "status": "ALLOC_PCP_HIT",
+          "lock_acquired": false,
+          "cpu_pcp_count": 0
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 2,
+          "handle_id": "RE_3",
+          "order": 0,
+          "pfn": 65657,
+          "status": "ALLOC_PCP_REFILL",
+          "lock_acquired": true,
+          "cpu_pcp_count": 2
+        },
+        {
+          "op": "PCP_ALLOC",
+          "cpu_id": 2,
+          "handle_id": "RE_4",
+          "order": 0,
+          "pfn": 65659,
+          "status": "ALLOC_PCP_HIT",
+          "lock_acquired": false,
+          "cpu_pcp_count": 1
+        },
+        {
+          "op": "GET_STATS",
+          "zone_lock_count": 11,
+          "active_allocations": 15,
+          "cpus": {
+            "0": {
+              "count": 3,
+              "local_hits": 3,
+              "bulk_refills": 2,
+              "bulk_drains": 0,
+              "zone_lock_acquisitions": 2
+            },
+            "1": {
+              "count": 4,
+              "local_hits": 3,
+              "bulk_refills": 2,
+              "bulk_drains": 0,
+              "zone_lock_acquisitions": 2
+            },
+            "2": {
+              "count": 1,
+              "local_hits": 6,
+              "bulk_refills": 4,
+              "bulk_drains": 0,
+              "zone_lock_acquisitions": 5
+            },
+            "3": {
+              "count": 3,
+              "local_hits": 3,
+              "bulk_refills": 2,
+              "bulk_drains": 0,
+              "zone_lock_acquisitions": 2
+            }
+          }
+        }
+      ],
+      "summary": {
+        "zone_lock_count": 11,
+        "total_local_hits": 15,
+        "total_bulk_refills": 10,
+        "total_bulk_drains": 0,
+        "active_allocations": 15,
+        "total_pcp_blocks_cached": 11
+      }
+    }
+  }
+]
