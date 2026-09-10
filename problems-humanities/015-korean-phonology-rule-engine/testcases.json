@@ -1,0 +1,34 @@
+[
+  {
+    "input": "{\"queries\": [{\"word\": \"흙만\", \"is_compound\": false, \"compound_boundaries\": [], \"is_predicate\": false, \"has_hi_suffix\": false}]}",
+    "output": "{\"results\": [{\"word\": \"흙만\", \"phonetic\": \"흥만\", \"ipa\": \"[hɯŋ.man]\", \"rules_applied\": [\"CLUSTER_SIMPLIFICATION\", \"NASALIZATION\"], \"derivation_steps\": [{\"rule\": \"CLUSTER_SIMPLIFICATION\", \"form\": \"흑만\"}, {\"rule\": \"NASALIZATION\", \"form\": \"흥만\"}], \"classification\": {\"substitutions\": [\"NASALIZATION\"], \"deletions\": [\"CLUSTER_SIMPLIFICATION\"], \"additions\": [], \"contractions\": []}}]}"
+  },
+  {
+    "input": "{\"queries\": [{\"word\": \"꽃잎\", \"is_compound\": true, \"compound_boundaries\": [0], \"is_predicate\": false, \"has_hi_suffix\": false}]}",
+    "output": "{\"results\": [{\"word\": \"꽃잎\", \"phonetic\": \"꼰닙\", \"ipa\": \"[k͈on.nip̚]\", \"rules_applied\": [\"N_INSERTION\", \"CODA_NEUTRALIZATION\", \"CODA_NEUTRALIZATION\", \"NASALIZATION\"], \"derivation_steps\": [{\"rule\": \"N_INSERTION\", \"form\": \"꽃닢\"}, {\"rule\": \"CODA_NEUTRALIZATION\", \"form\": \"꼳닢\"}, {\"rule\": \"CODA_NEUTRALIZATION\", \"form\": \"꼳닙\"}, {\"rule\": \"NASALIZATION\", \"form\": \"꼰닙\"}], \"classification\": {\"substitutions\": [\"CODA_NEUTRALIZATION\", \"CODA_NEUTRALIZATION\", \"NASALIZATION\"], \"deletions\": [], \"additions\": [\"N_INSERTION\"], \"contractions\": []}}]}"
+  },
+  {
+    "input": "{\"queries\": [{\"word\": \"물약\", \"is_compound\": true, \"compound_boundaries\": [0], \"is_predicate\": false, \"has_hi_suffix\": false}]}",
+    "output": "{\"results\": [{\"word\": \"물약\", \"phonetic\": \"물략\", \"ipa\": \"[mul.ljak̚]\", \"rules_applied\": [\"N_INSERTION\", \"LATERALIZATION\"], \"derivation_steps\": [{\"rule\": \"N_INSERTION\", \"form\": \"물냑\"}, {\"rule\": \"LATERALIZATION\", \"form\": \"물략\"}], \"classification\": {\"substitutions\": [\"LATERALIZATION\"], \"deletions\": [], \"additions\": [\"N_INSERTION\"], \"contractions\": []}}]}"
+  },
+  {
+    "input": "{\"queries\": [{\"word\": \"굳이\", \"is_compound\": false, \"compound_boundaries\": [], \"is_predicate\": false, \"has_hi_suffix\": false}]}",
+    "output": "{\"results\": [{\"word\": \"굳이\", \"phonetic\": \"구지\", \"ipa\": \"[ku.tɕi]\", \"rules_applied\": [\"PALATALIZATION\"], \"derivation_steps\": [{\"rule\": \"PALATALIZATION\", \"form\": \"구지\"}], \"classification\": {\"substitutions\": [\"PALATALIZATION\"], \"deletions\": [], \"additions\": [], \"contractions\": []}}]}"
+  },
+  {
+    "input": "{\"queries\": [{\"word\": \"닫히다\", \"is_compound\": false, \"compound_boundaries\": [], \"is_predicate\": false, \"has_hi_suffix\": true}]}",
+    "output": "{\"results\": [{\"word\": \"닫히다\", \"phonetic\": \"다치다\", \"ipa\": \"[ta.tɕʰi.ta]\", \"rules_applied\": [\"ASPIRATION\", \"PALATALIZATION\"], \"derivation_steps\": [{\"rule\": \"ASPIRATION\", \"form\": \"다티다\"}, {\"rule\": \"PALATALIZATION\", \"form\": \"다치다\"}], \"classification\": {\"substitutions\": [\"PALATALIZATION\"], \"deletions\": [], \"additions\": [], \"contractions\": [\"ASPIRATION\"]}}]}"
+  },
+  {
+    "input": "{\"queries\": [{\"word\": \"밟다\", \"is_compound\": false, \"compound_boundaries\": [], \"is_predicate\": true, \"has_hi_suffix\": false}]}",
+    "output": "{\"results\": [{\"word\": \"밟다\", \"phonetic\": \"밥따\", \"ipa\": \"[pap̚.t͈a]\", \"rules_applied\": [\"TENSIFICATION\", \"CLUSTER_SIMPLIFICATION\"], \"derivation_steps\": [{\"rule\": \"TENSIFICATION\", \"form\": \"밟따\"}, {\"rule\": \"CLUSTER_SIMPLIFICATION\", \"form\": \"밥따\"}], \"classification\": {\"substitutions\": [\"TENSIFICATION\"], \"deletions\": [\"CLUSTER_SIMPLIFICATION\"], \"additions\": [], \"contractions\": []}}]}"
+  },
+  {
+    "input": "{\"queries\": [{\"word\": \"백로\", \"is_compound\": false, \"compound_boundaries\": [], \"is_predicate\": false, \"has_hi_suffix\": false}]}",
+    "output": "{\"results\": [{\"word\": \"백로\", \"phonetic\": \"뱅노\", \"ipa\": \"[pɛŋ.no]\", \"rules_applied\": [\"NASALIZATION\", \"NASALIZATION\"], \"derivation_steps\": [{\"rule\": \"NASALIZATION\", \"form\": \"백노\"}, {\"rule\": \"NASALIZATION\", \"form\": \"뱅노\"}], \"classification\": {\"substitutions\": [\"NASALIZATION\", \"NASALIZATION\"], \"deletions\": [], \"additions\": [], \"contractions\": []}}]}"
+  },
+  {
+    "input": "{\"queries\": [{\"word\": \"맑게\", \"is_compound\": false, \"compound_boundaries\": [], \"is_predicate\": true, \"has_hi_suffix\": false}, {\"word\": \"식용유\", \"is_compound\": true, \"compound_boundaries\": [1], \"is_predicate\": false, \"has_hi_suffix\": false}, {\"word\": \"신라\", \"is_compound\": false, \"compound_boundaries\": [], \"is_predicate\": false, \"has_hi_suffix\": false}]}",
+    "output": "{\"results\": [{\"word\": \"맑게\", \"phonetic\": \"말께\", \"ipa\": \"[mal.k͈e]\", \"rules_applied\": [\"TENSIFICATION\", \"CLUSTER_SIMPLIFICATION\"], \"derivation_steps\": [{\"rule\": \"TENSIFICATION\", \"form\": \"맑께\"}, {\"rule\": \"CLUSTER_SIMPLIFICATION\", \"form\": \"말께\"}], \"classification\": {\"substitutions\": [\"TENSIFICATION\"], \"deletions\": [\"CLUSTER_SIMPLIFICATION\"], \"additions\": [], \"contractions\": []}}, {\"word\": \"식용유\", \"phonetic\": \"시굥뉴\", \"ipa\": \"[si.kjoŋ.nju]\", \"rules_applied\": [\"N_INSERTION\", \"RESYLLABIFICATION\"], \"derivation_steps\": [{\"rule\": \"N_INSERTION\", \"form\": \"식용뉴\"}, {\"rule\": \"RESYLLABIFICATION\", \"form\": \"시굥뉴\"}], \"classification\": {\"substitutions\": [], \"deletions\": [], \"additions\": [\"N_INSERTION\"], \"contractions\": []}}, {\"word\": \"신라\", \"phonetic\": \"실라\", \"ipa\": \"[sil.la]\", \"rules_applied\": [\"LATERALIZATION\"], \"derivation_steps\": [{\"rule\": \"LATERALIZATION\", \"form\": \"실라\"}], \"classification\": {\"substitutions\": [\"LATERALIZATION\"], \"deletions\": [], \"additions\": [], \"contractions\": []}}]}"
+  }
+]
