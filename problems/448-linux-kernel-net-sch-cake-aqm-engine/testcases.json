@@ -1,0 +1,1120 @@
+[
+  {
+    "input": {
+      "config": {
+        "diffserv_mode": "DIFFSERV4",
+        "ack_filter_enabled": false,
+        "target_us": 5000,
+        "interval_us": 100000
+      },
+      "operations": [
+        {
+          "op": "ENQUEUE",
+          "packet": {
+            "pkt_id": "bulk1",
+            "time_us": 1000,
+            "dscp": 8,
+            "proto": "TCP",
+            "len": 1500
+          }
+        },
+        {
+          "op": "ENQUEUE",
+          "packet": {
+            "pkt_id": "be1",
+            "time_us": 1005,
+            "dscp": 0,
+            "proto": "TCP",
+            "len": 1500
+          }
+        },
+        {
+          "op": "ENQUEUE",
+          "packet": {
+            "pkt_id": "vid1",
+            "time_us": 1010,
+            "dscp": 34,
+            "proto": "UDP",
+            "len": 1200
+          }
+        },
+        {
+          "op": "ENQUEUE",
+          "packet": {
+            "pkt_id": "voip1",
+            "time_us": 1015,
+            "dscp": 46,
+            "proto": "UDP",
+            "len": 128
+          }
+        },
+        {
+          "op": "DEQUEUE",
+          "time_us": 2000
+        },
+        {
+          "op": "DEQUEUE",
+          "time_us": 2010
+        },
+        {
+          "op": "DEQUEUE",
+          "time_us": 2020
+        },
+        {
+          "op": "DEQUEUE",
+          "time_us": 2030
+        },
+        {
+          "op": "DEQUEUE",
+          "time_us": 2040
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ENQUEUED",
+          "pkt_id": "bulk1",
+          "tin": 0,
+          "flow_id": 151,
+          "ack_filtered": false
+        },
+        {
+          "status": "ENQUEUED",
+          "pkt_id": "be1",
+          "tin": 1,
+          "flow_id": 151,
+          "ack_filtered": false
+        },
+        {
+          "status": "ENQUEUED",
+          "pkt_id": "vid1",
+          "tin": 2,
+          "flow_id": 1006,
+          "ack_filtered": false
+        },
+        {
+          "status": "ENQUEUED",
+          "pkt_id": "voip1",
+          "tin": 3,
+          "flow_id": 1006,
+          "ack_filtered": false
+        },
+        {
+          "status": "DEQUEUED",
+          "pkt_id": "voip1",
+          "action": "DELIVERED",
+          "tin": 3,
+          "sojourn_us": 985,
+          "len": 128,
+          "ecn": 0
+        },
+        {
+          "status": "DEQUEUED",
+          "pkt_id": "vid1",
+          "action": "DELIVERED",
+          "tin": 2,
+          "sojourn_us": 1000,
+          "len": 1200,
+          "ecn": 0
+        },
+        {
+          "status": "DEQUEUED",
+          "pkt_id": "be1",
+          "action": "DELIVERED",
+          "tin": 1,
+          "sojourn_us": 1015,
+          "len": 1500,
+          "ecn": 0
+        },
+        {
+          "status": "DEQUEUED",
+          "pkt_id": "bulk1",
+          "action": "DELIVERED",
+          "tin": 0,
+          "sojourn_us": 1030,
+          "len": 1500,
+          "ecn": 0
+        },
+        {
+          "status": "QUEUE_EMPTY"
+        },
+        {
+          "total_enqueued": 4,
+          "total_dequeued": 4,
+          "ack_filtered_count": 0,
+          "aqm_dropped_count": 0,
+          "ecn_marked_count": 0,
+          "tin_stats": {
+            "0_Bulk": {
+              "packets": 1,
+              "bytes": 1500
+            },
+            "1_BestEffort": {
+              "packets": 1,
+              "bytes": 1500
+            },
+            "2_Video": {
+              "packets": 1,
+              "bytes": 1200
+            },
+            "3_Voice": {
+              "packets": 1,
+              "bytes": 128
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "diffserv_mode": "DIFFSERV4",
+        "ack_filter_enabled": true,
+        "target_us": 5000,
+        "interval_us": 100000
+      },
+      "operations": [
+        {
+          "op": "ENQUEUE",
+          "packet": {
+            "pkt_id": "ack_1",
+            "time_us": 100,
+            "dscp": 0,
+            "proto": "TCP",
+            "tcp_flags": [
+              "ACK"
+            ],
+            "ack_seq": 1000,
+            "len": 54
+          }
+        },
+        {
+          "op": "ENQUEUE",
+          "packet": {
+            "pkt_id": "ack_2",
+            "time_us": 150,
+            "dscp": 0,
+            "proto": "TCP",
+            "tcp_flags": [
+              "ACK"
+            ],
+            "ack_seq": 2000,
+            "len": 54
+          }
+        },
+        {
+          "op": "ENQUEUE",
+          "packet": {
+            "pkt_id": "ack_3",
+            "time_us": 200,
+            "dscp": 0,
+            "proto": "TCP",
+            "tcp_flags": [
+              "ACK"
+            ],
+            "ack_seq": 3000,
+            "len": 54
+          }
+        },
+        {
+          "op": "DEQUEUE",
+          "time_us": 500
+        },
+        {
+          "op": "DEQUEUE",
+          "time_us": 600
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ENQUEUED",
+          "pkt_id": "ack_1",
+          "tin": 1,
+          "flow_id": 151,
+          "ack_filtered": false
+        },
+        {
+          "status": "ENQUEUED",
+          "pkt_id": "ack_2",
+          "tin": 1,
+          "flow_id": 151,
+          "ack_filtered": true
+        },
+        {
+          "status": "ENQUEUED",
+          "pkt_id": "ack_3",
+          "tin": 1,
+          "flow_id": 151,
+          "ack_filtered": true
+        },
+        {
+          "status": "DEQUEUED",
+          "pkt_id": "ack_3",
+          "action": "DELIVERED",
+          "tin": 1,
+          "sojourn_us": 300,
+          "len": 54,
+          "ecn": 0
+        },
+        {
+          "status": "QUEUE_EMPTY"
+        },
+        {
+          "total_enqueued": 3,
+          "total_dequeued": 1,
+          "ack_filtered_count": 2,
+          "aqm_dropped_count": 0,
+          "ecn_marked_count": 0,
+          "tin_stats": {
+            "0_Bulk": {
+              "packets": 0,
+              "bytes": 0
+            },
+            "1_BestEffort": {
+              "packets": 3,
+              "bytes": 162
+            },
+            "2_Video": {
+              "packets": 0,
+              "bytes": 0
+            },
+            "3_Voice": {
+              "packets": 0,
+              "bytes": 0
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "diffserv_mode": "DIFFSERV4",
+        "ack_filter_enabled": false,
+        "target_us": 5000,
+        "interval_us": 50000
+      },
+      "operations": [
+        {
+          "op": "ENQUEUE",
+          "packet": {
+            "pkt_id": "p1",
+            "time_us": 1000,
+            "dscp": 0,
+            "proto": "UDP",
+            "len": 500,
+            "ecn": 0
+          }
+        },
+        {
+          "op": "DEQUEUE",
+          "time_us": 7000
+        },
+        {
+          "op": "ENQUEUE",
+          "packet": {
+            "pkt_id": "p2",
+            "time_us": 8000,
+            "dscp": 0,
+            "proto": "UDP",
+            "len": 500,
+            "ecn": 0
+          }
+        },
+        {
+          "op": "DEQUEUE",
+          "time_us": 60000
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ENQUEUED",
+          "pkt_id": "p1",
+          "tin": 1,
+          "flow_id": 1006,
+          "ack_filtered": false
+        },
+        {
+          "status": "DEQUEUED",
+          "pkt_id": "p1",
+          "action": "DELIVERED",
+          "tin": 1,
+          "sojourn_us": 6000,
+          "len": 500,
+          "ecn": 0
+        },
+        {
+          "status": "ENQUEUED",
+          "pkt_id": "p2",
+          "tin": 1,
+          "flow_id": 1006,
+          "ack_filtered": false
+        },
+        {
+          "status": "DEQUEUED",
+          "pkt_id": "p2",
+          "action": "AQM_DROPPED",
+          "tin": 1,
+          "sojourn_us": 52000,
+          "len": 500,
+          "ecn": 0
+        },
+        {
+          "total_enqueued": 2,
+          "total_dequeued": 1,
+          "ack_filtered_count": 0,
+          "aqm_dropped_count": 1,
+          "ecn_marked_count": 0,
+          "tin_stats": {
+            "0_Bulk": {
+              "packets": 0,
+              "bytes": 0
+            },
+            "1_BestEffort": {
+              "packets": 2,
+              "bytes": 1000
+            },
+            "2_Video": {
+              "packets": 0,
+              "bytes": 0
+            },
+            "3_Voice": {
+              "packets": 0,
+              "bytes": 0
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "diffserv_mode": "DIFFSERV4",
+        "ack_filter_enabled": false,
+        "target_us": 5000,
+        "interval_us": 50000
+      },
+      "operations": [
+        {
+          "op": "ENQUEUE",
+          "packet": {
+            "pkt_id": "ecn_p1",
+            "time_us": 1000,
+            "dscp": 0,
+            "proto": "TCP",
+            "len": 1000,
+            "ecn": 2
+          }
+        },
+        {
+          "op": "DEQUEUE",
+          "time_us": 7000
+        },
+        {
+          "op": "ENQUEUE",
+          "packet": {
+            "pkt_id": "ecn_p2",
+            "time_us": 8000,
+            "dscp": 0,
+            "proto": "TCP",
+            "len": 1000,
+            "ecn": 2
+          }
+        },
+        {
+          "op": "DEQUEUE",
+          "time_us": 60000
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ENQUEUED",
+          "pkt_id": "ecn_p1",
+          "tin": 1,
+          "flow_id": 151,
+          "ack_filtered": false
+        },
+        {
+          "status": "DEQUEUED",
+          "pkt_id": "ecn_p1",
+          "action": "DELIVERED",
+          "tin": 1,
+          "sojourn_us": 6000,
+          "len": 1000,
+          "ecn": 2
+        },
+        {
+          "status": "ENQUEUED",
+          "pkt_id": "ecn_p2",
+          "tin": 1,
+          "flow_id": 151,
+          "ack_filtered": false
+        },
+        {
+          "status": "DEQUEUED",
+          "pkt_id": "ecn_p2",
+          "action": "ECN_MARKED",
+          "tin": 1,
+          "sojourn_us": 52000,
+          "len": 1000,
+          "ecn": 3
+        },
+        {
+          "total_enqueued": 2,
+          "total_dequeued": 2,
+          "ack_filtered_count": 0,
+          "aqm_dropped_count": 0,
+          "ecn_marked_count": 1,
+          "tin_stats": {
+            "0_Bulk": {
+              "packets": 0,
+              "bytes": 0
+            },
+            "1_BestEffort": {
+              "packets": 2,
+              "bytes": 2000
+            },
+            "2_Video": {
+              "packets": 0,
+              "bytes": 0
+            },
+            "3_Voice": {
+              "packets": 0,
+              "bytes": 0
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "diffserv_mode": "DIFFSERV4",
+        "ack_filter_enabled": false,
+        "target_us": 10000,
+        "interval_us": 100000
+      },
+      "operations": [
+        {
+          "op": "ENQUEUE",
+          "packet": {
+            "pkt_id": "f1_p1",
+            "time_us": 100,
+            "dscp": 0,
+            "src_port": 5001,
+            "dst_port": 80,
+            "proto": "TCP",
+            "len": 500
+          }
+        },
+        {
+          "op": "ENQUEUE",
+          "packet": {
+            "pkt_id": "f2_p1",
+            "time_us": 105,
+            "dscp": 0,
+            "src_port": 5002,
+            "dst_port": 80,
+            "proto": "TCP",
+            "len": 500
+          }
+        },
+        {
+          "op": "ENQUEUE",
+          "packet": {
+            "pkt_id": "f1_p2",
+            "time_us": 110,
+            "dscp": 0,
+            "src_port": 5001,
+            "dst_port": 80,
+            "proto": "TCP",
+            "len": 500
+          }
+        },
+        {
+          "op": "ENQUEUE",
+          "packet": {
+            "pkt_id": "f2_p2",
+            "time_us": 115,
+            "dscp": 0,
+            "src_port": 5002,
+            "dst_port": 80,
+            "proto": "TCP",
+            "len": 500
+          }
+        },
+        {
+          "op": "DEQUEUE",
+          "time_us": 200
+        },
+        {
+          "op": "DEQUEUE",
+          "time_us": 300
+        },
+        {
+          "op": "DEQUEUE",
+          "time_us": 400
+        },
+        {
+          "op": "DEQUEUE",
+          "time_us": 500
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ENQUEUED",
+          "pkt_id": "f1_p1",
+          "tin": 1,
+          "flow_id": 585,
+          "ack_filtered": false
+        },
+        {
+          "status": "ENQUEUED",
+          "pkt_id": "f2_p1",
+          "tin": 1,
+          "flow_id": 720,
+          "ack_filtered": false
+        },
+        {
+          "status": "ENQUEUED",
+          "pkt_id": "f1_p2",
+          "tin": 1,
+          "flow_id": 585,
+          "ack_filtered": false
+        },
+        {
+          "status": "ENQUEUED",
+          "pkt_id": "f2_p2",
+          "tin": 1,
+          "flow_id": 720,
+          "ack_filtered": false
+        },
+        {
+          "status": "DEQUEUED",
+          "pkt_id": "f1_p1",
+          "action": "DELIVERED",
+          "tin": 1,
+          "sojourn_us": 100,
+          "len": 500,
+          "ecn": 0
+        },
+        {
+          "status": "DEQUEUED",
+          "pkt_id": "f1_p2",
+          "action": "DELIVERED",
+          "tin": 1,
+          "sojourn_us": 190,
+          "len": 500,
+          "ecn": 0
+        },
+        {
+          "status": "DEQUEUED",
+          "pkt_id": "f2_p1",
+          "action": "DELIVERED",
+          "tin": 1,
+          "sojourn_us": 295,
+          "len": 500,
+          "ecn": 0
+        },
+        {
+          "status": "DEQUEUED",
+          "pkt_id": "f2_p2",
+          "action": "DELIVERED",
+          "tin": 1,
+          "sojourn_us": 385,
+          "len": 500,
+          "ecn": 0
+        },
+        {
+          "total_enqueued": 4,
+          "total_dequeued": 4,
+          "ack_filtered_count": 0,
+          "aqm_dropped_count": 0,
+          "ecn_marked_count": 0,
+          "tin_stats": {
+            "0_Bulk": {
+              "packets": 0,
+              "bytes": 0
+            },
+            "1_BestEffort": {
+              "packets": 4,
+              "bytes": 2000
+            },
+            "2_Video": {
+              "packets": 0,
+              "bytes": 0
+            },
+            "3_Voice": {
+              "packets": 0,
+              "bytes": 0
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "diffserv_mode": "DIFFSERV3",
+        "ack_filter_enabled": false,
+        "target_us": 5000,
+        "interval_us": 100000
+      },
+      "operations": [
+        {
+          "op": "ENQUEUE",
+          "packet": {
+            "pkt_id": "vid_in_3tin",
+            "time_us": 10,
+            "dscp": 34,
+            "proto": "UDP",
+            "len": 1200
+          }
+        },
+        {
+          "op": "ENQUEUE",
+          "packet": {
+            "pkt_id": "voice_3tin",
+            "time_us": 20,
+            "dscp": 46,
+            "proto": "UDP",
+            "len": 128
+          }
+        },
+        {
+          "op": "DEQUEUE",
+          "time_us": 100
+        },
+        {
+          "op": "DEQUEUE",
+          "time_us": 150
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ENQUEUED",
+          "pkt_id": "vid_in_3tin",
+          "tin": 1,
+          "flow_id": 1006,
+          "ack_filtered": false
+        },
+        {
+          "status": "ENQUEUED",
+          "pkt_id": "voice_3tin",
+          "tin": 3,
+          "flow_id": 1006,
+          "ack_filtered": false
+        },
+        {
+          "status": "DEQUEUED",
+          "pkt_id": "voice_3tin",
+          "action": "DELIVERED",
+          "tin": 3,
+          "sojourn_us": 80,
+          "len": 128,
+          "ecn": 0
+        },
+        {
+          "status": "DEQUEUED",
+          "pkt_id": "vid_in_3tin",
+          "action": "DELIVERED",
+          "tin": 1,
+          "sojourn_us": 140,
+          "len": 1200,
+          "ecn": 0
+        },
+        {
+          "total_enqueued": 2,
+          "total_dequeued": 2,
+          "ack_filtered_count": 0,
+          "aqm_dropped_count": 0,
+          "ecn_marked_count": 0,
+          "tin_stats": {
+            "0_Bulk": {
+              "packets": 0,
+              "bytes": 0
+            },
+            "1_BestEffort": {
+              "packets": 1,
+              "bytes": 1200
+            },
+            "2_Video": {
+              "packets": 0,
+              "bytes": 0
+            },
+            "3_Voice": {
+              "packets": 1,
+              "bytes": 128
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "diffserv_mode": "DIFFSERV4",
+        "ack_filter_enabled": true,
+        "target_us": 5000,
+        "interval_us": 100000
+      },
+      "operations": [
+        {
+          "op": "ENQUEUE",
+          "packet": {
+            "pkt_id": "data_ack1",
+            "time_us": 100,
+            "dscp": 0,
+            "proto": "TCP",
+            "tcp_flags": [
+              "ACK"
+            ],
+            "ack_seq": 1000,
+            "len": 1460
+          }
+        },
+        {
+          "op": "ENQUEUE",
+          "packet": {
+            "pkt_id": "pure_ack1",
+            "time_us": 110,
+            "dscp": 0,
+            "proto": "TCP",
+            "tcp_flags": [
+              "ACK"
+            ],
+            "ack_seq": 2000,
+            "len": 54
+          }
+        },
+        {
+          "op": "ENQUEUE",
+          "packet": {
+            "pkt_id": "pure_ack2",
+            "time_us": 120,
+            "dscp": 0,
+            "proto": "TCP",
+            "tcp_flags": [
+              "ACK"
+            ],
+            "ack_seq": 3000,
+            "len": 54
+          }
+        },
+        {
+          "op": "DEQUEUE",
+          "time_us": 200
+        },
+        {
+          "op": "DEQUEUE",
+          "time_us": 250
+        },
+        {
+          "op": "DEQUEUE",
+          "time_us": 300
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ENQUEUED",
+          "pkt_id": "data_ack1",
+          "tin": 1,
+          "flow_id": 151,
+          "ack_filtered": false
+        },
+        {
+          "status": "ENQUEUED",
+          "pkt_id": "pure_ack1",
+          "tin": 1,
+          "flow_id": 151,
+          "ack_filtered": false
+        },
+        {
+          "status": "ENQUEUED",
+          "pkt_id": "pure_ack2",
+          "tin": 1,
+          "flow_id": 151,
+          "ack_filtered": true
+        },
+        {
+          "status": "DEQUEUED",
+          "pkt_id": "data_ack1",
+          "action": "DELIVERED",
+          "tin": 1,
+          "sojourn_us": 100,
+          "len": 1460,
+          "ecn": 0
+        },
+        {
+          "status": "DEQUEUED",
+          "pkt_id": "pure_ack2",
+          "action": "DELIVERED",
+          "tin": 1,
+          "sojourn_us": 130,
+          "len": 54,
+          "ecn": 0
+        },
+        {
+          "status": "QUEUE_EMPTY"
+        },
+        {
+          "total_enqueued": 3,
+          "total_dequeued": 2,
+          "ack_filtered_count": 1,
+          "aqm_dropped_count": 0,
+          "ecn_marked_count": 0,
+          "tin_stats": {
+            "0_Bulk": {
+              "packets": 0,
+              "bytes": 0
+            },
+            "1_BestEffort": {
+              "packets": 3,
+              "bytes": 1568
+            },
+            "2_Video": {
+              "packets": 0,
+              "bytes": 0
+            },
+            "3_Voice": {
+              "packets": 0,
+              "bytes": 0
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "diffserv_mode": "DIFFSERV4",
+        "ack_filter_enabled": true,
+        "target_us": 5000,
+        "interval_us": 40000
+      },
+      "operations": [
+        {
+          "op": "ENQUEUE",
+          "packet": {
+            "pkt_id": "voip_dns",
+            "time_us": 1000,
+            "dscp": 46,
+            "proto": "UDP",
+            "len": 80,
+            "ecn": 0
+          }
+        },
+        {
+          "op": "ENQUEUE",
+          "packet": {
+            "pkt_id": "stream_4k",
+            "time_us": 1010,
+            "dscp": 34,
+            "proto": "UDP",
+            "len": 1400,
+            "ecn": 1
+          }
+        },
+        {
+          "op": "ENQUEUE",
+          "packet": {
+            "pkt_id": "ack_a1",
+            "time_us": 1020,
+            "dscp": 0,
+            "proto": "TCP",
+            "tcp_flags": [
+              "ACK"
+            ],
+            "ack_seq": 10000,
+            "len": 54
+          }
+        },
+        {
+          "op": "ENQUEUE",
+          "packet": {
+            "pkt_id": "ack_a2",
+            "time_us": 1030,
+            "dscp": 0,
+            "proto": "TCP",
+            "tcp_flags": [
+              "ACK"
+            ],
+            "ack_seq": 20000,
+            "len": 54
+          }
+        },
+        {
+          "op": "ENQUEUE",
+          "packet": {
+            "pkt_id": "torrent_bulk",
+            "time_us": 1040,
+            "dscp": 8,
+            "proto": "TCP",
+            "len": 1500,
+            "ecn": 0
+          }
+        },
+        {
+          "op": "DEQUEUE",
+          "time_us": 2000
+        },
+        {
+          "op": "DEQUEUE",
+          "time_us": 8000
+        },
+        {
+          "op": "DEQUEUE",
+          "time_us": 8100
+        },
+        {
+          "op": "DEQUEUE",
+          "time_us": 60000
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ENQUEUED",
+          "pkt_id": "voip_dns",
+          "tin": 3,
+          "flow_id": 1006,
+          "ack_filtered": false
+        },
+        {
+          "status": "ENQUEUED",
+          "pkt_id": "stream_4k",
+          "tin": 2,
+          "flow_id": 1006,
+          "ack_filtered": false
+        },
+        {
+          "status": "ENQUEUED",
+          "pkt_id": "ack_a1",
+          "tin": 1,
+          "flow_id": 151,
+          "ack_filtered": false
+        },
+        {
+          "status": "ENQUEUED",
+          "pkt_id": "ack_a2",
+          "tin": 1,
+          "flow_id": 151,
+          "ack_filtered": true
+        },
+        {
+          "status": "ENQUEUED",
+          "pkt_id": "torrent_bulk",
+          "tin": 0,
+          "flow_id": 151,
+          "ack_filtered": false
+        },
+        {
+          "status": "DEQUEUED",
+          "pkt_id": "voip_dns",
+          "action": "DELIVERED",
+          "tin": 3,
+          "sojourn_us": 1000,
+          "len": 80,
+          "ecn": 0
+        },
+        {
+          "status": "DEQUEUED",
+          "pkt_id": "stream_4k",
+          "action": "DELIVERED",
+          "tin": 2,
+          "sojourn_us": 6990,
+          "len": 1400,
+          "ecn": 1
+        },
+        {
+          "status": "DEQUEUED",
+          "pkt_id": "ack_a2",
+          "action": "DELIVERED",
+          "tin": 1,
+          "sojourn_us": 7070,
+          "len": 54,
+          "ecn": 0
+        },
+        {
+          "status": "DEQUEUED",
+          "pkt_id": "torrent_bulk",
+          "action": "AQM_DROPPED",
+          "tin": 0,
+          "sojourn_us": 58960,
+          "len": 1500,
+          "ecn": 0
+        },
+        {
+          "total_enqueued": 5,
+          "total_dequeued": 3,
+          "ack_filtered_count": 1,
+          "aqm_dropped_count": 1,
+          "ecn_marked_count": 0,
+          "tin_stats": {
+            "0_Bulk": {
+              "packets": 1,
+              "bytes": 1500
+            },
+            "1_BestEffort": {
+              "packets": 2,
+              "bytes": 108
+            },
+            "2_Video": {
+              "packets": 1,
+              "bytes": 1400
+            },
+            "3_Voice": {
+              "packets": 1,
+              "bytes": 80
+            }
+          }
+        }
+      ]
+    }
+  }
+]
