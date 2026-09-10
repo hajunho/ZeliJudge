@@ -1,0 +1,42 @@
+[
+  {
+    "name": "공개_예제_1_단일소켓_TSQ한도도달_스로틀링과_tcp_wfree_복구",
+    "input": "{\"config\":{\"tsq_limit_bytes\":16384,\"bql_limit_bytes\":32768,\"mss\":1460,\"skb_truesize\":2048,\"nic_rate_bps\":10000000},\"sockets\":[{\"id\":\"sock1\",\"pacing_rate_bps\":100000000,\"initial_send_buffer\":65536}],\"operations\":[{\"type\":\"ADVANCE_TIME\",\"to_time_ns\":1000000}]}",
+    "output": "{\"final_time_ns\":1000000,\"nic_in_flight_bytes\":11680,\"nic_queued_packets\":8,\"sockets\":{\"sock1\":{\"packets_sent\":14,\"bytes_sent\":20440,\"remaining_buffer\":45096,\"wmem_alloc\":16384,\"tsq_throttled\":true,\"throttle_count\":7,\"total_throttle_duration_ns\":795600}},\"events_count\":13}"
+  },
+  {
+    "name": "공개_예제_2_2개_소켓_페이싱_속도차이에_따른_공정대역폭_스케줄링",
+    "input": "{\"config\":{\"tsq_limit_bytes\":32768,\"bql_limit_bytes\":65536,\"mss\":1460,\"skb_truesize\":2048,\"nic_rate_bps\":50000000},\"sockets\":[{\"id\":\"fast_sock\",\"pacing_rate_bps\":40000000,\"initial_send_buffer\":50000},{\"id\":\"slow_sock\",\"pacing_rate_bps\":10000000,\"initial_send_buffer\":50000}],\"operations\":[{\"type\":\"ADVANCE_TIME\",\"to_time_ns\":1500000}]}",
+    "output": "{\"final_time_ns\":1500000,\"nic_in_flight_bytes\":0,\"nic_queued_packets\":0,\"sockets\":{\"fast_sock\":{\"packets_sent\":35,\"bytes_sent\":50000,\"remaining_buffer\":0,\"wmem_alloc\":0,\"tsq_throttled\":false,\"throttle_count\":0,\"total_throttle_duration_ns\":0},\"slow_sock\":{\"packets_sent\":11,\"bytes_sent\":16060,\"remaining_buffer\":33940,\"wmem_alloc\":0,\"tsq_throttled\":false,\"throttle_count\":0,\"total_throttle_duration_ns\":0}},\"events_count\":0}"
+  },
+  {
+    "name": "BQL_장치_링버퍼_한계도달시_전체_소켓_전송동결_검증",
+    "input": "{\"config\":{\"tsq_limit_bytes\":65536,\"bql_limit_bytes\":8760,\"mss\":1460,\"skb_truesize\":2048,\"nic_rate_bps\":5000000},\"sockets\":[{\"id\":\"sock_a\",\"pacing_rate_bps\":50000000,\"initial_send_buffer\":30000},{\"id\":\"sock_b\",\"pacing_rate_bps\":50000000,\"initial_send_buffer\":30000}],\"operations\":[{\"type\":\"ADVANCE_TIME\",\"to_time_ns\":2000000}]}",
+    "output": "{\"final_time_ns\":2000000,\"nic_in_flight_bytes\":8760,\"nic_queued_packets\":6,\"sockets\":{\"sock_a\":{\"packets_sent\":9,\"bytes_sent\":13140,\"remaining_buffer\":16860,\"wmem_alloc\":12288,\"tsq_throttled\":false,\"throttle_count\":0,\"total_throttle_duration_ns\":0},\"sock_b\":{\"packets_sent\":3,\"bytes_sent\":4380,\"remaining_buffer\":25620,\"wmem_alloc\":0,\"tsq_throttled\":false,\"throttle_count\":0,\"total_throttle_duration_ns\":0}},\"events_count\":0}"
+  },
+  {
+    "name": "동적_SET_PACING_RATE_변경에_따른_페이싱_간격_적응",
+    "input": "{\"config\":{\"tsq_limit_bytes\":32768,\"bql_limit_bytes\":65536,\"mss\":1460,\"skb_truesize\":2048,\"nic_rate_bps\":100000000},\"sockets\":[{\"id\":\"sock1\",\"pacing_rate_bps\":10000000,\"initial_send_buffer\":50000}],\"operations\":[{\"type\":\"ADVANCE_TIME\",\"to_time_ns\":500000},{\"type\":\"SET_PACING_RATE\",\"socket\":\"sock1\",\"pacing_rate_bps\":50000000,\"time_ns\":500000},{\"type\":\"ADVANCE_TIME\",\"to_time_ns\":1000000}]}",
+    "output": "{\"final_time_ns\":1000000,\"nic_in_flight_bytes\":1460,\"nic_queued_packets\":1,\"sockets\":{\"sock1\":{\"packets_sent\":19,\"bytes_sent\":27740,\"remaining_buffer\":22260,\"wmem_alloc\":2048,\"tsq_throttled\":false,\"throttle_count\":0,\"total_throttle_duration_ns\":0}},\"events_count\":0}"
+  },
+  {
+    "name": "대용량_버스트_쓰기와_연속_TSQ_스로틀_지연시간_측정",
+    "input": "{\"config\":{\"tsq_limit_bytes\":8192,\"bql_limit_bytes\":32768,\"mss\":1460,\"skb_truesize\":2048,\"nic_rate_bps\":10000000},\"sockets\":[{\"id\":\"bulk_sock\",\"pacing_rate_bps\":100000000,\"initial_send_buffer\":20000}],\"operations\":[{\"type\":\"ADVANCE_TIME\",\"to_time_ns\":2500000}]}",
+    "output": "{\"final_time_ns\":2500000,\"nic_in_flight_bytes\":0,\"nic_queued_packets\":0,\"sockets\":{\"bulk_sock\":{\"packets_sent\":14,\"bytes_sent\":20000,\"remaining_buffer\":0,\"wmem_alloc\":0,\"tsq_throttled\":false,\"throttle_count\":10,\"total_throttle_duration_ns\":1270200}},\"events_count\":20}"
+  },
+  {
+    "name": "다중_소켓_4개_경쟁_상태_버퍼_고갈_순서_및_wmem_회수",
+    "input": "{\"config\":{\"tsq_limit_bytes\":16384,\"bql_limit_bytes\":65536,\"mss\":1460,\"skb_truesize\":2048,\"nic_rate_bps\":80000000},\"sockets\":[{\"id\":\"s1\",\"pacing_rate_bps\":40000000,\"initial_send_buffer\":5000},{\"id\":\"s2\",\"pacing_rate_bps\":30000000,\"initial_send_buffer\":10000},{\"id\":\"s3\",\"pacing_rate_bps\":20000000,\"initial_send_buffer\":15000},{\"id\":\"s4\",\"pacing_rate_bps\":10000000,\"initial_send_buffer\":20000}],\"operations\":[{\"type\":\"ADVANCE_TIME\",\"to_time_ns\":1000000}]}",
+    "output": "{\"final_time_ns\":1000000,\"nic_in_flight_bytes\":0,\"nic_queued_packets\":0,\"sockets\":{\"s1\":{\"packets_sent\":4,\"bytes_sent\":5000,\"remaining_buffer\":0,\"wmem_alloc\":0,\"tsq_throttled\":false,\"throttle_count\":0,\"total_throttle_duration_ns\":0},\"s2\":{\"packets_sent\":7,\"bytes_sent\":10000,\"remaining_buffer\":0,\"wmem_alloc\":0,\"tsq_throttled\":false,\"throttle_count\":0,\"total_throttle_duration_ns\":0},\"s3\":{\"packets_sent\":11,\"bytes_sent\":15000,\"remaining_buffer\":0,\"wmem_alloc\":0,\"tsq_throttled\":false,\"throttle_count\":0,\"total_throttle_duration_ns\":0},\"s4\":{\"packets_sent\":7,\"bytes_sent\":10220,\"remaining_buffer\":9780,\"wmem_alloc\":0,\"tsq_throttled\":false,\"throttle_count\":0,\"total_throttle_duration_ns\":0}},\"events_count\":0}"
+  },
+  {
+    "name": "잔여_꼬리_패킷_Tail_Segment_전송_및_truesize_관리",
+    "input": "{\"config\":{\"tsq_limit_bytes\":16384,\"bql_limit_bytes\":32768,\"mss\":1460,\"skb_truesize\":2048,\"nic_rate_bps\":100000000},\"sockets\":[{\"id\":\"sock_tail\",\"pacing_rate_bps\":50000000,\"initial_send_buffer\":2000}],\"operations\":[{\"type\":\"ADVANCE_TIME\",\"to_time_ns\":100000}]}",
+    "output": "{\"final_time_ns\":100000,\"nic_in_flight_bytes\":0,\"nic_queued_packets\":0,\"sockets\":{\"sock_tail\":{\"packets_sent\":2,\"bytes_sent\":2000,\"remaining_buffer\":0,\"wmem_alloc\":0,\"tsq_throttled\":false,\"throttle_count\":0,\"total_throttle_duration_ns\":0}},\"events_count\":0}"
+  },
+  {
+    "name": "고부하_복합_시나리오_동적쓰기_속도변경_시간점프_종합스트레스",
+    "input": "{\"config\":{\"tsq_limit_bytes\":16384,\"bql_limit_bytes\":32768,\"mss\":1460,\"skb_truesize\":2048,\"nic_rate_bps\":40000000},\"sockets\":[{\"id\":\"sA\",\"pacing_rate_bps\":20000000,\"initial_send_buffer\":10000},{\"id\":\"sB\",\"pacing_rate_bps\":30000000,\"initial_send_buffer\":20000},{\"id\":\"sC\",\"pacing_rate_bps\":10000000,\"initial_send_buffer\":5000}],\"operations\":[{\"type\":\"ADVANCE_TIME\",\"to_time_ns\":400000},{\"type\":\"APP_WRITE\",\"socket\":\"sA\",\"bytes\":15000,\"time_ns\":400000},{\"type\":\"SET_PACING_RATE\",\"socket\":\"sB\",\"pacing_rate_bps\":50000000,\"time_ns\":600000},{\"type\":\"ADVANCE_TIME\",\"to_time_ns\":1200000},{\"type\":\"APP_WRITE\",\"socket\":\"sC\",\"bytes\":30000,\"time_ns\":1200000},{\"type\":\"ADVANCE_TIME\",\"to_time_ns\":2000000}]}",
+    "output": "{\"final_time_ns\":2000000,\"nic_in_flight_bytes\":0,\"nic_queued_packets\":0,\"sockets\":{\"sA\":{\"packets_sent\":18,\"bytes_sent\":25000,\"remaining_buffer\":0,\"wmem_alloc\":0,\"tsq_throttled\":false,\"throttle_count\":0,\"total_throttle_duration_ns\":0},\"sB\":{\"packets_sent\":14,\"bytes_sent\":20000,\"remaining_buffer\":0,\"wmem_alloc\":0,\"tsq_throttled\":false,\"throttle_count\":0,\"total_throttle_duration_ns\":0},\"sC\":{\"packets_sent\":10,\"bytes_sent\":13760,\"remaining_buffer\":21240,\"wmem_alloc\":0,\"tsq_throttled\":false,\"throttle_count\":0,\"total_throttle_duration_ns\":0}},\"events_count\":0}"
+  }
+]
