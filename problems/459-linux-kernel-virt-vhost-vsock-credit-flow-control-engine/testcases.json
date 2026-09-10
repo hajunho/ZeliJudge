@@ -1,0 +1,1036 @@
+[
+  {
+    "input": {
+      "config": {
+        "host_cid": 2,
+        "default_buf_alloc": 16384
+      },
+      "operations": [
+        {
+          "op": "LISTEN",
+          "cid": 2,
+          "port": 8080
+        },
+        {
+          "op": "CONNECT",
+          "src_cid": 3,
+          "src_port": 50000,
+          "dst_cid": 2,
+          "dst_port": 8080
+        },
+        {
+          "op": "SEND_DATA",
+          "src_cid": 3,
+          "src_port": 50000,
+          "data_len": 4096
+        },
+        {
+          "op": "RECV_DATA",
+          "cid": 2,
+          "port": 8080
+        },
+        {
+          "op": "QUERY_VSOCK_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "LISTENING",
+          "cid": 2,
+          "port": 8080,
+          "buf_alloc": 16384
+        },
+        {
+          "status": "CONNECTED",
+          "src": "3:50000",
+          "dst": "2:8080",
+          "client_peer_buf": 16384,
+          "server_peer_buf": 16384
+        },
+        {
+          "status": "DATA_SENT",
+          "bytes_sent": 4096,
+          "tx_cnt": 4096,
+          "remaining_credits": 12288,
+          "peer_rx_bytes": 4096
+        },
+        {
+          "status": "DATA_RECEIVED",
+          "bytes_read": 4096,
+          "rx_remaining": 0,
+          "fwd_cnt": 4096,
+          "peer_credits_replenished": 16384
+        },
+        {
+          "host_cid": 2,
+          "sockets": {
+            "2:8080": {
+              "state": "CONNECTED",
+              "peer": "3:50000",
+              "rx_bytes": 0,
+              "fwd_cnt": 4096,
+              "tx_cnt": 0,
+              "buf_alloc": 16384,
+              "peer_buf_alloc": 16384
+            },
+            "3:50000": {
+              "state": "CONNECTED",
+              "peer": "2:8080",
+              "rx_bytes": 0,
+              "fwd_cnt": 0,
+              "tx_cnt": 4096,
+              "buf_alloc": 16384,
+              "peer_buf_alloc": 16384
+            }
+          },
+          "stats": {
+            "connections_established": 1,
+            "data_packets_sent": 1,
+            "bytes_sent": 4096,
+            "bytes_received": 4096,
+            "credit_updates": 1,
+            "flow_control_blocks": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "host_cid": 2,
+        "default_buf_alloc": 10000
+      },
+      "operations": [
+        {
+          "op": "LISTEN",
+          "cid": 2,
+          "port": 9000,
+          "buf_alloc": 10000
+        },
+        {
+          "op": "CONNECT",
+          "src_cid": 3,
+          "src_port": 40000,
+          "dst_cid": 2,
+          "dst_port": 9000
+        },
+        {
+          "op": "SEND_DATA",
+          "src_cid": 3,
+          "src_port": 40000,
+          "data_len": 8000
+        },
+        {
+          "op": "SEND_DATA",
+          "src_cid": 3,
+          "src_port": 40000,
+          "data_len": 5000
+        },
+        {
+          "op": "RECV_DATA",
+          "cid": 2,
+          "port": 9000,
+          "max_bytes": 4000
+        },
+        {
+          "op": "SEND_DATA",
+          "src_cid": 3,
+          "src_port": 40000,
+          "data_len": 5000
+        },
+        {
+          "op": "RECV_DATA",
+          "cid": 2,
+          "port": 9000
+        },
+        {
+          "op": "QUERY_VSOCK_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "LISTENING",
+          "cid": 2,
+          "port": 9000,
+          "buf_alloc": 10000
+        },
+        {
+          "status": "CONNECTED",
+          "src": "3:40000",
+          "dst": "2:9000",
+          "client_peer_buf": 10000,
+          "server_peer_buf": 10000
+        },
+        {
+          "status": "DATA_SENT",
+          "bytes_sent": 8000,
+          "tx_cnt": 8000,
+          "remaining_credits": 2000,
+          "peer_rx_bytes": 8000
+        },
+        {
+          "status": "EAGAIN_CREDIT_EXHAUSTED",
+          "available_credits": 2000,
+          "requested": 5000,
+          "in_flight": 8000,
+          "peer_buf_alloc": 10000
+        },
+        {
+          "status": "DATA_RECEIVED",
+          "bytes_read": 4000,
+          "rx_remaining": 4000,
+          "fwd_cnt": 4000,
+          "peer_credits_replenished": 6000
+        },
+        {
+          "status": "DATA_SENT",
+          "bytes_sent": 5000,
+          "tx_cnt": 13000,
+          "remaining_credits": 1000,
+          "peer_rx_bytes": 9000
+        },
+        {
+          "status": "DATA_RECEIVED",
+          "bytes_read": 9000,
+          "rx_remaining": 0,
+          "fwd_cnt": 13000,
+          "peer_credits_replenished": 10000
+        },
+        {
+          "host_cid": 2,
+          "sockets": {
+            "2:9000": {
+              "state": "CONNECTED",
+              "peer": "3:40000",
+              "rx_bytes": 0,
+              "fwd_cnt": 13000,
+              "tx_cnt": 0,
+              "buf_alloc": 10000,
+              "peer_buf_alloc": 10000
+            },
+            "3:40000": {
+              "state": "CONNECTED",
+              "peer": "2:9000",
+              "rx_bytes": 0,
+              "fwd_cnt": 0,
+              "tx_cnt": 13000,
+              "buf_alloc": 10000,
+              "peer_buf_alloc": 10000
+            }
+          },
+          "stats": {
+            "connections_established": 1,
+            "data_packets_sent": 2,
+            "bytes_sent": 13000,
+            "bytes_received": 13000,
+            "credit_updates": 2,
+            "flow_control_blocks": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "host_cid": 2,
+        "default_buf_alloc": 20000
+      },
+      "operations": [
+        {
+          "op": "LISTEN",
+          "cid": 2,
+          "port": 7000
+        },
+        {
+          "op": "CONNECT",
+          "src_cid": 3,
+          "src_port": 30000,
+          "dst_cid": 2,
+          "dst_port": 7000
+        },
+        {
+          "op": "SEND_DATA",
+          "src_cid": 3,
+          "src_port": 30000,
+          "data_len": 3000
+        },
+        {
+          "op": "SEND_DATA",
+          "src_cid": 2,
+          "src_port": 7000,
+          "data_len": 6000
+        },
+        {
+          "op": "RECV_DATA",
+          "cid": 2,
+          "port": 7000
+        },
+        {
+          "op": "RECV_DATA",
+          "cid": 3,
+          "src_port": 30000,
+          "port": 30000
+        },
+        {
+          "op": "QUERY_VSOCK_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "LISTENING",
+          "cid": 2,
+          "port": 7000,
+          "buf_alloc": 20000
+        },
+        {
+          "status": "CONNECTED",
+          "src": "3:30000",
+          "dst": "2:7000",
+          "client_peer_buf": 20000,
+          "server_peer_buf": 20000
+        },
+        {
+          "status": "DATA_SENT",
+          "bytes_sent": 3000,
+          "tx_cnt": 3000,
+          "remaining_credits": 17000,
+          "peer_rx_bytes": 3000
+        },
+        {
+          "status": "DATA_SENT",
+          "bytes_sent": 6000,
+          "tx_cnt": 6000,
+          "remaining_credits": 14000,
+          "peer_rx_bytes": 6000
+        },
+        {
+          "status": "DATA_RECEIVED",
+          "bytes_read": 3000,
+          "rx_remaining": 0,
+          "fwd_cnt": 3000,
+          "peer_credits_replenished": 20000
+        },
+        {
+          "status": "DATA_RECEIVED",
+          "bytes_read": 6000,
+          "rx_remaining": 0,
+          "fwd_cnt": 6000,
+          "peer_credits_replenished": 20000
+        },
+        {
+          "host_cid": 2,
+          "sockets": {
+            "2:7000": {
+              "state": "CONNECTED",
+              "peer": "3:30000",
+              "rx_bytes": 0,
+              "fwd_cnt": 3000,
+              "tx_cnt": 6000,
+              "buf_alloc": 20000,
+              "peer_buf_alloc": 20000
+            },
+            "3:30000": {
+              "state": "CONNECTED",
+              "peer": "2:7000",
+              "rx_bytes": 0,
+              "fwd_cnt": 6000,
+              "tx_cnt": 3000,
+              "buf_alloc": 20000,
+              "peer_buf_alloc": 20000
+            }
+          },
+          "stats": {
+            "connections_established": 1,
+            "data_packets_sent": 2,
+            "bytes_sent": 9000,
+            "bytes_received": 9000,
+            "credit_updates": 2,
+            "flow_control_blocks": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "host_cid": 2,
+        "default_buf_alloc": 16384
+      },
+      "operations": [
+        {
+          "op": "CONNECT",
+          "src_cid": 3,
+          "src_port": 20000,
+          "dst_cid": 2,
+          "dst_port": 9999
+        },
+        {
+          "op": "LISTEN",
+          "cid": 2,
+          "port": 8888
+        },
+        {
+          "op": "LISTEN",
+          "cid": 2,
+          "port": 8888
+        },
+        {
+          "op": "SEND_DATA",
+          "src_cid": 3,
+          "src_port": 12345,
+          "data_len": 100
+        },
+        {
+          "op": "RECV_DATA",
+          "cid": 2,
+          "port": 8888
+        },
+        {
+          "op": "QUERY_VSOCK_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ECONNREFUSED",
+          "dst_cid": 2,
+          "dst_port": 9999
+        },
+        {
+          "status": "LISTENING",
+          "cid": 2,
+          "port": 8888,
+          "buf_alloc": 16384
+        },
+        {
+          "status": "EADDRINUSE",
+          "cid": 2,
+          "port": 8888
+        },
+        {
+          "status": "ENOTCONN",
+          "src": "3:12345"
+        },
+        {
+          "status": "EAGAIN_NO_DATA",
+          "cid": 2,
+          "port": 8888
+        },
+        {
+          "host_cid": 2,
+          "sockets": {
+            "2:8888": {
+              "state": "LISTEN",
+              "peer": null,
+              "rx_bytes": 0,
+              "fwd_cnt": 0,
+              "tx_cnt": 0,
+              "buf_alloc": 16384,
+              "peer_buf_alloc": 0
+            }
+          },
+          "stats": {
+            "connections_established": 0,
+            "data_packets_sent": 0,
+            "bytes_sent": 0,
+            "bytes_received": 0,
+            "credit_updates": 0,
+            "flow_control_blocks": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "host_cid": 2,
+        "default_buf_alloc": 16384
+      },
+      "operations": [
+        {
+          "op": "LISTEN",
+          "cid": 2,
+          "port": 5555
+        },
+        {
+          "op": "CONNECT",
+          "src_cid": 3,
+          "src_port": 11111,
+          "dst_cid": 2,
+          "dst_port": 5555
+        },
+        {
+          "op": "SEND_DATA",
+          "src_cid": 3,
+          "src_port": 11111,
+          "data_len": 500
+        },
+        {
+          "op": "CLOSE",
+          "cid": 2,
+          "port": 5555
+        },
+        {
+          "op": "SEND_DATA",
+          "src_cid": 3,
+          "src_port": 11111,
+          "data_len": 500
+        },
+        {
+          "op": "QUERY_VSOCK_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "LISTENING",
+          "cid": 2,
+          "port": 5555,
+          "buf_alloc": 16384
+        },
+        {
+          "status": "CONNECTED",
+          "src": "3:11111",
+          "dst": "2:5555",
+          "client_peer_buf": 16384,
+          "server_peer_buf": 16384
+        },
+        {
+          "status": "DATA_SENT",
+          "bytes_sent": 500,
+          "tx_cnt": 500,
+          "remaining_credits": 15884,
+          "peer_rx_bytes": 500
+        },
+        {
+          "status": "CONNECTION_CLOSED",
+          "cid": 2,
+          "port": 5555
+        },
+        {
+          "status": "ENOTCONN",
+          "src": "3:11111"
+        },
+        {
+          "host_cid": 2,
+          "sockets": {
+            "2:5555": {
+              "state": "CLOSED",
+              "peer": "3:11111",
+              "rx_bytes": 500,
+              "fwd_cnt": 0,
+              "tx_cnt": 0,
+              "buf_alloc": 16384,
+              "peer_buf_alloc": 16384
+            },
+            "3:11111": {
+              "state": "CLOSED",
+              "peer": "2:5555",
+              "rx_bytes": 0,
+              "fwd_cnt": 0,
+              "tx_cnt": 500,
+              "buf_alloc": 16384,
+              "peer_buf_alloc": 16384
+            }
+          },
+          "stats": {
+            "connections_established": 1,
+            "data_packets_sent": 1,
+            "bytes_sent": 500,
+            "bytes_received": 0,
+            "credit_updates": 0,
+            "flow_control_blocks": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "host_cid": 2,
+        "default_buf_alloc": 16384
+      },
+      "operations": [
+        {
+          "op": "LISTEN",
+          "cid": 2,
+          "port": 8001
+        },
+        {
+          "op": "CONNECT",
+          "src_cid": 3,
+          "src_port": 5001,
+          "dst_cid": 2,
+          "dst_port": 8001
+        },
+        {
+          "op": "LISTEN",
+          "cid": 2,
+          "port": 8002
+        },
+        {
+          "op": "CONNECT",
+          "src_cid": 4,
+          "src_port": 5002,
+          "dst_cid": 2,
+          "dst_port": 8002
+        },
+        {
+          "op": "SEND_DATA",
+          "src_cid": 3,
+          "src_port": 5001,
+          "data_len": 12000
+        },
+        {
+          "op": "SEND_DATA",
+          "src_cid": 4,
+          "src_port": 5002,
+          "data_len": 4000
+        },
+        {
+          "op": "QUERY_VSOCK_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "LISTENING",
+          "cid": 2,
+          "port": 8001,
+          "buf_alloc": 16384
+        },
+        {
+          "status": "CONNECTED",
+          "src": "3:5001",
+          "dst": "2:8001",
+          "client_peer_buf": 16384,
+          "server_peer_buf": 16384
+        },
+        {
+          "status": "LISTENING",
+          "cid": 2,
+          "port": 8002,
+          "buf_alloc": 16384
+        },
+        {
+          "status": "CONNECTED",
+          "src": "4:5002",
+          "dst": "2:8002",
+          "client_peer_buf": 16384,
+          "server_peer_buf": 16384
+        },
+        {
+          "status": "DATA_SENT",
+          "bytes_sent": 12000,
+          "tx_cnt": 12000,
+          "remaining_credits": 4384,
+          "peer_rx_bytes": 12000
+        },
+        {
+          "status": "DATA_SENT",
+          "bytes_sent": 4000,
+          "tx_cnt": 4000,
+          "remaining_credits": 12384,
+          "peer_rx_bytes": 4000
+        },
+        {
+          "host_cid": 2,
+          "sockets": {
+            "2:8001": {
+              "state": "CONNECTED",
+              "peer": "3:5001",
+              "rx_bytes": 12000,
+              "fwd_cnt": 0,
+              "tx_cnt": 0,
+              "buf_alloc": 16384,
+              "peer_buf_alloc": 16384
+            },
+            "2:8002": {
+              "state": "CONNECTED",
+              "peer": "4:5002",
+              "rx_bytes": 4000,
+              "fwd_cnt": 0,
+              "tx_cnt": 0,
+              "buf_alloc": 16384,
+              "peer_buf_alloc": 16384
+            },
+            "3:5001": {
+              "state": "CONNECTED",
+              "peer": "2:8001",
+              "rx_bytes": 0,
+              "fwd_cnt": 0,
+              "tx_cnt": 12000,
+              "buf_alloc": 16384,
+              "peer_buf_alloc": 16384
+            },
+            "4:5002": {
+              "state": "CONNECTED",
+              "peer": "2:8002",
+              "rx_bytes": 0,
+              "fwd_cnt": 0,
+              "tx_cnt": 4000,
+              "buf_alloc": 16384,
+              "peer_buf_alloc": 16384
+            }
+          },
+          "stats": {
+            "connections_established": 2,
+            "data_packets_sent": 2,
+            "bytes_sent": 16000,
+            "bytes_received": 0,
+            "credit_updates": 0,
+            "flow_control_blocks": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "host_cid": 2,
+        "default_buf_alloc": 32768
+      },
+      "operations": [
+        {
+          "op": "LISTEN",
+          "cid": 2,
+          "port": 6666
+        },
+        {
+          "op": "CONNECT",
+          "src_cid": 3,
+          "src_port": 4444,
+          "dst_cid": 2,
+          "dst_port": 6666
+        },
+        {
+          "op": "SEND_DATA",
+          "src_cid": 3,
+          "src_port": 4444,
+          "data_len": 2000
+        },
+        {
+          "op": "SEND_DATA",
+          "src_cid": 3,
+          "src_port": 4444,
+          "data_len": 2000
+        },
+        {
+          "op": "SEND_DATA",
+          "src_cid": 3,
+          "src_port": 4444,
+          "data_len": 2000
+        },
+        {
+          "op": "RECV_DATA",
+          "cid": 2,
+          "port": 6666,
+          "max_bytes": 3500
+        },
+        {
+          "op": "RECV_DATA",
+          "cid": 2,
+          "port": 6666,
+          "max_bytes": 1000
+        },
+        {
+          "op": "RECV_DATA",
+          "cid": 2,
+          "port": 6666
+        },
+        {
+          "op": "QUERY_VSOCK_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "LISTENING",
+          "cid": 2,
+          "port": 6666,
+          "buf_alloc": 32768
+        },
+        {
+          "status": "CONNECTED",
+          "src": "3:4444",
+          "dst": "2:6666",
+          "client_peer_buf": 32768,
+          "server_peer_buf": 32768
+        },
+        {
+          "status": "DATA_SENT",
+          "bytes_sent": 2000,
+          "tx_cnt": 2000,
+          "remaining_credits": 30768,
+          "peer_rx_bytes": 2000
+        },
+        {
+          "status": "DATA_SENT",
+          "bytes_sent": 2000,
+          "tx_cnt": 4000,
+          "remaining_credits": 28768,
+          "peer_rx_bytes": 4000
+        },
+        {
+          "status": "DATA_SENT",
+          "bytes_sent": 2000,
+          "tx_cnt": 6000,
+          "remaining_credits": 26768,
+          "peer_rx_bytes": 6000
+        },
+        {
+          "status": "DATA_RECEIVED",
+          "bytes_read": 3500,
+          "rx_remaining": 2500,
+          "fwd_cnt": 3500,
+          "peer_credits_replenished": 30268
+        },
+        {
+          "status": "DATA_RECEIVED",
+          "bytes_read": 1000,
+          "rx_remaining": 1500,
+          "fwd_cnt": 4500,
+          "peer_credits_replenished": 31268
+        },
+        {
+          "status": "DATA_RECEIVED",
+          "bytes_read": 1500,
+          "rx_remaining": 0,
+          "fwd_cnt": 6000,
+          "peer_credits_replenished": 32768
+        },
+        {
+          "host_cid": 2,
+          "sockets": {
+            "2:6666": {
+              "state": "CONNECTED",
+              "peer": "3:4444",
+              "rx_bytes": 0,
+              "fwd_cnt": 6000,
+              "tx_cnt": 0,
+              "buf_alloc": 32768,
+              "peer_buf_alloc": 32768
+            },
+            "3:4444": {
+              "state": "CONNECTED",
+              "peer": "2:6666",
+              "rx_bytes": 0,
+              "fwd_cnt": 0,
+              "tx_cnt": 6000,
+              "buf_alloc": 32768,
+              "peer_buf_alloc": 32768
+            }
+          },
+          "stats": {
+            "connections_established": 1,
+            "data_packets_sent": 3,
+            "bytes_sent": 6000,
+            "bytes_received": 6000,
+            "credit_updates": 3,
+            "flow_control_blocks": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "host_cid": 2,
+        "default_buf_alloc": 10000
+      },
+      "operations": [
+        {
+          "op": "LISTEN",
+          "cid": 2,
+          "port": 9990,
+          "buf_alloc": 8000
+        },
+        {
+          "op": "CONNECT",
+          "src_cid": 3,
+          "src_port": 1234,
+          "dst_cid": 2,
+          "dst_port": 9990,
+          "buf_alloc": 8000
+        },
+        {
+          "op": "SEND_DATA",
+          "src_cid": 3,
+          "src_port": 1234,
+          "data_len": 5000
+        },
+        {
+          "op": "SEND_DATA",
+          "src_cid": 3,
+          "src_port": 1234,
+          "data_len": 4000
+        },
+        {
+          "op": "RECV_DATA",
+          "cid": 2,
+          "port": 9990,
+          "max_bytes": 2000
+        },
+        {
+          "op": "SEND_DATA",
+          "src_cid": 3,
+          "src_port": 1234,
+          "data_len": 1000
+        },
+        {
+          "op": "SEND_DATA",
+          "src_cid": 2,
+          "src_port": 9990,
+          "data_len": 3000
+        },
+        {
+          "op": "RECV_DATA",
+          "cid": 3,
+          "port": 1234
+        },
+        {
+          "op": "RECV_DATA",
+          "cid": 2,
+          "port": 9990
+        },
+        {
+          "op": "CLOSE",
+          "cid": 3,
+          "port": 1234
+        },
+        {
+          "op": "SEND_DATA",
+          "src_cid": 2,
+          "src_port": 9990,
+          "data_len": 500
+        },
+        {
+          "op": "QUERY_VSOCK_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "LISTENING",
+          "cid": 2,
+          "port": 9990,
+          "buf_alloc": 8000
+        },
+        {
+          "status": "CONNECTED",
+          "src": "3:1234",
+          "dst": "2:9990",
+          "client_peer_buf": 8000,
+          "server_peer_buf": 8000
+        },
+        {
+          "status": "DATA_SENT",
+          "bytes_sent": 5000,
+          "tx_cnt": 5000,
+          "remaining_credits": 3000,
+          "peer_rx_bytes": 5000
+        },
+        {
+          "status": "EAGAIN_CREDIT_EXHAUSTED",
+          "available_credits": 3000,
+          "requested": 4000,
+          "in_flight": 5000,
+          "peer_buf_alloc": 8000
+        },
+        {
+          "status": "DATA_RECEIVED",
+          "bytes_read": 2000,
+          "rx_remaining": 3000,
+          "fwd_cnt": 2000,
+          "peer_credits_replenished": 5000
+        },
+        {
+          "status": "DATA_SENT",
+          "bytes_sent": 1000,
+          "tx_cnt": 6000,
+          "remaining_credits": 4000,
+          "peer_rx_bytes": 4000
+        },
+        {
+          "status": "DATA_SENT",
+          "bytes_sent": 3000,
+          "tx_cnt": 3000,
+          "remaining_credits": 5000,
+          "peer_rx_bytes": 3000
+        },
+        {
+          "status": "DATA_RECEIVED",
+          "bytes_read": 3000,
+          "rx_remaining": 0,
+          "fwd_cnt": 3000,
+          "peer_credits_replenished": 8000
+        },
+        {
+          "status": "DATA_RECEIVED",
+          "bytes_read": 4000,
+          "rx_remaining": 0,
+          "fwd_cnt": 6000,
+          "peer_credits_replenished": 8000
+        },
+        {
+          "status": "CONNECTION_CLOSED",
+          "cid": 3,
+          "port": 1234
+        },
+        {
+          "status": "ENOTCONN",
+          "src": "2:9990"
+        },
+        {
+          "host_cid": 2,
+          "sockets": {
+            "2:9990": {
+              "state": "CLOSED",
+              "peer": "3:1234",
+              "rx_bytes": 0,
+              "fwd_cnt": 6000,
+              "tx_cnt": 3000,
+              "buf_alloc": 8000,
+              "peer_buf_alloc": 8000
+            },
+            "3:1234": {
+              "state": "CLOSED",
+              "peer": "2:9990",
+              "rx_bytes": 0,
+              "fwd_cnt": 3000,
+              "tx_cnt": 6000,
+              "buf_alloc": 8000,
+              "peer_buf_alloc": 8000
+            }
+          },
+          "stats": {
+            "connections_established": 1,
+            "data_packets_sent": 3,
+            "bytes_sent": 9000,
+            "bytes_received": 9000,
+            "credit_updates": 3,
+            "flow_control_blocks": 1
+          }
+        }
+      ]
+    }
+  }
+]
