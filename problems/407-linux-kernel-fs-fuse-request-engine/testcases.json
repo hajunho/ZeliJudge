@@ -1,0 +1,699 @@
+[
+  {
+    "name": "동기식 Write-Through 모드에서의 순차 Read/Write 처리 및 기본 지연 검증",
+    "input": {
+      "config": {
+        "max_background": 8,
+        "congestion_threshold": 6,
+        "attr_timeout_ms": 100,
+        "entry_timeout_ms": 100,
+        "enable_writeback_cache": false,
+        "enable_splice": true,
+        "daemon_workers": 2,
+        "daemon_proc_time_ms": 10
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "SUBMIT",
+          "req_id": "r1",
+          "opcode": "FUSE_READ",
+          "target": "/data/f1.dat",
+          "size_bytes": 4096
+        },
+        {
+          "time": 2,
+          "type": "SUBMIT",
+          "req_id": "r2",
+          "opcode": "FUSE_WRITE",
+          "target": "/data/f1.dat",
+          "size_bytes": 4096
+        },
+        {
+          "time": 12,
+          "type": "SUBMIT",
+          "req_id": "r3",
+          "opcode": "FUSE_FSYNC",
+          "target": "/data/f1.dat"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_simulation_time": 22,
+        "total_submitted": 3,
+        "completed_count": 3,
+        "interrupted_count": 0,
+        "cache_hits": 0,
+        "cache_misses": 0,
+        "avg_latency_ms": 10.0,
+        "max_bg_depth": 0,
+        "max_pending_depth": 1
+      },
+      "congestion_events": [],
+      "requests": [
+        {
+          "req_id": "r1",
+          "opcode": "FUSE_READ",
+          "state": "COMPLETED",
+          "latency_ms": 10
+        },
+        {
+          "req_id": "r2",
+          "opcode": "FUSE_WRITE",
+          "state": "COMPLETED",
+          "latency_ms": 10
+        },
+        {
+          "req_id": "r3",
+          "opcode": "FUSE_FSYNC",
+          "state": "COMPLETED",
+          "latency_ms": 10
+        }
+      ]
+    }
+  },
+  {
+    "name": "VFS Dentry 및 Inode 속성 캐시 히트(0 레이턴시) 및 타임아웃 만료 후 재조회",
+    "input": {
+      "config": {
+        "max_background": 8,
+        "congestion_threshold": 6,
+        "attr_timeout_ms": 40,
+        "entry_timeout_ms": 40,
+        "enable_writeback_cache": false,
+        "enable_splice": true,
+        "daemon_workers": 2,
+        "daemon_proc_time_ms": 10
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "SUBMIT",
+          "req_id": "r1",
+          "opcode": "FUSE_LOOKUP",
+          "target": "/etc/config.json"
+        },
+        {
+          "time": 15,
+          "type": "SUBMIT",
+          "req_id": "r2",
+          "opcode": "FUSE_LOOKUP",
+          "target": "/etc/config.json"
+        },
+        {
+          "time": 30,
+          "type": "SUBMIT",
+          "req_id": "r3",
+          "opcode": "FUSE_GETATTR",
+          "target": "/etc/config.json"
+        },
+        {
+          "time": 45,
+          "type": "SUBMIT",
+          "req_id": "r4",
+          "opcode": "FUSE_GETATTR",
+          "target": "/etc/config.json"
+        },
+        {
+          "time": 90,
+          "type": "SUBMIT",
+          "req_id": "r5",
+          "opcode": "FUSE_LOOKUP",
+          "target": "/etc/config.json"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_simulation_time": 100,
+        "total_submitted": 5,
+        "completed_count": 5,
+        "interrupted_count": 0,
+        "cache_hits": 2,
+        "cache_misses": 3,
+        "avg_latency_ms": 6.0,
+        "max_bg_depth": 0,
+        "max_pending_depth": 1
+      },
+      "congestion_events": [],
+      "requests": [
+        {
+          "req_id": "r1",
+          "opcode": "FUSE_LOOKUP",
+          "state": "COMPLETED",
+          "latency_ms": 10
+        },
+        {
+          "req_id": "r2",
+          "opcode": "FUSE_LOOKUP",
+          "state": "COMPLETED",
+          "latency_ms": 0
+        },
+        {
+          "req_id": "r3",
+          "opcode": "FUSE_GETATTR",
+          "state": "COMPLETED",
+          "latency_ms": 10
+        },
+        {
+          "req_id": "r4",
+          "opcode": "FUSE_GETATTR",
+          "state": "COMPLETED",
+          "latency_ms": 0
+        },
+        {
+          "req_id": "r5",
+          "opcode": "FUSE_LOOKUP",
+          "state": "COMPLETED",
+          "latency_ms": 10
+        }
+      ]
+    }
+  },
+  {
+    "name": "비동기 라이트백(Writeback) 큐 포화 및 BDI 혼잡(Congested) 전이 검증",
+    "input": {
+      "config": {
+        "max_background": 3,
+        "congestion_threshold": 3,
+        "attr_timeout_ms": 50,
+        "entry_timeout_ms": 50,
+        "enable_writeback_cache": true,
+        "enable_splice": true,
+        "daemon_workers": 1,
+        "daemon_proc_time_ms": 10
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "SUBMIT",
+          "req_id": "w1",
+          "opcode": "FUSE_WRITE",
+          "target": "/file.bin",
+          "size_bytes": 4096
+        },
+        {
+          "time": 0,
+          "type": "SUBMIT",
+          "req_id": "w2",
+          "opcode": "FUSE_WRITE",
+          "target": "/file.bin",
+          "size_bytes": 4096
+        },
+        {
+          "time": 0,
+          "type": "SUBMIT",
+          "req_id": "w3",
+          "opcode": "FUSE_WRITE",
+          "target": "/file.bin",
+          "size_bytes": 4096
+        },
+        {
+          "time": 0,
+          "type": "SUBMIT",
+          "req_id": "w4",
+          "opcode": "FUSE_WRITE",
+          "target": "/file.bin",
+          "size_bytes": 4096
+        },
+        {
+          "time": 0,
+          "type": "SUBMIT",
+          "req_id": "w5",
+          "opcode": "FUSE_WRITE",
+          "target": "/file.bin",
+          "size_bytes": 4096
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_simulation_time": 50,
+        "total_submitted": 5,
+        "completed_count": 5,
+        "interrupted_count": 0,
+        "cache_hits": 0,
+        "cache_misses": 0,
+        "avg_latency_ms": 30.0,
+        "max_bg_depth": 2,
+        "max_pending_depth": 2
+      },
+      "congestion_events": [
+        {
+          "time": 0,
+          "state": "CONGESTED",
+          "depth": 3
+        },
+        {
+          "time": 30,
+          "state": "CLEARED",
+          "depth": 2
+        }
+      ],
+      "requests": [
+        {
+          "req_id": "w1",
+          "opcode": "FUSE_WRITE",
+          "state": "COMPLETED",
+          "latency_ms": 10
+        },
+        {
+          "req_id": "w2",
+          "opcode": "FUSE_WRITE",
+          "state": "COMPLETED",
+          "latency_ms": 20
+        },
+        {
+          "req_id": "w3",
+          "opcode": "FUSE_WRITE",
+          "state": "COMPLETED",
+          "latency_ms": 30
+        },
+        {
+          "req_id": "w4",
+          "opcode": "FUSE_WRITE",
+          "state": "COMPLETED",
+          "latency_ms": 40
+        },
+        {
+          "req_id": "w5",
+          "opcode": "FUSE_WRITE",
+          "state": "COMPLETED",
+          "latency_ms": 50
+        }
+      ]
+    }
+  },
+  {
+    "name": "대기 큐(Pending Queue) 체류 중 SIGINT 신호 유입에 따른 즉각 취소 처리",
+    "input": {
+      "config": {
+        "max_background": 4,
+        "congestion_threshold": 4,
+        "attr_timeout_ms": 50,
+        "entry_timeout_ms": 50,
+        "enable_writeback_cache": false,
+        "enable_splice": true,
+        "daemon_workers": 1,
+        "daemon_proc_time_ms": 20
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "SUBMIT",
+          "req_id": "slow1",
+          "opcode": "FUSE_READ",
+          "target": "/big.iso",
+          "size_bytes": 4096
+        },
+        {
+          "time": 2,
+          "type": "SUBMIT",
+          "req_id": "wait2",
+          "opcode": "FUSE_READ",
+          "target": "/test.txt",
+          "size_bytes": 1024
+        },
+        {
+          "time": 5,
+          "type": "SIGNAL_INTERRUPT",
+          "target_req_id": "wait2"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_simulation_time": 20,
+        "total_submitted": 2,
+        "completed_count": 1,
+        "interrupted_count": 1,
+        "cache_hits": 0,
+        "cache_misses": 0,
+        "avg_latency_ms": 20.0,
+        "max_bg_depth": 0,
+        "max_pending_depth": 1
+      },
+      "congestion_events": [],
+      "requests": [
+        {
+          "req_id": "slow1",
+          "opcode": "FUSE_READ",
+          "state": "COMPLETED",
+          "latency_ms": 20
+        },
+        {
+          "req_id": "wait2",
+          "opcode": "FUSE_READ",
+          "state": "INTERRUPTED",
+          "latency_ms": 3
+        }
+      ]
+    }
+  },
+  {
+    "name": "처리 중(Processing Queue)인 데몬 작업에 대한 FUSE_INTERRUPT 우선 발주 및 중단",
+    "input": {
+      "config": {
+        "max_background": 4,
+        "congestion_threshold": 4,
+        "attr_timeout_ms": 50,
+        "entry_timeout_ms": 50,
+        "enable_writeback_cache": false,
+        "enable_splice": true,
+        "daemon_workers": 2,
+        "daemon_proc_time_ms": 30
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "SUBMIT",
+          "req_id": "heavy_proc",
+          "opcode": "FUSE_READ",
+          "target": "/video.mp4",
+          "size_bytes": 16384
+        },
+        {
+          "time": 10,
+          "type": "SIGNAL_INTERRUPT",
+          "target_req_id": "heavy_proc"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_simulation_time": 30,
+        "total_submitted": 1,
+        "completed_count": 0,
+        "interrupted_count": 1,
+        "cache_hits": 0,
+        "cache_misses": 0,
+        "avg_latency_ms": 0.0,
+        "max_bg_depth": 0,
+        "max_pending_depth": 1
+      },
+      "congestion_events": [],
+      "requests": [
+        {
+          "req_id": "heavy_proc",
+          "opcode": "FUSE_READ",
+          "state": "INTERRUPTED",
+          "latency_ms": 30
+        }
+      ]
+    }
+  },
+  {
+    "name": "Splice 제로카피 비활성화 시 대용량 페이로드 메모리 복사 오버헤드 측정",
+    "input": {
+      "config": {
+        "max_background": 4,
+        "congestion_threshold": 4,
+        "attr_timeout_ms": 50,
+        "entry_timeout_ms": 50,
+        "enable_writeback_cache": false,
+        "enable_splice": false,
+        "copy_overhead_per_kb_ms": 1,
+        "daemon_workers": 1,
+        "daemon_proc_time_ms": 5
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "SUBMIT",
+          "req_id": "small_io",
+          "opcode": "FUSE_READ",
+          "target": "/tiny.txt",
+          "size_bytes": 1024
+        },
+        {
+          "time": 20,
+          "type": "SUBMIT",
+          "req_id": "large_io",
+          "opcode": "FUSE_READ",
+          "target": "/large.bin",
+          "size_bytes": 16384
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_simulation_time": 41,
+        "total_submitted": 2,
+        "completed_count": 2,
+        "interrupted_count": 0,
+        "cache_hits": 0,
+        "cache_misses": 0,
+        "avg_latency_ms": 13.5,
+        "max_bg_depth": 0,
+        "max_pending_depth": 1
+      },
+      "congestion_events": [],
+      "requests": [
+        {
+          "req_id": "large_io",
+          "opcode": "FUSE_READ",
+          "state": "COMPLETED",
+          "latency_ms": 21
+        },
+        {
+          "req_id": "small_io",
+          "opcode": "FUSE_READ",
+          "state": "COMPLETED",
+          "latency_ms": 6
+        }
+      ]
+    }
+  },
+  {
+    "name": "워커 스레드 고갈 및 장기 실행 I/O에 의한 헤드 오브 라인(HoL) 블로킹",
+    "input": {
+      "config": {
+        "max_background": 6,
+        "congestion_threshold": 4,
+        "attr_timeout_ms": 50,
+        "entry_timeout_ms": 50,
+        "enable_writeback_cache": false,
+        "enable_splice": true,
+        "daemon_workers": 2,
+        "daemon_proc_time_ms": 15
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "SUBMIT",
+          "req_id": "job1",
+          "opcode": "FUSE_READ",
+          "target": "/f1",
+          "size_bytes": 4096
+        },
+        {
+          "time": 0,
+          "type": "SUBMIT",
+          "req_id": "job2",
+          "opcode": "FUSE_READ",
+          "target": "/f2",
+          "size_bytes": 4096
+        },
+        {
+          "time": 2,
+          "type": "SUBMIT",
+          "req_id": "urgent_job",
+          "opcode": "FUSE_GETATTR",
+          "target": "/f3"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_simulation_time": 30,
+        "total_submitted": 3,
+        "completed_count": 3,
+        "interrupted_count": 0,
+        "cache_hits": 0,
+        "cache_misses": 1,
+        "avg_latency_ms": 19.33,
+        "max_bg_depth": 0,
+        "max_pending_depth": 1
+      },
+      "congestion_events": [],
+      "requests": [
+        {
+          "req_id": "job1",
+          "opcode": "FUSE_READ",
+          "state": "COMPLETED",
+          "latency_ms": 15
+        },
+        {
+          "req_id": "job2",
+          "opcode": "FUSE_READ",
+          "state": "COMPLETED",
+          "latency_ms": 15
+        },
+        {
+          "req_id": "urgent_job",
+          "opcode": "FUSE_GETATTR",
+          "state": "COMPLETED",
+          "latency_ms": 28
+        }
+      ]
+    }
+  },
+  {
+    "name": "클라우드 오브젝트 스토리지(S3FS) 복합 워크로드 종합 검증",
+    "input": {
+      "config": {
+        "max_background": 4,
+        "congestion_threshold": 3,
+        "attr_timeout_ms": 60,
+        "entry_timeout_ms": 60,
+        "enable_writeback_cache": true,
+        "enable_splice": true,
+        "daemon_workers": 2,
+        "daemon_proc_time_ms": 10
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "SUBMIT",
+          "req_id": "lookup_root",
+          "opcode": "FUSE_LOOKUP",
+          "target": "/bucket/photos"
+        },
+        {
+          "time": 5,
+          "type": "SUBMIT",
+          "req_id": "stat_root",
+          "opcode": "FUSE_GETATTR",
+          "target": "/bucket/photos"
+        },
+        {
+          "time": 10,
+          "type": "SUBMIT",
+          "req_id": "wb_photo1",
+          "opcode": "FUSE_WRITE",
+          "target": "/bucket/photos/p1.jpg",
+          "size_bytes": 8192
+        },
+        {
+          "time": 10,
+          "type": "SUBMIT",
+          "req_id": "wb_photo2",
+          "opcode": "FUSE_WRITE",
+          "target": "/bucket/photos/p2.jpg",
+          "size_bytes": 8192
+        },
+        {
+          "time": 10,
+          "type": "SUBMIT",
+          "req_id": "wb_photo3",
+          "opcode": "FUSE_WRITE",
+          "target": "/bucket/photos/p3.jpg",
+          "size_bytes": 8192
+        },
+        {
+          "time": 10,
+          "type": "SUBMIT",
+          "req_id": "wb_photo4",
+          "opcode": "FUSE_WRITE",
+          "target": "/bucket/photos/p4.jpg",
+          "size_bytes": 8192
+        },
+        {
+          "time": 15,
+          "type": "SIGNAL_INTERRUPT",
+          "target_req_id": "wb_photo4"
+        },
+        {
+          "time": 25,
+          "type": "SUBMIT",
+          "req_id": "cached_stat",
+          "opcode": "FUSE_GETATTR",
+          "target": "/bucket/photos"
+        },
+        {
+          "time": 30,
+          "type": "SUBMIT",
+          "req_id": "flush_sync",
+          "opcode": "FUSE_FSYNC",
+          "target": "/bucket/photos/p1.jpg"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_simulation_time": 40,
+        "total_submitted": 8,
+        "completed_count": 7,
+        "interrupted_count": 1,
+        "cache_hits": 1,
+        "cache_misses": 2,
+        "avg_latency_ms": 10.71,
+        "max_bg_depth": 0,
+        "max_pending_depth": 3
+      },
+      "congestion_events": [
+        {
+          "time": 10,
+          "state": "CONGESTED",
+          "depth": 3
+        },
+        {
+          "time": 20,
+          "state": "CLEARED",
+          "depth": 2
+        }
+      ],
+      "requests": [
+        {
+          "req_id": "cached_stat",
+          "opcode": "FUSE_GETATTR",
+          "state": "COMPLETED",
+          "latency_ms": 0
+        },
+        {
+          "req_id": "flush_sync",
+          "opcode": "FUSE_FSYNC",
+          "state": "COMPLETED",
+          "latency_ms": 10
+        },
+        {
+          "req_id": "lookup_root",
+          "opcode": "FUSE_LOOKUP",
+          "state": "COMPLETED",
+          "latency_ms": 10
+        },
+        {
+          "req_id": "stat_root",
+          "opcode": "FUSE_GETATTR",
+          "state": "COMPLETED",
+          "latency_ms": 10
+        },
+        {
+          "req_id": "wb_photo1",
+          "opcode": "FUSE_WRITE",
+          "state": "COMPLETED",
+          "latency_ms": 10
+        },
+        {
+          "req_id": "wb_photo2",
+          "opcode": "FUSE_WRITE",
+          "state": "COMPLETED",
+          "latency_ms": 15
+        },
+        {
+          "req_id": "wb_photo3",
+          "opcode": "FUSE_WRITE",
+          "state": "COMPLETED",
+          "latency_ms": 20
+        },
+        {
+          "req_id": "wb_photo4",
+          "opcode": "FUSE_WRITE",
+          "state": "INTERRUPTED",
+          "latency_ms": 5
+        }
+      ]
+    }
+  }
+]
