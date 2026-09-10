@@ -1,0 +1,1132 @@
+[
+  {
+    "input": {
+      "config": {
+        "num_vcpus": 2,
+        "split_mode": true
+      },
+      "operations": [
+        {
+          "op": "SET_GSI_ROUTING",
+          "routes": [
+            {
+              "gsi": 16,
+              "type": "MSI",
+              "dest_id": 0,
+              "vector": 48,
+              "level_triggered": false
+            }
+          ]
+        },
+        {
+          "op": "INJECT_GSI",
+          "gsi": 16
+        },
+        {
+          "op": "VCPU_DELIVER_INTERRUPT",
+          "vcpu_id": 0
+        },
+        {
+          "op": "VCPU_EOI",
+          "vcpu_id": 0,
+          "vector": 48
+        },
+        {
+          "op": "QUERY_IRQ_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ROUTING_TABLE_CONFIGURED",
+          "total_gsis": 1
+        },
+        {
+          "status": "GSI_INJECTED",
+          "gsi": 16,
+          "deliveries": [
+            {
+              "gsi": 16,
+              "target_vcpu": 0,
+              "vector": 48,
+              "type": "MSI",
+              "level_triggered": false
+            }
+          ]
+        },
+        {
+          "status": "INTERRUPT_SERVICED",
+          "vcpu_id": 0,
+          "vector": 48
+        },
+        {
+          "status": "EOI_PROCESSED",
+          "vcpu_id": 0,
+          "vector": 48,
+          "kvm_exit_ioapic_eoi": false
+        },
+        {
+          "num_vcpus": 2,
+          "split_mode": true,
+          "configured_gsis": [
+            16
+          ],
+          "vcpu_states": {
+            "0": {
+              "irr": [],
+              "isr": [],
+              "eoi_exit_vectors": []
+            },
+            "1": {
+              "irr": [],
+              "isr": [],
+              "eoi_exit_vectors": []
+            }
+          },
+          "stats": {
+            "gsi_injections": 1,
+            "msi_direct_deliveries": 1,
+            "ioapic_eoi_exits": 0,
+            "invalid_gsi_drops": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "num_vcpus": 2,
+        "split_mode": true
+      },
+      "operations": [
+        {
+          "op": "SET_GSI_ROUTING",
+          "routes": [
+            {
+              "gsi": 24,
+              "type": "IRQCHIP",
+              "dest_id": 1,
+              "vector": 64,
+              "level_triggered": true
+            }
+          ]
+        },
+        {
+          "op": "INJECT_GSI",
+          "gsi": 24,
+          "level": 1
+        },
+        {
+          "op": "VCPU_DELIVER_INTERRUPT",
+          "vcpu_id": 1
+        },
+        {
+          "op": "VCPU_EOI",
+          "vcpu_id": 1,
+          "vector": 64
+        },
+        {
+          "op": "INJECT_GSI",
+          "gsi": 24,
+          "level": 0
+        },
+        {
+          "op": "QUERY_IRQ_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ROUTING_TABLE_CONFIGURED",
+          "total_gsis": 1
+        },
+        {
+          "status": "GSI_INJECTED",
+          "gsi": 24,
+          "deliveries": [
+            {
+              "gsi": 24,
+              "target_vcpu": 1,
+              "vector": 64,
+              "type": "IRQCHIP",
+              "level_triggered": true
+            }
+          ]
+        },
+        {
+          "status": "INTERRUPT_SERVICED",
+          "vcpu_id": 1,
+          "vector": 64
+        },
+        {
+          "status": "EOI_PROCESSED",
+          "vcpu_id": 1,
+          "vector": 64,
+          "kvm_exit_ioapic_eoi": true
+        },
+        {
+          "status": "GSI_INJECTED",
+          "gsi": 24,
+          "deliveries": [
+            {
+              "gsi": 24,
+              "type": "IRQCHIP",
+              "action": "LINE_DEASSERTED",
+              "level": 0
+            }
+          ]
+        },
+        {
+          "num_vcpus": 2,
+          "split_mode": true,
+          "configured_gsis": [
+            24
+          ],
+          "vcpu_states": {
+            "0": {
+              "irr": [],
+              "isr": [],
+              "eoi_exit_vectors": []
+            },
+            "1": {
+              "irr": [],
+              "isr": [],
+              "eoi_exit_vectors": [
+                64
+              ]
+            }
+          },
+          "stats": {
+            "gsi_injections": 2,
+            "msi_direct_deliveries": 0,
+            "ioapic_eoi_exits": 1,
+            "invalid_gsi_drops": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "num_vcpus": 4,
+        "split_mode": true
+      },
+      "operations": [
+        {
+          "op": "SET_GSI_ROUTING",
+          "routes": [
+            {
+              "gsi": 30,
+              "type": "MSI",
+              "dest_id": 255,
+              "vector": 55,
+              "level_triggered": false
+            }
+          ]
+        },
+        {
+          "op": "INJECT_GSI",
+          "gsi": 30
+        },
+        {
+          "op": "VCPU_DELIVER_INTERRUPT",
+          "vcpu_id": 0
+        },
+        {
+          "op": "VCPU_DELIVER_INTERRUPT",
+          "vcpu_id": 1
+        },
+        {
+          "op": "VCPU_DELIVER_INTERRUPT",
+          "vcpu_id": 2
+        },
+        {
+          "op": "VCPU_DELIVER_INTERRUPT",
+          "vcpu_id": 3
+        },
+        {
+          "op": "QUERY_IRQ_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ROUTING_TABLE_CONFIGURED",
+          "total_gsis": 1
+        },
+        {
+          "status": "GSI_INJECTED",
+          "gsi": 30,
+          "deliveries": [
+            {
+              "gsi": 30,
+              "target_vcpu": 0,
+              "vector": 55,
+              "type": "MSI",
+              "level_triggered": false
+            },
+            {
+              "gsi": 30,
+              "target_vcpu": 1,
+              "vector": 55,
+              "type": "MSI",
+              "level_triggered": false
+            },
+            {
+              "gsi": 30,
+              "target_vcpu": 2,
+              "vector": 55,
+              "type": "MSI",
+              "level_triggered": false
+            },
+            {
+              "gsi": 30,
+              "target_vcpu": 3,
+              "vector": 55,
+              "type": "MSI",
+              "level_triggered": false
+            }
+          ]
+        },
+        {
+          "status": "INTERRUPT_SERVICED",
+          "vcpu_id": 0,
+          "vector": 55
+        },
+        {
+          "status": "INTERRUPT_SERVICED",
+          "vcpu_id": 1,
+          "vector": 55
+        },
+        {
+          "status": "INTERRUPT_SERVICED",
+          "vcpu_id": 2,
+          "vector": 55
+        },
+        {
+          "status": "INTERRUPT_SERVICED",
+          "vcpu_id": 3,
+          "vector": 55
+        },
+        {
+          "num_vcpus": 4,
+          "split_mode": true,
+          "configured_gsis": [
+            30
+          ],
+          "vcpu_states": {
+            "0": {
+              "irr": [],
+              "isr": [
+                55
+              ],
+              "eoi_exit_vectors": []
+            },
+            "1": {
+              "irr": [],
+              "isr": [
+                55
+              ],
+              "eoi_exit_vectors": []
+            },
+            "2": {
+              "irr": [],
+              "isr": [
+                55
+              ],
+              "eoi_exit_vectors": []
+            },
+            "3": {
+              "irr": [],
+              "isr": [
+                55
+              ],
+              "eoi_exit_vectors": []
+            }
+          },
+          "stats": {
+            "gsi_injections": 1,
+            "msi_direct_deliveries": 4,
+            "ioapic_eoi_exits": 0,
+            "invalid_gsi_drops": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "num_vcpus": 2,
+        "split_mode": false
+      },
+      "operations": [
+        {
+          "op": "SET_GSI_ROUTING",
+          "routes": [
+            {
+              "gsi": 20,
+              "type": "IRQCHIP",
+              "dest_id": 0,
+              "vector": 70,
+              "level_triggered": true
+            }
+          ]
+        },
+        {
+          "op": "INJECT_GSI",
+          "gsi": 20,
+          "level": 1
+        },
+        {
+          "op": "VCPU_DELIVER_INTERRUPT",
+          "vcpu_id": 0
+        },
+        {
+          "op": "VCPU_EOI",
+          "vcpu_id": 0,
+          "vector": 70
+        },
+        {
+          "op": "QUERY_IRQ_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ROUTING_TABLE_CONFIGURED",
+          "total_gsis": 1
+        },
+        {
+          "status": "GSI_INJECTED",
+          "gsi": 20,
+          "deliveries": [
+            {
+              "gsi": 20,
+              "target_vcpu": 0,
+              "vector": 70,
+              "type": "IRQCHIP",
+              "level_triggered": true
+            }
+          ]
+        },
+        {
+          "status": "INTERRUPT_SERVICED",
+          "vcpu_id": 0,
+          "vector": 70
+        },
+        {
+          "status": "EOI_PROCESSED",
+          "vcpu_id": 0,
+          "vector": 70,
+          "kvm_exit_ioapic_eoi": false
+        },
+        {
+          "num_vcpus": 2,
+          "split_mode": false,
+          "configured_gsis": [
+            20
+          ],
+          "vcpu_states": {
+            "0": {
+              "irr": [],
+              "isr": [],
+              "eoi_exit_vectors": []
+            },
+            "1": {
+              "irr": [],
+              "isr": [],
+              "eoi_exit_vectors": []
+            }
+          },
+          "stats": {
+            "gsi_injections": 1,
+            "msi_direct_deliveries": 0,
+            "ioapic_eoi_exits": 0,
+            "invalid_gsi_drops": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "num_vcpus": 1,
+        "split_mode": true
+      },
+      "operations": [
+        {
+          "op": "SET_GSI_ROUTING",
+          "routes": [
+            {
+              "gsi": 1,
+              "type": "MSI",
+              "dest_id": 0,
+              "vector": 35
+            },
+            {
+              "gsi": 2,
+              "type": "MSI",
+              "dest_id": 0,
+              "vector": 120
+            },
+            {
+              "gsi": 3,
+              "type": "MSI",
+              "dest_id": 0,
+              "vector": 80
+            }
+          ]
+        },
+        {
+          "op": "INJECT_GSI",
+          "gsi": 1
+        },
+        {
+          "op": "INJECT_GSI",
+          "gsi": 2
+        },
+        {
+          "op": "INJECT_GSI",
+          "gsi": 3
+        },
+        {
+          "op": "VCPU_DELIVER_INTERRUPT",
+          "vcpu_id": 0
+        },
+        {
+          "op": "VCPU_DELIVER_INTERRUPT",
+          "vcpu_id": 0
+        },
+        {
+          "op": "VCPU_DELIVER_INTERRUPT",
+          "vcpu_id": 0
+        },
+        {
+          "op": "VCPU_DELIVER_INTERRUPT",
+          "vcpu_id": 0
+        },
+        {
+          "op": "QUERY_IRQ_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ROUTING_TABLE_CONFIGURED",
+          "total_gsis": 3
+        },
+        {
+          "status": "GSI_INJECTED",
+          "gsi": 1,
+          "deliveries": [
+            {
+              "gsi": 1,
+              "target_vcpu": 0,
+              "vector": 35,
+              "type": "MSI",
+              "level_triggered": false
+            }
+          ]
+        },
+        {
+          "status": "GSI_INJECTED",
+          "gsi": 2,
+          "deliveries": [
+            {
+              "gsi": 2,
+              "target_vcpu": 0,
+              "vector": 120,
+              "type": "MSI",
+              "level_triggered": false
+            }
+          ]
+        },
+        {
+          "status": "GSI_INJECTED",
+          "gsi": 3,
+          "deliveries": [
+            {
+              "gsi": 3,
+              "target_vcpu": 0,
+              "vector": 80,
+              "type": "MSI",
+              "level_triggered": false
+            }
+          ]
+        },
+        {
+          "status": "INTERRUPT_SERVICED",
+          "vcpu_id": 0,
+          "vector": 120
+        },
+        {
+          "status": "INTERRUPT_SERVICED",
+          "vcpu_id": 0,
+          "vector": 80
+        },
+        {
+          "status": "INTERRUPT_SERVICED",
+          "vcpu_id": 0,
+          "vector": 35
+        },
+        {
+          "status": "NO_PENDING_INTERRUPT",
+          "vcpu_id": 0
+        },
+        {
+          "num_vcpus": 1,
+          "split_mode": true,
+          "configured_gsis": [
+            1,
+            2,
+            3
+          ],
+          "vcpu_states": {
+            "0": {
+              "irr": [],
+              "isr": [
+                35,
+                80,
+                120
+              ],
+              "eoi_exit_vectors": []
+            }
+          },
+          "stats": {
+            "gsi_injections": 3,
+            "msi_direct_deliveries": 3,
+            "ioapic_eoi_exits": 0,
+            "invalid_gsi_drops": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "num_vcpus": 2,
+        "split_mode": true
+      },
+      "operations": [
+        {
+          "op": "SET_GSI_ROUTING",
+          "routes": [
+            {
+              "gsi": 10,
+              "type": "MSI",
+              "dest_id": 0,
+              "vector": 40
+            }
+          ]
+        },
+        {
+          "op": "INJECT_GSI",
+          "gsi": 999
+        },
+        {
+          "op": "VCPU_DELIVER_INTERRUPT",
+          "vcpu_id": 99
+        },
+        {
+          "op": "VCPU_EOI",
+          "vcpu_id": 99,
+          "vector": 40
+        },
+        {
+          "op": "QUERY_IRQ_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ROUTING_TABLE_CONFIGURED",
+          "total_gsis": 1
+        },
+        {
+          "status": "EINVAL_UNROUTED_GSI",
+          "gsi": 999
+        },
+        {
+          "status": "ENOENT_VCPU_NOT_FOUND",
+          "vcpu_id": 99
+        },
+        {
+          "status": "ENOENT_VCPU_NOT_FOUND",
+          "vcpu_id": 99
+        },
+        {
+          "num_vcpus": 2,
+          "split_mode": true,
+          "configured_gsis": [
+            10
+          ],
+          "vcpu_states": {
+            "0": {
+              "irr": [],
+              "isr": [],
+              "eoi_exit_vectors": []
+            },
+            "1": {
+              "irr": [],
+              "isr": [],
+              "eoi_exit_vectors": []
+            }
+          },
+          "stats": {
+            "gsi_injections": 1,
+            "msi_direct_deliveries": 0,
+            "ioapic_eoi_exits": 0,
+            "invalid_gsi_drops": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "num_vcpus": 4,
+        "split_mode": true
+      },
+      "operations": [
+        {
+          "op": "SET_GSI_ROUTING",
+          "routes": [
+            {
+              "gsi": 50,
+              "type": "MSI",
+              "dest_id": 0,
+              "vector": 60
+            },
+            {
+              "gsi": 50,
+              "type": "MSI",
+              "dest_id": 1,
+              "vector": 61
+            }
+          ]
+        },
+        {
+          "op": "INJECT_GSI",
+          "gsi": 50
+        },
+        {
+          "op": "VCPU_DELIVER_INTERRUPT",
+          "vcpu_id": 0
+        },
+        {
+          "op": "VCPU_DELIVER_INTERRUPT",
+          "vcpu_id": 1
+        },
+        {
+          "op": "QUERY_IRQ_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ROUTING_TABLE_CONFIGURED",
+          "total_gsis": 1
+        },
+        {
+          "status": "GSI_INJECTED",
+          "gsi": 50,
+          "deliveries": [
+            {
+              "gsi": 50,
+              "target_vcpu": 0,
+              "vector": 60,
+              "type": "MSI",
+              "level_triggered": false
+            },
+            {
+              "gsi": 50,
+              "target_vcpu": 1,
+              "vector": 61,
+              "type": "MSI",
+              "level_triggered": false
+            }
+          ]
+        },
+        {
+          "status": "INTERRUPT_SERVICED",
+          "vcpu_id": 0,
+          "vector": 60
+        },
+        {
+          "status": "INTERRUPT_SERVICED",
+          "vcpu_id": 1,
+          "vector": 61
+        },
+        {
+          "num_vcpus": 4,
+          "split_mode": true,
+          "configured_gsis": [
+            50
+          ],
+          "vcpu_states": {
+            "0": {
+              "irr": [],
+              "isr": [
+                60
+              ],
+              "eoi_exit_vectors": []
+            },
+            "1": {
+              "irr": [],
+              "isr": [
+                61
+              ],
+              "eoi_exit_vectors": []
+            },
+            "2": {
+              "irr": [],
+              "isr": [],
+              "eoi_exit_vectors": []
+            },
+            "3": {
+              "irr": [],
+              "isr": [],
+              "eoi_exit_vectors": []
+            }
+          },
+          "stats": {
+            "gsi_injections": 1,
+            "msi_direct_deliveries": 2,
+            "ioapic_eoi_exits": 0,
+            "invalid_gsi_drops": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "num_vcpus": 4,
+        "split_mode": true
+      },
+      "operations": [
+        {
+          "op": "SET_GSI_ROUTING",
+          "routes": [
+            {
+              "gsi": 100,
+              "type": "MSI",
+              "dest_id": 0,
+              "vector": 50,
+              "level_triggered": false
+            },
+            {
+              "gsi": 101,
+              "type": "MSI",
+              "dest_id": 1,
+              "vector": 51,
+              "level_triggered": false
+            },
+            {
+              "gsi": 102,
+              "type": "IRQCHIP",
+              "dest_id": 2,
+              "vector": 60,
+              "level_triggered": true
+            },
+            {
+              "gsi": 103,
+              "type": "IRQCHIP",
+              "dest_id": 3,
+              "vector": 61,
+              "level_triggered": true
+            },
+            {
+              "gsi": 104,
+              "type": "MSI",
+              "dest_id": 255,
+              "vector": 90,
+              "level_triggered": false
+            }
+          ]
+        },
+        {
+          "op": "INJECT_GSI",
+          "gsi": 100
+        },
+        {
+          "op": "INJECT_GSI",
+          "gsi": 101
+        },
+        {
+          "op": "INJECT_GSI",
+          "gsi": 102,
+          "level": 1
+        },
+        {
+          "op": "INJECT_GSI",
+          "gsi": 102,
+          "level": 1
+        },
+        {
+          "op": "INJECT_GSI",
+          "gsi": 103,
+          "level": 1
+        },
+        {
+          "op": "INJECT_GSI",
+          "gsi": 104
+        },
+        {
+          "op": "INJECT_GSI",
+          "gsi": 777
+        },
+        {
+          "op": "VCPU_DELIVER_INTERRUPT",
+          "vcpu_id": 2
+        },
+        {
+          "op": "VCPU_EOI",
+          "vcpu_id": 2,
+          "vector": 60
+        },
+        {
+          "op": "INJECT_GSI",
+          "gsi": 102,
+          "level": 0
+        },
+        {
+          "op": "VCPU_DELIVER_INTERRUPT",
+          "vcpu_id": 0
+        },
+        {
+          "op": "VCPU_EOI",
+          "vcpu_id": 0,
+          "vector": 90
+        },
+        {
+          "op": "VCPU_DELIVER_INTERRUPT",
+          "vcpu_id": 0
+        },
+        {
+          "op": "VCPU_EOI",
+          "vcpu_id": 0,
+          "vector": 50
+        },
+        {
+          "op": "QUERY_IRQ_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "ROUTING_TABLE_CONFIGURED",
+          "total_gsis": 5
+        },
+        {
+          "status": "GSI_INJECTED",
+          "gsi": 100,
+          "deliveries": [
+            {
+              "gsi": 100,
+              "target_vcpu": 0,
+              "vector": 50,
+              "type": "MSI",
+              "level_triggered": false
+            }
+          ]
+        },
+        {
+          "status": "GSI_INJECTED",
+          "gsi": 101,
+          "deliveries": [
+            {
+              "gsi": 101,
+              "target_vcpu": 1,
+              "vector": 51,
+              "type": "MSI",
+              "level_triggered": false
+            }
+          ]
+        },
+        {
+          "status": "GSI_INJECTED",
+          "gsi": 102,
+          "deliveries": [
+            {
+              "gsi": 102,
+              "target_vcpu": 2,
+              "vector": 60,
+              "type": "IRQCHIP",
+              "level_triggered": true
+            }
+          ]
+        },
+        {
+          "status": "GSI_INJECTED",
+          "gsi": 102,
+          "deliveries": []
+        },
+        {
+          "status": "GSI_INJECTED",
+          "gsi": 103,
+          "deliveries": [
+            {
+              "gsi": 103,
+              "target_vcpu": 3,
+              "vector": 61,
+              "type": "IRQCHIP",
+              "level_triggered": true
+            }
+          ]
+        },
+        {
+          "status": "GSI_INJECTED",
+          "gsi": 104,
+          "deliveries": [
+            {
+              "gsi": 104,
+              "target_vcpu": 0,
+              "vector": 90,
+              "type": "MSI",
+              "level_triggered": false
+            },
+            {
+              "gsi": 104,
+              "target_vcpu": 1,
+              "vector": 90,
+              "type": "MSI",
+              "level_triggered": false
+            },
+            {
+              "gsi": 104,
+              "target_vcpu": 2,
+              "vector": 90,
+              "type": "MSI",
+              "level_triggered": false
+            },
+            {
+              "gsi": 104,
+              "target_vcpu": 3,
+              "vector": 90,
+              "type": "MSI",
+              "level_triggered": false
+            }
+          ]
+        },
+        {
+          "status": "EINVAL_UNROUTED_GSI",
+          "gsi": 777
+        },
+        {
+          "status": "INTERRUPT_SERVICED",
+          "vcpu_id": 2,
+          "vector": 90
+        },
+        {
+          "status": "EOI_PROCESSED",
+          "vcpu_id": 2,
+          "vector": 60,
+          "kvm_exit_ioapic_eoi": true
+        },
+        {
+          "status": "GSI_INJECTED",
+          "gsi": 102,
+          "deliveries": [
+            {
+              "gsi": 102,
+              "type": "IRQCHIP",
+              "action": "LINE_DEASSERTED",
+              "level": 0
+            }
+          ]
+        },
+        {
+          "status": "INTERRUPT_SERVICED",
+          "vcpu_id": 0,
+          "vector": 90
+        },
+        {
+          "status": "EOI_PROCESSED",
+          "vcpu_id": 0,
+          "vector": 90,
+          "kvm_exit_ioapic_eoi": false
+        },
+        {
+          "status": "INTERRUPT_SERVICED",
+          "vcpu_id": 0,
+          "vector": 50
+        },
+        {
+          "status": "EOI_PROCESSED",
+          "vcpu_id": 0,
+          "vector": 50,
+          "kvm_exit_ioapic_eoi": false
+        },
+        {
+          "num_vcpus": 4,
+          "split_mode": true,
+          "configured_gsis": [
+            100,
+            101,
+            102,
+            103,
+            104
+          ],
+          "vcpu_states": {
+            "0": {
+              "irr": [],
+              "isr": [],
+              "eoi_exit_vectors": []
+            },
+            "1": {
+              "irr": [
+                51,
+                90
+              ],
+              "isr": [],
+              "eoi_exit_vectors": []
+            },
+            "2": {
+              "irr": [
+                60
+              ],
+              "isr": [
+                90
+              ],
+              "eoi_exit_vectors": [
+                60
+              ]
+            },
+            "3": {
+              "irr": [
+                61,
+                90
+              ],
+              "isr": [],
+              "eoi_exit_vectors": [
+                61
+              ]
+            }
+          },
+          "stats": {
+            "gsi_injections": 8,
+            "msi_direct_deliveries": 6,
+            "ioapic_eoi_exits": 1,
+            "invalid_gsi_drops": 1
+          }
+        }
+      ]
+    }
+  }
+]
