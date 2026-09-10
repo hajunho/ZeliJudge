@@ -1,0 +1,1763 @@
+[
+  {
+    "testcase_id": 1,
+    "input": {
+      "config": {
+        "max_memory_pages": 16,
+        "thrashing_threshold": 0.5,
+        "default_slack_margin": 5
+      },
+      "trace": [
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P101",
+          "inode_id": 1,
+          "offset": 0
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P102",
+          "inode_id": 1,
+          "offset": 1
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P103",
+          "inode_id": 1,
+          "offset": 2
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P101"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P101"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P102"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P101"
+        },
+        {
+          "op": "EVALUATE_THRASHING"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P101",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 1
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P102",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 2
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P103",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 3
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P101",
+          "status": "INACTIVE_REFERENCED_MARKED",
+          "lru": "INACTIVE"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P101",
+          "status": "SECOND_CHANCE_PROMOTED_ACTIVE",
+          "lru": "ACTIVE",
+          "active_pages": 1,
+          "inactive_pages": 2
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P102",
+          "status": "INACTIVE_REFERENCED_MARKED",
+          "lru": "INACTIVE"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P101",
+          "status": "ACTIVE_REFERENCED_HIT",
+          "lru": "ACTIVE"
+        },
+        {
+          "op": "EVALUATE_THRASHING",
+          "status": "THRASHING_EVALUATED",
+          "thrashing_detected": false,
+          "refault_activation_ratio": 0.0,
+          "threshold": 0.5,
+          "recommendation": "STEADY_STATE_NO_ACTION"
+        }
+      ],
+      "summary": {
+        "total_allocs": 3,
+        "total_evictions": 0,
+        "workingset_refaults": 0,
+        "workingset_activations": 0,
+        "shadow_pruned_count": 0,
+        "active_pages": 1,
+        "inactive_pages": 2,
+        "eviction_counter": 0,
+        "thrashing_events": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 2,
+    "input": {
+      "config": {
+        "max_memory_pages": 16,
+        "thrashing_threshold": 0.4,
+        "default_slack_margin": 4
+      },
+      "trace": [
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P201",
+          "inode_id": 10,
+          "offset": 0
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P202",
+          "inode_id": 10,
+          "offset": 1
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P201"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P201"
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P203",
+          "inode_id": 10,
+          "offset": 2
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P203"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P203"
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P202"
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P201"
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P201_new",
+          "inode_id": 10,
+          "offset": 0
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P202_new",
+          "inode_id": 10,
+          "offset": 1
+        },
+        {
+          "op": "EVALUATE_THRASHING"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P201",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 1
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P202",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 2
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P201",
+          "status": "INACTIVE_REFERENCED_MARKED",
+          "lru": "INACTIVE"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P201",
+          "status": "SECOND_CHANCE_PROMOTED_ACTIVE",
+          "lru": "ACTIVE",
+          "active_pages": 1,
+          "inactive_pages": 1
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P203",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 1,
+          "inactive_pages": 2
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P203",
+          "status": "INACTIVE_REFERENCED_MARKED",
+          "lru": "INACTIVE"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P203",
+          "status": "SECOND_CHANCE_PROMOTED_ACTIVE",
+          "lru": "ACTIVE",
+          "active_pages": 2,
+          "inactive_pages": 1
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P202",
+          "status": "PAGE_EVICTED_SHADOW_STORED",
+          "eviction_timestamp": 1,
+          "origin_lru": "INACTIVE",
+          "active_pages": 2,
+          "inactive_pages": 0
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P201",
+          "status": "PAGE_EVICTED_SHADOW_STORED",
+          "eviction_timestamp": 2,
+          "origin_lru": "ACTIVE",
+          "active_pages": 1,
+          "inactive_pages": 0
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P201_new",
+          "status": "WORKINGSET_REFAULT_ACTIVATE",
+          "lru": "ACTIVE",
+          "refault_occurred": true,
+          "refault_distance": 0,
+          "active_pages": 2,
+          "inactive_pages": 0
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P202_new",
+          "status": "WORKINGSET_REFAULT_ACTIVATE",
+          "lru": "ACTIVE",
+          "refault_occurred": true,
+          "refault_distance": 1,
+          "active_pages": 3,
+          "inactive_pages": 0
+        },
+        {
+          "op": "EVALUATE_THRASHING",
+          "status": "THRASHING_EVALUATED",
+          "thrashing_detected": true,
+          "refault_activation_ratio": 1.0,
+          "threshold": 0.4,
+          "recommendation": "EXPAND_CGROUP_MEMORY"
+        }
+      ],
+      "summary": {
+        "total_allocs": 5,
+        "total_evictions": 2,
+        "workingset_refaults": 2,
+        "workingset_activations": 2,
+        "shadow_pruned_count": 0,
+        "active_pages": 3,
+        "inactive_pages": 0,
+        "eviction_counter": 2,
+        "thrashing_events": 1
+      }
+    }
+  },
+  {
+    "testcase_id": 3,
+    "input": {
+      "config": {
+        "max_memory_pages": 8,
+        "thrashing_threshold": 0.5,
+        "default_slack_margin": 6
+      },
+      "trace": [
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P301",
+          "inode_id": 20,
+          "offset": 0
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P301"
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P302",
+          "inode_id": 20,
+          "offset": 1
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P302"
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P303",
+          "inode_id": 20,
+          "offset": 2
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P303"
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P304",
+          "inode_id": 20,
+          "offset": 3
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P304"
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P301_cold",
+          "inode_id": 20,
+          "offset": 0
+        },
+        {
+          "op": "EVALUATE_THRASHING"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P301",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 1
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P301",
+          "status": "PAGE_EVICTED_SHADOW_STORED",
+          "eviction_timestamp": 1,
+          "origin_lru": "INACTIVE",
+          "active_pages": 0,
+          "inactive_pages": 0
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P302",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 1
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P302",
+          "status": "PAGE_EVICTED_SHADOW_STORED",
+          "eviction_timestamp": 2,
+          "origin_lru": "INACTIVE",
+          "active_pages": 0,
+          "inactive_pages": 0
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P303",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 1
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P303",
+          "status": "PAGE_EVICTED_SHADOW_STORED",
+          "eviction_timestamp": 3,
+          "origin_lru": "INACTIVE",
+          "active_pages": 0,
+          "inactive_pages": 0
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P304",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 1
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P304",
+          "status": "PAGE_EVICTED_SHADOW_STORED",
+          "eviction_timestamp": 4,
+          "origin_lru": "INACTIVE",
+          "active_pages": 0,
+          "inactive_pages": 0
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P301_cold",
+          "status": "INACTIVE_REFAULT_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": true,
+          "refault_distance": 3,
+          "active_pages": 0,
+          "inactive_pages": 1
+        },
+        {
+          "op": "EVALUATE_THRASHING",
+          "status": "THRASHING_EVALUATED",
+          "thrashing_detected": false,
+          "refault_activation_ratio": 0.0,
+          "threshold": 0.5,
+          "recommendation": "STEADY_STATE_NO_ACTION"
+        }
+      ],
+      "summary": {
+        "total_allocs": 5,
+        "total_evictions": 4,
+        "workingset_refaults": 1,
+        "workingset_activations": 0,
+        "shadow_pruned_count": 0,
+        "active_pages": 0,
+        "inactive_pages": 1,
+        "eviction_counter": 4,
+        "thrashing_events": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 4,
+    "input": {
+      "config": {
+        "max_memory_pages": 16,
+        "thrashing_threshold": 0.4,
+        "default_slack_margin": 5
+      },
+      "trace": [
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P401",
+          "inode_id": 30,
+          "offset": 0
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P401"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P401"
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P402",
+          "inode_id": 30,
+          "offset": 1
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P402"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P402"
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P403",
+          "inode_id": 30,
+          "offset": 2
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P403"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P403"
+        },
+        {
+          "op": "BALANCE_LRU",
+          "target_inactive_ratio": 0.5
+        },
+        {
+          "op": "BALANCE_LRU",
+          "target_inactive_ratio": 0.5
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P401",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 1
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P401",
+          "status": "INACTIVE_REFERENCED_MARKED",
+          "lru": "INACTIVE"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P401",
+          "status": "SECOND_CHANCE_PROMOTED_ACTIVE",
+          "lru": "ACTIVE",
+          "active_pages": 1,
+          "inactive_pages": 0
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P402",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 1,
+          "inactive_pages": 1
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P402",
+          "status": "INACTIVE_REFERENCED_MARKED",
+          "lru": "INACTIVE"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P402",
+          "status": "SECOND_CHANCE_PROMOTED_ACTIVE",
+          "lru": "ACTIVE",
+          "active_pages": 2,
+          "inactive_pages": 0
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P403",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 2,
+          "inactive_pages": 1
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P403",
+          "status": "INACTIVE_REFERENCED_MARKED",
+          "lru": "INACTIVE"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P403",
+          "status": "SECOND_CHANCE_PROMOTED_ACTIVE",
+          "lru": "ACTIVE",
+          "active_pages": 3,
+          "inactive_pages": 0
+        },
+        {
+          "op": "BALANCE_LRU",
+          "status": "LRU_BALANCED_DEMOTION",
+          "demoted_count": 1,
+          "demoted_pages": [
+            "P401"
+          ],
+          "active_pages": 2,
+          "inactive_pages": 1
+        },
+        {
+          "op": "BALANCE_LRU",
+          "status": "LRU_ALREADY_BALANCED",
+          "demoted_count": 0,
+          "demoted_pages": [],
+          "active_pages": 2,
+          "inactive_pages": 1
+        }
+      ],
+      "summary": {
+        "total_allocs": 3,
+        "total_evictions": 0,
+        "workingset_refaults": 0,
+        "workingset_activations": 0,
+        "shadow_pruned_count": 0,
+        "active_pages": 2,
+        "inactive_pages": 1,
+        "eviction_counter": 0,
+        "thrashing_events": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 5,
+    "input": {
+      "config": {
+        "max_memory_pages": 16,
+        "thrashing_threshold": 0.5,
+        "default_slack_margin": 2
+      },
+      "trace": [
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P501",
+          "inode_id": 40,
+          "offset": 0
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P502",
+          "inode_id": 40,
+          "offset": 1
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P501"
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P502"
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P503",
+          "inode_id": 40,
+          "offset": 2
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P503"
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P504",
+          "inode_id": 40,
+          "offset": 3
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P504"
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P505",
+          "inode_id": 40,
+          "offset": 4
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P505"
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P506",
+          "inode_id": 40,
+          "offset": 5
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P506"
+        },
+        {
+          "op": "SHADOW_PRUNE",
+          "max_age_margin": 2
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P501",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 1
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P502",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 2
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P501",
+          "status": "PAGE_EVICTED_SHADOW_STORED",
+          "eviction_timestamp": 1,
+          "origin_lru": "INACTIVE",
+          "active_pages": 0,
+          "inactive_pages": 1
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P502",
+          "status": "PAGE_EVICTED_SHADOW_STORED",
+          "eviction_timestamp": 2,
+          "origin_lru": "INACTIVE",
+          "active_pages": 0,
+          "inactive_pages": 0
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P503",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 1
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P503",
+          "status": "PAGE_EVICTED_SHADOW_STORED",
+          "eviction_timestamp": 3,
+          "origin_lru": "INACTIVE",
+          "active_pages": 0,
+          "inactive_pages": 0
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P504",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 1
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P504",
+          "status": "PAGE_EVICTED_SHADOW_STORED",
+          "eviction_timestamp": 4,
+          "origin_lru": "INACTIVE",
+          "active_pages": 0,
+          "inactive_pages": 0
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P505",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 1
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P505",
+          "status": "PAGE_EVICTED_SHADOW_STORED",
+          "eviction_timestamp": 5,
+          "origin_lru": "INACTIVE",
+          "active_pages": 0,
+          "inactive_pages": 0
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P506",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 1
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P506",
+          "status": "PAGE_EVICTED_SHADOW_STORED",
+          "eviction_timestamp": 6,
+          "origin_lru": "INACTIVE",
+          "active_pages": 0,
+          "inactive_pages": 0
+        },
+        {
+          "op": "SHADOW_PRUNE",
+          "status": "SHADOW_ENTRIES_PRUNED",
+          "pruned_count": 3,
+          "remaining_shadows": 3
+        }
+      ],
+      "summary": {
+        "total_allocs": 6,
+        "total_evictions": 6,
+        "workingset_refaults": 0,
+        "workingset_activations": 0,
+        "shadow_pruned_count": 3,
+        "active_pages": 0,
+        "inactive_pages": 0,
+        "eviction_counter": 6,
+        "thrashing_events": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 6,
+    "input": {
+      "config": {
+        "max_memory_pages": 16,
+        "thrashing_threshold": 0.35,
+        "default_slack_margin": 5
+      },
+      "trace": [
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "T601",
+          "inode_id": 50,
+          "offset": 0
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "T601"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "T601"
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "T602",
+          "inode_id": 50,
+          "offset": 1
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "T602"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "T602"
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "T601"
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "T602"
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "T601_r",
+          "inode_id": 50,
+          "offset": 0
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "T602_r",
+          "inode_id": 50,
+          "offset": 1
+        },
+        {
+          "op": "EVALUATE_THRASHING"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "T601",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 1
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "T601",
+          "status": "INACTIVE_REFERENCED_MARKED",
+          "lru": "INACTIVE"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "T601",
+          "status": "SECOND_CHANCE_PROMOTED_ACTIVE",
+          "lru": "ACTIVE",
+          "active_pages": 1,
+          "inactive_pages": 0
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "T602",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 1,
+          "inactive_pages": 1
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "T602",
+          "status": "INACTIVE_REFERENCED_MARKED",
+          "lru": "INACTIVE"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "T602",
+          "status": "SECOND_CHANCE_PROMOTED_ACTIVE",
+          "lru": "ACTIVE",
+          "active_pages": 2,
+          "inactive_pages": 0
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "T601",
+          "status": "PAGE_EVICTED_SHADOW_STORED",
+          "eviction_timestamp": 1,
+          "origin_lru": "ACTIVE",
+          "active_pages": 1,
+          "inactive_pages": 0
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "T602",
+          "status": "PAGE_EVICTED_SHADOW_STORED",
+          "eviction_timestamp": 2,
+          "origin_lru": "ACTIVE",
+          "active_pages": 0,
+          "inactive_pages": 0
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "T601_r",
+          "status": "INACTIVE_REFAULT_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": true,
+          "refault_distance": 1,
+          "active_pages": 0,
+          "inactive_pages": 1
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "T602_r",
+          "status": "WORKINGSET_REFAULT_ACTIVATE",
+          "lru": "ACTIVE",
+          "refault_occurred": true,
+          "refault_distance": 0,
+          "active_pages": 1,
+          "inactive_pages": 1
+        },
+        {
+          "op": "EVALUATE_THRASHING",
+          "status": "THRASHING_EVALUATED",
+          "thrashing_detected": true,
+          "refault_activation_ratio": 0.5,
+          "threshold": 0.35,
+          "recommendation": "EXPAND_CGROUP_MEMORY"
+        }
+      ],
+      "summary": {
+        "total_allocs": 4,
+        "total_evictions": 2,
+        "workingset_refaults": 2,
+        "workingset_activations": 1,
+        "shadow_pruned_count": 0,
+        "active_pages": 1,
+        "inactive_pages": 1,
+        "eviction_counter": 2,
+        "thrashing_events": 1
+      }
+    }
+  },
+  {
+    "testcase_id": 7,
+    "input": {
+      "config": {
+        "max_memory_pages": 4,
+        "thrashing_threshold": 0.5,
+        "default_slack_margin": 3
+      },
+      "trace": [
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "A1",
+          "inode_id": 70,
+          "offset": 0
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "A2",
+          "inode_id": 70,
+          "offset": 1
+        },
+        {
+          "op": "EVICT_PAGE"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "GHOST"
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "GHOST"
+        },
+        {
+          "op": "EVICT_PAGE"
+        },
+        {
+          "op": "EVICT_PAGE"
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "A1_re",
+          "inode_id": 70,
+          "offset": 0
+        },
+        {
+          "op": "SHADOW_PRUNE",
+          "max_age_margin": 10
+        },
+        {
+          "op": "EVALUATE_THRASHING"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "A1",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 1
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "A2",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 2
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "A1",
+          "status": "PAGE_EVICTED_SHADOW_STORED",
+          "eviction_timestamp": 1,
+          "origin_lru": "INACTIVE",
+          "active_pages": 0,
+          "inactive_pages": 1
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "GHOST",
+          "status": "PAGE_NOT_FOUND"
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "GHOST",
+          "status": "PAGE_NOT_FOUND"
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "A2",
+          "status": "PAGE_EVICTED_SHADOW_STORED",
+          "eviction_timestamp": 2,
+          "origin_lru": "INACTIVE",
+          "active_pages": 0,
+          "inactive_pages": 0
+        },
+        {
+          "op": "EVICT_PAGE",
+          "status": "NO_PAGES_TO_EVICT"
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "A1_re",
+          "status": "INACTIVE_REFAULT_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": true,
+          "refault_distance": 1,
+          "active_pages": 0,
+          "inactive_pages": 1
+        },
+        {
+          "op": "SHADOW_PRUNE",
+          "status": "SHADOW_ENTRIES_PRUNED",
+          "pruned_count": 0,
+          "remaining_shadows": 1
+        },
+        {
+          "op": "EVALUATE_THRASHING",
+          "status": "THRASHING_EVALUATED",
+          "thrashing_detected": false,
+          "refault_activation_ratio": 0.0,
+          "threshold": 0.5,
+          "recommendation": "STEADY_STATE_NO_ACTION"
+        }
+      ],
+      "summary": {
+        "total_allocs": 3,
+        "total_evictions": 2,
+        "workingset_refaults": 1,
+        "workingset_activations": 0,
+        "shadow_pruned_count": 0,
+        "active_pages": 0,
+        "inactive_pages": 1,
+        "eviction_counter": 2,
+        "thrashing_events": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 8,
+    "input": {
+      "config": {
+        "max_memory_pages": 32,
+        "thrashing_threshold": 0.45,
+        "default_slack_margin": 8
+      },
+      "trace": [
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN1_0",
+          "inode_id": 100,
+          "offset": 0,
+          "memcg_id": 1
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN1_1",
+          "inode_id": 100,
+          "offset": 1,
+          "memcg_id": 1
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN1_2",
+          "inode_id": 100,
+          "offset": 2,
+          "memcg_id": 1
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN1_3",
+          "inode_id": 100,
+          "offset": 3,
+          "memcg_id": 1
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN1_4",
+          "inode_id": 100,
+          "offset": 4,
+          "memcg_id": 1
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN1_5",
+          "inode_id": 100,
+          "offset": 5,
+          "memcg_id": 1
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN1_6",
+          "inode_id": 100,
+          "offset": 6,
+          "memcg_id": 1
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN1_7",
+          "inode_id": 100,
+          "offset": 7,
+          "memcg_id": 1
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN1_8",
+          "inode_id": 100,
+          "offset": 8,
+          "memcg_id": 1
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN1_9",
+          "inode_id": 100,
+          "offset": 9,
+          "memcg_id": 1
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN2_0",
+          "inode_id": 200,
+          "offset": 0,
+          "memcg_id": 1
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN2_1",
+          "inode_id": 200,
+          "offset": 1,
+          "memcg_id": 1
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN2_2",
+          "inode_id": 200,
+          "offset": 2,
+          "memcg_id": 1
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN2_3",
+          "inode_id": 200,
+          "offset": 3,
+          "memcg_id": 1
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN2_4",
+          "inode_id": 200,
+          "offset": 4,
+          "memcg_id": 1
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P_IN1_0"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P_IN1_0"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P_IN1_1"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P_IN1_1"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P_IN1_2"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P_IN1_2"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P_IN1_3"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P_IN1_3"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P_IN1_4"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P_IN1_4"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P_IN1_5"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P_IN1_6"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P_IN1_7"
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P_IN1_8"
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P_IN1_9"
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P_IN2_0"
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P_IN2_1"
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P_IN2_2"
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P_IN1_0"
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P_IN1_1"
+        },
+        {
+          "op": "BALANCE_LRU",
+          "target_inactive_ratio": 0.8
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN1_0_refault",
+          "inode_id": 100,
+          "offset": 0,
+          "memcg_id": 1
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN2_0_refault",
+          "inode_id": 200,
+          "offset": 0,
+          "memcg_id": 1
+        },
+        {
+          "op": "SHADOW_PRUNE",
+          "max_age_margin": 6
+        },
+        {
+          "op": "EVALUATE_THRASHING"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN1_0",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 1
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN1_1",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 2
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN1_2",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 3
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN1_3",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 4
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN1_4",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 5
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN1_5",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 6
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN1_6",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 7
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN1_7",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 8
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN1_8",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 9
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN1_9",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 10
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN2_0",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 11
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN2_1",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 12
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN2_2",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 13
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN2_3",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 14
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN2_4",
+          "status": "FRESH_PAGE_INSERT",
+          "lru": "INACTIVE",
+          "refault_occurred": false,
+          "refault_distance": null,
+          "active_pages": 0,
+          "inactive_pages": 15
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P_IN1_0",
+          "status": "INACTIVE_REFERENCED_MARKED",
+          "lru": "INACTIVE"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P_IN1_0",
+          "status": "SECOND_CHANCE_PROMOTED_ACTIVE",
+          "lru": "ACTIVE",
+          "active_pages": 1,
+          "inactive_pages": 14
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P_IN1_1",
+          "status": "INACTIVE_REFERENCED_MARKED",
+          "lru": "INACTIVE"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P_IN1_1",
+          "status": "SECOND_CHANCE_PROMOTED_ACTIVE",
+          "lru": "ACTIVE",
+          "active_pages": 2,
+          "inactive_pages": 13
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P_IN1_2",
+          "status": "INACTIVE_REFERENCED_MARKED",
+          "lru": "INACTIVE"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P_IN1_2",
+          "status": "SECOND_CHANCE_PROMOTED_ACTIVE",
+          "lru": "ACTIVE",
+          "active_pages": 3,
+          "inactive_pages": 12
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P_IN1_3",
+          "status": "INACTIVE_REFERENCED_MARKED",
+          "lru": "INACTIVE"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P_IN1_3",
+          "status": "SECOND_CHANCE_PROMOTED_ACTIVE",
+          "lru": "ACTIVE",
+          "active_pages": 4,
+          "inactive_pages": 11
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P_IN1_4",
+          "status": "INACTIVE_REFERENCED_MARKED",
+          "lru": "INACTIVE"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P_IN1_4",
+          "status": "SECOND_CHANCE_PROMOTED_ACTIVE",
+          "lru": "ACTIVE",
+          "active_pages": 5,
+          "inactive_pages": 10
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P_IN1_5",
+          "status": "INACTIVE_REFERENCED_MARKED",
+          "lru": "INACTIVE"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P_IN1_6",
+          "status": "INACTIVE_REFERENCED_MARKED",
+          "lru": "INACTIVE"
+        },
+        {
+          "op": "ACCESS_PAGE",
+          "page_id": "P_IN1_7",
+          "status": "INACTIVE_REFERENCED_MARKED",
+          "lru": "INACTIVE"
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P_IN1_8",
+          "status": "PAGE_EVICTED_SHADOW_STORED",
+          "eviction_timestamp": 1,
+          "origin_lru": "INACTIVE",
+          "active_pages": 5,
+          "inactive_pages": 9
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P_IN1_9",
+          "status": "PAGE_EVICTED_SHADOW_STORED",
+          "eviction_timestamp": 2,
+          "origin_lru": "INACTIVE",
+          "active_pages": 5,
+          "inactive_pages": 8
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P_IN2_0",
+          "status": "PAGE_EVICTED_SHADOW_STORED",
+          "eviction_timestamp": 3,
+          "origin_lru": "INACTIVE",
+          "active_pages": 5,
+          "inactive_pages": 7
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P_IN2_1",
+          "status": "PAGE_EVICTED_SHADOW_STORED",
+          "eviction_timestamp": 4,
+          "origin_lru": "INACTIVE",
+          "active_pages": 5,
+          "inactive_pages": 6
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P_IN2_2",
+          "status": "PAGE_EVICTED_SHADOW_STORED",
+          "eviction_timestamp": 5,
+          "origin_lru": "INACTIVE",
+          "active_pages": 5,
+          "inactive_pages": 5
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P_IN1_0",
+          "status": "PAGE_EVICTED_SHADOW_STORED",
+          "eviction_timestamp": 6,
+          "origin_lru": "ACTIVE",
+          "active_pages": 4,
+          "inactive_pages": 5
+        },
+        {
+          "op": "EVICT_PAGE",
+          "page_id": "P_IN1_1",
+          "status": "PAGE_EVICTED_SHADOW_STORED",
+          "eviction_timestamp": 7,
+          "origin_lru": "ACTIVE",
+          "active_pages": 3,
+          "inactive_pages": 5
+        },
+        {
+          "op": "BALANCE_LRU",
+          "status": "LRU_ALREADY_BALANCED",
+          "demoted_count": 0,
+          "demoted_pages": [],
+          "active_pages": 3,
+          "inactive_pages": 5
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN1_0_refault",
+          "status": "WORKINGSET_REFAULT_ACTIVATE",
+          "lru": "ACTIVE",
+          "refault_occurred": true,
+          "refault_distance": 1,
+          "active_pages": 4,
+          "inactive_pages": 5
+        },
+        {
+          "op": "ALLOC_PAGE",
+          "page_id": "P_IN2_0_refault",
+          "status": "WORKINGSET_REFAULT_ACTIVATE",
+          "lru": "ACTIVE",
+          "refault_occurred": true,
+          "refault_distance": 4,
+          "active_pages": 5,
+          "inactive_pages": 5
+        },
+        {
+          "op": "SHADOW_PRUNE",
+          "status": "SHADOW_ENTRIES_PRUNED",
+          "pruned_count": 0,
+          "remaining_shadows": 5
+        },
+        {
+          "op": "EVALUATE_THRASHING",
+          "status": "THRASHING_EVALUATED",
+          "thrashing_detected": false,
+          "refault_activation_ratio": 0.2857,
+          "threshold": 0.45,
+          "recommendation": "STEADY_STATE_NO_ACTION"
+        }
+      ],
+      "summary": {
+        "total_allocs": 17,
+        "total_evictions": 7,
+        "workingset_refaults": 2,
+        "workingset_activations": 2,
+        "shadow_pruned_count": 0,
+        "active_pages": 5,
+        "inactive_pages": 5,
+        "eviction_counter": 7,
+        "thrashing_events": 0
+      }
+    }
+  }
+]
