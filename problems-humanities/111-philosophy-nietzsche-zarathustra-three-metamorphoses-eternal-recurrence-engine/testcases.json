@@ -1,0 +1,42 @@
+[
+  {
+    "name": "낙타의 짐과 사막의 인내 (Burden of the Camel in the Desert)",
+    "input": "{\"agent_id\":\"Patient_Camel\",\"initial_spirit\":\"CAMEL\",\"actions\":[{\"type\":\"BEAR_BURDEN\",\"params\":{\"duty_weight\":20.0,\"encounter_dragon\":false}},{\"type\":\"BEAR_BURDEN\",\"params\":{\"duty_weight\":20.0,\"encounter_dragon\":false}}]}",
+    "output": "{\"agent_id\":\"Patient_Camel\",\"metrics\":{\"current_spirit\":\"CAMEL\",\"spirit_history\":[\"CAMEL\"],\"endurance_score\":40.0,\"lion_freedom_score\":0.0,\"creation_score\":0.0,\"will_to_power_score\":0.0,\"amor_fati_score\":0.0,\"comfort_seeking_accum\":0.0,\"eternal_recurrence_passed\":false,\"existential_authenticity_score\":20.0},\"verdict\":\"BURDENED_CAMEL\",\"action_log\":[{\"type\":\"BEAR_BURDEN\",\"spirit\":\"CAMEL\",\"status\":\"BURDEN_BORNE\",\"endurance_score\":20.0},{\"type\":\"BEAR_BURDEN\",\"spirit\":\"CAMEL\",\"status\":\"BURDEN_BORNE\",\"endurance_score\":40.0}]}"
+  },
+  {
+    "name": "사자의 포효와 거룩한 부정 (The Lion's Roar & Sacred No against the Dragon)",
+    "input": "{\"agent_id\":\"Rebellious_Lion\",\"initial_spirit\":\"CAMEL\",\"actions\":[{\"type\":\"BEAR_BURDEN\",\"params\":{\"duty_weight\":55.0,\"encounter_dragon\":true}},{\"type\":\"ROAR_SACRED_NO\",\"params\":{\"defiance_intensity\":25.0,\"creates_open_space\":false}}]}",
+    "output": "{\"agent_id\":\"Rebellious_Lion\",\"metrics\":{\"current_spirit\":\"LION\",\"spirit_history\":[\"CAMEL\",\"LION\"],\"endurance_score\":55.0,\"lion_freedom_score\":25.0,\"creation_score\":0.0,\"will_to_power_score\":0.0,\"amor_fati_score\":0.0,\"comfort_seeking_accum\":0.0,\"eternal_recurrence_passed\":false,\"existential_authenticity_score\":50.0},\"verdict\":\"REBELLIOUS_LION\",\"action_log\":[{\"type\":\"BEAR_BURDEN\",\"spirit\":\"LION\",\"status\":\"TRANSITION_CAMEL_TO_LION\",\"endurance_score\":55.0},{\"type\":\"ROAR_SACRED_NO\",\"spirit\":\"LION\",\"status\":\"DRAGON_CONFRONTED_SACRED_NO\",\"lion_freedom_score\":25.0}]}"
+  },
+  {
+    "name": "아이의 놀이와 가치 창조의 수레바퀴 (The Child's Play & Sacred Yes of Creation)",
+    "input": "{\"agent_id\":\"Innocent_Child\",\"initial_spirit\":\"LION\",\"actions\":[{\"type\":\"ROAR_SACRED_NO\",\"params\":{\"defiance_intensity\":45.0,\"creates_open_space\":true}},{\"type\":\"SACRED_YES_PLAY\",\"params\":{\"creativity_value\":35.0,\"sacred_yes\":true}}]}",
+    "output": "{\"agent_id\":\"Innocent_Child\",\"metrics\":{\"current_spirit\":\"CHILD\",\"spirit_history\":[\"LION\",\"CHILD\"],\"endurance_score\":0.0,\"lion_freedom_score\":45.0,\"creation_score\":35.0,\"will_to_power_score\":0.0,\"amor_fati_score\":0.0,\"comfort_seeking_accum\":0.0,\"eternal_recurrence_passed\":false,\"existential_authenticity_score\":87.0},\"verdict\":\"CREATIVE_CHILD\",\"action_log\":[{\"type\":\"ROAR_SACRED_NO\",\"spirit\":\"CHILD\",\"status\":\"TRANSITION_LION_TO_CHILD\",\"lion_freedom_score\":45.0},{\"type\":\"SACRED_YES_PLAY\",\"spirit\":\"CHILD\",\"status\":\"NEW_VALUES_CREATED\",\"creation_score\":35.0}]}"
+  },
+  {
+    "name": "마지막 인간의 안일과 수동적 허무주의 (The Last Man's Petty Comfort & Passive Nihilism)",
+    "input": "{\"agent_id\":\"The_Last_Man\",\"initial_spirit\":\"CAMEL\",\"actions\":[{\"type\":\"SEEK_PETTY_COMFORT\",\"params\":{\"comfort_level\":0.8}},{\"type\":\"SEEK_PETTY_COMFORT\",\"params\":{\"comfort_level\":0.9}}]}",
+    "output": "{\"agent_id\":\"The_Last_Man\",\"metrics\":{\"current_spirit\":\"CAMEL\",\"spirit_history\":[\"CAMEL\"],\"endurance_score\":0.0,\"lion_freedom_score\":0.0,\"creation_score\":0.0,\"will_to_power_score\":0.0,\"amor_fati_score\":0.0,\"comfort_seeking_accum\":1.7,\"eternal_recurrence_passed\":false,\"existential_authenticity_score\":0.0},\"verdict\":\"LAST_MAN\",\"action_log\":[{\"type\":\"SEEK_PETTY_COMFORT\",\"spirit\":\"CAMEL\",\"status\":\"PETTY_HAPPINESS_INDULGED\",\"comfort_seeking_accum\":0.8},{\"type\":\"SEEK_PETTY_COMFORT\",\"spirit\":\"CAMEL\",\"status\":\"PETTY_HAPPINESS_INDULGED\",\"comfort_seeking_accum\":1.7}]}"
+  },
+  {
+    "name": "악마의 물음과 영원회귀 시험: 회한과 붕괴 (The Demon's Challenge & Crushed by the Greatest Weight)",
+    "input": "{\"agent_id\":\"Regretful_Soul\",\"initial_spirit\":\"LION\",\"actions\":[{\"type\":\"TEST_ETERNAL_RECURRENCE\",\"params\":{\"embrace_infinite_loop\":false,\"regret_level\":0.7}}]}",
+    "output": "{\"agent_id\":\"Regretful_Soul\",\"metrics\":{\"current_spirit\":\"LION\",\"spirit_history\":[\"LION\"],\"endurance_score\":0.0,\"lion_freedom_score\":0.0,\"creation_score\":0.0,\"will_to_power_score\":0.0,\"amor_fati_score\":15.0,\"comfort_seeking_accum\":0.0,\"eternal_recurrence_passed\":false,\"existential_authenticity_score\":53.0},\"verdict\":\"REBELLIOUS_LION\",\"action_log\":[{\"type\":\"TEST_ETERNAL_RECURRENCE\",\"spirit\":\"LION\",\"status\":\"CRUSHED_BY_GREATEST_WEIGHT\",\"amor_fati_score\":15.0}]}"
+  },
+  {
+    "name": "아모르 파티(운명애)와 영원회귀 긍정 (Amor Fati & Affirmation of Eternal Recurrence)",
+    "input": "{\"agent_id\":\"Amor_Fati_Hero\",\"initial_spirit\":\"CHILD\",\"actions\":[{\"type\":\"TEST_ETERNAL_RECURRENCE\",\"params\":{\"embrace_infinite_loop\":true,\"regret_level\":0.05}}]}",
+    "output": "{\"agent_id\":\"Amor_Fati_Hero\",\"metrics\":{\"current_spirit\":\"CHILD\",\"spirit_history\":[\"CHILD\"],\"endurance_score\":0.0,\"lion_freedom_score\":0.0,\"creation_score\":0.0,\"will_to_power_score\":0.0,\"amor_fati_score\":95.0,\"comfort_seeking_accum\":0.0,\"eternal_recurrence_passed\":true,\"existential_authenticity_score\":99.0},\"verdict\":\"CREATIVE_CHILD\",\"action_log\":[{\"type\":\"TEST_ETERNAL_RECURRENCE\",\"spirit\":\"CHILD\",\"status\":\"ETERNAL_RECURRENCE_AFFIRMED_AMOR_FATI\",\"amor_fati_score\":95.0}]}"
+  },
+  {
+    "name": "권력의지와 자기극복의 역능 (Will to Power & Self-Overcoming)",
+    "input": "{\"agent_id\":\"Will_To_Power_Aspirant\",\"initial_spirit\":\"LION\",\"actions\":[{\"type\":\"EXERCISE_WILL_TO_POWER\",\"params\":{\"self_overcoming_effort\":30.0}},{\"type\":\"EXERCISE_WILL_TO_POWER\",\"params\":{\"self_overcoming_effort\":25.0}}]}",
+    "output": "{\"agent_id\":\"Will_To_Power_Aspirant\",\"metrics\":{\"current_spirit\":\"LION\",\"spirit_history\":[\"LION\"],\"endurance_score\":0.0,\"lion_freedom_score\":0.0,\"creation_score\":0.0,\"will_to_power_score\":55.0,\"amor_fati_score\":0.0,\"comfort_seeking_accum\":0.0,\"eternal_recurrence_passed\":false,\"existential_authenticity_score\":61.0},\"verdict\":\"REBELLIOUS_LION\",\"action_log\":[{\"type\":\"EXERCISE_WILL_TO_POWER\",\"spirit\":\"LION\",\"status\":\"SELF_OVERCOMING_ACHIEVED\",\"will_to_power_score\":30.0},{\"type\":\"EXERCISE_WILL_TO_POWER\",\"spirit\":\"LION\",\"status\":\"SELF_OVERCOMING_ACHIEVED\",\"will_to_power_score\":55.0}]}"
+  },
+  {
+    "name": "차라투스트라의 전 생애주기: 3단 변용과 영원회귀 통과를 거친 초인 도약 (Full Zarathustra Metamorphoses to Ubermensch)",
+    "input": "{\"agent_id\":\"Friedrich_Nietzsche_Seeker\",\"initial_spirit\":\"CAMEL\",\"actions\":[{\"type\":\"BEAR_BURDEN\",\"params\":{\"duty_weight\":60.0,\"encounter_dragon\":true}},{\"type\":\"ROAR_SACRED_NO\",\"params\":{\"defiance_intensity\":50.0,\"creates_open_space\":true}},{\"type\":\"SACRED_YES_PLAY\",\"params\":{\"creativity_value\":40.0,\"sacred_yes\":true}},{\"type\":\"EXERCISE_WILL_TO_POWER\",\"params\":{\"self_overcoming_effort\":45.0}},{\"type\":\"TEST_ETERNAL_RECURRENCE\",\"params\":{\"embrace_infinite_loop\":true,\"regret_level\":0.0}}]}",
+    "output": "{\"agent_id\":\"Friedrich_Nietzsche_Seeker\",\"metrics\":{\"current_spirit\":\"CHILD\",\"spirit_history\":[\"CAMEL\",\"LION\",\"CHILD\"],\"endurance_score\":60.0,\"lion_freedom_score\":50.0,\"creation_score\":40.0,\"will_to_power_score\":45.0,\"amor_fati_score\":100.0,\"comfort_seeking_accum\":0.0,\"eternal_recurrence_passed\":true,\"existential_authenticity_score\":100.0},\"verdict\":\"UBERMENSCH\",\"action_log\":[{\"type\":\"BEAR_BURDEN\",\"spirit\":\"LION\",\"status\":\"TRANSITION_CAMEL_TO_LION\",\"endurance_score\":60.0},{\"type\":\"ROAR_SACRED_NO\",\"spirit\":\"CHILD\",\"status\":\"TRANSITION_LION_TO_CHILD\",\"lion_freedom_score\":50.0},{\"type\":\"SACRED_YES_PLAY\",\"spirit\":\"CHILD\",\"status\":\"NEW_VALUES_CREATED\",\"creation_score\":40.0},{\"type\":\"EXERCISE_WILL_TO_POWER\",\"spirit\":\"CHILD\",\"status\":\"SELF_OVERCOMING_ACHIEVED\",\"will_to_power_score\":45.0},{\"type\":\"TEST_ETERNAL_RECURRENCE\",\"spirit\":\"CHILD\",\"status\":\"ETERNAL_RECURRENCE_AFFIRMED_AMOR_FATI\",\"amor_fati_score\":100.0}]}"
+  }
+]
