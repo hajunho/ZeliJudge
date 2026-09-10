@@ -1,0 +1,1395 @@
+[
+  {
+    "testcase_id": 1,
+    "input": {
+      "config": {
+        "name": "e1000_rx_desc",
+        "block_size": 32,
+        "align": 32,
+        "page_size": 128,
+        "base_dma_start": 268435456
+      },
+      "trace": [
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "RX0"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "RX1"
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "RX0"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "RX2"
+        },
+        {
+          "op": "GET_POOL_INFO"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "RX0",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 0,
+          "dma_addr": "0x10000000",
+          "new_page_allocated": true,
+          "page_in_use": 1,
+          "page_remaining": 3
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "RX1",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 32,
+          "dma_addr": "0x10000020",
+          "new_page_allocated": false,
+          "page_in_use": 2,
+          "page_remaining": 2
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "RX0",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 0,
+          "coherent_page_freed": false,
+          "active_pages": 1
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "RX2",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 64,
+          "dma_addr": "0x10000040",
+          "new_page_allocated": false,
+          "page_in_use": 2,
+          "page_remaining": 2
+        },
+        {
+          "op": "GET_POOL_INFO",
+          "pool_name": "e1000_rx_desc",
+          "block_size": 32,
+          "align": 32,
+          "active_pages": 1,
+          "allocated_blocks": 2,
+          "total_allocs": 3,
+          "total_frees": 1
+        }
+      ],
+      "summary": {
+        "total_allocs": 3,
+        "total_frees": 1,
+        "pages_allocated_count": 1,
+        "pages_freed_count": 0,
+        "active_pages": 1,
+        "active_allocations": 2,
+        "memory_saved_bytes": 256
+      }
+    }
+  },
+  {
+    "testcase_id": 2,
+    "input": {
+      "config": {
+        "name": "nvme_sqe",
+        "block_size": 64,
+        "align": 64,
+        "page_size": 128,
+        "base_dma_start": 536870912
+      },
+      "trace": [
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "SQ0"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "SQ1"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "SQ2"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "SQ3"
+        },
+        {
+          "op": "GET_POOL_INFO"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "SQ0",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 0,
+          "dma_addr": "0x20000000",
+          "new_page_allocated": true,
+          "page_in_use": 1,
+          "page_remaining": 1
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "SQ1",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 64,
+          "dma_addr": "0x20000040",
+          "new_page_allocated": false,
+          "page_in_use": 2,
+          "page_remaining": 0
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "SQ2",
+          "status": "SUCCESS",
+          "page_id": 1,
+          "offset": 0,
+          "dma_addr": "0x20000080",
+          "new_page_allocated": true,
+          "page_in_use": 1,
+          "page_remaining": 1
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "SQ3",
+          "status": "SUCCESS",
+          "page_id": 1,
+          "offset": 64,
+          "dma_addr": "0x200000c0",
+          "new_page_allocated": false,
+          "page_in_use": 2,
+          "page_remaining": 0
+        },
+        {
+          "op": "GET_POOL_INFO",
+          "pool_name": "nvme_sqe",
+          "block_size": 64,
+          "align": 64,
+          "active_pages": 2,
+          "allocated_blocks": 4,
+          "total_allocs": 4,
+          "total_frees": 0
+        }
+      ],
+      "summary": {
+        "total_allocs": 4,
+        "total_frees": 0,
+        "pages_allocated_count": 2,
+        "pages_freed_count": 0,
+        "active_pages": 2,
+        "active_allocations": 4,
+        "memory_saved_bytes": 256
+      }
+    }
+  },
+  {
+    "testcase_id": 3,
+    "input": {
+      "config": {
+        "name": "nvme_cqe",
+        "block_size": 16,
+        "align": 16,
+        "page_size": 32,
+        "base_dma_start": 805306368
+      },
+      "trace": [
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "C0"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "C1"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "C2"
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "C2"
+        },
+        {
+          "op": "GET_POOL_INFO"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "C0",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 0,
+          "dma_addr": "0x30000000",
+          "new_page_allocated": true,
+          "page_in_use": 1,
+          "page_remaining": 1
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "C1",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 16,
+          "dma_addr": "0x30000010",
+          "new_page_allocated": false,
+          "page_in_use": 2,
+          "page_remaining": 0
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "C2",
+          "status": "SUCCESS",
+          "page_id": 1,
+          "offset": 0,
+          "dma_addr": "0x30000020",
+          "new_page_allocated": true,
+          "page_in_use": 1,
+          "page_remaining": 1
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "C2",
+          "status": "SUCCESS",
+          "page_id": 1,
+          "offset": 0,
+          "coherent_page_freed": true,
+          "active_pages": 1
+        },
+        {
+          "op": "GET_POOL_INFO",
+          "pool_name": "nvme_cqe",
+          "block_size": 16,
+          "align": 16,
+          "active_pages": 1,
+          "allocated_blocks": 2,
+          "total_allocs": 3,
+          "total_frees": 1
+        }
+      ],
+      "summary": {
+        "total_allocs": 3,
+        "total_frees": 1,
+        "pages_allocated_count": 2,
+        "pages_freed_count": 1,
+        "active_pages": 1,
+        "active_allocations": 2,
+        "memory_saved_bytes": 32
+      }
+    }
+  },
+  {
+    "testcase_id": 4,
+    "input": {
+      "config": {
+        "name": "err_pool",
+        "block_size": 32,
+        "align": 32,
+        "page_size": 64,
+        "base_dma_start": 1073741824
+      },
+      "trace": [
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "E1"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "E1"
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "NON_EXISTENT"
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "E1"
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "E1"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "E1",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 0,
+          "dma_addr": "0x40000000",
+          "new_page_allocated": true,
+          "page_in_use": 1,
+          "page_remaining": 1
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "E1",
+          "status": "EEXIST_HANDLE_ALREADY_ALLOCATED"
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "NON_EXISTENT",
+          "status": "EINVAL_HANDLE_NOT_FOUND"
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "E1",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 0,
+          "coherent_page_freed": false,
+          "active_pages": 1
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "E1",
+          "status": "EINVAL_HANDLE_NOT_FOUND"
+        }
+      ],
+      "summary": {
+        "total_allocs": 1,
+        "total_frees": 1,
+        "pages_allocated_count": 1,
+        "pages_freed_count": 0,
+        "active_pages": 1,
+        "active_allocations": 0,
+        "memory_saved_bytes": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 5,
+    "input": {
+      "config": {
+        "name": "custom_desc",
+        "block_size": 48,
+        "align": 64,
+        "page_size": 256,
+        "base_dma_start": 1342177280
+      },
+      "trace": [
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "D0"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "D1"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "D2"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "D3"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "D4"
+        },
+        {
+          "op": "GET_POOL_INFO"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "D0",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 0,
+          "dma_addr": "0x50000000",
+          "new_page_allocated": true,
+          "page_in_use": 1,
+          "page_remaining": 3
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "D1",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 64,
+          "dma_addr": "0x50000040",
+          "new_page_allocated": false,
+          "page_in_use": 2,
+          "page_remaining": 2
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "D2",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 128,
+          "dma_addr": "0x50000080",
+          "new_page_allocated": false,
+          "page_in_use": 3,
+          "page_remaining": 1
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "D3",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 192,
+          "dma_addr": "0x500000c0",
+          "new_page_allocated": false,
+          "page_in_use": 4,
+          "page_remaining": 0
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "D4",
+          "status": "SUCCESS",
+          "page_id": 1,
+          "offset": 0,
+          "dma_addr": "0x50000100",
+          "new_page_allocated": true,
+          "page_in_use": 1,
+          "page_remaining": 3
+        },
+        {
+          "op": "GET_POOL_INFO",
+          "pool_name": "custom_desc",
+          "block_size": 48,
+          "align": 64,
+          "active_pages": 2,
+          "allocated_blocks": 5,
+          "total_allocs": 5,
+          "total_frees": 0
+        }
+      ],
+      "summary": {
+        "total_allocs": 5,
+        "total_frees": 0,
+        "pages_allocated_count": 2,
+        "pages_freed_count": 0,
+        "active_pages": 2,
+        "active_allocations": 5,
+        "memory_saved_bytes": 768
+      }
+    }
+  },
+  {
+    "testcase_id": 6,
+    "input": {
+      "config": {
+        "name": "churn_pool",
+        "block_size": 32,
+        "align": 32,
+        "page_size": 64,
+        "base_dma_start": 1610612736
+      },
+      "trace": [
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "A"
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "A"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "B"
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "B"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "C"
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "C"
+        },
+        {
+          "op": "GET_POOL_INFO"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "A",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 0,
+          "dma_addr": "0x60000000",
+          "new_page_allocated": true,
+          "page_in_use": 1,
+          "page_remaining": 1
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "A",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 0,
+          "coherent_page_freed": false,
+          "active_pages": 1
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "B",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 32,
+          "dma_addr": "0x60000020",
+          "new_page_allocated": false,
+          "page_in_use": 1,
+          "page_remaining": 1
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "B",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 32,
+          "coherent_page_freed": false,
+          "active_pages": 1
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "C",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 0,
+          "dma_addr": "0x60000000",
+          "new_page_allocated": false,
+          "page_in_use": 1,
+          "page_remaining": 1
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "C",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 0,
+          "coherent_page_freed": false,
+          "active_pages": 1
+        },
+        {
+          "op": "GET_POOL_INFO",
+          "pool_name": "churn_pool",
+          "block_size": 32,
+          "align": 32,
+          "active_pages": 1,
+          "allocated_blocks": 0,
+          "total_allocs": 3,
+          "total_frees": 3
+        }
+      ],
+      "summary": {
+        "total_allocs": 3,
+        "total_frees": 3,
+        "pages_allocated_count": 1,
+        "pages_freed_count": 0,
+        "active_pages": 1,
+        "active_allocations": 0,
+        "memory_saved_bytes": 128
+      }
+    }
+  },
+  {
+    "testcase_id": 7,
+    "input": {
+      "config": {
+        "name": "multi_page_pool",
+        "block_size": 64,
+        "align": 64,
+        "page_size": 128,
+        "base_dma_start": 1879048192
+      },
+      "trace": [
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "H0"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "H1"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "H2"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "H3"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "H4"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "H5"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "H6"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "H7"
+        },
+        {
+          "op": "GET_POOL_INFO"
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "H6"
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "H7"
+        },
+        {
+          "op": "GET_POOL_INFO"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "H0",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 0,
+          "dma_addr": "0x70000000",
+          "new_page_allocated": true,
+          "page_in_use": 1,
+          "page_remaining": 1
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "H1",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 64,
+          "dma_addr": "0x70000040",
+          "new_page_allocated": false,
+          "page_in_use": 2,
+          "page_remaining": 0
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "H2",
+          "status": "SUCCESS",
+          "page_id": 1,
+          "offset": 0,
+          "dma_addr": "0x70000080",
+          "new_page_allocated": true,
+          "page_in_use": 1,
+          "page_remaining": 1
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "H3",
+          "status": "SUCCESS",
+          "page_id": 1,
+          "offset": 64,
+          "dma_addr": "0x700000c0",
+          "new_page_allocated": false,
+          "page_in_use": 2,
+          "page_remaining": 0
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "H4",
+          "status": "SUCCESS",
+          "page_id": 2,
+          "offset": 0,
+          "dma_addr": "0x70000100",
+          "new_page_allocated": true,
+          "page_in_use": 1,
+          "page_remaining": 1
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "H5",
+          "status": "SUCCESS",
+          "page_id": 2,
+          "offset": 64,
+          "dma_addr": "0x70000140",
+          "new_page_allocated": false,
+          "page_in_use": 2,
+          "page_remaining": 0
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "H6",
+          "status": "SUCCESS",
+          "page_id": 3,
+          "offset": 0,
+          "dma_addr": "0x70000180",
+          "new_page_allocated": true,
+          "page_in_use": 1,
+          "page_remaining": 1
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "H7",
+          "status": "SUCCESS",
+          "page_id": 3,
+          "offset": 64,
+          "dma_addr": "0x700001c0",
+          "new_page_allocated": false,
+          "page_in_use": 2,
+          "page_remaining": 0
+        },
+        {
+          "op": "GET_POOL_INFO",
+          "pool_name": "multi_page_pool",
+          "block_size": 64,
+          "align": 64,
+          "active_pages": 4,
+          "allocated_blocks": 8,
+          "total_allocs": 8,
+          "total_frees": 0
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "H6",
+          "status": "SUCCESS",
+          "page_id": 3,
+          "offset": 0,
+          "coherent_page_freed": false,
+          "active_pages": 4
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "H7",
+          "status": "SUCCESS",
+          "page_id": 3,
+          "offset": 64,
+          "coherent_page_freed": true,
+          "active_pages": 3
+        },
+        {
+          "op": "GET_POOL_INFO",
+          "pool_name": "multi_page_pool",
+          "block_size": 64,
+          "align": 64,
+          "active_pages": 3,
+          "allocated_blocks": 6,
+          "total_allocs": 8,
+          "total_frees": 2
+        }
+      ],
+      "summary": {
+        "total_allocs": 8,
+        "total_frees": 2,
+        "pages_allocated_count": 4,
+        "pages_freed_count": 1,
+        "active_pages": 3,
+        "active_allocations": 6,
+        "memory_saved_bytes": 512
+      }
+    }
+  },
+  {
+    "testcase_id": 8,
+    "input": {
+      "config": {
+        "name": "nvme_prp_list_pool",
+        "block_size": 64,
+        "align": 64,
+        "page_size": 512,
+        "base_dma_start": 2147483648
+      },
+      "trace": [
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_0"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_1"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_2"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_3"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_4"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_5"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_6"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_7"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_8"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_9"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_10"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_11"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_12"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_13"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_14"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_15"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_16"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_17"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_18"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_19"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_20"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_21"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_22"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_23"
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "PRP_16"
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "PRP_17"
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "PRP_18"
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "PRP_19"
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "PRP_20"
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "PRP_21"
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "PRP_22"
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "PRP_23"
+        },
+        {
+          "op": "GET_POOL_INFO"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_NEW_0"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_NEW_1"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_NEW_2"
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_NEW_3"
+        },
+        {
+          "op": "GET_POOL_INFO"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_0",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 0,
+          "dma_addr": "0x80000000",
+          "new_page_allocated": true,
+          "page_in_use": 1,
+          "page_remaining": 7
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_1",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 64,
+          "dma_addr": "0x80000040",
+          "new_page_allocated": false,
+          "page_in_use": 2,
+          "page_remaining": 6
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_2",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 128,
+          "dma_addr": "0x80000080",
+          "new_page_allocated": false,
+          "page_in_use": 3,
+          "page_remaining": 5
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_3",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 192,
+          "dma_addr": "0x800000c0",
+          "new_page_allocated": false,
+          "page_in_use": 4,
+          "page_remaining": 4
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_4",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 256,
+          "dma_addr": "0x80000100",
+          "new_page_allocated": false,
+          "page_in_use": 5,
+          "page_remaining": 3
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_5",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 320,
+          "dma_addr": "0x80000140",
+          "new_page_allocated": false,
+          "page_in_use": 6,
+          "page_remaining": 2
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_6",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 384,
+          "dma_addr": "0x80000180",
+          "new_page_allocated": false,
+          "page_in_use": 7,
+          "page_remaining": 1
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_7",
+          "status": "SUCCESS",
+          "page_id": 0,
+          "offset": 448,
+          "dma_addr": "0x800001c0",
+          "new_page_allocated": false,
+          "page_in_use": 8,
+          "page_remaining": 0
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_8",
+          "status": "SUCCESS",
+          "page_id": 1,
+          "offset": 0,
+          "dma_addr": "0x80000200",
+          "new_page_allocated": true,
+          "page_in_use": 1,
+          "page_remaining": 7
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_9",
+          "status": "SUCCESS",
+          "page_id": 1,
+          "offset": 64,
+          "dma_addr": "0x80000240",
+          "new_page_allocated": false,
+          "page_in_use": 2,
+          "page_remaining": 6
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_10",
+          "status": "SUCCESS",
+          "page_id": 1,
+          "offset": 128,
+          "dma_addr": "0x80000280",
+          "new_page_allocated": false,
+          "page_in_use": 3,
+          "page_remaining": 5
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_11",
+          "status": "SUCCESS",
+          "page_id": 1,
+          "offset": 192,
+          "dma_addr": "0x800002c0",
+          "new_page_allocated": false,
+          "page_in_use": 4,
+          "page_remaining": 4
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_12",
+          "status": "SUCCESS",
+          "page_id": 1,
+          "offset": 256,
+          "dma_addr": "0x80000300",
+          "new_page_allocated": false,
+          "page_in_use": 5,
+          "page_remaining": 3
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_13",
+          "status": "SUCCESS",
+          "page_id": 1,
+          "offset": 320,
+          "dma_addr": "0x80000340",
+          "new_page_allocated": false,
+          "page_in_use": 6,
+          "page_remaining": 2
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_14",
+          "status": "SUCCESS",
+          "page_id": 1,
+          "offset": 384,
+          "dma_addr": "0x80000380",
+          "new_page_allocated": false,
+          "page_in_use": 7,
+          "page_remaining": 1
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_15",
+          "status": "SUCCESS",
+          "page_id": 1,
+          "offset": 448,
+          "dma_addr": "0x800003c0",
+          "new_page_allocated": false,
+          "page_in_use": 8,
+          "page_remaining": 0
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_16",
+          "status": "SUCCESS",
+          "page_id": 2,
+          "offset": 0,
+          "dma_addr": "0x80000400",
+          "new_page_allocated": true,
+          "page_in_use": 1,
+          "page_remaining": 7
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_17",
+          "status": "SUCCESS",
+          "page_id": 2,
+          "offset": 64,
+          "dma_addr": "0x80000440",
+          "new_page_allocated": false,
+          "page_in_use": 2,
+          "page_remaining": 6
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_18",
+          "status": "SUCCESS",
+          "page_id": 2,
+          "offset": 128,
+          "dma_addr": "0x80000480",
+          "new_page_allocated": false,
+          "page_in_use": 3,
+          "page_remaining": 5
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_19",
+          "status": "SUCCESS",
+          "page_id": 2,
+          "offset": 192,
+          "dma_addr": "0x800004c0",
+          "new_page_allocated": false,
+          "page_in_use": 4,
+          "page_remaining": 4
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_20",
+          "status": "SUCCESS",
+          "page_id": 2,
+          "offset": 256,
+          "dma_addr": "0x80000500",
+          "new_page_allocated": false,
+          "page_in_use": 5,
+          "page_remaining": 3
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_21",
+          "status": "SUCCESS",
+          "page_id": 2,
+          "offset": 320,
+          "dma_addr": "0x80000540",
+          "new_page_allocated": false,
+          "page_in_use": 6,
+          "page_remaining": 2
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_22",
+          "status": "SUCCESS",
+          "page_id": 2,
+          "offset": 384,
+          "dma_addr": "0x80000580",
+          "new_page_allocated": false,
+          "page_in_use": 7,
+          "page_remaining": 1
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_23",
+          "status": "SUCCESS",
+          "page_id": 2,
+          "offset": 448,
+          "dma_addr": "0x800005c0",
+          "new_page_allocated": false,
+          "page_in_use": 8,
+          "page_remaining": 0
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "PRP_16",
+          "status": "SUCCESS",
+          "page_id": 2,
+          "offset": 0,
+          "coherent_page_freed": false,
+          "active_pages": 3
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "PRP_17",
+          "status": "SUCCESS",
+          "page_id": 2,
+          "offset": 64,
+          "coherent_page_freed": false,
+          "active_pages": 3
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "PRP_18",
+          "status": "SUCCESS",
+          "page_id": 2,
+          "offset": 128,
+          "coherent_page_freed": false,
+          "active_pages": 3
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "PRP_19",
+          "status": "SUCCESS",
+          "page_id": 2,
+          "offset": 192,
+          "coherent_page_freed": false,
+          "active_pages": 3
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "PRP_20",
+          "status": "SUCCESS",
+          "page_id": 2,
+          "offset": 256,
+          "coherent_page_freed": false,
+          "active_pages": 3
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "PRP_21",
+          "status": "SUCCESS",
+          "page_id": 2,
+          "offset": 320,
+          "coherent_page_freed": false,
+          "active_pages": 3
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "PRP_22",
+          "status": "SUCCESS",
+          "page_id": 2,
+          "offset": 384,
+          "coherent_page_freed": false,
+          "active_pages": 3
+        },
+        {
+          "op": "DMA_POOL_FREE",
+          "handle_id": "PRP_23",
+          "status": "SUCCESS",
+          "page_id": 2,
+          "offset": 448,
+          "coherent_page_freed": true,
+          "active_pages": 2
+        },
+        {
+          "op": "GET_POOL_INFO",
+          "pool_name": "nvme_prp_list_pool",
+          "block_size": 64,
+          "align": 64,
+          "active_pages": 2,
+          "allocated_blocks": 16,
+          "total_allocs": 24,
+          "total_frees": 8
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_NEW_0",
+          "status": "SUCCESS",
+          "page_id": 3,
+          "offset": 0,
+          "dma_addr": "0x80000600",
+          "new_page_allocated": true,
+          "page_in_use": 1,
+          "page_remaining": 7
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_NEW_1",
+          "status": "SUCCESS",
+          "page_id": 3,
+          "offset": 64,
+          "dma_addr": "0x80000640",
+          "new_page_allocated": false,
+          "page_in_use": 2,
+          "page_remaining": 6
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_NEW_2",
+          "status": "SUCCESS",
+          "page_id": 3,
+          "offset": 128,
+          "dma_addr": "0x80000680",
+          "new_page_allocated": false,
+          "page_in_use": 3,
+          "page_remaining": 5
+        },
+        {
+          "op": "DMA_POOL_ALLOC",
+          "handle_id": "PRP_NEW_3",
+          "status": "SUCCESS",
+          "page_id": 3,
+          "offset": 192,
+          "dma_addr": "0x800006c0",
+          "new_page_allocated": false,
+          "page_in_use": 4,
+          "page_remaining": 4
+        },
+        {
+          "op": "GET_POOL_INFO",
+          "pool_name": "nvme_prp_list_pool",
+          "block_size": 64,
+          "align": 64,
+          "active_pages": 3,
+          "allocated_blocks": 20,
+          "total_allocs": 28,
+          "total_frees": 8
+        }
+      ],
+      "summary": {
+        "total_allocs": 28,
+        "total_frees": 8,
+        "pages_allocated_count": 4,
+        "pages_freed_count": 1,
+        "active_pages": 3,
+        "active_allocations": 20,
+        "memory_saved_bytes": 12288
+      }
+    }
+  }
+]
