@@ -1,0 +1,42 @@
+[
+  {
+    "name": "파리_아케이드_산책_및_도시_산책자_Flaneur_관조",
+    "input": "{\"subject_id\":\"BAUDELAIRE_FLANEUR\",\"intellect\":1.5,\"initial_phantasmagoria\":0.2,\"initial_aura_memory\":0.1,\"operations\":[{\"op\":\"STROLL_ARCADE\",\"crowd_density\":0.3,\"commodity_glow\":0.5}]}",
+    "output": "{\"subject_id\":\"BAUDELAIRE_FLANEUR\",\"initial_state\":{\"intellect\":1.5,\"initial_phantasmagoria\":0.2,\"initial_aura_memory\":0.1},\"final_state\":{\"phantasmagoria_index\":0.285,\"aura_memory\":0.1,\"decommodified_fragments\":0,\"consciousness_verdict\":\"CASUAL_URBAN_PASSERBY\"},\"stats\":{\"arcade_strolls\":1,\"fragments_collected\":0,\"dialectical_flashes\":0,\"failed_awakenings\":0},\"op_log\":[{\"op\":\"STROLL_ARCADE\",\"crowd_density\":0.3,\"commodity_glow\":0.5,\"flaneur_detachment\":1.32,\"new_phantasmagoria\":0.285}]}"
+  },
+  {
+    "name": "군중과_상품_광채_압도_환등상_Phantasmagoria_침잠",
+    "input": "{\"subject_id\":\"ENTRANCED_SHOPPER\",\"intellect\":0.8,\"initial_phantasmagoria\":0.5,\"initial_aura_memory\":0.05,\"operations\":[{\"op\":\"STROLL_ARCADE\",\"crowd_density\":0.9,\"commodity_glow\":0.95},{\"op\":\"STROLL_ARCADE\",\"crowd_density\":0.8,\"commodity_glow\":0.9}]}",
+    "output": "{\"subject_id\":\"ENTRANCED_SHOPPER\",\"initial_state\":{\"intellect\":0.8,\"initial_phantasmagoria\":0.5,\"initial_aura_memory\":0.05},\"final_state\":{\"phantasmagoria_index\":1.0,\"aura_memory\":0.05,\"decommodified_fragments\":0,\"consciousness_verdict\":\"PHANTASMAGORIC_DREAMER\"},\"stats\":{\"arcade_strolls\":2,\"fragments_collected\":0,\"dialectical_flashes\":0,\"failed_awakenings\":0},\"op_log\":[{\"op\":\"STROLL_ARCADE\",\"crowd_density\":0.9,\"commodity_glow\":0.95,\"flaneur_detachment\":0.512,\"new_phantasmagoria\":0.8534},{\"op\":\"STROLL_ARCADE\",\"crowd_density\":0.8,\"commodity_glow\":0.9,\"flaneur_detachment\":0.544,\"new_phantasmagoria\":1.0}]}"
+  },
+  {
+    "name": "역사적_파편_수집과_아우라_기억_축적",
+    "input": "{\"subject_id\":\"ANTIQUARIAN\",\"intellect\":1.2,\"initial_phantasmagoria\":0.3,\"initial_aura_memory\":0.1,\"operations\":[{\"op\":\"COLLECT_FRAGMENT\",\"fragment_name\":\"NAPOLEON_MEDAL\",\"historical_depth\":0.8}]}",
+    "output": "{\"subject_id\":\"ANTIQUARIAN\",\"initial_state\":{\"intellect\":1.2,\"initial_phantasmagoria\":0.3,\"initial_aura_memory\":0.1},\"final_state\":{\"phantasmagoria_index\":0.3,\"aura_memory\":0.42,\"decommodified_fragments\":1,\"consciousness_verdict\":\"CASUAL_URBAN_PASSERBY\"},\"stats\":{\"arcade_strolls\":0,\"fragments_collected\":1,\"dialectical_flashes\":0,\"failed_awakenings\":0},\"op_log\":[{\"op\":\"COLLECT_FRAGMENT\",\"fragment_name\":\"NAPOLEON_MEDAL\",\"historical_depth\":0.8,\"new_aura_memory\":0.42,\"decommodified_fragments\":1}]}"
+  },
+  {
+    "name": "변증법적_이미지의_섬광과_자본주의_꿈세계_각성",
+    "input": "{\"subject_id\":\"REVOLUTIONARY_CRITIC\",\"intellect\":1.6,\"initial_phantasmagoria\":0.35,\"initial_aura_memory\":0.2,\"operations\":[{\"op\":\"COLLECT_FRAGMENT\",\"fragment_name\":\"PARIS_COMMUNE_NEWSPAPER\",\"historical_depth\":0.9},{\"op\":\"FLASH_DIALECTICAL_IMAGE\",\"now_intensity\":0.9}]}",
+    "output": "{\"subject_id\":\"REVOLUTIONARY_CRITIC\",\"initial_state\":{\"intellect\":1.6,\"initial_phantasmagoria\":0.35,\"initial_aura_memory\":0.2},\"final_state\":{\"phantasmagoria_index\":0.0,\"aura_memory\":0.56,\"decommodified_fragments\":1,\"consciousness_verdict\":\"AWAKENED_HISTORICAL_MATERIALIST\"},\"stats\":{\"arcade_strolls\":0,\"fragments_collected\":1,\"dialectical_flashes\":1,\"failed_awakenings\":0},\"op_log\":[{\"op\":\"COLLECT_FRAGMENT\",\"fragment_name\":\"PARIS_COMMUNE_NEWSPAPER\",\"historical_depth\":0.9,\"new_aura_memory\":0.56,\"decommodified_fragments\":1},{\"op\":\"FLASH_DIALECTICAL_IMAGE\",\"now_intensity\":0.9,\"shock_value\":0.504,\"status\":\"DIALECTICAL_AWAKENING_FLASH\",\"new_phantasmagoria\":0.0}]}"
+  },
+  {
+    "name": "충격값_미달로_인한_꿈세계_각성_실패",
+    "input": "{\"subject_id\":\"SUPERFICIAL_TOURIST\",\"intellect\":0.9,\"initial_phantasmagoria\":0.4,\"initial_aura_memory\":0.1,\"operations\":[{\"op\":\"FLASH_DIALECTICAL_IMAGE\",\"now_intensity\":0.5}]}",
+    "output": "{\"subject_id\":\"SUPERFICIAL_TOURIST\",\"initial_state\":{\"intellect\":0.9,\"initial_phantasmagoria\":0.4,\"initial_aura_memory\":0.1},\"final_state\":{\"phantasmagoria_index\":0.4,\"aura_memory\":0.1,\"decommodified_fragments\":0,\"consciousness_verdict\":\"CASUAL_URBAN_PASSERBY\"},\"stats\":{\"arcade_strolls\":0,\"fragments_collected\":0,\"dialectical_flashes\":0,\"failed_awakenings\":1},\"op_log\":[{\"op\":\"FLASH_DIALECTICAL_IMAGE\",\"now_intensity\":0.5,\"shock_value\":0.05,\"status\":\"DREAMWORLD_UNAFFECTED\",\"new_phantasmagoria\":0.4}]}"
+  },
+  {
+    "name": "소비_환등상에_도취된_백화점_몽상가_판정",
+    "input": "{\"subject_id\":\"DEPARTMENT_STORE_DEVOTEE\",\"intellect\":0.6,\"initial_phantasmagoria\":0.55,\"initial_aura_memory\":0.05,\"operations\":[{\"op\":\"STROLL_ARCADE\",\"crowd_density\":0.7,\"commodity_glow\":0.9},{\"op\":\"STROLL_ARCADE\",\"crowd_density\":0.8,\"commodity_glow\":0.95}]}",
+    "output": "{\"subject_id\":\"DEPARTMENT_STORE_DEVOTEE\",\"initial_state\":{\"intellect\":0.6,\"initial_phantasmagoria\":0.55,\"initial_aura_memory\":0.05},\"final_state\":{\"phantasmagoria_index\":1.0,\"aura_memory\":0.05,\"decommodified_fragments\":0,\"consciousness_verdict\":\"PHANTASMAGORIC_DREAMER\"},\"stats\":{\"arcade_strolls\":2,\"fragments_collected\":0,\"dialectical_flashes\":0,\"failed_awakenings\":0},\"op_log\":[{\"op\":\"STROLL_ARCADE\",\"crowd_density\":0.7,\"commodity_glow\":0.9,\"flaneur_detachment\":0.432,\"new_phantasmagoria\":0.9028},{\"op\":\"STROLL_ARCADE\",\"crowd_density\":0.8,\"commodity_glow\":0.95,\"flaneur_detachment\":0.408,\"new_phantasmagoria\":1.0}]}"
+  },
+  {
+    "name": "알레고리적_파편_수집가_역사의_폐허_응시",
+    "input": "{\"subject_id\":\"WALTER_BENJAMIN\",\"intellect\":1.7,\"initial_phantasmagoria\":0.3,\"initial_aura_memory\":0.1,\"operations\":[{\"op\":\"COLLECT_FRAGMENT\",\"fragment_name\":\"BARON_HAUSSMANN_MAP\",\"historical_depth\":0.7},{\"op\":\"COLLECT_FRAGMENT\",\"fragment_name\":\"GAS_LAMP_SHARD\",\"historical_depth\":0.8}]}",
+    "output": "{\"subject_id\":\"WALTER_BENJAMIN\",\"initial_state\":{\"intellect\":1.7,\"initial_phantasmagoria\":0.3,\"initial_aura_memory\":0.1},\"final_state\":{\"phantasmagoria_index\":0.3,\"aura_memory\":0.7,\"decommodified_fragments\":2,\"consciousness_verdict\":\"MELANCHOLIC_ALLEGORIST_COLLECTOR\"},\"stats\":{\"arcade_strolls\":0,\"fragments_collected\":2,\"dialectical_flashes\":0,\"failed_awakenings\":0},\"op_log\":[{\"op\":\"COLLECT_FRAGMENT\",\"fragment_name\":\"BARON_HAUSSMANN_MAP\",\"historical_depth\":0.7,\"new_aura_memory\":0.38,\"decommodified_fragments\":1},{\"op\":\"COLLECT_FRAGMENT\",\"fragment_name\":\"GAS_LAMP_SHARD\",\"historical_depth\":0.8,\"new_aura_memory\":0.7,\"decommodified_fragments\":2}]}"
+  },
+  {
+    "name": "복합_19세기_파리_아케이드_종합_변증법_여정",
+    "input": "{\"subject_id\":\"CHRONICLER_OF_MODERNITY\",\"intellect\":1.5,\"initial_phantasmagoria\":0.35,\"initial_aura_memory\":0.15,\"operations\":[{\"op\":\"STROLL_ARCADE\",\"crowd_density\":0.5,\"commodity_glow\":0.85},{\"op\":\"COLLECT_FRAGMENT\",\"fragment_name\":\"19TH_CENTURY_DAGUERREOTYPE\",\"historical_depth\":0.95},{\"op\":\"FLASH_DIALECTICAL_IMAGE\",\"now_intensity\":0.8},{\"op\":\"COLLECT_FRAGMENT\",\"fragment_name\":\"RAGPICKER_HOOK\",\"historical_depth\":0.85}]}",
+    "output": "{\"subject_id\":\"CHRONICLER_OF_MODERNITY\",\"initial_state\":{\"intellect\":1.5,\"initial_phantasmagoria\":0.35,\"initial_aura_memory\":0.15},\"final_state\":{\"phantasmagoria_index\":0.07,\"aura_memory\":0.87,\"decommodified_fragments\":2,\"consciousness_verdict\":\"AWAKENED_HISTORICAL_MATERIALIST\"},\"stats\":{\"arcade_strolls\":1,\"fragments_collected\":2,\"dialectical_flashes\":1,\"failed_awakenings\":0},\"op_log\":[{\"op\":\"STROLL_ARCADE\",\"crowd_density\":0.5,\"commodity_glow\":0.85,\"flaneur_detachment\":1.2,\"new_phantasmagoria\":0.52},{\"op\":\"COLLECT_FRAGMENT\",\"fragment_name\":\"19TH_CENTURY_DAGUERREOTYPE\",\"historical_depth\":0.95,\"new_aura_memory\":0.53,\"decommodified_fragments\":1},{\"op\":\"FLASH_DIALECTICAL_IMAGE\",\"now_intensity\":0.8,\"shock_value\":0.424,\"status\":\"DIALECTICAL_AWAKENING_FLASH\",\"new_phantasmagoria\":0.07},{\"op\":\"COLLECT_FRAGMENT\",\"fragment_name\":\"RAGPICKER_HOOK\",\"historical_depth\":0.85,\"new_aura_memory\":0.87,\"decommodified_fragments\":2}]}"
+  }
+]
