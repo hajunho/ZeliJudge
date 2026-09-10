@@ -1,0 +1,1060 @@
+[
+  {
+    "testcase_id": 1,
+    "input": {
+      "config": {
+        "hw_tso": false,
+        "default_mss": 1448,
+        "header_len": 54
+      },
+      "trace": [
+        {
+          "op": "ASSEMBLE_GSO_SKB",
+          "skb_id": "LIN_1",
+          "gso_size": 1448,
+          "ip_id_start": 500,
+          "tcp_seq_start": 10000,
+          "tcp_flags": [
+            "ACK"
+          ],
+          "linear_data_len": 3000,
+          "frags": []
+        },
+        {
+          "op": "TRANSMIT_SKB",
+          "skb_id": "LIN_1"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ASSEMBLE_GSO_SKB",
+          "skb_id": "LIN_1",
+          "total_payload_bytes": 3000,
+          "gso_size": 1448,
+          "gso_segs": 3,
+          "num_frags": 0,
+          "status": "GSO_SKB_ASSEMBLED"
+        },
+        {
+          "op": "TRANSMIT_SKB",
+          "skb_id": "LIN_1",
+          "mode": "SOFTWARE_GSO_SEGMENTED",
+          "total_payload_bytes": 3000,
+          "segments_emitted": 3,
+          "segments": [
+            {
+              "seg_index": 0,
+              "ip_id": 500,
+              "tcp_seq": 10000,
+              "payload_len": 1448,
+              "wire_len": 1502,
+              "tcp_flags": [
+                "ACK"
+              ],
+              "is_last_seg": false,
+              "frags_sliced": 0
+            },
+            {
+              "seg_index": 1,
+              "ip_id": 501,
+              "tcp_seq": 11448,
+              "payload_len": 1448,
+              "wire_len": 1502,
+              "tcp_flags": [
+                "ACK"
+              ],
+              "is_last_seg": false,
+              "frags_sliced": 0
+            },
+            {
+              "seg_index": 2,
+              "ip_id": 502,
+              "tcp_seq": 12896,
+              "payload_len": 104,
+              "wire_len": 158,
+              "tcp_flags": [
+                "ACK"
+              ],
+              "is_last_seg": true,
+              "frags_sliced": 0
+            }
+          ],
+          "cpu_cycles_saved_est": 0
+        },
+        {
+          "op": "GET_STATS",
+          "hw_tso_enabled": false,
+          "total_gso_skbs": 1,
+          "hw_tso_dispatched": 0,
+          "sw_gso_segmented": 1,
+          "total_wire_packets": 3,
+          "total_payload_bytes": 3000
+        }
+      ],
+      "summary": {
+        "hw_tso_enabled": false,
+        "total_gso_skbs": 1,
+        "hw_tso_dispatched": 0,
+        "sw_gso_segmented": 1,
+        "total_wire_packets": 3,
+        "total_payload_bytes": 3000
+      }
+    }
+  },
+  {
+    "testcase_id": 2,
+    "input": {
+      "config": {
+        "hw_tso": false,
+        "default_mss": 1448,
+        "header_len": 54
+      },
+      "trace": [
+        {
+          "op": "ASSEMBLE_GSO_SKB",
+          "skb_id": "FRAG_1",
+          "gso_size": 1448,
+          "ip_id_start": 2000,
+          "tcp_seq_start": 200000,
+          "tcp_flags": [
+            "ACK",
+            "PSH"
+          ],
+          "linear_data_len": 0,
+          "frags": [
+            {
+              "page_pfn": 4096,
+              "offset": 0,
+              "size": 2048
+            },
+            {
+              "page_pfn": 4097,
+              "offset": 0,
+              "size": 2048
+            }
+          ]
+        },
+        {
+          "op": "TRANSMIT_SKB",
+          "skb_id": "FRAG_1"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ASSEMBLE_GSO_SKB",
+          "skb_id": "FRAG_1",
+          "total_payload_bytes": 4096,
+          "gso_size": 1448,
+          "gso_segs": 3,
+          "num_frags": 2,
+          "status": "GSO_SKB_ASSEMBLED"
+        },
+        {
+          "op": "TRANSMIT_SKB",
+          "skb_id": "FRAG_1",
+          "mode": "SOFTWARE_GSO_SEGMENTED",
+          "total_payload_bytes": 4096,
+          "segments_emitted": 3,
+          "segments": [
+            {
+              "seg_index": 0,
+              "ip_id": 2000,
+              "tcp_seq": 200000,
+              "payload_len": 1448,
+              "wire_len": 1502,
+              "tcp_flags": [
+                "ACK"
+              ],
+              "is_last_seg": false,
+              "frags_sliced": 1
+            },
+            {
+              "seg_index": 1,
+              "ip_id": 2001,
+              "tcp_seq": 201448,
+              "payload_len": 1448,
+              "wire_len": 1502,
+              "tcp_flags": [
+                "ACK"
+              ],
+              "is_last_seg": false,
+              "frags_sliced": 2
+            },
+            {
+              "seg_index": 2,
+              "ip_id": 2002,
+              "tcp_seq": 202896,
+              "payload_len": 1200,
+              "wire_len": 1254,
+              "tcp_flags": [
+                "ACK",
+                "PSH"
+              ],
+              "is_last_seg": true,
+              "frags_sliced": 1
+            }
+          ],
+          "cpu_cycles_saved_est": 0
+        },
+        {
+          "op": "GET_STATS",
+          "hw_tso_enabled": false,
+          "total_gso_skbs": 1,
+          "hw_tso_dispatched": 0,
+          "sw_gso_segmented": 1,
+          "total_wire_packets": 3,
+          "total_payload_bytes": 4096
+        }
+      ],
+      "summary": {
+        "hw_tso_enabled": false,
+        "total_gso_skbs": 1,
+        "hw_tso_dispatched": 0,
+        "sw_gso_segmented": 1,
+        "total_wire_packets": 3,
+        "total_payload_bytes": 4096
+      }
+    }
+  },
+  {
+    "testcase_id": 3,
+    "input": {
+      "config": {
+        "hw_tso": false,
+        "default_mss": 1460,
+        "header_len": 54
+      },
+      "trace": [
+        {
+          "op": "ASSEMBLE_GSO_SKB",
+          "skb_id": "MIX_1",
+          "gso_size": 1460,
+          "ip_id_start": 3000,
+          "tcp_seq_start": 500000,
+          "tcp_flags": [
+            "ACK"
+          ],
+          "linear_data_len": 320,
+          "frags": [
+            {
+              "page_pfn": 12288,
+              "offset": 0,
+              "size": 4096
+            }
+          ]
+        },
+        {
+          "op": "TRANSMIT_SKB",
+          "skb_id": "MIX_1"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ASSEMBLE_GSO_SKB",
+          "skb_id": "MIX_1",
+          "total_payload_bytes": 4416,
+          "gso_size": 1460,
+          "gso_segs": 4,
+          "num_frags": 1,
+          "status": "GSO_SKB_ASSEMBLED"
+        },
+        {
+          "op": "TRANSMIT_SKB",
+          "skb_id": "MIX_1",
+          "mode": "SOFTWARE_GSO_SEGMENTED",
+          "total_payload_bytes": 4416,
+          "segments_emitted": 4,
+          "segments": [
+            {
+              "seg_index": 0,
+              "ip_id": 3000,
+              "tcp_seq": 500000,
+              "payload_len": 1460,
+              "wire_len": 1514,
+              "tcp_flags": [
+                "ACK"
+              ],
+              "is_last_seg": false,
+              "frags_sliced": 1
+            },
+            {
+              "seg_index": 1,
+              "ip_id": 3001,
+              "tcp_seq": 501460,
+              "payload_len": 1460,
+              "wire_len": 1514,
+              "tcp_flags": [
+                "ACK"
+              ],
+              "is_last_seg": false,
+              "frags_sliced": 1
+            },
+            {
+              "seg_index": 2,
+              "ip_id": 3002,
+              "tcp_seq": 502920,
+              "payload_len": 1460,
+              "wire_len": 1514,
+              "tcp_flags": [
+                "ACK"
+              ],
+              "is_last_seg": false,
+              "frags_sliced": 1
+            },
+            {
+              "seg_index": 3,
+              "ip_id": 3003,
+              "tcp_seq": 504380,
+              "payload_len": 36,
+              "wire_len": 90,
+              "tcp_flags": [
+                "ACK"
+              ],
+              "is_last_seg": true,
+              "frags_sliced": 1
+            }
+          ],
+          "cpu_cycles_saved_est": 0
+        },
+        {
+          "op": "GET_STATS",
+          "hw_tso_enabled": false,
+          "total_gso_skbs": 1,
+          "hw_tso_dispatched": 0,
+          "sw_gso_segmented": 1,
+          "total_wire_packets": 4,
+          "total_payload_bytes": 4416
+        }
+      ],
+      "summary": {
+        "hw_tso_enabled": false,
+        "total_gso_skbs": 1,
+        "hw_tso_dispatched": 0,
+        "sw_gso_segmented": 1,
+        "total_wire_packets": 4,
+        "total_payload_bytes": 4416
+      }
+    }
+  },
+  {
+    "testcase_id": 4,
+    "input": {
+      "config": {
+        "hw_tso": true,
+        "default_mss": 1448,
+        "header_len": 54
+      },
+      "trace": [
+        {
+          "op": "ASSEMBLE_GSO_SKB",
+          "skb_id": "HW_1",
+          "gso_size": 1448,
+          "ip_id_start": 4000,
+          "tcp_seq_start": 1000000,
+          "tcp_flags": [
+            "ACK",
+            "PSH"
+          ],
+          "linear_data_len": 100,
+          "frags": [
+            {
+              "page_pfn": 16384,
+              "offset": 0,
+              "size": 4096
+            },
+            {
+              "page_pfn": 16385,
+              "offset": 0,
+              "size": 4096
+            }
+          ]
+        },
+        {
+          "op": "TRANSMIT_SKB",
+          "skb_id": "HW_1"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ASSEMBLE_GSO_SKB",
+          "skb_id": "HW_1",
+          "total_payload_bytes": 8292,
+          "gso_size": 1448,
+          "gso_segs": 6,
+          "num_frags": 2,
+          "status": "GSO_SKB_ASSEMBLED"
+        },
+        {
+          "op": "TRANSMIT_SKB",
+          "skb_id": "HW_1",
+          "mode": "NIC_HARDWARE_TSO_PASSTHROUGH",
+          "total_payload_bytes": 8292,
+          "segments_emitted": 6,
+          "segments": [
+            {
+              "seg_index": 0,
+              "ip_id": 4000,
+              "tcp_seq": 1000000,
+              "payload_len": 1448,
+              "wire_len": 1502,
+              "tcp_flags": [
+                "ACK"
+              ],
+              "is_last_seg": false,
+              "frags_sliced": 1
+            },
+            {
+              "seg_index": 1,
+              "ip_id": 4001,
+              "tcp_seq": 1001448,
+              "payload_len": 1448,
+              "wire_len": 1502,
+              "tcp_flags": [
+                "ACK"
+              ],
+              "is_last_seg": false,
+              "frags_sliced": 1
+            },
+            {
+              "seg_index": 2,
+              "ip_id": 4002,
+              "tcp_seq": 1002896,
+              "payload_len": 1448,
+              "wire_len": 1502,
+              "tcp_flags": [
+                "ACK"
+              ],
+              "is_last_seg": false,
+              "frags_sliced": 2
+            },
+            {
+              "seg_index": 3,
+              "ip_id": 4003,
+              "tcp_seq": 1004344,
+              "payload_len": 1448,
+              "wire_len": 1502,
+              "tcp_flags": [
+                "ACK"
+              ],
+              "is_last_seg": false,
+              "frags_sliced": 1
+            },
+            {
+              "seg_index": 4,
+              "ip_id": 4004,
+              "tcp_seq": 1005792,
+              "payload_len": 1448,
+              "wire_len": 1502,
+              "tcp_flags": [
+                "ACK"
+              ],
+              "is_last_seg": false,
+              "frags_sliced": 1
+            },
+            {
+              "seg_index": 5,
+              "ip_id": 4005,
+              "tcp_seq": 1007240,
+              "payload_len": 1052,
+              "wire_len": 1106,
+              "tcp_flags": [
+                "ACK",
+                "PSH"
+              ],
+              "is_last_seg": true,
+              "frags_sliced": 1
+            }
+          ],
+          "cpu_cycles_saved_est": 2700
+        },
+        {
+          "op": "GET_STATS",
+          "hw_tso_enabled": true,
+          "total_gso_skbs": 1,
+          "hw_tso_dispatched": 1,
+          "sw_gso_segmented": 0,
+          "total_wire_packets": 6,
+          "total_payload_bytes": 8292
+        }
+      ],
+      "summary": {
+        "hw_tso_enabled": true,
+        "total_gso_skbs": 1,
+        "hw_tso_dispatched": 1,
+        "sw_gso_segmented": 0,
+        "total_wire_packets": 6,
+        "total_payload_bytes": 8292
+      }
+    }
+  },
+  {
+    "testcase_id": 5,
+    "input": {
+      "config": {
+        "hw_tso": false,
+        "default_mss": 1000,
+        "header_len": 54
+      },
+      "trace": [
+        {
+          "op": "ASSEMBLE_GSO_SKB",
+          "skb_id": "FIN_SKB",
+          "gso_size": 1000,
+          "ip_id_start": 100,
+          "tcp_seq_start": 77777,
+          "tcp_flags": [
+            "ACK",
+            "FIN",
+            "PSH"
+          ],
+          "linear_data_len": 2500,
+          "frags": []
+        },
+        {
+          "op": "TRANSMIT_SKB",
+          "skb_id": "FIN_SKB"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ASSEMBLE_GSO_SKB",
+          "skb_id": "FIN_SKB",
+          "total_payload_bytes": 2500,
+          "gso_size": 1000,
+          "gso_segs": 3,
+          "num_frags": 0,
+          "status": "GSO_SKB_ASSEMBLED"
+        },
+        {
+          "op": "TRANSMIT_SKB",
+          "skb_id": "FIN_SKB",
+          "mode": "SOFTWARE_GSO_SEGMENTED",
+          "total_payload_bytes": 2500,
+          "segments_emitted": 3,
+          "segments": [
+            {
+              "seg_index": 0,
+              "ip_id": 100,
+              "tcp_seq": 77777,
+              "payload_len": 1000,
+              "wire_len": 1054,
+              "tcp_flags": [
+                "ACK"
+              ],
+              "is_last_seg": false,
+              "frags_sliced": 0
+            },
+            {
+              "seg_index": 1,
+              "ip_id": 101,
+              "tcp_seq": 78777,
+              "payload_len": 1000,
+              "wire_len": 1054,
+              "tcp_flags": [
+                "ACK"
+              ],
+              "is_last_seg": false,
+              "frags_sliced": 0
+            },
+            {
+              "seg_index": 2,
+              "ip_id": 102,
+              "tcp_seq": 79777,
+              "payload_len": 500,
+              "wire_len": 554,
+              "tcp_flags": [
+                "ACK",
+                "FIN",
+                "PSH"
+              ],
+              "is_last_seg": true,
+              "frags_sliced": 0
+            }
+          ],
+          "cpu_cycles_saved_est": 0
+        },
+        {
+          "op": "GET_STATS",
+          "hw_tso_enabled": false,
+          "total_gso_skbs": 1,
+          "hw_tso_dispatched": 0,
+          "sw_gso_segmented": 1,
+          "total_wire_packets": 3,
+          "total_payload_bytes": 2500
+        }
+      ],
+      "summary": {
+        "hw_tso_enabled": false,
+        "total_gso_skbs": 1,
+        "hw_tso_dispatched": 0,
+        "sw_gso_segmented": 1,
+        "total_wire_packets": 3,
+        "total_payload_bytes": 2500
+      }
+    }
+  },
+  {
+    "testcase_id": 6,
+    "input": {
+      "config": {
+        "hw_tso": false,
+        "default_mss": 1448,
+        "header_len": 54
+      },
+      "trace": [
+        {
+          "op": "ASSEMBLE_GSO_SKB",
+          "skb_id": "EXACT_2X",
+          "gso_size": 1448,
+          "ip_id_start": 9000,
+          "tcp_seq_start": 300000,
+          "tcp_flags": [
+            "ACK"
+          ],
+          "linear_data_len": 2896,
+          "frags": []
+        },
+        {
+          "op": "TRANSMIT_SKB",
+          "skb_id": "EXACT_2X"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ASSEMBLE_GSO_SKB",
+          "skb_id": "EXACT_2X",
+          "total_payload_bytes": 2896,
+          "gso_size": 1448,
+          "gso_segs": 2,
+          "num_frags": 0,
+          "status": "GSO_SKB_ASSEMBLED"
+        },
+        {
+          "op": "TRANSMIT_SKB",
+          "skb_id": "EXACT_2X",
+          "mode": "SOFTWARE_GSO_SEGMENTED",
+          "total_payload_bytes": 2896,
+          "segments_emitted": 2,
+          "segments": [
+            {
+              "seg_index": 0,
+              "ip_id": 9000,
+              "tcp_seq": 300000,
+              "payload_len": 1448,
+              "wire_len": 1502,
+              "tcp_flags": [
+                "ACK"
+              ],
+              "is_last_seg": false,
+              "frags_sliced": 0
+            },
+            {
+              "seg_index": 1,
+              "ip_id": 9001,
+              "tcp_seq": 301448,
+              "payload_len": 1448,
+              "wire_len": 1502,
+              "tcp_flags": [
+                "ACK"
+              ],
+              "is_last_seg": true,
+              "frags_sliced": 0
+            }
+          ],
+          "cpu_cycles_saved_est": 0
+        },
+        {
+          "op": "GET_STATS",
+          "hw_tso_enabled": false,
+          "total_gso_skbs": 1,
+          "hw_tso_dispatched": 0,
+          "sw_gso_segmented": 1,
+          "total_wire_packets": 2,
+          "total_payload_bytes": 2896
+        }
+      ],
+      "summary": {
+        "hw_tso_enabled": false,
+        "total_gso_skbs": 1,
+        "hw_tso_dispatched": 0,
+        "sw_gso_segmented": 1,
+        "total_wire_packets": 2,
+        "total_payload_bytes": 2896
+      }
+    }
+  },
+  {
+    "testcase_id": 7,
+    "input": {
+      "config": {
+        "hw_tso": false,
+        "default_mss": 1448,
+        "header_len": 54
+      },
+      "trace": [
+        {
+          "op": "ASSEMBLE_GSO_SKB",
+          "skb_id": "SMALL_1",
+          "gso_size": 1448,
+          "ip_id_start": 1,
+          "tcp_seq_start": 1234,
+          "tcp_flags": [
+            "ACK",
+            "PSH"
+          ],
+          "linear_data_len": 512,
+          "frags": []
+        },
+        {
+          "op": "TRANSMIT_SKB",
+          "skb_id": "SMALL_1"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ASSEMBLE_GSO_SKB",
+          "skb_id": "SMALL_1",
+          "total_payload_bytes": 512,
+          "gso_size": 1448,
+          "gso_segs": 1,
+          "num_frags": 0,
+          "status": "GSO_SKB_ASSEMBLED"
+        },
+        {
+          "op": "TRANSMIT_SKB",
+          "skb_id": "SMALL_1",
+          "mode": "SOFTWARE_GSO_SEGMENTED",
+          "total_payload_bytes": 512,
+          "segments_emitted": 1,
+          "segments": [
+            {
+              "seg_index": 0,
+              "ip_id": 1,
+              "tcp_seq": 1234,
+              "payload_len": 512,
+              "wire_len": 566,
+              "tcp_flags": [
+                "ACK",
+                "PSH"
+              ],
+              "is_last_seg": true,
+              "frags_sliced": 0
+            }
+          ],
+          "cpu_cycles_saved_est": 0
+        },
+        {
+          "op": "GET_STATS",
+          "hw_tso_enabled": false,
+          "total_gso_skbs": 1,
+          "hw_tso_dispatched": 0,
+          "sw_gso_segmented": 1,
+          "total_wire_packets": 1,
+          "total_payload_bytes": 512
+        }
+      ],
+      "summary": {
+        "hw_tso_enabled": false,
+        "total_gso_skbs": 1,
+        "hw_tso_dispatched": 0,
+        "sw_gso_segmented": 1,
+        "total_wire_packets": 1,
+        "total_payload_bytes": 512
+      }
+    }
+  },
+  {
+    "testcase_id": 8,
+    "input": {
+      "config": {
+        "hw_tso": false,
+        "default_mss": 1448,
+        "header_len": 54
+      },
+      "trace": [
+        {
+          "op": "ASSEMBLE_GSO_SKB",
+          "skb_id": "ROLLOVER_SKB",
+          "gso_size": 1448,
+          "ip_id_start": 65534,
+          "tcp_seq_start": 900000,
+          "tcp_flags": [
+            "ACK",
+            "PSH"
+          ],
+          "linear_data_len": 5000,
+          "frags": []
+        },
+        {
+          "op": "TRANSMIT_SKB",
+          "skb_id": "ROLLOVER_SKB"
+        },
+        {
+          "op": "ASSEMBLE_GSO_SKB",
+          "skb_id": "CHAIN_A",
+          "gso_size": 1448,
+          "ip_id_start": 100,
+          "tcp_seq_start": 1000,
+          "tcp_flags": [
+            "ACK"
+          ],
+          "linear_data_len": 2000,
+          "frags": []
+        },
+        {
+          "op": "ASSEMBLE_GSO_SKB",
+          "skb_id": "CHAIN_B",
+          "gso_size": 1448,
+          "ip_id_start": 200,
+          "tcp_seq_start": 5000,
+          "tcp_flags": [
+            "ACK",
+            "PSH"
+          ],
+          "linear_data_len": 0,
+          "frags": [
+            {
+              "page_pfn": 36864,
+              "offset": 100,
+              "size": 3000
+            }
+          ]
+        },
+        {
+          "op": "TRANSMIT_SKB",
+          "skb_id": "CHAIN_A"
+        },
+        {
+          "op": "TRANSMIT_SKB",
+          "skb_id": "CHAIN_B"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ASSEMBLE_GSO_SKB",
+          "skb_id": "ROLLOVER_SKB",
+          "total_payload_bytes": 5000,
+          "gso_size": 1448,
+          "gso_segs": 4,
+          "num_frags": 0,
+          "status": "GSO_SKB_ASSEMBLED"
+        },
+        {
+          "op": "TRANSMIT_SKB",
+          "skb_id": "ROLLOVER_SKB",
+          "mode": "SOFTWARE_GSO_SEGMENTED",
+          "total_payload_bytes": 5000,
+          "segments_emitted": 4,
+          "segments": [
+            {
+              "seg_index": 0,
+              "ip_id": 65534,
+              "tcp_seq": 900000,
+              "payload_len": 1448,
+              "wire_len": 1502,
+              "tcp_flags": [
+                "ACK"
+              ],
+              "is_last_seg": false,
+              "frags_sliced": 0
+            },
+            {
+              "seg_index": 1,
+              "ip_id": 65535,
+              "tcp_seq": 901448,
+              "payload_len": 1448,
+              "wire_len": 1502,
+              "tcp_flags": [
+                "ACK"
+              ],
+              "is_last_seg": false,
+              "frags_sliced": 0
+            },
+            {
+              "seg_index": 2,
+              "ip_id": 0,
+              "tcp_seq": 902896,
+              "payload_len": 1448,
+              "wire_len": 1502,
+              "tcp_flags": [
+                "ACK"
+              ],
+              "is_last_seg": false,
+              "frags_sliced": 0
+            },
+            {
+              "seg_index": 3,
+              "ip_id": 1,
+              "tcp_seq": 904344,
+              "payload_len": 656,
+              "wire_len": 710,
+              "tcp_flags": [
+                "ACK",
+                "PSH"
+              ],
+              "is_last_seg": true,
+              "frags_sliced": 0
+            }
+          ],
+          "cpu_cycles_saved_est": 0
+        },
+        {
+          "op": "ASSEMBLE_GSO_SKB",
+          "skb_id": "CHAIN_A",
+          "total_payload_bytes": 2000,
+          "gso_size": 1448,
+          "gso_segs": 2,
+          "num_frags": 0,
+          "status": "GSO_SKB_ASSEMBLED"
+        },
+        {
+          "op": "ASSEMBLE_GSO_SKB",
+          "skb_id": "CHAIN_B",
+          "total_payload_bytes": 3000,
+          "gso_size": 1448,
+          "gso_segs": 3,
+          "num_frags": 1,
+          "status": "GSO_SKB_ASSEMBLED"
+        },
+        {
+          "op": "TRANSMIT_SKB",
+          "skb_id": "CHAIN_A",
+          "mode": "SOFTWARE_GSO_SEGMENTED",
+          "total_payload_bytes": 2000,
+          "segments_emitted": 2,
+          "segments": [
+            {
+              "seg_index": 0,
+              "ip_id": 100,
+              "tcp_seq": 1000,
+              "payload_len": 1448,
+              "wire_len": 1502,
+              "tcp_flags": [
+                "ACK"
+              ],
+              "is_last_seg": false,
+              "frags_sliced": 0
+            },
+            {
+              "seg_index": 1,
+              "ip_id": 101,
+              "tcp_seq": 2448,
+              "payload_len": 552,
+              "wire_len": 606,
+              "tcp_flags": [
+                "ACK"
+              ],
+              "is_last_seg": true,
+              "frags_sliced": 0
+            }
+          ],
+          "cpu_cycles_saved_est": 0
+        },
+        {
+          "op": "TRANSMIT_SKB",
+          "skb_id": "CHAIN_B",
+          "mode": "SOFTWARE_GSO_SEGMENTED",
+          "total_payload_bytes": 3000,
+          "segments_emitted": 3,
+          "segments": [
+            {
+              "seg_index": 0,
+              "ip_id": 200,
+              "tcp_seq": 5000,
+              "payload_len": 1448,
+              "wire_len": 1502,
+              "tcp_flags": [
+                "ACK"
+              ],
+              "is_last_seg": false,
+              "frags_sliced": 1
+            },
+            {
+              "seg_index": 1,
+              "ip_id": 201,
+              "tcp_seq": 6448,
+              "payload_len": 1448,
+              "wire_len": 1502,
+              "tcp_flags": [
+                "ACK"
+              ],
+              "is_last_seg": false,
+              "frags_sliced": 1
+            },
+            {
+              "seg_index": 2,
+              "ip_id": 202,
+              "tcp_seq": 7896,
+              "payload_len": 104,
+              "wire_len": 158,
+              "tcp_flags": [
+                "ACK",
+                "PSH"
+              ],
+              "is_last_seg": true,
+              "frags_sliced": 1
+            }
+          ],
+          "cpu_cycles_saved_est": 0
+        },
+        {
+          "op": "GET_STATS",
+          "hw_tso_enabled": false,
+          "total_gso_skbs": 3,
+          "hw_tso_dispatched": 0,
+          "sw_gso_segmented": 3,
+          "total_wire_packets": 9,
+          "total_payload_bytes": 10000
+        }
+      ],
+      "summary": {
+        "hw_tso_enabled": false,
+        "total_gso_skbs": 3,
+        "hw_tso_dispatched": 0,
+        "sw_gso_segmented": 3,
+        "total_wire_packets": 9,
+        "total_payload_bytes": 10000
+      }
+    }
+  }
+]
