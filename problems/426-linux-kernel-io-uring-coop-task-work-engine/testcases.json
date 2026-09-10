@@ -1,0 +1,1467 @@
+[
+  {
+    "input": {
+      "config": {
+        "mode": "COOP",
+        "flags": [
+          "IORING_SETUP_COOP_TASKRUN",
+          "IORING_SETUP_TASKRUN_FLAG"
+        ],
+        "cq_entries": 32
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "SUBMIT_ASYNC_REQ",
+          "req_id": "r1",
+          "op": "READ",
+          "data_len": 4096
+        },
+        {
+          "time": 20,
+          "type": "SUBMIT_ASYNC_REQ",
+          "req_id": "r2",
+          "op": "READ",
+          "data_len": 8192
+        },
+        {
+          "time": 30,
+          "type": "SUBMIT_ASYNC_REQ",
+          "req_id": "r3",
+          "op": "WRITE",
+          "data_len": 16384
+        },
+        {
+          "time": 40,
+          "type": "COMPLETE_ASYNC_REQ",
+          "req_id": "r1",
+          "result": 4096
+        },
+        {
+          "time": 50,
+          "type": "COMPLETE_ASYNC_REQ",
+          "req_id": "r2",
+          "result": 8192
+        },
+        {
+          "time": 60,
+          "type": "COMPLETE_ASYNC_REQ",
+          "req_id": "r3",
+          "result": 16384
+        },
+        {
+          "time": 70,
+          "type": "ENTER_WAIT",
+          "min_complete": 1
+        },
+        {
+          "time": 80,
+          "type": "USER_PEEK_CQE"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "mode": "COOP",
+        "total_requests": 3,
+        "ipis_sent": 0,
+        "task_work_runs": 1,
+        "cqes_generated": 3,
+        "batch_flushes": 1,
+        "pending_task_work": 0,
+        "sq_taskrun_flag": false
+      },
+      "cqes": [
+        {
+          "req_id": "r1",
+          "res": 4096
+        },
+        {
+          "req_id": "r2",
+          "res": 8192
+        },
+        {
+          "req_id": "r3",
+          "res": 16384
+        }
+      ],
+      "task_work_logs": [
+        {
+          "time": 40,
+          "action": "COOP_WORK_QUEUED",
+          "req_id": "r1",
+          "ipi_sent": false,
+          "sq_taskrun_flag": true
+        },
+        {
+          "time": 50,
+          "action": "COOP_WORK_QUEUED",
+          "req_id": "r2",
+          "ipi_sent": false,
+          "sq_taskrun_flag": true
+        },
+        {
+          "time": 60,
+          "action": "COOP_WORK_QUEUED",
+          "req_id": "r3",
+          "ipi_sent": false,
+          "sq_taskrun_flag": true
+        },
+        {
+          "time": 70,
+          "action": "COOP_BATCH_DRAINED",
+          "items_drained": 3
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "REQ_SUBMITTED",
+          "req_id": "r1",
+          "op": "READ",
+          "len": 4096
+        },
+        {
+          "time": 20,
+          "event": "REQ_SUBMITTED",
+          "req_id": "r2",
+          "op": "READ",
+          "len": 8192
+        },
+        {
+          "time": 30,
+          "event": "REQ_SUBMITTED",
+          "req_id": "r3",
+          "op": "WRITE",
+          "len": 16384
+        },
+        {
+          "time": 40,
+          "event": "COOP_WORK_QUEUED_NO_IPI",
+          "req_id": "r1"
+        },
+        {
+          "time": 50,
+          "event": "COOP_WORK_QUEUED_NO_IPI",
+          "req_id": "r2"
+        },
+        {
+          "time": 60,
+          "event": "COOP_WORK_QUEUED_NO_IPI",
+          "req_id": "r3"
+        },
+        {
+          "time": 70,
+          "event": "COOP_TASK_WORK_DRAINED",
+          "count": 3
+        },
+        {
+          "time": 80,
+          "event": "USER_PEEK_CQE",
+          "cqes_available": 3,
+          "sq_taskrun_flag": false
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "mode": "LEGACY",
+        "flags": [],
+        "cq_entries": 32
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "SUBMIT_ASYNC_REQ",
+          "req_id": "leg_1",
+          "op": "READ",
+          "data_len": 512
+        },
+        {
+          "time": 20,
+          "type": "SUBMIT_ASYNC_REQ",
+          "req_id": "leg_2",
+          "op": "READ",
+          "data_len": 1024
+        },
+        {
+          "time": 30,
+          "type": "SUBMIT_ASYNC_REQ",
+          "req_id": "leg_3",
+          "op": "READ",
+          "data_len": 2048
+        },
+        {
+          "time": 40,
+          "type": "SUBMIT_ASYNC_REQ",
+          "req_id": "leg_4",
+          "op": "WRITE",
+          "data_len": 4096
+        },
+        {
+          "time": 50,
+          "type": "COMPLETE_ASYNC_REQ",
+          "req_id": "leg_1",
+          "result": 512
+        },
+        {
+          "time": 60,
+          "type": "COMPLETE_ASYNC_REQ",
+          "req_id": "leg_2",
+          "result": 1024
+        },
+        {
+          "time": 70,
+          "type": "COMPLETE_ASYNC_REQ",
+          "req_id": "leg_3",
+          "result": 2048
+        },
+        {
+          "time": 80,
+          "type": "COMPLETE_ASYNC_REQ",
+          "req_id": "leg_4",
+          "result": 4096
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "mode": "LEGACY",
+        "total_requests": 4,
+        "ipis_sent": 4,
+        "task_work_runs": 4,
+        "cqes_generated": 4,
+        "batch_flushes": 0,
+        "pending_task_work": 0,
+        "sq_taskrun_flag": false
+      },
+      "cqes": [
+        {
+          "req_id": "leg_1",
+          "res": 512
+        },
+        {
+          "req_id": "leg_2",
+          "res": 1024
+        },
+        {
+          "req_id": "leg_3",
+          "res": 2048
+        },
+        {
+          "req_id": "leg_4",
+          "res": 4096
+        }
+      ],
+      "task_work_logs": [
+        {
+          "time": 50,
+          "action": "LEGACY_IPI_TASK_WORK",
+          "req_id": "leg_1",
+          "ipi_sent": true
+        },
+        {
+          "time": 60,
+          "action": "LEGACY_IPI_TASK_WORK",
+          "req_id": "leg_2",
+          "ipi_sent": true
+        },
+        {
+          "time": 70,
+          "action": "LEGACY_IPI_TASK_WORK",
+          "req_id": "leg_3",
+          "ipi_sent": true
+        },
+        {
+          "time": 80,
+          "action": "LEGACY_IPI_TASK_WORK",
+          "req_id": "leg_4",
+          "ipi_sent": true
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "REQ_SUBMITTED",
+          "req_id": "leg_1",
+          "op": "READ",
+          "len": 512
+        },
+        {
+          "time": 20,
+          "event": "REQ_SUBMITTED",
+          "req_id": "leg_2",
+          "op": "READ",
+          "len": 1024
+        },
+        {
+          "time": 30,
+          "event": "REQ_SUBMITTED",
+          "req_id": "leg_3",
+          "op": "READ",
+          "len": 2048
+        },
+        {
+          "time": 40,
+          "event": "REQ_SUBMITTED",
+          "req_id": "leg_4",
+          "op": "WRITE",
+          "len": 4096
+        },
+        {
+          "time": 50,
+          "event": "IPI_INTERRUPT_TRIGGERED",
+          "req_id": "leg_1"
+        },
+        {
+          "time": 60,
+          "event": "IPI_INTERRUPT_TRIGGERED",
+          "req_id": "leg_2"
+        },
+        {
+          "time": 70,
+          "event": "IPI_INTERRUPT_TRIGGERED",
+          "req_id": "leg_3"
+        },
+        {
+          "time": 80,
+          "event": "IPI_INTERRUPT_TRIGGERED",
+          "req_id": "leg_4"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "mode": "COOP",
+        "flags": [
+          "IORING_SETUP_COOP_TASKRUN",
+          "IORING_SETUP_TASKRUN_FLAG"
+        ],
+        "cq_entries": 16
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "SUBMIT_ASYNC_REQ",
+          "req_id": "poll_1",
+          "op": "READ",
+          "data_len": 4096
+        },
+        {
+          "time": 20,
+          "type": "COMPLETE_ASYNC_REQ",
+          "req_id": "poll_1",
+          "result": 4096
+        },
+        {
+          "time": 30,
+          "type": "USER_PEEK_CQE"
+        },
+        {
+          "time": 40,
+          "type": "ENTER_WAIT",
+          "min_complete": 1
+        },
+        {
+          "time": 50,
+          "type": "USER_PEEK_CQE"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "mode": "COOP",
+        "total_requests": 1,
+        "ipis_sent": 0,
+        "task_work_runs": 1,
+        "cqes_generated": 1,
+        "batch_flushes": 1,
+        "pending_task_work": 0,
+        "sq_taskrun_flag": false
+      },
+      "cqes": [
+        {
+          "req_id": "poll_1",
+          "res": 4096
+        }
+      ],
+      "task_work_logs": [
+        {
+          "time": 20,
+          "action": "COOP_WORK_QUEUED",
+          "req_id": "poll_1",
+          "ipi_sent": false,
+          "sq_taskrun_flag": true
+        },
+        {
+          "time": 40,
+          "action": "COOP_BATCH_DRAINED",
+          "items_drained": 1
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "REQ_SUBMITTED",
+          "req_id": "poll_1",
+          "op": "READ",
+          "len": 4096
+        },
+        {
+          "time": 20,
+          "event": "COOP_WORK_QUEUED_NO_IPI",
+          "req_id": "poll_1"
+        },
+        {
+          "time": 30,
+          "event": "USER_PEEK_CQE",
+          "cqes_available": 0,
+          "sq_taskrun_flag": true
+        },
+        {
+          "time": 40,
+          "event": "COOP_TASK_WORK_DRAINED",
+          "count": 1
+        },
+        {
+          "time": 50,
+          "event": "USER_PEEK_CQE",
+          "cqes_available": 1,
+          "sq_taskrun_flag": false
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "mode": "COOP",
+        "flags": [
+          "IORING_SETUP_COOP_TASKRUN"
+        ],
+        "cq_entries": 16
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "SUBMIT_ASYNC_REQ",
+          "req_id": "noflag_1",
+          "op": "READ",
+          "data_len": 1024
+        },
+        {
+          "time": 20,
+          "type": "COMPLETE_ASYNC_REQ",
+          "req_id": "noflag_1",
+          "result": 1024
+        },
+        {
+          "time": 30,
+          "type": "USER_PEEK_CQE"
+        },
+        {
+          "time": 40,
+          "type": "ENTER_WAIT",
+          "min_complete": 1
+        },
+        {
+          "time": 50,
+          "type": "USER_PEEK_CQE"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "mode": "COOP",
+        "total_requests": 1,
+        "ipis_sent": 0,
+        "task_work_runs": 1,
+        "cqes_generated": 1,
+        "batch_flushes": 1,
+        "pending_task_work": 0,
+        "sq_taskrun_flag": false
+      },
+      "cqes": [
+        {
+          "req_id": "noflag_1",
+          "res": 1024
+        }
+      ],
+      "task_work_logs": [
+        {
+          "time": 20,
+          "action": "COOP_WORK_QUEUED",
+          "req_id": "noflag_1",
+          "ipi_sent": false,
+          "sq_taskrun_flag": false
+        },
+        {
+          "time": 40,
+          "action": "COOP_BATCH_DRAINED",
+          "items_drained": 1
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "REQ_SUBMITTED",
+          "req_id": "noflag_1",
+          "op": "READ",
+          "len": 1024
+        },
+        {
+          "time": 20,
+          "event": "COOP_WORK_QUEUED_NO_IPI",
+          "req_id": "noflag_1"
+        },
+        {
+          "time": 30,
+          "event": "USER_PEEK_CQE",
+          "cqes_available": 0,
+          "sq_taskrun_flag": false
+        },
+        {
+          "time": 40,
+          "event": "COOP_TASK_WORK_DRAINED",
+          "count": 1
+        },
+        {
+          "time": 50,
+          "event": "USER_PEEK_CQE",
+          "cqes_available": 1,
+          "sq_taskrun_flag": false
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "mode": "COOP",
+        "flags": [
+          "IORING_SETUP_COOP_TASKRUN",
+          "IORING_SETUP_TASKRUN_FLAG"
+        ],
+        "cq_entries": 32
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "SUBMIT_ASYNC_REQ",
+          "req_id": "b1_1",
+          "op": "READ",
+          "data_len": 4096
+        },
+        {
+          "time": 20,
+          "type": "SUBMIT_ASYNC_REQ",
+          "req_id": "b1_2",
+          "op": "READ",
+          "data_len": 4096
+        },
+        {
+          "time": 30,
+          "type": "COMPLETE_ASYNC_REQ",
+          "req_id": "b1_1",
+          "result": 4096
+        },
+        {
+          "time": 40,
+          "type": "COMPLETE_ASYNC_REQ",
+          "req_id": "b1_2",
+          "result": 4096
+        },
+        {
+          "time": 50,
+          "type": "ENTER_WAIT",
+          "min_complete": 1
+        },
+        {
+          "time": 60,
+          "type": "SUBMIT_ASYNC_REQ",
+          "req_id": "b2_1",
+          "op": "WRITE",
+          "data_len": 8192
+        },
+        {
+          "time": 70,
+          "type": "SUBMIT_ASYNC_REQ",
+          "req_id": "b2_2",
+          "op": "WRITE",
+          "data_len": 8192
+        },
+        {
+          "time": 80,
+          "type": "SUBMIT_ASYNC_REQ",
+          "req_id": "b2_3",
+          "op": "WRITE",
+          "data_len": 8192
+        },
+        {
+          "time": 90,
+          "type": "COMPLETE_ASYNC_REQ",
+          "req_id": "b2_1",
+          "result": 8192
+        },
+        {
+          "time": 100,
+          "type": "COMPLETE_ASYNC_REQ",
+          "req_id": "b2_2",
+          "result": 8192
+        },
+        {
+          "time": 110,
+          "type": "COMPLETE_ASYNC_REQ",
+          "req_id": "b2_3",
+          "result": 8192
+        },
+        {
+          "time": 120,
+          "type": "ENTER_WAIT",
+          "min_complete": 1
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "mode": "COOP",
+        "total_requests": 5,
+        "ipis_sent": 0,
+        "task_work_runs": 2,
+        "cqes_generated": 5,
+        "batch_flushes": 2,
+        "pending_task_work": 0,
+        "sq_taskrun_flag": false
+      },
+      "cqes": [
+        {
+          "req_id": "b1_1",
+          "res": 4096
+        },
+        {
+          "req_id": "b1_2",
+          "res": 4096
+        },
+        {
+          "req_id": "b2_1",
+          "res": 8192
+        },
+        {
+          "req_id": "b2_2",
+          "res": 8192
+        },
+        {
+          "req_id": "b2_3",
+          "res": 8192
+        }
+      ],
+      "task_work_logs": [
+        {
+          "time": 30,
+          "action": "COOP_WORK_QUEUED",
+          "req_id": "b1_1",
+          "ipi_sent": false,
+          "sq_taskrun_flag": true
+        },
+        {
+          "time": 40,
+          "action": "COOP_WORK_QUEUED",
+          "req_id": "b1_2",
+          "ipi_sent": false,
+          "sq_taskrun_flag": true
+        },
+        {
+          "time": 50,
+          "action": "COOP_BATCH_DRAINED",
+          "items_drained": 2
+        },
+        {
+          "time": 90,
+          "action": "COOP_WORK_QUEUED",
+          "req_id": "b2_1",
+          "ipi_sent": false,
+          "sq_taskrun_flag": true
+        },
+        {
+          "time": 100,
+          "action": "COOP_WORK_QUEUED",
+          "req_id": "b2_2",
+          "ipi_sent": false,
+          "sq_taskrun_flag": true
+        },
+        {
+          "time": 110,
+          "action": "COOP_WORK_QUEUED",
+          "req_id": "b2_3",
+          "ipi_sent": false,
+          "sq_taskrun_flag": true
+        },
+        {
+          "time": 120,
+          "action": "COOP_BATCH_DRAINED",
+          "items_drained": 3
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "REQ_SUBMITTED",
+          "req_id": "b1_1",
+          "op": "READ",
+          "len": 4096
+        },
+        {
+          "time": 20,
+          "event": "REQ_SUBMITTED",
+          "req_id": "b1_2",
+          "op": "READ",
+          "len": 4096
+        },
+        {
+          "time": 30,
+          "event": "COOP_WORK_QUEUED_NO_IPI",
+          "req_id": "b1_1"
+        },
+        {
+          "time": 40,
+          "event": "COOP_WORK_QUEUED_NO_IPI",
+          "req_id": "b1_2"
+        },
+        {
+          "time": 50,
+          "event": "COOP_TASK_WORK_DRAINED",
+          "count": 2
+        },
+        {
+          "time": 60,
+          "event": "REQ_SUBMITTED",
+          "req_id": "b2_1",
+          "op": "WRITE",
+          "len": 8192
+        },
+        {
+          "time": 70,
+          "event": "REQ_SUBMITTED",
+          "req_id": "b2_2",
+          "op": "WRITE",
+          "len": 8192
+        },
+        {
+          "time": 80,
+          "event": "REQ_SUBMITTED",
+          "req_id": "b2_3",
+          "op": "WRITE",
+          "len": 8192
+        },
+        {
+          "time": 90,
+          "event": "COOP_WORK_QUEUED_NO_IPI",
+          "req_id": "b2_1"
+        },
+        {
+          "time": 100,
+          "event": "COOP_WORK_QUEUED_NO_IPI",
+          "req_id": "b2_2"
+        },
+        {
+          "time": 110,
+          "event": "COOP_WORK_QUEUED_NO_IPI",
+          "req_id": "b2_3"
+        },
+        {
+          "time": 120,
+          "event": "COOP_TASK_WORK_DRAINED",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "mode": "COOP",
+        "flags": [
+          "IORING_SETUP_COOP_TASKRUN",
+          "IORING_SETUP_TASKRUN_FLAG"
+        ],
+        "cq_entries": 32
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "SUBMIT_ASYNC_REQ",
+          "req_id": "p1",
+          "op": "READ",
+          "data_len": 1024
+        },
+        {
+          "time": 20,
+          "type": "SUBMIT_ASYNC_REQ",
+          "req_id": "p2",
+          "op": "READ",
+          "data_len": 2048
+        },
+        {
+          "time": 30,
+          "type": "SUBMIT_ASYNC_REQ",
+          "req_id": "p3",
+          "op": "READ",
+          "data_len": 4096
+        },
+        {
+          "time": 40,
+          "type": "SUBMIT_ASYNC_REQ",
+          "req_id": "p4",
+          "op": "READ",
+          "data_len": 8192
+        },
+        {
+          "time": 50,
+          "type": "COMPLETE_ASYNC_REQ",
+          "req_id": "p1",
+          "result": 1024
+        },
+        {
+          "time": 60,
+          "type": "ENTER_WAIT",
+          "min_complete": 1
+        },
+        {
+          "time": 70,
+          "type": "COMPLETE_ASYNC_REQ",
+          "req_id": "p2",
+          "result": 2048
+        },
+        {
+          "time": 80,
+          "type": "COMPLETE_ASYNC_REQ",
+          "req_id": "p3",
+          "result": 4096
+        },
+        {
+          "time": 90,
+          "type": "ENTER_WAIT",
+          "min_complete": 1
+        },
+        {
+          "time": 100,
+          "type": "COMPLETE_ASYNC_REQ",
+          "req_id": "p4",
+          "result": 8192
+        },
+        {
+          "time": 110,
+          "type": "ENTER_WAIT",
+          "min_complete": 1
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "mode": "COOP",
+        "total_requests": 4,
+        "ipis_sent": 0,
+        "task_work_runs": 3,
+        "cqes_generated": 4,
+        "batch_flushes": 3,
+        "pending_task_work": 0,
+        "sq_taskrun_flag": false
+      },
+      "cqes": [
+        {
+          "req_id": "p1",
+          "res": 1024
+        },
+        {
+          "req_id": "p2",
+          "res": 2048
+        },
+        {
+          "req_id": "p3",
+          "res": 4096
+        },
+        {
+          "req_id": "p4",
+          "res": 8192
+        }
+      ],
+      "task_work_logs": [
+        {
+          "time": 50,
+          "action": "COOP_WORK_QUEUED",
+          "req_id": "p1",
+          "ipi_sent": false,
+          "sq_taskrun_flag": true
+        },
+        {
+          "time": 60,
+          "action": "COOP_BATCH_DRAINED",
+          "items_drained": 1
+        },
+        {
+          "time": 70,
+          "action": "COOP_WORK_QUEUED",
+          "req_id": "p2",
+          "ipi_sent": false,
+          "sq_taskrun_flag": true
+        },
+        {
+          "time": 80,
+          "action": "COOP_WORK_QUEUED",
+          "req_id": "p3",
+          "ipi_sent": false,
+          "sq_taskrun_flag": true
+        },
+        {
+          "time": 90,
+          "action": "COOP_BATCH_DRAINED",
+          "items_drained": 2
+        },
+        {
+          "time": 100,
+          "action": "COOP_WORK_QUEUED",
+          "req_id": "p4",
+          "ipi_sent": false,
+          "sq_taskrun_flag": true
+        },
+        {
+          "time": 110,
+          "action": "COOP_BATCH_DRAINED",
+          "items_drained": 1
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "REQ_SUBMITTED",
+          "req_id": "p1",
+          "op": "READ",
+          "len": 1024
+        },
+        {
+          "time": 20,
+          "event": "REQ_SUBMITTED",
+          "req_id": "p2",
+          "op": "READ",
+          "len": 2048
+        },
+        {
+          "time": 30,
+          "event": "REQ_SUBMITTED",
+          "req_id": "p3",
+          "op": "READ",
+          "len": 4096
+        },
+        {
+          "time": 40,
+          "event": "REQ_SUBMITTED",
+          "req_id": "p4",
+          "op": "READ",
+          "len": 8192
+        },
+        {
+          "time": 50,
+          "event": "COOP_WORK_QUEUED_NO_IPI",
+          "req_id": "p1"
+        },
+        {
+          "time": 60,
+          "event": "COOP_TASK_WORK_DRAINED",
+          "count": 1
+        },
+        {
+          "time": 70,
+          "event": "COOP_WORK_QUEUED_NO_IPI",
+          "req_id": "p2"
+        },
+        {
+          "time": 80,
+          "event": "COOP_WORK_QUEUED_NO_IPI",
+          "req_id": "p3"
+        },
+        {
+          "time": 90,
+          "event": "COOP_TASK_WORK_DRAINED",
+          "count": 2
+        },
+        {
+          "time": 100,
+          "event": "COOP_WORK_QUEUED_NO_IPI",
+          "req_id": "p4"
+        },
+        {
+          "time": 110,
+          "event": "COOP_TASK_WORK_DRAINED",
+          "count": 1
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "mode": "COOP",
+        "flags": [
+          "IORING_SETUP_COOP_TASKRUN",
+          "IORING_SETUP_TASKRUN_FLAG"
+        ],
+        "cq_entries": 16
+      },
+      "trace": [
+        {
+          "time": 10,
+          "type": "SUBMIT_ASYNC_REQ",
+          "req_id": "mix_read",
+          "op": "READ",
+          "data_len": 4096
+        },
+        {
+          "time": 20,
+          "type": "SUBMIT_ASYNC_REQ",
+          "req_id": "mix_recv",
+          "op": "RECV",
+          "data_len": 1500
+        },
+        {
+          "time": 30,
+          "type": "SUBMIT_ASYNC_REQ",
+          "req_id": "mix_fsync",
+          "op": "FSYNC",
+          "data_len": 0
+        },
+        {
+          "time": 40,
+          "type": "COMPLETE_ASYNC_REQ",
+          "req_id": "mix_read",
+          "result": 4096
+        },
+        {
+          "time": 50,
+          "type": "COMPLETE_ASYNC_REQ",
+          "req_id": "mix_fsync",
+          "result": 0
+        },
+        {
+          "time": 60,
+          "type": "COMPLETE_ASYNC_REQ",
+          "req_id": "mix_recv",
+          "result": 1400
+        },
+        {
+          "time": 70,
+          "type": "ENTER_WAIT",
+          "min_complete": 1
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "mode": "COOP",
+        "total_requests": 3,
+        "ipis_sent": 0,
+        "task_work_runs": 1,
+        "cqes_generated": 3,
+        "batch_flushes": 1,
+        "pending_task_work": 0,
+        "sq_taskrun_flag": false
+      },
+      "cqes": [
+        {
+          "req_id": "mix_read",
+          "res": 4096
+        },
+        {
+          "req_id": "mix_fsync",
+          "res": 0
+        },
+        {
+          "req_id": "mix_recv",
+          "res": 1400
+        }
+      ],
+      "task_work_logs": [
+        {
+          "time": 40,
+          "action": "COOP_WORK_QUEUED",
+          "req_id": "mix_read",
+          "ipi_sent": false,
+          "sq_taskrun_flag": true
+        },
+        {
+          "time": 50,
+          "action": "COOP_WORK_QUEUED",
+          "req_id": "mix_fsync",
+          "ipi_sent": false,
+          "sq_taskrun_flag": true
+        },
+        {
+          "time": 60,
+          "action": "COOP_WORK_QUEUED",
+          "req_id": "mix_recv",
+          "ipi_sent": false,
+          "sq_taskrun_flag": true
+        },
+        {
+          "time": 70,
+          "action": "COOP_BATCH_DRAINED",
+          "items_drained": 3
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "REQ_SUBMITTED",
+          "req_id": "mix_read",
+          "op": "READ",
+          "len": 4096
+        },
+        {
+          "time": 20,
+          "event": "REQ_SUBMITTED",
+          "req_id": "mix_recv",
+          "op": "RECV",
+          "len": 1500
+        },
+        {
+          "time": 30,
+          "event": "REQ_SUBMITTED",
+          "req_id": "mix_fsync",
+          "op": "FSYNC",
+          "len": 0
+        },
+        {
+          "time": 40,
+          "event": "COOP_WORK_QUEUED_NO_IPI",
+          "req_id": "mix_read"
+        },
+        {
+          "time": 50,
+          "event": "COOP_WORK_QUEUED_NO_IPI",
+          "req_id": "mix_fsync"
+        },
+        {
+          "time": 60,
+          "event": "COOP_WORK_QUEUED_NO_IPI",
+          "req_id": "mix_recv"
+        },
+        {
+          "time": 70,
+          "event": "COOP_TASK_WORK_DRAINED",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "mode": "COOP",
+        "flags": [
+          "IORING_SETUP_COOP_TASKRUN",
+          "IORING_SETUP_TASKRUN_FLAG"
+        ],
+        "cq_entries": 64
+      },
+      "trace": [
+        {
+          "time": 100,
+          "type": "SUBMIT_ASYNC_REQ",
+          "req_id": "nvme_01",
+          "op": "READ",
+          "data_len": 4096
+        },
+        {
+          "time": 110,
+          "type": "SUBMIT_ASYNC_REQ",
+          "req_id": "nvme_02",
+          "op": "READ",
+          "data_len": 4096
+        },
+        {
+          "time": 120,
+          "type": "SUBMIT_ASYNC_REQ",
+          "req_id": "nvme_03",
+          "op": "READ",
+          "data_len": 4096
+        },
+        {
+          "time": 130,
+          "type": "SUBMIT_ASYNC_REQ",
+          "req_id": "nvme_04",
+          "op": "READ",
+          "data_len": 4096
+        },
+        {
+          "time": 140,
+          "type": "SUBMIT_ASYNC_REQ",
+          "req_id": "nvme_05",
+          "op": "WRITE",
+          "data_len": 8192
+        },
+        {
+          "time": 150,
+          "type": "SUBMIT_ASYNC_REQ",
+          "req_id": "nvme_06",
+          "op": "WRITE",
+          "data_len": 8192
+        },
+        {
+          "time": 160,
+          "type": "COMPLETE_ASYNC_REQ",
+          "req_id": "nvme_01",
+          "result": 4096
+        },
+        {
+          "time": 170,
+          "type": "COMPLETE_ASYNC_REQ",
+          "req_id": "nvme_02",
+          "result": 4096
+        },
+        {
+          "time": 180,
+          "type": "USER_PEEK_CQE"
+        },
+        {
+          "time": 190,
+          "type": "COMPLETE_ASYNC_REQ",
+          "req_id": "nvme_03",
+          "result": 4096
+        },
+        {
+          "time": 200,
+          "type": "ENTER_WAIT",
+          "min_complete": 1
+        },
+        {
+          "time": 210,
+          "type": "USER_PEEK_CQE"
+        },
+        {
+          "time": 220,
+          "type": "COMPLETE_ASYNC_REQ",
+          "req_id": "nvme_04",
+          "result": 4096
+        },
+        {
+          "time": 230,
+          "type": "COMPLETE_ASYNC_REQ",
+          "req_id": "nvme_05",
+          "result": 8192
+        },
+        {
+          "time": 240,
+          "type": "COMPLETE_ASYNC_REQ",
+          "req_id": "nvme_06",
+          "result": 8192
+        },
+        {
+          "time": 250,
+          "type": "ENTER_WAIT",
+          "min_complete": 1
+        },
+        {
+          "time": 260,
+          "type": "USER_PEEK_CQE"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "mode": "COOP",
+        "total_requests": 6,
+        "ipis_sent": 0,
+        "task_work_runs": 2,
+        "cqes_generated": 6,
+        "batch_flushes": 2,
+        "pending_task_work": 0,
+        "sq_taskrun_flag": false
+      },
+      "cqes": [
+        {
+          "req_id": "nvme_01",
+          "res": 4096
+        },
+        {
+          "req_id": "nvme_02",
+          "res": 4096
+        },
+        {
+          "req_id": "nvme_03",
+          "res": 4096
+        },
+        {
+          "req_id": "nvme_04",
+          "res": 4096
+        },
+        {
+          "req_id": "nvme_05",
+          "res": 8192
+        },
+        {
+          "req_id": "nvme_06",
+          "res": 8192
+        }
+      ],
+      "task_work_logs": [
+        {
+          "time": 160,
+          "action": "COOP_WORK_QUEUED",
+          "req_id": "nvme_01",
+          "ipi_sent": false,
+          "sq_taskrun_flag": true
+        },
+        {
+          "time": 170,
+          "action": "COOP_WORK_QUEUED",
+          "req_id": "nvme_02",
+          "ipi_sent": false,
+          "sq_taskrun_flag": true
+        },
+        {
+          "time": 190,
+          "action": "COOP_WORK_QUEUED",
+          "req_id": "nvme_03",
+          "ipi_sent": false,
+          "sq_taskrun_flag": true
+        },
+        {
+          "time": 200,
+          "action": "COOP_BATCH_DRAINED",
+          "items_drained": 3
+        },
+        {
+          "time": 220,
+          "action": "COOP_WORK_QUEUED",
+          "req_id": "nvme_04",
+          "ipi_sent": false,
+          "sq_taskrun_flag": true
+        },
+        {
+          "time": 230,
+          "action": "COOP_WORK_QUEUED",
+          "req_id": "nvme_05",
+          "ipi_sent": false,
+          "sq_taskrun_flag": true
+        },
+        {
+          "time": 240,
+          "action": "COOP_WORK_QUEUED",
+          "req_id": "nvme_06",
+          "ipi_sent": false,
+          "sq_taskrun_flag": true
+        },
+        {
+          "time": 250,
+          "action": "COOP_BATCH_DRAINED",
+          "items_drained": 3
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 100,
+          "event": "REQ_SUBMITTED",
+          "req_id": "nvme_01",
+          "op": "READ",
+          "len": 4096
+        },
+        {
+          "time": 110,
+          "event": "REQ_SUBMITTED",
+          "req_id": "nvme_02",
+          "op": "READ",
+          "len": 4096
+        },
+        {
+          "time": 120,
+          "event": "REQ_SUBMITTED",
+          "req_id": "nvme_03",
+          "op": "READ",
+          "len": 4096
+        },
+        {
+          "time": 130,
+          "event": "REQ_SUBMITTED",
+          "req_id": "nvme_04",
+          "op": "READ",
+          "len": 4096
+        },
+        {
+          "time": 140,
+          "event": "REQ_SUBMITTED",
+          "req_id": "nvme_05",
+          "op": "WRITE",
+          "len": 8192
+        },
+        {
+          "time": 150,
+          "event": "REQ_SUBMITTED",
+          "req_id": "nvme_06",
+          "op": "WRITE",
+          "len": 8192
+        },
+        {
+          "time": 160,
+          "event": "COOP_WORK_QUEUED_NO_IPI",
+          "req_id": "nvme_01"
+        },
+        {
+          "time": 170,
+          "event": "COOP_WORK_QUEUED_NO_IPI",
+          "req_id": "nvme_02"
+        },
+        {
+          "time": 180,
+          "event": "USER_PEEK_CQE",
+          "cqes_available": 0,
+          "sq_taskrun_flag": true
+        },
+        {
+          "time": 190,
+          "event": "COOP_WORK_QUEUED_NO_IPI",
+          "req_id": "nvme_03"
+        },
+        {
+          "time": 200,
+          "event": "COOP_TASK_WORK_DRAINED",
+          "count": 3
+        },
+        {
+          "time": 210,
+          "event": "USER_PEEK_CQE",
+          "cqes_available": 3,
+          "sq_taskrun_flag": false
+        },
+        {
+          "time": 220,
+          "event": "COOP_WORK_QUEUED_NO_IPI",
+          "req_id": "nvme_04"
+        },
+        {
+          "time": 230,
+          "event": "COOP_WORK_QUEUED_NO_IPI",
+          "req_id": "nvme_05"
+        },
+        {
+          "time": 240,
+          "event": "COOP_WORK_QUEUED_NO_IPI",
+          "req_id": "nvme_06"
+        },
+        {
+          "time": 250,
+          "event": "COOP_TASK_WORK_DRAINED",
+          "count": 3
+        },
+        {
+          "time": 260,
+          "event": "USER_PEEK_CQE",
+          "cqes_available": 6,
+          "sq_taskrun_flag": false
+        }
+      ]
+    }
+  }
+]
