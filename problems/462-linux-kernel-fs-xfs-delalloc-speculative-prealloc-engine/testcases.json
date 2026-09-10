@@ -1,0 +1,838 @@
+[
+  {
+    "input": {
+      "config": {
+        "total_disk_blocks": 1000,
+        "prealloc_multiplier": 1
+      },
+      "operations": [
+        {
+          "op": "BUFFERED_WRITE",
+          "inode_id": 1,
+          "file_offset": 0,
+          "length": 16384
+        },
+        {
+          "op": "FLUSH_WRITEBACK",
+          "inode_id": 1
+        },
+        {
+          "op": "QUERY_XFS_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "DELALLOC_ALLOCATED",
+          "inode_id": 1,
+          "offset_block": 0,
+          "written_blocks": 4,
+          "speculative_blocks": 4,
+          "total_delalloc_blocks": 8,
+          "reserved_blocks_total": 8
+        },
+        {
+          "status": "WRITEBACK_COMPLETED",
+          "inode_id": 1,
+          "extents_converted": 1,
+          "blocks_converted": 8,
+          "final_extents_count": 1,
+          "free_disk_blocks": 992
+        },
+        {
+          "free_disk_blocks": 992,
+          "reserved_blocks": 0,
+          "inodes": {
+            "1": {
+              "size_bytes": 16384,
+              "extents": [
+                {
+                  "offset": 0,
+                  "startblock": 1000,
+                  "blockcount": 8,
+                  "state": "REAL"
+                }
+              ]
+            }
+          },
+          "stats": {
+            "buffered_writes": 1,
+            "delalloc_reservations": 1,
+            "speculative_prealloc_blocks": 4,
+            "prealloc_hits": 0,
+            "converted_to_real": 1,
+            "extents_merged": 0,
+            "eof_trimmed_blocks": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "total_disk_blocks": 1000,
+        "prealloc_multiplier": 1
+      },
+      "operations": [
+        {
+          "op": "BUFFERED_WRITE",
+          "inode_id": 2,
+          "file_offset": 0,
+          "length": 8192
+        },
+        {
+          "op": "BUFFERED_WRITE",
+          "inode_id": 2,
+          "file_offset": 8192,
+          "length": 8192
+        },
+        {
+          "op": "BUFFERED_WRITE",
+          "inode_id": 2,
+          "file_offset": 16384,
+          "length": 8192
+        },
+        {
+          "op": "FLUSH_WRITEBACK",
+          "inode_id": 2
+        },
+        {
+          "op": "QUERY_XFS_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "DELALLOC_ALLOCATED",
+          "inode_id": 2,
+          "offset_block": 0,
+          "written_blocks": 2,
+          "speculative_blocks": 2,
+          "total_delalloc_blocks": 4,
+          "reserved_blocks_total": 4
+        },
+        {
+          "status": "DELALLOC_HIT_PREALLOC",
+          "inode_id": 2,
+          "offset_block": 2,
+          "covered_by_extent": 0,
+          "new_blocks_reserved": 0
+        },
+        {
+          "status": "DELALLOC_EXTENDED",
+          "inode_id": 2,
+          "offset_block": 4,
+          "extra_blocks_reserved": 4,
+          "total_blockcount": 8
+        },
+        {
+          "status": "WRITEBACK_COMPLETED",
+          "inode_id": 2,
+          "extents_converted": 1,
+          "blocks_converted": 8,
+          "final_extents_count": 1,
+          "free_disk_blocks": 992
+        },
+        {
+          "free_disk_blocks": 992,
+          "reserved_blocks": 0,
+          "inodes": {
+            "2": {
+              "size_bytes": 24576,
+              "extents": [
+                {
+                  "offset": 0,
+                  "startblock": 1000,
+                  "blockcount": 8,
+                  "state": "REAL"
+                }
+              ]
+            }
+          },
+          "stats": {
+            "buffered_writes": 3,
+            "delalloc_reservations": 1,
+            "speculative_prealloc_blocks": 4,
+            "prealloc_hits": 2,
+            "converted_to_real": 1,
+            "extents_merged": 0,
+            "eof_trimmed_blocks": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "total_disk_blocks": 1000,
+        "prealloc_multiplier": 2
+      },
+      "operations": [
+        {
+          "op": "BUFFERED_WRITE",
+          "inode_id": 3,
+          "file_offset": 0,
+          "length": 8192
+        },
+        {
+          "op": "FLUSH_WRITEBACK",
+          "inode_id": 3
+        },
+        {
+          "op": "TRIM_EOF_BLOCKS",
+          "inode_id": 3
+        },
+        {
+          "op": "QUERY_XFS_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "DELALLOC_ALLOCATED",
+          "inode_id": 3,
+          "offset_block": 0,
+          "written_blocks": 2,
+          "speculative_blocks": 4,
+          "total_delalloc_blocks": 6,
+          "reserved_blocks_total": 6
+        },
+        {
+          "status": "WRITEBACK_COMPLETED",
+          "inode_id": 3,
+          "extents_converted": 1,
+          "blocks_converted": 6,
+          "final_extents_count": 1,
+          "free_disk_blocks": 994
+        },
+        {
+          "status": "EOF_BLOCKS_TRIMMED",
+          "inode_id": 3,
+          "trimmed_blocks": 4,
+          "eof_block": 2,
+          "remaining_extents": 1
+        },
+        {
+          "free_disk_blocks": 998,
+          "reserved_blocks": 0,
+          "inodes": {
+            "3": {
+              "size_bytes": 8192,
+              "extents": [
+                {
+                  "offset": 0,
+                  "startblock": 1000,
+                  "blockcount": 2,
+                  "state": "REAL"
+                }
+              ]
+            }
+          },
+          "stats": {
+            "buffered_writes": 1,
+            "delalloc_reservations": 1,
+            "speculative_prealloc_blocks": 4,
+            "prealloc_hits": 0,
+            "converted_to_real": 1,
+            "extents_merged": 0,
+            "eof_trimmed_blocks": 4
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "total_disk_blocks": 1000,
+        "prealloc_multiplier": 1
+      },
+      "operations": [
+        {
+          "op": "BUFFERED_WRITE",
+          "inode_id": 4,
+          "file_offset": 0,
+          "length": 32768
+        },
+        {
+          "op": "FLUSH_WRITEBACK",
+          "inode_id": 4
+        },
+        {
+          "op": "TRIM_EOF_BLOCKS",
+          "inode_id": 4
+        },
+        {
+          "op": "BUFFERED_WRITE",
+          "inode_id": 4,
+          "file_offset": 4096,
+          "length": 8192
+        },
+        {
+          "op": "QUERY_XFS_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "DELALLOC_ALLOCATED",
+          "inode_id": 4,
+          "offset_block": 0,
+          "written_blocks": 8,
+          "speculative_blocks": 8,
+          "total_delalloc_blocks": 16,
+          "reserved_blocks_total": 16
+        },
+        {
+          "status": "WRITEBACK_COMPLETED",
+          "inode_id": 4,
+          "extents_converted": 1,
+          "blocks_converted": 16,
+          "final_extents_count": 1,
+          "free_disk_blocks": 984
+        },
+        {
+          "status": "EOF_BLOCKS_TRIMMED",
+          "inode_id": 4,
+          "trimmed_blocks": 8,
+          "eof_block": 8,
+          "remaining_extents": 1
+        },
+        {
+          "status": "DELALLOC_ALLOCATED",
+          "inode_id": 4,
+          "offset_block": 1,
+          "written_blocks": 2,
+          "speculative_blocks": 0,
+          "total_delalloc_blocks": 2,
+          "reserved_blocks_total": 2
+        },
+        {
+          "free_disk_blocks": 992,
+          "reserved_blocks": 2,
+          "inodes": {
+            "4": {
+              "size_bytes": 32768,
+              "extents": [
+                {
+                  "offset": 0,
+                  "startblock": 1000,
+                  "blockcount": 8,
+                  "state": "REAL"
+                },
+                {
+                  "offset": 1,
+                  "startblock": 18446744073709551614,
+                  "blockcount": 2,
+                  "state": "DELALLOC"
+                }
+              ]
+            }
+          },
+          "stats": {
+            "buffered_writes": 2,
+            "delalloc_reservations": 2,
+            "speculative_prealloc_blocks": 8,
+            "prealloc_hits": 0,
+            "converted_to_real": 1,
+            "extents_merged": 0,
+            "eof_trimmed_blocks": 8
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "total_disk_blocks": 10,
+        "prealloc_multiplier": 1
+      },
+      "operations": [
+        {
+          "op": "BUFFERED_WRITE",
+          "inode_id": 5,
+          "file_offset": 0,
+          "length": 24576
+        },
+        {
+          "op": "BUFFERED_WRITE",
+          "inode_id": 5,
+          "file_offset": 24576,
+          "length": 40960
+        },
+        {
+          "op": "FLUSH_WRITEBACK",
+          "inode_id": 5
+        },
+        {
+          "op": "QUERY_XFS_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "DELALLOC_ALLOCATED",
+          "inode_id": 5,
+          "offset_block": 0,
+          "written_blocks": 6,
+          "speculative_blocks": 0,
+          "total_delalloc_blocks": 6,
+          "reserved_blocks_total": 6
+        },
+        {
+          "status": "ENOSPC_DISK_FULL",
+          "needed": 10
+        },
+        {
+          "status": "WRITEBACK_COMPLETED",
+          "inode_id": 5,
+          "extents_converted": 1,
+          "blocks_converted": 6,
+          "final_extents_count": 1,
+          "free_disk_blocks": 4
+        },
+        {
+          "free_disk_blocks": 4,
+          "reserved_blocks": 0,
+          "inodes": {
+            "5": {
+              "size_bytes": 65536,
+              "extents": [
+                {
+                  "offset": 0,
+                  "startblock": 1000,
+                  "blockcount": 6,
+                  "state": "REAL"
+                }
+              ]
+            }
+          },
+          "stats": {
+            "buffered_writes": 2,
+            "delalloc_reservations": 1,
+            "speculative_prealloc_blocks": 0,
+            "prealloc_hits": 1,
+            "converted_to_real": 1,
+            "extents_merged": 0,
+            "eof_trimmed_blocks": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "total_disk_blocks": 500,
+        "prealloc_multiplier": 1
+      },
+      "operations": [
+        {
+          "op": "BUFFERED_WRITE",
+          "inode_id": 10,
+          "file_offset": 0,
+          "length": 12288
+        },
+        {
+          "op": "BUFFERED_WRITE",
+          "inode_id": 20,
+          "file_offset": 0,
+          "length": 16384
+        },
+        {
+          "op": "FLUSH_WRITEBACK",
+          "inode_id": 10
+        },
+        {
+          "op": "TRIM_EOF_BLOCKS",
+          "inode_id": 10
+        },
+        {
+          "op": "FLUSH_WRITEBACK",
+          "inode_id": 20
+        },
+        {
+          "op": "QUERY_XFS_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "DELALLOC_ALLOCATED",
+          "inode_id": 10,
+          "offset_block": 0,
+          "written_blocks": 3,
+          "speculative_blocks": 3,
+          "total_delalloc_blocks": 6,
+          "reserved_blocks_total": 6
+        },
+        {
+          "status": "DELALLOC_ALLOCATED",
+          "inode_id": 20,
+          "offset_block": 0,
+          "written_blocks": 4,
+          "speculative_blocks": 4,
+          "total_delalloc_blocks": 8,
+          "reserved_blocks_total": 14
+        },
+        {
+          "status": "WRITEBACK_COMPLETED",
+          "inode_id": 10,
+          "extents_converted": 1,
+          "blocks_converted": 6,
+          "final_extents_count": 1,
+          "free_disk_blocks": 494
+        },
+        {
+          "status": "EOF_BLOCKS_TRIMMED",
+          "inode_id": 10,
+          "trimmed_blocks": 3,
+          "eof_block": 3,
+          "remaining_extents": 1
+        },
+        {
+          "status": "WRITEBACK_COMPLETED",
+          "inode_id": 20,
+          "extents_converted": 1,
+          "blocks_converted": 8,
+          "final_extents_count": 1,
+          "free_disk_blocks": 489
+        },
+        {
+          "free_disk_blocks": 489,
+          "reserved_blocks": 0,
+          "inodes": {
+            "10": {
+              "size_bytes": 12288,
+              "extents": [
+                {
+                  "offset": 0,
+                  "startblock": 1000,
+                  "blockcount": 3,
+                  "state": "REAL"
+                }
+              ]
+            },
+            "20": {
+              "size_bytes": 16384,
+              "extents": [
+                {
+                  "offset": 0,
+                  "startblock": 1006,
+                  "blockcount": 8,
+                  "state": "REAL"
+                }
+              ]
+            }
+          },
+          "stats": {
+            "buffered_writes": 2,
+            "delalloc_reservations": 2,
+            "speculative_prealloc_blocks": 7,
+            "prealloc_hits": 0,
+            "converted_to_real": 2,
+            "extents_merged": 0,
+            "eof_trimmed_blocks": 3
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "total_disk_blocks": 1000,
+        "prealloc_multiplier": 0
+      },
+      "operations": [
+        {
+          "op": "BUFFERED_WRITE",
+          "inode_id": 7,
+          "file_offset": 0,
+          "length": 8192
+        },
+        {
+          "op": "BUFFERED_WRITE",
+          "inode_id": 7,
+          "file_offset": 8192,
+          "length": 8192
+        },
+        {
+          "op": "FLUSH_WRITEBACK",
+          "inode_id": 7
+        },
+        {
+          "op": "QUERY_XFS_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "DELALLOC_ALLOCATED",
+          "inode_id": 7,
+          "offset_block": 0,
+          "written_blocks": 2,
+          "speculative_blocks": 0,
+          "total_delalloc_blocks": 2,
+          "reserved_blocks_total": 2
+        },
+        {
+          "status": "DELALLOC_EXTENDED",
+          "inode_id": 7,
+          "offset_block": 2,
+          "extra_blocks_reserved": 2,
+          "total_blockcount": 4
+        },
+        {
+          "status": "WRITEBACK_COMPLETED",
+          "inode_id": 7,
+          "extents_converted": 1,
+          "blocks_converted": 4,
+          "final_extents_count": 1,
+          "free_disk_blocks": 996
+        },
+        {
+          "free_disk_blocks": 996,
+          "reserved_blocks": 0,
+          "inodes": {
+            "7": {
+              "size_bytes": 16384,
+              "extents": [
+                {
+                  "offset": 0,
+                  "startblock": 1000,
+                  "blockcount": 4,
+                  "state": "REAL"
+                }
+              ]
+            }
+          },
+          "stats": {
+            "buffered_writes": 2,
+            "delalloc_reservations": 1,
+            "speculative_prealloc_blocks": 0,
+            "prealloc_hits": 1,
+            "converted_to_real": 1,
+            "extents_merged": 0,
+            "eof_trimmed_blocks": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "total_disk_blocks": 10000,
+        "prealloc_multiplier": 1
+      },
+      "operations": [
+        {
+          "op": "BUFFERED_WRITE",
+          "inode_id": 100,
+          "file_offset": 0,
+          "length": 16384
+        },
+        {
+          "op": "BUFFERED_WRITE",
+          "inode_id": 100,
+          "file_offset": 16384,
+          "length": 16384
+        },
+        {
+          "op": "BUFFERED_WRITE",
+          "inode_id": 101,
+          "file_offset": 0,
+          "length": 4096
+        },
+        {
+          "op": "FLUSH_WRITEBACK",
+          "inode_id": 100
+        },
+        {
+          "op": "TRIM_EOF_BLOCKS",
+          "inode_id": 100
+        },
+        {
+          "op": "BUFFERED_WRITE",
+          "inode_id": 101,
+          "file_offset": 4096,
+          "length": 8192
+        },
+        {
+          "op": "BUFFERED_WRITE",
+          "inode_id": 102,
+          "file_offset": 0,
+          "length": 32768
+        },
+        {
+          "op": "FLUSH_WRITEBACK",
+          "inode_id": 101
+        },
+        {
+          "op": "FLUSH_WRITEBACK",
+          "inode_id": 102
+        },
+        {
+          "op": "TRIM_EOF_BLOCKS",
+          "inode_id": 101
+        },
+        {
+          "op": "TRIM_EOF_BLOCKS",
+          "inode_id": 102
+        },
+        {
+          "op": "QUERY_XFS_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "DELALLOC_ALLOCATED",
+          "inode_id": 100,
+          "offset_block": 0,
+          "written_blocks": 4,
+          "speculative_blocks": 4,
+          "total_delalloc_blocks": 8,
+          "reserved_blocks_total": 8
+        },
+        {
+          "status": "DELALLOC_HIT_PREALLOC",
+          "inode_id": 100,
+          "offset_block": 4,
+          "covered_by_extent": 0,
+          "new_blocks_reserved": 0
+        },
+        {
+          "status": "DELALLOC_ALLOCATED",
+          "inode_id": 101,
+          "offset_block": 0,
+          "written_blocks": 1,
+          "speculative_blocks": 1,
+          "total_delalloc_blocks": 2,
+          "reserved_blocks_total": 10
+        },
+        {
+          "status": "WRITEBACK_COMPLETED",
+          "inode_id": 100,
+          "extents_converted": 1,
+          "blocks_converted": 8,
+          "final_extents_count": 1,
+          "free_disk_blocks": 9992
+        },
+        {
+          "status": "EOF_BLOCKS_TRIMMED",
+          "inode_id": 100,
+          "trimmed_blocks": 0,
+          "eof_block": 8,
+          "remaining_extents": 1
+        },
+        {
+          "status": "DELALLOC_EXTENDED",
+          "inode_id": 101,
+          "offset_block": 1,
+          "extra_blocks_reserved": 2,
+          "total_blockcount": 4
+        },
+        {
+          "status": "DELALLOC_ALLOCATED",
+          "inode_id": 102,
+          "offset_block": 0,
+          "written_blocks": 8,
+          "speculative_blocks": 8,
+          "total_delalloc_blocks": 16,
+          "reserved_blocks_total": 20
+        },
+        {
+          "status": "WRITEBACK_COMPLETED",
+          "inode_id": 101,
+          "extents_converted": 1,
+          "blocks_converted": 4,
+          "final_extents_count": 1,
+          "free_disk_blocks": 9988
+        },
+        {
+          "status": "WRITEBACK_COMPLETED",
+          "inode_id": 102,
+          "extents_converted": 1,
+          "blocks_converted": 16,
+          "final_extents_count": 1,
+          "free_disk_blocks": 9972
+        },
+        {
+          "status": "EOF_BLOCKS_TRIMMED",
+          "inode_id": 101,
+          "trimmed_blocks": 1,
+          "eof_block": 3,
+          "remaining_extents": 1
+        },
+        {
+          "status": "EOF_BLOCKS_TRIMMED",
+          "inode_id": 102,
+          "trimmed_blocks": 8,
+          "eof_block": 8,
+          "remaining_extents": 1
+        },
+        {
+          "free_disk_blocks": 9981,
+          "reserved_blocks": 0,
+          "inodes": {
+            "100": {
+              "size_bytes": 32768,
+              "extents": [
+                {
+                  "offset": 0,
+                  "startblock": 1000,
+                  "blockcount": 8,
+                  "state": "REAL"
+                }
+              ]
+            },
+            "101": {
+              "size_bytes": 12288,
+              "extents": [
+                {
+                  "offset": 0,
+                  "startblock": 1008,
+                  "blockcount": 3,
+                  "state": "REAL"
+                }
+              ]
+            },
+            "102": {
+              "size_bytes": 32768,
+              "extents": [
+                {
+                  "offset": 0,
+                  "startblock": 1012,
+                  "blockcount": 8,
+                  "state": "REAL"
+                }
+              ]
+            }
+          },
+          "stats": {
+            "buffered_writes": 5,
+            "delalloc_reservations": 3,
+            "speculative_prealloc_blocks": 14,
+            "prealloc_hits": 2,
+            "converted_to_real": 3,
+            "extents_merged": 0,
+            "eof_trimmed_blocks": 9
+          }
+        }
+      ]
+    }
+  }
+]
