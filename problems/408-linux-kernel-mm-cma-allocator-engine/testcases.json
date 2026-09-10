@@ -1,0 +1,2125 @@
+[
+  {
+    "name": "유휴 CMA 영역에서의 정렬 조건 기반 DMA 연속 메모리 할당 및 해제",
+    "input": {
+      "config": {
+        "cma_base_pfn": 2048,
+        "cma_size_pages": 128,
+        "pageblock_size": 64,
+        "buddy_movable_capacity": 256,
+        "buddy_unmovable_capacity": 128
+      },
+      "operations": [
+        {
+          "op": "CMA_ALLOC",
+          "alloc_id": "dma_buf1",
+          "count": 32,
+          "align_order": 5
+        },
+        {
+          "op": "CMA_RELEASE",
+          "alloc_id": "dma_buf1"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "cma_alloc_success": 1,
+        "cma_alloc_failures": 0,
+        "total_migrated_pages": 0,
+        "cma_free_pages": 128,
+        "cma_dma_allocated_pages": 0,
+        "cma_movable_pages": 0,
+        "buddy_movable_free": 256,
+        "buddy_unmovable_free": 128
+      },
+      "pageblocks": {
+        "block_0": {
+          "start_pfn": 2048,
+          "migratetype": "MIGRATE_CMA"
+        },
+        "block_1": {
+          "start_pfn": 2112,
+          "migratetype": "MIGRATE_CMA"
+        }
+      },
+      "dma_allocations": {},
+      "operation_logs": [
+        {
+          "op": "CMA_ALLOC",
+          "alloc_id": "dma_buf1",
+          "result": {
+            "status": "SUCCESS",
+            "start_pfn": 2048,
+            "count": 32,
+            "migrated_count": 0
+          }
+        },
+        {
+          "op": "CMA_RELEASE",
+          "alloc_id": "dma_buf1",
+          "result": {
+            "status": "SUCCESS",
+            "freed_pfn": 2048,
+            "count": 32
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "페이지 캐시가 임시 점유한 CMA 영역의 버디 시스템 마이그레이션 및 연속 할당",
+    "input": {
+      "config": {
+        "cma_base_pfn": 2048,
+        "cma_size_pages": 128,
+        "pageblock_size": 64,
+        "buddy_movable_capacity": 128,
+        "buddy_unmovable_capacity": 64
+      },
+      "operations": [
+        {
+          "op": "ALLOC_GENERAL",
+          "count": 100,
+          "type": "MOVABLE",
+          "data_ids": [
+            "pc_0",
+            "pc_1",
+            "pc_2",
+            "pc_3",
+            "pc_4",
+            "pc_5",
+            "pc_6",
+            "pc_7",
+            "pc_8",
+            "pc_9",
+            "pc_10",
+            "pc_11",
+            "pc_12",
+            "pc_13",
+            "pc_14",
+            "pc_15",
+            "pc_16",
+            "pc_17",
+            "pc_18",
+            "pc_19",
+            "pc_20",
+            "pc_21",
+            "pc_22",
+            "pc_23",
+            "pc_24",
+            "pc_25",
+            "pc_26",
+            "pc_27",
+            "pc_28",
+            "pc_29",
+            "pc_30",
+            "pc_31",
+            "pc_32",
+            "pc_33",
+            "pc_34",
+            "pc_35",
+            "pc_36",
+            "pc_37",
+            "pc_38",
+            "pc_39",
+            "pc_40",
+            "pc_41",
+            "pc_42",
+            "pc_43",
+            "pc_44",
+            "pc_45",
+            "pc_46",
+            "pc_47",
+            "pc_48",
+            "pc_49",
+            "pc_50",
+            "pc_51",
+            "pc_52",
+            "pc_53",
+            "pc_54",
+            "pc_55",
+            "pc_56",
+            "pc_57",
+            "pc_58",
+            "pc_59",
+            "pc_60",
+            "pc_61",
+            "pc_62",
+            "pc_63",
+            "pc_64",
+            "pc_65",
+            "pc_66",
+            "pc_67",
+            "pc_68",
+            "pc_69",
+            "pc_70",
+            "pc_71",
+            "pc_72",
+            "pc_73",
+            "pc_74",
+            "pc_75",
+            "pc_76",
+            "pc_77",
+            "pc_78",
+            "pc_79",
+            "pc_80",
+            "pc_81",
+            "pc_82",
+            "pc_83",
+            "pc_84",
+            "pc_85",
+            "pc_86",
+            "pc_87",
+            "pc_88",
+            "pc_89",
+            "pc_90",
+            "pc_91",
+            "pc_92",
+            "pc_93",
+            "pc_94",
+            "pc_95",
+            "pc_96",
+            "pc_97",
+            "pc_98",
+            "pc_99"
+          ]
+        },
+        {
+          "op": "ALLOC_GENERAL",
+          "count": 40,
+          "type": "MOVABLE",
+          "data_ids": [
+            "cma_pc_0",
+            "cma_pc_1",
+            "cma_pc_2",
+            "cma_pc_3",
+            "cma_pc_4",
+            "cma_pc_5",
+            "cma_pc_6",
+            "cma_pc_7",
+            "cma_pc_8",
+            "cma_pc_9",
+            "cma_pc_10",
+            "cma_pc_11",
+            "cma_pc_12",
+            "cma_pc_13",
+            "cma_pc_14",
+            "cma_pc_15",
+            "cma_pc_16",
+            "cma_pc_17",
+            "cma_pc_18",
+            "cma_pc_19",
+            "cma_pc_20",
+            "cma_pc_21",
+            "cma_pc_22",
+            "cma_pc_23",
+            "cma_pc_24",
+            "cma_pc_25",
+            "cma_pc_26",
+            "cma_pc_27",
+            "cma_pc_28",
+            "cma_pc_29",
+            "cma_pc_30",
+            "cma_pc_31",
+            "cma_pc_32",
+            "cma_pc_33",
+            "cma_pc_34",
+            "cma_pc_35",
+            "cma_pc_36",
+            "cma_pc_37",
+            "cma_pc_38",
+            "cma_pc_39"
+          ]
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "pc_0"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "pc_1"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "pc_2"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "pc_3"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "pc_4"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "pc_5"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "pc_6"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "pc_7"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "pc_8"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "pc_9"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "pc_10"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "pc_11"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "pc_12"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "pc_13"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "pc_14"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "pc_15"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "pc_16"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "pc_17"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "pc_18"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "pc_19"
+        },
+        {
+          "op": "CMA_ALLOC",
+          "alloc_id": "dma_cam",
+          "count": 32,
+          "align_order": 5
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "cma_alloc_success": 1,
+        "cma_alloc_failures": 0,
+        "total_migrated_pages": 12,
+        "cma_free_pages": 96,
+        "cma_dma_allocated_pages": 32,
+        "cma_movable_pages": 0,
+        "buddy_movable_free": 8,
+        "buddy_unmovable_free": 64
+      },
+      "pageblocks": {
+        "block_0": {
+          "start_pfn": 2048,
+          "migratetype": "MIGRATE_ISOLATE"
+        },
+        "block_1": {
+          "start_pfn": 2112,
+          "migratetype": "MIGRATE_CMA"
+        }
+      },
+      "dma_allocations": {
+        "dma_cam": {
+          "start_pfn": 2048,
+          "count": 32
+        }
+      },
+      "operation_logs": [
+        {
+          "op": "ALLOC_GENERAL",
+          "result": {
+            "status": "SUCCESS",
+            "allocated_buddy": 100,
+            "allocated_cma": 0,
+            "total": 100
+          }
+        },
+        {
+          "op": "ALLOC_GENERAL",
+          "result": {
+            "status": "SUCCESS",
+            "allocated_buddy": 28,
+            "allocated_cma": 12,
+            "total": 40
+          }
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "CMA_ALLOC",
+          "alloc_id": "dma_cam",
+          "result": {
+            "status": "SUCCESS",
+            "start_pfn": 2048,
+            "count": 32,
+            "migrated_count": 12
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "고정된 페이지(Pinned Page) 충돌 시 마이그레이션 실패 및 격리 원자적 롤백",
+    "input": {
+      "config": {
+        "cma_base_pfn": 2048,
+        "cma_size_pages": 128,
+        "pageblock_size": 64,
+        "buddy_movable_capacity": 128,
+        "buddy_unmovable_capacity": 64
+      },
+      "operations": [
+        {
+          "op": "ALLOC_GENERAL",
+          "count": 128,
+          "type": "MOVABLE",
+          "data_ids": [
+            "b_0",
+            "b_1",
+            "b_2",
+            "b_3",
+            "b_4",
+            "b_5",
+            "b_6",
+            "b_7",
+            "b_8",
+            "b_9",
+            "b_10",
+            "b_11",
+            "b_12",
+            "b_13",
+            "b_14",
+            "b_15",
+            "b_16",
+            "b_17",
+            "b_18",
+            "b_19",
+            "b_20",
+            "b_21",
+            "b_22",
+            "b_23",
+            "b_24",
+            "b_25",
+            "b_26",
+            "b_27",
+            "b_28",
+            "b_29",
+            "b_30",
+            "b_31",
+            "b_32",
+            "b_33",
+            "b_34",
+            "b_35",
+            "b_36",
+            "b_37",
+            "b_38",
+            "b_39",
+            "b_40",
+            "b_41",
+            "b_42",
+            "b_43",
+            "b_44",
+            "b_45",
+            "b_46",
+            "b_47",
+            "b_48",
+            "b_49",
+            "b_50",
+            "b_51",
+            "b_52",
+            "b_53",
+            "b_54",
+            "b_55",
+            "b_56",
+            "b_57",
+            "b_58",
+            "b_59",
+            "b_60",
+            "b_61",
+            "b_62",
+            "b_63",
+            "b_64",
+            "b_65",
+            "b_66",
+            "b_67",
+            "b_68",
+            "b_69",
+            "b_70",
+            "b_71",
+            "b_72",
+            "b_73",
+            "b_74",
+            "b_75",
+            "b_76",
+            "b_77",
+            "b_78",
+            "b_79",
+            "b_80",
+            "b_81",
+            "b_82",
+            "b_83",
+            "b_84",
+            "b_85",
+            "b_86",
+            "b_87",
+            "b_88",
+            "b_89",
+            "b_90",
+            "b_91",
+            "b_92",
+            "b_93",
+            "b_94",
+            "b_95",
+            "b_96",
+            "b_97",
+            "b_98",
+            "b_99",
+            "b_100",
+            "b_101",
+            "b_102",
+            "b_103",
+            "b_104",
+            "b_105",
+            "b_106",
+            "b_107",
+            "b_108",
+            "b_109",
+            "b_110",
+            "b_111",
+            "b_112",
+            "b_113",
+            "b_114",
+            "b_115",
+            "b_116",
+            "b_117",
+            "b_118",
+            "b_119",
+            "b_120",
+            "b_121",
+            "b_122",
+            "b_123",
+            "b_124",
+            "b_125",
+            "b_126",
+            "b_127"
+          ]
+        },
+        {
+          "op": "ALLOC_GENERAL",
+          "count": 16,
+          "type": "MOVABLE",
+          "data_ids": [
+            "cma_target_0",
+            "cma_target_1",
+            "cma_target_2",
+            "cma_target_3",
+            "cma_target_4",
+            "cma_target_5",
+            "cma_target_6",
+            "cma_target_7",
+            "cma_target_8",
+            "cma_target_9",
+            "cma_target_10",
+            "cma_target_11",
+            "cma_target_12",
+            "cma_target_13",
+            "cma_target_14",
+            "cma_target_15"
+          ]
+        },
+        {
+          "op": "PIN_PAGE",
+          "data_id": "cma_target_5",
+          "is_pinned": true
+        },
+        {
+          "op": "CMA_ALLOC",
+          "alloc_id": "dma_fail",
+          "count": 32,
+          "align_order": 5
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "cma_alloc_success": 0,
+        "cma_alloc_failures": 1,
+        "total_migrated_pages": 0,
+        "cma_free_pages": 112,
+        "cma_dma_allocated_pages": 0,
+        "cma_movable_pages": 16,
+        "buddy_movable_free": 0,
+        "buddy_unmovable_free": 64
+      },
+      "pageblocks": {
+        "block_0": {
+          "start_pfn": 2048,
+          "migratetype": "MIGRATE_CMA"
+        },
+        "block_1": {
+          "start_pfn": 2112,
+          "migratetype": "MIGRATE_CMA"
+        }
+      },
+      "dma_allocations": {},
+      "operation_logs": [
+        {
+          "op": "ALLOC_GENERAL",
+          "result": {
+            "status": "SUCCESS",
+            "allocated_buddy": 128,
+            "allocated_cma": 0,
+            "total": 128
+          }
+        },
+        {
+          "op": "ALLOC_GENERAL",
+          "result": {
+            "status": "SUCCESS",
+            "allocated_buddy": 0,
+            "allocated_cma": 16,
+            "total": 16
+          }
+        },
+        {
+          "op": "PIN_PAGE",
+          "result": true
+        },
+        {
+          "op": "CMA_ALLOC",
+          "alloc_id": "dma_fail",
+          "result": {
+            "status": "CMA_ERR_PINNED_PAGE_COLLISION",
+            "failed_pfn": 2053,
+            "failed_data_id": "cma_target_5"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "이동 불가능(UNMOVABLE) 커널 슬랩 할당의 CMA 침범 거절 및 ENOMEM 방어",
+    "input": {
+      "config": {
+        "cma_base_pfn": 2048,
+        "cma_size_pages": 128,
+        "pageblock_size": 64,
+        "buddy_movable_capacity": 128,
+        "buddy_unmovable_capacity": 32
+      },
+      "operations": [
+        {
+          "op": "ALLOC_GENERAL",
+          "count": 32,
+          "type": "UNMOVABLE",
+          "data_ids": [
+            "slab_0",
+            "slab_1",
+            "slab_2",
+            "slab_3",
+            "slab_4",
+            "slab_5",
+            "slab_6",
+            "slab_7",
+            "slab_8",
+            "slab_9",
+            "slab_10",
+            "slab_11",
+            "slab_12",
+            "slab_13",
+            "slab_14",
+            "slab_15",
+            "slab_16",
+            "slab_17",
+            "slab_18",
+            "slab_19",
+            "slab_20",
+            "slab_21",
+            "slab_22",
+            "slab_23",
+            "slab_24",
+            "slab_25",
+            "slab_26",
+            "slab_27",
+            "slab_28",
+            "slab_29",
+            "slab_30",
+            "slab_31"
+          ]
+        },
+        {
+          "op": "ALLOC_GENERAL",
+          "count": 10,
+          "type": "UNMOVABLE",
+          "data_ids": [
+            "slab_overflow_0",
+            "slab_overflow_1",
+            "slab_overflow_2",
+            "slab_overflow_3",
+            "slab_overflow_4",
+            "slab_overflow_5",
+            "slab_overflow_6",
+            "slab_overflow_7",
+            "slab_overflow_8",
+            "slab_overflow_9"
+          ]
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "cma_alloc_success": 0,
+        "cma_alloc_failures": 0,
+        "total_migrated_pages": 0,
+        "cma_free_pages": 128,
+        "cma_dma_allocated_pages": 0,
+        "cma_movable_pages": 0,
+        "buddy_movable_free": 128,
+        "buddy_unmovable_free": 0
+      },
+      "pageblocks": {
+        "block_0": {
+          "start_pfn": 2048,
+          "migratetype": "MIGRATE_CMA"
+        },
+        "block_1": {
+          "start_pfn": 2112,
+          "migratetype": "MIGRATE_CMA"
+        }
+      },
+      "dma_allocations": {},
+      "operation_logs": [
+        {
+          "op": "ALLOC_GENERAL",
+          "result": {
+            "status": "SUCCESS",
+            "pool": "BUDDY_UNMOVABLE",
+            "allocated": 32
+          }
+        },
+        {
+          "op": "ALLOC_GENERAL",
+          "result": {
+            "status": "ENOMEM",
+            "allocated": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "버디 시스템 여유 메모리 고갈로 인한 CMA 페이지 대피 실패 및 안전 롤백",
+    "input": {
+      "config": {
+        "cma_base_pfn": 2048,
+        "cma_size_pages": 128,
+        "pageblock_size": 64,
+        "buddy_movable_capacity": 64,
+        "buddy_unmovable_capacity": 32
+      },
+      "operations": [
+        {
+          "op": "ALLOC_GENERAL",
+          "count": 64,
+          "type": "MOVABLE",
+          "data_ids": [
+            "full_0",
+            "full_1",
+            "full_2",
+            "full_3",
+            "full_4",
+            "full_5",
+            "full_6",
+            "full_7",
+            "full_8",
+            "full_9",
+            "full_10",
+            "full_11",
+            "full_12",
+            "full_13",
+            "full_14",
+            "full_15",
+            "full_16",
+            "full_17",
+            "full_18",
+            "full_19",
+            "full_20",
+            "full_21",
+            "full_22",
+            "full_23",
+            "full_24",
+            "full_25",
+            "full_26",
+            "full_27",
+            "full_28",
+            "full_29",
+            "full_30",
+            "full_31",
+            "full_32",
+            "full_33",
+            "full_34",
+            "full_35",
+            "full_36",
+            "full_37",
+            "full_38",
+            "full_39",
+            "full_40",
+            "full_41",
+            "full_42",
+            "full_43",
+            "full_44",
+            "full_45",
+            "full_46",
+            "full_47",
+            "full_48",
+            "full_49",
+            "full_50",
+            "full_51",
+            "full_52",
+            "full_53",
+            "full_54",
+            "full_55",
+            "full_56",
+            "full_57",
+            "full_58",
+            "full_59",
+            "full_60",
+            "full_61",
+            "full_62",
+            "full_63"
+          ]
+        },
+        {
+          "op": "ALLOC_GENERAL",
+          "count": 20,
+          "type": "MOVABLE",
+          "data_ids": [
+            "cma_0",
+            "cma_1",
+            "cma_2",
+            "cma_3",
+            "cma_4",
+            "cma_5",
+            "cma_6",
+            "cma_7",
+            "cma_8",
+            "cma_9",
+            "cma_10",
+            "cma_11",
+            "cma_12",
+            "cma_13",
+            "cma_14",
+            "cma_15",
+            "cma_16",
+            "cma_17",
+            "cma_18",
+            "cma_19"
+          ]
+        },
+        {
+          "op": "CMA_ALLOC",
+          "alloc_id": "dma_nomem",
+          "count": 32,
+          "align_order": 5
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "cma_alloc_success": 0,
+        "cma_alloc_failures": 1,
+        "total_migrated_pages": 0,
+        "cma_free_pages": 108,
+        "cma_dma_allocated_pages": 0,
+        "cma_movable_pages": 20,
+        "buddy_movable_free": 0,
+        "buddy_unmovable_free": 32
+      },
+      "pageblocks": {
+        "block_0": {
+          "start_pfn": 2048,
+          "migratetype": "MIGRATE_CMA"
+        },
+        "block_1": {
+          "start_pfn": 2112,
+          "migratetype": "MIGRATE_CMA"
+        }
+      },
+      "dma_allocations": {},
+      "operation_logs": [
+        {
+          "op": "ALLOC_GENERAL",
+          "result": {
+            "status": "SUCCESS",
+            "allocated_buddy": 64,
+            "allocated_cma": 0,
+            "total": 64
+          }
+        },
+        {
+          "op": "ALLOC_GENERAL",
+          "result": {
+            "status": "SUCCESS",
+            "allocated_buddy": 0,
+            "allocated_cma": 20,
+            "total": 20
+          }
+        },
+        {
+          "op": "CMA_ALLOC",
+          "alloc_id": "dma_nomem",
+          "result": {
+            "status": "CMA_ERR_MIGRATION_NO_MEM",
+            "needed": 20,
+            "available": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "다중 디바이스(Audio, Display, Video) 동시 할당 및 페이지블록 공유 격리 상태",
+    "input": {
+      "config": {
+        "cma_base_pfn": 2048,
+        "cma_size_pages": 128,
+        "pageblock_size": 64,
+        "buddy_movable_capacity": 256,
+        "buddy_unmovable_capacity": 64
+      },
+      "operations": [
+        {
+          "op": "CMA_ALLOC",
+          "alloc_id": "dma_audio",
+          "count": 16,
+          "align_order": 4
+        },
+        {
+          "op": "CMA_ALLOC",
+          "alloc_id": "dma_video",
+          "count": 32,
+          "align_order": 5
+        },
+        {
+          "op": "CMA_ALLOC",
+          "alloc_id": "dma_display",
+          "count": 64,
+          "align_order": 6
+        },
+        {
+          "op": "CMA_RELEASE",
+          "alloc_id": "dma_audio"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "cma_alloc_success": 3,
+        "cma_alloc_failures": 0,
+        "total_migrated_pages": 0,
+        "cma_free_pages": 32,
+        "cma_dma_allocated_pages": 96,
+        "cma_movable_pages": 0,
+        "buddy_movable_free": 256,
+        "buddy_unmovable_free": 64
+      },
+      "pageblocks": {
+        "block_0": {
+          "start_pfn": 2048,
+          "migratetype": "MIGRATE_ISOLATE"
+        },
+        "block_1": {
+          "start_pfn": 2112,
+          "migratetype": "MIGRATE_ISOLATE"
+        }
+      },
+      "dma_allocations": {
+        "dma_video": {
+          "start_pfn": 2080,
+          "count": 32
+        },
+        "dma_display": {
+          "start_pfn": 2112,
+          "count": 64
+        }
+      },
+      "operation_logs": [
+        {
+          "op": "CMA_ALLOC",
+          "alloc_id": "dma_audio",
+          "result": {
+            "status": "SUCCESS",
+            "start_pfn": 2048,
+            "count": 16,
+            "migrated_count": 0
+          }
+        },
+        {
+          "op": "CMA_ALLOC",
+          "alloc_id": "dma_video",
+          "result": {
+            "status": "SUCCESS",
+            "start_pfn": 2080,
+            "count": 32,
+            "migrated_count": 0
+          }
+        },
+        {
+          "op": "CMA_ALLOC",
+          "alloc_id": "dma_display",
+          "result": {
+            "status": "SUCCESS",
+            "start_pfn": 2112,
+            "count": 64,
+            "migrated_count": 0
+          }
+        },
+        {
+          "op": "CMA_RELEASE",
+          "alloc_id": "dma_audio",
+          "result": {
+            "status": "SUCCESS",
+            "freed_pfn": 2048,
+            "count": 16
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "CMA 내부 단편화에 따른 연속 공간 부재(NO_CONTIGUOUS_SPACE) 감지",
+    "input": {
+      "config": {
+        "cma_base_pfn": 2048,
+        "cma_size_pages": 128,
+        "pageblock_size": 64,
+        "buddy_movable_capacity": 256,
+        "buddy_unmovable_capacity": 64
+      },
+      "operations": [
+        {
+          "op": "CMA_ALLOC",
+          "alloc_id": "a1",
+          "count": 16,
+          "align_order": 4
+        },
+        {
+          "op": "CMA_ALLOC",
+          "alloc_id": "a2",
+          "count": 16,
+          "align_order": 4
+        },
+        {
+          "op": "CMA_ALLOC",
+          "alloc_id": "a3",
+          "count": 16,
+          "align_order": 4
+        },
+        {
+          "op": "CMA_ALLOC",
+          "alloc_id": "a4",
+          "count": 16,
+          "align_order": 4
+        },
+        {
+          "op": "CMA_RELEASE",
+          "alloc_id": "a1"
+        },
+        {
+          "op": "CMA_RELEASE",
+          "alloc_id": "a3"
+        },
+        {
+          "op": "CMA_ALLOC",
+          "alloc_id": "large_target",
+          "count": 64,
+          "align_order": 6
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "cma_alloc_success": 5,
+        "cma_alloc_failures": 0,
+        "total_migrated_pages": 0,
+        "cma_free_pages": 32,
+        "cma_dma_allocated_pages": 96,
+        "cma_movable_pages": 0,
+        "buddy_movable_free": 256,
+        "buddy_unmovable_free": 64
+      },
+      "pageblocks": {
+        "block_0": {
+          "start_pfn": 2048,
+          "migratetype": "MIGRATE_ISOLATE"
+        },
+        "block_1": {
+          "start_pfn": 2112,
+          "migratetype": "MIGRATE_ISOLATE"
+        }
+      },
+      "dma_allocations": {
+        "a2": {
+          "start_pfn": 2064,
+          "count": 16
+        },
+        "a4": {
+          "start_pfn": 2096,
+          "count": 16
+        },
+        "large_target": {
+          "start_pfn": 2112,
+          "count": 64
+        }
+      },
+      "operation_logs": [
+        {
+          "op": "CMA_ALLOC",
+          "alloc_id": "a1",
+          "result": {
+            "status": "SUCCESS",
+            "start_pfn": 2048,
+            "count": 16,
+            "migrated_count": 0
+          }
+        },
+        {
+          "op": "CMA_ALLOC",
+          "alloc_id": "a2",
+          "result": {
+            "status": "SUCCESS",
+            "start_pfn": 2064,
+            "count": 16,
+            "migrated_count": 0
+          }
+        },
+        {
+          "op": "CMA_ALLOC",
+          "alloc_id": "a3",
+          "result": {
+            "status": "SUCCESS",
+            "start_pfn": 2080,
+            "count": 16,
+            "migrated_count": 0
+          }
+        },
+        {
+          "op": "CMA_ALLOC",
+          "alloc_id": "a4",
+          "result": {
+            "status": "SUCCESS",
+            "start_pfn": 2096,
+            "count": 16,
+            "migrated_count": 0
+          }
+        },
+        {
+          "op": "CMA_RELEASE",
+          "alloc_id": "a1",
+          "result": {
+            "status": "SUCCESS",
+            "freed_pfn": 2048,
+            "count": 16
+          }
+        },
+        {
+          "op": "CMA_RELEASE",
+          "alloc_id": "a3",
+          "result": {
+            "status": "SUCCESS",
+            "freed_pfn": 2080,
+            "count": 16
+          }
+        },
+        {
+          "op": "CMA_ALLOC",
+          "alloc_id": "large_target",
+          "result": {
+            "status": "SUCCESS",
+            "start_pfn": 2112,
+            "count": 64,
+            "migrated_count": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "임베디드/차량용 SoC 이종 하드웨어 복합 워크로드 종합 검증",
+    "input": {
+      "config": {
+        "cma_base_pfn": 2048,
+        "cma_size_pages": 256,
+        "pageblock_size": 64,
+        "buddy_movable_capacity": 256,
+        "buddy_unmovable_capacity": 128
+      },
+      "operations": [
+        {
+          "op": "ALLOC_GENERAL",
+          "count": 200,
+          "type": "MOVABLE",
+          "data_ids": [
+            "app_0",
+            "app_1",
+            "app_2",
+            "app_3",
+            "app_4",
+            "app_5",
+            "app_6",
+            "app_7",
+            "app_8",
+            "app_9",
+            "app_10",
+            "app_11",
+            "app_12",
+            "app_13",
+            "app_14",
+            "app_15",
+            "app_16",
+            "app_17",
+            "app_18",
+            "app_19",
+            "app_20",
+            "app_21",
+            "app_22",
+            "app_23",
+            "app_24",
+            "app_25",
+            "app_26",
+            "app_27",
+            "app_28",
+            "app_29",
+            "app_30",
+            "app_31",
+            "app_32",
+            "app_33",
+            "app_34",
+            "app_35",
+            "app_36",
+            "app_37",
+            "app_38",
+            "app_39",
+            "app_40",
+            "app_41",
+            "app_42",
+            "app_43",
+            "app_44",
+            "app_45",
+            "app_46",
+            "app_47",
+            "app_48",
+            "app_49",
+            "app_50",
+            "app_51",
+            "app_52",
+            "app_53",
+            "app_54",
+            "app_55",
+            "app_56",
+            "app_57",
+            "app_58",
+            "app_59",
+            "app_60",
+            "app_61",
+            "app_62",
+            "app_63",
+            "app_64",
+            "app_65",
+            "app_66",
+            "app_67",
+            "app_68",
+            "app_69",
+            "app_70",
+            "app_71",
+            "app_72",
+            "app_73",
+            "app_74",
+            "app_75",
+            "app_76",
+            "app_77",
+            "app_78",
+            "app_79",
+            "app_80",
+            "app_81",
+            "app_82",
+            "app_83",
+            "app_84",
+            "app_85",
+            "app_86",
+            "app_87",
+            "app_88",
+            "app_89",
+            "app_90",
+            "app_91",
+            "app_92",
+            "app_93",
+            "app_94",
+            "app_95",
+            "app_96",
+            "app_97",
+            "app_98",
+            "app_99",
+            "app_100",
+            "app_101",
+            "app_102",
+            "app_103",
+            "app_104",
+            "app_105",
+            "app_106",
+            "app_107",
+            "app_108",
+            "app_109",
+            "app_110",
+            "app_111",
+            "app_112",
+            "app_113",
+            "app_114",
+            "app_115",
+            "app_116",
+            "app_117",
+            "app_118",
+            "app_119",
+            "app_120",
+            "app_121",
+            "app_122",
+            "app_123",
+            "app_124",
+            "app_125",
+            "app_126",
+            "app_127",
+            "app_128",
+            "app_129",
+            "app_130",
+            "app_131",
+            "app_132",
+            "app_133",
+            "app_134",
+            "app_135",
+            "app_136",
+            "app_137",
+            "app_138",
+            "app_139",
+            "app_140",
+            "app_141",
+            "app_142",
+            "app_143",
+            "app_144",
+            "app_145",
+            "app_146",
+            "app_147",
+            "app_148",
+            "app_149",
+            "app_150",
+            "app_151",
+            "app_152",
+            "app_153",
+            "app_154",
+            "app_155",
+            "app_156",
+            "app_157",
+            "app_158",
+            "app_159",
+            "app_160",
+            "app_161",
+            "app_162",
+            "app_163",
+            "app_164",
+            "app_165",
+            "app_166",
+            "app_167",
+            "app_168",
+            "app_169",
+            "app_170",
+            "app_171",
+            "app_172",
+            "app_173",
+            "app_174",
+            "app_175",
+            "app_176",
+            "app_177",
+            "app_178",
+            "app_179",
+            "app_180",
+            "app_181",
+            "app_182",
+            "app_183",
+            "app_184",
+            "app_185",
+            "app_186",
+            "app_187",
+            "app_188",
+            "app_189",
+            "app_190",
+            "app_191",
+            "app_192",
+            "app_193",
+            "app_194",
+            "app_195",
+            "app_196",
+            "app_197",
+            "app_198",
+            "app_199"
+          ]
+        },
+        {
+          "op": "ALLOC_GENERAL",
+          "count": 50,
+          "type": "MOVABLE",
+          "data_ids": [
+            "cma_anon_0",
+            "cma_anon_1",
+            "cma_anon_2",
+            "cma_anon_3",
+            "cma_anon_4",
+            "cma_anon_5",
+            "cma_anon_6",
+            "cma_anon_7",
+            "cma_anon_8",
+            "cma_anon_9",
+            "cma_anon_10",
+            "cma_anon_11",
+            "cma_anon_12",
+            "cma_anon_13",
+            "cma_anon_14",
+            "cma_anon_15",
+            "cma_anon_16",
+            "cma_anon_17",
+            "cma_anon_18",
+            "cma_anon_19",
+            "cma_anon_20",
+            "cma_anon_21",
+            "cma_anon_22",
+            "cma_anon_23",
+            "cma_anon_24",
+            "cma_anon_25",
+            "cma_anon_26",
+            "cma_anon_27",
+            "cma_anon_28",
+            "cma_anon_29",
+            "cma_anon_30",
+            "cma_anon_31",
+            "cma_anon_32",
+            "cma_anon_33",
+            "cma_anon_34",
+            "cma_anon_35",
+            "cma_anon_36",
+            "cma_anon_37",
+            "cma_anon_38",
+            "cma_anon_39",
+            "cma_anon_40",
+            "cma_anon_41",
+            "cma_anon_42",
+            "cma_anon_43",
+            "cma_anon_44",
+            "cma_anon_45",
+            "cma_anon_46",
+            "cma_anon_47",
+            "cma_anon_48",
+            "cma_anon_49"
+          ]
+        },
+        {
+          "op": "PIN_PAGE",
+          "data_id": "cma_anon_10",
+          "is_pinned": true
+        },
+        {
+          "op": "PIN_PAGE",
+          "data_id": "cma_anon_10",
+          "is_pinned": false
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_0"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_1"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_2"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_3"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_4"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_5"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_6"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_7"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_8"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_9"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_10"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_11"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_12"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_13"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_14"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_15"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_16"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_17"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_18"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_19"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_20"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_21"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_22"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_23"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_24"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_25"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_26"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_27"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_28"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_29"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_30"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_31"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_32"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_33"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_34"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_35"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_36"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_37"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_38"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_39"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_40"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_41"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_42"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_43"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_44"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_45"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_46"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_47"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_48"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_49"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_50"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_51"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_52"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_53"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_54"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_55"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_56"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_57"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_58"
+        },
+        {
+          "op": "FREE_GENERAL",
+          "data_id": "app_59"
+        },
+        {
+          "op": "CMA_ALLOC",
+          "alloc_id": "adas_camera",
+          "count": 64,
+          "align_order": 6
+        },
+        {
+          "op": "CMA_ALLOC",
+          "alloc_id": "npu_buffer",
+          "count": 32,
+          "align_order": 5
+        },
+        {
+          "op": "CMA_RELEASE",
+          "alloc_id": "adas_camera"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "cma_alloc_success": 2,
+        "cma_alloc_failures": 0,
+        "total_migrated_pages": 0,
+        "cma_free_pages": 224,
+        "cma_dma_allocated_pages": 32,
+        "cma_movable_pages": 0,
+        "buddy_movable_free": 66,
+        "buddy_unmovable_free": 128
+      },
+      "pageblocks": {
+        "block_0": {
+          "start_pfn": 2048,
+          "migratetype": "MIGRATE_CMA"
+        },
+        "block_1": {
+          "start_pfn": 2112,
+          "migratetype": "MIGRATE_ISOLATE"
+        },
+        "block_2": {
+          "start_pfn": 2176,
+          "migratetype": "MIGRATE_CMA"
+        },
+        "block_3": {
+          "start_pfn": 2240,
+          "migratetype": "MIGRATE_CMA"
+        }
+      },
+      "dma_allocations": {
+        "npu_buffer": {
+          "start_pfn": 2112,
+          "count": 32
+        }
+      },
+      "operation_logs": [
+        {
+          "op": "ALLOC_GENERAL",
+          "result": {
+            "status": "SUCCESS",
+            "allocated_buddy": 200,
+            "allocated_cma": 0,
+            "total": 200
+          }
+        },
+        {
+          "op": "ALLOC_GENERAL",
+          "result": {
+            "status": "SUCCESS",
+            "allocated_buddy": 50,
+            "allocated_cma": 0,
+            "total": 50
+          }
+        },
+        {
+          "op": "PIN_PAGE",
+          "result": true
+        },
+        {
+          "op": "PIN_PAGE",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "FREE_GENERAL",
+          "result": true
+        },
+        {
+          "op": "CMA_ALLOC",
+          "alloc_id": "adas_camera",
+          "result": {
+            "status": "SUCCESS",
+            "start_pfn": 2048,
+            "count": 64,
+            "migrated_count": 0
+          }
+        },
+        {
+          "op": "CMA_ALLOC",
+          "alloc_id": "npu_buffer",
+          "result": {
+            "status": "SUCCESS",
+            "start_pfn": 2112,
+            "count": 32,
+            "migrated_count": 0
+          }
+        },
+        {
+          "op": "CMA_RELEASE",
+          "alloc_id": "adas_camera",
+          "result": {
+            "status": "SUCCESS",
+            "freed_pfn": 2048,
+            "count": 64
+          }
+        }
+      ]
+    }
+  }
+]
