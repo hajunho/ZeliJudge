@@ -1,0 +1,1208 @@
+[
+  {
+    "input": {
+      "config": {
+        "max_depth": 8
+      },
+      "operations": [
+        {
+          "op": "CONFIGURE",
+          "enabled": true
+        },
+        {
+          "op": "FENTRY_CALL",
+          "func": "sys_read",
+          "caller_ret_addr": 4198400,
+          "timestamp": 1000
+        },
+        {
+          "op": "FENTRY_CALL",
+          "func": "vfs_read",
+          "caller_ret_addr": 4202496,
+          "timestamp": 1100
+        },
+        {
+          "op": "FENTRY_CALL",
+          "func": "ext4_file_read_iter",
+          "caller_ret_addr": 4206592,
+          "timestamp": 1200
+        },
+        {
+          "op": "FEXIT_RETURN",
+          "timestamp": 1350
+        },
+        {
+          "op": "FEXIT_RETURN",
+          "timestamp": 1450
+        },
+        {
+          "op": "FEXIT_RETURN",
+          "timestamp": 1600
+        },
+        {
+          "op": "QUERY_TRACER_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "CONFIGURED",
+          "enabled": true,
+          "graph_funcs": [],
+          "max_depth": 8
+        },
+        {
+          "type": "GRAPH_ENTRY",
+          "func": "sys_read",
+          "depth": 0,
+          "calltime": 1000,
+          "hijacked_ret": 18446744071578845184
+        },
+        {
+          "type": "GRAPH_ENTRY",
+          "func": "vfs_read",
+          "depth": 1,
+          "calltime": 1100,
+          "hijacked_ret": 18446744071578845184
+        },
+        {
+          "type": "GRAPH_ENTRY",
+          "func": "ext4_file_read_iter",
+          "depth": 2,
+          "calltime": 1200,
+          "hijacked_ret": 18446744071578845184
+        },
+        {
+          "type": "GRAPH_EXIT",
+          "func": "ext4_file_read_iter",
+          "depth": 2,
+          "duration_ns": 150,
+          "restored_ret": 4206592
+        },
+        {
+          "type": "GRAPH_EXIT",
+          "func": "vfs_read",
+          "depth": 1,
+          "duration_ns": 350,
+          "restored_ret": 4202496
+        },
+        {
+          "type": "GRAPH_EXIT",
+          "func": "sys_read",
+          "depth": 0,
+          "duration_ns": 600,
+          "restored_ret": 4198400
+        },
+        {
+          "enabled": true,
+          "current_depth": 0,
+          "hw_stack_len": 0,
+          "trace_events_count": 6,
+          "trace_events": [
+            {
+              "type": "GRAPH_ENTRY",
+              "func": "sys_read",
+              "depth": 0,
+              "calltime": 1000,
+              "hijacked_ret": 18446744071578845184
+            },
+            {
+              "type": "GRAPH_ENTRY",
+              "func": "vfs_read",
+              "depth": 1,
+              "calltime": 1100,
+              "hijacked_ret": 18446744071578845184
+            },
+            {
+              "type": "GRAPH_ENTRY",
+              "func": "ext4_file_read_iter",
+              "depth": 2,
+              "calltime": 1200,
+              "hijacked_ret": 18446744071578845184
+            },
+            {
+              "type": "GRAPH_EXIT",
+              "func": "ext4_file_read_iter",
+              "depth": 2,
+              "duration_ns": 150,
+              "restored_ret": 4206592
+            },
+            {
+              "type": "GRAPH_EXIT",
+              "func": "vfs_read",
+              "depth": 1,
+              "duration_ns": 350,
+              "restored_ret": 4202496
+            },
+            {
+              "type": "GRAPH_EXIT",
+              "func": "sys_read",
+              "depth": 0,
+              "duration_ns": 600,
+              "restored_ret": 4198400
+            }
+          ],
+          "stats": {
+            "entries_intercepted": 3,
+            "exits_intercepted": 3,
+            "stack_hijacks": 3,
+            "depth_overflows": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "max_depth": 8
+      },
+      "operations": [
+        {
+          "op": "CONFIGURE",
+          "enabled": true,
+          "graph_funcs": [
+            "vfs_read"
+          ]
+        },
+        {
+          "op": "FENTRY_CALL",
+          "func": "do_syscall_64",
+          "caller_ret_addr": 5242880,
+          "timestamp": 100
+        },
+        {
+          "op": "FENTRY_CALL",
+          "func": "vfs_read",
+          "caller_ret_addr": 5246976,
+          "timestamp": 200
+        },
+        {
+          "op": "FENTRY_CALL",
+          "func": "ext4_read",
+          "caller_ret_addr": 5251072,
+          "timestamp": 250
+        },
+        {
+          "op": "FEXIT_RETURN",
+          "timestamp": 400
+        },
+        {
+          "op": "FEXIT_RETURN",
+          "timestamp": 500
+        },
+        {
+          "op": "FENTRY_CALL",
+          "func": "security_file_permission",
+          "caller_ret_addr": 5255168,
+          "timestamp": 550
+        },
+        {
+          "op": "FEXIT_RETURN",
+          "timestamp": 600
+        },
+        {
+          "op": "FEXIT_RETURN",
+          "timestamp": 700
+        },
+        {
+          "op": "QUERY_TRACER_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "CONFIGURED",
+          "enabled": true,
+          "graph_funcs": [
+            "vfs_read"
+          ],
+          "max_depth": 8
+        },
+        {
+          "status": "FILTERED_OUT",
+          "func": "do_syscall_64"
+        },
+        {
+          "type": "GRAPH_ENTRY",
+          "func": "vfs_read",
+          "depth": 0,
+          "calltime": 200,
+          "hijacked_ret": 18446744071578845184
+        },
+        {
+          "type": "GRAPH_ENTRY",
+          "func": "ext4_read",
+          "depth": 1,
+          "calltime": 250,
+          "hijacked_ret": 18446744071578845184
+        },
+        {
+          "type": "GRAPH_EXIT",
+          "func": "ext4_read",
+          "depth": 1,
+          "duration_ns": 150,
+          "restored_ret": 5251072
+        },
+        {
+          "type": "GRAPH_EXIT",
+          "func": "vfs_read",
+          "depth": 0,
+          "duration_ns": 300,
+          "restored_ret": 5246976
+        },
+        {
+          "status": "FILTERED_OUT",
+          "func": "security_file_permission"
+        },
+        {
+          "status": "NORMAL_RETURN",
+          "target_rip": 5255168
+        },
+        {
+          "status": "NORMAL_RETURN",
+          "target_rip": 5242880
+        },
+        {
+          "enabled": true,
+          "current_depth": 0,
+          "hw_stack_len": 0,
+          "trace_events_count": 4,
+          "trace_events": [
+            {
+              "type": "GRAPH_ENTRY",
+              "func": "vfs_read",
+              "depth": 0,
+              "calltime": 200,
+              "hijacked_ret": 18446744071578845184
+            },
+            {
+              "type": "GRAPH_ENTRY",
+              "func": "ext4_read",
+              "depth": 1,
+              "calltime": 250,
+              "hijacked_ret": 18446744071578845184
+            },
+            {
+              "type": "GRAPH_EXIT",
+              "func": "ext4_read",
+              "depth": 1,
+              "duration_ns": 150,
+              "restored_ret": 5251072
+            },
+            {
+              "type": "GRAPH_EXIT",
+              "func": "vfs_read",
+              "depth": 0,
+              "duration_ns": 300,
+              "restored_ret": 5246976
+            }
+          ],
+          "stats": {
+            "entries_intercepted": 2,
+            "exits_intercepted": 2,
+            "stack_hijacks": 2,
+            "depth_overflows": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "max_depth": 2
+      },
+      "operations": [
+        {
+          "op": "CONFIGURE",
+          "enabled": true,
+          "max_depth": 2
+        },
+        {
+          "op": "FENTRY_CALL",
+          "func": "lvl0",
+          "caller_ret_addr": 6291456,
+          "timestamp": 1000
+        },
+        {
+          "op": "FENTRY_CALL",
+          "func": "lvl1",
+          "caller_ret_addr": 6295552,
+          "timestamp": 1100
+        },
+        {
+          "op": "FENTRY_CALL",
+          "func": "lvl2_overflow",
+          "caller_ret_addr": 6299648,
+          "timestamp": 1200
+        },
+        {
+          "op": "FEXIT_RETURN",
+          "timestamp": 1300
+        },
+        {
+          "op": "FEXIT_RETURN",
+          "timestamp": 1400
+        },
+        {
+          "op": "FEXIT_RETURN",
+          "timestamp": 1500
+        },
+        {
+          "op": "QUERY_TRACER_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "CONFIGURED",
+          "enabled": true,
+          "graph_funcs": [],
+          "max_depth": 2
+        },
+        {
+          "type": "GRAPH_ENTRY",
+          "func": "lvl0",
+          "depth": 0,
+          "calltime": 1000,
+          "hijacked_ret": 18446744071578845184
+        },
+        {
+          "type": "GRAPH_ENTRY",
+          "func": "lvl1",
+          "depth": 1,
+          "calltime": 1100,
+          "hijacked_ret": 18446744071578845184
+        },
+        {
+          "status": "DEPTH_OVERFLOW",
+          "func": "lvl2_overflow",
+          "depth": 2
+        },
+        {
+          "status": "NORMAL_RETURN",
+          "target_rip": 6299648
+        },
+        {
+          "type": "GRAPH_EXIT",
+          "func": "lvl1",
+          "depth": 1,
+          "duration_ns": 300,
+          "restored_ret": 6295552
+        },
+        {
+          "type": "GRAPH_EXIT",
+          "func": "lvl0",
+          "depth": 0,
+          "duration_ns": 500,
+          "restored_ret": 6291456
+        },
+        {
+          "enabled": true,
+          "current_depth": 0,
+          "hw_stack_len": 0,
+          "trace_events_count": 4,
+          "trace_events": [
+            {
+              "type": "GRAPH_ENTRY",
+              "func": "lvl0",
+              "depth": 0,
+              "calltime": 1000,
+              "hijacked_ret": 18446744071578845184
+            },
+            {
+              "type": "GRAPH_ENTRY",
+              "func": "lvl1",
+              "depth": 1,
+              "calltime": 1100,
+              "hijacked_ret": 18446744071578845184
+            },
+            {
+              "type": "GRAPH_EXIT",
+              "func": "lvl1",
+              "depth": 1,
+              "duration_ns": 300,
+              "restored_ret": 6295552
+            },
+            {
+              "type": "GRAPH_EXIT",
+              "func": "lvl0",
+              "depth": 0,
+              "duration_ns": 500,
+              "restored_ret": 6291456
+            }
+          ],
+          "stats": {
+            "entries_intercepted": 2,
+            "exits_intercepted": 2,
+            "stack_hijacks": 2,
+            "depth_overflows": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "max_depth": 8
+      },
+      "operations": [
+        {
+          "op": "CONFIGURE",
+          "enabled": false
+        },
+        {
+          "op": "FENTRY_CALL",
+          "func": "untraced_func",
+          "caller_ret_addr": 7340032,
+          "timestamp": 10
+        },
+        {
+          "op": "FEXIT_RETURN",
+          "timestamp": 20
+        },
+        {
+          "op": "CONFIGURE",
+          "enabled": true
+        },
+        {
+          "op": "FENTRY_CALL",
+          "func": "traced_func",
+          "caller_ret_addr": 7344128,
+          "timestamp": 30
+        },
+        {
+          "op": "FEXIT_RETURN",
+          "timestamp": 50
+        },
+        {
+          "op": "QUERY_TRACER_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "CONFIGURED",
+          "enabled": false,
+          "graph_funcs": [],
+          "max_depth": 8
+        },
+        {
+          "status": "TRACING_DISABLED",
+          "func": "untraced_func"
+        },
+        {
+          "status": "NORMAL_RETURN",
+          "target_rip": 7340032
+        },
+        {
+          "status": "CONFIGURED",
+          "enabled": true,
+          "graph_funcs": [],
+          "max_depth": 8
+        },
+        {
+          "type": "GRAPH_ENTRY",
+          "func": "traced_func",
+          "depth": 0,
+          "calltime": 30,
+          "hijacked_ret": 18446744071578845184
+        },
+        {
+          "type": "GRAPH_EXIT",
+          "func": "traced_func",
+          "depth": 0,
+          "duration_ns": 20,
+          "restored_ret": 7344128
+        },
+        {
+          "enabled": true,
+          "current_depth": 0,
+          "hw_stack_len": 0,
+          "trace_events_count": 2,
+          "trace_events": [
+            {
+              "type": "GRAPH_ENTRY",
+              "func": "traced_func",
+              "depth": 0,
+              "calltime": 30,
+              "hijacked_ret": 18446744071578845184
+            },
+            {
+              "type": "GRAPH_EXIT",
+              "func": "traced_func",
+              "depth": 0,
+              "duration_ns": 20,
+              "restored_ret": 7344128
+            }
+          ],
+          "stats": {
+            "entries_intercepted": 1,
+            "exits_intercepted": 1,
+            "stack_hijacks": 1,
+            "depth_overflows": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "max_depth": 8
+      },
+      "operations": [
+        {
+          "op": "CONFIGURE",
+          "enabled": true
+        },
+        {
+          "op": "FENTRY_CALL",
+          "func": "parent",
+          "caller_ret_addr": 8388608,
+          "timestamp": 1000
+        },
+        {
+          "op": "FENTRY_CALL",
+          "func": "child_one",
+          "caller_ret_addr": 8392704,
+          "timestamp": 1100
+        },
+        {
+          "op": "FEXIT_RETURN",
+          "timestamp": 1150
+        },
+        {
+          "op": "FENTRY_CALL",
+          "func": "child_two",
+          "caller_ret_addr": 8396800,
+          "timestamp": 1200
+        },
+        {
+          "op": "FEXIT_RETURN",
+          "timestamp": 1280
+        },
+        {
+          "op": "FEXIT_RETURN",
+          "timestamp": 1300
+        },
+        {
+          "op": "QUERY_TRACER_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "CONFIGURED",
+          "enabled": true,
+          "graph_funcs": [],
+          "max_depth": 8
+        },
+        {
+          "type": "GRAPH_ENTRY",
+          "func": "parent",
+          "depth": 0,
+          "calltime": 1000,
+          "hijacked_ret": 18446744071578845184
+        },
+        {
+          "type": "GRAPH_ENTRY",
+          "func": "child_one",
+          "depth": 1,
+          "calltime": 1100,
+          "hijacked_ret": 18446744071578845184
+        },
+        {
+          "type": "GRAPH_EXIT",
+          "func": "child_one",
+          "depth": 1,
+          "duration_ns": 50,
+          "restored_ret": 8392704
+        },
+        {
+          "type": "GRAPH_ENTRY",
+          "func": "child_two",
+          "depth": 1,
+          "calltime": 1200,
+          "hijacked_ret": 18446744071578845184
+        },
+        {
+          "type": "GRAPH_EXIT",
+          "func": "child_two",
+          "depth": 1,
+          "duration_ns": 80,
+          "restored_ret": 8396800
+        },
+        {
+          "type": "GRAPH_EXIT",
+          "func": "parent",
+          "depth": 0,
+          "duration_ns": 300,
+          "restored_ret": 8388608
+        },
+        {
+          "enabled": true,
+          "current_depth": 0,
+          "hw_stack_len": 0,
+          "trace_events_count": 6,
+          "trace_events": [
+            {
+              "type": "GRAPH_ENTRY",
+              "func": "parent",
+              "depth": 0,
+              "calltime": 1000,
+              "hijacked_ret": 18446744071578845184
+            },
+            {
+              "type": "GRAPH_ENTRY",
+              "func": "child_one",
+              "depth": 1,
+              "calltime": 1100,
+              "hijacked_ret": 18446744071578845184
+            },
+            {
+              "type": "GRAPH_EXIT",
+              "func": "child_one",
+              "depth": 1,
+              "duration_ns": 50,
+              "restored_ret": 8392704
+            },
+            {
+              "type": "GRAPH_ENTRY",
+              "func": "child_two",
+              "depth": 1,
+              "calltime": 1200,
+              "hijacked_ret": 18446744071578845184
+            },
+            {
+              "type": "GRAPH_EXIT",
+              "func": "child_two",
+              "depth": 1,
+              "duration_ns": 80,
+              "restored_ret": 8396800
+            },
+            {
+              "type": "GRAPH_EXIT",
+              "func": "parent",
+              "depth": 0,
+              "duration_ns": 300,
+              "restored_ret": 8388608
+            }
+          ],
+          "stats": {
+            "entries_intercepted": 3,
+            "exits_intercepted": 3,
+            "stack_hijacks": 3,
+            "depth_overflows": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "max_depth": 8
+      },
+      "operations": [
+        {
+          "op": "CONFIGURE",
+          "enabled": true
+        },
+        {
+          "op": "FEXIT_RETURN",
+          "timestamp": 100
+        },
+        {
+          "op": "FENTRY_CALL",
+          "func": "func_a",
+          "caller_ret_addr": 9437184,
+          "timestamp": 200
+        },
+        {
+          "op": "FEXIT_RETURN",
+          "timestamp": 300
+        },
+        {
+          "op": "FEXIT_RETURN",
+          "timestamp": 400
+        },
+        {
+          "op": "QUERY_TRACER_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "CONFIGURED",
+          "enabled": true,
+          "graph_funcs": [],
+          "max_depth": 8
+        },
+        {
+          "status": "EMPTY_HW_STACK"
+        },
+        {
+          "type": "GRAPH_ENTRY",
+          "func": "func_a",
+          "depth": 0,
+          "calltime": 200,
+          "hijacked_ret": 18446744071578845184
+        },
+        {
+          "type": "GRAPH_EXIT",
+          "func": "func_a",
+          "depth": 0,
+          "duration_ns": 100,
+          "restored_ret": 9437184
+        },
+        {
+          "status": "EMPTY_HW_STACK"
+        },
+        {
+          "enabled": true,
+          "current_depth": 0,
+          "hw_stack_len": 0,
+          "trace_events_count": 2,
+          "trace_events": [
+            {
+              "type": "GRAPH_ENTRY",
+              "func": "func_a",
+              "depth": 0,
+              "calltime": 200,
+              "hijacked_ret": 18446744071578845184
+            },
+            {
+              "type": "GRAPH_EXIT",
+              "func": "func_a",
+              "depth": 0,
+              "duration_ns": 100,
+              "restored_ret": 9437184
+            }
+          ],
+          "stats": {
+            "entries_intercepted": 1,
+            "exits_intercepted": 1,
+            "stack_hijacks": 1,
+            "depth_overflows": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "max_depth": 8
+      },
+      "operations": [
+        {
+          "op": "CONFIGURE",
+          "enabled": true
+        },
+        {
+          "op": "FENTRY_CALL",
+          "func": "fact",
+          "caller_ret_addr": 10485760,
+          "timestamp": 1000
+        },
+        {
+          "op": "FENTRY_CALL",
+          "func": "fact",
+          "caller_ret_addr": 10485776,
+          "timestamp": 1050
+        },
+        {
+          "op": "FENTRY_CALL",
+          "func": "fact",
+          "caller_ret_addr": 10485776,
+          "timestamp": 1100
+        },
+        {
+          "op": "FEXIT_RETURN",
+          "timestamp": 1120
+        },
+        {
+          "op": "FEXIT_RETURN",
+          "timestamp": 1140
+        },
+        {
+          "op": "FEXIT_RETURN",
+          "timestamp": 1160
+        },
+        {
+          "op": "QUERY_TRACER_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "CONFIGURED",
+          "enabled": true,
+          "graph_funcs": [],
+          "max_depth": 8
+        },
+        {
+          "type": "GRAPH_ENTRY",
+          "func": "fact",
+          "depth": 0,
+          "calltime": 1000,
+          "hijacked_ret": 18446744071578845184
+        },
+        {
+          "type": "GRAPH_ENTRY",
+          "func": "fact",
+          "depth": 1,
+          "calltime": 1050,
+          "hijacked_ret": 18446744071578845184
+        },
+        {
+          "type": "GRAPH_ENTRY",
+          "func": "fact",
+          "depth": 2,
+          "calltime": 1100,
+          "hijacked_ret": 18446744071578845184
+        },
+        {
+          "type": "GRAPH_EXIT",
+          "func": "fact",
+          "depth": 2,
+          "duration_ns": 20,
+          "restored_ret": 10485776
+        },
+        {
+          "type": "GRAPH_EXIT",
+          "func": "fact",
+          "depth": 1,
+          "duration_ns": 90,
+          "restored_ret": 10485776
+        },
+        {
+          "type": "GRAPH_EXIT",
+          "func": "fact",
+          "depth": 0,
+          "duration_ns": 160,
+          "restored_ret": 10485760
+        },
+        {
+          "enabled": true,
+          "current_depth": 0,
+          "hw_stack_len": 0,
+          "trace_events_count": 6,
+          "trace_events": [
+            {
+              "type": "GRAPH_ENTRY",
+              "func": "fact",
+              "depth": 0,
+              "calltime": 1000,
+              "hijacked_ret": 18446744071578845184
+            },
+            {
+              "type": "GRAPH_ENTRY",
+              "func": "fact",
+              "depth": 1,
+              "calltime": 1050,
+              "hijacked_ret": 18446744071578845184
+            },
+            {
+              "type": "GRAPH_ENTRY",
+              "func": "fact",
+              "depth": 2,
+              "calltime": 1100,
+              "hijacked_ret": 18446744071578845184
+            },
+            {
+              "type": "GRAPH_EXIT",
+              "func": "fact",
+              "depth": 2,
+              "duration_ns": 20,
+              "restored_ret": 10485776
+            },
+            {
+              "type": "GRAPH_EXIT",
+              "func": "fact",
+              "depth": 1,
+              "duration_ns": 90,
+              "restored_ret": 10485776
+            },
+            {
+              "type": "GRAPH_EXIT",
+              "func": "fact",
+              "depth": 0,
+              "duration_ns": 160,
+              "restored_ret": 10485760
+            }
+          ],
+          "stats": {
+            "entries_intercepted": 3,
+            "exits_intercepted": 3,
+            "stack_hijacks": 3,
+            "depth_overflows": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "max_depth": 3
+      },
+      "operations": [
+        {
+          "op": "CONFIGURE",
+          "enabled": true,
+          "graph_funcs": [
+            "root_entry"
+          ],
+          "max_depth": 3
+        },
+        {
+          "op": "FENTRY_CALL",
+          "func": "early_skip",
+          "caller_ret_addr": 11534336,
+          "timestamp": 10
+        },
+        {
+          "op": "FEXIT_RETURN",
+          "timestamp": 20
+        },
+        {
+          "op": "FENTRY_CALL",
+          "func": "root_entry",
+          "caller_ret_addr": 11538432,
+          "timestamp": 30
+        },
+        {
+          "op": "FENTRY_CALL",
+          "func": "branch_1",
+          "caller_ret_addr": 11542528,
+          "timestamp": 40
+        },
+        {
+          "op": "FENTRY_CALL",
+          "func": "leaf_1",
+          "caller_ret_addr": 11546624,
+          "timestamp": 50
+        },
+        {
+          "op": "FENTRY_CALL",
+          "func": "deep_overflow",
+          "caller_ret_addr": 11550720,
+          "timestamp": 60
+        },
+        {
+          "op": "FEXIT_RETURN",
+          "timestamp": 65
+        },
+        {
+          "op": "FEXIT_RETURN",
+          "timestamp": 70
+        },
+        {
+          "op": "FEXIT_RETURN",
+          "timestamp": 80
+        },
+        {
+          "op": "FENTRY_CALL",
+          "func": "branch_2",
+          "caller_ret_addr": 11554816,
+          "timestamp": 90
+        },
+        {
+          "op": "FEXIT_RETURN",
+          "timestamp": 95
+        },
+        {
+          "op": "FEXIT_RETURN",
+          "timestamp": 100
+        },
+        {
+          "op": "FENTRY_CALL",
+          "func": "late_skip",
+          "caller_ret_addr": 11558912,
+          "timestamp": 110
+        },
+        {
+          "op": "FEXIT_RETURN",
+          "timestamp": 120
+        },
+        {
+          "op": "QUERY_TRACER_STATE"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "CONFIGURED",
+          "enabled": true,
+          "graph_funcs": [
+            "root_entry"
+          ],
+          "max_depth": 3
+        },
+        {
+          "status": "FILTERED_OUT",
+          "func": "early_skip"
+        },
+        {
+          "status": "NORMAL_RETURN",
+          "target_rip": 11534336
+        },
+        {
+          "type": "GRAPH_ENTRY",
+          "func": "root_entry",
+          "depth": 0,
+          "calltime": 30,
+          "hijacked_ret": 18446744071578845184
+        },
+        {
+          "type": "GRAPH_ENTRY",
+          "func": "branch_1",
+          "depth": 1,
+          "calltime": 40,
+          "hijacked_ret": 18446744071578845184
+        },
+        {
+          "type": "GRAPH_ENTRY",
+          "func": "leaf_1",
+          "depth": 2,
+          "calltime": 50,
+          "hijacked_ret": 18446744071578845184
+        },
+        {
+          "status": "DEPTH_OVERFLOW",
+          "func": "deep_overflow",
+          "depth": 3
+        },
+        {
+          "status": "NORMAL_RETURN",
+          "target_rip": 11550720
+        },
+        {
+          "type": "GRAPH_EXIT",
+          "func": "leaf_1",
+          "depth": 2,
+          "duration_ns": 20,
+          "restored_ret": 11546624
+        },
+        {
+          "type": "GRAPH_EXIT",
+          "func": "branch_1",
+          "depth": 1,
+          "duration_ns": 40,
+          "restored_ret": 11542528
+        },
+        {
+          "type": "GRAPH_ENTRY",
+          "func": "branch_2",
+          "depth": 1,
+          "calltime": 90,
+          "hijacked_ret": 18446744071578845184
+        },
+        {
+          "type": "GRAPH_EXIT",
+          "func": "branch_2",
+          "depth": 1,
+          "duration_ns": 5,
+          "restored_ret": 11554816
+        },
+        {
+          "type": "GRAPH_EXIT",
+          "func": "root_entry",
+          "depth": 0,
+          "duration_ns": 70,
+          "restored_ret": 11538432
+        },
+        {
+          "status": "FILTERED_OUT",
+          "func": "late_skip"
+        },
+        {
+          "status": "NORMAL_RETURN",
+          "target_rip": 11558912
+        },
+        {
+          "enabled": true,
+          "current_depth": 0,
+          "hw_stack_len": 0,
+          "trace_events_count": 8,
+          "trace_events": [
+            {
+              "type": "GRAPH_ENTRY",
+              "func": "root_entry",
+              "depth": 0,
+              "calltime": 30,
+              "hijacked_ret": 18446744071578845184
+            },
+            {
+              "type": "GRAPH_ENTRY",
+              "func": "branch_1",
+              "depth": 1,
+              "calltime": 40,
+              "hijacked_ret": 18446744071578845184
+            },
+            {
+              "type": "GRAPH_ENTRY",
+              "func": "leaf_1",
+              "depth": 2,
+              "calltime": 50,
+              "hijacked_ret": 18446744071578845184
+            },
+            {
+              "type": "GRAPH_EXIT",
+              "func": "leaf_1",
+              "depth": 2,
+              "duration_ns": 20,
+              "restored_ret": 11546624
+            },
+            {
+              "type": "GRAPH_EXIT",
+              "func": "branch_1",
+              "depth": 1,
+              "duration_ns": 40,
+              "restored_ret": 11542528
+            },
+            {
+              "type": "GRAPH_ENTRY",
+              "func": "branch_2",
+              "depth": 1,
+              "calltime": 90,
+              "hijacked_ret": 18446744071578845184
+            },
+            {
+              "type": "GRAPH_EXIT",
+              "func": "branch_2",
+              "depth": 1,
+              "duration_ns": 5,
+              "restored_ret": 11554816
+            },
+            {
+              "type": "GRAPH_EXIT",
+              "func": "root_entry",
+              "depth": 0,
+              "duration_ns": 70,
+              "restored_ret": 11538432
+            }
+          ],
+          "stats": {
+            "entries_intercepted": 4,
+            "exits_intercepted": 4,
+            "stack_hijacks": 4,
+            "depth_overflows": 1
+          }
+        }
+      ]
+    }
+  }
+]
