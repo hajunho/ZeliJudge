@@ -1,0 +1,50 @@
+[
+  {
+    "id": "case01_pure_rcu_walk_fast_path",
+    "description": "dcache에 완전히 적재된 경로에 대해 락이나 참조 카운트 갱신 없이 순수 RCU-walk 모드로 즉각적인 경로 해석 완료",
+    "input": "{\"config\": {\"max_symlinks\": 40}, \"operations\": [{\"type\": \"ADD_PATH\", \"path\": \"/var/log/nginx/access.log\", \"is_dir\": false}, {\"type\": \"LOOKUP\", \"path\": \"/var/log/nginx/access.log\"}]}",
+    "expected_output": "{\"history\": [{\"path\": \"/var/log/nginx/access.log\", \"inode_id\": 5, \"is_dir\": false, \"mode_completed\": \"RCU_WALK\", \"status\": \"SUCCESS\"}], \"stats\": {\"total_lookups\": 1, \"rcu_walk_successes\": 1, \"unlazy_walk_fallbacks\": 0, \"dcache_hits\": 4, \"dcache_misses\": 0, \"negative_dentry_hits\": 0, \"symlinks_resolved\": 0, \"eloop_errors\": 0}}"
+  },
+  {
+    "id": "case02_negative_dentry_caching_and_fast_rejection",
+    "description": "최초 누락 파일 탐색 시 Ref-walk로 dcache 미스를 겪고 음수 덴트리 등록 후, 동일 경로 재조회 시 RCU 모드로 초고속 ENOENT 거절",
+    "input": "{\"config\": {\"max_symlinks\": 40}, \"operations\": [{\"type\": \"ADD_PATH\", \"path\": \"/var/log/nginx/access.log\", \"is_dir\": false}, {\"type\": \"LOOKUP\", \"path\": \"/var/log/nginx/missing.log\"}, {\"type\": \"LOOKUP\", \"path\": \"/var/log/nginx/missing.log\"}]}",
+    "expected_output": "{\"history\": [{\"path\": \"/var/log/nginx/missing.log\", \"status\": \"ENOENT\", \"mode_completed\": \"REF_WALK\"}, {\"path\": \"/var/log/nginx/missing.log\", \"status\": \"ENOENT\", \"mode_completed\": \"RCU_WALK\"}], \"stats\": {\"total_lookups\": 2, \"rcu_walk_successes\": 0, \"unlazy_walk_fallbacks\": 1, \"dcache_hits\": 6, \"dcache_misses\": 1, \"negative_dentry_hits\": 1, \"symlinks_resolved\": 0, \"eloop_errors\": 0}}"
+  },
+  {
+    "id": "case03_concurrent_rename_seqlock_invalidation_unlazy_walk",
+    "description": "동시적 디렉터리 변경(MODIFY_NODE)으로 인한 시퀀스 락(Seqlock) 불일치 감지 및 unlazy_walk 안전 폴백",
+    "input": "{\"config\": {\"max_symlinks\": 40}, \"operations\": [{\"type\": \"ADD_PATH\", \"path\": \"/etc/ssl/certs/ca-certificates.crt\", \"is_dir\": false}, {\"type\": \"MODIFY_NODE\", \"path\": \"/etc/ssl/certs\"}, {\"type\": \"LOOKUP\", \"path\": \"/etc/ssl/certs/ca-certificates.crt\"}]}",
+    "expected_output": "{\"history\": [{\"path\": \"/etc/ssl/certs/ca-certificates.crt\", \"inode_id\": 5, \"is_dir\": false, \"mode_completed\": \"REF_WALK\", \"status\": \"SUCCESS\"}], \"stats\": {\"total_lookups\": 1, \"rcu_walk_successes\": 0, \"unlazy_walk_fallbacks\": 1, \"dcache_hits\": 2, \"dcache_misses\": 0, \"negative_dentry_hits\": 0, \"symlinks_resolved\": 0, \"eloop_errors\": 0}}"
+  },
+  {
+    "id": "case04_trailing_symlink_redirection",
+    "description": "심볼릭 링크(/bin -> /usr/bin) 탐색 시 Ref-walk로 안전 전이하여 최종 목적지 파일까지 정상 추적 완료",
+    "input": "{\"config\": {\"max_symlinks\": 40}, \"operations\": [{\"type\": \"ADD_PATH\", \"path\": \"/usr/bin/bash\", \"is_dir\": false}, {\"type\": \"ADD_PATH\", \"path\": \"/bin\", \"is_symlink\": true, \"symlink_target\": \"/usr/bin\"}, {\"type\": \"LOOKUP\", \"path\": \"/bin/bash\"}]}",
+    "expected_output": "{\"history\": [{\"path\": \"/bin/bash\", \"inode_id\": 4, \"is_dir\": false, \"mode_completed\": \"RCU_WALK\", \"status\": \"SUCCESS\"}], \"stats\": {\"total_lookups\": 1, \"rcu_walk_successes\": 1, \"unlazy_walk_fallbacks\": 1, \"dcache_hits\": 4, \"dcache_misses\": 0, \"negative_dentry_hits\": 0, \"symlinks_resolved\": 1, \"eloop_errors\": 0}}"
+  },
+  {
+    "id": "case05_infinite_symlink_cycle_eloop_rejection",
+    "description": "상호 순환 참조하는 심볼릭 링크 순환 고리 탐지 및 MAXSYMLINKS 초과 시 ELOOP 오류 반환",
+    "input": "{\"config\": {\"max_symlinks\": 10}, \"operations\": [{\"type\": \"ADD_PATH\", \"path\": \"/loop_a\", \"is_symlink\": true, \"symlink_target\": \"/loop_b\"}, {\"type\": \"ADD_PATH\", \"path\": \"/loop_b\", \"is_symlink\": true, \"symlink_target\": \"/loop_a\"}, {\"type\": \"LOOKUP\", \"path\": \"/loop_a/target\"}]}",
+    "expected_output": "{\"history\": [{\"path\": \"/loop_a/target\", \"status\": \"ELOOP\", \"mode_completed\": \"RCU_WALK\"}], \"stats\": {\"total_lookups\": 1, \"rcu_walk_successes\": 0, \"unlazy_walk_fallbacks\": 10, \"dcache_hits\": 11, \"dcache_misses\": 0, \"negative_dentry_hits\": 0, \"symlinks_resolved\": 11, \"eloop_errors\": 1}}"
+  },
+  {
+    "id": "case06_parent_dot_dot_directory_traversal",
+    "description": "부모 디렉터리(..) 및 현재 디렉터리(.)가 혼합된 복잡한 상대 경로의 정확한 덴트리 부모 포인터 거슬러 올라가기",
+    "input": "{\"config\": {\"max_symlinks\": 40}, \"operations\": [{\"type\": \"ADD_PATH\", \"path\": \"/usr/bin/python3\", \"is_dir\": false}, {\"type\": \"ADD_PATH\", \"path\": \"/var/tmp/test.txt\", \"is_dir\": false}, {\"type\": \"LOOKUP\", \"path\": \"/var/tmp/../../usr/bin/python3\"}]}",
+    "expected_output": "{\"history\": [{\"path\": \"/var/tmp/../../usr/bin/python3\", \"inode_id\": 4, \"is_dir\": false, \"mode_completed\": \"RCU_WALK\", \"status\": \"SUCCESS\"}], \"stats\": {\"total_lookups\": 1, \"rcu_walk_successes\": 1, \"unlazy_walk_fallbacks\": 0, \"dcache_hits\": 5, \"dcache_misses\": 0, \"negative_dentry_hits\": 0, \"symlinks_resolved\": 0, \"eloop_errors\": 0}}"
+  },
+  {
+    "id": "case07_relative_symlink_resolution_in_nested_dir",
+    "description": "깊은 중첩 디렉터리 내 상대 경로 심볼릭 링크(../../lib64/libc.so.6)의 기준 디렉터리 기반 해석",
+    "input": "{\"config\": {\"max_symlinks\": 40}, \"operations\": [{\"type\": \"ADD_PATH\", \"path\": \"/lib64/libc.so.6\", \"is_dir\": false}, {\"type\": \"ADD_PATH\", \"path\": \"/usr/lib/x86/libc.so\", \"is_symlink\": true, \"symlink_target\": \"../../../lib64/libc.so.6\"}, {\"type\": \"LOOKUP\", \"path\": \"/usr/lib/x86/libc.so\"}]}",
+    "expected_output": "{\"history\": [{\"path\": \"/usr/lib/x86/libc.so\", \"inode_id\": 3, \"is_dir\": false, \"mode_completed\": \"RCU_WALK\", \"status\": \"SUCCESS\"}], \"stats\": {\"total_lookups\": 1, \"rcu_walk_successes\": 1, \"unlazy_walk_fallbacks\": 1, \"dcache_hits\": 9, \"dcache_misses\": 0, \"negative_dentry_hits\": 0, \"symlinks_resolved\": 1, \"eloop_errors\": 0}}"
+  },
+  {
+    "id": "case08_high_concurrency_vfs_path_lookup_stress",
+    "description": "대규모 복합 경로 조회 시 RCU 히트, 미스, 음수 캐시, 심볼릭 링크 전이 종합 스트레스 시뮬레이션",
+    "input": "{\"config\": {\"max_symlinks\": 20}, \"operations\": [{\"type\": \"ADD_PATH\", \"path\": \"/app/config/settings.yaml\", \"is_dir\": false}, {\"type\": \"ADD_PATH\", \"path\": \"/app/logs/output.log\", \"is_dir\": false}, {\"type\": \"ADD_PATH\", \"path\": \"/current\", \"is_symlink\": true, \"symlink_target\": \"/app\"}, {\"type\": \"LOOKUP\", \"path\": \"/current/config/settings.yaml\"}, {\"type\": \"LOOKUP\", \"path\": \"/current/config/database.yaml\"}, {\"type\": \"LOOKUP\", \"path\": \"/current/config/database.yaml\"}, {\"type\": \"LOOKUP\", \"path\": \"/app/logs/output.log\"}, {\"type\": \"MODIFY_NODE\", \"path\": \"/app/config\"}, {\"type\": \"LOOKUP\", \"path\": \"/app/config/settings.yaml\"}]}",
+    "expected_output": "{\"history\": [{\"path\": \"/current/config/settings.yaml\", \"inode_id\": 4, \"is_dir\": false, \"mode_completed\": \"RCU_WALK\", \"status\": \"SUCCESS\"}, {\"path\": \"/current/config/database.yaml\", \"status\": \"ENOENT\", \"mode_completed\": \"REF_WALK\"}, {\"path\": \"/current/config/database.yaml\", \"status\": \"ENOENT\", \"mode_completed\": \"RCU_WALK\"}, {\"path\": \"/app/logs/output.log\", \"inode_id\": 6, \"is_dir\": false, \"mode_completed\": \"RCU_WALK\", \"status\": \"SUCCESS\"}, {\"path\": \"/app/config/settings.yaml\", \"inode_id\": 4, \"is_dir\": false, \"mode_completed\": \"REF_WALK\", \"status\": \"SUCCESS\"}], \"stats\": {\"total_lookups\": 5, \"rcu_walk_successes\": 2, \"unlazy_walk_fallbacks\": 5, \"dcache_hits\": 14, \"dcache_misses\": 1, \"negative_dentry_hits\": 1, \"symlinks_resolved\": 3, \"eloop_errors\": 0}}"
+  }
+]
