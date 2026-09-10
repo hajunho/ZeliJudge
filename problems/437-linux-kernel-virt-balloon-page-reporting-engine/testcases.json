@@ -1,0 +1,981 @@
+[
+  {
+    "testcase_id": 1,
+    "input": {
+      "config": {
+        "min_order": 9,
+        "batch_capacity": 4,
+        "page_size": 4096,
+        "guest_poison_val": 0,
+        "host_supports_poison": true
+      },
+      "trace": [
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 65536,
+          "order": 9
+        },
+        {
+          "op": "PROCESS_REPORTING"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 65536,
+          "order": 9,
+          "nr_pages": 512,
+          "status": "QUEUED_FOR_REPORTING",
+          "backlog_count": 1
+        },
+        {
+          "op": "PROCESS_REPORTING",
+          "status": "REPORTING_COMPLETED",
+          "entries_processed": 1,
+          "pages_reported": 512,
+          "reclaimed_bytes": 2097152,
+          "poison_violations": 0,
+          "remaining_backlog": 0
+        },
+        {
+          "op": "GET_STATS",
+          "total_reported_pages": 512,
+          "host_reclaimed_bytes": 2097152,
+          "backlog_entries": 0,
+          "active_reported_ranges": 1,
+          "poison_violations": 0,
+          "virtqueue_kicks": 1
+        }
+      ],
+      "summary": {
+        "total_reported_pages": 512,
+        "host_reclaimed_bytes": 2097152,
+        "poison_violations": 0,
+        "virtqueue_kicks": 1,
+        "final_backlog_entries": 0,
+        "final_reported_ranges": 1
+      }
+    }
+  },
+  {
+    "testcase_id": 2,
+    "input": {
+      "config": {
+        "min_order": 9,
+        "batch_capacity": 4,
+        "page_size": 4096,
+        "guest_poison_val": 0,
+        "host_supports_poison": true
+      },
+      "trace": [
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 65536,
+          "order": 0
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 65537,
+          "order": 3
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 65552,
+          "order": 8
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 131072,
+          "order": 9
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 65536,
+          "order": 0,
+          "nr_pages": 1,
+          "status": "BELOW_MIN_ORDER_IGNORED",
+          "backlog_count": 0
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 65537,
+          "order": 3,
+          "nr_pages": 8,
+          "status": "BELOW_MIN_ORDER_IGNORED",
+          "backlog_count": 0
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 65552,
+          "order": 8,
+          "nr_pages": 256,
+          "status": "BELOW_MIN_ORDER_IGNORED",
+          "backlog_count": 0
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 131072,
+          "order": 9,
+          "nr_pages": 512,
+          "status": "QUEUED_FOR_REPORTING",
+          "backlog_count": 1
+        },
+        {
+          "op": "GET_STATS",
+          "total_reported_pages": 0,
+          "host_reclaimed_bytes": 0,
+          "backlog_entries": 1,
+          "active_reported_ranges": 0,
+          "poison_violations": 0,
+          "virtqueue_kicks": 0
+        }
+      ],
+      "summary": {
+        "total_reported_pages": 0,
+        "host_reclaimed_bytes": 0,
+        "poison_violations": 0,
+        "virtqueue_kicks": 0,
+        "final_backlog_entries": 1,
+        "final_reported_ranges": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 3,
+    "input": {
+      "config": {
+        "min_order": 9,
+        "batch_capacity": 2,
+        "page_size": 4096,
+        "guest_poison_val": 0,
+        "host_supports_poison": true
+      },
+      "trace": [
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 65536,
+          "order": 9
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 131072,
+          "order": 9
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 196608,
+          "order": 9
+        },
+        {
+          "op": "PROCESS_REPORTING"
+        },
+        {
+          "op": "PROCESS_REPORTING"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 65536,
+          "order": 9,
+          "nr_pages": 512,
+          "status": "QUEUED_FOR_REPORTING",
+          "backlog_count": 1
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 131072,
+          "order": 9,
+          "nr_pages": 512,
+          "status": "QUEUED_FOR_REPORTING",
+          "backlog_count": 2
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 196608,
+          "order": 9,
+          "nr_pages": 512,
+          "status": "QUEUED_FOR_REPORTING",
+          "backlog_count": 3
+        },
+        {
+          "op": "PROCESS_REPORTING",
+          "status": "REPORTING_COMPLETED",
+          "entries_processed": 2,
+          "pages_reported": 1024,
+          "reclaimed_bytes": 4194304,
+          "poison_violations": 0,
+          "remaining_backlog": 1
+        },
+        {
+          "op": "PROCESS_REPORTING",
+          "status": "REPORTING_COMPLETED",
+          "entries_processed": 1,
+          "pages_reported": 512,
+          "reclaimed_bytes": 2097152,
+          "poison_violations": 0,
+          "remaining_backlog": 0
+        },
+        {
+          "op": "GET_STATS",
+          "total_reported_pages": 1536,
+          "host_reclaimed_bytes": 6291456,
+          "backlog_entries": 0,
+          "active_reported_ranges": 3,
+          "poison_violations": 0,
+          "virtqueue_kicks": 2
+        }
+      ],
+      "summary": {
+        "total_reported_pages": 1536,
+        "host_reclaimed_bytes": 6291456,
+        "poison_violations": 0,
+        "virtqueue_kicks": 2,
+        "final_backlog_entries": 0,
+        "final_reported_ranges": 3
+      }
+    }
+  },
+  {
+    "testcase_id": 4,
+    "input": {
+      "config": {
+        "min_order": 9,
+        "batch_capacity": 4,
+        "page_size": 4096,
+        "guest_poison_val": 170,
+        "host_supports_poison": false
+      },
+      "trace": [
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 327680,
+          "order": 9,
+          "poison": 170
+        },
+        {
+          "op": "PROCESS_REPORTING"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 327680,
+          "order": 9,
+          "nr_pages": 512,
+          "status": "QUEUED_FOR_REPORTING",
+          "backlog_count": 1
+        },
+        {
+          "op": "PROCESS_REPORTING",
+          "status": "REPORTING_COMPLETED",
+          "entries_processed": 1,
+          "pages_reported": 0,
+          "reclaimed_bytes": 0,
+          "poison_violations": 1,
+          "remaining_backlog": 0
+        },
+        {
+          "op": "GET_STATS",
+          "total_reported_pages": 0,
+          "host_reclaimed_bytes": 0,
+          "backlog_entries": 0,
+          "active_reported_ranges": 1,
+          "poison_violations": 1,
+          "virtqueue_kicks": 1
+        }
+      ],
+      "summary": {
+        "total_reported_pages": 0,
+        "host_reclaimed_bytes": 0,
+        "poison_violations": 1,
+        "virtqueue_kicks": 1,
+        "final_backlog_entries": 0,
+        "final_reported_ranges": 1
+      }
+    }
+  },
+  {
+    "testcase_id": 5,
+    "input": {
+      "config": {
+        "min_order": 9,
+        "batch_capacity": 4,
+        "page_size": 4096,
+        "guest_poison_val": 170,
+        "host_supports_poison": true
+      },
+      "trace": [
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 393216,
+          "order": 9,
+          "poison": 170
+        },
+        {
+          "op": "PROCESS_REPORTING"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 393216,
+          "order": 9,
+          "nr_pages": 512,
+          "status": "QUEUED_FOR_REPORTING",
+          "backlog_count": 1
+        },
+        {
+          "op": "PROCESS_REPORTING",
+          "status": "REPORTING_COMPLETED",
+          "entries_processed": 1,
+          "pages_reported": 512,
+          "reclaimed_bytes": 2097152,
+          "poison_violations": 0,
+          "remaining_backlog": 0
+        },
+        {
+          "op": "GET_STATS",
+          "total_reported_pages": 512,
+          "host_reclaimed_bytes": 2097152,
+          "backlog_entries": 0,
+          "active_reported_ranges": 1,
+          "poison_violations": 0,
+          "virtqueue_kicks": 1
+        }
+      ],
+      "summary": {
+        "total_reported_pages": 512,
+        "host_reclaimed_bytes": 2097152,
+        "poison_violations": 0,
+        "virtqueue_kicks": 1,
+        "final_backlog_entries": 0,
+        "final_reported_ranges": 1
+      }
+    }
+  },
+  {
+    "testcase_id": 6,
+    "input": {
+      "config": {
+        "min_order": 9,
+        "batch_capacity": 4,
+        "page_size": 4096,
+        "guest_poison_val": 0,
+        "host_supports_poison": true
+      },
+      "trace": [
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 458752,
+          "order": 10
+        },
+        {
+          "op": "PROCESS_REPORTING"
+        },
+        {
+          "op": "BUDDY_ALLOC",
+          "handle_id": "ALLOC_1",
+          "order": 9
+        },
+        {
+          "op": "BUDDY_ALLOC",
+          "handle_id": "ALLOC_2",
+          "order": 9
+        },
+        {
+          "op": "BUDDY_ALLOC",
+          "handle_id": "ALLOC_3",
+          "order": 9
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 458752,
+          "order": 10,
+          "nr_pages": 1024,
+          "status": "QUEUED_FOR_REPORTING",
+          "backlog_count": 1
+        },
+        {
+          "op": "PROCESS_REPORTING",
+          "status": "REPORTING_COMPLETED",
+          "entries_processed": 1,
+          "pages_reported": 1024,
+          "reclaimed_bytes": 4194304,
+          "poison_violations": 0,
+          "remaining_backlog": 0
+        },
+        {
+          "op": "BUDDY_ALLOC",
+          "handle_id": "ALLOC_1",
+          "pfn": 458752,
+          "order": 9,
+          "nr_pages": 512,
+          "status": "ALLOCATED_FROM_REPORTED",
+          "from_reported_range": true
+        },
+        {
+          "op": "BUDDY_ALLOC",
+          "handle_id": "ALLOC_2",
+          "pfn": 459264,
+          "order": 9,
+          "nr_pages": 512,
+          "status": "ALLOCATED_FROM_REPORTED",
+          "from_reported_range": true
+        },
+        {
+          "op": "BUDDY_ALLOC",
+          "handle_id": "ALLOC_3",
+          "pfn": 1002048,
+          "order": 9,
+          "nr_pages": 512,
+          "status": "ALLOCATED_FRESH",
+          "from_reported_range": false
+        },
+        {
+          "op": "GET_STATS",
+          "total_reported_pages": 1024,
+          "host_reclaimed_bytes": 4194304,
+          "backlog_entries": 0,
+          "active_reported_ranges": 0,
+          "poison_violations": 0,
+          "virtqueue_kicks": 1
+        }
+      ],
+      "summary": {
+        "total_reported_pages": 1024,
+        "host_reclaimed_bytes": 4194304,
+        "poison_violations": 0,
+        "virtqueue_kicks": 1,
+        "final_backlog_entries": 0,
+        "final_reported_ranges": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 7,
+    "input": {
+      "config": {
+        "min_order": 9,
+        "batch_capacity": 4,
+        "page_size": 4096,
+        "guest_poison_val": 0,
+        "host_supports_poison": true
+      },
+      "trace": [
+        {
+          "op": "PROCESS_REPORTING"
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "PROCESS_REPORTING",
+          "status": "BACKLOG_EMPTY",
+          "reported_entries": 0
+        },
+        {
+          "op": "GET_STATS",
+          "total_reported_pages": 0,
+          "host_reclaimed_bytes": 0,
+          "backlog_entries": 0,
+          "active_reported_ranges": 0,
+          "poison_violations": 0,
+          "virtqueue_kicks": 0
+        }
+      ],
+      "summary": {
+        "total_reported_pages": 0,
+        "host_reclaimed_bytes": 0,
+        "poison_violations": 0,
+        "virtqueue_kicks": 0,
+        "final_backlog_entries": 0,
+        "final_reported_ranges": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 8,
+    "input": {
+      "config": {
+        "min_order": 9,
+        "batch_capacity": 8,
+        "page_size": 4096,
+        "guest_poison_val": 0,
+        "host_supports_poison": true
+      },
+      "trace": [
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1048576,
+          "order": 9
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1050624,
+          "order": 10
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1052672,
+          "order": 9
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1054720,
+          "order": 10
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1056768,
+          "order": 9
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1058816,
+          "order": 10
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1060864,
+          "order": 9
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1062912,
+          "order": 10
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1064960,
+          "order": 9
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1067008,
+          "order": 10
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1069056,
+          "order": 9
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1071104,
+          "order": 10
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1073152,
+          "order": 9
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1075200,
+          "order": 10
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1077248,
+          "order": 9
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1079296,
+          "order": 10
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1081344,
+          "order": 9
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1083392,
+          "order": 10
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1085440,
+          "order": 9
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1087488,
+          "order": 10
+        },
+        {
+          "op": "PROCESS_REPORTING"
+        },
+        {
+          "op": "PROCESS_REPORTING"
+        },
+        {
+          "op": "PROCESS_REPORTING"
+        },
+        {
+          "op": "BUDDY_ALLOC",
+          "handle_id": "BULK_0",
+          "order": 9
+        },
+        {
+          "op": "BUDDY_ALLOC",
+          "handle_id": "BULK_1",
+          "order": 9
+        },
+        {
+          "op": "BUDDY_ALLOC",
+          "handle_id": "BULK_2",
+          "order": 9
+        },
+        {
+          "op": "BUDDY_ALLOC",
+          "handle_id": "BULK_3",
+          "order": 9
+        },
+        {
+          "op": "BUDDY_ALLOC",
+          "handle_id": "BULK_4",
+          "order": 9
+        },
+        {
+          "op": "BUDDY_ALLOC",
+          "handle_id": "BULK_5",
+          "order": 9
+        },
+        {
+          "op": "BUDDY_ALLOC",
+          "handle_id": "BULK_6",
+          "order": 9
+        },
+        {
+          "op": "BUDDY_ALLOC",
+          "handle_id": "BULK_7",
+          "order": 9
+        },
+        {
+          "op": "GET_STATS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1048576,
+          "order": 9,
+          "nr_pages": 512,
+          "status": "QUEUED_FOR_REPORTING",
+          "backlog_count": 1
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1050624,
+          "order": 10,
+          "nr_pages": 1024,
+          "status": "QUEUED_FOR_REPORTING",
+          "backlog_count": 2
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1052672,
+          "order": 9,
+          "nr_pages": 512,
+          "status": "QUEUED_FOR_REPORTING",
+          "backlog_count": 3
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1054720,
+          "order": 10,
+          "nr_pages": 1024,
+          "status": "QUEUED_FOR_REPORTING",
+          "backlog_count": 4
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1056768,
+          "order": 9,
+          "nr_pages": 512,
+          "status": "QUEUED_FOR_REPORTING",
+          "backlog_count": 5
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1058816,
+          "order": 10,
+          "nr_pages": 1024,
+          "status": "QUEUED_FOR_REPORTING",
+          "backlog_count": 6
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1060864,
+          "order": 9,
+          "nr_pages": 512,
+          "status": "QUEUED_FOR_REPORTING",
+          "backlog_count": 7
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1062912,
+          "order": 10,
+          "nr_pages": 1024,
+          "status": "QUEUED_FOR_REPORTING",
+          "backlog_count": 8
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1064960,
+          "order": 9,
+          "nr_pages": 512,
+          "status": "QUEUED_FOR_REPORTING",
+          "backlog_count": 9
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1067008,
+          "order": 10,
+          "nr_pages": 1024,
+          "status": "QUEUED_FOR_REPORTING",
+          "backlog_count": 10
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1069056,
+          "order": 9,
+          "nr_pages": 512,
+          "status": "QUEUED_FOR_REPORTING",
+          "backlog_count": 11
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1071104,
+          "order": 10,
+          "nr_pages": 1024,
+          "status": "QUEUED_FOR_REPORTING",
+          "backlog_count": 12
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1073152,
+          "order": 9,
+          "nr_pages": 512,
+          "status": "QUEUED_FOR_REPORTING",
+          "backlog_count": 13
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1075200,
+          "order": 10,
+          "nr_pages": 1024,
+          "status": "QUEUED_FOR_REPORTING",
+          "backlog_count": 14
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1077248,
+          "order": 9,
+          "nr_pages": 512,
+          "status": "QUEUED_FOR_REPORTING",
+          "backlog_count": 15
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1079296,
+          "order": 10,
+          "nr_pages": 1024,
+          "status": "QUEUED_FOR_REPORTING",
+          "backlog_count": 16
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1081344,
+          "order": 9,
+          "nr_pages": 512,
+          "status": "QUEUED_FOR_REPORTING",
+          "backlog_count": 17
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1083392,
+          "order": 10,
+          "nr_pages": 1024,
+          "status": "QUEUED_FOR_REPORTING",
+          "backlog_count": 18
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1085440,
+          "order": 9,
+          "nr_pages": 512,
+          "status": "QUEUED_FOR_REPORTING",
+          "backlog_count": 19
+        },
+        {
+          "op": "BUDDY_FREE",
+          "pfn": 1087488,
+          "order": 10,
+          "nr_pages": 1024,
+          "status": "QUEUED_FOR_REPORTING",
+          "backlog_count": 20
+        },
+        {
+          "op": "PROCESS_REPORTING",
+          "status": "REPORTING_COMPLETED",
+          "entries_processed": 8,
+          "pages_reported": 6144,
+          "reclaimed_bytes": 25165824,
+          "poison_violations": 0,
+          "remaining_backlog": 12
+        },
+        {
+          "op": "PROCESS_REPORTING",
+          "status": "REPORTING_COMPLETED",
+          "entries_processed": 8,
+          "pages_reported": 6144,
+          "reclaimed_bytes": 25165824,
+          "poison_violations": 0,
+          "remaining_backlog": 4
+        },
+        {
+          "op": "PROCESS_REPORTING",
+          "status": "REPORTING_COMPLETED",
+          "entries_processed": 4,
+          "pages_reported": 3072,
+          "reclaimed_bytes": 12582912,
+          "poison_violations": 0,
+          "remaining_backlog": 0
+        },
+        {
+          "op": "BUDDY_ALLOC",
+          "handle_id": "BULK_0",
+          "pfn": 1048576,
+          "order": 9,
+          "nr_pages": 512,
+          "status": "ALLOCATED_FROM_REPORTED",
+          "from_reported_range": true
+        },
+        {
+          "op": "BUDDY_ALLOC",
+          "handle_id": "BULK_1",
+          "pfn": 1050624,
+          "order": 9,
+          "nr_pages": 512,
+          "status": "ALLOCATED_FROM_REPORTED",
+          "from_reported_range": true
+        },
+        {
+          "op": "BUDDY_ALLOC",
+          "handle_id": "BULK_2",
+          "pfn": 1051136,
+          "order": 9,
+          "nr_pages": 512,
+          "status": "ALLOCATED_FROM_REPORTED",
+          "from_reported_range": true
+        },
+        {
+          "op": "BUDDY_ALLOC",
+          "handle_id": "BULK_3",
+          "pfn": 1052672,
+          "order": 9,
+          "nr_pages": 512,
+          "status": "ALLOCATED_FROM_REPORTED",
+          "from_reported_range": true
+        },
+        {
+          "op": "BUDDY_ALLOC",
+          "handle_id": "BULK_4",
+          "pfn": 1054720,
+          "order": 9,
+          "nr_pages": 512,
+          "status": "ALLOCATED_FROM_REPORTED",
+          "from_reported_range": true
+        },
+        {
+          "op": "BUDDY_ALLOC",
+          "handle_id": "BULK_5",
+          "pfn": 1055232,
+          "order": 9,
+          "nr_pages": 512,
+          "status": "ALLOCATED_FROM_REPORTED",
+          "from_reported_range": true
+        },
+        {
+          "op": "BUDDY_ALLOC",
+          "handle_id": "BULK_6",
+          "pfn": 1056768,
+          "order": 9,
+          "nr_pages": 512,
+          "status": "ALLOCATED_FROM_REPORTED",
+          "from_reported_range": true
+        },
+        {
+          "op": "BUDDY_ALLOC",
+          "handle_id": "BULK_7",
+          "pfn": 1058816,
+          "order": 9,
+          "nr_pages": 512,
+          "status": "ALLOCATED_FROM_REPORTED",
+          "from_reported_range": true
+        },
+        {
+          "op": "GET_STATS",
+          "total_reported_pages": 15360,
+          "host_reclaimed_bytes": 62914560,
+          "backlog_entries": 0,
+          "active_reported_ranges": 15,
+          "poison_violations": 0,
+          "virtqueue_kicks": 3
+        }
+      ],
+      "summary": {
+        "total_reported_pages": 15360,
+        "host_reclaimed_bytes": 62914560,
+        "poison_violations": 0,
+        "virtqueue_kicks": 3,
+        "final_backlog_entries": 0,
+        "final_reported_ranges": 15
+      }
+    }
+  }
+]
