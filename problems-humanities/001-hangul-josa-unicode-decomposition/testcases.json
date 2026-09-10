@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "description": "Testcase #1",
+    "input": "{\"template\": \"고객 {user}(이/가) 주문하신 {item}(을/를) {dest}(으/로) 배송합니다.\", \"variables\": {\"user\": \"민준\", \"item\": \"맥북 프로 16\", \"dest\": \"서울\"}}",
+    "expected_output": "{\"rendered_text\": \"고객 민준이 주문하신 맥북 프로 16을 서울로 배송합니다.\", \"resolved_count\": 3, \"details\": [{\"target\": \"{user}\", \"word\": \"민준\", \"last_char\": \"준\", \"has_jongseong\": true, \"jongseong\": \"ㄴ\", \"is_rieul_exception\": false, \"josa_tag\": \"(이/가)\", \"selected_josa\": \"이\"}, {\"target\": \"{item}\", \"word\": \"맥북 프로 16\", \"last_char\": \"6\", \"has_jongseong\": true, \"jongseong\": \"ㄱ\", \"is_rieul_exception\": false, \"josa_tag\": \"(을/를)\", \"selected_josa\": \"을\"}, {\"target\": \"{dest}\", \"word\": \"서울\", \"last_char\": \"울\", \"has_jongseong\": true, \"jongseong\": \"ㄹ\", \"is_rieul_exception\": true, \"josa_tag\": \"(으/로)\", \"selected_josa\": \"로\"}]}"
+  },
+  {
+    "id": 2,
+    "description": "Testcase #2",
+    "input": "{\"template\": \"{user}(은/는) 이벤트에서 {prize}(을/를) 수령하여 {loc}(으/로) 배송비 {cost}원(으/로) 보냈습니다.\", \"variables\": {\"user\": \"지수\", \"prize\": \"스타벅스 아메리카노\", \"loc\": \"부산\", \"cost\": \"0\"}}",
+    "expected_output": "{\"rendered_text\": \"지수는 이벤트에서 스타벅스 아메리카노를 수령하여 부산으로 배송비 0원으로 보냈습니다.\", \"resolved_count\": 4, \"details\": [{\"target\": \"{user}\", \"word\": \"지수\", \"last_char\": \"수\", \"has_jongseong\": false, \"jongseong\": \"\", \"is_rieul_exception\": false, \"josa_tag\": \"(은/는)\", \"selected_josa\": \"는\"}, {\"target\": \"{prize}\", \"word\": \"스타벅스 아메리카노\", \"last_char\": \"노\", \"has_jongseong\": false, \"jongseong\": \"\", \"is_rieul_exception\": false, \"josa_tag\": \"(을/를)\", \"selected_josa\": \"를\"}, {\"target\": \"{loc}\", \"word\": \"부산\", \"last_char\": \"산\", \"has_jongseong\": true, \"jongseong\": \"ㄴ\", \"is_rieul_exception\": false, \"josa_tag\": \"(으/로)\", \"selected_josa\": \"으로\"}, {\"target\": \"0원\", \"word\": \"0원\", \"last_char\": \"원\", \"has_jongseong\": true, \"jongseong\": \"ㄴ\", \"is_rieul_exception\": false, \"josa_tag\": \"(으/로)\", \"selected_josa\": \"으로\"}]}"
+  },
+  {
+    "id": 3,
+    "description": "Testcase #3",
+    "input": "{\"template\": \"{hero}(아/야), {companion}(와/과) 함께 {weapon}(을/를) 들고 모험을 떠나자!\", \"variables\": {\"hero\": \"길동\", \"companion\": \"토끼\", \"weapon\": \"엑스칼리버\"}}",
+    "expected_output": "{\"rendered_text\": \"길동아, 토끼와 함께 엑스칼리버를 들고 모험을 떠나자!\", \"resolved_count\": 3, \"details\": [{\"target\": \"{hero}\", \"word\": \"길동\", \"last_char\": \"동\", \"has_jongseong\": true, \"jongseong\": \"ㅇ\", \"is_rieul_exception\": false, \"josa_tag\": \"(아/야)\", \"selected_josa\": \"아\"}, {\"target\": \"{companion}\", \"word\": \"토끼\", \"last_char\": \"끼\", \"has_jongseong\": false, \"jongseong\": \"\", \"is_rieul_exception\": false, \"josa_tag\": \"(와/과)\", \"selected_josa\": \"와\"}, {\"target\": \"{weapon}\", \"word\": \"엑스칼리버\", \"last_char\": \"버\", \"has_jongseong\": false, \"jongseong\": \"\", \"is_rieul_exception\": false, \"josa_tag\": \"(을/를)\", \"selected_josa\": \"를\"}]}"
+  },
+  {
+    "id": 4,
+    "description": "Testcase #4",
+    "input": "{\"template\": \"지하철 {line1}호선(으/로) 환승하여 {gate}번 출구(으/로) 나가신 후 {floor}층(으/로) 올라오세요.\", \"variables\": {\"line1\": \"1\", \"gate\": \"7\", \"floor\": \"8\"}}",
+    "expected_output": "{\"rendered_text\": \"지하철 1호선으로 환승하여 7번 출구로 나가신 후 8층으로 올라오세요.\", \"resolved_count\": 3, \"details\": [{\"target\": \"1호선\", \"word\": \"1호선\", \"last_char\": \"선\", \"has_jongseong\": true, \"jongseong\": \"ㄴ\", \"is_rieul_exception\": false, \"josa_tag\": \"(으/로)\", \"selected_josa\": \"으로\"}, {\"target\": \"출구\", \"word\": \"출구\", \"last_char\": \"구\", \"has_jongseong\": false, \"jongseong\": \"\", \"is_rieul_exception\": false, \"josa_tag\": \"(으/로)\", \"selected_josa\": \"로\"}, {\"target\": \"8층\", \"word\": \"8층\", \"last_char\": \"층\", \"has_jongseong\": true, \"jongseong\": \"ㅇ\", \"is_rieul_exception\": false, \"josa_tag\": \"(으/로)\", \"selected_josa\": \"으로\"}]}"
+  },
+  {
+    "id": 5,
+    "description": "Testcase #5",
+    "input": "{\"template\": \"{group}(은/는) 새로운 {model}(으/로) 세계 투어 {grade}(을/를) 달성했습니다.\", \"variables\": {\"group\": \"BTS\", \"model\": \"Model-R\", \"grade\": \"Level-L\"}}",
+    "expected_output": "{\"rendered_text\": \"BTS는 새로운 Model-R로 세계 투어 Level-L을 달성했습니다.\", \"resolved_count\": 3, \"details\": [{\"target\": \"{group}\", \"word\": \"BTS\", \"last_char\": \"S\", \"has_jongseong\": false, \"jongseong\": \"\", \"is_rieul_exception\": false, \"josa_tag\": \"(은/는)\", \"selected_josa\": \"는\"}, {\"target\": \"{model}\", \"word\": \"Model-R\", \"last_char\": \"R\", \"has_jongseong\": true, \"jongseong\": \"ㄹ\", \"is_rieul_exception\": true, \"josa_tag\": \"(으/로)\", \"selected_josa\": \"로\"}, {\"target\": \"{grade}\", \"word\": \"Level-L\", \"last_char\": \"L\", \"has_jongseong\": true, \"jongseong\": \"ㄹ\", \"is_rieul_exception\": true, \"josa_tag\": \"(을/를)\", \"selected_josa\": \"을\"}]}"
+  },
+  {
+    "id": 6,
+    "description": "Testcase #6",
+    "input": "{\"template\": \"추천 도서 {book}(은/는) {author}(이/가) 집필한 명작입니다. 수박(이나/나) 참외(을/를) 드세요.\", \"variables\": {\"book\": \"『어린 왕자』\", \"author\": \"생텍쥐페리\"}}",
+    "expected_output": "{\"rendered_text\": \"추천 도서 『어린 왕자』는 생텍쥐페리가 집필한 명작입니다. 수박이나 참외를 드세요.\", \"resolved_count\": 4, \"details\": [{\"target\": \"{book}\", \"word\": \"『어린 왕자』\", \"last_char\": \"자\", \"has_jongseong\": false, \"jongseong\": \"\", \"is_rieul_exception\": false, \"josa_tag\": \"(은/는)\", \"selected_josa\": \"는\"}, {\"target\": \"{author}\", \"word\": \"생텍쥐페리\", \"last_char\": \"리\", \"has_jongseong\": false, \"jongseong\": \"\", \"is_rieul_exception\": false, \"josa_tag\": \"(이/가)\", \"selected_josa\": \"가\"}, {\"target\": \"수박\", \"word\": \"수박\", \"last_char\": \"박\", \"has_jongseong\": true, \"jongseong\": \"ㄱ\", \"is_rieul_exception\": false, \"josa_tag\": \"(이나/나)\", \"selected_josa\": \"이나\"}, {\"target\": \"참외\", \"word\": \"참외\", \"last_char\": \"외\", \"has_jongseong\": false, \"jongseong\": \"\", \"is_rieul_exception\": false, \"josa_tag\": \"(을/를)\", \"selected_josa\": \"를\"}]}"
+  },
+  {
+    "id": 7,
+    "description": "Testcase #7",
+    "input": "{\"template\": \"{emp}(은/는) {role}(으/로) 임명되었으며, 수습 기간은 {period}개월(으/로) 정해졌습니다.\", \"variables\": {\"emp\": \"이영희\", \"role\": \"수습사원\", \"period\": \"3\"}}",
+    "expected_output": "{\"rendered_text\": \"이영희는 수습사원으로 임명되었으며, 수습 기간은 3개월로 정해졌습니다.\", \"resolved_count\": 3, \"details\": [{\"target\": \"{emp}\", \"word\": \"이영희\", \"last_char\": \"희\", \"has_jongseong\": false, \"jongseong\": \"\", \"is_rieul_exception\": false, \"josa_tag\": \"(은/는)\", \"selected_josa\": \"는\"}, {\"target\": \"{role}\", \"word\": \"수습사원\", \"last_char\": \"원\", \"has_jongseong\": true, \"jongseong\": \"ㄴ\", \"is_rieul_exception\": false, \"josa_tag\": \"(으/로)\", \"selected_josa\": \"으로\"}, {\"target\": \"3개월\", \"word\": \"3개월\", \"last_char\": \"월\", \"has_jongseong\": true, \"jongseong\": \"ㄹ\", \"is_rieul_exception\": true, \"josa_tag\": \"(으/로)\", \"selected_josa\": \"로\"}]}"
+  },
+  {
+    "id": 8,
+    "description": "Testcase #8",
+    "input": "{\"template\": \"{name}(은/는) {job}(이라/라) 불리는 사람(과/와) {city}(으/로) 가서 {food}(이나/나) 먹자고 했다.\", \"variables\": {\"name\": \"철수\", \"job\": \"의사\", \"city\": \"강릉\", \"food\": \"떡볶이\"}}",
+    "expected_output": "{\"rendered_text\": \"철수는 의사라 불리는 사람과 강릉으로 가서 떡볶이나 먹자고 했다.\", \"resolved_count\": 5, \"details\": [{\"target\": \"{name}\", \"word\": \"철수\", \"last_char\": \"수\", \"has_jongseong\": false, \"jongseong\": \"\", \"is_rieul_exception\": false, \"josa_tag\": \"(은/는)\", \"selected_josa\": \"는\"}, {\"target\": \"{job}\", \"word\": \"의사\", \"last_char\": \"사\", \"has_jongseong\": false, \"jongseong\": \"\", \"is_rieul_exception\": false, \"josa_tag\": \"(이라/라)\", \"selected_josa\": \"라\"}, {\"target\": \"{city}\", \"word\": \"강릉\", \"last_char\": \"릉\", \"has_jongseong\": true, \"jongseong\": \"ㅇ\", \"is_rieul_exception\": false, \"josa_tag\": \"(으/로)\", \"selected_josa\": \"으로\"}, {\"target\": \"{food}\", \"word\": \"떡볶이\", \"last_char\": \"이\", \"has_jongseong\": false, \"jongseong\": \"\", \"is_rieul_exception\": false, \"josa_tag\": \"(이나/나)\", \"selected_josa\": \"나\"}, {\"target\": \"사람\", \"word\": \"사람\", \"last_char\": \"람\", \"has_jongseong\": true, \"jongseong\": \"ㅁ\", \"is_rieul_exception\": false, \"josa_tag\": \"(과/와)\", \"selected_josa\": \"과\"}]}"
+  }
+]

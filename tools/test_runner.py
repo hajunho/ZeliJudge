@@ -53,6 +53,8 @@ def run_problem_test(problem_dir: Path):
                 [sys.executable, str(solution_file)],
                 input=inp,
                 text=True,
+                encoding="utf-8",
+                errors="replace",
                 capture_output=True,
                 timeout=5.0  # 5초 타임아웃
             )
@@ -88,7 +90,8 @@ def main():
         root_dir / "problems",
         root_dir / "problems-elementary",
         root_dir / "problems-middle",
-        root_dir / "problems-high"
+        root_dir / "problems-high",
+        root_dir / "problems-humanities"
     ]
 
     target_problems = []
@@ -109,6 +112,10 @@ def main():
             high_dir = root_dir / "problems-high"
             if high_dir.exists():
                 target_problems = [p for p in sorted(high_dir.iterdir()) if p.is_dir()]
+        elif query in ["humanities", "problems-humanities", "biz", "liberal"]:
+            hum_dir = root_dir / "problems-humanities"
+            if hum_dir.exists():
+                target_problems = [p for p in sorted(hum_dir.iterdir()) if p.is_dir()]
         elif query in ["main", "problems", "senior"]:
             main_dir = root_dir / "problems"
             if main_dir.exists():
