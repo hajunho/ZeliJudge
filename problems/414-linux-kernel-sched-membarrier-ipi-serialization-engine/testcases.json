@@ -1,0 +1,1273 @@
+[
+  {
+    "name": "미등록 상태에서의 -EPERM 거절 및 등록 후 타깃 IPI 정상 발송",
+    "input": {
+      "config": {
+        "num_cpus": 4
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_PROCESS",
+          "pid": 100,
+          "mm_id": 1
+        },
+        {
+          "time": 1,
+          "type": "CREATE_PROCESS",
+          "pid": 101,
+          "mm_id": 1
+        },
+        {
+          "time": 2,
+          "type": "CONTEXT_SWITCH",
+          "cpu_id": 0,
+          "pid": 100
+        },
+        {
+          "time": 3,
+          "type": "CONTEXT_SWITCH",
+          "cpu_id": 1,
+          "pid": 101
+        },
+        {
+          "time": 4,
+          "type": "SYS_MEMBARRIER",
+          "cpu_id": 0,
+          "pid": 100,
+          "cmd": "MEMBARRIER_CMD_PRIVATE_EXPEDITED"
+        },
+        {
+          "time": 5,
+          "type": "SYS_MEMBARRIER",
+          "cpu_id": 0,
+          "pid": 100,
+          "cmd": "MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED"
+        },
+        {
+          "time": 6,
+          "type": "SYS_MEMBARRIER",
+          "cpu_id": 0,
+          "pid": 100,
+          "cmd": "MEMBARRIER_CMD_PRIVATE_EXPEDITED"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_membarrier_calls": 3,
+        "successful_calls": 2,
+        "failed_calls": 1,
+        "total_ipis_sent": 1,
+        "targeted_ipis_sent": 1,
+        "global_ipis_sent": 0,
+        "sync_core_flushes": 0,
+        "context_switch_barriers": 0
+      },
+      "mms": {
+        "1": {
+          "state": 1,
+          "pids": [
+            100,
+            101
+          ]
+        }
+      },
+      "call_logs": [
+        {
+          "time": 4,
+          "caller_cpu": 0,
+          "caller_pid": 100,
+          "caller_mm": 1,
+          "cmd": "MEMBARRIER_CMD_PRIVATE_EXPEDITED",
+          "return_code": -1,
+          "ipi_targets": [],
+          "ipis_sent_count": 0,
+          "sync_core": false
+        },
+        {
+          "time": 5,
+          "caller_cpu": 0,
+          "caller_pid": 100,
+          "caller_mm": 1,
+          "cmd": "MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED",
+          "return_code": 0,
+          "ipi_targets": [],
+          "ipis_sent_count": 0,
+          "sync_core": false
+        },
+        {
+          "time": 6,
+          "caller_cpu": 0,
+          "caller_pid": 100,
+          "caller_mm": 1,
+          "cmd": "MEMBARRIER_CMD_PRIVATE_EXPEDITED",
+          "return_code": 0,
+          "ipi_targets": [
+            1
+          ],
+          "ipis_sent_count": 1,
+          "sync_core": false
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_PROCESS",
+          "pid": 100,
+          "mm_id": 1
+        },
+        {
+          "time": 1,
+          "event": "CREATE_PROCESS",
+          "pid": 101,
+          "mm_id": 1
+        },
+        {
+          "time": 2,
+          "event": "CONTEXT_SWITCH",
+          "cpu_id": 0,
+          "pid": 100,
+          "mm_id": 1
+        },
+        {
+          "time": 3,
+          "event": "CONTEXT_SWITCH",
+          "cpu_id": 1,
+          "pid": 101,
+          "mm_id": 1
+        }
+      ]
+    }
+  },
+  {
+    "name": "MEMBARRIER_CMD_QUERY 기능 질의 비트마스크(0x7F) 반환 검증",
+    "input": {
+      "config": {
+        "num_cpus": 4
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_PROCESS",
+          "pid": 50,
+          "mm_id": 10
+        },
+        {
+          "time": 1,
+          "type": "CONTEXT_SWITCH",
+          "cpu_id": 0,
+          "pid": 50
+        },
+        {
+          "time": 2,
+          "type": "SYS_MEMBARRIER",
+          "cpu_id": 0,
+          "pid": 50,
+          "cmd": "MEMBARRIER_CMD_QUERY"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_membarrier_calls": 1,
+        "successful_calls": 1,
+        "failed_calls": 0,
+        "total_ipis_sent": 0,
+        "targeted_ipis_sent": 0,
+        "global_ipis_sent": 0,
+        "sync_core_flushes": 0,
+        "context_switch_barriers": 0
+      },
+      "mms": {
+        "10": {
+          "state": 0,
+          "pids": [
+            50
+          ]
+        }
+      },
+      "call_logs": [
+        {
+          "time": 2,
+          "caller_cpu": 0,
+          "caller_pid": 50,
+          "caller_mm": 10,
+          "cmd": "MEMBARRIER_CMD_QUERY",
+          "return_code": 127,
+          "ipi_targets": [],
+          "ipis_sent_count": 0,
+          "sync_core": false
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_PROCESS",
+          "pid": 50,
+          "mm_id": 10
+        },
+        {
+          "time": 1,
+          "event": "CONTEXT_SWITCH",
+          "cpu_id": 0,
+          "pid": 50,
+          "mm_id": 10
+        }
+      ]
+    }
+  },
+  {
+    "name": "글로벌 브로드캐스트 IPI 대비 프라이빗 타깃 IPI 인터럽트 오버헤드 축소 검증",
+    "input": {
+      "config": {
+        "num_cpus": 8
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_PROCESS",
+          "pid": 10,
+          "mm_id": 1
+        },
+        {
+          "time": 1,
+          "type": "CREATE_PROCESS",
+          "pid": 11,
+          "mm_id": 1
+        },
+        {
+          "time": 2,
+          "type": "CREATE_PROCESS",
+          "pid": 20,
+          "mm_id": 2
+        },
+        {
+          "time": 3,
+          "type": "CREATE_PROCESS",
+          "pid": 30,
+          "mm_id": 3
+        },
+        {
+          "time": 4,
+          "type": "CONTEXT_SWITCH",
+          "cpu_id": 0,
+          "pid": 10
+        },
+        {
+          "time": 5,
+          "type": "CONTEXT_SWITCH",
+          "cpu_id": 1,
+          "pid": 11
+        },
+        {
+          "time": 6,
+          "type": "CONTEXT_SWITCH",
+          "cpu_id": 2,
+          "pid": 20
+        },
+        {
+          "time": 7,
+          "type": "CONTEXT_SWITCH",
+          "cpu_id": 3,
+          "pid": 30
+        },
+        {
+          "time": 8,
+          "type": "SYS_MEMBARRIER",
+          "cpu_id": 0,
+          "pid": 10,
+          "cmd": "MEMBARRIER_CMD_GLOBAL"
+        },
+        {
+          "time": 9,
+          "type": "SYS_MEMBARRIER",
+          "cpu_id": 0,
+          "pid": 10,
+          "cmd": "MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED"
+        },
+        {
+          "time": 10,
+          "type": "SYS_MEMBARRIER",
+          "cpu_id": 0,
+          "pid": 10,
+          "cmd": "MEMBARRIER_CMD_PRIVATE_EXPEDITED"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_membarrier_calls": 3,
+        "successful_calls": 3,
+        "failed_calls": 0,
+        "total_ipis_sent": 4,
+        "targeted_ipis_sent": 1,
+        "global_ipis_sent": 3,
+        "sync_core_flushes": 0,
+        "context_switch_barriers": 0
+      },
+      "mms": {
+        "1": {
+          "state": 1,
+          "pids": [
+            10,
+            11
+          ]
+        },
+        "2": {
+          "state": 0,
+          "pids": [
+            20
+          ]
+        },
+        "3": {
+          "state": 0,
+          "pids": [
+            30
+          ]
+        }
+      },
+      "call_logs": [
+        {
+          "time": 8,
+          "caller_cpu": 0,
+          "caller_pid": 10,
+          "caller_mm": 1,
+          "cmd": "MEMBARRIER_CMD_GLOBAL",
+          "return_code": 0,
+          "ipi_targets": [
+            1,
+            2,
+            3
+          ],
+          "ipis_sent_count": 3,
+          "sync_core": false
+        },
+        {
+          "time": 9,
+          "caller_cpu": 0,
+          "caller_pid": 10,
+          "caller_mm": 1,
+          "cmd": "MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED",
+          "return_code": 0,
+          "ipi_targets": [],
+          "ipis_sent_count": 0,
+          "sync_core": false
+        },
+        {
+          "time": 10,
+          "caller_cpu": 0,
+          "caller_pid": 10,
+          "caller_mm": 1,
+          "cmd": "MEMBARRIER_CMD_PRIVATE_EXPEDITED",
+          "return_code": 0,
+          "ipi_targets": [
+            1
+          ],
+          "ipis_sent_count": 1,
+          "sync_core": false
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_PROCESS",
+          "pid": 10,
+          "mm_id": 1
+        },
+        {
+          "time": 1,
+          "event": "CREATE_PROCESS",
+          "pid": 11,
+          "mm_id": 1
+        },
+        {
+          "time": 2,
+          "event": "CREATE_PROCESS",
+          "pid": 20,
+          "mm_id": 2
+        },
+        {
+          "time": 3,
+          "event": "CREATE_PROCESS",
+          "pid": 30,
+          "mm_id": 3
+        },
+        {
+          "time": 4,
+          "event": "CONTEXT_SWITCH",
+          "cpu_id": 0,
+          "pid": 10,
+          "mm_id": 1
+        },
+        {
+          "time": 5,
+          "event": "CONTEXT_SWITCH",
+          "cpu_id": 1,
+          "pid": 11,
+          "mm_id": 1
+        },
+        {
+          "time": 6,
+          "event": "CONTEXT_SWITCH",
+          "cpu_id": 2,
+          "pid": 20,
+          "mm_id": 2
+        },
+        {
+          "time": 7,
+          "event": "CONTEXT_SWITCH",
+          "cpu_id": 3,
+          "pid": 30,
+          "mm_id": 3
+        }
+      ]
+    }
+  },
+  {
+    "name": "JIT 기계어 코드 수정 시 SYNC_CORE 하드웨어 명령어 파이프라인 플러시 동기화",
+    "input": {
+      "config": {
+        "num_cpus": 4
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_PROCESS",
+          "pid": 500,
+          "mm_id": 5
+        },
+        {
+          "time": 1,
+          "type": "CREATE_PROCESS",
+          "pid": 501,
+          "mm_id": 5
+        },
+        {
+          "time": 2,
+          "type": "CONTEXT_SWITCH",
+          "cpu_id": 0,
+          "pid": 500
+        },
+        {
+          "time": 3,
+          "type": "CONTEXT_SWITCH",
+          "cpu_id": 1,
+          "pid": 501
+        },
+        {
+          "time": 4,
+          "type": "SYS_MEMBARRIER",
+          "cpu_id": 0,
+          "pid": 500,
+          "cmd": "MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED_SYNC_CORE"
+        },
+        {
+          "time": 5,
+          "type": "SYS_MEMBARRIER",
+          "cpu_id": 0,
+          "pid": 500,
+          "cmd": "MEMBARRIER_CMD_PRIVATE_EXPEDITED_SYNC_CORE"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_membarrier_calls": 2,
+        "successful_calls": 2,
+        "failed_calls": 0,
+        "total_ipis_sent": 1,
+        "targeted_ipis_sent": 1,
+        "global_ipis_sent": 0,
+        "sync_core_flushes": 2,
+        "context_switch_barriers": 0
+      },
+      "mms": {
+        "5": {
+          "state": 2,
+          "pids": [
+            500,
+            501
+          ]
+        }
+      },
+      "call_logs": [
+        {
+          "time": 4,
+          "caller_cpu": 0,
+          "caller_pid": 500,
+          "caller_mm": 5,
+          "cmd": "MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED_SYNC_CORE",
+          "return_code": 0,
+          "ipi_targets": [],
+          "ipis_sent_count": 0,
+          "sync_core": false
+        },
+        {
+          "time": 5,
+          "caller_cpu": 0,
+          "caller_pid": 500,
+          "caller_mm": 5,
+          "cmd": "MEMBARRIER_CMD_PRIVATE_EXPEDITED_SYNC_CORE",
+          "return_code": 0,
+          "ipi_targets": [
+            1
+          ],
+          "ipis_sent_count": 1,
+          "sync_core": true
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_PROCESS",
+          "pid": 500,
+          "mm_id": 5
+        },
+        {
+          "time": 1,
+          "event": "CREATE_PROCESS",
+          "pid": 501,
+          "mm_id": 5
+        },
+        {
+          "time": 2,
+          "event": "CONTEXT_SWITCH",
+          "cpu_id": 0,
+          "pid": 500,
+          "mm_id": 5
+        },
+        {
+          "time": 3,
+          "event": "CONTEXT_SWITCH",
+          "cpu_id": 1,
+          "pid": 501,
+          "mm_id": 5
+        }
+      ]
+    }
+  },
+  {
+    "name": "등록된 주소 공간(mm)에 대한 스케줄러 문맥 교환 시 자동 메모리 장벽 유지",
+    "input": {
+      "config": {
+        "num_cpus": 4
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_PROCESS",
+          "pid": 10,
+          "mm_id": 1
+        },
+        {
+          "time": 1,
+          "type": "CREATE_PROCESS",
+          "pid": 20,
+          "mm_id": 1
+        },
+        {
+          "time": 2,
+          "type": "CONTEXT_SWITCH",
+          "cpu_id": 0,
+          "pid": 10
+        },
+        {
+          "time": 3,
+          "type": "SYS_MEMBARRIER",
+          "cpu_id": 0,
+          "pid": 10,
+          "cmd": "MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED"
+        },
+        {
+          "time": 4,
+          "type": "CONTEXT_SWITCH",
+          "cpu_id": 1,
+          "pid": 20
+        },
+        {
+          "time": 5,
+          "type": "CONTEXT_SWITCH",
+          "cpu_id": 2,
+          "pid": 10
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_membarrier_calls": 1,
+        "successful_calls": 1,
+        "failed_calls": 0,
+        "total_ipis_sent": 0,
+        "targeted_ipis_sent": 0,
+        "global_ipis_sent": 0,
+        "sync_core_flushes": 0,
+        "context_switch_barriers": 2
+      },
+      "mms": {
+        "1": {
+          "state": 1,
+          "pids": [
+            10,
+            20
+          ]
+        }
+      },
+      "call_logs": [
+        {
+          "time": 3,
+          "caller_cpu": 0,
+          "caller_pid": 10,
+          "caller_mm": 1,
+          "cmd": "MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED",
+          "return_code": 0,
+          "ipi_targets": [],
+          "ipis_sent_count": 0,
+          "sync_core": false
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_PROCESS",
+          "pid": 10,
+          "mm_id": 1
+        },
+        {
+          "time": 1,
+          "event": "CREATE_PROCESS",
+          "pid": 20,
+          "mm_id": 1
+        },
+        {
+          "time": 2,
+          "event": "CONTEXT_SWITCH",
+          "cpu_id": 0,
+          "pid": 10,
+          "mm_id": 1
+        },
+        {
+          "time": 4,
+          "event": "CONTEXT_SWITCH",
+          "cpu_id": 1,
+          "pid": 20,
+          "mm_id": 1
+        },
+        {
+          "time": 5,
+          "event": "CONTEXT_SWITCH",
+          "cpu_id": 2,
+          "pid": 10,
+          "mm_id": 1
+        }
+      ]
+    }
+  },
+  {
+    "name": "스레드 코어 마이그레이션 후 최신 CPU 마스크 기반 동적 타깃 IPI 갱신",
+    "input": {
+      "config": {
+        "num_cpus": 4
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_PROCESS",
+          "pid": 100,
+          "mm_id": 1
+        },
+        {
+          "time": 1,
+          "type": "CREATE_PROCESS",
+          "pid": 101,
+          "mm_id": 1
+        },
+        {
+          "time": 2,
+          "type": "CONTEXT_SWITCH",
+          "cpu_id": 0,
+          "pid": 100
+        },
+        {
+          "time": 3,
+          "type": "CONTEXT_SWITCH",
+          "cpu_id": 1,
+          "pid": 101
+        },
+        {
+          "time": 4,
+          "type": "SYS_MEMBARRIER",
+          "cpu_id": 0,
+          "pid": 100,
+          "cmd": "MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED"
+        },
+        {
+          "time": 5,
+          "type": "SET_CPU_IDLE",
+          "cpu_id": 1,
+          "is_idle": true
+        },
+        {
+          "time": 6,
+          "type": "CONTEXT_SWITCH",
+          "cpu_id": 3,
+          "pid": 101
+        },
+        {
+          "time": 7,
+          "type": "SYS_MEMBARRIER",
+          "cpu_id": 0,
+          "pid": 100,
+          "cmd": "MEMBARRIER_CMD_PRIVATE_EXPEDITED"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_membarrier_calls": 2,
+        "successful_calls": 2,
+        "failed_calls": 0,
+        "total_ipis_sent": 1,
+        "targeted_ipis_sent": 1,
+        "global_ipis_sent": 0,
+        "sync_core_flushes": 0,
+        "context_switch_barriers": 1
+      },
+      "mms": {
+        "1": {
+          "state": 1,
+          "pids": [
+            100,
+            101
+          ]
+        }
+      },
+      "call_logs": [
+        {
+          "time": 4,
+          "caller_cpu": 0,
+          "caller_pid": 100,
+          "caller_mm": 1,
+          "cmd": "MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED",
+          "return_code": 0,
+          "ipi_targets": [],
+          "ipis_sent_count": 0,
+          "sync_core": false
+        },
+        {
+          "time": 7,
+          "caller_cpu": 0,
+          "caller_pid": 100,
+          "caller_mm": 1,
+          "cmd": "MEMBARRIER_CMD_PRIVATE_EXPEDITED",
+          "return_code": 0,
+          "ipi_targets": [
+            3
+          ],
+          "ipis_sent_count": 1,
+          "sync_core": false
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_PROCESS",
+          "pid": 100,
+          "mm_id": 1
+        },
+        {
+          "time": 1,
+          "event": "CREATE_PROCESS",
+          "pid": 101,
+          "mm_id": 1
+        },
+        {
+          "time": 2,
+          "event": "CONTEXT_SWITCH",
+          "cpu_id": 0,
+          "pid": 100,
+          "mm_id": 1
+        },
+        {
+          "time": 3,
+          "event": "CONTEXT_SWITCH",
+          "cpu_id": 1,
+          "pid": 101,
+          "mm_id": 1
+        },
+        {
+          "time": 5,
+          "event": "SET_CPU_IDLE",
+          "cpu_id": 1,
+          "is_idle": true
+        },
+        {
+          "time": 6,
+          "event": "CONTEXT_SWITCH",
+          "cpu_id": 3,
+          "pid": 101,
+          "mm_id": 1
+        }
+      ]
+    }
+  },
+  {
+    "name": "다중 테넌트 프로세스 간 완벽한 주소 공간(mm) 격리 및 타 프로세스 코어 간섭 차단",
+    "input": {
+      "config": {
+        "num_cpus": 4
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_PROCESS",
+          "pid": 10,
+          "mm_id": 1
+        },
+        {
+          "time": 1,
+          "type": "CREATE_PROCESS",
+          "pid": 11,
+          "mm_id": 1
+        },
+        {
+          "time": 2,
+          "type": "CREATE_PROCESS",
+          "pid": 20,
+          "mm_id": 2
+        },
+        {
+          "time": 3,
+          "type": "CREATE_PROCESS",
+          "pid": 21,
+          "mm_id": 2
+        },
+        {
+          "time": 4,
+          "type": "CONTEXT_SWITCH",
+          "cpu_id": 0,
+          "pid": 10
+        },
+        {
+          "time": 5,
+          "type": "CONTEXT_SWITCH",
+          "cpu_id": 1,
+          "pid": 11
+        },
+        {
+          "time": 6,
+          "type": "CONTEXT_SWITCH",
+          "cpu_id": 2,
+          "pid": 20
+        },
+        {
+          "time": 7,
+          "type": "CONTEXT_SWITCH",
+          "cpu_id": 3,
+          "pid": 21
+        },
+        {
+          "time": 8,
+          "type": "SYS_MEMBARRIER",
+          "cpu_id": 0,
+          "pid": 10,
+          "cmd": "MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED"
+        },
+        {
+          "time": 9,
+          "type": "SYS_MEMBARRIER",
+          "cpu_id": 2,
+          "pid": 20,
+          "cmd": "MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED"
+        },
+        {
+          "time": 10,
+          "type": "SYS_MEMBARRIER",
+          "cpu_id": 0,
+          "pid": 10,
+          "cmd": "MEMBARRIER_CMD_PRIVATE_EXPEDITED"
+        },
+        {
+          "time": 11,
+          "type": "SYS_MEMBARRIER",
+          "cpu_id": 2,
+          "pid": 20,
+          "cmd": "MEMBARRIER_CMD_PRIVATE_EXPEDITED"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_membarrier_calls": 4,
+        "successful_calls": 4,
+        "failed_calls": 0,
+        "total_ipis_sent": 2,
+        "targeted_ipis_sent": 2,
+        "global_ipis_sent": 0,
+        "sync_core_flushes": 0,
+        "context_switch_barriers": 0
+      },
+      "mms": {
+        "1": {
+          "state": 1,
+          "pids": [
+            10,
+            11
+          ]
+        },
+        "2": {
+          "state": 1,
+          "pids": [
+            20,
+            21
+          ]
+        }
+      },
+      "call_logs": [
+        {
+          "time": 8,
+          "caller_cpu": 0,
+          "caller_pid": 10,
+          "caller_mm": 1,
+          "cmd": "MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED",
+          "return_code": 0,
+          "ipi_targets": [],
+          "ipis_sent_count": 0,
+          "sync_core": false
+        },
+        {
+          "time": 9,
+          "caller_cpu": 2,
+          "caller_pid": 20,
+          "caller_mm": 2,
+          "cmd": "MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED",
+          "return_code": 0,
+          "ipi_targets": [],
+          "ipis_sent_count": 0,
+          "sync_core": false
+        },
+        {
+          "time": 10,
+          "caller_cpu": 0,
+          "caller_pid": 10,
+          "caller_mm": 1,
+          "cmd": "MEMBARRIER_CMD_PRIVATE_EXPEDITED",
+          "return_code": 0,
+          "ipi_targets": [
+            1
+          ],
+          "ipis_sent_count": 1,
+          "sync_core": false
+        },
+        {
+          "time": 11,
+          "caller_cpu": 2,
+          "caller_pid": 20,
+          "caller_mm": 2,
+          "cmd": "MEMBARRIER_CMD_PRIVATE_EXPEDITED",
+          "return_code": 0,
+          "ipi_targets": [
+            3
+          ],
+          "ipis_sent_count": 1,
+          "sync_core": false
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_PROCESS",
+          "pid": 10,
+          "mm_id": 1
+        },
+        {
+          "time": 1,
+          "event": "CREATE_PROCESS",
+          "pid": 11,
+          "mm_id": 1
+        },
+        {
+          "time": 2,
+          "event": "CREATE_PROCESS",
+          "pid": 20,
+          "mm_id": 2
+        },
+        {
+          "time": 3,
+          "event": "CREATE_PROCESS",
+          "pid": 21,
+          "mm_id": 2
+        },
+        {
+          "time": 4,
+          "event": "CONTEXT_SWITCH",
+          "cpu_id": 0,
+          "pid": 10,
+          "mm_id": 1
+        },
+        {
+          "time": 5,
+          "event": "CONTEXT_SWITCH",
+          "cpu_id": 1,
+          "pid": 11,
+          "mm_id": 1
+        },
+        {
+          "time": 6,
+          "event": "CONTEXT_SWITCH",
+          "cpu_id": 2,
+          "pid": 20,
+          "mm_id": 2
+        },
+        {
+          "time": 7,
+          "event": "CONTEXT_SWITCH",
+          "cpu_id": 3,
+          "pid": 21,
+          "mm_id": 2
+        }
+      ]
+    }
+  },
+  {
+    "name": "엔터프라이즈 V8/JVM JIT 동적 컴파일 및 역최적화(Deopt) 실시간 IPI 동기화 종합 검증",
+    "input": {
+      "config": {
+        "num_cpus": 8
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_PROCESS",
+          "pid": 1000,
+          "mm_id": 100
+        },
+        {
+          "time": 1,
+          "type": "CREATE_PROCESS",
+          "pid": 1001,
+          "mm_id": 100
+        },
+        {
+          "time": 2,
+          "type": "CREATE_PROCESS",
+          "pid": 1002,
+          "mm_id": 100
+        },
+        {
+          "time": 3,
+          "type": "CREATE_PROCESS",
+          "pid": 1003,
+          "mm_id": 100
+        },
+        {
+          "time": 4,
+          "type": "CREATE_PROCESS",
+          "pid": 2000,
+          "mm_id": 200
+        },
+        {
+          "time": 5,
+          "type": "CONTEXT_SWITCH",
+          "cpu_id": 0,
+          "pid": 1000
+        },
+        {
+          "time": 6,
+          "type": "CONTEXT_SWITCH",
+          "cpu_id": 1,
+          "pid": 1001
+        },
+        {
+          "time": 7,
+          "type": "CONTEXT_SWITCH",
+          "cpu_id": 2,
+          "pid": 1002
+        },
+        {
+          "time": 8,
+          "type": "CONTEXT_SWITCH",
+          "cpu_id": 3,
+          "pid": 1003
+        },
+        {
+          "time": 9,
+          "type": "CONTEXT_SWITCH",
+          "cpu_id": 4,
+          "pid": 2000
+        },
+        {
+          "time": 10,
+          "type": "SYS_MEMBARRIER",
+          "cpu_id": 3,
+          "pid": 1003,
+          "cmd": "MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED_SYNC_CORE"
+        },
+        {
+          "time": 11,
+          "type": "SYS_MEMBARRIER",
+          "cpu_id": 3,
+          "pid": 1003,
+          "cmd": "MEMBARRIER_CMD_PRIVATE_EXPEDITED_SYNC_CORE"
+        },
+        {
+          "time": 12,
+          "type": "SET_CPU_IDLE",
+          "cpu_id": 2,
+          "is_idle": true
+        },
+        {
+          "time": 13,
+          "type": "SYS_MEMBARRIER",
+          "cpu_id": 3,
+          "pid": 1003,
+          "cmd": "MEMBARRIER_CMD_PRIVATE_EXPEDITED_SYNC_CORE"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_membarrier_calls": 3,
+        "successful_calls": 3,
+        "failed_calls": 0,
+        "total_ipis_sent": 5,
+        "targeted_ipis_sent": 5,
+        "global_ipis_sent": 0,
+        "sync_core_flushes": 7,
+        "context_switch_barriers": 0
+      },
+      "mms": {
+        "100": {
+          "state": 2,
+          "pids": [
+            1000,
+            1001,
+            1002,
+            1003
+          ]
+        },
+        "200": {
+          "state": 0,
+          "pids": [
+            2000
+          ]
+        }
+      },
+      "call_logs": [
+        {
+          "time": 10,
+          "caller_cpu": 3,
+          "caller_pid": 1003,
+          "caller_mm": 100,
+          "cmd": "MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED_SYNC_CORE",
+          "return_code": 0,
+          "ipi_targets": [],
+          "ipis_sent_count": 0,
+          "sync_core": false
+        },
+        {
+          "time": 11,
+          "caller_cpu": 3,
+          "caller_pid": 1003,
+          "caller_mm": 100,
+          "cmd": "MEMBARRIER_CMD_PRIVATE_EXPEDITED_SYNC_CORE",
+          "return_code": 0,
+          "ipi_targets": [
+            0,
+            1,
+            2
+          ],
+          "ipis_sent_count": 3,
+          "sync_core": true
+        },
+        {
+          "time": 13,
+          "caller_cpu": 3,
+          "caller_pid": 1003,
+          "caller_mm": 100,
+          "cmd": "MEMBARRIER_CMD_PRIVATE_EXPEDITED_SYNC_CORE",
+          "return_code": 0,
+          "ipi_targets": [
+            0,
+            1
+          ],
+          "ipis_sent_count": 2,
+          "sync_core": true
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_PROCESS",
+          "pid": 1000,
+          "mm_id": 100
+        },
+        {
+          "time": 1,
+          "event": "CREATE_PROCESS",
+          "pid": 1001,
+          "mm_id": 100
+        },
+        {
+          "time": 2,
+          "event": "CREATE_PROCESS",
+          "pid": 1002,
+          "mm_id": 100
+        },
+        {
+          "time": 3,
+          "event": "CREATE_PROCESS",
+          "pid": 1003,
+          "mm_id": 100
+        },
+        {
+          "time": 4,
+          "event": "CREATE_PROCESS",
+          "pid": 2000,
+          "mm_id": 200
+        },
+        {
+          "time": 5,
+          "event": "CONTEXT_SWITCH",
+          "cpu_id": 0,
+          "pid": 1000,
+          "mm_id": 100
+        },
+        {
+          "time": 6,
+          "event": "CONTEXT_SWITCH",
+          "cpu_id": 1,
+          "pid": 1001,
+          "mm_id": 100
+        },
+        {
+          "time": 7,
+          "event": "CONTEXT_SWITCH",
+          "cpu_id": 2,
+          "pid": 1002,
+          "mm_id": 100
+        },
+        {
+          "time": 8,
+          "event": "CONTEXT_SWITCH",
+          "cpu_id": 3,
+          "pid": 1003,
+          "mm_id": 100
+        },
+        {
+          "time": 9,
+          "event": "CONTEXT_SWITCH",
+          "cpu_id": 4,
+          "pid": 2000,
+          "mm_id": 200
+        },
+        {
+          "time": 12,
+          "event": "SET_CPU_IDLE",
+          "cpu_id": 2,
+          "is_idle": true
+        }
+      ]
+    }
+  }
+]
