@@ -1,0 +1,1085 @@
+[
+  {
+    "input": {
+      "config": {
+        "objs_per_slab": 4,
+        "min_partial": 1,
+        "nr_cpus": 1
+      },
+      "operations": [
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "a1"
+        },
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "a2"
+        },
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "a3"
+        },
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "a4"
+        },
+        {
+          "type": "QUERY_SLUB_STATE"
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "a1",
+          "status": "SUCCESS",
+          "path": "BUDDY_NEW_SLAB",
+          "slab_id": 0,
+          "obj": "s0_o0"
+        },
+        {
+          "op_index": 1,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "a2",
+          "status": "SUCCESS",
+          "path": "FAST_PATH",
+          "slab_id": 0,
+          "obj": "s0_o1"
+        },
+        {
+          "op_index": 2,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "a3",
+          "status": "SUCCESS",
+          "path": "FAST_PATH",
+          "slab_id": 0,
+          "obj": "s0_o2"
+        },
+        {
+          "op_index": 3,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "a4",
+          "status": "SUCCESS",
+          "path": "FAST_PATH",
+          "slab_id": 0,
+          "obj": "s0_o3"
+        },
+        {
+          "op_index": 4,
+          "type": "QUERY_SLUB_STATE",
+          "cpu_slabs": {
+            "0": {
+              "slab_id": 0,
+              "local_freelist_len": 0
+            }
+          },
+          "node_partial_slabs": [],
+          "active_slabs_count": 1,
+          "stats": {
+            "fast_path_allocs": 3,
+            "slow_path_inverts": 0,
+            "partial_harvests": 0,
+            "buddy_new_slabs": 1,
+            "local_frees": 0,
+            "remote_frees": 0,
+            "slabs_freed_to_buddy": 0
+          }
+        }
+      ],
+      "summary": {
+        "total_operations": 5,
+        "active_allocations_count": 4,
+        "active_slabs_count": 1,
+        "node_partial_count": 0,
+        "stats": {
+          "fast_path_allocs": 3,
+          "slow_path_inverts": 0,
+          "partial_harvests": 0,
+          "buddy_new_slabs": 1,
+          "local_frees": 0,
+          "remote_frees": 0,
+          "slabs_freed_to_buddy": 0
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "objs_per_slab": 4,
+        "min_partial": 1,
+        "nr_cpus": 2
+      },
+      "operations": [
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "a1"
+        },
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "a2"
+        },
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "a3"
+        },
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "a4"
+        },
+        {
+          "type": "FREE_OBJECT",
+          "cpu": 1,
+          "alloc_id": "a2"
+        },
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "a5"
+        },
+        {
+          "type": "QUERY_SLUB_STATE"
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "a1",
+          "status": "SUCCESS",
+          "path": "BUDDY_NEW_SLAB",
+          "slab_id": 0,
+          "obj": "s0_o0"
+        },
+        {
+          "op_index": 1,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "a2",
+          "status": "SUCCESS",
+          "path": "FAST_PATH",
+          "slab_id": 0,
+          "obj": "s0_o1"
+        },
+        {
+          "op_index": 2,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "a3",
+          "status": "SUCCESS",
+          "path": "FAST_PATH",
+          "slab_id": 0,
+          "obj": "s0_o2"
+        },
+        {
+          "op_index": 3,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "a4",
+          "status": "SUCCESS",
+          "path": "FAST_PATH",
+          "slab_id": 0,
+          "obj": "s0_o3"
+        },
+        {
+          "op_index": 4,
+          "type": "REMOTE_FREE_FROZEN",
+          "cpu": 1,
+          "alloc_id": "a2",
+          "status": "SUCCESS",
+          "slab_id": 0,
+          "frozen_by": 0,
+          "obj": "s0_o1"
+        },
+        {
+          "op_index": 5,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "a5",
+          "status": "SUCCESS",
+          "path": "SLOW_PATH_INVERT",
+          "slab_id": 0,
+          "obj": "s0_o1"
+        },
+        {
+          "op_index": 6,
+          "type": "QUERY_SLUB_STATE",
+          "cpu_slabs": {
+            "0": {
+              "slab_id": 0,
+              "local_freelist_len": 0
+            },
+            "1": {
+              "slab_id": null,
+              "local_freelist_len": 0
+            }
+          },
+          "node_partial_slabs": [],
+          "active_slabs_count": 1,
+          "stats": {
+            "fast_path_allocs": 3,
+            "slow_path_inverts": 1,
+            "partial_harvests": 0,
+            "buddy_new_slabs": 1,
+            "local_frees": 0,
+            "remote_frees": 1,
+            "slabs_freed_to_buddy": 0
+          }
+        }
+      ],
+      "summary": {
+        "total_operations": 7,
+        "active_allocations_count": 4,
+        "active_slabs_count": 1,
+        "node_partial_count": 0,
+        "stats": {
+          "fast_path_allocs": 3,
+          "slow_path_inverts": 1,
+          "partial_harvests": 0,
+          "buddy_new_slabs": 1,
+          "local_frees": 0,
+          "remote_frees": 1,
+          "slabs_freed_to_buddy": 0
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "objs_per_slab": 2,
+        "min_partial": 1,
+        "nr_cpus": 2
+      },
+      "operations": [
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "x1"
+        },
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "x2"
+        },
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "x3"
+        },
+        {
+          "type": "FREE_OBJECT",
+          "cpu": 0,
+          "alloc_id": "x1"
+        },
+        {
+          "type": "QUERY_SLUB_STATE"
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "x1",
+          "status": "SUCCESS",
+          "path": "BUDDY_NEW_SLAB",
+          "slab_id": 0,
+          "obj": "s0_o0"
+        },
+        {
+          "op_index": 1,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "x2",
+          "status": "SUCCESS",
+          "path": "FAST_PATH",
+          "slab_id": 0,
+          "obj": "s0_o1"
+        },
+        {
+          "op_index": 2,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "x3",
+          "status": "SUCCESS",
+          "path": "BUDDY_NEW_SLAB",
+          "slab_id": 1,
+          "obj": "s1_o0"
+        },
+        {
+          "op_index": 3,
+          "type": "UNFROZEN_TO_PARTIAL",
+          "cpu": 0,
+          "alloc_id": "x1",
+          "status": "SUCCESS",
+          "slab_id": 0,
+          "obj": "s0_o0"
+        },
+        {
+          "op_index": 4,
+          "type": "QUERY_SLUB_STATE",
+          "cpu_slabs": {
+            "0": {
+              "slab_id": 1,
+              "local_freelist_len": 1
+            },
+            "1": {
+              "slab_id": null,
+              "local_freelist_len": 0
+            }
+          },
+          "node_partial_slabs": [
+            0
+          ],
+          "active_slabs_count": 2,
+          "stats": {
+            "fast_path_allocs": 1,
+            "slow_path_inverts": 0,
+            "partial_harvests": 0,
+            "buddy_new_slabs": 2,
+            "local_frees": 0,
+            "remote_frees": 0,
+            "slabs_freed_to_buddy": 0
+          }
+        }
+      ],
+      "summary": {
+        "total_operations": 5,
+        "active_allocations_count": 2,
+        "active_slabs_count": 2,
+        "node_partial_count": 1,
+        "stats": {
+          "fast_path_allocs": 1,
+          "slow_path_inverts": 0,
+          "partial_harvests": 0,
+          "buddy_new_slabs": 2,
+          "local_frees": 0,
+          "remote_frees": 0,
+          "slabs_freed_to_buddy": 0
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "objs_per_slab": 2,
+        "min_partial": 1,
+        "nr_cpus": 2
+      },
+      "operations": [
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "x1"
+        },
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "x2"
+        },
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "x3"
+        },
+        {
+          "type": "FREE_OBJECT",
+          "cpu": 0,
+          "alloc_id": "x1"
+        },
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 1,
+          "alloc_id": "y1"
+        },
+        {
+          "type": "QUERY_SLUB_STATE"
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "x1",
+          "status": "SUCCESS",
+          "path": "BUDDY_NEW_SLAB",
+          "slab_id": 0,
+          "obj": "s0_o0"
+        },
+        {
+          "op_index": 1,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "x2",
+          "status": "SUCCESS",
+          "path": "FAST_PATH",
+          "slab_id": 0,
+          "obj": "s0_o1"
+        },
+        {
+          "op_index": 2,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "x3",
+          "status": "SUCCESS",
+          "path": "BUDDY_NEW_SLAB",
+          "slab_id": 1,
+          "obj": "s1_o0"
+        },
+        {
+          "op_index": 3,
+          "type": "UNFROZEN_TO_PARTIAL",
+          "cpu": 0,
+          "alloc_id": "x1",
+          "status": "SUCCESS",
+          "slab_id": 0,
+          "obj": "s0_o0"
+        },
+        {
+          "op_index": 4,
+          "type": "ALLOC_OBJECT",
+          "cpu": 1,
+          "alloc_id": "y1",
+          "status": "SUCCESS",
+          "path": "PARTIAL_HARVEST",
+          "slab_id": 0,
+          "obj": "s0_o0"
+        },
+        {
+          "op_index": 5,
+          "type": "QUERY_SLUB_STATE",
+          "cpu_slabs": {
+            "0": {
+              "slab_id": 1,
+              "local_freelist_len": 1
+            },
+            "1": {
+              "slab_id": 0,
+              "local_freelist_len": 0
+            }
+          },
+          "node_partial_slabs": [],
+          "active_slabs_count": 2,
+          "stats": {
+            "fast_path_allocs": 1,
+            "slow_path_inverts": 0,
+            "partial_harvests": 1,
+            "buddy_new_slabs": 2,
+            "local_frees": 0,
+            "remote_frees": 0,
+            "slabs_freed_to_buddy": 0
+          }
+        }
+      ],
+      "summary": {
+        "total_operations": 6,
+        "active_allocations_count": 3,
+        "active_slabs_count": 2,
+        "node_partial_count": 0,
+        "stats": {
+          "fast_path_allocs": 1,
+          "slow_path_inverts": 0,
+          "partial_harvests": 1,
+          "buddy_new_slabs": 2,
+          "local_frees": 0,
+          "remote_frees": 0,
+          "slabs_freed_to_buddy": 0
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "objs_per_slab": 4,
+        "min_partial": 1,
+        "nr_cpus": 1
+      },
+      "operations": [
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "m1"
+        },
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "m2"
+        },
+        {
+          "type": "FREE_OBJECT",
+          "cpu": 0,
+          "alloc_id": "m2"
+        },
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "m3"
+        },
+        {
+          "type": "QUERY_SLUB_STATE"
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "m1",
+          "status": "SUCCESS",
+          "path": "BUDDY_NEW_SLAB",
+          "slab_id": 0,
+          "obj": "s0_o0"
+        },
+        {
+          "op_index": 1,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "m2",
+          "status": "SUCCESS",
+          "path": "FAST_PATH",
+          "slab_id": 0,
+          "obj": "s0_o1"
+        },
+        {
+          "op_index": 2,
+          "type": "LOCAL_FREE",
+          "cpu": 0,
+          "alloc_id": "m2",
+          "status": "SUCCESS",
+          "slab_id": 0,
+          "obj": "s0_o1"
+        },
+        {
+          "op_index": 3,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "m3",
+          "status": "SUCCESS",
+          "path": "FAST_PATH",
+          "slab_id": 0,
+          "obj": "s0_o1"
+        },
+        {
+          "op_index": 4,
+          "type": "QUERY_SLUB_STATE",
+          "cpu_slabs": {
+            "0": {
+              "slab_id": 0,
+              "local_freelist_len": 2
+            }
+          },
+          "node_partial_slabs": [],
+          "active_slabs_count": 1,
+          "stats": {
+            "fast_path_allocs": 2,
+            "slow_path_inverts": 0,
+            "partial_harvests": 0,
+            "buddy_new_slabs": 1,
+            "local_frees": 1,
+            "remote_frees": 0,
+            "slabs_freed_to_buddy": 0
+          }
+        }
+      ],
+      "summary": {
+        "total_operations": 5,
+        "active_allocations_count": 2,
+        "active_slabs_count": 1,
+        "node_partial_count": 0,
+        "stats": {
+          "fast_path_allocs": 2,
+          "slow_path_inverts": 0,
+          "partial_harvests": 0,
+          "buddy_new_slabs": 1,
+          "local_frees": 1,
+          "remote_frees": 0,
+          "slabs_freed_to_buddy": 0
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "objs_per_slab": 2,
+        "min_partial": 0,
+        "nr_cpus": 1
+      },
+      "operations": [
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "k1"
+        },
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "k2"
+        },
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "k3"
+        },
+        {
+          "type": "FREE_OBJECT",
+          "cpu": 0,
+          "alloc_id": "k1"
+        },
+        {
+          "type": "FREE_OBJECT",
+          "cpu": 0,
+          "alloc_id": "k2"
+        },
+        {
+          "type": "QUERY_SLUB_STATE"
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "k1",
+          "status": "SUCCESS",
+          "path": "BUDDY_NEW_SLAB",
+          "slab_id": 0,
+          "obj": "s0_o0"
+        },
+        {
+          "op_index": 1,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "k2",
+          "status": "SUCCESS",
+          "path": "FAST_PATH",
+          "slab_id": 0,
+          "obj": "s0_o1"
+        },
+        {
+          "op_index": 2,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "k3",
+          "status": "SUCCESS",
+          "path": "BUDDY_NEW_SLAB",
+          "slab_id": 1,
+          "obj": "s1_o0"
+        },
+        {
+          "op_index": 3,
+          "type": "UNFROZEN_TO_PARTIAL",
+          "cpu": 0,
+          "alloc_id": "k1",
+          "status": "SUCCESS",
+          "slab_id": 0,
+          "obj": "s0_o0"
+        },
+        {
+          "op_index": 4,
+          "type": "EMPTY_SLAB_FREED_TO_BUDDY",
+          "cpu": 0,
+          "alloc_id": "k2",
+          "status": "SUCCESS",
+          "slab_id": 0,
+          "obj": "s0_o1"
+        },
+        {
+          "op_index": 5,
+          "type": "QUERY_SLUB_STATE",
+          "cpu_slabs": {
+            "0": {
+              "slab_id": 1,
+              "local_freelist_len": 1
+            }
+          },
+          "node_partial_slabs": [],
+          "active_slabs_count": 1,
+          "stats": {
+            "fast_path_allocs": 1,
+            "slow_path_inverts": 0,
+            "partial_harvests": 0,
+            "buddy_new_slabs": 2,
+            "local_frees": 0,
+            "remote_frees": 0,
+            "slabs_freed_to_buddy": 1
+          }
+        }
+      ],
+      "summary": {
+        "total_operations": 6,
+        "active_allocations_count": 1,
+        "active_slabs_count": 1,
+        "node_partial_count": 0,
+        "stats": {
+          "fast_path_allocs": 1,
+          "slow_path_inverts": 0,
+          "partial_harvests": 0,
+          "buddy_new_slabs": 2,
+          "local_frees": 0,
+          "remote_frees": 0,
+          "slabs_freed_to_buddy": 1
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "objs_per_slab": 2,
+        "min_partial": 2,
+        "nr_cpus": 1
+      },
+      "operations": [
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "k1"
+        },
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "k2"
+        },
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "k3"
+        },
+        {
+          "type": "FREE_OBJECT",
+          "cpu": 0,
+          "alloc_id": "k1"
+        },
+        {
+          "type": "FREE_OBJECT",
+          "cpu": 0,
+          "alloc_id": "k2"
+        },
+        {
+          "type": "QUERY_SLUB_STATE"
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "k1",
+          "status": "SUCCESS",
+          "path": "BUDDY_NEW_SLAB",
+          "slab_id": 0,
+          "obj": "s0_o0"
+        },
+        {
+          "op_index": 1,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "k2",
+          "status": "SUCCESS",
+          "path": "FAST_PATH",
+          "slab_id": 0,
+          "obj": "s0_o1"
+        },
+        {
+          "op_index": 2,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "k3",
+          "status": "SUCCESS",
+          "path": "BUDDY_NEW_SLAB",
+          "slab_id": 1,
+          "obj": "s1_o0"
+        },
+        {
+          "op_index": 3,
+          "type": "UNFROZEN_TO_PARTIAL",
+          "cpu": 0,
+          "alloc_id": "k1",
+          "status": "SUCCESS",
+          "slab_id": 0,
+          "obj": "s0_o0"
+        },
+        {
+          "op_index": 4,
+          "type": "EMPTY_SLAB_KEPT_IN_PARTIAL",
+          "cpu": 0,
+          "alloc_id": "k2",
+          "status": "SUCCESS",
+          "slab_id": 0,
+          "obj": "s0_o1"
+        },
+        {
+          "op_index": 5,
+          "type": "QUERY_SLUB_STATE",
+          "cpu_slabs": {
+            "0": {
+              "slab_id": 1,
+              "local_freelist_len": 1
+            }
+          },
+          "node_partial_slabs": [
+            0
+          ],
+          "active_slabs_count": 2,
+          "stats": {
+            "fast_path_allocs": 1,
+            "slow_path_inverts": 0,
+            "partial_harvests": 0,
+            "buddy_new_slabs": 2,
+            "local_frees": 0,
+            "remote_frees": 0,
+            "slabs_freed_to_buddy": 0
+          }
+        }
+      ],
+      "summary": {
+        "total_operations": 6,
+        "active_allocations_count": 1,
+        "active_slabs_count": 2,
+        "node_partial_count": 1,
+        "stats": {
+          "fast_path_allocs": 1,
+          "slow_path_inverts": 0,
+          "partial_harvests": 0,
+          "buddy_new_slabs": 2,
+          "local_frees": 0,
+          "remote_frees": 0,
+          "slabs_freed_to_buddy": 0
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "objs_per_slab": 4,
+        "min_partial": 1,
+        "nr_cpus": 4
+      },
+      "operations": [
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "c0_1"
+        },
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 1,
+          "alloc_id": "c1_1"
+        },
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 2,
+          "alloc_id": "c2_1"
+        },
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 3,
+          "alloc_id": "c3_1"
+        },
+        {
+          "type": "FREE_OBJECT",
+          "cpu": 1,
+          "alloc_id": "c0_1"
+        },
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "c0_2"
+        },
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "c0_3"
+        },
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "c0_4"
+        },
+        {
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "c0_5"
+        },
+        {
+          "type": "QUERY_SLUB_STATE"
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "c0_1",
+          "status": "SUCCESS",
+          "path": "BUDDY_NEW_SLAB",
+          "slab_id": 0,
+          "obj": "s0_o0"
+        },
+        {
+          "op_index": 1,
+          "type": "ALLOC_OBJECT",
+          "cpu": 1,
+          "alloc_id": "c1_1",
+          "status": "SUCCESS",
+          "path": "BUDDY_NEW_SLAB",
+          "slab_id": 1,
+          "obj": "s1_o0"
+        },
+        {
+          "op_index": 2,
+          "type": "ALLOC_OBJECT",
+          "cpu": 2,
+          "alloc_id": "c2_1",
+          "status": "SUCCESS",
+          "path": "BUDDY_NEW_SLAB",
+          "slab_id": 2,
+          "obj": "s2_o0"
+        },
+        {
+          "op_index": 3,
+          "type": "ALLOC_OBJECT",
+          "cpu": 3,
+          "alloc_id": "c3_1",
+          "status": "SUCCESS",
+          "path": "BUDDY_NEW_SLAB",
+          "slab_id": 3,
+          "obj": "s3_o0"
+        },
+        {
+          "op_index": 4,
+          "type": "REMOTE_FREE_FROZEN",
+          "cpu": 1,
+          "alloc_id": "c0_1",
+          "status": "SUCCESS",
+          "slab_id": 0,
+          "frozen_by": 0,
+          "obj": "s0_o0"
+        },
+        {
+          "op_index": 5,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "c0_2",
+          "status": "SUCCESS",
+          "path": "FAST_PATH",
+          "slab_id": 0,
+          "obj": "s0_o1"
+        },
+        {
+          "op_index": 6,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "c0_3",
+          "status": "SUCCESS",
+          "path": "FAST_PATH",
+          "slab_id": 0,
+          "obj": "s0_o2"
+        },
+        {
+          "op_index": 7,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "c0_4",
+          "status": "SUCCESS",
+          "path": "FAST_PATH",
+          "slab_id": 0,
+          "obj": "s0_o3"
+        },
+        {
+          "op_index": 8,
+          "type": "ALLOC_OBJECT",
+          "cpu": 0,
+          "alloc_id": "c0_5",
+          "status": "SUCCESS",
+          "path": "SLOW_PATH_INVERT",
+          "slab_id": 0,
+          "obj": "s0_o0"
+        },
+        {
+          "op_index": 9,
+          "type": "QUERY_SLUB_STATE",
+          "cpu_slabs": {
+            "0": {
+              "slab_id": 0,
+              "local_freelist_len": 0
+            },
+            "1": {
+              "slab_id": 1,
+              "local_freelist_len": 3
+            },
+            "2": {
+              "slab_id": 2,
+              "local_freelist_len": 3
+            },
+            "3": {
+              "slab_id": 3,
+              "local_freelist_len": 3
+            }
+          },
+          "node_partial_slabs": [],
+          "active_slabs_count": 4,
+          "stats": {
+            "fast_path_allocs": 3,
+            "slow_path_inverts": 1,
+            "partial_harvests": 0,
+            "buddy_new_slabs": 4,
+            "local_frees": 0,
+            "remote_frees": 1,
+            "slabs_freed_to_buddy": 0
+          }
+        }
+      ],
+      "summary": {
+        "total_operations": 10,
+        "active_allocations_count": 7,
+        "active_slabs_count": 4,
+        "node_partial_count": 0,
+        "stats": {
+          "fast_path_allocs": 3,
+          "slow_path_inverts": 1,
+          "partial_harvests": 0,
+          "buddy_new_slabs": 4,
+          "local_frees": 0,
+          "remote_frees": 1,
+          "slabs_freed_to_buddy": 0
+        }
+      }
+    }
+  }
+]
