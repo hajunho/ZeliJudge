@@ -1,0 +1,1052 @@
+[
+  {
+    "name": "인그레스 캡슐화(seg6_encap) 및 엔드포인트(End) SL 감소 및 DA 갱신",
+    "input": {
+      "config": {
+        "interfaces": {
+          "eth0": {
+            "mtu": 1500,
+            "ip": "fc00:0::1"
+          },
+          "eth1": {
+            "mtu": 1500,
+            "ip": "fc00:1::1"
+          },
+          "eth2": {
+            "mtu": 1500,
+            "ip": "fc00:2::1"
+          },
+          "eth3": {
+            "mtu": 1500,
+            "ip": "fc00:3::1"
+          },
+          "lo": {
+            "mtu": 65535,
+            "ip": "::1"
+          }
+        },
+        "local_sids": {
+          "fc00:1::1": {
+            "action": "End",
+            "out_iface": "eth1"
+          },
+          "fc00:2::10": {
+            "action": "End.X",
+            "nexthop": "fc00:2::2",
+            "out_iface": "eth2"
+          },
+          "fc00:3::100": {
+            "action": "End.DT4",
+            "vrf": "vrf_red"
+          },
+          "fc00:3::200": {
+            "action": "End.DT4",
+            "vrf": "vrf_blue"
+          },
+          "fc00:4::1": {
+            "action": "End.DX6",
+            "out_iface": "eth3"
+          }
+        },
+        "vrf_tables": {
+          "vrf_red": [
+            {
+              "prefix": "10.10.1.",
+              "out_iface": "eth0"
+            },
+            {
+              "prefix": "10.10.2.",
+              "out_iface": "eth1"
+            }
+          ],
+          "vrf_blue": [
+            {
+              "prefix": "10.20.1.",
+              "out_iface": "eth2"
+            },
+            {
+              "prefix": "10.20.2.",
+              "out_iface": "eth3"
+            }
+          ]
+        }
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "PROCESS_PACKET",
+          "packet": {
+            "id": 101,
+            "in_iface": "eth0",
+            "size": 100,
+            "encap_policy": {
+              "src": "fc00:0::1",
+              "segments": [
+                "fc00:final::1",
+                "fc00:1::1"
+              ]
+            },
+            "payload": {
+              "data": "ping"
+            }
+          }
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_packets": 1,
+        "packets_forwarded": 1,
+        "packets_dropped": 0,
+        "srv6_encapsulated": 1,
+        "srv6_decapsulated": 0,
+        "sl_decremented": 1,
+        "vrf_routes_resolved": 0
+      },
+      "packet_logs": [
+        {
+          "time": 0,
+          "pkt_id": 101,
+          "status": "FORWARDED",
+          "out_iface": "eth1",
+          "detail": "End -> Next SID fc00:final::1",
+          "size": 180
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "SRV6_ENCAP",
+          "pkt_id": 101,
+          "da": "fc00:1::1",
+          "sl": 1,
+          "segments": [
+            "fc00:final::1",
+            "fc00:1::1"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "End.X L3 크로스 커넥트 명시적 경로 스티어링(Explicit Path Steering)",
+    "input": {
+      "config": {
+        "interfaces": {
+          "eth0": {
+            "mtu": 1500,
+            "ip": "fc00:0::1"
+          },
+          "eth1": {
+            "mtu": 1500,
+            "ip": "fc00:1::1"
+          },
+          "eth2": {
+            "mtu": 1500,
+            "ip": "fc00:2::1"
+          },
+          "eth3": {
+            "mtu": 1500,
+            "ip": "fc00:3::1"
+          },
+          "lo": {
+            "mtu": 65535,
+            "ip": "::1"
+          }
+        },
+        "local_sids": {
+          "fc00:1::1": {
+            "action": "End",
+            "out_iface": "eth1"
+          },
+          "fc00:2::10": {
+            "action": "End.X",
+            "nexthop": "fc00:2::2",
+            "out_iface": "eth2"
+          },
+          "fc00:3::100": {
+            "action": "End.DT4",
+            "vrf": "vrf_red"
+          },
+          "fc00:3::200": {
+            "action": "End.DT4",
+            "vrf": "vrf_blue"
+          },
+          "fc00:4::1": {
+            "action": "End.DX6",
+            "out_iface": "eth3"
+          }
+        },
+        "vrf_tables": {
+          "vrf_red": [
+            {
+              "prefix": "10.10.1.",
+              "out_iface": "eth0"
+            },
+            {
+              "prefix": "10.10.2.",
+              "out_iface": "eth1"
+            }
+          ],
+          "vrf_blue": [
+            {
+              "prefix": "10.20.1.",
+              "out_iface": "eth2"
+            },
+            {
+              "prefix": "10.20.2.",
+              "out_iface": "eth3"
+            }
+          ]
+        }
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "PROCESS_PACKET",
+          "packet": {
+            "id": 102,
+            "in_iface": "eth1",
+            "size": 180,
+            "outer_ipv6": {
+              "src": "fc00:src::1",
+              "dst": "fc00:2::10",
+              "srh": {
+                "segments": [
+                  "fc00:dest::1",
+                  "fc00:2::10"
+                ],
+                "segments_left": 1
+              }
+            },
+            "payload": {
+              "data": "video_stream"
+            }
+          }
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_packets": 1,
+        "packets_forwarded": 1,
+        "packets_dropped": 0,
+        "srv6_encapsulated": 0,
+        "srv6_decapsulated": 0,
+        "sl_decremented": 1,
+        "vrf_routes_resolved": 0
+      },
+      "packet_logs": [
+        {
+          "time": 0,
+          "pkt_id": 102,
+          "status": "FORWARDED",
+          "out_iface": "eth2",
+          "detail": "End.X -> Nexthop fc00:2::2 via eth2",
+          "size": 180
+        }
+      ],
+      "event_logs": []
+    }
+  },
+  {
+    "name": "End.DT4 L3VPN 디캡슐화 및 VRF(vrf_red) 라우팅 테이블 전달 검증",
+    "input": {
+      "config": {
+        "interfaces": {
+          "eth0": {
+            "mtu": 1500,
+            "ip": "fc00:0::1"
+          },
+          "eth1": {
+            "mtu": 1500,
+            "ip": "fc00:1::1"
+          },
+          "eth2": {
+            "mtu": 1500,
+            "ip": "fc00:2::1"
+          },
+          "eth3": {
+            "mtu": 1500,
+            "ip": "fc00:3::1"
+          },
+          "lo": {
+            "mtu": 65535,
+            "ip": "::1"
+          }
+        },
+        "local_sids": {
+          "fc00:1::1": {
+            "action": "End",
+            "out_iface": "eth1"
+          },
+          "fc00:2::10": {
+            "action": "End.X",
+            "nexthop": "fc00:2::2",
+            "out_iface": "eth2"
+          },
+          "fc00:3::100": {
+            "action": "End.DT4",
+            "vrf": "vrf_red"
+          },
+          "fc00:3::200": {
+            "action": "End.DT4",
+            "vrf": "vrf_blue"
+          },
+          "fc00:4::1": {
+            "action": "End.DX6",
+            "out_iface": "eth3"
+          }
+        },
+        "vrf_tables": {
+          "vrf_red": [
+            {
+              "prefix": "10.10.1.",
+              "out_iface": "eth0"
+            },
+            {
+              "prefix": "10.10.2.",
+              "out_iface": "eth1"
+            }
+          ],
+          "vrf_blue": [
+            {
+              "prefix": "10.20.1.",
+              "out_iface": "eth2"
+            },
+            {
+              "prefix": "10.20.2.",
+              "out_iface": "eth3"
+            }
+          ]
+        }
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "PROCESS_PACKET",
+          "packet": {
+            "id": 103,
+            "in_iface": "eth1",
+            "size": 220,
+            "outer_ipv6": {
+              "src": "fc00:src::1",
+              "dst": "fc00:3::100",
+              "srh": {
+                "segments": [
+                  "fc00:3::100"
+                ],
+                "segments_left": 0
+              }
+            },
+            "payload": {
+              "src_ip": "192.168.1.5",
+              "dst_ip": "10.10.1.50",
+              "data": "customer_payload"
+            }
+          }
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_packets": 1,
+        "packets_forwarded": 1,
+        "packets_dropped": 0,
+        "srv6_encapsulated": 0,
+        "srv6_decapsulated": 1,
+        "sl_decremented": 0,
+        "vrf_routes_resolved": 1
+      },
+      "packet_logs": [
+        {
+          "time": 0,
+          "pkt_id": 103,
+          "status": "FORWARDED",
+          "out_iface": "eth0",
+          "detail": "End.DT4 -> Decap & Forward via VRF vrf_red to eth0",
+          "size": 220
+        }
+      ],
+      "event_logs": []
+    }
+  },
+  {
+    "name": "End.DX6 L3VPN 디캡슐화 및 IPv6 크로스 커넥트 직접 포워딩",
+    "input": {
+      "config": {
+        "interfaces": {
+          "eth0": {
+            "mtu": 1500,
+            "ip": "fc00:0::1"
+          },
+          "eth1": {
+            "mtu": 1500,
+            "ip": "fc00:1::1"
+          },
+          "eth2": {
+            "mtu": 1500,
+            "ip": "fc00:2::1"
+          },
+          "eth3": {
+            "mtu": 1500,
+            "ip": "fc00:3::1"
+          },
+          "lo": {
+            "mtu": 65535,
+            "ip": "::1"
+          }
+        },
+        "local_sids": {
+          "fc00:1::1": {
+            "action": "End",
+            "out_iface": "eth1"
+          },
+          "fc00:2::10": {
+            "action": "End.X",
+            "nexthop": "fc00:2::2",
+            "out_iface": "eth2"
+          },
+          "fc00:3::100": {
+            "action": "End.DT4",
+            "vrf": "vrf_red"
+          },
+          "fc00:3::200": {
+            "action": "End.DT4",
+            "vrf": "vrf_blue"
+          },
+          "fc00:4::1": {
+            "action": "End.DX6",
+            "out_iface": "eth3"
+          }
+        },
+        "vrf_tables": {
+          "vrf_red": [
+            {
+              "prefix": "10.10.1.",
+              "out_iface": "eth0"
+            },
+            {
+              "prefix": "10.10.2.",
+              "out_iface": "eth1"
+            }
+          ],
+          "vrf_blue": [
+            {
+              "prefix": "10.20.1.",
+              "out_iface": "eth2"
+            },
+            {
+              "prefix": "10.20.2.",
+              "out_iface": "eth3"
+            }
+          ]
+        }
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "PROCESS_PACKET",
+          "packet": {
+            "id": 104,
+            "in_iface": "eth2",
+            "size": 240,
+            "outer_ipv6": {
+              "src": "fc00:src::1",
+              "dst": "fc00:4::1",
+              "srh": {
+                "segments": [
+                  "fc00:4::1"
+                ],
+                "segments_left": 0
+              }
+            },
+            "payload": {
+              "inner_ipv6_src": "2001:db8::1",
+              "inner_ipv6_dst": "2001:db8::2"
+            }
+          }
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_packets": 1,
+        "packets_forwarded": 1,
+        "packets_dropped": 0,
+        "srv6_encapsulated": 0,
+        "srv6_decapsulated": 1,
+        "sl_decremented": 0,
+        "vrf_routes_resolved": 0
+      },
+      "packet_logs": [
+        {
+          "time": 0,
+          "pkt_id": 104,
+          "status": "FORWARDED",
+          "out_iface": "eth3",
+          "detail": "End.DX6 -> Decap & Cross-connect to eth3",
+          "size": 240
+        }
+      ],
+      "event_logs": []
+    }
+  },
+  {
+    "name": "SRv6 SRH 오버헤드로 인한 송신 인터페이스 MTU 초과 패킷 폐기 검증",
+    "input": {
+      "config": {
+        "interfaces": {
+          "eth0": {
+            "mtu": 1500
+          },
+          "eth1": {
+            "mtu": 1200
+          }
+        },
+        "local_sids": {
+          "fc00:1::1": {
+            "action": "End",
+            "out_iface": "eth1"
+          }
+        },
+        "vrf_tables": {}
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "PROCESS_PACKET",
+          "packet": {
+            "id": 105,
+            "in_iface": "eth0",
+            "size": 1300,
+            "outer_ipv6": {
+              "src": "fc00:0::1",
+              "dst": "fc00:1::1",
+              "srh": {
+                "segments": [
+                  "fc00:2::1",
+                  "fc00:1::1"
+                ],
+                "segments_left": 1
+              }
+            },
+            "payload": {
+              "data": "jumbo_data"
+            }
+          }
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_packets": 1,
+        "packets_forwarded": 0,
+        "packets_dropped": 1,
+        "srv6_encapsulated": 0,
+        "srv6_decapsulated": 0,
+        "sl_decremented": 1,
+        "vrf_routes_resolved": 0
+      },
+      "packet_logs": [
+        {
+          "time": 0,
+          "pkt_id": 105,
+          "status": "DROPPED",
+          "reason": "MTU_EXCEEDED (Size 1300 > MTU 1200 on eth1)",
+          "size": 1300
+        }
+      ],
+      "event_logs": []
+    }
+  },
+  {
+    "name": "비정상 세그먼트 라우팅(End.X SL 언더플로우 및 미등록 SID) 폐기 방어",
+    "input": {
+      "config": {
+        "interfaces": {
+          "eth0": {
+            "mtu": 1500,
+            "ip": "fc00:0::1"
+          },
+          "eth1": {
+            "mtu": 1500,
+            "ip": "fc00:1::1"
+          },
+          "eth2": {
+            "mtu": 1500,
+            "ip": "fc00:2::1"
+          },
+          "eth3": {
+            "mtu": 1500,
+            "ip": "fc00:3::1"
+          },
+          "lo": {
+            "mtu": 65535,
+            "ip": "::1"
+          }
+        },
+        "local_sids": {
+          "fc00:1::1": {
+            "action": "End",
+            "out_iface": "eth1"
+          },
+          "fc00:2::10": {
+            "action": "End.X",
+            "nexthop": "fc00:2::2",
+            "out_iface": "eth2"
+          },
+          "fc00:3::100": {
+            "action": "End.DT4",
+            "vrf": "vrf_red"
+          },
+          "fc00:3::200": {
+            "action": "End.DT4",
+            "vrf": "vrf_blue"
+          },
+          "fc00:4::1": {
+            "action": "End.DX6",
+            "out_iface": "eth3"
+          }
+        },
+        "vrf_tables": {
+          "vrf_red": [
+            {
+              "prefix": "10.10.1.",
+              "out_iface": "eth0"
+            },
+            {
+              "prefix": "10.10.2.",
+              "out_iface": "eth1"
+            }
+          ],
+          "vrf_blue": [
+            {
+              "prefix": "10.20.1.",
+              "out_iface": "eth2"
+            },
+            {
+              "prefix": "10.20.2.",
+              "out_iface": "eth3"
+            }
+          ]
+        }
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "PROCESS_PACKET",
+          "packet": {
+            "id": 106,
+            "in_iface": "eth0",
+            "size": 200,
+            "outer_ipv6": {
+              "src": "fc00:src::1",
+              "dst": "fc00:2::10",
+              "srh": {
+                "segments": [
+                  "fc00:2::10"
+                ],
+                "segments_left": 0
+              }
+            }
+          }
+        },
+        {
+          "time": 1,
+          "type": "PROCESS_PACKET",
+          "packet": {
+            "id": 107,
+            "in_iface": "eth0",
+            "size": 200,
+            "outer_ipv6": {
+              "src": "fc00:src::1",
+              "dst": "fc00:3::100",
+              "srh": {
+                "segments": [
+                  "fc00:3::100"
+                ],
+                "segments_left": 0
+              }
+            },
+            "payload": {
+              "dst_ip": "172.16.0.99"
+            }
+          }
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_packets": 2,
+        "packets_forwarded": 0,
+        "packets_dropped": 2,
+        "srv6_encapsulated": 0,
+        "srv6_decapsulated": 1,
+        "sl_decremented": 0,
+        "vrf_routes_resolved": 0
+      },
+      "packet_logs": [
+        {
+          "time": 0,
+          "pkt_id": 106,
+          "status": "DROPPED",
+          "reason": "END_X_SL_UNDERFLOW",
+          "size": 200
+        },
+        {
+          "time": 1,
+          "pkt_id": 107,
+          "status": "DROPPED",
+          "reason": "VRF_ROUTE_NOT_FOUND_vrf_red",
+          "size": 200
+        }
+      ],
+      "event_logs": []
+    }
+  },
+  {
+    "name": "멀티테넌트 L3VPN VRF 완벽 격리(vrf_red vs vrf_blue)",
+    "input": {
+      "config": {
+        "interfaces": {
+          "eth0": {
+            "mtu": 1500,
+            "ip": "fc00:0::1"
+          },
+          "eth1": {
+            "mtu": 1500,
+            "ip": "fc00:1::1"
+          },
+          "eth2": {
+            "mtu": 1500,
+            "ip": "fc00:2::1"
+          },
+          "eth3": {
+            "mtu": 1500,
+            "ip": "fc00:3::1"
+          },
+          "lo": {
+            "mtu": 65535,
+            "ip": "::1"
+          }
+        },
+        "local_sids": {
+          "fc00:1::1": {
+            "action": "End",
+            "out_iface": "eth1"
+          },
+          "fc00:2::10": {
+            "action": "End.X",
+            "nexthop": "fc00:2::2",
+            "out_iface": "eth2"
+          },
+          "fc00:3::100": {
+            "action": "End.DT4",
+            "vrf": "vrf_red"
+          },
+          "fc00:3::200": {
+            "action": "End.DT4",
+            "vrf": "vrf_blue"
+          },
+          "fc00:4::1": {
+            "action": "End.DX6",
+            "out_iface": "eth3"
+          }
+        },
+        "vrf_tables": {
+          "vrf_red": [
+            {
+              "prefix": "10.10.1.",
+              "out_iface": "eth0"
+            },
+            {
+              "prefix": "10.10.2.",
+              "out_iface": "eth1"
+            }
+          ],
+          "vrf_blue": [
+            {
+              "prefix": "10.20.1.",
+              "out_iface": "eth2"
+            },
+            {
+              "prefix": "10.20.2.",
+              "out_iface": "eth3"
+            }
+          ]
+        }
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "PROCESS_PACKET",
+          "packet": {
+            "id": 201,
+            "in_iface": "eth1",
+            "size": 200,
+            "outer_ipv6": {
+              "src": "fc00:src::1",
+              "dst": "fc00:3::100",
+              "srh": {
+                "segments": [
+                  "fc00:3::100"
+                ],
+                "segments_left": 0
+              }
+            },
+            "payload": {
+              "dst_ip": "10.10.2.20"
+            }
+          }
+        },
+        {
+          "time": 1,
+          "type": "PROCESS_PACKET",
+          "packet": {
+            "id": 202,
+            "in_iface": "eth1",
+            "size": 200,
+            "outer_ipv6": {
+              "src": "fc00:src::1",
+              "dst": "fc00:3::200",
+              "srh": {
+                "segments": [
+                  "fc00:3::200"
+                ],
+                "segments_left": 0
+              }
+            },
+            "payload": {
+              "dst_ip": "10.20.1.30"
+            }
+          }
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_packets": 2,
+        "packets_forwarded": 2,
+        "packets_dropped": 0,
+        "srv6_encapsulated": 0,
+        "srv6_decapsulated": 2,
+        "sl_decremented": 0,
+        "vrf_routes_resolved": 2
+      },
+      "packet_logs": [
+        {
+          "time": 0,
+          "pkt_id": 201,
+          "status": "FORWARDED",
+          "out_iface": "eth1",
+          "detail": "End.DT4 -> Decap & Forward via VRF vrf_red to eth1",
+          "size": 200
+        },
+        {
+          "time": 1,
+          "pkt_id": 202,
+          "status": "FORWARDED",
+          "out_iface": "eth2",
+          "detail": "End.DT4 -> Decap & Forward via VRF vrf_blue to eth2",
+          "size": 200
+        }
+      ],
+      "event_logs": []
+    }
+  },
+  {
+    "name": "5G 코어 네트워크 슬라이싱 및 캐리어 에지 다중 홉 종합 시뮬레이션",
+    "input": {
+      "config": {
+        "interfaces": {
+          "eth0": {
+            "mtu": 1500,
+            "ip": "fc00:0::1"
+          },
+          "eth1": {
+            "mtu": 1500,
+            "ip": "fc00:1::1"
+          },
+          "eth2": {
+            "mtu": 1500,
+            "ip": "fc00:2::1"
+          },
+          "eth3": {
+            "mtu": 1500,
+            "ip": "fc00:3::1"
+          },
+          "lo": {
+            "mtu": 65535,
+            "ip": "::1"
+          }
+        },
+        "local_sids": {
+          "fc00:1::1": {
+            "action": "End",
+            "out_iface": "eth1"
+          },
+          "fc00:2::10": {
+            "action": "End.X",
+            "nexthop": "fc00:2::2",
+            "out_iface": "eth2"
+          },
+          "fc00:3::100": {
+            "action": "End.DT4",
+            "vrf": "vrf_red"
+          },
+          "fc00:3::200": {
+            "action": "End.DT4",
+            "vrf": "vrf_blue"
+          },
+          "fc00:4::1": {
+            "action": "End.DX6",
+            "out_iface": "eth3"
+          }
+        },
+        "vrf_tables": {
+          "vrf_red": [
+            {
+              "prefix": "10.10.1.",
+              "out_iface": "eth0"
+            },
+            {
+              "prefix": "10.10.2.",
+              "out_iface": "eth1"
+            }
+          ],
+          "vrf_blue": [
+            {
+              "prefix": "10.20.1.",
+              "out_iface": "eth2"
+            },
+            {
+              "prefix": "10.20.2.",
+              "out_iface": "eth3"
+            }
+          ]
+        }
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "PROCESS_PACKET",
+          "packet": {
+            "id": 301,
+            "in_iface": "eth0",
+            "size": 150,
+            "encap_policy": {
+              "src": "fc00:0::1",
+              "segments": [
+                "fc00:3::100",
+                "fc00:2::10",
+                "fc00:1::1"
+              ]
+            },
+            "payload": {
+              "dst_ip": "10.10.1.99",
+              "app": "8k_streaming"
+            }
+          }
+        },
+        {
+          "time": 1,
+          "type": "PROCESS_PACKET",
+          "packet": {
+            "id": 302,
+            "in_iface": "eth2",
+            "size": 120,
+            "outer_ipv6": {
+              "src": "fc00:gNB::1",
+              "dst": "fc00:2::10",
+              "srh": {
+                "segments": [
+                  "fc00:dest::1",
+                  "fc00:2::10"
+                ],
+                "segments_left": 1
+              }
+            },
+            "payload": {
+              "app": "v2x_autonomous_driving"
+            }
+          }
+        },
+        {
+          "time": 2,
+          "type": "PROCESS_PACKET",
+          "packet": {
+            "id": 303,
+            "in_iface": "eth1",
+            "size": 180,
+            "outer_ipv6": {
+              "src": "fc00:ingress::1",
+              "dst": "fc00:3::200",
+              "srh": {
+                "segments": [
+                  "fc00:3::200"
+                ],
+                "segments_left": 0
+              }
+            },
+            "payload": {
+              "dst_ip": "10.20.2.77",
+              "app": "iot_sensor"
+            }
+          }
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_packets": 3,
+        "packets_forwarded": 3,
+        "packets_dropped": 0,
+        "srv6_encapsulated": 1,
+        "srv6_decapsulated": 1,
+        "sl_decremented": 2,
+        "vrf_routes_resolved": 1
+      },
+      "packet_logs": [
+        {
+          "time": 0,
+          "pkt_id": 301,
+          "status": "FORWARDED",
+          "out_iface": "eth1",
+          "detail": "End -> Next SID fc00:2::10",
+          "size": 246
+        },
+        {
+          "time": 1,
+          "pkt_id": 302,
+          "status": "FORWARDED",
+          "out_iface": "eth2",
+          "detail": "End.X -> Nexthop fc00:2::2 via eth2",
+          "size": 120
+        },
+        {
+          "time": 2,
+          "pkt_id": 303,
+          "status": "FORWARDED",
+          "out_iface": "eth3",
+          "detail": "End.DT4 -> Decap & Forward via VRF vrf_blue to eth3",
+          "size": 180
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "SRV6_ENCAP",
+          "pkt_id": 301,
+          "da": "fc00:1::1",
+          "sl": 2,
+          "segments": [
+            "fc00:3::100",
+            "fc00:2::10",
+            "fc00:1::1"
+          ]
+        }
+      ]
+    }
+  }
+]
