@@ -1,0 +1,980 @@
+[
+  {
+    "input": {
+      "config": {},
+      "operations": [
+        {
+          "type": "CREATE_SYNCOBJ",
+          "handle": 1,
+          "initial_point": 0
+        },
+        {
+          "type": "SUBMIT_JOB",
+          "job_id": "job_render_1",
+          "engine": "RENDER",
+          "execution_cycles": 10,
+          "signal_fences": [
+            {
+              "handle": 1,
+              "point": 1
+            }
+          ]
+        },
+        {
+          "type": "SUBMIT_JOB",
+          "job_id": "job_render_2",
+          "engine": "RENDER",
+          "execution_cycles": 10,
+          "wait_dependencies": [
+            {
+              "handle": 1,
+              "point": 1
+            }
+          ],
+          "signal_fences": [
+            {
+              "handle": 1,
+              "point": 2
+            }
+          ]
+        },
+        {
+          "type": "ADVANCE_CYCLES",
+          "cycles": 25
+        },
+        {
+          "type": "QUERY_TIMELINE",
+          "handles": [
+            1
+          ]
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "CREATE_SYNCOBJ",
+          "handle": 1,
+          "initial_point": 0,
+          "status": "CREATED"
+        },
+        {
+          "op_index": 1,
+          "type": "SUBMIT_JOB",
+          "job_id": "job_render_1",
+          "engine": "RENDER",
+          "status": "QUEUED"
+        },
+        {
+          "op_index": 2,
+          "type": "SUBMIT_JOB",
+          "job_id": "job_render_2",
+          "engine": "RENDER",
+          "status": "QUEUED"
+        },
+        {
+          "op_index": 3,
+          "type": "ADVANCE_CYCLES",
+          "advanced_cycles": 25,
+          "current_cycles": 25,
+          "completed_jobs": [
+            "job_render_1",
+            "job_render_2"
+          ]
+        },
+        {
+          "op_index": 4,
+          "type": "QUERY_TIMELINE",
+          "points": {
+            "1": 2
+          }
+        }
+      ],
+      "final_timeline": {
+        "1": 2
+      },
+      "summary": {
+        "total_operations": 5,
+        "total_cycles": 25,
+        "completed_jobs_count": 2,
+        "stats": {
+          "total_jobs_submitted": 2,
+          "total_jobs_completed": 2,
+          "total_fence_signals": 2,
+          "total_cycles": 25,
+          "pipeline_stalls": 0
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "operations": [
+        {
+          "type": "CREATE_SYNCOBJ",
+          "handle": 1,
+          "initial_point": 0
+        },
+        {
+          "type": "SUBMIT_JOB",
+          "job_id": "job_copy_tex",
+          "engine": "COPY",
+          "execution_cycles": 15,
+          "signal_fences": [
+            {
+              "handle": 1,
+              "point": 5
+            }
+          ]
+        },
+        {
+          "type": "SUBMIT_JOB",
+          "job_id": "job_compute_sh",
+          "engine": "COMPUTE",
+          "execution_cycles": 10,
+          "wait_dependencies": [
+            {
+              "handle": 1,
+              "point": 5
+            }
+          ],
+          "signal_fences": [
+            {
+              "handle": 1,
+              "point": 10
+            }
+          ]
+        },
+        {
+          "type": "SUBMIT_JOB",
+          "job_id": "job_render_scene",
+          "engine": "RENDER",
+          "execution_cycles": 20,
+          "wait_dependencies": [
+            {
+              "handle": 1,
+              "point": 10
+            }
+          ],
+          "signal_fences": [
+            {
+              "handle": 1,
+              "point": 15
+            }
+          ]
+        },
+        {
+          "type": "ADVANCE_CYCLES",
+          "cycles": 50
+        },
+        {
+          "type": "QUERY_TIMELINE",
+          "handles": [
+            1
+          ]
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "CREATE_SYNCOBJ",
+          "handle": 1,
+          "initial_point": 0,
+          "status": "CREATED"
+        },
+        {
+          "op_index": 1,
+          "type": "SUBMIT_JOB",
+          "job_id": "job_copy_tex",
+          "engine": "COPY",
+          "status": "QUEUED"
+        },
+        {
+          "op_index": 2,
+          "type": "SUBMIT_JOB",
+          "job_id": "job_compute_sh",
+          "engine": "COMPUTE",
+          "status": "QUEUED"
+        },
+        {
+          "op_index": 3,
+          "type": "SUBMIT_JOB",
+          "job_id": "job_render_scene",
+          "engine": "RENDER",
+          "status": "QUEUED"
+        },
+        {
+          "op_index": 4,
+          "type": "ADVANCE_CYCLES",
+          "advanced_cycles": 50,
+          "current_cycles": 50,
+          "completed_jobs": [
+            "job_copy_tex",
+            "job_compute_sh",
+            "job_render_scene"
+          ]
+        },
+        {
+          "op_index": 5,
+          "type": "QUERY_TIMELINE",
+          "points": {
+            "1": 15
+          }
+        }
+      ],
+      "final_timeline": {
+        "1": 15
+      },
+      "summary": {
+        "total_operations": 6,
+        "total_cycles": 50,
+        "completed_jobs_count": 3,
+        "stats": {
+          "total_jobs_submitted": 3,
+          "total_jobs_completed": 3,
+          "total_fence_signals": 3,
+          "total_cycles": 50,
+          "pipeline_stalls": 40
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "operations": [
+        {
+          "type": "CREATE_SYNCOBJ",
+          "handle": 2,
+          "initial_point": 0
+        },
+        {
+          "type": "SUBMIT_JOB",
+          "job_id": "job_wait_cpu",
+          "engine": "RENDER",
+          "execution_cycles": 8,
+          "wait_dependencies": [
+            {
+              "handle": 2,
+              "point": 100
+            }
+          ],
+          "signal_fences": [
+            {
+              "handle": 2,
+              "point": 101
+            }
+          ]
+        },
+        {
+          "type": "ADVANCE_CYCLES",
+          "cycles": 10
+        },
+        {
+          "type": "CPU_SIGNAL",
+          "handle": 2,
+          "point": 100
+        },
+        {
+          "type": "ADVANCE_CYCLES",
+          "cycles": 10
+        },
+        {
+          "type": "QUERY_TIMELINE",
+          "handles": [
+            2
+          ]
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "CREATE_SYNCOBJ",
+          "handle": 2,
+          "initial_point": 0,
+          "status": "CREATED"
+        },
+        {
+          "op_index": 1,
+          "type": "SUBMIT_JOB",
+          "job_id": "job_wait_cpu",
+          "engine": "RENDER",
+          "status": "QUEUED"
+        },
+        {
+          "op_index": 2,
+          "type": "ADVANCE_CYCLES",
+          "advanced_cycles": 10,
+          "current_cycles": 10,
+          "completed_jobs": []
+        },
+        {
+          "op_index": 3,
+          "type": "CPU_SIGNAL",
+          "handle": 2,
+          "point": 100,
+          "current_point": 100
+        },
+        {
+          "op_index": 4,
+          "type": "ADVANCE_CYCLES",
+          "advanced_cycles": 10,
+          "current_cycles": 20,
+          "completed_jobs": [
+            "job_wait_cpu"
+          ]
+        },
+        {
+          "op_index": 5,
+          "type": "QUERY_TIMELINE",
+          "points": {
+            "2": 101
+          }
+        }
+      ],
+      "final_timeline": {
+        "2": 101
+      },
+      "summary": {
+        "total_operations": 6,
+        "total_cycles": 20,
+        "completed_jobs_count": 1,
+        "stats": {
+          "total_jobs_submitted": 1,
+          "total_jobs_completed": 1,
+          "total_fence_signals": 2,
+          "total_cycles": 20,
+          "pipeline_stalls": 10
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "operations": [
+        {
+          "type": "CREATE_SYNCOBJ",
+          "handle": 10,
+          "initial_point": 0
+        },
+        {
+          "type": "CREATE_SYNCOBJ",
+          "handle": 11,
+          "initial_point": 0
+        },
+        {
+          "type": "SUBMIT_JOB",
+          "job_id": "job_fast",
+          "engine": "COPY",
+          "execution_cycles": 5,
+          "signal_fences": [
+            {
+              "handle": 10,
+              "point": 1
+            }
+          ]
+        },
+        {
+          "type": "SUBMIT_JOB",
+          "job_id": "job_slow",
+          "engine": "RENDER",
+          "execution_cycles": 20,
+          "signal_fences": [
+            {
+              "handle": 11,
+              "point": 1
+            }
+          ]
+        },
+        {
+          "type": "TIMELINE_WAIT",
+          "points": [
+            {
+              "handle": 10,
+              "point": 1
+            },
+            {
+              "handle": 11,
+              "point": 1
+            }
+          ],
+          "wait_all": false,
+          "timeout_cycles": 50
+        },
+        {
+          "type": "TIMELINE_WAIT",
+          "points": [
+            {
+              "handle": 10,
+              "point": 1
+            },
+            {
+              "handle": 11,
+              "point": 1
+            }
+          ],
+          "wait_all": true,
+          "timeout_cycles": 50
+        },
+        {
+          "type": "QUERY_TIMELINE",
+          "handles": [
+            10,
+            11
+          ]
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "CREATE_SYNCOBJ",
+          "handle": 10,
+          "initial_point": 0,
+          "status": "CREATED"
+        },
+        {
+          "op_index": 1,
+          "type": "CREATE_SYNCOBJ",
+          "handle": 11,
+          "initial_point": 0,
+          "status": "CREATED"
+        },
+        {
+          "op_index": 2,
+          "type": "SUBMIT_JOB",
+          "job_id": "job_fast",
+          "engine": "COPY",
+          "status": "QUEUED"
+        },
+        {
+          "op_index": 3,
+          "type": "SUBMIT_JOB",
+          "job_id": "job_slow",
+          "engine": "RENDER",
+          "status": "QUEUED"
+        },
+        {
+          "op_index": 4,
+          "type": "TIMELINE_WAIT",
+          "status": "SIGNALED",
+          "waited_cycles": 5,
+          "current_cycles": 5
+        },
+        {
+          "op_index": 5,
+          "type": "TIMELINE_WAIT",
+          "status": "SIGNALED",
+          "waited_cycles": 15,
+          "current_cycles": 20
+        },
+        {
+          "op_index": 6,
+          "type": "QUERY_TIMELINE",
+          "points": {
+            "10": 1,
+            "11": 1
+          }
+        }
+      ],
+      "final_timeline": {
+        "10": 1,
+        "11": 1
+      },
+      "summary": {
+        "total_operations": 7,
+        "total_cycles": 20,
+        "completed_jobs_count": 2,
+        "stats": {
+          "total_jobs_submitted": 2,
+          "total_jobs_completed": 2,
+          "total_fence_signals": 2,
+          "total_cycles": 20,
+          "pipeline_stalls": 0
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "operations": [
+        {
+          "type": "CREATE_SYNCOBJ",
+          "handle": 5,
+          "initial_point": 0
+        },
+        {
+          "type": "SUBMIT_JOB",
+          "job_id": "long_job",
+          "engine": "COMPUTE",
+          "execution_cycles": 100,
+          "signal_fences": [
+            {
+              "handle": 5,
+              "point": 50
+            }
+          ]
+        },
+        {
+          "type": "TIMELINE_WAIT",
+          "points": [
+            {
+              "handle": 5,
+              "point": 50
+            }
+          ],
+          "wait_all": true,
+          "timeout_cycles": 30
+        },
+        {
+          "type": "QUERY_TIMELINE",
+          "handles": [
+            5
+          ]
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "CREATE_SYNCOBJ",
+          "handle": 5,
+          "initial_point": 0,
+          "status": "CREATED"
+        },
+        {
+          "op_index": 1,
+          "type": "SUBMIT_JOB",
+          "job_id": "long_job",
+          "engine": "COMPUTE",
+          "status": "QUEUED"
+        },
+        {
+          "op_index": 2,
+          "type": "TIMELINE_WAIT",
+          "status": "TIMEOUT",
+          "waited_cycles": 30,
+          "current_cycles": 30
+        },
+        {
+          "op_index": 3,
+          "type": "QUERY_TIMELINE",
+          "points": {
+            "5": 0
+          }
+        }
+      ],
+      "final_timeline": {
+        "5": 0
+      },
+      "summary": {
+        "total_operations": 4,
+        "total_cycles": 30,
+        "completed_jobs_count": 0,
+        "stats": {
+          "total_jobs_submitted": 1,
+          "total_jobs_completed": 0,
+          "total_fence_signals": 0,
+          "total_cycles": 30,
+          "pipeline_stalls": 0
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "operations": [
+        {
+          "type": "CREATE_SYNCOBJ",
+          "handle": 8,
+          "initial_point": 0
+        },
+        {
+          "type": "SUBMIT_JOB",
+          "job_id": "job_big_point",
+          "engine": "RENDER",
+          "execution_cycles": 10,
+          "signal_fences": [
+            {
+              "handle": 8,
+              "point": 20
+            }
+          ]
+        },
+        {
+          "type": "SUBMIT_JOB",
+          "job_id": "job_dep_small",
+          "engine": "COMPUTE",
+          "execution_cycles": 5,
+          "wait_dependencies": [
+            {
+              "handle": 8,
+              "point": 10
+            }
+          ],
+          "signal_fences": [
+            {
+              "handle": 8,
+              "point": 25
+            }
+          ]
+        },
+        {
+          "type": "ADVANCE_CYCLES",
+          "cycles": 20
+        },
+        {
+          "type": "QUERY_TIMELINE",
+          "handles": [
+            8
+          ]
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "CREATE_SYNCOBJ",
+          "handle": 8,
+          "initial_point": 0,
+          "status": "CREATED"
+        },
+        {
+          "op_index": 1,
+          "type": "SUBMIT_JOB",
+          "job_id": "job_big_point",
+          "engine": "RENDER",
+          "status": "QUEUED"
+        },
+        {
+          "op_index": 2,
+          "type": "SUBMIT_JOB",
+          "job_id": "job_dep_small",
+          "engine": "COMPUTE",
+          "status": "QUEUED"
+        },
+        {
+          "op_index": 3,
+          "type": "ADVANCE_CYCLES",
+          "advanced_cycles": 20,
+          "current_cycles": 20,
+          "completed_jobs": [
+            "job_big_point",
+            "job_dep_small"
+          ]
+        },
+        {
+          "op_index": 4,
+          "type": "QUERY_TIMELINE",
+          "points": {
+            "8": 25
+          }
+        }
+      ],
+      "final_timeline": {
+        "8": 25
+      },
+      "summary": {
+        "total_operations": 5,
+        "total_cycles": 20,
+        "completed_jobs_count": 2,
+        "stats": {
+          "total_jobs_submitted": 2,
+          "total_jobs_completed": 2,
+          "total_fence_signals": 2,
+          "total_cycles": 20,
+          "pipeline_stalls": 9
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "operations": [
+        {
+          "type": "CREATE_SYNCOBJ",
+          "handle": 1,
+          "initial_point": 50
+        },
+        {
+          "type": "CREATE_SYNCOBJ",
+          "handle": 2,
+          "initial_point": 0
+        },
+        {
+          "type": "TRANSFER_POINT",
+          "src_handle": 1,
+          "dst_handle": 2
+        },
+        {
+          "type": "QUERY_TIMELINE",
+          "handles": [
+            1,
+            2
+          ]
+        },
+        {
+          "type": "RESET_SYNCOBJ",
+          "handle": 1
+        },
+        {
+          "type": "QUERY_TIMELINE",
+          "handles": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "CREATE_SYNCOBJ",
+          "handle": 1,
+          "initial_point": 50,
+          "status": "CREATED"
+        },
+        {
+          "op_index": 1,
+          "type": "CREATE_SYNCOBJ",
+          "handle": 2,
+          "initial_point": 0,
+          "status": "CREATED"
+        },
+        {
+          "op_index": 2,
+          "type": "TRANSFER_POINT",
+          "src_handle": 1,
+          "dst_handle": 2,
+          "dst_point": 50
+        },
+        {
+          "op_index": 3,
+          "type": "QUERY_TIMELINE",
+          "points": {
+            "1": 50,
+            "2": 50
+          }
+        },
+        {
+          "op_index": 4,
+          "type": "RESET_SYNCOBJ",
+          "handle": 1,
+          "status": "RESET"
+        },
+        {
+          "op_index": 5,
+          "type": "QUERY_TIMELINE",
+          "points": {
+            "1": 0,
+            "2": 50
+          }
+        }
+      ],
+      "final_timeline": {
+        "1": 0,
+        "2": 50
+      },
+      "summary": {
+        "total_operations": 6,
+        "total_cycles": 0,
+        "completed_jobs_count": 0,
+        "stats": {
+          "total_jobs_submitted": 0,
+          "total_jobs_completed": 0,
+          "total_fence_signals": 1,
+          "total_cycles": 0,
+          "pipeline_stalls": 0
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "operations": [
+        {
+          "type": "CREATE_SYNCOBJ",
+          "handle": 100,
+          "initial_point": 0
+        },
+        {
+          "type": "CREATE_SYNCOBJ",
+          "handle": 200,
+          "initial_point": 0
+        },
+        {
+          "type": "SUBMIT_JOB",
+          "job_id": "copy_mesh",
+          "engine": "COPY",
+          "execution_cycles": 12,
+          "signal_fences": [
+            {
+              "handle": 100,
+              "point": 10
+            }
+          ]
+        },
+        {
+          "type": "SUBMIT_JOB",
+          "job_id": "compute_physics",
+          "engine": "COMPUTE",
+          "execution_cycles": 18,
+          "signal_fences": [
+            {
+              "handle": 200,
+              "point": 20
+            }
+          ]
+        },
+        {
+          "type": "SUBMIT_JOB",
+          "job_id": "render_pass_geom",
+          "engine": "RENDER",
+          "execution_cycles": 15,
+          "wait_dependencies": [
+            {
+              "handle": 100,
+              "point": 10
+            },
+            {
+              "handle": 200,
+              "point": 20
+            }
+          ],
+          "signal_fences": [
+            {
+              "handle": 100,
+              "point": 30
+            }
+          ]
+        },
+        {
+          "type": "SUBMIT_JOB",
+          "job_id": "post_process",
+          "engine": "COMPUTE",
+          "execution_cycles": 10,
+          "wait_dependencies": [
+            {
+              "handle": 100,
+              "point": 30
+            }
+          ],
+          "signal_fences": [
+            {
+              "handle": 200,
+              "point": 50
+            }
+          ]
+        },
+        {
+          "type": "ADVANCE_CYCLES",
+          "cycles": 60
+        },
+        {
+          "type": "QUERY_TIMELINE",
+          "handles": [
+            100,
+            200
+          ]
+        }
+      ]
+    },
+    "output": {
+      "operation_results": [
+        {
+          "op_index": 0,
+          "type": "CREATE_SYNCOBJ",
+          "handle": 100,
+          "initial_point": 0,
+          "status": "CREATED"
+        },
+        {
+          "op_index": 1,
+          "type": "CREATE_SYNCOBJ",
+          "handle": 200,
+          "initial_point": 0,
+          "status": "CREATED"
+        },
+        {
+          "op_index": 2,
+          "type": "SUBMIT_JOB",
+          "job_id": "copy_mesh",
+          "engine": "COPY",
+          "status": "QUEUED"
+        },
+        {
+          "op_index": 3,
+          "type": "SUBMIT_JOB",
+          "job_id": "compute_physics",
+          "engine": "COMPUTE",
+          "status": "QUEUED"
+        },
+        {
+          "op_index": 4,
+          "type": "SUBMIT_JOB",
+          "job_id": "render_pass_geom",
+          "engine": "RENDER",
+          "status": "QUEUED"
+        },
+        {
+          "op_index": 5,
+          "type": "SUBMIT_JOB",
+          "job_id": "post_process",
+          "engine": "COMPUTE",
+          "status": "QUEUED"
+        },
+        {
+          "op_index": 6,
+          "type": "ADVANCE_CYCLES",
+          "advanced_cycles": 60,
+          "current_cycles": 60,
+          "completed_jobs": [
+            "copy_mesh",
+            "compute_physics",
+            "render_pass_geom",
+            "post_process"
+          ]
+        },
+        {
+          "op_index": 7,
+          "type": "QUERY_TIMELINE",
+          "points": {
+            "100": 30,
+            "200": 50
+          }
+        }
+      ],
+      "final_timeline": {
+        "100": 30,
+        "200": 50
+      },
+      "summary": {
+        "total_operations": 8,
+        "total_cycles": 60,
+        "completed_jobs_count": 4,
+        "stats": {
+          "total_jobs_submitted": 4,
+          "total_jobs_completed": 4,
+          "total_fence_signals": 4,
+          "total_cycles": 60,
+          "pipeline_stalls": 32
+        }
+      }
+    }
+  }
+]
