@@ -1,0 +1,963 @@
+[
+  {
+    "input": {
+      "config": {
+        "total_pages": 50,
+        "subpools": [
+          {
+            "id": "db_pool",
+            "max_pages": 40
+          }
+        ]
+      },
+      "operations": [
+        {
+          "op": "CREATE_VMA",
+          "vma_id": "vma_1",
+          "subpool_id": "db_pool"
+        },
+        {
+          "op": "RESERVE_PAGES",
+          "vma_id": "vma_1",
+          "start": 0,
+          "end": 10
+        },
+        {
+          "op": "PAGE_FAULT",
+          "vma_id": "vma_1",
+          "page_idx": 3
+        },
+        {
+          "op": "PAGE_FAULT",
+          "vma_id": "vma_1",
+          "page_idx": 3
+        },
+        {
+          "op": "PAGE_FAULT",
+          "vma_id": "vma_1",
+          "page_idx": 20
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "VMA_CREATED",
+          "vma_id": "vma_1",
+          "subpool_id": "db_pool"
+        },
+        {
+          "status": "RESERVED",
+          "vma_id": "vma_1",
+          "start": 0,
+          "end": 10,
+          "reserved_pages": 10
+        },
+        {
+          "status": "FAULT_SUCCESS",
+          "vma_id": "vma_1",
+          "page_idx": 3,
+          "from_reservation": true
+        },
+        {
+          "status": "ALREADY_PRESENT",
+          "vma_id": "vma_1",
+          "page_idx": 3
+        },
+        {
+          "status": "FAULT_SUCCESS",
+          "vma_id": "vma_1",
+          "page_idx": 20,
+          "from_reservation": false
+        },
+        {
+          "global_total_pages": 50,
+          "global_free_pages": 48,
+          "global_resv_pages": 9,
+          "global_allocated_pages": 2,
+          "subpools": {
+            "db_pool": {
+              "max_pages": 40,
+              "used_pages": 2,
+              "rsv_pages": 9
+            },
+            "default": {
+              "max_pages": -1,
+              "used_pages": 0,
+              "rsv_pages": 0
+            }
+          },
+          "sigbus_count": 0
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "total_pages": 100,
+        "subpools": [
+          {
+            "id": "limited_pool",
+            "max_pages": 5
+          }
+        ]
+      },
+      "operations": [
+        {
+          "op": "CREATE_VMA",
+          "vma_id": "vma_quota",
+          "subpool_id": "limited_pool"
+        },
+        {
+          "op": "RESERVE_PAGES",
+          "vma_id": "vma_quota",
+          "start": 0,
+          "end": 5
+        },
+        {
+          "op": "RESERVE_PAGES",
+          "vma_id": "vma_quota",
+          "start": 5,
+          "end": 6
+        },
+        {
+          "op": "PAGE_FAULT",
+          "vma_id": "vma_quota",
+          "page_idx": 0
+        },
+        {
+          "op": "PAGE_FAULT",
+          "vma_id": "vma_quota",
+          "page_idx": 1
+        },
+        {
+          "op": "PAGE_FAULT",
+          "vma_id": "vma_quota",
+          "page_idx": 2
+        },
+        {
+          "op": "PAGE_FAULT",
+          "vma_id": "vma_quota",
+          "page_idx": 3
+        },
+        {
+          "op": "PAGE_FAULT",
+          "vma_id": "vma_quota",
+          "page_idx": 4
+        },
+        {
+          "op": "PAGE_FAULT",
+          "vma_id": "vma_quota",
+          "page_idx": 10
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "VMA_CREATED",
+          "vma_id": "vma_quota",
+          "subpool_id": "limited_pool"
+        },
+        {
+          "status": "RESERVED",
+          "vma_id": "vma_quota",
+          "start": 0,
+          "end": 5,
+          "reserved_pages": 5
+        },
+        {
+          "status": "ENOMEM",
+          "reason": "SUBPOOL_QUOTA_EXCEEDED",
+          "needed": 1
+        },
+        {
+          "status": "FAULT_SUCCESS",
+          "vma_id": "vma_quota",
+          "page_idx": 0,
+          "from_reservation": true
+        },
+        {
+          "status": "FAULT_SUCCESS",
+          "vma_id": "vma_quota",
+          "page_idx": 1,
+          "from_reservation": true
+        },
+        {
+          "status": "FAULT_SUCCESS",
+          "vma_id": "vma_quota",
+          "page_idx": 2,
+          "from_reservation": true
+        },
+        {
+          "status": "FAULT_SUCCESS",
+          "vma_id": "vma_quota",
+          "page_idx": 3,
+          "from_reservation": true
+        },
+        {
+          "status": "FAULT_SUCCESS",
+          "vma_id": "vma_quota",
+          "page_idx": 4,
+          "from_reservation": true
+        },
+        {
+          "status": "SIGBUS",
+          "vma_id": "vma_quota",
+          "page_idx": 10,
+          "reason": "SUBPOOL_QUOTA_EXCEEDED"
+        },
+        {
+          "global_total_pages": 100,
+          "global_free_pages": 95,
+          "global_resv_pages": 0,
+          "global_allocated_pages": 5,
+          "subpools": {
+            "default": {
+              "max_pages": -1,
+              "used_pages": 0,
+              "rsv_pages": 0
+            },
+            "limited_pool": {
+              "max_pages": 5,
+              "used_pages": 5,
+              "rsv_pages": 0
+            }
+          },
+          "sigbus_count": 1
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "total_pages": 10,
+        "subpools": []
+      },
+      "operations": [
+        {
+          "op": "CREATE_VMA",
+          "vma_id": "vma_all",
+          "subpool_id": "default"
+        },
+        {
+          "op": "RESERVE_PAGES",
+          "vma_id": "vma_all",
+          "start": 0,
+          "end": 10
+        },
+        {
+          "op": "RESERVE_PAGES",
+          "vma_id": "vma_all",
+          "start": 10,
+          "end": 12
+        },
+        {
+          "op": "CREATE_VMA",
+          "vma_id": "vma_unresv",
+          "subpool_id": "default"
+        },
+        {
+          "op": "PAGE_FAULT",
+          "vma_id": "vma_unresv",
+          "page_idx": 0
+        },
+        {
+          "op": "PAGE_FAULT",
+          "vma_id": "vma_all",
+          "page_idx": 0
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "VMA_CREATED",
+          "vma_id": "vma_all",
+          "subpool_id": "default"
+        },
+        {
+          "status": "RESERVED",
+          "vma_id": "vma_all",
+          "start": 0,
+          "end": 10,
+          "reserved_pages": 10
+        },
+        {
+          "status": "ENOMEM",
+          "reason": "GLOBAL_POOL_EXHAUSTED",
+          "needed": 2
+        },
+        {
+          "status": "VMA_CREATED",
+          "vma_id": "vma_unresv",
+          "subpool_id": "default"
+        },
+        {
+          "status": "SIGBUS",
+          "vma_id": "vma_unresv",
+          "page_idx": 0,
+          "reason": "NO_UNRESERVED_HUGEPAGE"
+        },
+        {
+          "status": "FAULT_SUCCESS",
+          "vma_id": "vma_all",
+          "page_idx": 0,
+          "from_reservation": true
+        },
+        {
+          "global_total_pages": 10,
+          "global_free_pages": 9,
+          "global_resv_pages": 9,
+          "global_allocated_pages": 1,
+          "subpools": {
+            "default": {
+              "max_pages": -1,
+              "used_pages": 1,
+              "rsv_pages": 9
+            }
+          },
+          "sigbus_count": 1
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "total_pages": 50,
+        "subpools": [
+          {
+            "id": "merge_pool",
+            "max_pages": 30
+          }
+        ]
+      },
+      "operations": [
+        {
+          "op": "CREATE_VMA",
+          "vma_id": "vma_merge",
+          "subpool_id": "merge_pool"
+        },
+        {
+          "op": "RESERVE_PAGES",
+          "vma_id": "vma_merge",
+          "start": 10,
+          "end": 20
+        },
+        {
+          "op": "RESERVE_PAGES",
+          "vma_id": "vma_merge",
+          "start": 15,
+          "end": 25
+        },
+        {
+          "op": "RESERVE_PAGES",
+          "vma_id": "vma_merge",
+          "start": 5,
+          "end": 12
+        },
+        {
+          "op": "PAGE_FAULT",
+          "vma_id": "vma_merge",
+          "page_idx": 7
+        },
+        {
+          "op": "PAGE_FAULT",
+          "vma_id": "vma_merge",
+          "page_idx": 18
+        },
+        {
+          "op": "PAGE_FAULT",
+          "vma_id": "vma_merge",
+          "page_idx": 24
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "VMA_CREATED",
+          "vma_id": "vma_merge",
+          "subpool_id": "merge_pool"
+        },
+        {
+          "status": "RESERVED",
+          "vma_id": "vma_merge",
+          "start": 10,
+          "end": 20,
+          "reserved_pages": 10
+        },
+        {
+          "status": "RESERVED",
+          "vma_id": "vma_merge",
+          "start": 15,
+          "end": 25,
+          "reserved_pages": 5
+        },
+        {
+          "status": "RESERVED",
+          "vma_id": "vma_merge",
+          "start": 5,
+          "end": 12,
+          "reserved_pages": 5
+        },
+        {
+          "status": "FAULT_SUCCESS",
+          "vma_id": "vma_merge",
+          "page_idx": 7,
+          "from_reservation": true
+        },
+        {
+          "status": "FAULT_SUCCESS",
+          "vma_id": "vma_merge",
+          "page_idx": 18,
+          "from_reservation": true
+        },
+        {
+          "status": "FAULT_SUCCESS",
+          "vma_id": "vma_merge",
+          "page_idx": 24,
+          "from_reservation": true
+        },
+        {
+          "global_total_pages": 50,
+          "global_free_pages": 47,
+          "global_resv_pages": 17,
+          "global_allocated_pages": 3,
+          "subpools": {
+            "default": {
+              "max_pages": -1,
+              "used_pages": 0,
+              "rsv_pages": 0
+            },
+            "merge_pool": {
+              "max_pages": 30,
+              "used_pages": 3,
+              "rsv_pages": 17
+            }
+          },
+          "sigbus_count": 0
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "total_pages": 40,
+        "subpools": [
+          {
+            "id": "unmap_pool",
+            "max_pages": 25
+          }
+        ]
+      },
+      "operations": [
+        {
+          "op": "CREATE_VMA",
+          "vma_id": "vma_u",
+          "subpool_id": "unmap_pool"
+        },
+        {
+          "op": "RESERVE_PAGES",
+          "vma_id": "vma_u",
+          "start": 0,
+          "end": 10
+        },
+        {
+          "op": "PAGE_FAULT",
+          "vma_id": "vma_u",
+          "page_idx": 0
+        },
+        {
+          "op": "PAGE_FAULT",
+          "vma_id": "vma_u",
+          "page_idx": 1
+        },
+        {
+          "op": "PAGE_FAULT",
+          "vma_id": "vma_u",
+          "page_idx": 2
+        },
+        {
+          "op": "UNMAP_PAGES",
+          "vma_id": "vma_u",
+          "start": 1,
+          "end": 5
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "VMA_CREATED",
+          "vma_id": "vma_u",
+          "subpool_id": "unmap_pool"
+        },
+        {
+          "status": "RESERVED",
+          "vma_id": "vma_u",
+          "start": 0,
+          "end": 10,
+          "reserved_pages": 10
+        },
+        {
+          "status": "FAULT_SUCCESS",
+          "vma_id": "vma_u",
+          "page_idx": 0,
+          "from_reservation": true
+        },
+        {
+          "status": "FAULT_SUCCESS",
+          "vma_id": "vma_u",
+          "page_idx": 1,
+          "from_reservation": true
+        },
+        {
+          "status": "FAULT_SUCCESS",
+          "vma_id": "vma_u",
+          "page_idx": 2,
+          "from_reservation": true
+        },
+        {
+          "status": "UNMAPPED",
+          "vma_id": "vma_u",
+          "start": 1,
+          "end": 5,
+          "freed_physical": 2,
+          "freed_resv": 2
+        },
+        {
+          "global_total_pages": 40,
+          "global_free_pages": 39,
+          "global_resv_pages": 5,
+          "global_allocated_pages": 1,
+          "subpools": {
+            "default": {
+              "max_pages": -1,
+              "used_pages": 0,
+              "rsv_pages": 0
+            },
+            "unmap_pool": {
+              "max_pages": 25,
+              "used_pages": 1,
+              "rsv_pages": 5
+            }
+          },
+          "sigbus_count": 0
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "total_pages": 20,
+        "subpools": []
+      },
+      "operations": [
+        {
+          "op": "CREATE_VMA",
+          "vma_id": "vma_dyn",
+          "subpool_id": "default"
+        },
+        {
+          "op": "RESERVE_PAGES",
+          "vma_id": "vma_dyn",
+          "start": 0,
+          "end": 10
+        },
+        {
+          "op": "PAGE_FAULT",
+          "vma_id": "vma_dyn",
+          "page_idx": 0
+        },
+        {
+          "op": "PAGE_FAULT",
+          "vma_id": "vma_dyn",
+          "page_idx": 1
+        },
+        {
+          "op": "RESIZE_POOL",
+          "new_total": 30
+        },
+        {
+          "op": "RESIZE_POOL",
+          "new_total": 9
+        },
+        {
+          "op": "RESIZE_POOL",
+          "new_total": 10
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "VMA_CREATED",
+          "vma_id": "vma_dyn",
+          "subpool_id": "default"
+        },
+        {
+          "status": "RESERVED",
+          "vma_id": "vma_dyn",
+          "start": 0,
+          "end": 10,
+          "reserved_pages": 10
+        },
+        {
+          "status": "FAULT_SUCCESS",
+          "vma_id": "vma_dyn",
+          "page_idx": 0,
+          "from_reservation": true
+        },
+        {
+          "status": "FAULT_SUCCESS",
+          "vma_id": "vma_dyn",
+          "page_idx": 1,
+          "from_reservation": true
+        },
+        {
+          "status": "RESIZED",
+          "total_pages": 30,
+          "free_pages": 28
+        },
+        {
+          "status": "EBUSY",
+          "min_allowable": 10,
+          "attempted": 9
+        },
+        {
+          "status": "RESIZED",
+          "total_pages": 10,
+          "free_pages": 8
+        },
+        {
+          "global_total_pages": 10,
+          "global_free_pages": 8,
+          "global_resv_pages": 8,
+          "global_allocated_pages": 2,
+          "subpools": {
+            "default": {
+              "max_pages": -1,
+              "used_pages": 2,
+              "rsv_pages": 8
+            }
+          },
+          "sigbus_count": 0
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "total_pages": 30,
+        "subpools": [
+          {
+            "id": "tenant_a",
+            "max_pages": 20
+          },
+          {
+            "id": "tenant_b",
+            "max_pages": 20
+          }
+        ]
+      },
+      "operations": [
+        {
+          "op": "CREATE_VMA",
+          "vma_id": "vma_a",
+          "subpool_id": "tenant_a"
+        },
+        {
+          "op": "CREATE_VMA",
+          "vma_id": "vma_b",
+          "subpool_id": "tenant_b"
+        },
+        {
+          "op": "RESERVE_PAGES",
+          "vma_id": "vma_a",
+          "start": 0,
+          "end": 18
+        },
+        {
+          "op": "RESERVE_PAGES",
+          "vma_id": "vma_b",
+          "start": 0,
+          "end": 15
+        },
+        {
+          "op": "RESERVE_PAGES",
+          "vma_id": "vma_b",
+          "start": 0,
+          "end": 12
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "VMA_CREATED",
+          "vma_id": "vma_a",
+          "subpool_id": "tenant_a"
+        },
+        {
+          "status": "VMA_CREATED",
+          "vma_id": "vma_b",
+          "subpool_id": "tenant_b"
+        },
+        {
+          "status": "RESERVED",
+          "vma_id": "vma_a",
+          "start": 0,
+          "end": 18,
+          "reserved_pages": 18
+        },
+        {
+          "status": "ENOMEM",
+          "reason": "GLOBAL_POOL_EXHAUSTED",
+          "needed": 15
+        },
+        {
+          "status": "RESERVED",
+          "vma_id": "vma_b",
+          "start": 0,
+          "end": 12,
+          "reserved_pages": 12
+        },
+        {
+          "global_total_pages": 30,
+          "global_free_pages": 30,
+          "global_resv_pages": 30,
+          "global_allocated_pages": 0,
+          "subpools": {
+            "default": {
+              "max_pages": -1,
+              "used_pages": 0,
+              "rsv_pages": 0
+            },
+            "tenant_a": {
+              "max_pages": 20,
+              "used_pages": 0,
+              "rsv_pages": 18
+            },
+            "tenant_b": {
+              "max_pages": 20,
+              "used_pages": 0,
+              "rsv_pages": 12
+            }
+          },
+          "sigbus_count": 0
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {
+        "total_pages": 100,
+        "subpools": [
+          {
+            "id": "pg_shared_mem",
+            "max_pages": 60
+          },
+          {
+            "id": "redis_cache",
+            "max_pages": 30
+          }
+        ]
+      },
+      "operations": [
+        {
+          "op": "CREATE_VMA",
+          "vma_id": "pg_sga",
+          "subpool_id": "pg_shared_mem"
+        },
+        {
+          "op": "CREATE_VMA",
+          "vma_id": "redis_vma",
+          "subpool_id": "redis_cache"
+        },
+        {
+          "op": "RESERVE_PAGES",
+          "vma_id": "pg_sga",
+          "start": 0,
+          "end": 50
+        },
+        {
+          "op": "RESERVE_PAGES",
+          "vma_id": "redis_vma",
+          "start": 0,
+          "end": 25
+        },
+        {
+          "op": "PAGE_FAULT",
+          "vma_id": "pg_sga",
+          "page_idx": 0
+        },
+        {
+          "op": "PAGE_FAULT",
+          "vma_id": "pg_sga",
+          "page_idx": 1
+        },
+        {
+          "op": "PAGE_FAULT",
+          "vma_id": "pg_sga",
+          "page_idx": 2
+        },
+        {
+          "op": "PAGE_FAULT",
+          "vma_id": "redis_vma",
+          "page_idx": 0
+        },
+        {
+          "op": "PAGE_FAULT",
+          "vma_id": "pg_sga",
+          "page_idx": 55
+        },
+        {
+          "op": "UNMAP_PAGES",
+          "vma_id": "pg_sga",
+          "start": 1,
+          "end": 10
+        },
+        {
+          "op": "RESIZE_POOL",
+          "new_total": 40
+        },
+        {
+          "op": "RESIZE_POOL",
+          "new_total": 80
+        },
+        {
+          "op": "QUERY_STATS"
+        }
+      ]
+    },
+    "output": {
+      "results": [
+        {
+          "status": "VMA_CREATED",
+          "vma_id": "pg_sga",
+          "subpool_id": "pg_shared_mem"
+        },
+        {
+          "status": "VMA_CREATED",
+          "vma_id": "redis_vma",
+          "subpool_id": "redis_cache"
+        },
+        {
+          "status": "RESERVED",
+          "vma_id": "pg_sga",
+          "start": 0,
+          "end": 50,
+          "reserved_pages": 50
+        },
+        {
+          "status": "RESERVED",
+          "vma_id": "redis_vma",
+          "start": 0,
+          "end": 25,
+          "reserved_pages": 25
+        },
+        {
+          "status": "FAULT_SUCCESS",
+          "vma_id": "pg_sga",
+          "page_idx": 0,
+          "from_reservation": true
+        },
+        {
+          "status": "FAULT_SUCCESS",
+          "vma_id": "pg_sga",
+          "page_idx": 1,
+          "from_reservation": true
+        },
+        {
+          "status": "FAULT_SUCCESS",
+          "vma_id": "pg_sga",
+          "page_idx": 2,
+          "from_reservation": true
+        },
+        {
+          "status": "FAULT_SUCCESS",
+          "vma_id": "redis_vma",
+          "page_idx": 0,
+          "from_reservation": true
+        },
+        {
+          "status": "FAULT_SUCCESS",
+          "vma_id": "pg_sga",
+          "page_idx": 55,
+          "from_reservation": false
+        },
+        {
+          "status": "UNMAPPED",
+          "vma_id": "pg_sga",
+          "start": 1,
+          "end": 10,
+          "freed_physical": 2,
+          "freed_resv": 7
+        },
+        {
+          "status": "EBUSY",
+          "min_allowable": 67,
+          "attempted": 40
+        },
+        {
+          "status": "RESIZED",
+          "total_pages": 80,
+          "free_pages": 77
+        },
+        {
+          "global_total_pages": 80,
+          "global_free_pages": 77,
+          "global_resv_pages": 64,
+          "global_allocated_pages": 3,
+          "subpools": {
+            "default": {
+              "max_pages": -1,
+              "used_pages": 0,
+              "rsv_pages": 0
+            },
+            "pg_shared_mem": {
+              "max_pages": 60,
+              "used_pages": 2,
+              "rsv_pages": 40
+            },
+            "redis_cache": {
+              "max_pages": 30,
+              "used_pages": 1,
+              "rsv_pages": 24
+            }
+          },
+          "sigbus_count": 0
+        }
+      ]
+    }
+  }
+]
