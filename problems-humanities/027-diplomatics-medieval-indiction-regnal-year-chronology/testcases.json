@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "description": "Magna Carta Julian chronology: DOW, Computus Easter Sunday, Golden Number, and 4 Indictions",
+    "input": "{\"mode\": \"calculate_chronology\", \"year\": 1215, \"month\": 6, \"day\": 15}",
+    "expected_output": "{\"mode\": \"calculate_chronology\", \"julian_date\": \"1215-06-15\", \"day_of_week\": \"Monday\", \"golden_number\": 19, \"easter_sunday\": \"1215-04-19\", \"indictions\": {\"byzantine\": 3, \"bedan\": 3, \"roman\": 3, \"circumcision\": 3}, \"calendar_years\": {\"circumcision\": 1215, \"nativity\": 1215, \"florentine\": 1215, \"pisan\": 1216, \"easter\": 1215}}"
+  },
+  {
+    "id": 2,
+    "description": "Black Death era fall Indiction boundary: Byzantine and Bedan shift before Roman",
+    "input": "{\"mode\": \"calculate_chronology\", \"year\": 1348, \"month\": 11, \"day\": 1}",
+    "expected_output": "{\"mode\": \"calculate_chronology\", \"julian_date\": \"1348-11-01\", \"day_of_week\": \"Saturday\", \"golden_number\": 19, \"easter_sunday\": \"1348-04-20\", \"indictions\": {\"byzantine\": 2, \"bedan\": 2, \"roman\": 1, \"circumcision\": 1}, \"calendar_years\": {\"circumcision\": 1348, \"nativity\": 1348, \"florentine\": 1348, \"pisan\": 1349, \"easter\": 1348}}"
+  },
+  {
+    "id": 3,
+    "description": "Agincourt winter Julian date: Florentine and Easter style early-year lag",
+    "input": "{\"mode\": \"calculate_chronology\", \"year\": 1415, \"month\": 1, \"day\": 20}",
+    "expected_output": "{\"mode\": \"calculate_chronology\", \"julian_date\": \"1415-01-20\", \"day_of_week\": \"Sunday\", \"golden_number\": 10, \"easter_sunday\": \"1415-03-31\", \"indictions\": {\"byzantine\": 8, \"bedan\": 8, \"roman\": 8, \"circumcision\": 8}, \"calendar_years\": {\"circumcision\": 1415, \"nativity\": 1415, \"florentine\": 1414, \"pisan\": 1415, \"easter\": 1414}}"
+  },
+  {
+    "id": 4,
+    "description": "Regnal year conversion: Edward III 14th regnal year at Battle of Sluys",
+    "input": "{\"mode\": \"convert_regnal_to_julian\", \"monarch\": \"Edward III\", \"accession_date\": \"1327-01-25\", \"regnal_year\": 14, \"month\": 6, \"day\": 24}",
+    "expected_output": "{\"mode\": \"convert_regnal_to_julian\", \"monarch\": \"Edward III\", \"regnal_year\": 14, \"julian_date\": \"1340-06-24\", \"day_of_week\": \"Saturday\", \"indiction_roman\": 8}"
+  },
+  {
+    "id": 5,
+    "description": "Regnal year conversion: Henry V 3rd regnal year on St Crispin's Day Agincourt",
+    "input": "{\"mode\": \"convert_regnal_to_julian\", \"monarch\": \"Henry V\", \"accession_date\": \"1413-03-20\", \"regnal_year\": 3, \"month\": 10, \"day\": 25}",
+    "expected_output": "{\"mode\": \"convert_regnal_to_julian\", \"monarch\": \"Henry V\", \"regnal_year\": 3, \"julian_date\": \"1415-10-25\", \"day_of_week\": \"Friday\", \"indiction_roman\": 8}"
+  },
+  {
+    "id": 6,
+    "description": "Charter authenticity verification: Genuine Magna Carta and Innocent III Papal Bull",
+    "input": "{\"mode\": \"verify_charters\", \"monarch_registry\": {\"John\": {\"accession_date\": \"1199-05-27\", \"end_date\": \"1216-10-19\"}, \"Innocent III\": {\"accession_date\": \"1198-02-22\", \"end_date\": \"1216-07-16\"}}, \"charters\": [{\"charter_id\": \"CH-MAGNA-CARTA-1215\", \"stated_date\": {\"anno_domini\": 1215, \"calendar_style\": \"circumcision\", \"month\": 6, \"day\": 15, \"day_of_week\": \"Monday\", \"indiction\": 3, \"indiction_style\": \"roman\", \"monarch\": \"John\", \"regnal_year\": 17}}, {\"charter_id\": \"BULL-INNOCENT-III-1199\", \"stated_date\": {\"anno_domini\": 1200, \"calendar_style\": \"nativity\", \"month\": 12, \"day\": 28, \"day_of_week\": \"Tuesday\", \"indiction\": 3, \"indiction_style\": \"roman\", \"monarch\": \"Innocent III\", \"regnal_year\": 2}}]}",
+    "expected_output": "{\"mode\": \"verify_charters\", \"results\": [{\"charter_id\": \"CH-MAGNA-CARTA-1215\", \"resolved_julian_date\": \"1215-06-15\", \"actual_day_of_week\": \"Monday\", \"calculated_indiction\": 3, \"calculated_regnal_year\": 17, \"status\": \"AUTHENTIC\", \"discrepancies\": []}, {\"charter_id\": \"BULL-INNOCENT-III-1199\", \"resolved_julian_date\": \"1199-12-28\", \"actual_day_of_week\": \"Tuesday\", \"calculated_indiction\": 3, \"calculated_regnal_year\": 2, \"status\": \"AUTHENTIC\", \"discrepancies\": []}]}"
+  },
+  {
+    "id": 7,
+    "description": "Monastic forgery detection: Flagging anachronistic William I charter and suspicious scribe slip",
+    "input": "{\"mode\": \"verify_charters\", \"monarch_registry\": {\"William I\": {\"accession_date\": \"1066-12-25\", \"end_date\": \"1087-09-09\"}, \"Henry III\": {\"accession_date\": \"1216-10-28\", \"end_date\": \"1272-11-16\"}}, \"charters\": [{\"charter_id\": \"FORGERY-CROWLAND-01\", \"stated_date\": {\"anno_domini\": 1086, \"calendar_style\": \"circumcision\", \"month\": 8, \"day\": 1, \"day_of_week\": \"Sunday\", \"indiction\": 12, \"indiction_style\": \"bedan\", \"monarch\": \"William I\", \"regnal_year\": 25}}, {\"charter_id\": \"SUSPICIOUS-HENRY-III-SCRIBE-SLIP\", \"stated_date\": {\"anno_domini\": 1258, \"calendar_style\": \"circumcision\", \"month\": 5, \"day\": 2, \"day_of_week\": \"Friday\", \"indiction\": 1, \"indiction_style\": \"roman\", \"monarch\": \"Henry III\", \"regnal_year\": 42}}]}",
+    "expected_output": "{\"mode\": \"verify_charters\", \"results\": [{\"charter_id\": \"FORGERY-CROWLAND-01\", \"resolved_julian_date\": \"1086-08-01\", \"actual_day_of_week\": \"Saturday\", \"calculated_indiction\": 9, \"calculated_regnal_year\": 20, \"status\": \"ANACHRONISTIC_FORGERY\", \"discrepancies\": [\"DAY_OF_WEEK_MISMATCH: stated Sunday, calculated Saturday\", \"INDICTION_MISMATCH: stated 12, calculated 9 (bedan style)\", \"REGNAL_YEAR_MISMATCH: stated 25, calculated 20\"]}, {\"charter_id\": \"SUSPICIOUS-HENRY-III-SCRIBE-SLIP\", \"resolved_julian_date\": \"1258-05-02\", \"actual_day_of_week\": \"Thursday\", \"calculated_indiction\": 1, \"calculated_regnal_year\": 42, \"status\": \"SUSPICIOUS\", \"discrepancies\": [\"DAY_OF_WEEK_MISMATCH: stated Friday, calculated Thursday\"]}]}"
+  },
+  {
+    "id": 8,
+    "description": "Florentine, French Royal Easter, and invalid leap date forgery unmasking",
+    "input": "{\"mode\": \"verify_charters\", \"monarch_registry\": {\"Philip IV\": {\"accession_date\": \"1285-10-05\", \"end_date\": \"1314-11-29\"}}, \"charters\": [{\"charter_id\": \"FLORENCE-ARCHIVE-1301\", \"stated_date\": {\"anno_domini\": 1300, \"calendar_style\": \"florentine\", \"month\": 2, \"day\": 14, \"day_of_week\": \"Tuesday\", \"indiction\": 14, \"indiction_style\": \"roman\"}}, {\"charter_id\": \"PARIS-ROYAL-PHILIP-IV\", \"stated_date\": {\"anno_domini\": 1299, \"calendar_style\": \"easter\", \"month\": 3, \"day\": 20, \"day_of_week\": \"Sunday\", \"indiction\": 13, \"indiction_style\": \"roman\", \"monarch\": \"Philip IV\", \"regnal_year\": 15}}, {\"charter_id\": \"FORGED-CLUNY-INVALID-DATE\", \"stated_date\": {\"anno_domini\": 1301, \"calendar_style\": \"circumcision\", \"month\": 2, \"day\": 29, \"day_of_week\": \"Friday\", \"indiction\": 14, \"indiction_style\": \"roman\"}}]}",
+    "expected_output": "{\"mode\": \"verify_charters\", \"results\": [{\"charter_id\": \"FLORENCE-ARCHIVE-1301\", \"resolved_julian_date\": \"1301-02-14\", \"actual_day_of_week\": \"Tuesday\", \"calculated_indiction\": 14, \"calculated_regnal_year\": null, \"status\": \"AUTHENTIC\", \"discrepancies\": []}, {\"charter_id\": \"PARIS-ROYAL-PHILIP-IV\", \"resolved_julian_date\": \"1300-03-20\", \"actual_day_of_week\": \"Sunday\", \"calculated_indiction\": 13, \"calculated_regnal_year\": 15, \"status\": \"AUTHENTIC\", \"discrepancies\": []}, {\"charter_id\": \"FORGED-CLUNY-INVALID-DATE\", \"resolved_julian_date\": \"1301-02-29\", \"actual_day_of_week\": null, \"calculated_indiction\": null, \"calculated_regnal_year\": null, \"status\": \"ANACHRONISTIC_FORGERY\", \"discrepancies\": [\"INVALID_CALENDAR_DATE: 1301-02-29 does not exist in Julian calendar\"]}]}"
+  }
+]
