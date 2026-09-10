@@ -1,0 +1,1376 @@
+[
+  {
+    "input": {
+      "config": {},
+      "trace": [
+        {
+          "time": 10,
+          "type": "RMI_GRANULE_DELEGATE",
+          "pa": "0x10000"
+        },
+        {
+          "time": 20,
+          "type": "RMI_REALM_CREATE",
+          "realm_id": "realm_01"
+        },
+        {
+          "time": 30,
+          "type": "RMI_RTT_MAP",
+          "realm_id": "realm_01",
+          "ipa": "0x40000000",
+          "pa": "0x10000",
+          "data_hash": "boot_code_v1"
+        },
+        {
+          "time": 40,
+          "type": "RMI_REALM_ACTIVATE",
+          "realm_id": "realm_01"
+        },
+        {
+          "time": 50,
+          "type": "HOST_ACCESS_ATTEMPT",
+          "pa": "0x10000",
+          "access_type": "READ"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "delegated_granules_count": 1,
+        "undelegated_granules_count": 0,
+        "gpc_faults_blocked": 1,
+        "realms_created": 1,
+        "realms_active": 1
+      },
+      "realms": {
+        "realm_01": {
+          "state": "ACTIVE",
+          "measurement": "939fc3e878f9df81",
+          "mapped_pages_count": 1
+        }
+      },
+      "granules": {
+        "0x10000": {
+          "state": "REALM",
+          "realm_id": "realm_01",
+          "scrubbed": false
+        }
+      },
+      "security_logs": [
+        {
+          "time": 40,
+          "action": "REALM_SEALED_AND_ACTIVATED",
+          "realm_id": "realm_01",
+          "final_measurement": "939fc3e878f9df81"
+        },
+        {
+          "time": 50,
+          "action": "GPC_FAULT_BLOCKED",
+          "pa": "0x10000",
+          "access_type": "READ",
+          "granule_state": "REALM",
+          "realm_id": "realm_01"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "RMI_GRANULE_DELEGATE_SUCCESS",
+          "pa": "0x10000",
+          "new_state": "REALM"
+        },
+        {
+          "time": 20,
+          "event": "RMI_REALM_CREATE_SUCCESS",
+          "realm_id": "realm_01",
+          "initial_measurement": "1218ae3f5d4a1ff8"
+        },
+        {
+          "time": 30,
+          "event": "RMI_RTT_MAP_SUCCESS",
+          "realm_id": "realm_01",
+          "ipa": "0x40000000",
+          "pa": "0x10000",
+          "new_measurement": "939fc3e878f9df81"
+        },
+        {
+          "time": 40,
+          "event": "RMI_REALM_ACTIVATE_SUCCESS",
+          "realm_id": "realm_01",
+          "final_measurement": "939fc3e878f9df81"
+        },
+        {
+          "time": 50,
+          "event": "HARDWARE_GPC_FAULT",
+          "pa": "0x10000",
+          "status": "TERMINATED_BY_GPC"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "trace": [
+        {
+          "time": 10,
+          "type": "RMI_GRANULE_DELEGATE",
+          "pa": "0x20000"
+        },
+        {
+          "time": 20,
+          "type": "RMI_GRANULE_DELEGATE",
+          "pa": "0x21000"
+        },
+        {
+          "time": 30,
+          "type": "RMI_REALM_CREATE",
+          "realm_id": "realm_attest"
+        },
+        {
+          "time": 40,
+          "type": "RMI_RTT_MAP",
+          "realm_id": "realm_attest",
+          "ipa": "0x80000000",
+          "pa": "0x20000",
+          "data_hash": "firmware_sec"
+        },
+        {
+          "time": 50,
+          "type": "RMI_RTT_MAP",
+          "realm_id": "realm_attest",
+          "ipa": "0x80001000",
+          "pa": "0x21000",
+          "data_hash": "os_kernel_image"
+        },
+        {
+          "time": 60,
+          "type": "RMI_REALM_ACTIVATE",
+          "realm_id": "realm_attest"
+        },
+        {
+          "time": 70,
+          "type": "RSI_ATTESTATION_TOKEN",
+          "realm_id": "realm_attest",
+          "challenge": "nonce_cca_987654"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "delegated_granules_count": 2,
+        "undelegated_granules_count": 0,
+        "gpc_faults_blocked": 0,
+        "realms_created": 1,
+        "realms_active": 1
+      },
+      "realms": {
+        "realm_attest": {
+          "state": "ACTIVE",
+          "measurement": "c1b1bde9003d5c7a",
+          "mapped_pages_count": 2
+        }
+      },
+      "granules": {
+        "0x20000": {
+          "state": "REALM",
+          "realm_id": "realm_attest",
+          "scrubbed": false
+        },
+        "0x21000": {
+          "state": "REALM",
+          "realm_id": "realm_attest",
+          "scrubbed": false
+        }
+      },
+      "security_logs": [
+        {
+          "time": 60,
+          "action": "REALM_SEALED_AND_ACTIVATED",
+          "realm_id": "realm_attest",
+          "final_measurement": "c1b1bde9003d5c7a"
+        },
+        {
+          "time": 70,
+          "action": "RSI_ATTESTATION_ISSUED",
+          "realm_id": "realm_attest",
+          "token": {
+            "realm_id": "realm_attest",
+            "state": "ACTIVE",
+            "measurement": "c1b1bde9003d5c7a",
+            "challenge": "nonce_cca_987654",
+            "token_signature": "acf55c47608e9a514d08dc76"
+          }
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "RMI_GRANULE_DELEGATE_SUCCESS",
+          "pa": "0x20000",
+          "new_state": "REALM"
+        },
+        {
+          "time": 20,
+          "event": "RMI_GRANULE_DELEGATE_SUCCESS",
+          "pa": "0x21000",
+          "new_state": "REALM"
+        },
+        {
+          "time": 30,
+          "event": "RMI_REALM_CREATE_SUCCESS",
+          "realm_id": "realm_attest",
+          "initial_measurement": "1218ae3f5d4a1ff8"
+        },
+        {
+          "time": 40,
+          "event": "RMI_RTT_MAP_SUCCESS",
+          "realm_id": "realm_attest",
+          "ipa": "0x80000000",
+          "pa": "0x20000",
+          "new_measurement": "5b33c1281acddf72"
+        },
+        {
+          "time": 50,
+          "event": "RMI_RTT_MAP_SUCCESS",
+          "realm_id": "realm_attest",
+          "ipa": "0x80001000",
+          "pa": "0x21000",
+          "new_measurement": "c1b1bde9003d5c7a"
+        },
+        {
+          "time": 60,
+          "event": "RMI_REALM_ACTIVATE_SUCCESS",
+          "realm_id": "realm_attest",
+          "final_measurement": "c1b1bde9003d5c7a"
+        },
+        {
+          "time": 70,
+          "event": "RSI_ATTESTATION_TOKEN_SUCCESS",
+          "realm_id": "realm_attest"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "trace": [
+        {
+          "time": 10,
+          "type": "RMI_GRANULE_DELEGATE",
+          "pa": "0x30000"
+        },
+        {
+          "time": 20,
+          "type": "RMI_REALM_CREATE",
+          "realm_id": "realm_finance"
+        },
+        {
+          "time": 30,
+          "type": "RMI_RTT_MAP",
+          "realm_id": "realm_finance",
+          "ipa": "0x1000",
+          "pa": "0x30000",
+          "data_hash": "wallet_keys"
+        },
+        {
+          "time": 40,
+          "type": "RMI_REALM_ACTIVATE",
+          "realm_id": "realm_finance"
+        },
+        {
+          "time": 50,
+          "type": "HOST_ACCESS_ATTEMPT",
+          "pa": "0x30000",
+          "access_type": "READ"
+        },
+        {
+          "time": 60,
+          "type": "HOST_ACCESS_ATTEMPT",
+          "pa": "0x30000",
+          "access_type": "WRITE"
+        },
+        {
+          "time": 70,
+          "type": "HOST_ACCESS_ATTEMPT",
+          "pa": "0x99000",
+          "access_type": "READ"
+        },
+        {
+          "time": 80,
+          "type": "HOST_ACCESS_ATTEMPT",
+          "pa": "0x99000",
+          "access_type": "WRITE"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "delegated_granules_count": 1,
+        "undelegated_granules_count": 0,
+        "gpc_faults_blocked": 2,
+        "realms_created": 1,
+        "realms_active": 1
+      },
+      "realms": {
+        "realm_finance": {
+          "state": "ACTIVE",
+          "measurement": "ac179feb20685988",
+          "mapped_pages_count": 1
+        }
+      },
+      "granules": {
+        "0x30000": {
+          "state": "REALM",
+          "realm_id": "realm_finance",
+          "scrubbed": false
+        },
+        "0x99000": {
+          "state": "NON_SECURE",
+          "realm_id": null,
+          "scrubbed": true
+        }
+      },
+      "security_logs": [
+        {
+          "time": 40,
+          "action": "REALM_SEALED_AND_ACTIVATED",
+          "realm_id": "realm_finance",
+          "final_measurement": "ac179feb20685988"
+        },
+        {
+          "time": 50,
+          "action": "GPC_FAULT_BLOCKED",
+          "pa": "0x30000",
+          "access_type": "READ",
+          "granule_state": "REALM",
+          "realm_id": "realm_finance"
+        },
+        {
+          "time": 60,
+          "action": "GPC_FAULT_BLOCKED",
+          "pa": "0x30000",
+          "access_type": "WRITE",
+          "granule_state": "REALM",
+          "realm_id": "realm_finance"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "RMI_GRANULE_DELEGATE_SUCCESS",
+          "pa": "0x30000",
+          "new_state": "REALM"
+        },
+        {
+          "time": 20,
+          "event": "RMI_REALM_CREATE_SUCCESS",
+          "realm_id": "realm_finance",
+          "initial_measurement": "1218ae3f5d4a1ff8"
+        },
+        {
+          "time": 30,
+          "event": "RMI_RTT_MAP_SUCCESS",
+          "realm_id": "realm_finance",
+          "ipa": "0x1000",
+          "pa": "0x30000",
+          "new_measurement": "ac179feb20685988"
+        },
+        {
+          "time": 40,
+          "event": "RMI_REALM_ACTIVATE_SUCCESS",
+          "realm_id": "realm_finance",
+          "final_measurement": "ac179feb20685988"
+        },
+        {
+          "time": 50,
+          "event": "HARDWARE_GPC_FAULT",
+          "pa": "0x30000",
+          "status": "TERMINATED_BY_GPC"
+        },
+        {
+          "time": 60,
+          "event": "HARDWARE_GPC_FAULT",
+          "pa": "0x30000",
+          "status": "TERMINATED_BY_GPC"
+        },
+        {
+          "time": 70,
+          "event": "HOST_ACCESS_ALLOWED",
+          "pa": "0x99000",
+          "access_type": "READ"
+        },
+        {
+          "time": 80,
+          "event": "HOST_ACCESS_ALLOWED",
+          "pa": "0x99000",
+          "access_type": "WRITE"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "trace": [
+        {
+          "time": 10,
+          "type": "RMI_REALM_CREATE",
+          "realm_id": "realm_test"
+        },
+        {
+          "time": 20,
+          "type": "RMI_REALM_CREATE",
+          "realm_id": "realm_test"
+        },
+        {
+          "time": 30,
+          "type": "RMI_RTT_MAP",
+          "realm_id": "realm_test",
+          "ipa": "0x1000",
+          "pa": "0x40000",
+          "data_hash": "payload"
+        },
+        {
+          "time": 40,
+          "type": "RMI_GRANULE_DELEGATE",
+          "pa": "0x40000"
+        },
+        {
+          "time": 50,
+          "type": "RMI_GRANULE_DELEGATE",
+          "pa": "0x40000"
+        },
+        {
+          "time": 60,
+          "type": "RMI_RTT_MAP",
+          "realm_id": "realm_test",
+          "ipa": "0x1000",
+          "pa": "0x40000",
+          "data_hash": "payload"
+        },
+        {
+          "time": 70,
+          "type": "RMI_REALM_ACTIVATE",
+          "realm_id": "realm_test"
+        },
+        {
+          "time": 80,
+          "type": "RMI_RTT_MAP",
+          "realm_id": "realm_test",
+          "ipa": "0x2000",
+          "pa": "0x41000",
+          "data_hash": "extra"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "delegated_granules_count": 1,
+        "undelegated_granules_count": 0,
+        "gpc_faults_blocked": 0,
+        "realms_created": 1,
+        "realms_active": 1
+      },
+      "realms": {
+        "realm_test": {
+          "state": "ACTIVE",
+          "measurement": "86ea5a87c2f3f363",
+          "mapped_pages_count": 1
+        }
+      },
+      "granules": {
+        "0x40000": {
+          "state": "REALM",
+          "realm_id": "realm_test",
+          "scrubbed": false
+        }
+      },
+      "security_logs": [
+        {
+          "time": 70,
+          "action": "REALM_SEALED_AND_ACTIVATED",
+          "realm_id": "realm_test",
+          "final_measurement": "86ea5a87c2f3f363"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "RMI_REALM_CREATE_SUCCESS",
+          "realm_id": "realm_test",
+          "initial_measurement": "1218ae3f5d4a1ff8"
+        },
+        {
+          "time": 20,
+          "event": "RMI_ERROR",
+          "error": "REALM_ALREADY_EXISTS",
+          "realm_id": "realm_test"
+        },
+        {
+          "time": 30,
+          "event": "RMI_ERROR",
+          "error": "GRANULE_INVALID_OR_ALREADY_MAPPED",
+          "pa": "0x40000"
+        },
+        {
+          "time": 40,
+          "event": "RMI_GRANULE_DELEGATE_SUCCESS",
+          "pa": "0x40000",
+          "new_state": "REALM"
+        },
+        {
+          "time": 50,
+          "event": "RMI_ERROR",
+          "error": "RMI_ERROR_INPUT_NOT_NON_SECURE",
+          "pa": "0x40000"
+        },
+        {
+          "time": 60,
+          "event": "RMI_RTT_MAP_SUCCESS",
+          "realm_id": "realm_test",
+          "ipa": "0x1000",
+          "pa": "0x40000",
+          "new_measurement": "86ea5a87c2f3f363"
+        },
+        {
+          "time": 70,
+          "event": "RMI_REALM_ACTIVATE_SUCCESS",
+          "realm_id": "realm_test",
+          "final_measurement": "86ea5a87c2f3f363"
+        },
+        {
+          "time": 80,
+          "event": "RMI_ERROR",
+          "error": "REALM_NOT_IN_NEW_STATE",
+          "realm_id": "realm_test"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "trace": [
+        {
+          "time": 10,
+          "type": "RMI_GRANULE_DELEGATE",
+          "pa": "0x50000"
+        },
+        {
+          "time": 20,
+          "type": "RMI_REALM_CREATE",
+          "realm_id": "realm_ephemeral"
+        },
+        {
+          "time": 30,
+          "type": "RMI_RTT_MAP",
+          "realm_id": "realm_ephemeral",
+          "ipa": "0x1000",
+          "pa": "0x50000",
+          "data_hash": "temp_secret"
+        },
+        {
+          "time": 40,
+          "type": "RMI_REALM_ACTIVATE",
+          "realm_id": "realm_ephemeral"
+        },
+        {
+          "time": 50,
+          "type": "RMI_GRANULE_UNDELEGATE",
+          "pa": "0x50000"
+        },
+        {
+          "time": 60,
+          "type": "RMI_REALM_DESTROY",
+          "realm_id": "realm_ephemeral"
+        },
+        {
+          "time": 70,
+          "type": "RMI_GRANULE_UNDELEGATE",
+          "pa": "0x50000"
+        },
+        {
+          "time": 80,
+          "type": "HOST_ACCESS_ATTEMPT",
+          "pa": "0x50000",
+          "access_type": "READ"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "delegated_granules_count": 1,
+        "undelegated_granules_count": 1,
+        "gpc_faults_blocked": 0,
+        "realms_created": 1,
+        "realms_active": 0
+      },
+      "realms": {
+        "realm_ephemeral": {
+          "state": "DESTROYED",
+          "measurement": "1030b420d9f363d8",
+          "mapped_pages_count": 1
+        }
+      },
+      "granules": {
+        "0x50000": {
+          "state": "NON_SECURE",
+          "realm_id": null,
+          "scrubbed": true
+        }
+      },
+      "security_logs": [
+        {
+          "time": 40,
+          "action": "REALM_SEALED_AND_ACTIVATED",
+          "realm_id": "realm_ephemeral",
+          "final_measurement": "1030b420d9f363d8"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "RMI_GRANULE_DELEGATE_SUCCESS",
+          "pa": "0x50000",
+          "new_state": "REALM"
+        },
+        {
+          "time": 20,
+          "event": "RMI_REALM_CREATE_SUCCESS",
+          "realm_id": "realm_ephemeral",
+          "initial_measurement": "1218ae3f5d4a1ff8"
+        },
+        {
+          "time": 30,
+          "event": "RMI_RTT_MAP_SUCCESS",
+          "realm_id": "realm_ephemeral",
+          "ipa": "0x1000",
+          "pa": "0x50000",
+          "new_measurement": "1030b420d9f363d8"
+        },
+        {
+          "time": 40,
+          "event": "RMI_REALM_ACTIVATE_SUCCESS",
+          "realm_id": "realm_ephemeral",
+          "final_measurement": "1030b420d9f363d8"
+        },
+        {
+          "time": 50,
+          "event": "RMI_ERROR",
+          "error": "GRANULE_STILL_ASSIGNED_TO_REALM",
+          "pa": "0x50000",
+          "realm_id": "realm_ephemeral"
+        },
+        {
+          "time": 60,
+          "event": "RMI_REALM_DESTROY_SUCCESS",
+          "realm_id": "realm_ephemeral"
+        },
+        {
+          "time": 70,
+          "event": "RMI_GRANULE_UNDELEGATE_SUCCESS",
+          "pa": "0x50000",
+          "new_state": "NON_SECURE",
+          "scrubbed": true
+        },
+        {
+          "time": 80,
+          "event": "HOST_ACCESS_ALLOWED",
+          "pa": "0x50000",
+          "access_type": "READ"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "trace": [
+        {
+          "time": 10,
+          "type": "RMI_GRANULE_DELEGATE",
+          "pa": "0x61000"
+        },
+        {
+          "time": 20,
+          "type": "RMI_GRANULE_DELEGATE",
+          "pa": "0x62000"
+        },
+        {
+          "time": 30,
+          "type": "RMI_REALM_CREATE",
+          "realm_id": "realm_tenant_A"
+        },
+        {
+          "time": 40,
+          "type": "RMI_REALM_CREATE",
+          "realm_id": "realm_tenant_B"
+        },
+        {
+          "time": 50,
+          "type": "RMI_RTT_MAP",
+          "realm_id": "realm_tenant_A",
+          "ipa": "0x1000",
+          "pa": "0x61000",
+          "data_hash": "data_A"
+        },
+        {
+          "time": 60,
+          "type": "RMI_RTT_MAP",
+          "realm_id": "realm_tenant_B",
+          "ipa": "0x1000",
+          "pa": "0x61000",
+          "data_hash": "hijack_attempt"
+        },
+        {
+          "time": 70,
+          "type": "RMI_RTT_MAP",
+          "realm_id": "realm_tenant_B",
+          "ipa": "0x1000",
+          "pa": "0x62000",
+          "data_hash": "data_B"
+        },
+        {
+          "time": 80,
+          "type": "RMI_REALM_ACTIVATE",
+          "realm_id": "realm_tenant_A"
+        },
+        {
+          "time": 90,
+          "type": "RMI_REALM_ACTIVATE",
+          "realm_id": "realm_tenant_B"
+        },
+        {
+          "time": 100,
+          "type": "HOST_ACCESS_ATTEMPT",
+          "pa": "0x61000",
+          "access_type": "READ"
+        },
+        {
+          "time": 110,
+          "type": "HOST_ACCESS_ATTEMPT",
+          "pa": "0x62000",
+          "access_type": "WRITE"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "delegated_granules_count": 2,
+        "undelegated_granules_count": 0,
+        "gpc_faults_blocked": 2,
+        "realms_created": 2,
+        "realms_active": 2
+      },
+      "realms": {
+        "realm_tenant_A": {
+          "state": "ACTIVE",
+          "measurement": "09ab25b03db91d7b",
+          "mapped_pages_count": 1
+        },
+        "realm_tenant_B": {
+          "state": "ACTIVE",
+          "measurement": "282a1e1c46b04a63",
+          "mapped_pages_count": 1
+        }
+      },
+      "granules": {
+        "0x61000": {
+          "state": "REALM",
+          "realm_id": "realm_tenant_A",
+          "scrubbed": false
+        },
+        "0x62000": {
+          "state": "REALM",
+          "realm_id": "realm_tenant_B",
+          "scrubbed": false
+        }
+      },
+      "security_logs": [
+        {
+          "time": 80,
+          "action": "REALM_SEALED_AND_ACTIVATED",
+          "realm_id": "realm_tenant_A",
+          "final_measurement": "09ab25b03db91d7b"
+        },
+        {
+          "time": 90,
+          "action": "REALM_SEALED_AND_ACTIVATED",
+          "realm_id": "realm_tenant_B",
+          "final_measurement": "282a1e1c46b04a63"
+        },
+        {
+          "time": 100,
+          "action": "GPC_FAULT_BLOCKED",
+          "pa": "0x61000",
+          "access_type": "READ",
+          "granule_state": "REALM",
+          "realm_id": "realm_tenant_A"
+        },
+        {
+          "time": 110,
+          "action": "GPC_FAULT_BLOCKED",
+          "pa": "0x62000",
+          "access_type": "WRITE",
+          "granule_state": "REALM",
+          "realm_id": "realm_tenant_B"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "RMI_GRANULE_DELEGATE_SUCCESS",
+          "pa": "0x61000",
+          "new_state": "REALM"
+        },
+        {
+          "time": 20,
+          "event": "RMI_GRANULE_DELEGATE_SUCCESS",
+          "pa": "0x62000",
+          "new_state": "REALM"
+        },
+        {
+          "time": 30,
+          "event": "RMI_REALM_CREATE_SUCCESS",
+          "realm_id": "realm_tenant_A",
+          "initial_measurement": "1218ae3f5d4a1ff8"
+        },
+        {
+          "time": 40,
+          "event": "RMI_REALM_CREATE_SUCCESS",
+          "realm_id": "realm_tenant_B",
+          "initial_measurement": "1218ae3f5d4a1ff8"
+        },
+        {
+          "time": 50,
+          "event": "RMI_RTT_MAP_SUCCESS",
+          "realm_id": "realm_tenant_A",
+          "ipa": "0x1000",
+          "pa": "0x61000",
+          "new_measurement": "09ab25b03db91d7b"
+        },
+        {
+          "time": 60,
+          "event": "RMI_ERROR",
+          "error": "GRANULE_INVALID_OR_ALREADY_MAPPED",
+          "pa": "0x61000"
+        },
+        {
+          "time": 70,
+          "event": "RMI_RTT_MAP_SUCCESS",
+          "realm_id": "realm_tenant_B",
+          "ipa": "0x1000",
+          "pa": "0x62000",
+          "new_measurement": "282a1e1c46b04a63"
+        },
+        {
+          "time": 80,
+          "event": "RMI_REALM_ACTIVATE_SUCCESS",
+          "realm_id": "realm_tenant_A",
+          "final_measurement": "09ab25b03db91d7b"
+        },
+        {
+          "time": 90,
+          "event": "RMI_REALM_ACTIVATE_SUCCESS",
+          "realm_id": "realm_tenant_B",
+          "final_measurement": "282a1e1c46b04a63"
+        },
+        {
+          "time": 100,
+          "event": "HARDWARE_GPC_FAULT",
+          "pa": "0x61000",
+          "status": "TERMINATED_BY_GPC"
+        },
+        {
+          "time": 110,
+          "event": "HARDWARE_GPC_FAULT",
+          "pa": "0x62000",
+          "status": "TERMINATED_BY_GPC"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "trace": [
+        {
+          "time": 10,
+          "type": "RMI_GRANULE_DELEGATE",
+          "pa": "0x70000"
+        },
+        {
+          "time": 20,
+          "type": "RMI_REALM_CREATE",
+          "realm_id": "realm_attest_test"
+        },
+        {
+          "time": 30,
+          "type": "RMI_RTT_MAP",
+          "realm_id": "realm_attest_test",
+          "ipa": "0x1000",
+          "pa": "0x70000",
+          "data_hash": "base_img"
+        },
+        {
+          "time": 40,
+          "type": "RMI_REALM_ACTIVATE",
+          "realm_id": "realm_attest_test"
+        },
+        {
+          "time": 50,
+          "type": "RSI_ATTESTATION_TOKEN",
+          "realm_id": "realm_attest_test",
+          "challenge": "verifier_nonce_alpha"
+        },
+        {
+          "time": 60,
+          "type": "RSI_ATTESTATION_TOKEN",
+          "realm_id": "realm_attest_test",
+          "challenge": "verifier_nonce_beta"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "delegated_granules_count": 1,
+        "undelegated_granules_count": 0,
+        "gpc_faults_blocked": 0,
+        "realms_created": 1,
+        "realms_active": 1
+      },
+      "realms": {
+        "realm_attest_test": {
+          "state": "ACTIVE",
+          "measurement": "6d20ce1533b095f7",
+          "mapped_pages_count": 1
+        }
+      },
+      "granules": {
+        "0x70000": {
+          "state": "REALM",
+          "realm_id": "realm_attest_test",
+          "scrubbed": false
+        }
+      },
+      "security_logs": [
+        {
+          "time": 40,
+          "action": "REALM_SEALED_AND_ACTIVATED",
+          "realm_id": "realm_attest_test",
+          "final_measurement": "6d20ce1533b095f7"
+        },
+        {
+          "time": 50,
+          "action": "RSI_ATTESTATION_ISSUED",
+          "realm_id": "realm_attest_test",
+          "token": {
+            "realm_id": "realm_attest_test",
+            "state": "ACTIVE",
+            "measurement": "6d20ce1533b095f7",
+            "challenge": "verifier_nonce_alpha",
+            "token_signature": "065d7e1cfdd84cb326e5027d"
+          }
+        },
+        {
+          "time": 60,
+          "action": "RSI_ATTESTATION_ISSUED",
+          "realm_id": "realm_attest_test",
+          "token": {
+            "realm_id": "realm_attest_test",
+            "state": "ACTIVE",
+            "measurement": "6d20ce1533b095f7",
+            "challenge": "verifier_nonce_beta",
+            "token_signature": "18a2929f625c524709f2e41b"
+          }
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 10,
+          "event": "RMI_GRANULE_DELEGATE_SUCCESS",
+          "pa": "0x70000",
+          "new_state": "REALM"
+        },
+        {
+          "time": 20,
+          "event": "RMI_REALM_CREATE_SUCCESS",
+          "realm_id": "realm_attest_test",
+          "initial_measurement": "1218ae3f5d4a1ff8"
+        },
+        {
+          "time": 30,
+          "event": "RMI_RTT_MAP_SUCCESS",
+          "realm_id": "realm_attest_test",
+          "ipa": "0x1000",
+          "pa": "0x70000",
+          "new_measurement": "6d20ce1533b095f7"
+        },
+        {
+          "time": 40,
+          "event": "RMI_REALM_ACTIVATE_SUCCESS",
+          "realm_id": "realm_attest_test",
+          "final_measurement": "6d20ce1533b095f7"
+        },
+        {
+          "time": 50,
+          "event": "RSI_ATTESTATION_TOKEN_SUCCESS",
+          "realm_id": "realm_attest_test"
+        },
+        {
+          "time": 60,
+          "event": "RSI_ATTESTATION_TOKEN_SUCCESS",
+          "realm_id": "realm_attest_test"
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "config": {},
+      "trace": [
+        {
+          "time": 100,
+          "type": "RMI_GRANULE_DELEGATE",
+          "pa": "0x80000"
+        },
+        {
+          "time": 110,
+          "type": "RMI_GRANULE_DELEGATE",
+          "pa": "0x81000"
+        },
+        {
+          "time": 120,
+          "type": "RMI_GRANULE_DELEGATE",
+          "pa": "0x82000"
+        },
+        {
+          "time": 130,
+          "type": "RMI_GRANULE_DELEGATE",
+          "pa": "0x83000"
+        },
+        {
+          "time": 140,
+          "type": "RMI_REALM_CREATE",
+          "realm_id": "cloud_confidential_vm"
+        },
+        {
+          "time": 150,
+          "type": "RMI_RTT_MAP",
+          "realm_id": "cloud_confidential_vm",
+          "ipa": "0x1000",
+          "pa": "0x80000",
+          "data_hash": "edk2_firmware"
+        },
+        {
+          "time": 160,
+          "type": "RMI_RTT_MAP",
+          "realm_id": "cloud_confidential_vm",
+          "ipa": "0x2000",
+          "pa": "0x81000",
+          "data_hash": "vmlinuz_image"
+        },
+        {
+          "time": 170,
+          "type": "RMI_RTT_MAP",
+          "realm_id": "cloud_confidential_vm",
+          "ipa": "0x3000",
+          "pa": "0x82000",
+          "data_hash": "initramfs_archive"
+        },
+        {
+          "time": 180,
+          "type": "RMI_RTT_MAP",
+          "realm_id": "cloud_confidential_vm",
+          "ipa": "0x4000",
+          "pa": "0x83000",
+          "data_hash": "cloud_init_cfg"
+        },
+        {
+          "time": 190,
+          "type": "RMI_REALM_ACTIVATE",
+          "realm_id": "cloud_confidential_vm"
+        },
+        {
+          "time": 200,
+          "type": "RSI_ATTESTATION_TOKEN",
+          "realm_id": "cloud_confidential_vm",
+          "challenge": "k8s_control_plane_nonce_99"
+        },
+        {
+          "time": 210,
+          "type": "HOST_ACCESS_ATTEMPT",
+          "pa": "0x80000",
+          "access_type": "READ"
+        },
+        {
+          "time": 220,
+          "type": "HOST_ACCESS_ATTEMPT",
+          "pa": "0x81000",
+          "access_type": "WRITE"
+        },
+        {
+          "time": 230,
+          "type": "HOST_ACCESS_ATTEMPT",
+          "pa": "0x82000",
+          "access_type": "READ"
+        },
+        {
+          "time": 240,
+          "type": "HOST_ACCESS_ATTEMPT",
+          "pa": "0x83000",
+          "access_type": "WRITE"
+        },
+        {
+          "time": 250,
+          "type": "RMI_REALM_DESTROY",
+          "realm_id": "cloud_confidential_vm"
+        },
+        {
+          "time": 260,
+          "type": "RMI_GRANULE_UNDELEGATE",
+          "pa": "0x80000"
+        },
+        {
+          "time": 270,
+          "type": "RMI_GRANULE_UNDELEGATE",
+          "pa": "0x81000"
+        },
+        {
+          "time": 280,
+          "type": "RMI_GRANULE_UNDELEGATE",
+          "pa": "0x82000"
+        },
+        {
+          "time": 290,
+          "type": "RMI_GRANULE_UNDELEGATE",
+          "pa": "0x83000"
+        }
+      ]
+    },
+    "expected_output": {
+      "summary": {
+        "delegated_granules_count": 4,
+        "undelegated_granules_count": 4,
+        "gpc_faults_blocked": 4,
+        "realms_created": 1,
+        "realms_active": 0
+      },
+      "realms": {
+        "cloud_confidential_vm": {
+          "state": "DESTROYED",
+          "measurement": "570d8f7b33113603",
+          "mapped_pages_count": 4
+        }
+      },
+      "granules": {
+        "0x80000": {
+          "state": "NON_SECURE",
+          "realm_id": null,
+          "scrubbed": true
+        },
+        "0x81000": {
+          "state": "NON_SECURE",
+          "realm_id": null,
+          "scrubbed": true
+        },
+        "0x82000": {
+          "state": "NON_SECURE",
+          "realm_id": null,
+          "scrubbed": true
+        },
+        "0x83000": {
+          "state": "NON_SECURE",
+          "realm_id": null,
+          "scrubbed": true
+        }
+      },
+      "security_logs": [
+        {
+          "time": 190,
+          "action": "REALM_SEALED_AND_ACTIVATED",
+          "realm_id": "cloud_confidential_vm",
+          "final_measurement": "570d8f7b33113603"
+        },
+        {
+          "time": 200,
+          "action": "RSI_ATTESTATION_ISSUED",
+          "realm_id": "cloud_confidential_vm",
+          "token": {
+            "realm_id": "cloud_confidential_vm",
+            "state": "ACTIVE",
+            "measurement": "570d8f7b33113603",
+            "challenge": "k8s_control_plane_nonce_99",
+            "token_signature": "12123aaac327459632bea4c4"
+          }
+        },
+        {
+          "time": 210,
+          "action": "GPC_FAULT_BLOCKED",
+          "pa": "0x80000",
+          "access_type": "READ",
+          "granule_state": "REALM",
+          "realm_id": "cloud_confidential_vm"
+        },
+        {
+          "time": 220,
+          "action": "GPC_FAULT_BLOCKED",
+          "pa": "0x81000",
+          "access_type": "WRITE",
+          "granule_state": "REALM",
+          "realm_id": "cloud_confidential_vm"
+        },
+        {
+          "time": 230,
+          "action": "GPC_FAULT_BLOCKED",
+          "pa": "0x82000",
+          "access_type": "READ",
+          "granule_state": "REALM",
+          "realm_id": "cloud_confidential_vm"
+        },
+        {
+          "time": 240,
+          "action": "GPC_FAULT_BLOCKED",
+          "pa": "0x83000",
+          "access_type": "WRITE",
+          "granule_state": "REALM",
+          "realm_id": "cloud_confidential_vm"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 100,
+          "event": "RMI_GRANULE_DELEGATE_SUCCESS",
+          "pa": "0x80000",
+          "new_state": "REALM"
+        },
+        {
+          "time": 110,
+          "event": "RMI_GRANULE_DELEGATE_SUCCESS",
+          "pa": "0x81000",
+          "new_state": "REALM"
+        },
+        {
+          "time": 120,
+          "event": "RMI_GRANULE_DELEGATE_SUCCESS",
+          "pa": "0x82000",
+          "new_state": "REALM"
+        },
+        {
+          "time": 130,
+          "event": "RMI_GRANULE_DELEGATE_SUCCESS",
+          "pa": "0x83000",
+          "new_state": "REALM"
+        },
+        {
+          "time": 140,
+          "event": "RMI_REALM_CREATE_SUCCESS",
+          "realm_id": "cloud_confidential_vm",
+          "initial_measurement": "1218ae3f5d4a1ff8"
+        },
+        {
+          "time": 150,
+          "event": "RMI_RTT_MAP_SUCCESS",
+          "realm_id": "cloud_confidential_vm",
+          "ipa": "0x1000",
+          "pa": "0x80000",
+          "new_measurement": "105913cf1e48855e"
+        },
+        {
+          "time": 160,
+          "event": "RMI_RTT_MAP_SUCCESS",
+          "realm_id": "cloud_confidential_vm",
+          "ipa": "0x2000",
+          "pa": "0x81000",
+          "new_measurement": "ea8abc4985b56c89"
+        },
+        {
+          "time": 170,
+          "event": "RMI_RTT_MAP_SUCCESS",
+          "realm_id": "cloud_confidential_vm",
+          "ipa": "0x3000",
+          "pa": "0x82000",
+          "new_measurement": "3e44147c1f9500b1"
+        },
+        {
+          "time": 180,
+          "event": "RMI_RTT_MAP_SUCCESS",
+          "realm_id": "cloud_confidential_vm",
+          "ipa": "0x4000",
+          "pa": "0x83000",
+          "new_measurement": "570d8f7b33113603"
+        },
+        {
+          "time": 190,
+          "event": "RMI_REALM_ACTIVATE_SUCCESS",
+          "realm_id": "cloud_confidential_vm",
+          "final_measurement": "570d8f7b33113603"
+        },
+        {
+          "time": 200,
+          "event": "RSI_ATTESTATION_TOKEN_SUCCESS",
+          "realm_id": "cloud_confidential_vm"
+        },
+        {
+          "time": 210,
+          "event": "HARDWARE_GPC_FAULT",
+          "pa": "0x80000",
+          "status": "TERMINATED_BY_GPC"
+        },
+        {
+          "time": 220,
+          "event": "HARDWARE_GPC_FAULT",
+          "pa": "0x81000",
+          "status": "TERMINATED_BY_GPC"
+        },
+        {
+          "time": 230,
+          "event": "HARDWARE_GPC_FAULT",
+          "pa": "0x82000",
+          "status": "TERMINATED_BY_GPC"
+        },
+        {
+          "time": 240,
+          "event": "HARDWARE_GPC_FAULT",
+          "pa": "0x83000",
+          "status": "TERMINATED_BY_GPC"
+        },
+        {
+          "time": 250,
+          "event": "RMI_REALM_DESTROY_SUCCESS",
+          "realm_id": "cloud_confidential_vm"
+        },
+        {
+          "time": 260,
+          "event": "RMI_GRANULE_UNDELEGATE_SUCCESS",
+          "pa": "0x80000",
+          "new_state": "NON_SECURE",
+          "scrubbed": true
+        },
+        {
+          "time": 270,
+          "event": "RMI_GRANULE_UNDELEGATE_SUCCESS",
+          "pa": "0x81000",
+          "new_state": "NON_SECURE",
+          "scrubbed": true
+        },
+        {
+          "time": 280,
+          "event": "RMI_GRANULE_UNDELEGATE_SUCCESS",
+          "pa": "0x82000",
+          "new_state": "NON_SECURE",
+          "scrubbed": true
+        },
+        {
+          "time": 290,
+          "event": "RMI_GRANULE_UNDELEGATE_SUCCESS",
+          "pa": "0x83000",
+          "new_state": "NON_SECURE",
+          "scrubbed": true
+        }
+      ]
+    }
+  }
+]
