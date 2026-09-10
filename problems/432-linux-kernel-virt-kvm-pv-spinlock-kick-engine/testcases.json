@@ -1,0 +1,1161 @@
+[
+  {
+    "testcase_id": 1,
+    "input": {
+      "config": {
+        "spin_threshold": 512,
+        "cycles_per_spin": 2,
+        "cycles_halted_cost": 50,
+        "host_timeslice_cycles": 10000,
+        "vcpus": [
+          0,
+          1
+        ]
+      },
+      "trace": [
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 0
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 0
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 1
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 1
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 0,
+          "status": "ACQUIRED_FASTPATH",
+          "cycles": 1,
+          "lock_owner": 0
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 0,
+          "status": "RELEASED_NO_WAITERS",
+          "new_owner": null
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 1,
+          "status": "ACQUIRED_FASTPATH",
+          "cycles": 1,
+          "lock_owner": 1
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 1,
+          "status": "RELEASED_NO_WAITERS",
+          "new_owner": null
+        }
+      ],
+      "summary": {
+        "pv_fastpath_locks": 2,
+        "pv_waits_halted": 0,
+        "pv_kicks_issued": 0,
+        "lhp_detected_count": 0,
+        "total_spins": 0,
+        "total_cycles_consumed": 0,
+        "total_cycles_saved": 0,
+        "final_lock_owner": null,
+        "final_queue_length": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 2,
+    "input": {
+      "config": {
+        "spin_threshold": 256,
+        "cycles_per_spin": 2,
+        "cycles_halted_cost": 50,
+        "host_timeslice_cycles": 8000,
+        "vcpus": [
+          0,
+          1,
+          2
+        ]
+      },
+      "trace": [
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 0
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 1
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 2
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 0
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 1
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 2
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 0,
+          "status": "ACQUIRED_FASTPATH",
+          "cycles": 1,
+          "lock_owner": 0
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 1,
+          "status": "PV_WAIT_HALTED",
+          "lhp_detected": false,
+          "spins": 256,
+          "spin_cycles": 512,
+          "cycles_saved": 7438,
+          "lock_owner": 0,
+          "queue_position": 1
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 2,
+          "status": "PV_WAIT_HALTED",
+          "lhp_detected": false,
+          "spins": 256,
+          "spin_cycles": 512,
+          "cycles_saved": 7438,
+          "lock_owner": 0,
+          "queue_position": 2
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 0,
+          "status": "RELEASED_HANDOFF",
+          "new_owner": 1,
+          "pv_kick_issued": true,
+          "remaining_waiters": 1
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 1,
+          "status": "RELEASED_HANDOFF",
+          "new_owner": 2,
+          "pv_kick_issued": true,
+          "remaining_waiters": 0
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 2,
+          "status": "RELEASED_NO_WAITERS",
+          "new_owner": null
+        }
+      ],
+      "summary": {
+        "pv_fastpath_locks": 1,
+        "pv_waits_halted": 2,
+        "pv_kicks_issued": 2,
+        "lhp_detected_count": 0,
+        "total_spins": 512,
+        "total_cycles_consumed": 1024,
+        "total_cycles_saved": 14876,
+        "final_lock_owner": null,
+        "final_queue_length": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 3,
+    "input": {
+      "config": {
+        "spin_threshold": 512,
+        "cycles_per_spin": 2,
+        "cycles_halted_cost": 50,
+        "host_timeslice_cycles": 10000,
+        "vcpus": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "trace": [
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 0
+        },
+        {
+          "op": "HOST_PREEMPT",
+          "vcpu_id": 0
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 1
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 2
+        },
+        {
+          "op": "HOST_RESUME",
+          "vcpu_id": 0
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 0
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 1
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 2
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 0,
+          "status": "ACQUIRED_FASTPATH",
+          "cycles": 1,
+          "lock_owner": 0
+        },
+        {
+          "op": "HOST_PREEMPT",
+          "vcpu_id": 0,
+          "status": "VCPU_PREEMPTED",
+          "was_holding_lock": true
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 1,
+          "status": "PV_WAIT_HALTED",
+          "lhp_detected": true,
+          "spins": 512,
+          "spin_cycles": 1024,
+          "cycles_saved": 8926,
+          "lock_owner": 0,
+          "queue_position": 1
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 2,
+          "status": "PV_WAIT_HALTED",
+          "lhp_detected": true,
+          "spins": 512,
+          "spin_cycles": 1024,
+          "cycles_saved": 8926,
+          "lock_owner": 0,
+          "queue_position": 2
+        },
+        {
+          "op": "HOST_RESUME",
+          "vcpu_id": 0,
+          "status": "VCPU_RESUMED",
+          "is_holding_lock": true
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 0,
+          "status": "RELEASED_HANDOFF",
+          "new_owner": 1,
+          "pv_kick_issued": true,
+          "remaining_waiters": 1
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 1,
+          "status": "RELEASED_HANDOFF",
+          "new_owner": 2,
+          "pv_kick_issued": true,
+          "remaining_waiters": 0
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 2,
+          "status": "RELEASED_NO_WAITERS",
+          "new_owner": null
+        }
+      ],
+      "summary": {
+        "pv_fastpath_locks": 1,
+        "pv_waits_halted": 2,
+        "pv_kicks_issued": 2,
+        "lhp_detected_count": 2,
+        "total_spins": 1024,
+        "total_cycles_consumed": 2048,
+        "total_cycles_saved": 17852,
+        "final_lock_owner": null,
+        "final_queue_length": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 4,
+    "input": {
+      "config": {
+        "spin_threshold": 128,
+        "cycles_per_spin": 2,
+        "cycles_halted_cost": 30,
+        "host_timeslice_cycles": 5000,
+        "vcpus": [
+          0,
+          1,
+          2
+        ]
+      },
+      "trace": [
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 0
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 1
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 2
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 0
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 0,
+          "status": "ACQUIRED_FASTPATH",
+          "cycles": 1,
+          "lock_owner": 0
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 1,
+          "status": "EPERM_NOT_LOCK_OWNER",
+          "current_owner": 0
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 2,
+          "status": "EPERM_NOT_LOCK_OWNER",
+          "current_owner": 0
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 0,
+          "status": "RELEASED_NO_WAITERS",
+          "new_owner": null
+        }
+      ],
+      "summary": {
+        "pv_fastpath_locks": 1,
+        "pv_waits_halted": 0,
+        "pv_kicks_issued": 0,
+        "lhp_detected_count": 0,
+        "total_spins": 0,
+        "total_cycles_consumed": 0,
+        "total_cycles_saved": 0,
+        "final_lock_owner": null,
+        "final_queue_length": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 5,
+    "input": {
+      "config": {
+        "spin_threshold": 0,
+        "cycles_per_spin": 2,
+        "cycles_halted_cost": 20,
+        "host_timeslice_cycles": 10000,
+        "vcpus": [
+          0,
+          1,
+          2
+        ]
+      },
+      "trace": [
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 0
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 1
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 2
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 0
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 1
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 2
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 0,
+          "status": "ACQUIRED_FASTPATH",
+          "cycles": 1,
+          "lock_owner": 0
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 1,
+          "status": "PV_WAIT_HALTED",
+          "lhp_detected": false,
+          "spins": 0,
+          "spin_cycles": 0,
+          "cycles_saved": 9980,
+          "lock_owner": 0,
+          "queue_position": 1
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 2,
+          "status": "PV_WAIT_HALTED",
+          "lhp_detected": false,
+          "spins": 0,
+          "spin_cycles": 0,
+          "cycles_saved": 9980,
+          "lock_owner": 0,
+          "queue_position": 2
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 0,
+          "status": "RELEASED_HANDOFF",
+          "new_owner": 1,
+          "pv_kick_issued": true,
+          "remaining_waiters": 1
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 1,
+          "status": "RELEASED_HANDOFF",
+          "new_owner": 2,
+          "pv_kick_issued": true,
+          "remaining_waiters": 0
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 2,
+          "status": "RELEASED_NO_WAITERS",
+          "new_owner": null
+        }
+      ],
+      "summary": {
+        "pv_fastpath_locks": 1,
+        "pv_waits_halted": 2,
+        "pv_kicks_issued": 2,
+        "lhp_detected_count": 0,
+        "total_spins": 0,
+        "total_cycles_consumed": 0,
+        "total_cycles_saved": 19960,
+        "final_lock_owner": null,
+        "final_queue_length": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 6,
+    "input": {
+      "config": {
+        "spin_threshold": 512,
+        "cycles_per_spin": 2,
+        "cycles_halted_cost": 50,
+        "host_timeslice_cycles": 12000,
+        "vcpus": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "trace": [
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 0
+        },
+        {
+          "op": "HOST_PREEMPT",
+          "vcpu_id": 0
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 1
+        },
+        {
+          "op": "HOST_PREEMPT",
+          "vcpu_id": 1
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 2
+        },
+        {
+          "op": "HOST_RESUME",
+          "vcpu_id": 0
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 0
+        },
+        {
+          "op": "HOST_RESUME",
+          "vcpu_id": 1
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 1
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 2
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 0,
+          "status": "ACQUIRED_FASTPATH",
+          "cycles": 1,
+          "lock_owner": 0
+        },
+        {
+          "op": "HOST_PREEMPT",
+          "vcpu_id": 0,
+          "status": "VCPU_PREEMPTED",
+          "was_holding_lock": true
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 1,
+          "status": "PV_WAIT_HALTED",
+          "lhp_detected": true,
+          "spins": 512,
+          "spin_cycles": 1024,
+          "cycles_saved": 10926,
+          "lock_owner": 0,
+          "queue_position": 1
+        },
+        {
+          "op": "HOST_PREEMPT",
+          "vcpu_id": 1,
+          "status": "VCPU_PREEMPTED",
+          "was_holding_lock": false
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 2,
+          "status": "PV_WAIT_HALTED",
+          "lhp_detected": true,
+          "spins": 512,
+          "spin_cycles": 1024,
+          "cycles_saved": 10926,
+          "lock_owner": 0,
+          "queue_position": 2
+        },
+        {
+          "op": "HOST_RESUME",
+          "vcpu_id": 0,
+          "status": "VCPU_RESUMED",
+          "is_holding_lock": true
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 0,
+          "status": "RELEASED_HANDOFF",
+          "new_owner": 1,
+          "pv_kick_issued": true,
+          "remaining_waiters": 1
+        },
+        {
+          "op": "HOST_RESUME",
+          "vcpu_id": 1,
+          "status": "VCPU_RESUMED",
+          "is_holding_lock": true
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 1,
+          "status": "RELEASED_HANDOFF",
+          "new_owner": 2,
+          "pv_kick_issued": true,
+          "remaining_waiters": 0
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 2,
+          "status": "RELEASED_NO_WAITERS",
+          "new_owner": null
+        }
+      ],
+      "summary": {
+        "pv_fastpath_locks": 1,
+        "pv_waits_halted": 2,
+        "pv_kicks_issued": 2,
+        "lhp_detected_count": 2,
+        "total_spins": 1024,
+        "total_cycles_consumed": 2048,
+        "total_cycles_saved": 21852,
+        "final_lock_owner": null,
+        "final_queue_length": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 7,
+    "input": {
+      "config": {
+        "spin_threshold": 256,
+        "cycles_per_spin": 2,
+        "cycles_halted_cost": 40,
+        "host_timeslice_cycles": 6000,
+        "vcpus": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "trace": [
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 2
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 0
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 1
+        },
+        {
+          "op": "GET_STATE"
+        },
+        {
+          "op": "HOST_PREEMPT",
+          "vcpu_id": 2
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 3
+        },
+        {
+          "op": "GET_STATE"
+        },
+        {
+          "op": "HOST_RESUME",
+          "vcpu_id": 2
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 2
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 0
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 1
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 3
+        },
+        {
+          "op": "GET_STATE"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 2,
+          "status": "ACQUIRED_FASTPATH",
+          "cycles": 1,
+          "lock_owner": 2
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 0,
+          "status": "PV_WAIT_HALTED",
+          "lhp_detected": false,
+          "spins": 256,
+          "spin_cycles": 512,
+          "cycles_saved": 5448,
+          "lock_owner": 2,
+          "queue_position": 1
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 1,
+          "status": "PV_WAIT_HALTED",
+          "lhp_detected": false,
+          "spins": 256,
+          "spin_cycles": 512,
+          "cycles_saved": 5448,
+          "lock_owner": 2,
+          "queue_position": 2
+        },
+        {
+          "op": "GET_STATE",
+          "lock_owner": 2,
+          "wait_queue": [
+            0,
+            1
+          ],
+          "vcpus": {
+            "0": "RUNNING",
+            "1": "RUNNING",
+            "2": "RUNNING",
+            "3": "RUNNING"
+          }
+        },
+        {
+          "op": "HOST_PREEMPT",
+          "vcpu_id": 2,
+          "status": "VCPU_PREEMPTED",
+          "was_holding_lock": true
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 3,
+          "status": "PV_WAIT_HALTED",
+          "lhp_detected": true,
+          "spins": 256,
+          "spin_cycles": 512,
+          "cycles_saved": 5448,
+          "lock_owner": 2,
+          "queue_position": 3
+        },
+        {
+          "op": "GET_STATE",
+          "lock_owner": 2,
+          "wait_queue": [
+            0,
+            1,
+            3
+          ],
+          "vcpus": {
+            "0": "RUNNING",
+            "1": "RUNNING",
+            "2": "PREEMPTED",
+            "3": "RUNNING"
+          }
+        },
+        {
+          "op": "HOST_RESUME",
+          "vcpu_id": 2,
+          "status": "VCPU_RESUMED",
+          "is_holding_lock": true
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 2,
+          "status": "RELEASED_HANDOFF",
+          "new_owner": 0,
+          "pv_kick_issued": true,
+          "remaining_waiters": 2
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 0,
+          "status": "RELEASED_HANDOFF",
+          "new_owner": 1,
+          "pv_kick_issued": true,
+          "remaining_waiters": 1
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 1,
+          "status": "RELEASED_HANDOFF",
+          "new_owner": 3,
+          "pv_kick_issued": true,
+          "remaining_waiters": 0
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 3,
+          "status": "RELEASED_NO_WAITERS",
+          "new_owner": null
+        },
+        {
+          "op": "GET_STATE",
+          "lock_owner": null,
+          "wait_queue": [],
+          "vcpus": {
+            "0": "RUNNING",
+            "1": "RUNNING",
+            "2": "RUNNING",
+            "3": "RUNNING"
+          }
+        }
+      ],
+      "summary": {
+        "pv_fastpath_locks": 1,
+        "pv_waits_halted": 3,
+        "pv_kicks_issued": 3,
+        "lhp_detected_count": 1,
+        "total_spins": 768,
+        "total_cycles_consumed": 1536,
+        "total_cycles_saved": 16344,
+        "final_lock_owner": null,
+        "final_queue_length": 0
+      }
+    }
+  },
+  {
+    "testcase_id": 8,
+    "input": {
+      "config": {
+        "spin_threshold": 512,
+        "cycles_per_spin": 2,
+        "cycles_halted_cost": 50,
+        "host_timeslice_cycles": 15000,
+        "vcpus": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "trace": [
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 0
+        },
+        {
+          "op": "HOST_PREEMPT",
+          "vcpu_id": 0
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 1
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 2
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 3
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 4
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 5
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 6
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 7
+        },
+        {
+          "op": "GET_STATE"
+        },
+        {
+          "op": "HOST_RESUME",
+          "vcpu_id": 0
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 0
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 1
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 2
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 3
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 4
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 5
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 6
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 7
+        },
+        {
+          "op": "GET_STATE"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 0,
+          "status": "ACQUIRED_FASTPATH",
+          "cycles": 1,
+          "lock_owner": 0
+        },
+        {
+          "op": "HOST_PREEMPT",
+          "vcpu_id": 0,
+          "status": "VCPU_PREEMPTED",
+          "was_holding_lock": true
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 1,
+          "status": "PV_WAIT_HALTED",
+          "lhp_detected": true,
+          "spins": 512,
+          "spin_cycles": 1024,
+          "cycles_saved": 13926,
+          "lock_owner": 0,
+          "queue_position": 1
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 2,
+          "status": "PV_WAIT_HALTED",
+          "lhp_detected": true,
+          "spins": 512,
+          "spin_cycles": 1024,
+          "cycles_saved": 13926,
+          "lock_owner": 0,
+          "queue_position": 2
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 3,
+          "status": "PV_WAIT_HALTED",
+          "lhp_detected": true,
+          "spins": 512,
+          "spin_cycles": 1024,
+          "cycles_saved": 13926,
+          "lock_owner": 0,
+          "queue_position": 3
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 4,
+          "status": "PV_WAIT_HALTED",
+          "lhp_detected": true,
+          "spins": 512,
+          "spin_cycles": 1024,
+          "cycles_saved": 13926,
+          "lock_owner": 0,
+          "queue_position": 4
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 5,
+          "status": "PV_WAIT_HALTED",
+          "lhp_detected": true,
+          "spins": 512,
+          "spin_cycles": 1024,
+          "cycles_saved": 13926,
+          "lock_owner": 0,
+          "queue_position": 5
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 6,
+          "status": "PV_WAIT_HALTED",
+          "lhp_detected": true,
+          "spins": 512,
+          "spin_cycles": 1024,
+          "cycles_saved": 13926,
+          "lock_owner": 0,
+          "queue_position": 6
+        },
+        {
+          "op": "ACQUIRE",
+          "vcpu_id": 7,
+          "status": "PV_WAIT_HALTED",
+          "lhp_detected": true,
+          "spins": 512,
+          "spin_cycles": 1024,
+          "cycles_saved": 13926,
+          "lock_owner": 0,
+          "queue_position": 7
+        },
+        {
+          "op": "GET_STATE",
+          "lock_owner": 0,
+          "wait_queue": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "vcpus": {
+            "0": "PREEMPTED",
+            "1": "RUNNING",
+            "2": "RUNNING",
+            "3": "RUNNING",
+            "4": "RUNNING",
+            "5": "RUNNING",
+            "6": "RUNNING",
+            "7": "RUNNING"
+          }
+        },
+        {
+          "op": "HOST_RESUME",
+          "vcpu_id": 0,
+          "status": "VCPU_RESUMED",
+          "is_holding_lock": true
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 0,
+          "status": "RELEASED_HANDOFF",
+          "new_owner": 1,
+          "pv_kick_issued": true,
+          "remaining_waiters": 6
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 1,
+          "status": "RELEASED_HANDOFF",
+          "new_owner": 2,
+          "pv_kick_issued": true,
+          "remaining_waiters": 5
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 2,
+          "status": "RELEASED_HANDOFF",
+          "new_owner": 3,
+          "pv_kick_issued": true,
+          "remaining_waiters": 4
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 3,
+          "status": "RELEASED_HANDOFF",
+          "new_owner": 4,
+          "pv_kick_issued": true,
+          "remaining_waiters": 3
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 4,
+          "status": "RELEASED_HANDOFF",
+          "new_owner": 5,
+          "pv_kick_issued": true,
+          "remaining_waiters": 2
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 5,
+          "status": "RELEASED_HANDOFF",
+          "new_owner": 6,
+          "pv_kick_issued": true,
+          "remaining_waiters": 1
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 6,
+          "status": "RELEASED_HANDOFF",
+          "new_owner": 7,
+          "pv_kick_issued": true,
+          "remaining_waiters": 0
+        },
+        {
+          "op": "RELEASE",
+          "vcpu_id": 7,
+          "status": "RELEASED_NO_WAITERS",
+          "new_owner": null
+        },
+        {
+          "op": "GET_STATE",
+          "lock_owner": null,
+          "wait_queue": [],
+          "vcpus": {
+            "0": "RUNNING",
+            "1": "RUNNING",
+            "2": "RUNNING",
+            "3": "RUNNING",
+            "4": "RUNNING",
+            "5": "RUNNING",
+            "6": "RUNNING",
+            "7": "RUNNING"
+          }
+        }
+      ],
+      "summary": {
+        "pv_fastpath_locks": 1,
+        "pv_waits_halted": 7,
+        "pv_kicks_issued": 7,
+        "lhp_detected_count": 7,
+        "total_spins": 3584,
+        "total_cycles_consumed": 7168,
+        "total_cycles_saved": 97482,
+        "final_lock_owner": null,
+        "final_queue_length": 0
+      }
+    }
+  }
+]
