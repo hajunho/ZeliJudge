@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "description": "Standard Athenian decree opening formula (Classical Greek, Boustrophedon)",
+    "input": "{\"grid_rows\": [\"Ε?ΟΧΣΕΝΤΕΙΒΟΛ\", \"ΙΟΜΕ?ΙΟΤΙΑΚΙΕ\"], \"is_boustrophedon\": true, \"lexicon\": [\"ΕΔΟΧΣΕΝ\", \"ΤΕΙ\", \"ΒΟΛΕΙ\", \"ΚΑΙ\", \"ΤΟΙ\", \"ΔΕΜΟΙ\", \"ΑΘΕΝΑΙΟΙ\"]}",
+    "expected_output": "{\"grid_dimensions\": {\"rows\": 2, \"cols\": 13, \"total_cells\": 26}, \"lacuna_analysis\": {\"intact_characters\": 24, \"damaged_characters\": 2, \"lacuna_rate_pct\": 7.69, \"letter_frequencies\": {\"Ε\": 5, \"Ι\": 5, \"Ο\": 4, \"Τ\": 2, \"Α\": 1, \"Β\": 1, \"Κ\": 1, \"Λ\": 1, \"Μ\": 1, \"Ν\": 1, \"Σ\": 1, \"Χ\": 1}}, \"reading_stream\": {\"unfolded_raw_text\": \"Ε?ΟΧΣΕΝΤΕΙΒΟΛΕΙΚΑΙΤΟΙ?ΕΜΟΙ\"}, \"restoration\": {\"status\": \"SUCCESS_UNIQUE\", \"restorations_count\": 2, \"remaining_lacunae\": 0, \"candidates_count\": 1, \"restored_reading_text\": \"ΕΔΟΧΣΕΝΤΕΙΒΟΛΕΙΚΑΙΤΟΙΔΕΜΟΙ\", \"restored_grid_rows\": [\"ΕΔΟΧΣΕΝΤΕΙΒΟΛ\", \"ΙΟΜΕΔΙΟΤΙΑΚΙΕ\"], \"restoration_log\": [{\"pos\": 1, \"row\": 0, \"col\": 1, \"original\": \"?\", \"restored\": \"Δ\", \"source_word\": \"ΕΔΟΧΣΕΝ\"}, {\"pos\": 21, \"row\": 1, \"col\": 4, \"original\": \"?\", \"restored\": \"Δ\", \"source_word\": \"ΔΕΜΟΙ\"}]}}"
+  },
+  {
+    "id": 2,
+    "description": "Athenian dedication to Athena Polias (Stoichedon grid, Left-to-Right)",
+    "input": "{\"grid_rows\": [\"ΑΘΕΝ?ΙΑΙ\", \"ΠΟΛΙΑ?ΙΑ\", \"ΝΕΘΕΚΕ?Ο\"], \"is_boustrophedon\": false, \"lexicon\": [\"ΑΘΕΝΑΙΑΙ\", \"ΠΟΛΙΑΔΙ\", \"ΑΝΕΘΕΚΕΝ\", \"ΑΝΕΘΕΚΕΟ\"], \"target_formula\": [\"ΑΘΕΝΑΙΑΙ\", \"ΠΟΛΙΑΔΙ\", \"ΑΝΕΘΕΚΕΟ\"]}",
+    "expected_output": "{\"grid_dimensions\": {\"rows\": 3, \"cols\": 8, \"total_cells\": 24}, \"lacuna_analysis\": {\"intact_characters\": 21, \"damaged_characters\": 3, \"lacuna_rate_pct\": 12.5, \"letter_frequencies\": {\"Α\": 4, \"Ε\": 4, \"Ι\": 4, \"Θ\": 2, \"Ν\": 2, \"Ο\": 2, \"Κ\": 1, \"Λ\": 1, \"Π\": 1}}, \"reading_stream\": {\"unfolded_raw_text\": \"ΑΘΕΝ?ΙΑΙΠΟΛΙΑ?ΙΑΝΕΘΕΚΕ?Ο\"}, \"restoration\": {\"status\": \"UNRESOLVED\", \"restorations_count\": 0, \"remaining_lacunae\": 3, \"candidates_count\": 0, \"restored_reading_text\": \"ΑΘΕΝ?ΙΑΙΠΟΛΙΑ?ΙΑΝΕΘΕΚΕ?Ο\", \"restored_grid_rows\": [\"ΑΘΕΝ?ΙΑΙ\", \"ΠΟΛΙΑ?ΙΑ\", \"ΝΕΘΕΚΕ?Ο\"], \"restoration_log\": []}}"
+  },
+  {
+    "id": 3,
+    "description": "Archaic Cretan Gortyn law code fragment (Boustrophedon)",
+    "input": "{\"grid_rows\": [\"ΑΙΚΑΤΙ?ΤΟΝ\", \"ΙΝΟΡΕΘ?ΥΕΛ\"], \"is_boustrophedon\": true, \"lexicon\": [\"ΑΙ\", \"ΚΑ\", \"ΤΙΣ\", \"ΤΟΝ\", \"ΕΛΕΥΘΕΡΟΝ\", \"Ι\", \"ΔΟΛΟΝ\"]}",
+    "expected_output": "{\"grid_dimensions\": {\"rows\": 2, \"cols\": 10, \"total_cells\": 20}, \"lacuna_analysis\": {\"intact_characters\": 18, \"damaged_characters\": 2, \"lacuna_rate_pct\": 10.0, \"letter_frequencies\": {\"Ι\": 3, \"Α\": 2, \"Ε\": 2, \"Ν\": 2, \"Ο\": 2, \"Τ\": 2, \"Θ\": 1, \"Κ\": 1, \"Λ\": 1, \"Ρ\": 1, \"Υ\": 1}}, \"reading_stream\": {\"unfolded_raw_text\": \"ΑΙΚΑΤΙ?ΤΟΝΛΕΥ?ΘΕΡΟΝΙ\"}, \"restoration\": {\"status\": \"UNRESOLVED\", \"restorations_count\": 0, \"remaining_lacunae\": 2, \"candidates_count\": 0, \"restored_reading_text\": \"ΑΙΚΑΤΙ?ΤΟΝΛΕΥ?ΘΕΡΟΝΙ\", \"restored_grid_rows\": [\"ΑΙΚΑΤΙ?ΤΟΝ\", \"ΙΝΟΡΕΘ?ΥΕΛ\"], \"restoration_log\": []}}"
+  },
+  {
+    "id": 4,
+    "description": "Ambiguous lacuna resulting in multiple valid dictionary segmentations",
+    "input": "{\"grid_rows\": [\"EDOXSENTEIBOL\", \"IOMEDI?TIAKIE\"], \"is_boustrophedon\": true, \"lexicon\": [\"EDOXSEN\", \"TEI\", \"BOLEI\", \"KAI\", \"TOI\", \"DEMOI\"]}",
+    "expected_output": "{\"grid_dimensions\": {\"rows\": 2, \"cols\": 13, \"total_cells\": 26}, \"lacuna_analysis\": {\"intact_characters\": 25, \"damaged_characters\": 1, \"lacuna_rate_pct\": 3.85, \"letter_frequencies\": {\"E\": 5, \"I\": 5, \"O\": 3, \"D\": 2, \"T\": 2, \"A\": 1, \"B\": 1, \"K\": 1, \"L\": 1, \"M\": 1, \"N\": 1, \"S\": 1, \"X\": 1}}, \"reading_stream\": {\"unfolded_raw_text\": \"EDOXSENTEIBOLEIKAIT?IDEMOI\"}, \"restoration\": {\"status\": \"AMBIGUOUS\", \"restorations_count\": 1, \"remaining_lacunae\": 0, \"candidates_count\": 2, \"restored_reading_text\": \"EDOXSENTEIBOLEIKAITEIDEMOI\", \"restored_grid_rows\": [\"EDOXSENTEIBOL\", \"IOMEDIETIAKIE\"], \"restoration_log\": [{\"pos\": 19, \"row\": 1, \"col\": 6, \"original\": \"?\", \"restored\": \"E\", \"source_word\": \"TEI\"}]}}"
+  },
+  {
+    "id": 5,
+    "description": "Severely weathered marble stele with multiple lacunae",
+    "input": "{\"grid_rows\": [\"E?O?SENTE\", \"I?KIE?OBI\", \"TOID?MOI?\"], \"is_boustrophedon\": true, \"lexicon\": [\"EDOXSEN\", \"TEI\", \"BOLEI\", \"KAI\", \"TOI\", \"DEMOI\", \"S\"], \"target_formula\": [\"EDOXSEN\", \"TEI\", \"BOLEI\", \"KAI\", \"TOI\", \"DEMOI\", \"S\"]}",
+    "expected_output": "{\"grid_dimensions\": {\"rows\": 3, \"cols\": 9, \"total_cells\": 27}, \"lacuna_analysis\": {\"intact_characters\": 21, \"damaged_characters\": 6, \"lacuna_rate_pct\": 22.22, \"letter_frequencies\": {\"I\": 5, \"E\": 4, \"O\": 4, \"T\": 2, \"B\": 1, \"D\": 1, \"K\": 1, \"M\": 1, \"N\": 1, \"S\": 1}}, \"reading_stream\": {\"unfolded_raw_text\": \"E?O?SENTEIBO?EIK?ITOID?MOI?\"}, \"restoration\": {\"status\": \"SUCCESS_FORMULA\", \"restorations_count\": 6, \"remaining_lacunae\": 0, \"candidates_count\": 1, \"restored_reading_text\": \"EDOXSENTEIBOLEIKAITOIDEMOIS\", \"restored_grid_rows\": [\"EDOXSENTE\", \"IAKIELOBI\", \"TOIDEMOIS\"], \"restoration_log\": [{\"pos\": 1, \"row\": 0, \"col\": 1, \"original\": \"?\", \"restored\": \"D\", \"source_word\": \"EDOXSEN\"}, {\"pos\": 3, \"row\": 0, \"col\": 3, \"original\": \"?\", \"restored\": \"X\", \"source_word\": \"EDOXSEN\"}, {\"pos\": 12, \"row\": 1, \"col\": 5, \"original\": \"?\", \"restored\": \"L\", \"source_word\": \"BOLEI\"}, {\"pos\": 16, \"row\": 1, \"col\": 1, \"original\": \"?\", \"restored\": \"A\", \"source_word\": \"KAI\"}, {\"pos\": 22, \"row\": 2, \"col\": 4, \"original\": \"?\", \"restored\": \"E\", \"source_word\": \"DEMOI\"}, {\"pos\": 26, \"row\": 2, \"col\": 8, \"original\": \"?\", \"restored\": \"S\", \"source_word\": \"S\"}]}}"
+  },
+  {
+    "id": 6,
+    "description": "Decree of Themistocles archival formula alignment",
+    "input": "{\"grid_rows\": [\"ARCHONTHE\", \"SELKOT?IM\", \"ATHENAI?S\"], \"is_boustrophedon\": true, \"lexicon\": [\"ARCHON\", \"THEMISTOKLES\", \"ATHENAIOS\"], \"target_formula\": [\"ARCHON\", \"THEMISTOKLES\", \"ATHENAIOS\"]}",
+    "expected_output": "{\"grid_dimensions\": {\"rows\": 3, \"cols\": 9, \"total_cells\": 27}, \"lacuna_analysis\": {\"intact_characters\": 25, \"damaged_characters\": 2, \"lacuna_rate_pct\": 7.41, \"letter_frequencies\": {\"A\": 3, \"E\": 3, \"H\": 3, \"T\": 3, \"I\": 2, \"N\": 2, \"O\": 2, \"S\": 2, \"C\": 1, \"K\": 1, \"L\": 1, \"M\": 1, \"R\": 1}}, \"reading_stream\": {\"unfolded_raw_text\": \"ARCHONTHEMI?TOKLESATHENAI?S\"}, \"restoration\": {\"status\": \"SUCCESS_FORMULA\", \"restorations_count\": 2, \"remaining_lacunae\": 0, \"candidates_count\": 1, \"restored_reading_text\": \"ARCHONTHEMISTOKLESATHENAIOS\", \"restored_grid_rows\": [\"ARCHONTHE\", \"SELKOTSIM\", \"ATHENAIOS\"], \"restoration_log\": [{\"pos\": 11, \"row\": 1, \"col\": 6, \"original\": \"?\", \"restored\": \"S\", \"source_word\": \"THEMISTOKLES\"}, {\"pos\": 25, \"row\": 2, \"col\": 7, \"original\": \"?\", \"restored\": \"O\", \"source_word\": \"ATHENAIOS\"}]}}"
+  },
+  {
+    "id": 7,
+    "description": "Latin transliteration Athenian tribute list fragment (Unique solution)",
+    "input": "{\"grid_rows\": [\"HIEROI?O\", \"XAME?SIL\"], \"is_boustrophedon\": true, \"lexicon\": [\"HIEROI\", \"POLIS\", \"DEMAX\"]}",
+    "expected_output": "{\"grid_dimensions\": {\"rows\": 2, \"cols\": 8, \"total_cells\": 16}, \"lacuna_analysis\": {\"intact_characters\": 14, \"damaged_characters\": 2, \"lacuna_rate_pct\": 12.5, \"letter_frequencies\": {\"I\": 3, \"E\": 2, \"O\": 2, \"A\": 1, \"H\": 1, \"L\": 1, \"M\": 1, \"R\": 1, \"S\": 1, \"X\": 1}}, \"reading_stream\": {\"unfolded_raw_text\": \"HIEROI?OLIS?EMAX\"}, \"restoration\": {\"status\": \"SUCCESS_UNIQUE\", \"restorations_count\": 2, \"remaining_lacunae\": 0, \"candidates_count\": 1, \"restored_reading_text\": \"HIEROIPOLISDEMAX\", \"restored_grid_rows\": [\"HIEROIPO\", \"XAMEDSIL\"], \"restoration_log\": [{\"pos\": 6, \"row\": 0, \"col\": 6, \"original\": \"?\", \"restored\": \"P\", \"source_word\": \"POLIS\"}, {\"pos\": 11, \"row\": 1, \"col\": 4, \"original\": \"?\", \"restored\": \"D\", \"source_word\": \"DEMAX\"}]}}"
+  },
+  {
+    "id": 8,
+    "description": "Large 5x8 Athenian alliance decree with continuous cross-row word segmentation",
+    "input": "{\"grid_rows\": [\"E?OXSENT\", \"KIELOB?E\", \"AITOIDEM\", \"ANEHTA?O\", \"IONARC?O\"], \"is_boustrophedon\": true, \"lexicon\": [\"EDOXSEN\", \"TEI\", \"BOLEI\", \"KAI\", \"TOI\", \"DEMOI\", \"ATHENAION\", \"ARCHO\"]}",
+    "expected_output": "{\"grid_dimensions\": {\"rows\": 5, \"cols\": 8, \"total_cells\": 40}, \"lacuna_analysis\": {\"intact_characters\": 36, \"damaged_characters\": 4, \"lacuna_rate_pct\": 10.0, \"letter_frequencies\": {\"E\": 6, \"O\": 6, \"A\": 4, \"I\": 4, \"N\": 3, \"T\": 3, \"B\": 1, \"C\": 1, \"D\": 1, \"H\": 1, \"K\": 1, \"L\": 1, \"M\": 1, \"R\": 1, \"S\": 1, \"X\": 1}}, \"reading_stream\": {\"unfolded_raw_text\": \"E?OXSENTE?BOLEIKAITOIDEMO?ATHENAIONARC?O\"}, \"restoration\": {\"status\": \"SUCCESS_UNIQUE\", \"restorations_count\": 4, \"remaining_lacunae\": 0, \"candidates_count\": 1, \"restored_reading_text\": \"EDOXSENTEIBOLEIKAITOIDEMOIATHENAIONARCHO\", \"restored_grid_rows\": [\"EDOXSENT\", \"KIELOBIE\", \"AITOIDEM\", \"ANEHTAIO\", \"IONARCHO\"], \"restoration_log\": [{\"pos\": 1, \"row\": 0, \"col\": 1, \"original\": \"?\", \"restored\": \"D\", \"source_word\": \"EDOXSEN\"}, {\"pos\": 9, \"row\": 1, \"col\": 6, \"original\": \"?\", \"restored\": \"I\", \"source_word\": \"TEI\"}, {\"pos\": 25, \"row\": 3, \"col\": 6, \"original\": \"?\", \"restored\": \"I\", \"source_word\": \"DEMOI\"}, {\"pos\": 38, \"row\": 4, \"col\": 6, \"original\": \"?\", \"restored\": \"H\", \"source_word\": \"ARCHO\"}]}}"
+  }
+]
