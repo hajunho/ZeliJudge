@@ -1,0 +1,50 @@
+[
+  {
+    "id": "case01_safe_packet_read_with_bounds_check",
+    "description": "Ethernet header 14B verified and read safely, returning XDP_PASS (1)",
+    "input": "{\"config\": {\"max_insns\": 1000}, \"instructions\": [{\"op\": \"CHECK_PKT_LEN\", \"dst\": 1, \"imm\": 14}, {\"op\": \"LDX\", \"dst\": 3, \"src\": 1, \"off\": 0, \"size\": 4}, {\"op\": \"MOV\", \"dst\": 0, \"imm\": 1}, {\"op\": \"EXIT\"}]}",
+    "expected_output": "{\"verified\": true, \"insns_processed\": 4, \"branches_pruned\": 0, \"paths_explored\": 1, \"status\": \"PROGRAM_VERIFIED_SAFE\"}"
+  },
+  {
+    "id": "case02_rejected_out_of_bounds_packet_read",
+    "description": "Attempting 4-byte read at offset 12 with only 14 bytes proven safe (12+4=16 > 14)",
+    "input": "{\"config\": {\"max_insns\": 1000}, \"instructions\": [{\"op\": \"CHECK_PKT_LEN\", \"dst\": 1, \"imm\": 14}, {\"op\": \"LDX\", \"dst\": 3, \"src\": 1, \"off\": 12, \"size\": 4}, {\"op\": \"MOV\", \"dst\": 0, \"imm\": 1}, {\"op\": \"EXIT\"}]}",
+    "expected_output": "{\"verified\": false, \"rejection_reason\": \"OUT_OF_BOUNDS_PACKET_READ_REQ_16_PROVEN_14\", \"failing_pc\": 1, \"insns_processed\": 2, \"branches_pruned\": 0}"
+  },
+  {
+    "id": "case03_rejected_uninitialized_register",
+    "description": "Attempting to copy from uninitialized register R4 into R5",
+    "input": "{\"config\": {\"max_insns\": 1000}, \"instructions\": [{\"op\": \"MOV\", \"dst\": 5, \"src\": 4}, {\"op\": \"MOV\", \"dst\": 0, \"imm\": 1}, {\"op\": \"EXIT\"}]}",
+    "expected_output": "{\"verified\": false, \"rejection_reason\": \"READ_UNINITIALIZED_REG_R4\", \"failing_pc\": 0, \"insns_processed\": 1, \"branches_pruned\": 0}"
+  },
+  {
+    "id": "case04_branch_pruning_via_state_subsumption",
+    "description": "Branch taken and fallthrough paths converge to identical register state at merge point, triggering branch pruning",
+    "input": "{\"config\": {\"max_insns\": 1000}, \"instructions\": [{\"op\": \"CHECK_PKT_LEN\", \"dst\": 1, \"imm\": 64}, {\"op\": \"LDX\", \"dst\": 3, \"src\": 1, \"off\": 0, \"size\": 4}, {\"op\": \"JGT\", \"dst\": 3, \"imm\": 100, \"off\": 2}, {\"op\": \"MOV\", \"dst\": 3, \"imm\": 0}, {\"op\": \"JA\", \"off\": 1}, {\"op\": \"MOV\", \"dst\": 3, \"imm\": 0}, {\"op\": \"LDX\", \"dst\": 4, \"src\": 1, \"off\": 4, \"size\": 4}, {\"op\": \"MOV\", \"dst\": 0, \"imm\": 1}, {\"op\": \"EXIT\"}]}",
+    "expected_output": "{\"verified\": true, \"insns_processed\": 10, \"branches_pruned\": 1, \"paths_explored\": 2, \"status\": \"PROGRAM_VERIFIED_SAFE\"}"
+  },
+  {
+    "id": "case05_range_narrowing_on_conditional_jump",
+    "description": "Conditional JGT narrows scalar ranges on both branch and fallthrough paths",
+    "input": "{\"config\": {\"max_insns\": 1000}, \"instructions\": [{\"op\": \"CHECK_PKT_LEN\", \"dst\": 1, \"imm\": 128}, {\"op\": \"LDX\", \"dst\": 3, \"src\": 1, \"off\": 0, \"size\": 2}, {\"op\": \"JGT\", \"dst\": 3, \"imm\": 20, \"off\": 3}, {\"op\": \"CHECK_PKT_LEN\", \"dst\": 1, \"imm\": 30}, {\"op\": \"MOV\", \"dst\": 0, \"imm\": 1}, {\"op\": \"EXIT\"}, {\"op\": \"CHECK_PKT_LEN\", \"dst\": 1, \"imm\": 100}, {\"op\": \"MOV\", \"dst\": 0, \"imm\": 2}, {\"op\": \"EXIT\"}]}",
+    "expected_output": "{\"verified\": true, \"insns_processed\": 9, \"branches_pruned\": 0, \"paths_explored\": 2, \"status\": \"PROGRAM_VERIFIED_SAFE\"}"
+  },
+  {
+    "id": "case06_pointer_arithmetic_offset_tracking",
+    "description": "Safe pointer arithmetic advancing packet pointer across Ethernet, IP, and TCP headers",
+    "input": "{\"config\": {\"max_insns\": 1000}, \"instructions\": [{\"op\": \"CHECK_PKT_LEN\", \"dst\": 1, \"imm\": 54}, {\"op\": \"LDX\", \"dst\": 3, \"src\": 1, \"off\": 0, \"size\": 4}, {\"op\": \"ADD\", \"dst\": 1, \"imm\": 14}, {\"op\": \"LDX\", \"dst\": 4, \"src\": 1, \"off\": 0, \"size\": 4}, {\"op\": \"ADD\", \"dst\": 1, \"imm\": 20}, {\"op\": \"LDX\", \"dst\": 5, \"src\": 1, \"off\": 0, \"size\": 4}, {\"op\": \"MOV\", \"dst\": 0, \"imm\": 1}, {\"op\": \"EXIT\"}]}",
+    "expected_output": "{\"verified\": true, \"insns_processed\": 8, \"branches_pruned\": 0, \"paths_explored\": 1, \"status\": \"PROGRAM_VERIFIED_SAFE\"}"
+  },
+  {
+    "id": "case07_rejected_exit_without_return_value",
+    "description": "Program reaches EXIT without setting return value register R0",
+    "input": "{\"config\": {\"max_insns\": 1000}, \"instructions\": [{\"op\": \"CHECK_PKT_LEN\", \"dst\": 1, \"imm\": 14}, {\"op\": \"LDX\", \"dst\": 3, \"src\": 1, \"off\": 0, \"size\": 4}, {\"op\": \"EXIT\"}]}",
+    "expected_output": "{\"verified\": false, \"rejection_reason\": \"EXIT_WITHOUT_RETURN_VAL_IN_R0\", \"failing_pc\": 2, \"insns_processed\": 3, \"branches_pruned\": 0}"
+  },
+  {
+    "id": "case08_complex_xdp_packet_parser_audit",
+    "description": "Realistic XDP filter parsing Ethernet, IPv4, and TCP headers with multiple safety checkpoints",
+    "input": "{\"config\": {\"max_insns\": 1000}, \"instructions\": [{\"op\": \"CHECK_PKT_LEN\", \"dst\": 1, \"imm\": 14}, {\"op\": \"LDX\", \"dst\": 3, \"src\": 1, \"off\": 12, \"size\": 2}, {\"op\": \"JEQ\", \"dst\": 3, \"imm\": 2048, \"off\": 2}, {\"op\": \"MOV\", \"dst\": 0, \"imm\": 0}, {\"op\": \"EXIT\"}, {\"op\": \"CHECK_PKT_LEN\", \"dst\": 1, \"imm\": 34}, {\"op\": \"LDX\", \"dst\": 4, \"src\": 1, \"off\": 23, \"size\": 1}, {\"op\": \"JEQ\", \"dst\": 4, \"imm\": 6, \"off\": 2}, {\"op\": \"MOV\", \"dst\": 0, \"imm\": 1}, {\"op\": \"EXIT\"}, {\"op\": \"CHECK_PKT_LEN\", \"dst\": 1, \"imm\": 54}, {\"op\": \"LDX\", \"dst\": 5, \"src\": 1, \"off\": 36, \"size\": 2}, {\"op\": \"JEQ\", \"dst\": 5, \"imm\": 80, \"off\": 2}, {\"op\": \"MOV\", \"dst\": 0, \"imm\": 1}, {\"op\": \"EXIT\"}, {\"op\": \"MOV\", \"dst\": 0, \"imm\": 2}, {\"op\": \"EXIT\"}]}",
+    "expected_output": "{\"verified\": true, \"insns_processed\": 17, \"branches_pruned\": 0, \"paths_explored\": 4, \"status\": \"PROGRAM_VERIFIED_SAFE\"}"
+  }
+]
