@@ -1,0 +1,883 @@
+[
+  {
+    "name": "기본 CPUID 0x0 질의 (벤더 스트링 AuthenticAMD 에뮬레이션)",
+    "input": {
+      "config": {
+        "guest_vcpus": 2,
+        "snp_active": true
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_VCPU",
+          "vcpu_id": 0
+        },
+        {
+          "time": 1,
+          "type": "GUEST_EXEC_OP",
+          "vcpu_id": 0,
+          "op": "CPUID",
+          "args": {
+            "function": 0,
+            "subfunction": 0
+          }
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_vc_exceptions": 1,
+        "total_vmgexits": 1,
+        "successful_emulations": 1,
+        "page_state_changes": 0,
+        "security_terminations": 0,
+        "emulations_by_type": {
+          "CPUID": 1,
+          "MSR": 0,
+          "IOIO": 0,
+          "PSC": 0
+        }
+      },
+      "page_states": {},
+      "vcpus": {
+        "0": {
+          "vcpu_id": 0,
+          "state": "RUNNING",
+          "regs": {
+            "rax": 1,
+            "rbx": 1752462657,
+            "rcx": 1145913699,
+            "rdx": 1769238117
+          }
+        }
+      },
+      "vmgexit_logs": [
+        {
+          "time": 1,
+          "vcpu_id": 0,
+          "op": "CPUID",
+          "exit_code": "0x80000001",
+          "status": "SUCCESS",
+          "regs": {
+            "rax": 1,
+            "rbx": 1752462657,
+            "rcx": 1145913699,
+            "rdx": 1769238117
+          }
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_VCPU",
+          "vcpu_id": 0
+        }
+      ]
+    }
+  },
+  {
+    "name": "CPUID 0x1 기능 플래그 질의 (4개 레지스터 동시 갱신)",
+    "input": {
+      "config": {
+        "guest_vcpus": 2,
+        "snp_active": true
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_VCPU",
+          "vcpu_id": 0
+        },
+        {
+          "time": 1,
+          "type": "GUEST_EXEC_OP",
+          "vcpu_id": 0,
+          "op": "CPUID",
+          "args": {
+            "function": 1,
+            "subfunction": 0
+          }
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_vc_exceptions": 1,
+        "total_vmgexits": 1,
+        "successful_emulations": 1,
+        "page_state_changes": 0,
+        "security_terminations": 0,
+        "emulations_by_type": {
+          "CPUID": 1,
+          "MSR": 0,
+          "IOIO": 0,
+          "PSC": 0
+        }
+      },
+      "page_states": {},
+      "vcpus": {
+        "0": {
+          "vcpu_id": 0,
+          "state": "RUNNING",
+          "regs": {
+            "rax": 8392466,
+            "rbx": 133120,
+            "rcx": 1988243971,
+            "rdx": 395049983
+          }
+        }
+      },
+      "vmgexit_logs": [
+        {
+          "time": 1,
+          "vcpu_id": 0,
+          "op": "CPUID",
+          "exit_code": "0x80000001",
+          "status": "SUCCESS",
+          "regs": {
+            "rax": 8392466,
+            "rbx": 133120,
+            "rcx": 1988243971,
+            "rdx": 395049983
+          }
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_VCPU",
+          "vcpu_id": 0
+        }
+      ]
+    }
+  },
+  {
+    "name": "가상 머신 MSR 읽기(MSR_READ) 및 쓰기(MSR_WRITE) 에뮬레이션",
+    "input": {
+      "config": {
+        "guest_vcpus": 2,
+        "snp_active": true
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_VCPU",
+          "vcpu_id": 0
+        },
+        {
+          "time": 1,
+          "type": "GUEST_EXEC_OP",
+          "vcpu_id": 0,
+          "op": "MSR_READ",
+          "args": {
+            "msr_index": 27
+          }
+        },
+        {
+          "time": 2,
+          "type": "GUEST_EXEC_OP",
+          "vcpu_id": 0,
+          "op": "MSR_WRITE",
+          "args": {
+            "msr_index": 27,
+            "value_lo": 4276094976,
+            "value_hi": 0
+          }
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_vc_exceptions": 2,
+        "total_vmgexits": 2,
+        "successful_emulations": 2,
+        "page_state_changes": 0,
+        "security_terminations": 0,
+        "emulations_by_type": {
+          "CPUID": 0,
+          "MSR": 2,
+          "IOIO": 0,
+          "PSC": 0
+        }
+      },
+      "page_states": {},
+      "vcpus": {
+        "0": {
+          "vcpu_id": 0,
+          "state": "RUNNING",
+          "regs": {
+            "rax": 305419896,
+            "rbx": 0,
+            "rcx": 0,
+            "rdx": 0
+          }
+        }
+      },
+      "vmgexit_logs": [
+        {
+          "time": 1,
+          "vcpu_id": 0,
+          "op": "MSR_READ",
+          "exit_code": "0x80000002",
+          "status": "SUCCESS",
+          "regs": {
+            "rax": 305419896,
+            "rbx": 0,
+            "rcx": 0,
+            "rdx": 0
+          }
+        },
+        {
+          "time": 2,
+          "vcpu_id": 0,
+          "op": "MSR_WRITE",
+          "exit_code": "0x80000002",
+          "status": "SUCCESS",
+          "regs": {
+            "rax": 305419896,
+            "rbx": 0,
+            "rcx": 0,
+            "rdx": 0
+          }
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_VCPU",
+          "vcpu_id": 0
+        }
+      ]
+    }
+  },
+  {
+    "name": "I/O 포트 입출력(IOIO_IN, IOIO_OUT) 에뮬레이션",
+    "input": {
+      "config": {
+        "guest_vcpus": 2,
+        "snp_active": true
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_VCPU",
+          "vcpu_id": 0
+        },
+        {
+          "time": 1,
+          "type": "GUEST_EXEC_OP",
+          "vcpu_id": 0,
+          "op": "IOIO_OUT",
+          "args": {
+            "port": 1016,
+            "value": 65
+          }
+        },
+        {
+          "time": 2,
+          "type": "GUEST_EXEC_OP",
+          "vcpu_id": 0,
+          "op": "IOIO_IN",
+          "args": {
+            "port": 1016
+          }
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_vc_exceptions": 2,
+        "total_vmgexits": 2,
+        "successful_emulations": 2,
+        "page_state_changes": 0,
+        "security_terminations": 0,
+        "emulations_by_type": {
+          "CPUID": 0,
+          "MSR": 0,
+          "IOIO": 2,
+          "PSC": 0
+        }
+      },
+      "page_states": {},
+      "vcpus": {
+        "0": {
+          "vcpu_id": 0,
+          "state": "RUNNING",
+          "regs": {
+            "rax": 255,
+            "rbx": 0,
+            "rcx": 0,
+            "rdx": 0
+          }
+        }
+      },
+      "vmgexit_logs": [
+        {
+          "time": 1,
+          "vcpu_id": 0,
+          "op": "IOIO_OUT",
+          "exit_code": "0x80000003",
+          "status": "SUCCESS",
+          "regs": {
+            "rax": 0,
+            "rbx": 0,
+            "rcx": 0,
+            "rdx": 0
+          }
+        },
+        {
+          "time": 2,
+          "vcpu_id": 0,
+          "op": "IOIO_IN",
+          "exit_code": "0x80000003",
+          "status": "SUCCESS",
+          "regs": {
+            "rax": 255,
+            "rbx": 0,
+            "rcx": 0,
+            "rdx": 0
+          }
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_VCPU",
+          "vcpu_id": 0
+        }
+      ]
+    }
+  },
+  {
+    "name": "SEV-SNP 메모리 상태 전환(PAGE_STATE_CHANGE): PRIVATE <-> SHARED 전환",
+    "input": {
+      "config": {
+        "guest_vcpus": 2,
+        "snp_active": true
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_VCPU",
+          "vcpu_id": 0
+        },
+        {
+          "time": 1,
+          "type": "GUEST_EXEC_OP",
+          "vcpu_id": 0,
+          "op": "PAGE_STATE_CHANGE",
+          "args": {
+            "pfn": 100,
+            "target_state": "SHARED"
+          }
+        },
+        {
+          "time": 2,
+          "type": "GUEST_EXEC_OP",
+          "vcpu_id": 0,
+          "op": "PAGE_STATE_CHANGE",
+          "args": {
+            "pfn": 100,
+            "target_state": "PRIVATE"
+          }
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_vc_exceptions": 2,
+        "total_vmgexits": 2,
+        "successful_emulations": 2,
+        "page_state_changes": 2,
+        "security_terminations": 0,
+        "emulations_by_type": {
+          "CPUID": 0,
+          "MSR": 0,
+          "IOIO": 0,
+          "PSC": 2
+        }
+      },
+      "page_states": {
+        "100": "PRIVATE"
+      },
+      "vcpus": {
+        "0": {
+          "vcpu_id": 0,
+          "state": "RUNNING",
+          "regs": {
+            "rax": 0,
+            "rbx": 0,
+            "rcx": 0,
+            "rdx": 0
+          }
+        }
+      },
+      "vmgexit_logs": [
+        {
+          "time": 1,
+          "vcpu_id": 0,
+          "op": "PAGE_STATE_CHANGE",
+          "exit_code": "0x80000010",
+          "status": "SUCCESS",
+          "regs": {
+            "rax": 0,
+            "rbx": 0,
+            "rcx": 0,
+            "rdx": 0
+          }
+        },
+        {
+          "time": 2,
+          "vcpu_id": 0,
+          "op": "PAGE_STATE_CHANGE",
+          "exit_code": "0x80000010",
+          "status": "SUCCESS",
+          "regs": {
+            "rax": 0,
+            "rbx": 0,
+            "rcx": 0,
+            "rdx": 0
+          }
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_VCPU",
+          "vcpu_id": 0
+        }
+      ]
+    }
+  },
+  {
+    "name": "악의적인 하이퍼바이저 GHCB 비트맵 위조 시 게스트 측 보안 종료(SECURITY_TERMINATION)",
+    "input": {
+      "config": {
+        "guest_vcpus": 2,
+        "snp_active": true
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_VCPU",
+          "vcpu_id": 0
+        },
+        {
+          "time": 1,
+          "type": "GUEST_EXEC_OP",
+          "vcpu_id": 0,
+          "op": "CPUID",
+          "args": {
+            "function": 0,
+            "inject_malicious_hypervisor_response": true
+          }
+        },
+        {
+          "time": 2,
+          "type": "GUEST_EXEC_OP",
+          "vcpu_id": 0,
+          "op": "MSR_READ",
+          "args": {
+            "msr_index": 27
+          }
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_vc_exceptions": 1,
+        "total_vmgexits": 1,
+        "successful_emulations": 0,
+        "page_state_changes": 0,
+        "security_terminations": 1,
+        "emulations_by_type": {
+          "CPUID": 1,
+          "MSR": 0,
+          "IOIO": 0,
+          "PSC": 0
+        }
+      },
+      "page_states": {},
+      "vcpus": {
+        "0": {
+          "vcpu_id": 0,
+          "state": "TERMINATED",
+          "regs": {
+            "rax": 0,
+            "rbx": 0,
+            "rcx": 0,
+            "rdx": 0
+          }
+        }
+      },
+      "vmgexit_logs": [
+        {
+          "time": 1,
+          "vcpu_id": 0,
+          "op": "CPUID",
+          "status": "SECURITY_TERMINATION",
+          "reason": "GHCB_BITMAP_PROTOCOL_VIOLATION"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_VCPU",
+          "vcpu_id": 0
+        }
+      ]
+    }
+  },
+  {
+    "name": "멀티 vCPU 독립적 GHCB 및 병렬 VMGEXIT 라운드트립",
+    "input": {
+      "config": {
+        "guest_vcpus": 4,
+        "snp_active": true
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_VCPU",
+          "vcpu_id": 1
+        },
+        {
+          "time": 0,
+          "type": "CREATE_VCPU",
+          "vcpu_id": 2
+        },
+        {
+          "time": 1,
+          "type": "GUEST_EXEC_OP",
+          "vcpu_id": 1,
+          "op": "CPUID",
+          "args": {
+            "function": 0
+          }
+        },
+        {
+          "time": 2,
+          "type": "GUEST_EXEC_OP",
+          "vcpu_id": 2,
+          "op": "MSR_READ",
+          "args": {
+            "msr_index": 2050
+          }
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_vc_exceptions": 2,
+        "total_vmgexits": 2,
+        "successful_emulations": 2,
+        "page_state_changes": 0,
+        "security_terminations": 0,
+        "emulations_by_type": {
+          "CPUID": 1,
+          "MSR": 1,
+          "IOIO": 0,
+          "PSC": 0
+        }
+      },
+      "page_states": {},
+      "vcpus": {
+        "1": {
+          "vcpu_id": 1,
+          "state": "RUNNING",
+          "regs": {
+            "rax": 1,
+            "rbx": 1752462657,
+            "rcx": 1145913699,
+            "rdx": 1769238117
+          }
+        },
+        "2": {
+          "vcpu_id": 2,
+          "state": "RUNNING",
+          "regs": {
+            "rax": 305419896,
+            "rbx": 0,
+            "rcx": 0,
+            "rdx": 0
+          }
+        }
+      },
+      "vmgexit_logs": [
+        {
+          "time": 1,
+          "vcpu_id": 1,
+          "op": "CPUID",
+          "exit_code": "0x80000001",
+          "status": "SUCCESS",
+          "regs": {
+            "rax": 1,
+            "rbx": 1752462657,
+            "rcx": 1145913699,
+            "rdx": 1769238117
+          }
+        },
+        {
+          "time": 2,
+          "vcpu_id": 2,
+          "op": "MSR_READ",
+          "exit_code": "0x80000002",
+          "status": "SUCCESS",
+          "regs": {
+            "rax": 305419896,
+            "rbx": 0,
+            "rcx": 0,
+            "rdx": 0
+          }
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_VCPU",
+          "vcpu_id": 1
+        },
+        {
+          "time": 0,
+          "event": "CREATE_VCPU",
+          "vcpu_id": 2
+        }
+      ]
+    }
+  },
+  {
+    "name": "엔터프라이즈 기밀 가상 머신(Confidential VM on AMD EPYC) 부팅 종합 시뮬레이션",
+    "input": {
+      "config": {
+        "guest_vcpus": 4,
+        "snp_active": true
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CREATE_VCPU",
+          "vcpu_id": 0
+        },
+        {
+          "time": 0,
+          "type": "CREATE_VCPU",
+          "vcpu_id": 1
+        },
+        {
+          "time": 1,
+          "type": "GUEST_EXEC_OP",
+          "vcpu_id": 0,
+          "op": "CPUID",
+          "args": {
+            "function": 0
+          }
+        },
+        {
+          "time": 2,
+          "type": "GUEST_EXEC_OP",
+          "vcpu_id": 0,
+          "op": "CPUID",
+          "args": {
+            "function": 1
+          }
+        },
+        {
+          "time": 3,
+          "type": "GUEST_EXEC_OP",
+          "vcpu_id": 0,
+          "op": "MSR_WRITE",
+          "args": {
+            "msr_index": 27,
+            "value_lo": 4276095232,
+            "value_hi": 0
+          }
+        },
+        {
+          "time": 4,
+          "type": "GUEST_EXEC_OP",
+          "vcpu_id": 1,
+          "op": "MSR_READ",
+          "args": {
+            "msr_index": 27
+          }
+        },
+        {
+          "time": 5,
+          "type": "GUEST_EXEC_OP",
+          "vcpu_id": 0,
+          "op": "IOIO_OUT",
+          "args": {
+            "port": 1016,
+            "value": 90
+          }
+        },
+        {
+          "time": 6,
+          "type": "GUEST_EXEC_OP",
+          "vcpu_id": 0,
+          "op": "PAGE_STATE_CHANGE",
+          "args": {
+            "pfn": 500,
+            "target_state": "SHARED"
+          }
+        },
+        {
+          "time": 7,
+          "type": "GUEST_EXEC_OP",
+          "vcpu_id": 1,
+          "op": "PAGE_STATE_CHANGE",
+          "args": {
+            "pfn": 501,
+            "target_state": "SHARED"
+          }
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_vc_exceptions": 7,
+        "total_vmgexits": 7,
+        "successful_emulations": 7,
+        "page_state_changes": 2,
+        "security_terminations": 0,
+        "emulations_by_type": {
+          "CPUID": 2,
+          "MSR": 2,
+          "IOIO": 1,
+          "PSC": 2
+        }
+      },
+      "page_states": {
+        "500": "SHARED",
+        "501": "SHARED"
+      },
+      "vcpus": {
+        "0": {
+          "vcpu_id": 0,
+          "state": "RUNNING",
+          "regs": {
+            "rax": 8392466,
+            "rbx": 133120,
+            "rcx": 1988243971,
+            "rdx": 395049983
+          }
+        },
+        "1": {
+          "vcpu_id": 1,
+          "state": "RUNNING",
+          "regs": {
+            "rax": 305419896,
+            "rbx": 0,
+            "rcx": 0,
+            "rdx": 0
+          }
+        }
+      },
+      "vmgexit_logs": [
+        {
+          "time": 1,
+          "vcpu_id": 0,
+          "op": "CPUID",
+          "exit_code": "0x80000001",
+          "status": "SUCCESS",
+          "regs": {
+            "rax": 1,
+            "rbx": 1752462657,
+            "rcx": 1145913699,
+            "rdx": 1769238117
+          }
+        },
+        {
+          "time": 2,
+          "vcpu_id": 0,
+          "op": "CPUID",
+          "exit_code": "0x80000001",
+          "status": "SUCCESS",
+          "regs": {
+            "rax": 8392466,
+            "rbx": 133120,
+            "rcx": 1988243971,
+            "rdx": 395049983
+          }
+        },
+        {
+          "time": 3,
+          "vcpu_id": 0,
+          "op": "MSR_WRITE",
+          "exit_code": "0x80000002",
+          "status": "SUCCESS",
+          "regs": {
+            "rax": 8392466,
+            "rbx": 133120,
+            "rcx": 1988243971,
+            "rdx": 395049983
+          }
+        },
+        {
+          "time": 4,
+          "vcpu_id": 1,
+          "op": "MSR_READ",
+          "exit_code": "0x80000002",
+          "status": "SUCCESS",
+          "regs": {
+            "rax": 305419896,
+            "rbx": 0,
+            "rcx": 0,
+            "rdx": 0
+          }
+        },
+        {
+          "time": 5,
+          "vcpu_id": 0,
+          "op": "IOIO_OUT",
+          "exit_code": "0x80000003",
+          "status": "SUCCESS",
+          "regs": {
+            "rax": 8392466,
+            "rbx": 133120,
+            "rcx": 1988243971,
+            "rdx": 395049983
+          }
+        },
+        {
+          "time": 6,
+          "vcpu_id": 0,
+          "op": "PAGE_STATE_CHANGE",
+          "exit_code": "0x80000010",
+          "status": "SUCCESS",
+          "regs": {
+            "rax": 8392466,
+            "rbx": 133120,
+            "rcx": 1988243971,
+            "rdx": 395049983
+          }
+        },
+        {
+          "time": 7,
+          "vcpu_id": 1,
+          "op": "PAGE_STATE_CHANGE",
+          "exit_code": "0x80000010",
+          "status": "SUCCESS",
+          "regs": {
+            "rax": 305419896,
+            "rbx": 0,
+            "rcx": 0,
+            "rdx": 0
+          }
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CREATE_VCPU",
+          "vcpu_id": 0
+        },
+        {
+          "time": 0,
+          "event": "CREATE_VCPU",
+          "vcpu_id": 1
+        }
+      ]
+    }
+  }
+]
