@@ -1,0 +1,739 @@
+[
+  {
+    "name": "BYPASS 모드 DMA 직접 물리 메모리 접근 및 제로 변환 오버헤드 검증",
+    "input": {
+      "config": {
+        "cmdq_size": 32,
+        "evtq_size": 32
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CONFIG_STE",
+          "stream_id": 1,
+          "config": "BYPASS"
+        },
+        {
+          "time": 1,
+          "type": "DMA_REQUEST",
+          "stream_id": 1,
+          "iova": 2147483648,
+          "access_type": "READ"
+        },
+        {
+          "time": 2,
+          "type": "DMA_REQUEST",
+          "stream_id": 1,
+          "iova": 2147487744,
+          "access_type": "WRITE"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_dma_requests": 2,
+        "successful_dma": 2,
+        "faulted_dma": 0,
+        "cmdq_commands_processed": 0,
+        "sync_completions": 0,
+        "evtq_events_logged": 0,
+        "translations_by_mode": {
+          "BYPASS": 2,
+          "STAGE1": 0,
+          "STAGE2": 0,
+          "NESTED": 0
+        }
+      },
+      "evtq": [],
+      "dma_logs": [
+        {
+          "time": 1,
+          "stream_id": 1,
+          "mode": "BYPASS",
+          "iova": "0x80000000",
+          "pa": "0x80000000",
+          "access_type": "READ",
+          "status": "SUCCESS"
+        },
+        {
+          "time": 2,
+          "stream_id": 1,
+          "mode": "BYPASS",
+          "iova": "0x80001000",
+          "pa": "0x80001000",
+          "access_type": "WRITE",
+          "status": "SUCCESS"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CONFIG_STE",
+          "stream_id": 1,
+          "config": "BYPASS",
+          "s1_entries": 0,
+          "s2_entries": 0
+        }
+      ]
+    }
+  },
+  {
+    "name": "Stage 1 호스트 프로세스 전용 주소 변환(IOVA -> PA) 및 권한 검증",
+    "input": {
+      "config": {
+        "cmdq_size": 32,
+        "evtq_size": 32
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CONFIG_STE",
+          "stream_id": 10,
+          "config": "STAGE1",
+          "s1_mappings": {
+            "4096": 2281705472,
+            "8192": 2281709568
+          },
+          "s1_ro": false
+        },
+        {
+          "time": 1,
+          "type": "DMA_REQUEST",
+          "stream_id": 10,
+          "iova": 4096,
+          "access_type": "READ"
+        },
+        {
+          "time": 2,
+          "type": "DMA_REQUEST",
+          "stream_id": 10,
+          "iova": 8192,
+          "access_type": "WRITE"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_dma_requests": 2,
+        "successful_dma": 2,
+        "faulted_dma": 0,
+        "cmdq_commands_processed": 0,
+        "sync_completions": 0,
+        "evtq_events_logged": 0,
+        "translations_by_mode": {
+          "BYPASS": 0,
+          "STAGE1": 2,
+          "STAGE2": 0,
+          "NESTED": 0
+        }
+      },
+      "evtq": [],
+      "dma_logs": [
+        {
+          "time": 1,
+          "stream_id": 10,
+          "mode": "STAGE1",
+          "iova": "0x1000",
+          "pa": "0x88001000",
+          "access_type": "READ",
+          "status": "SUCCESS"
+        },
+        {
+          "time": 2,
+          "stream_id": 10,
+          "mode": "STAGE1",
+          "iova": "0x2000",
+          "pa": "0x88002000",
+          "access_type": "WRITE",
+          "status": "SUCCESS"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CONFIG_STE",
+          "stream_id": 10,
+          "config": "STAGE1",
+          "s1_entries": 2,
+          "s2_entries": 0
+        }
+      ]
+    }
+  },
+  {
+    "name": "Stage 2 가상 머신(KVM/VFIO) 게스트 물리 주소 변환(GPA -> HPA) 및 VM 격리",
+    "input": {
+      "config": {
+        "cmdq_size": 32,
+        "evtq_size": 32
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CONFIG_STE",
+          "stream_id": 20,
+          "config": "STAGE2",
+          "s2_mappings": {
+            "1073741824": 2415919104,
+            "1073745920": 2415923200
+          }
+        },
+        {
+          "time": 1,
+          "type": "DMA_REQUEST",
+          "stream_id": 20,
+          "iova": 1073741824,
+          "access_type": "READ"
+        },
+        {
+          "time": 2,
+          "type": "DMA_REQUEST",
+          "stream_id": 20,
+          "iova": 1073745920,
+          "access_type": "WRITE"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_dma_requests": 2,
+        "successful_dma": 2,
+        "faulted_dma": 0,
+        "cmdq_commands_processed": 0,
+        "sync_completions": 0,
+        "evtq_events_logged": 0,
+        "translations_by_mode": {
+          "BYPASS": 0,
+          "STAGE1": 0,
+          "STAGE2": 2,
+          "NESTED": 0
+        }
+      },
+      "evtq": [],
+      "dma_logs": [
+        {
+          "time": 1,
+          "stream_id": 20,
+          "mode": "STAGE2",
+          "iova": "0x40000000",
+          "pa": "0x90000000",
+          "access_type": "READ",
+          "status": "SUCCESS"
+        },
+        {
+          "time": 2,
+          "stream_id": 20,
+          "mode": "STAGE2",
+          "iova": "0x40001000",
+          "pa": "0x90001000",
+          "access_type": "WRITE",
+          "status": "SUCCESS"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CONFIG_STE",
+          "stream_id": 20,
+          "config": "STAGE2",
+          "s1_entries": 0,
+          "s2_entries": 2
+        }
+      ]
+    }
+  },
+  {
+    "name": "Nested (Stage 1 + Stage 2) 2단계 중첩 변환: 게스트 OS 가상 주소 -> GPA -> HPA 완벽 변환",
+    "input": {
+      "config": {
+        "cmdq_size": 32,
+        "evtq_size": 32
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CONFIG_STE",
+          "stream_id": 30,
+          "config": "NESTED",
+          "s1_mappings": {
+            "65536": 1342177280
+          },
+          "s2_mappings": {
+            "1342177280": 2684354560
+          }
+        },
+        {
+          "time": 1,
+          "type": "DMA_REQUEST",
+          "stream_id": 30,
+          "iova": 65536,
+          "access_type": "WRITE"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_dma_requests": 1,
+        "successful_dma": 1,
+        "faulted_dma": 0,
+        "cmdq_commands_processed": 0,
+        "sync_completions": 0,
+        "evtq_events_logged": 0,
+        "translations_by_mode": {
+          "BYPASS": 0,
+          "STAGE1": 0,
+          "STAGE2": 0,
+          "NESTED": 1
+        }
+      },
+      "evtq": [],
+      "dma_logs": [
+        {
+          "time": 1,
+          "stream_id": 30,
+          "mode": "NESTED",
+          "iova": "0x10000",
+          "pa": "0xa0000000",
+          "access_type": "WRITE",
+          "status": "SUCCESS"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CONFIG_STE",
+          "stream_id": 30,
+          "config": "NESTED",
+          "s1_entries": 1,
+          "s2_entries": 1
+        }
+      ]
+    }
+  },
+  {
+    "name": "커널 명령 큐(CMDQ) TLB 무효화(TLBI_NH_VA) 및 동기화 장벽(CMD_SYNC) 완료 검증",
+    "input": {
+      "config": {
+        "cmdq_size": 32,
+        "evtq_size": 32
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CONFIG_STE",
+          "stream_id": 40,
+          "config": "BYPASS"
+        },
+        {
+          "time": 1,
+          "type": "SUBMIT_CMD",
+          "op": "CFGI_STE",
+          "args": {
+            "stream_id": 40
+          }
+        },
+        {
+          "time": 2,
+          "type": "SUBMIT_CMD",
+          "op": "TLBI_NH_VA",
+          "args": {
+            "asid": 1,
+            "va": 4096
+          }
+        },
+        {
+          "time": 3,
+          "type": "SUBMIT_CMD",
+          "op": "CMD_SYNC"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_dma_requests": 0,
+        "successful_dma": 0,
+        "faulted_dma": 0,
+        "cmdq_commands_processed": 3,
+        "sync_completions": 1,
+        "evtq_events_logged": 0,
+        "translations_by_mode": {
+          "BYPASS": 0,
+          "STAGE1": 0,
+          "STAGE2": 0,
+          "NESTED": 0
+        }
+      },
+      "evtq": [],
+      "dma_logs": [],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CONFIG_STE",
+          "stream_id": 40,
+          "config": "BYPASS",
+          "s1_entries": 0,
+          "s2_entries": 0
+        },
+        {
+          "time": 1,
+          "event": "SUBMIT_CMD",
+          "op": "CFGI_STE",
+          "status": "INVALIDATED",
+          "args": {
+            "stream_id": 40
+          }
+        },
+        {
+          "time": 2,
+          "event": "SUBMIT_CMD",
+          "op": "TLBI_NH_VA",
+          "status": "INVALIDATED",
+          "args": {
+            "asid": 1,
+            "va": 4096
+          }
+        },
+        {
+          "time": 3,
+          "event": "SUBMIT_CMD",
+          "op": "CMD_SYNC",
+          "status": "SYNCED",
+          "args": null
+        }
+      ]
+    }
+  },
+  {
+    "name": "읽기 전용 도메인 쓰기 시도 시 하드웨어 권한 위반(F_PERMISSION) 및 이벤트 큐(EVTQ) 로깅",
+    "input": {
+      "config": {
+        "cmdq_size": 32,
+        "evtq_size": 32
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CONFIG_STE",
+          "stream_id": 50,
+          "config": "STAGE1",
+          "s1_mappings": {
+            "20480": 2281721856
+          },
+          "s1_ro": true
+        },
+        {
+          "time": 1,
+          "type": "DMA_REQUEST",
+          "stream_id": 50,
+          "iova": 20480,
+          "access_type": "READ"
+        },
+        {
+          "time": 2,
+          "type": "DMA_REQUEST",
+          "stream_id": 50,
+          "iova": 20480,
+          "access_type": "WRITE"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_dma_requests": 2,
+        "successful_dma": 1,
+        "faulted_dma": 1,
+        "cmdq_commands_processed": 0,
+        "sync_completions": 0,
+        "evtq_events_logged": 1,
+        "translations_by_mode": {
+          "BYPASS": 0,
+          "STAGE1": 1,
+          "STAGE2": 0,
+          "NESTED": 0
+        }
+      },
+      "evtq": [
+        {
+          "time": 2,
+          "stream_id": 50,
+          "iova": "0x5000",
+          "access_type": "WRITE",
+          "fault_type": "F_PERMISSION",
+          "detail": "STAGE1_WRITE_TO_RO"
+        }
+      ],
+      "dma_logs": [
+        {
+          "time": 1,
+          "stream_id": 50,
+          "mode": "STAGE1",
+          "iova": "0x5000",
+          "pa": "0x88005000",
+          "access_type": "READ",
+          "status": "SUCCESS"
+        },
+        {
+          "time": 2,
+          "stream_id": 50,
+          "iova": "0x5000",
+          "access_type": "WRITE",
+          "status": "FAULT",
+          "fault_type": "F_PERMISSION",
+          "detail": "STAGE1_WRITE_TO_RO"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CONFIG_STE",
+          "stream_id": 50,
+          "config": "STAGE1",
+          "s1_entries": 1,
+          "s2_entries": 0
+        }
+      ]
+    }
+  },
+  {
+    "name": "미매핑 IOVA 접근 및 미구성 StreamID 접근 시 변환 실패(F_TRANSLATION, F_STREAM_DISABLED) 차단",
+    "input": {
+      "config": {
+        "cmdq_size": 32,
+        "evtq_size": 32
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CONFIG_STE",
+          "stream_id": 60,
+          "config": "STAGE1",
+          "s1_mappings": {
+            "4096": 2281705472
+          }
+        },
+        {
+          "time": 1,
+          "type": "DMA_REQUEST",
+          "stream_id": 60,
+          "iova": 39321,
+          "access_type": "READ"
+        },
+        {
+          "time": 2,
+          "type": "DMA_REQUEST",
+          "stream_id": 999,
+          "iova": 4096,
+          "access_type": "READ"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_dma_requests": 2,
+        "successful_dma": 0,
+        "faulted_dma": 2,
+        "cmdq_commands_processed": 0,
+        "sync_completions": 0,
+        "evtq_events_logged": 2,
+        "translations_by_mode": {
+          "BYPASS": 0,
+          "STAGE1": 0,
+          "STAGE2": 0,
+          "NESTED": 0
+        }
+      },
+      "evtq": [
+        {
+          "time": 1,
+          "stream_id": 60,
+          "iova": "0x9999",
+          "access_type": "READ",
+          "fault_type": "F_TRANSLATION",
+          "detail": "STAGE1_IOVA_UNMAPPED"
+        },
+        {
+          "time": 2,
+          "stream_id": 999,
+          "iova": "0x1000",
+          "access_type": "READ",
+          "fault_type": "F_STREAM_DISABLED",
+          "detail": "STREAM_NOT_CONFIGURED"
+        }
+      ],
+      "dma_logs": [
+        {
+          "time": 1,
+          "stream_id": 60,
+          "iova": "0x9999",
+          "access_type": "READ",
+          "status": "FAULT",
+          "fault_type": "F_TRANSLATION",
+          "detail": "STAGE1_IOVA_UNMAPPED"
+        },
+        {
+          "time": 2,
+          "stream_id": 999,
+          "iova": "0x1000",
+          "access_type": "READ",
+          "status": "FAULT",
+          "fault_type": "F_STREAM_DISABLED",
+          "detail": "STREAM_NOT_CONFIGURED"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CONFIG_STE",
+          "stream_id": 60,
+          "config": "STAGE1",
+          "s1_entries": 1,
+          "s2_entries": 0
+        }
+      ]
+    }
+  },
+  {
+    "name": "엔터프라이즈 ARM64 클라우드 서버 멀티 디바이스 혼합 DMA 종합 시뮬레이션",
+    "input": {
+      "config": {
+        "cmdq_size": 32,
+        "evtq_size": 32
+      },
+      "trace": [
+        {
+          "time": 0,
+          "type": "CONFIG_STE",
+          "stream_id": 101,
+          "config": "STAGE1",
+          "s1_mappings": {
+            "4096": 2281705472,
+            "8192": 2281709568
+          }
+        },
+        {
+          "time": 1,
+          "type": "CONFIG_STE",
+          "stream_id": 102,
+          "config": "NESTED",
+          "s1_mappings": {
+            "327680": 1879048192
+          },
+          "s2_mappings": {
+            "1879048192": 2952790016
+          }
+        },
+        {
+          "time": 2,
+          "type": "CONFIG_STE",
+          "stream_id": 103,
+          "config": "BYPASS"
+        },
+        {
+          "time": 3,
+          "type": "DMA_REQUEST",
+          "stream_id": 101,
+          "iova": 4096,
+          "access_type": "READ"
+        },
+        {
+          "time": 4,
+          "type": "DMA_REQUEST",
+          "stream_id": 102,
+          "iova": 327680,
+          "access_type": "WRITE"
+        },
+        {
+          "time": 5,
+          "type": "DMA_REQUEST",
+          "stream_id": 103,
+          "iova": 2147483648,
+          "access_type": "READ"
+        },
+        {
+          "time": 6,
+          "type": "SUBMIT_CMD",
+          "op": "CMD_SYNC"
+        }
+      ]
+    },
+    "output": {
+      "summary": {
+        "total_dma_requests": 3,
+        "successful_dma": 3,
+        "faulted_dma": 0,
+        "cmdq_commands_processed": 1,
+        "sync_completions": 1,
+        "evtq_events_logged": 0,
+        "translations_by_mode": {
+          "BYPASS": 1,
+          "STAGE1": 1,
+          "STAGE2": 0,
+          "NESTED": 1
+        }
+      },
+      "evtq": [],
+      "dma_logs": [
+        {
+          "time": 3,
+          "stream_id": 101,
+          "mode": "STAGE1",
+          "iova": "0x1000",
+          "pa": "0x88001000",
+          "access_type": "READ",
+          "status": "SUCCESS"
+        },
+        {
+          "time": 4,
+          "stream_id": 102,
+          "mode": "NESTED",
+          "iova": "0x50000",
+          "pa": "0xb0000000",
+          "access_type": "WRITE",
+          "status": "SUCCESS"
+        },
+        {
+          "time": 5,
+          "stream_id": 103,
+          "mode": "BYPASS",
+          "iova": "0x80000000",
+          "pa": "0x80000000",
+          "access_type": "READ",
+          "status": "SUCCESS"
+        }
+      ],
+      "event_logs": [
+        {
+          "time": 0,
+          "event": "CONFIG_STE",
+          "stream_id": 101,
+          "config": "STAGE1",
+          "s1_entries": 2,
+          "s2_entries": 0
+        },
+        {
+          "time": 1,
+          "event": "CONFIG_STE",
+          "stream_id": 102,
+          "config": "NESTED",
+          "s1_entries": 1,
+          "s2_entries": 1
+        },
+        {
+          "time": 2,
+          "event": "CONFIG_STE",
+          "stream_id": 103,
+          "config": "BYPASS",
+          "s1_entries": 0,
+          "s2_entries": 0
+        },
+        {
+          "time": 6,
+          "event": "SUBMIT_CMD",
+          "op": "CMD_SYNC",
+          "status": "SYNCED",
+          "args": null
+        }
+      ]
+    }
+  }
+]
