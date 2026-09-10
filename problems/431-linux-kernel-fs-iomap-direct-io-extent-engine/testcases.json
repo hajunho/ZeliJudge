@@ -1,0 +1,1045 @@
+[
+  {
+    "testcase_id": 1,
+    "input": {
+      "config": {
+        "sector_size": 512,
+        "max_bio_size": 65536,
+        "allow_unaligned": false,
+        "initial_extents": [
+          {
+            "offset": 0,
+            "length": 32768,
+            "paddr": 1048576,
+            "type": "MAPPED"
+          }
+        ]
+      },
+      "trace": [
+        {
+          "op": "IOMAP_READ",
+          "offset": 0,
+          "length": 4096
+        },
+        {
+          "op": "IOMAP_WRITE",
+          "offset": 4096,
+          "length": 4096
+        },
+        {
+          "op": "DUMP_EXTENTS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "IOMAP_READ",
+          "offset": 0,
+          "length": 4096,
+          "status": "SUCCESS",
+          "bytes_read": 4096,
+          "zero_filled_bytes": 0,
+          "disk_bytes_read": 4096,
+          "bios": [
+            {
+              "type": "BIO_READ",
+              "offset": 0,
+              "length": 4096,
+              "paddr": 1048576
+            }
+          ]
+        },
+        {
+          "op": "IOMAP_WRITE",
+          "offset": 4096,
+          "length": 4096,
+          "status": "SUCCESS",
+          "bytes_written": 4096,
+          "bios": [
+            {
+              "type": "BIO_WRITE",
+              "offset": 4096,
+              "length": 4096,
+              "paddr": 1052672
+            }
+          ],
+          "converted_ranges": []
+        },
+        {
+          "op": "DUMP_EXTENTS",
+          "status": "SUCCESS",
+          "extent_count": 1,
+          "extents": [
+            {
+              "offset": 0,
+              "length": 32768,
+              "paddr": 1048576,
+              "type": "MAPPED"
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "total_bytes_read": 4096,
+        "total_bytes_written": 4096,
+        "zero_filled_bytes": 0,
+        "bio_count": 2,
+        "unwritten_conversions": 0,
+        "aligned_io_count": 2,
+        "unaligned_rejects": 0,
+        "final_extent_count": 1
+      }
+    }
+  },
+  {
+    "testcase_id": 2,
+    "input": {
+      "config": {
+        "sector_size": 4096,
+        "max_bio_size": 65536,
+        "allow_unaligned": false,
+        "initial_extents": [
+          {
+            "offset": 0,
+            "length": 16384,
+            "paddr": 1048576,
+            "type": "MAPPED"
+          },
+          {
+            "offset": 32768,
+            "length": 16384,
+            "paddr": 2097152,
+            "type": "MAPPED"
+          }
+        ]
+      },
+      "trace": [
+        {
+          "op": "IOMAP_READ",
+          "offset": 16384,
+          "length": 16384
+        },
+        {
+          "op": "IOMAP_READ",
+          "offset": 49152,
+          "length": 8192
+        },
+        {
+          "op": "DUMP_EXTENTS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "IOMAP_READ",
+          "offset": 16384,
+          "length": 16384,
+          "status": "SUCCESS",
+          "bytes_read": 16384,
+          "zero_filled_bytes": 16384,
+          "disk_bytes_read": 0,
+          "bios": [
+            {
+              "type": "ZERO_FILL",
+              "offset": 16384,
+              "length": 16384,
+              "paddr": -1,
+              "origin_type": "HOLE"
+            }
+          ]
+        },
+        {
+          "op": "IOMAP_READ",
+          "offset": 49152,
+          "length": 8192,
+          "status": "SUCCESS",
+          "bytes_read": 8192,
+          "zero_filled_bytes": 8192,
+          "disk_bytes_read": 0,
+          "bios": [
+            {
+              "type": "ZERO_FILL",
+              "offset": 49152,
+              "length": 8192,
+              "paddr": -1,
+              "origin_type": "HOLE"
+            }
+          ]
+        },
+        {
+          "op": "DUMP_EXTENTS",
+          "status": "SUCCESS",
+          "extent_count": 2,
+          "extents": [
+            {
+              "offset": 0,
+              "length": 16384,
+              "paddr": 1048576,
+              "type": "MAPPED"
+            },
+            {
+              "offset": 32768,
+              "length": 16384,
+              "paddr": 2097152,
+              "type": "MAPPED"
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "total_bytes_read": 24576,
+        "total_bytes_written": 0,
+        "zero_filled_bytes": 24576,
+        "bio_count": 0,
+        "unwritten_conversions": 0,
+        "aligned_io_count": 2,
+        "unaligned_rejects": 0,
+        "final_extent_count": 2
+      }
+    }
+  },
+  {
+    "testcase_id": 3,
+    "input": {
+      "config": {
+        "sector_size": 4096,
+        "max_bio_size": 32768,
+        "allow_unaligned": false,
+        "initial_extents": [
+          {
+            "offset": 0,
+            "length": 65536,
+            "paddr": 4194304,
+            "type": "UNWRITTEN"
+          }
+        ]
+      },
+      "trace": [
+        {
+          "op": "IOMAP_READ",
+          "offset": 0,
+          "length": 16384
+        },
+        {
+          "op": "IOMAP_WRITE",
+          "offset": 16384,
+          "length": 16384
+        },
+        {
+          "op": "IOMAP_READ",
+          "offset": 0,
+          "length": 49152
+        },
+        {
+          "op": "DUMP_EXTENTS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "IOMAP_READ",
+          "offset": 0,
+          "length": 16384,
+          "status": "SUCCESS",
+          "bytes_read": 16384,
+          "zero_filled_bytes": 16384,
+          "disk_bytes_read": 0,
+          "bios": [
+            {
+              "type": "ZERO_FILL",
+              "offset": 0,
+              "length": 16384,
+              "paddr": -1,
+              "origin_type": "UNWRITTEN"
+            }
+          ]
+        },
+        {
+          "op": "IOMAP_WRITE",
+          "offset": 16384,
+          "length": 16384,
+          "status": "SUCCESS",
+          "bytes_written": 16384,
+          "bios": [
+            {
+              "type": "BIO_WRITE",
+              "offset": 16384,
+              "length": 16384,
+              "paddr": 4210688
+            }
+          ],
+          "converted_ranges": [
+            {
+              "offset": 16384,
+              "length": 16384
+            }
+          ]
+        },
+        {
+          "op": "IOMAP_READ",
+          "offset": 0,
+          "length": 49152,
+          "status": "SUCCESS",
+          "bytes_read": 49152,
+          "zero_filled_bytes": 32768,
+          "disk_bytes_read": 16384,
+          "bios": [
+            {
+              "type": "ZERO_FILL",
+              "offset": 0,
+              "length": 16384,
+              "paddr": -1,
+              "origin_type": "UNWRITTEN"
+            },
+            {
+              "type": "BIO_READ",
+              "offset": 16384,
+              "length": 16384,
+              "paddr": 4210688
+            },
+            {
+              "type": "ZERO_FILL",
+              "offset": 32768,
+              "length": 16384,
+              "paddr": -1,
+              "origin_type": "UNWRITTEN"
+            }
+          ]
+        },
+        {
+          "op": "DUMP_EXTENTS",
+          "status": "SUCCESS",
+          "extent_count": 3,
+          "extents": [
+            {
+              "offset": 0,
+              "length": 16384,
+              "paddr": 4194304,
+              "type": "UNWRITTEN"
+            },
+            {
+              "offset": 16384,
+              "length": 16384,
+              "paddr": 4210688,
+              "type": "MAPPED"
+            },
+            {
+              "offset": 32768,
+              "length": 32768,
+              "paddr": 4227072,
+              "type": "UNWRITTEN"
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "total_bytes_read": 65536,
+        "total_bytes_written": 16384,
+        "zero_filled_bytes": 49152,
+        "bio_count": 2,
+        "unwritten_conversions": 1,
+        "aligned_io_count": 3,
+        "unaligned_rejects": 0,
+        "final_extent_count": 3
+      }
+    }
+  },
+  {
+    "testcase_id": 4,
+    "input": {
+      "config": {
+        "sector_size": 4096,
+        "max_bio_size": 16384,
+        "allow_unaligned": false,
+        "initial_extents": [
+          {
+            "offset": 0,
+            "length": 131072,
+            "paddr": 8388608,
+            "type": "MAPPED"
+          }
+        ]
+      },
+      "trace": [
+        {
+          "op": "IOMAP_READ",
+          "offset": 0,
+          "length": 65536
+        },
+        {
+          "op": "IOMAP_WRITE",
+          "offset": 65536,
+          "length": 49152
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "IOMAP_READ",
+          "offset": 0,
+          "length": 65536,
+          "status": "SUCCESS",
+          "bytes_read": 65536,
+          "zero_filled_bytes": 0,
+          "disk_bytes_read": 65536,
+          "bios": [
+            {
+              "type": "BIO_READ",
+              "offset": 0,
+              "length": 16384,
+              "paddr": 8388608
+            },
+            {
+              "type": "BIO_READ",
+              "offset": 16384,
+              "length": 16384,
+              "paddr": 8404992
+            },
+            {
+              "type": "BIO_READ",
+              "offset": 32768,
+              "length": 16384,
+              "paddr": 8421376
+            },
+            {
+              "type": "BIO_READ",
+              "offset": 49152,
+              "length": 16384,
+              "paddr": 8437760
+            }
+          ]
+        },
+        {
+          "op": "IOMAP_WRITE",
+          "offset": 65536,
+          "length": 49152,
+          "status": "SUCCESS",
+          "bytes_written": 49152,
+          "bios": [
+            {
+              "type": "BIO_WRITE",
+              "offset": 65536,
+              "length": 16384,
+              "paddr": 8454144
+            },
+            {
+              "type": "BIO_WRITE",
+              "offset": 81920,
+              "length": 16384,
+              "paddr": 8470528
+            },
+            {
+              "type": "BIO_WRITE",
+              "offset": 98304,
+              "length": 16384,
+              "paddr": 8486912
+            }
+          ],
+          "converted_ranges": []
+        }
+      ],
+      "summary": {
+        "total_bytes_read": 65536,
+        "total_bytes_written": 49152,
+        "zero_filled_bytes": 0,
+        "bio_count": 7,
+        "unwritten_conversions": 0,
+        "aligned_io_count": 2,
+        "unaligned_rejects": 0,
+        "final_extent_count": 1
+      }
+    }
+  },
+  {
+    "testcase_id": 5,
+    "input": {
+      "config": {
+        "sector_size": 4096,
+        "max_bio_size": 65536,
+        "allow_unaligned": false,
+        "initial_extents": [
+          {
+            "offset": 16384,
+            "length": 32768,
+            "paddr": 1048576,
+            "type": "MAPPED"
+          },
+          {
+            "offset": 49152,
+            "length": 16384,
+            "paddr": 2097152,
+            "type": "UNWRITTEN"
+          },
+          {
+            "offset": 65536,
+            "length": 16384,
+            "paddr": 3145728,
+            "type": "MAPPED"
+          }
+        ]
+      },
+      "trace": [
+        {
+          "op": "IOMAP_READ",
+          "offset": 0,
+          "length": 81920
+        },
+        {
+          "op": "DUMP_EXTENTS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "IOMAP_READ",
+          "offset": 0,
+          "length": 81920,
+          "status": "SUCCESS",
+          "bytes_read": 81920,
+          "zero_filled_bytes": 32768,
+          "disk_bytes_read": 49152,
+          "bios": [
+            {
+              "type": "ZERO_FILL",
+              "offset": 0,
+              "length": 16384,
+              "paddr": -1,
+              "origin_type": "HOLE"
+            },
+            {
+              "type": "BIO_READ",
+              "offset": 16384,
+              "length": 32768,
+              "paddr": 1048576
+            },
+            {
+              "type": "ZERO_FILL",
+              "offset": 49152,
+              "length": 16384,
+              "paddr": -1,
+              "origin_type": "UNWRITTEN"
+            },
+            {
+              "type": "BIO_READ",
+              "offset": 65536,
+              "length": 16384,
+              "paddr": 3145728
+            }
+          ]
+        },
+        {
+          "op": "DUMP_EXTENTS",
+          "status": "SUCCESS",
+          "extent_count": 3,
+          "extents": [
+            {
+              "offset": 16384,
+              "length": 32768,
+              "paddr": 1048576,
+              "type": "MAPPED"
+            },
+            {
+              "offset": 49152,
+              "length": 16384,
+              "paddr": 2097152,
+              "type": "UNWRITTEN"
+            },
+            {
+              "offset": 65536,
+              "length": 16384,
+              "paddr": 3145728,
+              "type": "MAPPED"
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "total_bytes_read": 81920,
+        "total_bytes_written": 0,
+        "zero_filled_bytes": 32768,
+        "bio_count": 2,
+        "unwritten_conversions": 0,
+        "aligned_io_count": 1,
+        "unaligned_rejects": 0,
+        "final_extent_count": 3
+      }
+    }
+  },
+  {
+    "testcase_id": 6,
+    "input": {
+      "config": {
+        "sector_size": 4096,
+        "max_bio_size": 65536,
+        "allow_unaligned": false,
+        "initial_extents": [
+          {
+            "offset": 0,
+            "length": 65536,
+            "paddr": 1048576,
+            "type": "MAPPED"
+          }
+        ]
+      },
+      "trace": [
+        {
+          "op": "IOMAP_READ",
+          "offset": 512,
+          "length": 4096
+        },
+        {
+          "op": "IOMAP_READ",
+          "offset": 0,
+          "length": 1000
+        },
+        {
+          "op": "IOMAP_WRITE",
+          "offset": 300,
+          "length": 4096
+        },
+        {
+          "op": "IOMAP_READ",
+          "offset": 4096,
+          "length": 8192
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "IOMAP_READ",
+          "offset": 512,
+          "length": 4096,
+          "status": "EINVAL_UNALIGNED_DIRECT_IO",
+          "bios": []
+        },
+        {
+          "op": "IOMAP_READ",
+          "offset": 0,
+          "length": 1000,
+          "status": "EINVAL_UNALIGNED_DIRECT_IO",
+          "bios": []
+        },
+        {
+          "op": "IOMAP_WRITE",
+          "offset": 300,
+          "length": 4096,
+          "status": "EINVAL_UNALIGNED_DIRECT_IO",
+          "bios": []
+        },
+        {
+          "op": "IOMAP_READ",
+          "offset": 4096,
+          "length": 8192,
+          "status": "SUCCESS",
+          "bytes_read": 8192,
+          "zero_filled_bytes": 0,
+          "disk_bytes_read": 8192,
+          "bios": [
+            {
+              "type": "BIO_READ",
+              "offset": 4096,
+              "length": 8192,
+              "paddr": 1052672
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "total_bytes_read": 8192,
+        "total_bytes_written": 0,
+        "zero_filled_bytes": 0,
+        "bio_count": 1,
+        "unwritten_conversions": 0,
+        "aligned_io_count": 1,
+        "unaligned_rejects": 3,
+        "final_extent_count": 1
+      }
+    }
+  },
+  {
+    "testcase_id": 7,
+    "input": {
+      "config": {
+        "sector_size": 4096,
+        "max_bio_size": 32768,
+        "allow_unaligned": false,
+        "initial_extents": []
+      },
+      "trace": [
+        {
+          "op": "IOMAP_WRITE",
+          "offset": 0,
+          "length": 16384,
+          "alloc_paddr": 5242880
+        },
+        {
+          "op": "IOMAP_WRITE",
+          "offset": 131072,
+          "length": 16384,
+          "alloc_paddr": 6291456
+        },
+        {
+          "op": "IOMAP_READ",
+          "offset": 65536,
+          "length": 32768
+        },
+        {
+          "op": "DUMP_EXTENTS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "IOMAP_WRITE",
+          "offset": 0,
+          "length": 16384,
+          "status": "SUCCESS",
+          "bytes_written": 16384,
+          "bios": [
+            {
+              "type": "BIO_WRITE",
+              "offset": 0,
+              "length": 16384,
+              "paddr": 5242880
+            }
+          ],
+          "converted_ranges": []
+        },
+        {
+          "op": "IOMAP_WRITE",
+          "offset": 131072,
+          "length": 16384,
+          "status": "SUCCESS",
+          "bytes_written": 16384,
+          "bios": [
+            {
+              "type": "BIO_WRITE",
+              "offset": 131072,
+              "length": 16384,
+              "paddr": 6291456
+            }
+          ],
+          "converted_ranges": []
+        },
+        {
+          "op": "IOMAP_READ",
+          "offset": 65536,
+          "length": 32768,
+          "status": "SUCCESS",
+          "bytes_read": 32768,
+          "zero_filled_bytes": 32768,
+          "disk_bytes_read": 0,
+          "bios": [
+            {
+              "type": "ZERO_FILL",
+              "offset": 65536,
+              "length": 32768,
+              "paddr": -1,
+              "origin_type": "HOLE"
+            }
+          ]
+        },
+        {
+          "op": "DUMP_EXTENTS",
+          "status": "SUCCESS",
+          "extent_count": 2,
+          "extents": [
+            {
+              "offset": 0,
+              "length": 65536,
+              "paddr": 5242880,
+              "type": "MAPPED"
+            },
+            {
+              "offset": 131072,
+              "length": 65536,
+              "paddr": 6291456,
+              "type": "MAPPED"
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "total_bytes_read": 32768,
+        "total_bytes_written": 32768,
+        "zero_filled_bytes": 32768,
+        "bio_count": 2,
+        "unwritten_conversions": 0,
+        "aligned_io_count": 3,
+        "unaligned_rejects": 0,
+        "final_extent_count": 2
+      }
+    }
+  },
+  {
+    "testcase_id": 8,
+    "input": {
+      "config": {
+        "sector_size": 4096,
+        "max_bio_size": 32768,
+        "allow_unaligned": false,
+        "initial_extents": [
+          {
+            "offset": 0,
+            "length": 131072,
+            "paddr": 10485760,
+            "type": "UNWRITTEN"
+          },
+          {
+            "offset": 262144,
+            "length": 65536,
+            "paddr": 20971520,
+            "type": "MAPPED"
+          }
+        ]
+      },
+      "trace": [
+        {
+          "op": "IOMAP_READ",
+          "offset": 0,
+          "length": 131072
+        },
+        {
+          "op": "IOMAP_WRITE",
+          "offset": 0,
+          "length": 16384
+        },
+        {
+          "op": "IOMAP_WRITE",
+          "offset": 16384,
+          "length": 16384
+        },
+        {
+          "op": "IOMAP_WRITE",
+          "offset": 32768,
+          "length": 16384
+        },
+        {
+          "op": "IOMAP_READ",
+          "offset": 262144,
+          "length": 32768
+        },
+        {
+          "op": "IOMAP_READ",
+          "offset": 262145,
+          "length": 4096
+        },
+        {
+          "op": "ALLOC_EXTENT",
+          "offset": 524288,
+          "length": 65536,
+          "paddr": 31457280,
+          "type": "MAPPED"
+        },
+        {
+          "op": "IOMAP_READ",
+          "offset": 524288,
+          "length": 65536
+        },
+        {
+          "op": "DUMP_EXTENTS"
+        }
+      ]
+    },
+    "output": {
+      "events": [
+        {
+          "op": "IOMAP_READ",
+          "offset": 0,
+          "length": 131072,
+          "status": "SUCCESS",
+          "bytes_read": 131072,
+          "zero_filled_bytes": 131072,
+          "disk_bytes_read": 0,
+          "bios": [
+            {
+              "type": "ZERO_FILL",
+              "offset": 0,
+              "length": 131072,
+              "paddr": -1,
+              "origin_type": "UNWRITTEN"
+            }
+          ]
+        },
+        {
+          "op": "IOMAP_WRITE",
+          "offset": 0,
+          "length": 16384,
+          "status": "SUCCESS",
+          "bytes_written": 16384,
+          "bios": [
+            {
+              "type": "BIO_WRITE",
+              "offset": 0,
+              "length": 16384,
+              "paddr": 10485760
+            }
+          ],
+          "converted_ranges": [
+            {
+              "offset": 0,
+              "length": 16384
+            }
+          ]
+        },
+        {
+          "op": "IOMAP_WRITE",
+          "offset": 16384,
+          "length": 16384,
+          "status": "SUCCESS",
+          "bytes_written": 16384,
+          "bios": [
+            {
+              "type": "BIO_WRITE",
+              "offset": 16384,
+              "length": 16384,
+              "paddr": 10502144
+            }
+          ],
+          "converted_ranges": [
+            {
+              "offset": 16384,
+              "length": 16384
+            }
+          ]
+        },
+        {
+          "op": "IOMAP_WRITE",
+          "offset": 32768,
+          "length": 16384,
+          "status": "SUCCESS",
+          "bytes_written": 16384,
+          "bios": [
+            {
+              "type": "BIO_WRITE",
+              "offset": 32768,
+              "length": 16384,
+              "paddr": 10518528
+            }
+          ],
+          "converted_ranges": [
+            {
+              "offset": 32768,
+              "length": 16384
+            }
+          ]
+        },
+        {
+          "op": "IOMAP_READ",
+          "offset": 262144,
+          "length": 32768,
+          "status": "SUCCESS",
+          "bytes_read": 32768,
+          "zero_filled_bytes": 0,
+          "disk_bytes_read": 32768,
+          "bios": [
+            {
+              "type": "BIO_READ",
+              "offset": 262144,
+              "length": 32768,
+              "paddr": 20971520
+            }
+          ]
+        },
+        {
+          "op": "IOMAP_READ",
+          "offset": 262145,
+          "length": 4096,
+          "status": "EINVAL_UNALIGNED_DIRECT_IO",
+          "bios": []
+        },
+        {
+          "op": "ALLOC_EXTENT",
+          "status": "EXTENT_ALLOCATED",
+          "offset": 524288,
+          "length": 65536,
+          "paddr": 31457280,
+          "type": "MAPPED"
+        },
+        {
+          "op": "IOMAP_READ",
+          "offset": 524288,
+          "length": 65536,
+          "status": "SUCCESS",
+          "bytes_read": 65536,
+          "zero_filled_bytes": 0,
+          "disk_bytes_read": 65536,
+          "bios": [
+            {
+              "type": "BIO_READ",
+              "offset": 524288,
+              "length": 32768,
+              "paddr": 31457280
+            },
+            {
+              "type": "BIO_READ",
+              "offset": 557056,
+              "length": 32768,
+              "paddr": 31490048
+            }
+          ]
+        },
+        {
+          "op": "DUMP_EXTENTS",
+          "status": "SUCCESS",
+          "extent_count": 6,
+          "extents": [
+            {
+              "offset": 0,
+              "length": 16384,
+              "paddr": 10485760,
+              "type": "MAPPED"
+            },
+            {
+              "offset": 16384,
+              "length": 16384,
+              "paddr": 10502144,
+              "type": "MAPPED"
+            },
+            {
+              "offset": 32768,
+              "length": 16384,
+              "paddr": 10518528,
+              "type": "MAPPED"
+            },
+            {
+              "offset": 49152,
+              "length": 81920,
+              "paddr": 10534912,
+              "type": "UNWRITTEN"
+            },
+            {
+              "offset": 262144,
+              "length": 65536,
+              "paddr": 20971520,
+              "type": "MAPPED"
+            },
+            {
+              "offset": 524288,
+              "length": 65536,
+              "paddr": 31457280,
+              "type": "MAPPED"
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "total_bytes_read": 229376,
+        "total_bytes_written": 49152,
+        "zero_filled_bytes": 131072,
+        "bio_count": 6,
+        "unwritten_conversions": 3,
+        "aligned_io_count": 6,
+        "unaligned_rejects": 1,
+        "final_extent_count": 6
+      }
+    }
+  }
+]
